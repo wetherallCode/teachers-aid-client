@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Logout } from '../Logout'
 import { LessonNav } from './LessonNav'
-import { teacherNavMachine } from '../../state-charts/teacherNav'
+import { teacherNavMachine } from '../../../state-charts/teacherNav'
 
 export type TeacherNavProps = {
   setIsNavOpen: Dispatch<SetStateAction<boolean>>

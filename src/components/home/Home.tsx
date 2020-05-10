@@ -5,7 +5,7 @@ import {
   GetStartedButton,
   StyledLink,
   HomeScreenContainer,
-} from '../styled/homeStyles'
+} from '../../styled/homeStyles'
 
 export const Home = () => {
   return (

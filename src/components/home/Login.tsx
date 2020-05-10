@@ -1,17 +1,17 @@
 import React, { FC, useState, useEffect } from 'react'
-import { useForm } from '../hooks'
+import { useForm } from '../../hooks'
 
 import { useNavigate } from 'react-router-dom'
 import { gql, useMutation } from '@apollo/client'
-import { login, loginVariables, me_me } from '../schemaTypes'
+import { login, loginVariables, me_me } from '../../schemaTypes'
 
 import {
   Button,
   LoginRow,
   LoginWrapper,
   LoginTitle,
-} from '../styled/loginStyles'
-import { useUserContextProvider } from '../contexts/UserContext'
+} from '../../styled/loginStyles'
+import { useUserContextProvider } from '../../contexts/UserContext'
 
 const LOGIN_MUTATION = gql`
   mutation login($input: LoginInput!) {

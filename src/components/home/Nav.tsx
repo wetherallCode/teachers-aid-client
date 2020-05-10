@@ -1,7 +1,7 @@
 import React, { useRef, FC, Dispatch, SetStateAction } from 'react'
-import { MenuNav } from '../styled/navStyles'
-import { useClickOutside } from '../hooks'
-import { me_me } from '../schemaTypes'
+import { MenuNav } from '../../styled/navStyles'
+import { useClickOutside } from '../../hooks'
+import { me_me } from '../../schemaTypes'
 import { TeacherNav } from './teacher-nav/TeacherNav'
 import { StudentNav } from './StudentNav'
 
