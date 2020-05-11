@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, FC, useState } from 'react'
+import React, { Dispatch, FC, useState } from 'react'
 import { TextSectionInputAction } from './SectionBuilderInfo'
 
 type VocabInfoProps = {

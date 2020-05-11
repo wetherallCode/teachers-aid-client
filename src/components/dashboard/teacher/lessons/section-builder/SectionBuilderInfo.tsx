@@ -1,7 +1,6 @@
 import React, { FC, useReducer, useEffect } from 'react'
 import { VocabInfo } from './VocabInfo'
 import { QuestionsInfo } from './QuestionsInfo'
-import { gql } from '@apollo/client'
 import {
   TextSectionProtocolsInput,
   TextSectionQuestionsInput,

@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createTextSection,
   createTextSectionVariables,
 } from '../../../../../schemaTypes'
@@ -20,6 +21,7 @@ type CreateTextSectionProps = {
 }
 
 export const CreateTextSection: FC<CreateTextSectionProps> = ({ state }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [createTextSection, { data }] = useMutation<
     createTextSection,
     createTextSectionVariables
