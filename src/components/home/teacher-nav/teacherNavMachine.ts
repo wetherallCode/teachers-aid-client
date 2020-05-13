@@ -1,6 +1,22 @@
 import { Machine } from 'xstate'
 
-export const teacherNavMachine = Machine({
+export type teacherNavMachineSchema = {
+  states: {
+    dashboard: {}
+    lessons: {}
+    courses: {}
+  }
+}
+
+export type teacherNavMachineEvent =
+  | { type: 'DASHBOARD' }
+  | { type: 'LESSONS' }
+  | { type: 'COURSES' }
+
+export const teacherNavMachine = Machine<
+  teacherNavMachineSchema,
+  teacherNavMachineEvent
+>({
   id: 'teacherNav',
   initial: 'dashboard',
   states: {

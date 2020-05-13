@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { media } from './media'
+import { media } from '../../styled/media'
 
 export const MenuNav = styled(motion.nav)`
   position: fixed;

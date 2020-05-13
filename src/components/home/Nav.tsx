@@ -1,9 +1,10 @@
 import React, { useRef, FC, Dispatch, SetStateAction } from 'react'
-import { MenuNav } from '../../styled/navStyles'
+import { MenuNav } from './navStyles'
 import { useClickOutside } from '../../hooks'
 import { me_me } from '../../schemaTypes'
 import { TeacherNav } from './teacher-nav/TeacherNav'
 import { StudentNav } from './StudentNav'
+import { TeacherNavContextProvider } from './teacher-nav/TeacerNavContext'
 
 type NavProps = {
   isNavOpen: boolean
@@ -57,7 +58,9 @@ export const Nav: FC<NavProps> = ({
       ref={ref}
     >
       {me.__typename === 'Teacher' && (
-        <TeacherNav setIsNavOpen={setIsNavOpen} toggleLogin={toggleLogin} />
+        <TeacherNavContextProvider>
+          <TeacherNav setIsNavOpen={setIsNavOpen} toggleLogin={toggleLogin} />
+        </TeacherNavContextProvider>
       )}
       {me.__typename === 'Student' && (
         <StudentNav setIsNavOpen={setIsNavOpen} toggleLogin={toggleLogin} />
