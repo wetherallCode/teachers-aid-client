@@ -24,5 +24,5 @@ export const Dashboard = () => {
 }
 
 export const DashboardContainer = styled.div`
-  height: 95vh;
+  /* height: 95vh; */
 `

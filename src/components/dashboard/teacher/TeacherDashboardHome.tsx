@@ -20,5 +20,5 @@ export const TeacherDashboardHome = () => {
 }
 
 const TeacherDashboardContainer = styled.div`
-  height: 95vh;
+  /* height: 95vh; */
 `
