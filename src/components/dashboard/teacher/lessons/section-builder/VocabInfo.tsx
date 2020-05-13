@@ -1,15 +1,15 @@
-import React, { Dispatch, FC, useState } from 'react'
-import { TextSectionInputAction } from './SectionBuilderInfo'
+import React, { useState } from 'react'
+import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { TextSectionVocabInput } from '../../../../../schemaTypes'
 
-type VocabInfoProps = {
-  dispatch: Dispatch<TextSectionInputAction>
-}
-
-export const VocabInfo: FC<VocabInfoProps> = ({ dispatch }) => {
-  const [vocabWordInfo, setVocabWordInfo] = useState({
+export const VocabInfo = () => {
+  const [vocabWordInfo, setVocabWordInfo] = useState<TextSectionVocabInput>({
     word: '',
     definition: '',
   })
+  const [state, event] = useSectionBuilderContextProvider()
+  console.log(state.value)
+
   return (
     <form
       onSubmit={(e: any) => {
@@ -35,7 +35,7 @@ export const VocabInfo: FC<VocabInfoProps> = ({ dispatch }) => {
       <button
         type='reset'
         onClick={() =>
-          dispatch({ type: 'addVocabListItem', payload: vocabWordInfo })
+          event({ type: 'SET_VOCAB_LIST', payload: vocabWordInfo })
         }
       >
         Add Word

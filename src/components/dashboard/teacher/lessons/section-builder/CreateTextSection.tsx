@@ -1,11 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createTextSection,
   createTextSectionVariables,
 } from '../../../../../schemaTypes'
-import { State } from './SectionBuilderInfo'
+import { useSectionBuilderContextProvider } from './SectionBuilderContext'
 
 export const CREATE_TEXT_SECTION_MUTATION = gql`
   mutation createTextSection($input: CreateTextSectionInput!) {
@@ -16,11 +16,10 @@ export const CREATE_TEXT_SECTION_MUTATION = gql`
     }
   }
 `
-type CreateTextSectionProps = {
-  state: State
-}
 
-export const CreateTextSection: FC<CreateTextSectionProps> = ({ state }) => {
+export const CreateTextSection = () => {
+  const [state] = useSectionBuilderContextProvider()
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [createTextSection, { data }] = useMutation<
     createTextSection,
@@ -28,12 +27,12 @@ export const CreateTextSection: FC<CreateTextSectionProps> = ({ state }) => {
   >(CREATE_TEXT_SECTION_MUTATION, {
     variables: {
       input: {
-        fromChapterId: state.fromChapterId,
-        header: state.header,
-        pageNumbers: state.pageNumbers,
-        hasProtocols: state.hasProtocols,
-        hasQuestions: state.hasQuestions,
-        hasVocab: state.hasVocab,
+        fromChapterId: state.context.fromChapterId,
+        header: state.context.header,
+        pageNumbers: state.context.pageNumbers,
+        hasProtocols: state.context.hasProtocols,
+        hasQuestions: state.context.hasQuestions,
+        hasVocab: state.context.hasVocab,
       },
     },
     onCompleted: (data) => console.log(data),

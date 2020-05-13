@@ -1,5 +1,5 @@
-import React, { Dispatch, FC, useState } from 'react'
-import { TextSectionInputAction } from './SectionBuilderInfo'
+import React, { useState } from 'react'
+
 import { gql, useQuery } from '@apollo/client'
 import {
   TextSectionProtocolsInput,
@@ -7,10 +7,7 @@ import {
   ProtocolActivityTypes,
   protocolEnumTypes,
 } from '../../../../../schemaTypes'
-
-type ProtocolInfoProps = {
-  dispatch: Dispatch<TextSectionInputAction>
-}
+import { useSectionBuilderContextProvider } from './SectionBuilderContext'
 
 export const PROTOCOL_ENUM_TYPES_QUERY = gql`
   query protocolEnumTypes {
@@ -27,7 +24,7 @@ export const PROTOCOL_ENUM_TYPES_QUERY = gql`
   }
 `
 
-export const ProtocolsInfo: FC<ProtocolInfoProps> = ({ dispatch }) => {
+export const ProtocolsInfo = () => {
   const [protocolValues, setProtocolValues] = useState<
     TextSectionProtocolsInput
   >({
@@ -35,6 +32,7 @@ export const ProtocolsInfo: FC<ProtocolInfoProps> = ({ dispatch }) => {
     activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
     task: '',
   })
+  const [, event] = useSectionBuilderContextProvider()
   const { loading, error, data } = useQuery<protocolEnumTypes>(
     PROTOCOL_ENUM_TYPES_QUERY
   )
@@ -91,7 +89,7 @@ export const ProtocolsInfo: FC<ProtocolInfoProps> = ({ dispatch }) => {
       <button
         type='reset'
         onClick={() =>
-          dispatch({ type: 'addProtocolItem', payload: protocolValues })
+          event({ type: 'SET_PROTOCOLS_LIST', payload: protocolValues })
         }
       >
         Add Protocol

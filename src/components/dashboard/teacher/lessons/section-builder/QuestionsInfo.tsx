@@ -1,11 +1,11 @@
-import React, { Dispatch, FC, useState } from 'react'
+import React, { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { questionTypeEnum } from '../../../../../schemaTypes'
-import { TextSectionInputAction } from './SectionBuilderInfo'
-
-type QuestionsInfoProps = {
-  dispatch: Dispatch<TextSectionInputAction>
-}
+import {
+  questionTypeEnum,
+  TextSectionQuestionsInput,
+  QuestionTypeEnum,
+} from '../../../../../schemaTypes'
+import { useSectionBuilderContextProvider } from './SectionBuilderContext'
 
 export const QUESTION_TYPE_ENUM_QUERY = gql`
   query questionTypeEnum {
@@ -17,11 +17,13 @@ export const QUESTION_TYPE_ENUM_QUERY = gql`
   }
 `
 
-export const QuestionsInfo: FC<QuestionsInfoProps> = ({ dispatch }) => {
-  const [questionInfo, setQuestionInfo] = useState({
+export const QuestionsInfo = () => {
+  const [questionInfo, setQuestionInfo] = useState<TextSectionQuestionsInput>({
     question: '',
-    questionType: '',
+    questionType: QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
   })
+  console.log(questionInfo)
+  const [, event] = useSectionBuilderContextProvider()
   const { loading, error, data } = useQuery<questionTypeEnum>(
     QUESTION_TYPE_ENUM_QUERY
   )
@@ -68,7 +70,7 @@ export const QuestionsInfo: FC<QuestionsInfoProps> = ({ dispatch }) => {
         }
         onClick={() => {
           if (questionInfo.question && questionInfo.questionType) {
-            dispatch({ type: 'addQuestionsItem', payload: questionInfo })
+            event({ type: 'SET_QUESTIONS_LIST', payload: questionInfo })
           } else console.log('one or both is blank')
         }}
       >

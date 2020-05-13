@@ -4,6 +4,34 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findChaptersInText
+// ====================================================
+
+export interface findChaptersInText_findChaptersInText_chapters {
+  __typename: "Chapter";
+  _id: string | null;
+  chapterTitle: string;
+}
+
+export interface findChaptersInText_findChaptersInText {
+  __typename: "FindChaptersInTextPayload";
+  chapters: findChaptersInText_findChaptersInText_chapters[];
+}
+
+export interface findChaptersInText {
+  findChaptersInText: findChaptersInText_findChaptersInText;
+}
+
+export interface findChaptersInTextVariables {
+  input: FindChaptersInTextInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createTextSection
 // ====================================================
 
@@ -88,51 +116,22 @@ export interface questionTypeEnum {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findTextTitles
+// GraphQL query operation: findTexts
 // ====================================================
 
-export interface findTextTitles_findTexts_texts {
+export interface findTexts_findTexts_texts {
   __typename: "Text";
   _id: string | null;
   textTitle: string;
 }
 
-export interface findTextTitles_findTexts {
+export interface findTexts_findTexts {
   __typename: "FindTextsPayload";
-  texts: findTextTitles_findTexts_texts[];
+  texts: findTexts_findTexts_texts[];
 }
 
-export interface findTextTitles {
-  findTexts: findTextTitles_findTexts;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findChaptersInText
-// ====================================================
-
-export interface findChaptersInText_findChaptersInText_chapters {
-  __typename: "Chapter";
-  _id: string | null;
-  chapterTitle: string;
-  chapterNumber: number;
-}
-
-export interface findChaptersInText_findChaptersInText {
-  __typename: "FindChaptersInTextPayload";
-  chapters: findChaptersInText_findChaptersInText_chapters[];
-}
-
-export interface findChaptersInText {
-  findChaptersInText: findChaptersInText_findChaptersInText;
-}
-
-export interface findChaptersInTextVariables {
-  input: FindChaptersInTextInput;
+export interface findTexts {
+  findTexts: findTexts_findTexts;
 }
 
 /* tslint:disable */
