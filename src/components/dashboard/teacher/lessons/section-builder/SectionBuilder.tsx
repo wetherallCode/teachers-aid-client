@@ -1,14 +1,7 @@
 import React from 'react'
-import {
-  BuilderContainer,
-  Title,
-  EditorContainer,
-} from './sectionBuilderStyles'
-import { useMachine } from '@xstate/react'
-import { sectionBuilderFSM } from './sectionBuilderFSM'
+import { Title } from './sectionBuilderStyles'
 import { TextListLoader } from './TextListLoader'
 import { ChapterSelect } from './ChapterSelect'
-
 import { VocabInfo } from './VocabInfo'
 import { QuestionsInfo } from './QuestionsInfo'
 import { ProtocolsInfo } from './ProtocolsInfo'
