@@ -13,7 +13,7 @@ export const EssentialQuestion: FC<EssentialQuestionProps> = ({
 
   return (
     <div>
-      <div>Questions</div>
+      <div>Essential Question</div>
       {questionsList.map((question, i) => (
         <div
           key={i}
