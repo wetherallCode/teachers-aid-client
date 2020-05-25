@@ -9,6 +9,8 @@ import {
   sectionBuilderFSMEvent,
 } from './sectionBuilderFSM'
 import { State } from 'xstate'
+import { AddChapter } from './AddChapter'
+import { useToggle } from '../../../../../hooks'
 
 export const FIND_CHAPTERS_IN_TEXT_QUERY = gql`
   query findChaptersInText($input: FindChaptersInTextInput!) {
@@ -23,7 +25,7 @@ export const FIND_CHAPTERS_IN_TEXT_QUERY = gql`
 
 type ChapterSelectProps = {
   state: State<sectionBuilderFSMContext, sectionBuilderFSMEvent, any, any>
-  event: any
+  event: (event: sectionBuilderFSMEvent) => void
 }
 
 export type sectionBuilderFSMState = State<
@@ -34,6 +36,7 @@ export type sectionBuilderFSMState = State<
 >
 
 export const ChapterSelect: FC<ChapterSelectProps> = ({ state, event }) => {
+  const [isAddChapterVisible, toggleVisible] = useToggle(false)
   const { loading, error, data } = useQuery<
     findChaptersInText,
     findChaptersInTextVariables
@@ -46,25 +49,34 @@ export const ChapterSelect: FC<ChapterSelectProps> = ({ state, event }) => {
   return (
     <div>
       <div>Chapter</div>
-      <select
-        onChange={(e: any) => {
-          if (e.target.value !== 'Choose a Chapter') {
-            const arr = e.target.value.split(',')
-            event({ type: 'SET_CHAPTER_ID', payload: arr[0] })
-            event({ type: 'SET_CHAPTER_TITLE', payload: arr[1] })
-          }
-        }}
-      >
-        <option value={undefined}>Choose a Chapter</option>
-        {data?.findChaptersInText.chapters.map((chapter) => (
-          <option
-            key={chapter._id!}
-            value={[chapter._id!, chapter.chapterTitle]}
+      {data?.findChaptersInText.chapters.length! > 0 ? (
+        <>
+          <select
+            onChange={(e: any) => {
+              console.log(e.target.value)
+              if (e.target.value !== 'Choose a Chapter') {
+                const arr = e.target.value.split(',')
+                event({ type: 'SET_CHAPTER_ID', payload: arr[0] })
+                event({ type: 'SET_CHAPTER_TITLE', payload: arr[1] })
+              }
+            }}
           >
-            {chapter.chapterTitle}
-          </option>
-        ))}
-      </select>
+            <option value={undefined}>Choose a Chapter</option>
+            {data?.findChaptersInText.chapters.map((chapter) => (
+              <option
+                key={chapter._id!}
+                value={[chapter._id!, chapter.chapterTitle]}
+              >
+                {chapter.chapterTitle}
+              </option>
+            ))}
+          </select>
+          <div onClick={toggleVisible}>Add a New Chapter</div>
+          {isAddChapterVisible && <AddChapter state={state} />}
+        </>
+      ) : (
+        <AddChapter state={state} />
+      )}
     </div>
   )
 }

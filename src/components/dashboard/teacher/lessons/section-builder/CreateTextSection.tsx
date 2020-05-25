@@ -18,7 +18,7 @@ export const CREATE_TEXT_SECTION_MUTATION = gql`
 `
 
 export const CreateTextSection = () => {
-  const [state] = useSectionBuilderContextProvider()
+  const [state, event] = useSectionBuilderContextProvider()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [createTextSection, { data }] = useMutation<
@@ -35,8 +35,8 @@ export const CreateTextSection = () => {
         hasVocab: state.context.hasVocab,
       },
     },
-    onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    onCompleted: () => event({ type: 'COMPLETE' }),
+    refetchQueries: ['FindTextSectionById'],
   })
   return <button onClick={() => createTextSection()}>Add Section</button>
 }

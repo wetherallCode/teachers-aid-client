@@ -38,7 +38,11 @@ export const TeacherNav: FC<TeacherNavProps> = ({
             </motion.li>
           </>
         )}
-        <>{state.matches('lessons') && <LessonNav />}</>
+        <>
+          {state.matches('lessons') && (
+            <LessonNav toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
+          )}
+        </>
       </motion.ul>
     </>
   )

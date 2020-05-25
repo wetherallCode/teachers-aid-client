@@ -1,24 +1,22 @@
 import React, { FC } from 'react'
 import { findTexts_findTexts_texts } from '../../../../../schemaTypes'
-import { sectionBuilderFSMEvent } from './sectionBuilderFSM'
-import { AddText } from './AddText'
+import { useLessonPlannerContextProvider } from './lessonPlannerContext'
 
-export type TextSelectionDisplayProps = {
-  event: (event: sectionBuilderFSMEvent) => void
+export type TextPickerProps = {
   textList: findTexts_findTexts_texts[]
 }
-export const TextSelectionDisplay: FC<TextSelectionDisplayProps> = ({
-  event,
-  textList,
-}) => {
+
+export const TextPicker: FC<TextPickerProps> = ({ textList }) => {
+  const [, event] = useLessonPlannerContextProvider()
   return (
-    <div>
+    <>
       <div>Texts: </div>
-      {textList.length > 0 ? (
+      {textList.length > 0 && (
         <select
           onChange={(e: any) => {
             if (e.target.value !== 'Select your text') {
-              event({ type: 'SET_TEXT_TITLE', textTitle: e.target.value })
+              event({ type: 'SET_TEXT_TITLE', payload: e.target.value })
+              event({ type: 'NEXT' })
             }
           }}
         >
@@ -29,9 +27,7 @@ export const TextSelectionDisplay: FC<TextSelectionDisplayProps> = ({
             </option>
           ))}
         </select>
-      ) : (
-        <AddText />
       )}
-    </div>
+    </>
   )
 }

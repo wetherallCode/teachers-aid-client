@@ -22,6 +22,7 @@ export type sectionBuilderFSMSchema = {
 export type sectionBuilderFSMEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
+  | { type: 'COMPLETE' }
   | { type: 'SET_TEXT_TITLE'; textTitle: string }
   | { type: 'SET_CHAPTER_ID'; payload: string }
   | { type: 'SET_CHAPTER_TITLE'; payload: string }
@@ -166,6 +167,7 @@ export const sectionBuilderFSM = Machine<
     create: {
       on: {
         PREVIOUS: 'protocols',
+        COMPLETE: 'text',
       },
     },
   },

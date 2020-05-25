@@ -41,8 +41,8 @@ export const SectionBuilderInfoDisplay = () => {
             <div>Vocab</div>
           </LevelTwoTitleBoxes>
           <LevelTwoContainerVocabAndQuestions>
-            {state.context.hasVocab.map((word) => (
-              <div>
+            {state.context.hasVocab.map((word, i) => (
+              <div key={i}>
                 {word.word}: {word.definition}
               </div>
             ))}
@@ -54,8 +54,8 @@ export const SectionBuilderInfoDisplay = () => {
             <div>Questions</div>
           </LevelTwoTitleBoxes>
           <LevelTwoContainerVocabAndQuestions>
-            {state.context.hasQuestions.map((question) => (
-              <div>{question.question}</div>
+            {state.context.hasQuestions.map((question, i) => (
+              <div key={i}>{question.question}</div>
             ))}
           </LevelTwoContainerVocabAndQuestions>
         </LevelTwoContainers>
@@ -65,8 +65,8 @@ export const SectionBuilderInfoDisplay = () => {
             <div>Protocols</div>
           </LevelTwoTitleBoxes>
           <LevelTwoContainerProtocols>
-            {state.context.hasProtocols.map((protocol) => (
-              <div>
+            {state.context.hasProtocols.map((protocol, i) => (
+              <div key={i}>
                 {protocol.activityType} - {protocol.task}
               </div>
             ))}

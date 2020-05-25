@@ -17,6 +17,11 @@ export const ME_QUERY = gql`
         __typename
       }
     }
+    MarkingPeriod: __type(name: "MarkingPeriodEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 

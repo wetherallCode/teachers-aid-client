@@ -4,7 +4,8 @@ import { useClickOutside } from '../hooks'
 
 type ModalProps = {
   isToggled: boolean
-  setIsToggled: () => void
+  // setIsToggled:  Dispatch<SetStateAction<boolean>>|() => void
+  setIsToggled: any
   children: any
 }
 
