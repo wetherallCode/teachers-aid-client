@@ -4,11 +4,13 @@ import { SectionAssigner } from './SectionAssigner'
 import { LessonPlanInfo } from './LessonPlanInfo'
 import { CourseAssigner } from './CourseAssigner'
 import { CreateLesson } from './CreateLesson'
+import { useMarkingPeriodContextProvider } from '../../../../home/MarkingPeriodContext'
 
 export type LessonPlannerProps = {}
 
 export const LessonPlanner: FC<LessonPlannerProps> = () => {
   const [state, event] = useLessonPlannerContextProvider()
+  const [mp] = useMarkingPeriodContextProvider()
   console.log(state.context)
   return (
     <div>
@@ -37,7 +39,9 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
         </div>
       )}
       {state.matches('courses') && <CourseAssigner />}
-      {state.matches('createLesson') && <CreateLesson />}
+      {state.matches('createLesson') && (
+        <CreateLesson mp={mp.context.currentMarkingPeriod} />
+      )}
     </div>
   )
 }

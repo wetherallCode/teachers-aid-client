@@ -19,6 +19,7 @@ export type LoginToggleProps = {
 
 function App() {
   const me = useUserContextProvider()
+
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [isNavOpen, setIsNavOpen] = useState(false)
 

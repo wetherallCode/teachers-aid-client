@@ -39,7 +39,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
   })
   if (loading) return <div>Loading </div>
   if (error) console.error(error)
-  console.log(state.context.currentSection.includes('none'))
+
   return (
     <div>
       <form onSubmit={(e: any) => e.preventDefault()}>

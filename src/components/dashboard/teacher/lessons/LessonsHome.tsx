@@ -7,7 +7,6 @@ import { SectionEditor } from './section-editor/SectionEditor'
 import { SectionEditorContextProvider } from './section-editor/sectionEditorContext'
 import { LessonPlanner } from './lesson-planner/LessonPlanner'
 import { LessonPlannerContextProvider } from './lesson-planner/lessonPlannerContext'
-// import { LessonCalendar } from './LessonCalendar'
 
 export const LessonsHome = () => {
   return (
@@ -20,6 +19,7 @@ export const LessonsHome = () => {
           </LessonPlannerContextProvider>
         }
       />
+
       <Route
         path='section-builder'
         element={

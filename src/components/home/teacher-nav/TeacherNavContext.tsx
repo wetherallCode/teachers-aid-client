@@ -4,7 +4,7 @@ import { useMachine } from '@xstate/react'
 import {
   teacherNavMachine,
   teacherNavMachineEvent,
-  teacherNavMachineSchema,
+  teacherNavMachineContext,
 } from './teacherNavMachine'
 import { State } from 'xstate'
 
@@ -19,14 +19,7 @@ export const TeacherNavContextProvider: FC<NavContextProps> = ({
 }) => {
   const [state, event] = useMachine(teacherNavMachine)
   return (
-    <TeacherNavContext.Provider
-      value={
-        [state, event] as [
-          State<teacherNavMachineSchema, teacherNavMachineEvent, any, any>,
-          (event: teacherNavMachineEvent) => void
-        ]
-      }
-    >
+    <TeacherNavContext.Provider value={[state, event]}>
       {children}
     </TeacherNavContext.Provider>
   )
@@ -39,5 +32,8 @@ export function useTeacherNavContextProvider() {
       'useSectionBuilderContextProvider must be used within a SectionBuilderContextProvider Component'
     )
   }
-  return context
+  return context as [
+    State<teacherNavMachineContext, teacherNavMachineEvent, any, any>,
+    (event: teacherNavMachineEvent) => void
+  ]
 }

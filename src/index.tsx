@@ -11,6 +11,7 @@ import {
   HttpLink,
 } from '@apollo/client'
 import { UserContextProvider } from './contexts/UserContext'
+import { MarkingPeriodContextProvider } from './components/home/MarkingPeriodContext'
 
 const link = new HttpLink({
   uri: 'http://localhost:4005/graphql',
@@ -28,7 +29,9 @@ ReactDOM.render(
     <React.StrictMode>
       <Router>
         <UserContextProvider>
-          <App />
+          <MarkingPeriodContextProvider>
+            <App />
+          </MarkingPeriodContextProvider>
         </UserContextProvider>
       </Router>
     </React.StrictMode>

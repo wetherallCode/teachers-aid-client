@@ -12,6 +12,10 @@ export const ME_QUERY = gql`
       ... on Teacher {
         __typename
         title
+        teachesCourses {
+          _id
+          period
+        }
       }
       ... on Student {
         __typename

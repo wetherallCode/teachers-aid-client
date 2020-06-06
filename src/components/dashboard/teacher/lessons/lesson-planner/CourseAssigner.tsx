@@ -31,7 +31,7 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
   const me = useUserContextProvider()
   const [, event] = useLessonPlannerContextProvider()
   const [coursesList, handleChange] = useCheckBox()
-  console.log(coursesList)
+
   useEffect(() => {
     event({ type: 'ASSIGN_TO_COURSES', payload: coursesList })
   }, [coursesList, event])
@@ -66,9 +66,9 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
         >
           <input type='checkbox' value={course._id!} onChange={handleChange} />
           <div>{course.period}</div>
-          <button onClick={() => event({ type: 'NEXT' })}>Next</button>
         </div>
       ))}
+      <button onClick={() => event({ type: 'NEXT' })}>Next</button>
     </div>
   )
 }

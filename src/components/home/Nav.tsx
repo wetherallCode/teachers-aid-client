@@ -4,7 +4,7 @@ import { useClickOutside } from '../../hooks'
 import { me_me } from '../../schemaTypes'
 import { TeacherNav } from './teacher-nav/TeacherNav'
 import { StudentNav } from './StudentNav'
-import { TeacherNavContextProvider } from './teacher-nav/TeacerNavContext'
+import { TeacherNavContextProvider } from './teacher-nav/TeacherNavContext'
 
 type NavProps = {
   isNavOpen: boolean

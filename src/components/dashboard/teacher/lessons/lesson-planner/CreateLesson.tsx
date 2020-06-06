@@ -7,7 +7,9 @@ import {
 import { useLessonPlannerContextProvider } from './lessonPlannerContext'
 import { dateConverter } from '../../../../../utils'
 
-export type CreateLessonProps = {}
+export type CreateLessonProps = {
+  mp: MarkingPeriodEnum
+}
 
 export const CREATE_LESSON_MUTATION = gql`
   mutation createLesson($input: CreateLessonInput!) {
@@ -20,8 +22,9 @@ export const CREATE_LESSON_MUTATION = gql`
   }
 `
 
-export const CreateLesson: FC<CreateLessonProps> = () => {
+export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
   const [state] = useLessonPlannerContextProvider()
+
   const {
     afterActivity,
     beforeActivity,
@@ -29,34 +32,48 @@ export const CreateLesson: FC<CreateLessonProps> = () => {
     date,
     duringActivity,
     endingSection,
+    textSectionList,
     essentialQuestion,
     questionList,
     startingSection,
     vocabList,
+    inUnit,
+    lessonName,
+    startingPage,
+    endingPage,
   } = state.context
-
+  console.log(startingPage, endingPage)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [createLesson, { data }] = useMutation<createLessonVariables>(
+  const [createLesson, { data, error }] = useMutation<createLessonVariables>(
     CREATE_LESSON_MUTATION,
     {
       variables: {
         input: {
-          assignedCourse: courses,
+          assignedCourses: courses,
           assignedDate: dateConverter(date),
-          assignedMarkingPeriod: MarkingPeriodEnum.FOURTH,
+          assignedMarkingPeriod: mp,
+          inUnit,
           assignedSections: {
-            startingSection: startingSection,
+            startingSection,
             endingSection,
           },
+          lessonName,
+          assignedSectionIdList: textSectionList,
           vocabList,
           beforeActivity,
           afterActivity,
           questionList,
           duringActivities: duringActivity,
           essentialQuestion: essentialQuestion.question,
+          pageNumbers: {
+            startingPage,
+            endingPage,
+          },
         },
       },
       onCompleted: (data) => console.log(data),
+      onError: (error) => console.log(error),
+
       refetchQueries: [],
     }
   )

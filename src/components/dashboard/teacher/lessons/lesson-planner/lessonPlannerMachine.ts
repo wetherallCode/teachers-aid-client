@@ -31,9 +31,12 @@ export type lessonPlannerMachineEvent =
   | { type: 'SET_CHAPTER_ID'; payload: string }
   | { type: 'SET_CHAPTER_TITLE'; payload: string }
   | { type: 'SET_CURRENT_SECTION'; payload: string[] }
+  | { type: 'SET_UNIT'; payload: string }
   | { type: 'ADD_SECTIONS'; payload: string[] }
   | { type: 'SET_STARTING_SECTION'; payload: string }
   | { type: 'SET_ENDING_SECTION'; payload: string }
+  | { type: 'SET_STARTING_PAGE'; payload: number }
+  | { type: 'SET_ENDING_PAGE'; payload: number }
   | { type: 'SET_VOCAB_LIST'; payload: TextSectionVocabInput }
   | { type: 'SET_BEFORE_ACTIVITY'; payload: TextSectionProtocolsInput }
   | { type: 'SET_DURING_ACTIVITY'; payload: TextSectionProtocolsInput[] }
@@ -41,17 +44,21 @@ export type lessonPlannerMachineEvent =
   | { type: 'SET_QUESTIONS_LIST'; payload: TextSectionQuestionsInput }
   | { type: 'SET_ESSENTIAL_QUESTION'; payload: TextSectionQuestionsInput }
   | { type: 'ASSIGN_TO_COURSES'; payload: string[] }
+  | { type: 'SET_LESSON_NAME'; payload: string }
 
 export type lessonPlannerMachineContext = {
   date: any
   fromText: string
   fromChapterTitle: string
   fromChapterId: string
+  inUnit: string
   currentSection: string[]
   textSectionList: string[]
   texSectionListHeaders: string[]
   startingSection: string
   endingSection: string
+  startingPage: number
+  endingPage: number
   vocabList: TextSectionVocabInput[]
   beforeActivity: TextSectionProtocolsInput
   duringActivity: TextSectionProtocolsInput[]
@@ -59,6 +66,7 @@ export type lessonPlannerMachineContext = {
   questionList: TextSectionQuestionsInput[]
   essentialQuestion: TextSectionQuestionsInput
   courses: string[]
+  lessonName: string
 }
 
 export const lessonPlannerMachine = Machine<
@@ -73,11 +81,14 @@ export const lessonPlannerMachine = Machine<
     fromText: '',
     fromChapterId: '',
     fromChapterTitle: '',
+    inUnit: '',
     currentSection: [],
     textSectionList: [],
     texSectionListHeaders: [],
     startingSection: '',
     endingSection: '',
+    startingPage: 0,
+    endingPage: 0,
     vocabList: [],
     beforeActivity: {
       academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
@@ -96,6 +107,7 @@ export const lessonPlannerMachine = Machine<
       questionType: QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
     },
     courses: [],
+    lessonName: '',
   },
 
   states: {
@@ -172,6 +184,14 @@ export const lessonPlannerMachine = Machine<
                 return { ...ctx, endingSection: evt.payload }
               }),
             },
+            SET_UNIT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  inUnit: evt.payload,
+                }
+              }),
+            },
           },
         },
       },
@@ -180,6 +200,22 @@ export const lessonPlannerMachine = Machine<
       on: {
         PREVIOUS: 'sections',
         NEXT: 'courses',
+        SET_STARTING_PAGE: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              startingPage: evt.payload,
+            }
+          }),
+        },
+        SET_ENDING_PAGE: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              endingPage: evt.payload,
+            }
+          }),
+        },
         SET_VOCAB_LIST: {
           actions: assign((ctx, evt) => {
             return { ...ctx, vocabList: [...ctx.vocabList, evt.payload] }
@@ -219,6 +255,14 @@ export const lessonPlannerMachine = Machine<
             return {
               ...ctx,
               essentialQuestion: evt.payload,
+            }
+          }),
+        },
+        SET_LESSON_NAME: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              lessonName: evt.payload,
             }
           }),
         },

@@ -10,8 +10,10 @@ import {
 import { BeforeActivitySelect } from './BeforeActivitySelect'
 import { DuringActivitySelect } from './DuringActivitySelect'
 import { AfterActivity } from './AfterActivity'
-import { QuestionSelect } from './QuestionSelect'
+
 import { EssentialQuestion } from './EssentialQuestion'
+import { Pages } from './Pages'
+import { LessonName } from './LessonName'
 
 export type LessonPlanInfoProps = {}
 
@@ -19,6 +21,8 @@ export const FIND_TEXT_SECTIONS_BY_ID_QUERY = gql`
   query findTextSectionsById($input: FindTextSectionsByIdInput!) {
     findTextSectionsById(input: $input) {
       textSections {
+        _id
+        header
         hasVocab {
           word
           definition
@@ -32,6 +36,10 @@ export const FIND_TEXT_SECTIONS_BY_ID_QUERY = gql`
           questionType
           question
         }
+        pageNumbers {
+          startingPage
+          endingPage
+        }
       }
     }
   }
@@ -39,7 +47,8 @@ export const FIND_TEXT_SECTIONS_BY_ID_QUERY = gql`
 
 export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
   const [state, event] = useLessonPlannerContextProvider()
-  console.log(state.context)
+
+  // console.log(state.context)
   const { loading, error, data } = useQuery<
     findTextSectionsById,
     findTextSectionsByIdVariables
@@ -47,7 +56,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
     variables: {
       input: { _ids: state.context.textSectionList },
     },
-    onCompleted: (data) =>
+    onCompleted: (data) => {
       data?.findTextSectionsById.textSections.forEach((section) => {
         section.hasVocab.forEach((word) => {
           const vocabItem = { word: word.word, definition: word.definition }
@@ -60,7 +69,8 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
           }
           event({ type: 'SET_QUESTIONS_LIST', payload: questionItem })
         })
-      }),
+      })
+    },
   })
   if (loading) return <div>Loading </div>
   if (error) console.error(error)
@@ -76,6 +86,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
       protocolList.push(protocolItem)
     })
   )
+
   const questionsList: TextSectionQuestionsInput[] = []
   data?.findTextSectionsById.textSections.forEach((section) => {
     section.hasQuestions.forEach((question) => {
@@ -98,11 +109,12 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
           </div>
         ))}
       </div>
+      <Pages data={data!} />
       <BeforeActivitySelect protocolList={protocolList} />
       <DuringActivitySelect protocolList={protocolList} />
       <AfterActivity protocolList={protocolList} />
-      {/* <QuestionSelect questionsList={questionsList} /> */}
       <EssentialQuestion questionsList={questionsList} />
+      <LessonName />
     </>
   )
 }
