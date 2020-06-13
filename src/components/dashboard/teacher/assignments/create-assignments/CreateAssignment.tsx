@@ -1,21 +1,39 @@
 import React, { FC } from 'react'
 import { useCreateAssignmentContextPovider } from './CreateAssignmentContext'
-import { UnitSelect } from './UnitSelect'
-import { LessonInfo } from './LessonInfo'
+import { UnitSelect } from './create-essay/UnitSelect'
+import { LessonInfo } from './create-essay/LessonInfo'
+
+import { useUserContextProvider } from '../../../../../contexts/UserContext'
+import { me_me_Teacher } from '../../../../../schemaTypes'
+import { LessonSelect } from './create-essay/LessonSelect'
+import { CreateEssay } from './create-essay/CreateEssay'
 
 export type CreateAssignmentProps = {}
 
 export const CreateAssignment: FC<CreateAssignmentProps> = () => {
-  const [state] = useCreateAssignmentContextPovider()
-  console.log(state.context)
-
+  const [state, event] = useCreateAssignmentContextPovider()
+  const me: me_me_Teacher = useUserContextProvider()
+  console.log(state.context.assignedCourseId)
   return (
     <div>
-      <div>Create Assignment</div>
-      <UnitSelect />
-      {state.matches('assignmentType.idle') && <LessonInfo />}
-
-      <div>Create</div>
+      <div>Create Assignments</div>
+      <div>Select Course</div>
+      <select
+        onChange={(e: any) =>
+          event({ type: 'SET_COURSE_ID', payload: e.target.value })
+        }
+      >
+        <option value={undefined}>Pick a Course</option>
+        {me.teachesCourses.map((course) => (
+          <option key={course._id!} value={course._id!}>
+            {course.name}
+          </option>
+        ))}
+      </select>
+      {state.matches('essay.unit') && <UnitSelect />}
+      {state.matches('essay.lesson') && <LessonSelect />}
+      {state.matches('essay.essayInfo') && <LessonInfo me={me} />}
+      {state.matches('essay.essayInfo') && <CreateEssay me={me} />}
     </div>
   )
 }

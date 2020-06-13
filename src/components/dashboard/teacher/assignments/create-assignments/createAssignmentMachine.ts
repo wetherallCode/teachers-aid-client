@@ -9,58 +9,76 @@ import {
 
 export type createAssignmentMachineSchema = {
   states: {
-    findLesson: {
+    idle: {}
+    essay: {
       states: {
         unit: {}
         lesson: {}
+        essayInfo: {}
+        createEssay: {}
       }
     }
-    assignmentType: {
+    readingGuide: {
       states: {
-        idle: {}
-        essay: {
-          states: {
-            idle: {}
-            createEssay: {}
-          }
-        }
-        readingGuide: {
-          states: {
-            idle: {}
-            createReadingGuide: {}
-          }
-        }
+        unit: {}
+        lesson: {}
+        readingGuideInfo: {}
+        createReadingGuide: {}
       }
     }
-    assignmentCreate: {}
   }
 }
+
 export type createAssignmentMachineEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
   | { type: 'ESSAY' }
   | { type: 'READING_GUIDE' }
   | { type: 'SET_COURSE_ID'; payload: string }
+  | { type: 'SET_LINKED_COURSES_IDS'; payload: string[] }
   | { type: 'SET_UNIT'; payload: string }
   | { type: 'SET_LESSON'; payload: string }
   | {
       type: 'SET_QUESTION_LIST'
       payload: TextSectionQuestionsInput[]
     }
+  | { type: 'SET_DUE_DATE'; payload: any }
+  | { type: 'SET_ASSIGNED_DATE'; payload: any }
+  | { type: 'SET_ASSIGNER_ID'; payload: string }
+  | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
+  | { type: 'SET_MAX_POINTS'; payload: number }
+  | { type: 'SET_READINGS_READING_PAGES'; payload: string }
+  | { type: 'SET_READINGS_READING_SECTIONS'; payload: string }
+  | { type: 'SET_TOPIC_QUESTION_LIST'; payload: TopicInput }
+  | { type: 'SET_MAX_POINTS'; payload: number }
+
+// | { type: 'SET_TOPIC_QUESTION'; payload: string }
+// | { type: 'SET_TOPIC_QUESTION_TYPE'; payload: QuestionTypeEnum }
 
 export type createAssignmentMachineContext = {
   courseId: string
-  unit: string
-  fromLesson: string
-  questionList: TextSectionQuestionsInput[]
   assignedCourseId: string[]
-  associatedLessonId: string
-  dueDate: any
   hasAssignerId: string
-  markingPeriod: MarkingPeriodEnum
-  maxPoints: number
-  readings: ReadingsInput
-  topic: TopicInput
+  essay: {
+    unit: string
+    lesson: string
+    questionList: TextSectionQuestionsInput[]
+    dueDate: any
+    assignedDate: any
+    readings: ReadingsInput
+    maxPoints: number
+    markingPeriod: MarkingPeriodEnum
+    topicList: TopicInput[]
+  }
+  readingGuide: {
+    unit: string
+    lesson: string
+    dueDate: any
+    assignedDate: any
+    markingPeriod: MarkingPeriodEnum
+    maxPoints: number
+    readings: ReadingsInput
+  }
 }
 
 export const createAssignmentMachine = Machine<
@@ -69,47 +87,65 @@ export const createAssignmentMachine = Machine<
   createAssignmentMachineEvent
 >({
   id: 'createAssignment',
-  initial: 'findLesson',
+  initial: 'idle',
+  type: 'parallel',
   context: {
-    courseId: '5ec579f241294ae56fa850a8',
-    unit: '',
-    fromLesson: '',
-    questionList: [],
-    topic: {
-      question: '',
-      questionType: QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
-    },
-    readings: {
-      readingPages: '',
-      readingSections: '',
-    },
+    courseId: '',
     assignedCourseId: [],
-    dueDate: '',
-    associatedLessonId: '',
     hasAssignerId: '',
-    markingPeriod: MarkingPeriodEnum.FIRST,
-    maxPoints: 0,
+    essay: {
+      unit: '',
+      lesson: '',
+      questionList: [],
+      dueDate: '',
+      assignedDate: '',
+      maxPoints: 0,
+      markingPeriod: MarkingPeriodEnum.FIRST,
+      readings: {
+        readingPages: '',
+        readingSections: '',
+      },
+      topicList: [],
+    },
+    readingGuide: {
+      unit: '',
+      lesson: '',
+      readings: {
+        readingPages: '',
+        readingSections: '',
+      },
+      markingPeriod: MarkingPeriodEnum.FIRST,
+      maxPoints: 0,
+      assignedDate: '',
+      dueDate: '',
+    },
   },
   states: {
-    findLesson: {
+    idle: {
+      on: {
+        ESSAY: 'essay',
+        SET_COURSE_ID: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              courseId: evt.payload,
+            }
+          }),
+        },
+      },
+    },
+    essay: {
       initial: 'unit',
       states: {
         unit: {
           on: {
+            PREVIOUS: '#createAssignment.idle',
             NEXT: 'lesson',
-            SET_COURSE_ID: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  courseId: evt.payload,
-                }
-              }),
-            },
             SET_UNIT: {
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  unit: evt.payload,
+                  essay: { ...ctx.essay, unit: evt.payload },
                 }
               }),
             },
@@ -118,53 +154,130 @@ export const createAssignmentMachine = Machine<
         lesson: {
           on: {
             PREVIOUS: 'unit',
-            NEXT: '#createAssignment.assignmentType',
+            NEXT: 'essayInfo',
             SET_LESSON: {
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  fromLesson: evt.payload,
+                  essay: { ...ctx.essay, lesson: evt.payload },
                 }
               }),
             },
           },
         },
-      },
-    },
-    assignmentType: {
-      initial: 'idle',
-      states: {
-        idle: {
+        essayInfo: {
           on: {
-            PREVIOUS: '#createAssignment.findLesson.lesson',
-            ESSAY: 'essay',
-            READING_GUIDE: 'readingGuide',
+            PREVIOUS: 'lesson',
+            NEXT: 'createEssay',
+            SET_LINKED_COURSES_IDS: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  assignedCourseId: evt.payload,
+                }
+              }),
+            },
             SET_QUESTION_LIST: {
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  questionList: evt.payload,
+                  essay: { ...ctx.essay, questionList: evt.payload },
+                }
+              }),
+            },
+            SET_ASSIGNED_DATE: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: { ...ctx.essay, assignedDate: evt.payload },
+                }
+              }),
+            },
+            SET_DUE_DATE: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: { ...ctx.essay, dueDate: evt.payload },
+                }
+              }),
+            },
+            SET_ASSIGNER_ID: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  hasAssignerId: evt.payload,
+                }
+              }),
+            },
+            SET_MARKING_PERIOD: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: { ...ctx.essay, markingPeriod: evt.payload },
+                }
+              }),
+            },
+            SET_MAX_POINTS: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: { ...ctx.essay, maxPoints: evt.payload },
+                }
+              }),
+            },
+            SET_READINGS_READING_PAGES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: {
+                    ...ctx.essay,
+                    readings: {
+                      ...ctx.essay.readings,
+                      readingPages: evt.payload,
+                    },
+                  },
+                }
+              }),
+            },
+            SET_READINGS_READING_SECTIONS: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: {
+                    ...ctx.essay,
+                    readings: {
+                      ...ctx.essay.readings,
+                      readingSections: evt.payload,
+                    },
+                  },
+                }
+              }),
+            },
+            SET_TOPIC_QUESTION_LIST: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: {
+                    ...ctx.essay,
+                    topicList: [...ctx.essay.topicList, evt.payload],
+                  },
                 }
               }),
             },
           },
         },
-        essay: {
-          initial: 'idle',
-          states: {
-            idle: {},
-            createEssay: {},
-          },
-        },
-        readingGuide: {
-          initial: 'idle',
-          states: {
-            idle: {},
-            createReadingGuide: {},
-          },
-        },
+        createEssay: {},
       },
     },
-    assignmentCreate: {},
+
+    readingGuide: {
+      initial: 'unit',
+      states: {
+        unit: {},
+        lesson: {},
+        readingGuideInfo: {},
+        createReadingGuide: {},
+      },
+    },
   },
 })

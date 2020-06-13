@@ -3,8 +3,8 @@ import { gql, useQuery } from '@apollo/client'
 import {
   findLessonsByUnit,
   findLessonsByUnitVariables,
-} from '../../../../../schemaTypes'
-import { useCreateAssignmentContextPovider } from './CreateAssignmentContext'
+} from '../../../../../../schemaTypes'
+import { useCreateAssignmentContextPovider } from '../CreateAssignmentContext'
 
 export type LessonSelectProps = {}
 
@@ -21,18 +21,21 @@ export const FIND_LESSONS_BY_UNIT_QUERY = gql`
 
 export const LessonSelect: FC<LessonSelectProps> = () => {
   const [state, event] = useCreateAssignmentContextPovider()
-
-  const { loading, error, data } = useQuery<
+  console.log(state.context.essay.unit, state.context.courseId)
+  const { loading, data } = useQuery<
     findLessonsByUnit,
     findLessonsByUnitVariables
   >(FIND_LESSONS_BY_UNIT_QUERY, {
     variables: {
-      input: { unitId: state.context.unit, courseId: state.context.courseId },
+      input: {
+        unitId: state.context.essay.unit,
+        courseId: state.context.courseId,
+      },
     },
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-
+  console.log(data)
   return (
     <>
       <div>Select Lesson</div>

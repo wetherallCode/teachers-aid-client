@@ -40,10 +40,25 @@ export interface findLessonById_findLessonById_lesson_questionList {
   questionType: QuestionTypeEnum;
 }
 
+export interface findLessonById_findLessonById_lesson_pageNumbers {
+  __typename: "PageNumbers";
+  startingPage: number;
+  endingPage: number;
+}
+
+export interface findLessonById_findLessonById_lesson_assignedSections {
+  __typename: "LessonTextSections";
+  startingSection: string;
+  endingSection: string;
+}
+
 export interface findLessonById_findLessonById_lesson {
   __typename: "Lesson";
   _id: string | null;
   questionList: findLessonById_findLessonById_lesson_questionList[];
+  pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
+  assignedSections: findLessonById_findLessonById_lesson_assignedSections;
+  linkedCourseIds: string[];
 }
 
 export interface findLessonById_findLessonById {
@@ -99,7 +114,7 @@ export interface findLessonsByUnitVariables {
 export interface findCoursesById_findCoursesById_courses {
   __typename: "Course";
   _id: string | null;
-  period: string;
+  name: string;
 }
 
 export interface findCoursesById_findCoursesById {
@@ -161,7 +176,7 @@ export interface findLessonByIdForLessonEditor_findLessonById_lesson_inUnit {
 export interface findLessonByIdForLessonEditor_findLessonById_lesson_assignedCourse {
   __typename: "Course";
   _id: string | null;
-  period: string;
+  name: string;
 }
 
 export interface findLessonByIdForLessonEditor_findLessonById_lesson_assignedSections {
@@ -270,7 +285,7 @@ export interface getCoursesForUser_findUserData_user_Student {
 export interface getCoursesForUser_findUserData_user_Teacher_teachesCourses {
   __typename: "Course";
   _id: string | null;
-  period: string;
+  name: string;
 }
 
 export interface getCoursesForUser_findUserData_user_Teacher {
@@ -827,6 +842,40 @@ export interface SetCurrentMarkingPeriodVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: enumValues
+// ====================================================
+
+export interface enumValues_MarkingPeriod_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_MarkingPeriod {
+  __typename: "__Type";
+  enumValues: enumValues_MarkingPeriod_enumValues[] | null;
+}
+
+export interface enumValues_WritingLevelType_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_WritingLevelType {
+  __typename: "__Type";
+  enumValues: enumValues_WritingLevelType_enumValues[] | null;
+}
+
+export interface enumValues {
+  MarkingPeriod: enumValues_MarkingPeriod | null;
+  WritingLevelType: enumValues_WritingLevelType | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: me
 // ====================================================
 
@@ -841,7 +890,7 @@ export interface me_me_Student {
 export interface me_me_Teacher_teachesCourses {
   __typename: "Course";
   _id: string | null;
-  period: string;
+  name: string;
 }
 
 export interface me_me_Teacher {
@@ -866,9 +915,20 @@ export interface me_MarkingPeriod {
   enumValues: me_MarkingPeriod_enumValues[] | null;
 }
 
+export interface me_WritingLevelType_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface me_WritingLevelType {
+  __typename: "__Type";
+  enumValues: me_WritingLevelType_enumValues[] | null;
+}
+
 export interface me {
   me: me_me | null;
   MarkingPeriod: me_MarkingPeriod | null;
+  WritingLevelType: me_WritingLevelType | null;
 }
 
 /* tslint:disable */
@@ -911,6 +971,12 @@ export enum TitleEnum {
   MS = "MS",
 }
 
+export enum WritingLevelType {
+  ACADEMIC = "ACADEMIC",
+  ADVANCED = "ADVANCED",
+  DEVELOPING = "DEVELOPING",
+}
+
 export interface AddNewChapterInput {
   chapterNumber: number;
   chapterTitle: string;
@@ -924,13 +990,14 @@ export interface AddNewTextInput {
 
 export interface CreateEssayInput {
   assignedCourseId: string[];
+  assignedDate: any;
   associatedLessonId: string;
   dueDate: any;
   hasAssignerId: string;
   markingPeriod: MarkingPeriodEnum;
   maxPoints: number;
   readings: ReadingsInput;
-  topic: TopicInput;
+  topicList: TopicInput[];
 }
 
 export interface CreateLessonInput {
@@ -1035,6 +1102,7 @@ export interface TextSectionVocabInput {
 export interface TopicInput {
   question: string;
   questionType: QuestionTypeEnum;
+  writingLevel: WritingLevelType;
 }
 
 export interface UpdateLessonInput {

@@ -12,6 +12,7 @@ import {
 } from '@apollo/client'
 import { UserContextProvider } from './contexts/UserContext'
 import { MarkingPeriodContextProvider } from './components/home/MarkingPeriodContext'
+import { EnumContextProvider } from './contexts/EnumContext'
 
 const link = new HttpLink({
   uri: 'http://localhost:4005/graphql',
@@ -30,7 +31,9 @@ ReactDOM.render(
       <Router>
         <UserContextProvider>
           <MarkingPeriodContextProvider>
-            <App />
+            <EnumContextProvider>
+              <App />
+            </EnumContextProvider>
           </MarkingPeriodContextProvider>
         </UserContextProvider>
       </Router>
