@@ -15,7 +15,7 @@ export const CoursesNav: FC<TeacherNavProps> = ({
   const me: me_me_Teacher = useUserContextProvider()
   // console.log(me)
   const [navState, event] = useTeacherNavContextProvider()
-  console.log(navState.context.course)
+
   return (
     <>
       <motion.ul variants={ulVariants}>
@@ -33,7 +33,7 @@ export const CoursesNav: FC<TeacherNavProps> = ({
                     event({ type: 'COURSE_SELECT' })
                   }}
                 >
-                  {course.period}
+                  {course.name}
                 </Link>
               </motion.li>
             ))}
