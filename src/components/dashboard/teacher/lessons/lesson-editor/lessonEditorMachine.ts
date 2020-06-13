@@ -7,7 +7,7 @@ import {
   ProtocolActivityTypes,
   TextSectionQuestionsInput,
 } from '../../../../../schemaTypes'
-import { LessonEditor } from './LessonEditor'
+// import { LessonEditor } from './LessonEditor'
 
 export type lessonEditorMachineSchema = {
   states: {

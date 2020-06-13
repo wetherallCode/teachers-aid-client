@@ -19,7 +19,7 @@ export const GET_COURSES_QUERY = gql`
         ... on Teacher {
           teachesCourses {
             _id
-            period
+            name
           }
         }
       }
@@ -65,7 +65,7 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
           }}
         >
           <input type='checkbox' value={course._id!} onChange={handleChange} />
-          <div>{course.period}</div>
+          <div>{course.name}</div>
         </div>
       ))}
       <button onClick={() => event({ type: 'NEXT' })}>Next</button>

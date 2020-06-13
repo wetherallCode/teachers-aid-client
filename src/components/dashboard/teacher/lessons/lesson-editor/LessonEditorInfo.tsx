@@ -30,7 +30,7 @@ export const FIND_LESSON_FOR_LESSON_EDITOR_QUERY = gql`
         assignedMarkingPeriod
         assignedCourse {
           _id
-          period
+          name
         }
         linkedCourseIds
         assignedSections {

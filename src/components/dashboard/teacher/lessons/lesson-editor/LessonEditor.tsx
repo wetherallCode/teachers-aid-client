@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC } from 'react'
 import { useLessonEditorContextProvider } from './LessonEditorContext'
 import { UnitSelect } from './UnitSelect'
 import { LessonEditorInfo } from './LessonEditorInfo'
@@ -7,9 +7,9 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateLesson,
   updateLessonVariables,
-  me_me_Teacher,
+  // me_me_Teacher,
 } from '../../../../../schemaTypes'
-import { useUserContextProvider } from '../../../../../contexts/UserContext'
+// import { useUserContextProvider } from '../../../../../contexts/UserContext'
 export type LessonEditorProps = {
   course: string
 }

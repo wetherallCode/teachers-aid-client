@@ -62,6 +62,7 @@ export const AddQuestion: FC<AddVocabWordProps> = ({
           setQuestionsItem({ ...questionsItem, questionType: e.target.value })
         }
       >
+        <option value={undefined}>Select a Question Type</option>
         {data?.QuestionTypeEnum?.enumValues?.map((questionType) => (
           <option key={questionType.name!} value={questionType.name!}>
             {questionType.name}

@@ -5,7 +5,7 @@ import {
   findLessonsByUnitVariables,
 } from '../../../../../schemaTypes'
 import { useLessonEditorContextProvider } from './LessonEditorContext'
-import { FIND_LESSONS_BY_UNIT_QUERY } from '../../assignments/create-assignments/LessonSelect'
+import { FIND_LESSONS_BY_UNIT_QUERY } from '../../assignments/create-assignments/create-essay/LessonSelect'
 
 export type LessonSelectProps = {
   unit: string
@@ -13,7 +13,7 @@ export type LessonSelectProps = {
 
 export const LessonSelect: FC<LessonSelectProps> = ({ unit }) => {
   const [state, event] = useLessonEditorContextProvider()
-
+  console.log(state.context.courseId)
   const { loading, error, data } = useQuery<
     findLessonsByUnit,
     findLessonsByUnitVariables

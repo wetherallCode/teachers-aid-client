@@ -1,8 +1,5 @@
 import React, { FC } from 'react'
-import {
-  TextSectionQuestionsInput,
-  QuestionTypeEnum,
-} from '../../../../../schemaTypes'
+import { TextSectionQuestionsInput } from '../../../../../schemaTypes'
 import { useLessonEditorContextProvider } from './LessonEditorContext'
 
 export type EssentialQuestionProps = {

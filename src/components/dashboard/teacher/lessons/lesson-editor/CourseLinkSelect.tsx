@@ -35,7 +35,7 @@ export const CourseLinkSelect: FC<CourseLinkSelectProps> = ({
                 checked={linkedCourses.includes(course._id)}
                 onChange={handleChange}
               />
-              <span>{course.period}</span>
+              <span>{course.name}</span>
             </span>
           )
         })}
