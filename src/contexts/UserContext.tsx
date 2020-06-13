@@ -14,7 +14,7 @@ export const ME_QUERY = gql`
         title
         teachesCourses {
           _id
-          period
+          name
         }
       }
       ... on Student {
@@ -22,6 +22,11 @@ export const ME_QUERY = gql`
       }
     }
     MarkingPeriod: __type(name: "MarkingPeriodEnum") {
+      enumValues {
+        name
+      }
+    }
+    WritingLevelType: __type(name: "WritingLevelType") {
       enumValues {
         name
       }
@@ -39,7 +44,7 @@ export const UserContextProvider: FC<UserContextProps> = ({ children }) => {
   const { loading, error, data } = useQuery<me>(ME_QUERY)
   if (loading) return <div>Loading </div>
   if (error) console.error(error)
-
+  console.log(data)
   return (
     <UserContext.Provider value={data?.me}>{children}</UserContext.Provider>
   )
@@ -49,7 +54,7 @@ export function useUserContextProvider() {
   const context = useContext(UserContext)
   if (context === undefined) {
     throw new Error(
-      'useCurrentPeriodState must be used within a UserContextProvider'
+      'useUserContextProvider must be used within a UserContextProvider'
     )
   }
   return context
