@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 export const useCheckBox = () => {
   const [list, setList] = useState<string[]>([])
-  console.log(list)
+
   const handleChange = (e: any) => {
     const eventValue = e.target.value
     const periodIndex = list.findIndex((i) => i === eventValue)
