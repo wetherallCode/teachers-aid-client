@@ -1,7 +1,4 @@
 import React from 'react'
-
-// import { me_me_Teacher } from '../../../schemaTypes'
-// import { useUserContextProvider } from '../../../contexts/UserContext'
 import 'react-calendar/dist/Calendar.css'
 import { Route, Routes } from 'react-router'
 import { LessonsHome } from './lessons/LessonsHome'
