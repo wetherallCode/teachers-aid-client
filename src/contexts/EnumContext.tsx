@@ -9,7 +9,7 @@ export const ENUM_VALUES = gql`
         name
       }
     }
-    WritingLevelType: __type(name: "WritingLevelType") {
+    WritingLevelEnum: __type(name: "WritingLevelEnum") {
       enumValues {
         name
       }
@@ -34,7 +34,7 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
         markingPeriod: data?.MarkingPeriod?.enumValues?.map(
           (value) => value.name
         ),
-        writingLevel: data?.WritingLevelType?.enumValues?.map(
+        writingLevel: data?.WritingLevelEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}

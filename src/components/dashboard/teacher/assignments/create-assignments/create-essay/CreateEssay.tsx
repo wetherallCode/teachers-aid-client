@@ -4,7 +4,7 @@ import { useCreateAssignmentContextPovider } from '../CreateAssignmentContext'
 import { dateConverter } from '../../../../../../utils'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import {
-  WritingLevelType,
+  WritingLevelEnum,
   TopicInput,
   QuestionTypeEnum,
   createEssayVariables,
@@ -35,7 +35,7 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
   const [topicQuestion, setTopicQuestion] = useState<TopicInput>({
     question: '',
     questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT,
-    writingLevel: WritingLevelType.DEVELOPING,
+    writingLevel: WritingLevelEnum.DEVELOPING,
   })
   const [assignedCourseIds, handleChange] = useCheckBox()
 
