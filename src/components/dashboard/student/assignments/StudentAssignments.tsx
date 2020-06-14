@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { AssignedEssays } from './essays/AssignedEssays'
+import { AssignedEssaySelect } from './essays/AssignedEssaySelect'
 
 export type StudentAssignmentsProps = {}
 
@@ -8,7 +8,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
   return (
     <>
       <div>Assignments to Complete</div>
-      <AssignedEssays />
+      <AssignedEssaySelect />
     </>
   )
 }
