@@ -888,19 +888,19 @@ export interface enumValues_MarkingPeriod {
   enumValues: enumValues_MarkingPeriod_enumValues[] | null;
 }
 
-export interface enumValues_WritingLevelType_enumValues {
+export interface enumValues_WritingLevelEnum_enumValues {
   __typename: "__EnumValue";
   name: string;
 }
 
-export interface enumValues_WritingLevelType {
+export interface enumValues_WritingLevelEnum {
   __typename: "__Type";
-  enumValues: enumValues_WritingLevelType_enumValues[] | null;
+  enumValues: enumValues_WritingLevelEnum_enumValues[] | null;
 }
 
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
-  WritingLevelType: enumValues_WritingLevelType | null;
+  WritingLevelEnum: enumValues_WritingLevelEnum | null;
 }
 
 /* tslint:disable */
@@ -982,7 +982,7 @@ export enum TitleEnum {
   MS = "MS",
 }
 
-export enum WritingLevelType {
+export enum WritingLevelEnum {
   ACADEMIC = "ACADEMIC",
   ADVANCED = "ADVANCED",
   DEVELOPING = "DEVELOPING",
@@ -1004,7 +1004,7 @@ export interface CreateEssayInput {
   assignedDate: any;
   associatedLessonId: string;
   dueDate: any;
-  dueTime: any;
+  dueTime: string;
   hasAssignerId: string;
   markingPeriod: MarkingPeriodEnum;
   maxPoints: number;
@@ -1118,7 +1118,7 @@ export interface TextSectionVocabInput {
 export interface TopicInput {
   question: string;
   questionType: QuestionTypeEnum;
-  writingLevel: WritingLevelType;
+  writingLevel: WritingLevelEnum;
 }
 
 export interface UpdateLessonInput {
