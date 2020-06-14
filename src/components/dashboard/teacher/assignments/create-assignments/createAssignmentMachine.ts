@@ -43,6 +43,7 @@ export type createAssignmentMachineEvent =
       payload: TextSectionQuestionsInput[]
     }
   | { type: 'SET_DUE_DATE'; payload: any }
+  | { type: 'SET_DUE_TIME'; payload: any }
   | { type: 'SET_ASSIGNED_DATE'; payload: any }
   | { type: 'SET_ASSIGNER_ID'; payload: string }
   | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
@@ -64,6 +65,7 @@ export type createAssignmentMachineContext = {
     lesson: string
     questionList: TextSectionQuestionsInput[]
     dueDate: any
+    dueTime: any
     assignedDate: any
     readings: ReadingsInput
     maxPoints: number
@@ -98,6 +100,7 @@ export const createAssignmentMachine = Machine<
       lesson: '',
       questionList: [],
       dueDate: '',
+      dueTime: '',
       assignedDate: '',
       maxPoints: 0,
       markingPeriod: MarkingPeriodEnum.FIRST,
@@ -198,6 +201,14 @@ export const createAssignmentMachine = Machine<
                 return {
                   ...ctx,
                   essay: { ...ctx.essay, dueDate: evt.payload },
+                }
+              }),
+            },
+            SET_DUE_TIME: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: { ...ctx.essay, dueTime: evt.payload },
                 }
               }),
             },
