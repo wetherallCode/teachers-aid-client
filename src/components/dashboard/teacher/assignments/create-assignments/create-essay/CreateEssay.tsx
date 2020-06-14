@@ -30,7 +30,7 @@ export const CREATE_ESSAY_MUTATION = gql`
 
 export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
   const [state, event] = useCreateAssignmentContextPovider()
-  console.log(state.context.assignedCourseId)
+  console.log(state.context.essay.dueTime)
   const { writingLevel } = useEnumContextProvider()
   const [topicQuestion, setTopicQuestion] = useState<TopicInput>({
     question: '',
@@ -52,6 +52,7 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
           assignedCourseId: state.context.assignedCourseId,
           assignedDate: state.context.essay.assignedDate,
           dueDate: state.context.essay.dueDate,
+          dueTime: state.context.essay.dueTime.toString(),
           associatedLessonId: state.context.essay.lesson,
           hasAssignerId: state.context.hasAssignerId,
           markingPeriod: state.context.essay.markingPeriod,
@@ -92,6 +93,16 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
           }
         />
       </span>
+      <span>Time: </span>
+      <input
+        type='time'
+        onChange={(e: any) =>
+          event({
+            type: 'SET_DUE_TIME',
+            payload: e.target.value,
+          })
+        }
+      />
       <span>Max Points</span>
       <span>
         <input
