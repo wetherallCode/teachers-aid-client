@@ -4,6 +4,39 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findEssaysToComplete
+// ====================================================
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
+  __typename: "Essay";
+  _id: string | null;
+  readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
+}
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId {
+  __typename: "FindEssaysToCompleteByStudentIdPayload";
+  essays: findEssaysToComplete_findEssaysToCompleteByStudentId_essays[];
+}
+
+export interface findEssaysToComplete {
+  findEssaysToCompleteByStudentId: findEssaysToComplete_findEssaysToCompleteByStudentId;
+}
+
+export interface findEssaysToCompleteVariables {
+  input: FindEssaysToCompleteByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createEssay
 // ====================================================
 
@@ -905,30 +938,8 @@ export interface me_me_Teacher {
 
 export type me_me = me_me_Student | me_me_Teacher;
 
-export interface me_MarkingPeriod_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface me_MarkingPeriod {
-  __typename: "__Type";
-  enumValues: me_MarkingPeriod_enumValues[] | null;
-}
-
-export interface me_WritingLevelType_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface me_WritingLevelType {
-  __typename: "__Type";
-  enumValues: me_WritingLevelType_enumValues[] | null;
-}
-
 export interface me {
   me: me_me | null;
-  MarkingPeriod: me_MarkingPeriod | null;
-  WritingLevelType: me_WritingLevelType | null;
 }
 
 /* tslint:disable */
@@ -993,6 +1004,7 @@ export interface CreateEssayInput {
   assignedDate: any;
   associatedLessonId: string;
   dueDate: any;
+  dueTime: any;
   hasAssignerId: string;
   markingPeriod: MarkingPeriodEnum;
   maxPoints: number;
@@ -1032,6 +1044,10 @@ export interface FindChaptersInTextInput {
 
 export interface FindCoursesByIdInput {
   _ids: string[];
+}
+
+export interface FindEssaysToCompleteByStudentIdInput {
+  studentId: string;
 }
 
 export interface FindLessonByIdInput {
