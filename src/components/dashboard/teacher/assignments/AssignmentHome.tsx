@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router'
 import { CreateAssignment } from './create-assignments/CreateAssignment'
 import { CreateAssignmentContextProvider } from './create-assignments/CreateAssignmentContext'
 import { EditAssignments } from './edit-assignments/EditAssignments'
+import { GradeAssignments } from './grade-assignments/GradeAssignments'
 
 export type AssignmentHomeProps = {}
 
@@ -18,6 +19,7 @@ export const AssignmentHome: FC<AssignmentHomeProps> = () => {
         }
       />
       <Route path='edit' element={<EditAssignments />} />
+      <Route path='grade' element={<GradeAssignments />} />
     </Routes>
   )
 }
