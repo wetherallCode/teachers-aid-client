@@ -6,6 +6,7 @@ import {
   me_me_Student,
 } from '../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
+import { Link } from 'react-router-dom'
 
 export type AssignedEssaySelectProps = {}
 
@@ -17,6 +18,9 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
         readings {
           readingSections
         }
+        topic {
+          writingLevel
+        }
       }
     }
   }
@@ -24,7 +28,7 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
 
 export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
-  const { loading, error, data } = useQuery<
+  const { loading, data } = useQuery<
     findEssaysToComplete,
     findEssaysToCompleteVariables
   >(ESSAYS_TO_COMPLETE_QUERY, {
@@ -40,7 +44,9 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
     <>
       <div>Essays to complete</div>
       {data?.findEssaysToCompleteByStudentId.essays.map((essay) => (
-        <div key={essay._id!}>{essay.readings.readingSections}</div>
+        <Link to={essay._id!} key={essay._id!}>
+          {essay.readings.readingSections}
+        </Link>
       ))}
     </>
   )
