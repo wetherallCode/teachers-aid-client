@@ -6,7 +6,6 @@ import {
   findLessonByIdVariables,
   me_me_Teacher,
 } from '../../../../../../schemaTypes'
-import { CreateEssay } from './CreateEssay'
 
 export type LessonInfoProps = {
   me: me_me_Teacher
@@ -76,10 +75,7 @@ export const LessonInfo: FC<LessonInfoProps> = ({ me }) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  // console.log(
-  //   data?.findLessonById.lesson.pageNumbers.startingPage ===
-  //     data?.findLessonById.lesson.pageNumbers.endingPage
-  // )
+
   return (
     <>
       <div>

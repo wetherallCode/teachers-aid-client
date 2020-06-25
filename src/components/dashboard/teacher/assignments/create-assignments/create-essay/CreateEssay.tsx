@@ -52,7 +52,7 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
           assignedCourseId: state.context.assignedCourseId,
           assignedDate: state.context.essay.assignedDate,
           dueDate: state.context.essay.dueDate,
-          dueTime: state.context.essay.dueTime.toString(),
+          dueTime: '8:00:00 AM',
           associatedLessonId: state.context.essay.lesson,
           hasAssignerId: state.context.hasAssignerId,
           markingPeriod: state.context.essay.markingPeriod,
