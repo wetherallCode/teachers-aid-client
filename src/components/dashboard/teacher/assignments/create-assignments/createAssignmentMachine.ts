@@ -1,7 +1,6 @@
 import { Machine, assign } from 'xstate'
 import {
   TextSectionQuestionsInput,
-  QuestionTypeEnum,
   ReadingsInput,
   TopicInput,
   MarkingPeriodEnum,
@@ -52,9 +51,6 @@ export type createAssignmentMachineEvent =
   | { type: 'SET_READINGS_READING_SECTIONS'; payload: string }
   | { type: 'SET_TOPIC_QUESTION_LIST'; payload: TopicInput }
   | { type: 'SET_MAX_POINTS'; payload: number }
-
-// | { type: 'SET_TOPIC_QUESTION'; payload: string }
-// | { type: 'SET_TOPIC_QUESTION_TYPE'; payload: QuestionTypeEnum }
 
 export type createAssignmentMachineContext = {
   courseId: string
