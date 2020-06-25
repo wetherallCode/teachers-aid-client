@@ -12,10 +12,16 @@ export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_rea
   readingSections: string;
 }
 
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic {
+  __typename: "Topic";
+  writingLevel: WritingLevelEnum;
+}
+
 export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
   __typename: "Essay";
   _id: string | null;
   readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
+  topic: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic;
 }
 
 export interface findEssaysToComplete_findEssaysToCompleteByStudentId {
@@ -29,6 +35,475 @@ export interface findEssaysToComplete {
 
 export interface findEssaysToCompleteVariables {
   input: FindEssaysToCompleteByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssayById
+// ====================================================
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
+  __typename: "DevelopingSentenceStructure";
+  subject: string;
+  verb: string;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer {
+  __typename: "DevelopingOrganizer";
+  basicQuestionType: BasicQuestionEnum | null;
+  developingSentenceStructure: findEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure;
+  restatement: string;
+  answer: string;
+  conclusion: string;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure {
+  __typename: "AcademicSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType = findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType | findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType | findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer {
+  __typename: "AcademicOrganizer";
+  academicSentenceStructure: findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure;
+  restatement: string;
+  conclusion: string;
+  questionType: QuestionTypeEnum | null;
+  answerType: findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType | null;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure {
+  __typename: "AdvancedSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType = findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType | findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType | findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer {
+  __typename: "AdvancedOrganizer";
+  advancedSentenceStructure: findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure;
+  answerType: findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType | null;
+  restatement: string;
+  conclusion: string;
+  questionType: QuestionTypeEnum | null;
+}
+
+export type findEssayById_findEssayById_essay_workingDraft_organizer = findEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer | findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer | findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer;
+
+export interface findEssayById_findEssayById_essay_workingDraft {
+  __typename: "WorkingDraft";
+  organizer: findEssayById_findEssayById_essay_workingDraft_organizer | null;
+  draft: any;
+}
+
+export interface findEssayById_findEssayById_essay_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findEssayById_findEssayById_essay_topic {
+  __typename: "Topic";
+  question: string;
+  questionType: QuestionTypeEnum;
+  writingLevel: WritingLevelEnum;
+}
+
+export interface findEssayById_findEssayById_essay {
+  __typename: "Essay";
+  _id: string | null;
+  workingDraft: findEssayById_findEssayById_essay_workingDraft;
+  readings: findEssayById_findEssayById_essay_readings;
+  dueDate: any;
+  dueTime: string;
+  topic: findEssayById_findEssayById_essay_topic;
+}
+
+export interface findEssayById_findEssayById {
+  __typename: "FindEssayByIdPayload";
+  essay: findEssayById_findEssayById_essay;
+}
+
+export interface findEssayById {
+  findEssayById: findEssayById_findEssayById;
+}
+
+export interface findEssayByIdVariables {
+  input: FindEssayByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: UpdateWorkingDraft
+// ====================================================
+
+export interface UpdateWorkingDraft_updateWorkingDraft_essay_workingDraft {
+  __typename: "WorkingDraft";
+  draft: any;
+}
+
+export interface UpdateWorkingDraft_updateWorkingDraft_essay {
+  __typename: "Essay";
+  workingDraft: UpdateWorkingDraft_updateWorkingDraft_essay_workingDraft;
+}
+
+export interface UpdateWorkingDraft_updateWorkingDraft {
+  __typename: "UpdateWorkingDraftPayload";
+  essay: UpdateWorkingDraft_updateWorkingDraft_essay;
+}
+
+export interface UpdateWorkingDraft {
+  updateWorkingDraft: UpdateWorkingDraft_updateWorkingDraft;
+}
+
+export interface UpdateWorkingDraftVariables {
+  input: UpdateWorkingDraftInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: setAnswerType
+// ====================================================
+
+export interface setAnswerType_setAnswerType_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface setAnswerType_setAnswerType {
+  __typename: "SetAnswerTypePayload";
+  essay: setAnswerType_setAnswerType_essay;
+}
+
+export interface setAnswerType {
+  setAnswerType: setAnswerType_setAnswerType;
+}
+
+export interface setAnswerTypeVariables {
+  input: SetAnswerTypeInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateHowCauseEffect
+// ====================================================
+
+export interface updateHowCauseEffect_updateHowCauseEffect_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateHowCauseEffect_updateHowCauseEffect {
+  __typename: "UpdateHowCauseEffectPayload";
+  essay: updateHowCauseEffect_updateHowCauseEffect_essay;
+}
+
+export interface updateHowCauseEffect {
+  updateHowCauseEffect: updateHowCauseEffect_updateHowCauseEffect;
+}
+
+export interface updateHowCauseEffectVariables {
+  input: UpdateHowCauseEffectInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateAcademicOrganizer
+// ====================================================
+
+export interface updateAcademicOrganizer_updateAcademicOrganizer_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateAcademicOrganizer_updateAcademicOrganizer {
+  __typename: "UpdateAcademicOrganizerPayload";
+  essay: updateAcademicOrganizer_updateAcademicOrganizer_essay;
+}
+
+export interface updateAcademicOrganizer {
+  updateAcademicOrganizer: updateAcademicOrganizer_updateAcademicOrganizer;
+}
+
+export interface updateAcademicOrganizerVariables {
+  input: UpdateAcademicOrganizerInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateProblemSolution
+// ====================================================
+
+export interface updateProblemSolution_updateProblemSolution_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateProblemSolution_updateProblemSolution {
+  __typename: "UpdateProblemSolutionPayload";
+  essay: updateProblemSolution_updateProblemSolution_essay;
+}
+
+export interface updateProblemSolution {
+  updateProblemSolution: updateProblemSolution_updateProblemSolution;
+}
+
+export interface updateProblemSolutionVariables {
+  input: UpdateProblemSolutionInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateWhyCauseEffect
+// ====================================================
+
+export interface updateWhyCauseEffect_updateWhyCauseEffect_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateWhyCauseEffect_updateWhyCauseEffect {
+  __typename: "UpdateWhyCauseEffectPayload";
+  essay: updateWhyCauseEffect_updateWhyCauseEffect_essay;
+}
+
+export interface updateWhyCauseEffect {
+  updateWhyCauseEffect: updateWhyCauseEffect_updateWhyCauseEffect;
+}
+
+export interface updateWhyCauseEffectVariables {
+  input: UpdateWhyCauseEffectInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateAdvancedOrganizer
+// ====================================================
+
+export interface updateAdvancedOrganizer_updateAdvancedOrganizer_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateAdvancedOrganizer_updateAdvancedOrganizer {
+  __typename: "UpdateAdvancedOrganizerPayload";
+  essay: updateAdvancedOrganizer_updateAdvancedOrganizer_essay;
+}
+
+export interface updateAdvancedOrganizer {
+  updateAdvancedOrganizer: updateAdvancedOrganizer_updateAdvancedOrganizer;
+}
+
+export interface updateAdvancedOrganizerVariables {
+  input: UpdateAdvancedOrganizerInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateDevelopingOrganizer
+// ====================================================
+
+export interface updateDevelopingOrganizer_updateDevelopingOrganizer_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateDevelopingOrganizer_updateDevelopingOrganizer {
+  __typename: "UpdateDevelopingOrganizerPayload";
+  essay: updateDevelopingOrganizer_updateDevelopingOrganizer_essay;
+}
+
+export interface updateDevelopingOrganizer {
+  updateDevelopingOrganizer: updateDevelopingOrganizer_updateDevelopingOrganizer;
+}
+
+export interface updateDevelopingOrganizerVariables {
+  input: UpdateDevelopingOrganizerInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: setOrganizer
+// ====================================================
+
+export interface setOrganizer_setOrganizer_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
+  __typename: "DevelopingSentenceStructure";
+  subject: string;
+  verb: string;
+}
+
+export interface setOrganizer_setOrganizer_essay_workingDraft_organizer_DevelopingOrganizer {
+  __typename: "DevelopingOrganizer";
+  developingSentenceStructure: setOrganizer_setOrganizer_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure;
+  restatement: string;
+  conclusion: string;
+}
+
+export interface setOrganizer_setOrganizer_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure {
+  __typename: "AcademicSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface setOrganizer_setOrganizer_essay_workingDraft_organizer_AcademicOrganizer {
+  __typename: "AcademicOrganizer";
+  academicSentenceStructure: setOrganizer_setOrganizer_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure;
+  restatement: string;
+  conclusion: string;
+}
+
+export interface setOrganizer_setOrganizer_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure {
+  __typename: "AdvancedSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface setOrganizer_setOrganizer_essay_workingDraft_organizer_AdvancedOrganizer {
+  __typename: "AdvancedOrganizer";
+  advancedSentenceStructure: setOrganizer_setOrganizer_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure;
+  restatement: string;
+  conclusion: string;
+}
+
+export type setOrganizer_setOrganizer_essay_workingDraft_organizer = setOrganizer_setOrganizer_essay_workingDraft_organizer_DevelopingOrganizer | setOrganizer_setOrganizer_essay_workingDraft_organizer_AcademicOrganizer | setOrganizer_setOrganizer_essay_workingDraft_organizer_AdvancedOrganizer;
+
+export interface setOrganizer_setOrganizer_essay_workingDraft {
+  __typename: "WorkingDraft";
+  organizer: setOrganizer_setOrganizer_essay_workingDraft_organizer | null;
+}
+
+export interface setOrganizer_setOrganizer_essay {
+  __typename: "Essay";
+  workingDraft: setOrganizer_setOrganizer_essay_workingDraft;
+}
+
+export interface setOrganizer_setOrganizer {
+  __typename: "SetOrganizerPayload";
+  essay: setOrganizer_setOrganizer_essay;
+}
+
+export interface setOrganizer {
+  setOrganizer: setOrganizer_setOrganizer;
+}
+
+export interface setOrganizerVariables {
+  input: SetOrganizerInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: submitEssayFinalDraft
+// ====================================================
+
+export interface submitEssayFinalDraft_submitEssayFinalDraft_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface submitEssayFinalDraft_submitEssayFinalDraft {
+  __typename: "SubmitEssayFinalDraftPayload";
+  essay: submitEssayFinalDraft_submitEssayFinalDraft_essay;
+}
+
+export interface submitEssayFinalDraft {
+  submitEssayFinalDraft: submitEssayFinalDraft_submitEssayFinalDraft;
+}
+
+export interface submitEssayFinalDraftVariables {
+  input: SubmitEssayFinalDraftInput;
 }
 
 /* tslint:disable */
@@ -133,6 +608,59 @@ export interface findLessonsByUnit {
 
 export interface findLessonsByUnitVariables {
   input: FindLessonsByUnitInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssaysToGradeById
+// ====================================================
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses {
+  __typename: "Course";
+  _id: string | null;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner {
+  __typename: "Student";
+  userName: string;
+  firstName: string;
+  lastName: string;
+  inCourses: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses[];
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  draft: any;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  submitTime: any | null;
+  submittedFinalDraft: findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft_submittedFinalDraft;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays {
+  __typename: "Essay";
+  _id: string | null;
+  hasOwner: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner;
+  finalDraft: findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft | null;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById {
+  __typename: "FindEssaysToGradeByIdPayload";
+  essays: findEssaysToGradeById_findEssaysToGradeById_essays[];
+}
+
+export interface findEssaysToGradeById {
+  findEssaysToGradeById: findEssaysToGradeById_findEssaysToGradeById;
+}
+
+export interface findEssaysToGradeByIdVariables {
+  input: FindEssaysToGradeByIdInput;
 }
 
 /* tslint:disable */
@@ -898,9 +1426,20 @@ export interface enumValues_WritingLevelEnum {
   enumValues: enumValues_WritingLevelEnum_enumValues[] | null;
 }
 
+export interface enumValues_QuestionTypeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_QuestionTypeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_QuestionTypeEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
+  QuestionTypeEnum: enumValues_QuestionTypeEnum | null;
 }
 
 /* tslint:disable */
@@ -957,6 +1496,11 @@ export enum AcademicOutomeTypes {
   SOCRATIC_QUESTIONS = "SOCRATIC_QUESTIONS",
 }
 
+export enum BasicQuestionEnum {
+  HOW = "HOW",
+  WHY = "WHY",
+}
+
 export enum MarkingPeriodEnum {
   FIRST = "FIRST",
   FOURTH = "FOURTH",
@@ -988,6 +1532,12 @@ export enum WritingLevelEnum {
   DEVELOPING = "DEVELOPING",
 }
 
+export interface AcademicSentenceStructureInput {
+  object?: string | null;
+  subject: string;
+  verb: string;
+}
+
 export interface AddNewChapterInput {
   chapterNumber: number;
   chapterTitle: string;
@@ -997,6 +1547,12 @@ export interface AddNewChapterInput {
 export interface AddNewTextInput {
   ownerId: string;
   textTitle: string;
+}
+
+export interface AdvancedSentenceStructureInput {
+  object?: string | null;
+  subject: string;
+  verb: string;
 }
 
 export interface CreateEssayInput {
@@ -1038,6 +1594,11 @@ export interface CreateTextSectionInput {
   pageNumbers: PageNumbersInput;
 }
 
+export interface DevelopingSentenceStructureInput {
+  subject: string;
+  verb: string;
+}
+
 export interface FindChaptersInTextInput {
   textTitle: string;
 }
@@ -1046,8 +1607,16 @@ export interface FindCoursesByIdInput {
   _ids: string[];
 }
 
+export interface FindEssayByIdInput {
+  _id: string;
+}
+
 export interface FindEssaysToCompleteByStudentIdInput {
   studentId: string;
+}
+
+export interface FindEssaysToGradeByIdInput {
+  teacherId: string;
 }
 
 export interface FindLessonByIdInput {
@@ -1095,8 +1664,31 @@ export interface ReadingsInput {
   readingSections: string;
 }
 
+export interface SetAnswerTypeInput {
+  essayId: string;
+  questionType: QuestionTypeEnum;
+}
+
 export interface SetCurrentMarkingPeriodInput {
   currentMarkingPeriod: MarkingPeriodEnum;
+}
+
+export interface SetOrganizerInput {
+  essayId: string;
+  writingLevel: WritingLevelEnum;
+}
+
+export interface SubmitEssayFinalDraftInput {
+  _id: string;
+  late: boolean;
+  submittedFinalDraft: SubmittedFinalDraftsInput;
+}
+
+export interface SubmittedFinalDraftsInput {
+  comments: string[];
+  draft: any;
+  gradingDraft: any;
+  score: number;
 }
 
 export interface TextSectionProtocolsInput {
@@ -1121,6 +1713,36 @@ export interface TopicInput {
   writingLevel: WritingLevelEnum;
 }
 
+export interface UpdateAcademicOrganizerInput {
+  academicSentenceStructure: AcademicSentenceStructureInput;
+  conclusion: string;
+  essayId: string;
+  restatement: string;
+}
+
+export interface UpdateAdvancedOrganizerInput {
+  advancedSentenceStructure: AdvancedSentenceStructureInput;
+  conclusion: string;
+  essayId: string;
+  restatement: string;
+}
+
+export interface UpdateDevelopingOrganizerInput {
+  answer: string;
+  basicQuestionType: BasicQuestionEnum;
+  conclusion: string;
+  developingSentenceStructure: DevelopingSentenceStructureInput;
+  essayId: string;
+  restatement: string;
+}
+
+export interface UpdateHowCauseEffectInput {
+  after: string;
+  before: string;
+  cause: string;
+  essayId: string;
+}
+
 export interface UpdateLessonInput {
   afterActivity: TextSectionProtocolsInput;
   assignedDate: any;
@@ -1138,6 +1760,14 @@ export interface UpdateLessonInput {
   vocabList: TextSectionVocabInput[];
 }
 
+export interface UpdateProblemSolutionInput {
+  essayId: string;
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
 export interface UpdateTextSectionInput {
   _id: string;
   fromChapterId: string;
@@ -1146,6 +1776,17 @@ export interface UpdateTextSectionInput {
   hasVocab: TextSectionVocabInput[];
   header: string;
   pageNumbers: PageNumbersInput;
+}
+
+export interface UpdateWhyCauseEffectInput {
+  essayId: string;
+  proximateCause: string;
+  ultimateCause: string;
+}
+
+export interface UpdateWorkingDraftInput {
+  _id: string;
+  updatedDraft: any;
 }
 
 //==============================================================

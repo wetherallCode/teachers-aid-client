@@ -12,13 +12,14 @@ import { Header, HomeLink, UserNameHeader } from './styled/headerStyles'
 import { LoginContainer, LoginToggle } from './styled/homeStyles'
 import { capitalizer } from './utils'
 import styled from 'styled-components'
+import { me_me } from './schemaTypes'
 
 export type LoginToggleProps = {
   onClick: () => void
 }
 
 function App() {
-  const me = useUserContextProvider()
+  const me: me_me = useUserContextProvider()
 
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [isNavOpen, setIsNavOpen] = useState(false)
