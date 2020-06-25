@@ -1,5 +1,5 @@
 import React, { createContext, FC, ReactNode, useContext } from 'react'
-import { me, enumValues } from '../schemaTypes'
+import { enumValues } from '../schemaTypes'
 import { useQuery, gql } from '@apollo/client'
 
 export const ENUM_VALUES = gql`
@@ -10,6 +10,11 @@ export const ENUM_VALUES = gql`
       }
     }
     WritingLevelEnum: __type(name: "WritingLevelEnum") {
+      enumValues {
+        name
+      }
+    }
+    QuestionTypeEnum: __type(name: "QuestionTypeEnum") {
       enumValues {
         name
       }
@@ -35,6 +40,9 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         writingLevel: data?.WritingLevelEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        questionTypeEnum: data?.QuestionTypeEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}
