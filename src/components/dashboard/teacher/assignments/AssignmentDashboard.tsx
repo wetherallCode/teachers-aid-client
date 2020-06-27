@@ -3,11 +3,14 @@ import { Routes, Route } from 'react-router'
 import { CreateAssignment } from './create-assignments/CreateAssignment'
 import { CreateAssignmentContextProvider } from './create-assignments/CreateAssignmentContext'
 import { EditAssignments } from './edit-assignments/EditAssignments'
-import { GradeAssignments } from './grade-assignments/GradeAssignments'
 
-export type AssignmentHomeProps = {}
+import { AssignmentsToGrade } from './grade-assignments/AssignmentsToGrade'
+import { GradeEssay } from './grade-assignments/essay-grader/GradeEssay'
+import { GradeEssayContextProvider } from './grade-assignments/essay-grader/GradeEssayContext'
 
-export const AssignmentHome: FC<AssignmentHomeProps> = () => {
+export type AssignmentDashboardProps = {}
+
+export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
   return (
     <Routes>
       <Route
@@ -19,7 +22,15 @@ export const AssignmentHome: FC<AssignmentHomeProps> = () => {
         }
       />
       <Route path='edit' element={<EditAssignments />} />
-      <Route path='grade' element={<GradeAssignments />} />
+      <Route path='grade/*' element={<AssignmentsToGrade />} />
+      <Route
+        path='grade/:assignmentId'
+        element={
+          <GradeEssayContextProvider>
+            <GradeEssay />
+          </GradeEssayContextProvider>
+        }
+      />
     </Routes>
   )
 }
