@@ -3,7 +3,7 @@ import 'react-calendar/dist/Calendar.css'
 import { Route, Routes } from 'react-router'
 import { LessonsHome } from './lessons/LessonsHome'
 import styled from 'styled-components'
-import { AssignmentHome } from './assignments/AssignmentHome'
+import { AssignmentDashboard } from './assignments/AssignmentDashboard'
 import { CoursesHome } from './courses/CoursesHome'
 
 export const TeacherDashboardHome = () => {
@@ -15,7 +15,7 @@ export const TeacherDashboardHome = () => {
         <Route path='lessons/*' element={<LessonsHome />} />
       </Routes>
       <Routes>
-        <Route path='assignments/*' element={<AssignmentHome />} />
+        <Route path='assignments/*' element={<AssignmentDashboard />} />
       </Routes>
       <Routes>
         <Route path='courses/*' element={<CoursesHome />} />
