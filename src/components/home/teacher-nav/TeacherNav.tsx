@@ -7,6 +7,7 @@ import { LessonNav } from './LessonNav'
 import { useTeacherNavContextProvider } from './TeacherNavContext'
 import { AssignmentNav } from './AssignmentsNav'
 import { CoursesNav } from './CoursesNav'
+import { RubricsNav } from './RubricsNav'
 
 export type TeacherNavProps = {
   setIsNavOpen: Dispatch<SetStateAction<boolean>>
@@ -44,6 +45,12 @@ export const TeacherNav: FC<TeacherNavProps> = ({
             </motion.li>
             <motion.li
               variants={liVariants}
+              onClick={() => event({ type: 'RUBRICS' })}
+            >
+              <Link to='dashboard/rubrics'>Rubrics</Link>
+            </motion.li>
+            <motion.li
+              variants={liVariants}
               onClick={() => event({ type: 'COURSES' })}
             >
               <Link to='dashboard/courses'>Courses</Link>
@@ -62,6 +69,9 @@ export const TeacherNav: FC<TeacherNavProps> = ({
               toggleLogin={toggleLogin}
               setIsNavOpen={setIsNavOpen}
             />
+          )}
+          {state.matches('rubrics') && (
+            <RubricsNav toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
           )}
           {state.matches('courses.home') && (
             <CoursesNav toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
