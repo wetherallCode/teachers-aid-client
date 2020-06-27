@@ -1,5 +1,11 @@
 import React, { createContext, FC, ReactNode, useContext } from 'react'
-import { enumValues } from '../schemaTypes'
+import {
+  enumValues,
+  MarkingPeriodEnum,
+  WritingLevelEnum,
+  QuestionTypeEnum,
+  RubricSectionEnum,
+} from '../schemaTypes'
 import { useQuery, gql } from '@apollo/client'
 
 export const ENUM_VALUES = gql`
@@ -15,6 +21,11 @@ export const ENUM_VALUES = gql`
       }
     }
     QuestionTypeEnum: __type(name: "QuestionTypeEnum") {
+      enumValues {
+        name
+      }
+    }
+    RubricSectionEnum: __type(name: "RubricSectionEnum") {
       enumValues {
         name
       }
@@ -39,10 +50,13 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
         markingPeriod: data?.MarkingPeriod?.enumValues?.map(
           (value) => value.name
         ),
-        writingLevel: data?.WritingLevelEnum?.enumValues?.map(
+        writingLevelEnum: data?.WritingLevelEnum?.enumValues?.map(
           (value) => value.name
         ),
         questionTypeEnum: data?.QuestionTypeEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        rubricSectionEnum: data?.RubricSectionEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}
@@ -54,10 +68,12 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
 
 export function useEnumContextProvider() {
   const context = useContext(EnumContext)
+
   if (context === undefined) {
     throw new Error(
       'useEnumContextProvider must be used within a EnumContextProvider'
     )
   }
+
   return context
 }
