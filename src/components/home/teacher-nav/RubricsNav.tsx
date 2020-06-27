@@ -18,7 +18,7 @@ export const RubricsNav: FC<RubricsNavProps> = ({
       <>
         <motion.ul variants={ulVariants}>
           <motion.li variants={liVariants}>
-            <Link to='dashboard/rubrics/create'>Create</Link>
+            <Link to='dashboard/rubrics/build'>Build</Link>
           </motion.li>
           <motion.li variants={liVariants}>
             <Link to='dashboard/rubrics/edit'>Edit</Link>
