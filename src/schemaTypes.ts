@@ -1363,6 +1363,36 @@ export interface findTextSectionsByChapterVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: buildRubricEntry
+// ====================================================
+
+export interface buildRubricEntry_buildRubricEntry_rubricEntry {
+  __typename: "RubricEntry";
+  entry: string;
+  score: number;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+}
+
+export interface buildRubricEntry_buildRubricEntry {
+  __typename: "BuildRubricEntryPayload";
+  rubricEntry: buildRubricEntry_buildRubricEntry_rubricEntry;
+}
+
+export interface buildRubricEntry {
+  buildRubricEntry: buildRubricEntry_buildRubricEntry;
+}
+
+export interface buildRubricEntryVariables {
+  input: BuildRubricEntryInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: login
 // ====================================================
 
@@ -1486,10 +1516,21 @@ export interface enumValues_QuestionTypeEnum {
   enumValues: enumValues_QuestionTypeEnum_enumValues[] | null;
 }
 
+export interface enumValues_RubricSectionEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_RubricSectionEnum {
+  __typename: "__Type";
+  enumValues: enumValues_RubricSectionEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
   QuestionTypeEnum: enumValues_QuestionTypeEnum | null;
+  RubricSectionEnum: enumValues_RubricSectionEnum | null;
 }
 
 /* tslint:disable */
@@ -1569,6 +1610,14 @@ export enum QuestionTypeEnum {
   WHY_CAUSE_EFFECT = "WHY_CAUSE_EFFECT",
 }
 
+export enum RubricSectionEnum {
+  ANSWER = "ANSWER",
+  CONCLUSION = "CONCLUSION",
+  GENERAL = "GENERAL",
+  OVERALL = "OVERALL",
+  TOPIC = "TOPIC",
+}
+
 export enum TitleEnum {
   MISS = "MISS",
   MR = "MR",
@@ -1603,6 +1652,13 @@ export interface AdvancedSentenceStructureInput {
   object?: string | null;
   subject: string;
   verb: string;
+}
+
+export interface BuildRubricEntryInput {
+  entry: string;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+  score: number;
 }
 
 export interface CreateEssayInput {

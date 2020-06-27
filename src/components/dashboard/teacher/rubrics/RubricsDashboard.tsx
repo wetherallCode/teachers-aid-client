@@ -1,11 +1,21 @@
 import React, { FC } from 'react'
+import { Routes, Route } from 'react-router'
+import { RubricBuilder } from './rubric-builder/RubricBuilder'
 
 export type RubricsDashboardProps = {}
 
 export const RubricsDashboard: FC<RubricsDashboardProps> = () => {
   return (
-    <>
-      <div></div>
-    </>
+    <Routes>
+      <Route
+        path='build'
+        element={
+          <>
+            <RubricBuilder />
+          </>
+        }
+      />
+      <Route path='edit' element={<div>Edit</div>} />
+    </Routes>
   )
 }
