@@ -5,6 +5,7 @@ import { LessonsHome } from './lessons/LessonsHome'
 import styled from 'styled-components'
 import { AssignmentDashboard } from './assignments/AssignmentDashboard'
 import { CoursesHome } from './courses/CoursesHome'
+import { RubricsDashboard } from './rubrics/RubricsDashboard'
 
 export const TeacherDashboardHome = () => {
   // const me = useUserContextProvider() as me_me_Teacher
@@ -16,6 +17,9 @@ export const TeacherDashboardHome = () => {
       </Routes>
       <Routes>
         <Route path='assignments/*' element={<AssignmentDashboard />} />
+      </Routes>
+      <Routes>
+        <Route path='rubrics/*' element={<RubricsDashboard />} />
       </Routes>
       <Routes>
         <Route path='courses/*' element={<CoursesHome />} />
