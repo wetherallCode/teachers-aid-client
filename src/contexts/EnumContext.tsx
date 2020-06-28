@@ -1,11 +1,5 @@
 import React, { createContext, FC, ReactNode, useContext } from 'react'
-import {
-  enumValues,
-  MarkingPeriodEnum,
-  WritingLevelEnum,
-  QuestionTypeEnum,
-  RubricSectionEnum,
-} from '../schemaTypes'
+import { enumValues } from '../schemaTypes'
 import { useQuery, gql } from '@apollo/client'
 
 export const ENUM_VALUES = gql`
