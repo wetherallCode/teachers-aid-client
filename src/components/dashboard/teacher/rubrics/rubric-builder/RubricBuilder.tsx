@@ -1,6 +1,7 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   buildRubricEntry,
   buildRubricEntryVariables,
   WritingLevelEnum,
@@ -9,7 +10,6 @@ import {
 import { useMachine } from '@xstate/react'
 import { rubricBuilderMachine } from './rubricBuilderMachine'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
-import { stat } from 'fs'
 import { useCheckBox } from '../../../../../hooks/useCheckBox'
 
 export type RubricBuilderProps = {}
