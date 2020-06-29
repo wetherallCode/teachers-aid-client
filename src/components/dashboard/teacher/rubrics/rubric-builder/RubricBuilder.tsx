@@ -29,14 +29,17 @@ export const BUILD_RUBRIC_ENTRY_MUTATION = gql`
 
 export const RubricBuilder: FC<RubricBuilderProps> = () => {
   const [state, event] = useMachine(rubricBuilderMachine)
-  const [writingLevels, handleChange] = useCheckBox()
+  const [writingLevels, handleChange, resetList] = useCheckBox()
+  console.log(writingLevels)
   useEffect(() => {
     event({
       type: 'SET_WRITING_LEVELS',
       payload: writingLevels as WritingLevelEnum[],
     })
   }, [event, writingLevels])
+
   const { rubricSectionEnum, writingLevelEnum } = useEnumContextProvider()
+  console.log(state.context.writingLevels)
   const [buildRubricEntry] = useMutation<
     buildRubricEntry,
     buildRubricEntryVariables
@@ -50,7 +53,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
       },
     },
     onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    refetchQueries: ['findRubricEntries'],
   })
   return (
     <form onSubmit={(e: any) => e.preventDefault()}>
@@ -76,7 +79,12 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
       {writingLevelEnum.map((level: WritingLevelEnum) => (
         <div key={level}>
           <span>
-            <input type='checkbox' value={level} onChange={handleChange} />
+            <input
+              type='checkbox'
+              checked={writingLevels.includes(level)}
+              value={level}
+              onChange={handleChange}
+            />
           </span>{' '}
           <span>{level}</span>
         </div>
@@ -123,9 +131,10 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
         ))}
         <button
           type='reset'
-          onClick={() => {
+          onClick={(e: any) => {
             buildRubricEntry()
             event({ type: 'RESET' })
+            resetList()
           }}
         >
           Add Entry
