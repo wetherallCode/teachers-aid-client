@@ -19,7 +19,7 @@ export const TeacherNav: FC<TeacherNavProps> = ({
   setIsNavOpen,
 }) => {
   const [state, event] = useTeacherNavContextProvider()
-  console.log(state.value)
+
   return (
     <>
       <motion.ul variants={ulVariants}>

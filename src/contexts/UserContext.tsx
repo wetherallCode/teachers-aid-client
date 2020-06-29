@@ -34,7 +34,7 @@ export const UserContextProvider: FC<UserContextProps> = ({ children }) => {
   const { loading, error, data } = useQuery<me>(ME_QUERY)
   if (loading) return <div>Loading </div>
   if (error) console.error(error)
-  console.log(data)
+
   return (
     <UserContext.Provider value={data?.me}>{children}</UserContext.Provider>
   )

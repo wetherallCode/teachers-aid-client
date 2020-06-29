@@ -1393,6 +1393,33 @@ export interface buildRubricEntryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findRubricEntries
+// ====================================================
+
+export interface findRubricEntries_findRubricEntries_rubricEntries {
+  __typename: "RubricEntry";
+  _id: string | null;
+  entry: string;
+  score: number;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+}
+
+export interface findRubricEntries_findRubricEntries {
+  __typename: "FindRubricEntriesPayload";
+  rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[];
+}
+
+export interface findRubricEntries {
+  findRubricEntries: findRubricEntries_findRubricEntries;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: login
 // ====================================================
 
@@ -1570,6 +1597,59 @@ export type me_me = me_me_Student | me_me_Teacher;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: removeRubricEntry
+// ====================================================
+
+export interface removeRubricEntry_removeRubricEntry {
+  __typename: "RemoveRubricEntryPayload";
+  removed: boolean;
+}
+
+export interface removeRubricEntry {
+  removeRubricEntry: removeRubricEntry_removeRubricEntry;
+}
+
+export interface removeRubricEntryVariables {
+  input: RemoveRubricEntryInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateRubricEntry
+// ====================================================
+
+export interface updateRubricEntry_updateRubricEntry_rubricEntry {
+  __typename: "RubricEntry";
+  _id: string | null;
+  entry: string;
+  score: number;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+}
+
+export interface updateRubricEntry_updateRubricEntry {
+  __typename: "UpdateRubricEntryPayload";
+  rubricEntry: updateRubricEntry_updateRubricEntry_rubricEntry;
+}
+
+export interface updateRubricEntry {
+  updateRubricEntry: updateRubricEntry_updateRubricEntry;
+}
+
+export interface updateRubricEntryVariables {
+  input: UpdateRubricEntryInput;
 }
 
 /* tslint:disable */
@@ -1770,6 +1850,10 @@ export interface ReadingsInput {
   readingSections: string;
 }
 
+export interface RemoveRubricEntryInput {
+  rubricEntryId: string;
+}
+
 export interface SetAnswerTypeInput {
   essayId: string;
   questionType: QuestionTypeEnum;
@@ -1872,6 +1956,14 @@ export interface UpdateProblemSolutionInput {
   reasonForProblem: string;
   solvedBy: string;
   whySolutionSolved: string;
+}
+
+export interface UpdateRubricEntryInput {
+  entry: string;
+  rubricEntryId: string;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+  score: number;
 }
 
 export interface UpdateTextSectionInput {

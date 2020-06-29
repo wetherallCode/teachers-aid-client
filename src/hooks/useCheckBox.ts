@@ -4,6 +4,7 @@ export const useCheckBox = () => {
   const [list, setList] = useState<string[]>([])
 
   const handleChange = (e: any) => {
+    console.log('handling change')
     const eventValue = e.target.value
     const periodIndex = list.findIndex((i) => i === eventValue)
 
@@ -16,5 +17,8 @@ export const useCheckBox = () => {
       setList((list) => [...list, eventValue])
     }
   }
-  return [list, handleChange] as const
+
+  const resetList = () => setList([])
+
+  return [list, handleChange, resetList] as const
 }
