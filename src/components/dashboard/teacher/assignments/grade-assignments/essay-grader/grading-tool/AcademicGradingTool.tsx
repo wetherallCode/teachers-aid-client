@@ -3,13 +3,10 @@ import { useGradeEssayContextProvider } from '../GradeEssayContext'
 import {
   findRubricEntries_findRubricEntries_rubricEntries,
   WritingLevelEnum,
-  RubricSectionEnum,
-  RubricEntryInput,
   ReturnedRubricEntryInput,
 } from '../../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../../hooks/useCheckBox'
 import { useEnumContextProvider } from '../../../../../../../contexts/EnumContext'
-import { gql } from '@apollo/client'
 
 export type AcademicGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
