@@ -26,7 +26,7 @@ export const UPDATE_GRADING_DRAFT_MUTATION = gql`
 `
 
 export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = ({ essay }) => {
-  const [state, event] = useGradeEssayContextProvider()
+  const [, event] = useGradeEssayContextProvider()
   const editor = useMemo(() => withReact(createEditor()), [])
   const parsedElement = JSON.parse(
     essay.finalDraft?.submittedFinalDraft.gradingDraft
@@ -37,6 +37,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = ({ essay }) => {
   useEffect(() => {
     console.log(content)
     event({ type: 'SET_DRAFT_TO_RETURN', payload: content })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content])
 
   const [updateGradingDraft] = useMutation<

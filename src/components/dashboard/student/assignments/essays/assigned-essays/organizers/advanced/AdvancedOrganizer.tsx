@@ -52,7 +52,7 @@ export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({ question }) => {
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findEssayById'],
   })
-  console.log(state.value)
+
   return (
     <>
       <div>advancedOrganizer</div>

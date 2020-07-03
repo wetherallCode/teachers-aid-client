@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   returnGradedEssay,
   returnGradedEssayVariables,
 } from '../../../../../../schemaTypes'
@@ -22,7 +23,7 @@ export const RETURN_GRADED_ESSAY_MUTATION = gql`
 export const ReturnEssay: FC<ReturnEssayProps> = () => {
   const navigate = useNavigate()
   const [state] = useGradeEssayContextProvider()
-  console.log(state.context.gradingDraft)
+
   const [returnGradedEssay] = useMutation<
     returnGradedEssay,
     returnGradedEssayVariables

@@ -19,7 +19,7 @@ export type AdvancedAnswerTypesProps = {}
 export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = () => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
-
+  console.log(state.context.advancedOrganizer.answer.preLoaded)
   const [setAnswerType] = useMutation<setAnswerType, setAnswerTypeVariables>(
     SET_ANSWER_TYPE_MUTATION,
     {
@@ -63,7 +63,6 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = () => {
                     type: 'SET_FULL_QUESTION_TYPE',
                     payload: e.target.value,
                   })
-                  event({ type: 'NEXT' })
                 }
               }}
             >

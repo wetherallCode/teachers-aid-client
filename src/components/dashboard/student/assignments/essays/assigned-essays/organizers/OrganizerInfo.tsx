@@ -80,6 +80,7 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
 
   useEffect(() => {
     if (!organizer) {
+      console.log(organizer)
       setOrganizer()
     }
   }, [organizer, setOrganizer])

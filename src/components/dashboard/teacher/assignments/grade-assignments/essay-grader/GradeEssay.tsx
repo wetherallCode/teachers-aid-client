@@ -47,7 +47,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
 `
 
 export const GradeEssay: FC<GradeEssayProps> = () => {
-  const [state, event] = useGradeEssayContextProvider()
+  const [, event] = useGradeEssayContextProvider()
   const navigate = useNavigate()
   const { assignmentId } = useParams()
   const { loading, data } = useQuery<
@@ -58,6 +58,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
       input: { _id: assignmentId },
     },
     onCompleted: (data) => {
+      console.log(data)
       event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
       event({
         type: 'SET_WRITING_LEVEL',

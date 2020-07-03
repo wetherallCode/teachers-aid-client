@@ -133,7 +133,22 @@ export const gradeEssayMachine = Machine<
                 }
               }),
             },
-            SET_RUBRIC_ENTRIES: {},
+            SET_RUBRIC_ENTRIES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  rubricEntries: evt.payload,
+                }
+              }),
+            },
+            SET_SCORE: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  score: evt.payload,
+                }
+              }),
+            },
           },
         },
         academic: {
@@ -174,7 +189,6 @@ export const gradeEssayMachine = Machine<
             },
             SET_SCORE: {
               actions: assign((ctx, evt) => {
-                console.log(evt.payload)
                 return {
                   ...ctx,
                   score: evt.payload,
@@ -187,6 +201,46 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            SET_DRAFT_TO_RETURN: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  gradingDraft: evt.payload,
+                }
+              }),
+            },
+            SET_CURRENT_RUBRIC_SECTION: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  currentRubricSection: evt.payload,
+                }
+              }),
+            },
+            SET_RUBRIC_ENTRY: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  rubricEntry: { ...evt.payload },
+                }
+              }),
+            },
+            SET_RUBRIC_ENTRIES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  rubricEntries: evt.payload,
+                }
+              }),
+            },
+            SET_SCORE: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  score: evt.payload,
+                }
+              }),
+            },
           },
         },
       },
