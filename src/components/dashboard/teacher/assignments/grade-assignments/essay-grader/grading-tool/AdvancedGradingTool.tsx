@@ -7,6 +7,7 @@ import {
   WritingLevelEnum,
   findRubricEntries_findRubricEntries_rubricEntries,
 } from '../../../../../../../schemaTypes'
+import { AdditionalComments } from './AdditionalComments'
 
 export type AdvancedGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
@@ -106,6 +107,7 @@ export const AdvancedGradingTool: FC<AdvancedGradingToolProps> = ({
             </div>
           ))}
       </div>
+      <AdditionalComments />
       <span>Score: </span>
       <span>{state.context.score}</span>
     </>

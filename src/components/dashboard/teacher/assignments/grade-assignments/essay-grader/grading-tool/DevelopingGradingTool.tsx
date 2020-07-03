@@ -7,6 +7,7 @@ import {
 } from '../../../../../../../schemaTypes'
 import { useEnumContextProvider } from '../../../../../../../contexts/EnumContext'
 import { useCheckBox } from '../../../../../../../hooks/useCheckBox'
+import { AdditionalComments } from './AdditionalComments'
 
 export type DevelopingGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
@@ -106,6 +107,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
             </div>
           ))}
       </div>
+      <AdditionalComments />
       <span>Score: </span>
       <span>{state.context.score}</span>
     </>
