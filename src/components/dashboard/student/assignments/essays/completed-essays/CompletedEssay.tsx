@@ -41,10 +41,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
     variables: {
       input: { _id: completedEssay },
     },
-    onCompleted: (data) =>
-      console.log(
-        data.findEssayById.essay.finalDraft?.submittedFinalDraft.rubricEntries
-      ),
+    onCompleted: (data) => console.log(data.findEssayById.essay),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
