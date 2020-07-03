@@ -19,6 +19,7 @@ export const EditWritingLevel: FC<EditWritingLevelProps> = () => {
         rubricWritingLevels: writingLevelList as WritingLevelEnum[],
       },
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [writingLevelList])
 
   return (

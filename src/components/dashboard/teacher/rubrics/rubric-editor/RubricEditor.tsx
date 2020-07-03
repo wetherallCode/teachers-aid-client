@@ -2,13 +2,11 @@ import React, { FC, useState } from 'react'
 import { SelectEntry } from './select-entry/SelectEntry'
 import { useRubricEditorContextProvider } from './RubricEditorContext'
 import { RubricEditorDisplay } from './edit/RubricEditorDisplay'
-import { Modal } from '../../../../../animations'
-import { DeleteEntry } from './delete/DeleteEntry'
 
 export type RubricEditorProps = {}
 
 export const RubricEditor: FC<RubricEditorProps> = () => {
-  const [state, event] = useRubricEditorContextProvider()
+  const [state] = useRubricEditorContextProvider()
   const [deleteEntry, setDeleteEntry] = useState(false)
   console.log(state.value)
   return (

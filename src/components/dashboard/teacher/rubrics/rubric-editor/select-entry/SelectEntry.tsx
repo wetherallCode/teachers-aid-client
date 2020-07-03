@@ -1,6 +1,4 @@
 import React, { FC } from 'react'
-
-import { useRubricEditorContextProvider } from '../RubricEditorContext'
 import { SelectWritingLevel } from './SelectWritingLevel'
 import { SelectRubricSection } from './SelectRubricSection'
 import { RubricEntries } from './RubricEntries'

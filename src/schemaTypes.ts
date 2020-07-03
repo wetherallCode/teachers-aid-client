@@ -488,9 +488,22 @@ export interface setOrganizerVariables {
 // GraphQL mutation operation: submitEssayFinalDraft
 // ====================================================
 
+export interface submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  gradingDraft: any;
+  draft: any;
+}
+
+export interface submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft_submittedFinalDraft;
+}
+
 export interface submitEssayFinalDraft_submitEssayFinalDraft_essay {
   __typename: "Essay";
   _id: string | null;
+  assigned: boolean;
+  finalDraft: submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft | null;
 }
 
 export interface submitEssayFinalDraft_submitEssayFinalDraft {
@@ -504,6 +517,45 @@ export interface submitEssayFinalDraft {
 
 export interface submitEssayFinalDraftVariables {
   input: SubmitEssayFinalDraftInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findCompletedEssaysByStudentId
+// ====================================================
+
+export interface findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays_topic {
+  __typename: "Topic";
+  writingLevel: WritingLevelEnum;
+}
+
+export interface findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays {
+  __typename: "Essay";
+  _id: string | null;
+  readings: findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays_readings;
+  topic: findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays_topic;
+}
+
+export interface findCompletedEssaysByStudentId_findCompletedEssaysByStudentId {
+  __typename: "FindCompletedEssaysByStudentIdPayload";
+  essays: findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays[];
+}
+
+export interface findCompletedEssaysByStudentId {
+  findCompletedEssaysByStudentId: findCompletedEssaysByStudentId_findCompletedEssaysByStudentId;
+}
+
+export interface findCompletedEssaysByStudentIdVariables {
+  input: FindCompletedEssaysByStudentIdInput;
 }
 
 /* tslint:disable */
@@ -631,11 +683,19 @@ export interface findEssayToGradeById_findEssayById_essay_topic {
   writingLevel: WritingLevelEnum;
 }
 
+export interface findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  entry: string;
+  score: number;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+}
+
 export interface findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft {
   __typename: "SubmittedFinalDraft";
   draft: any;
   gradingDraft: any;
-  comments: string[];
+  rubricEntries: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
 }
 
 export interface findEssayToGradeById_findEssayById_essay_finalDraft {
@@ -647,6 +707,7 @@ export interface findEssayToGradeById_findEssayById_essay_finalDraft {
 export interface findEssayToGradeById_findEssayById_essay {
   __typename: "Essay";
   _id: string | null;
+  assigned: boolean;
   hasOwner: findEssayToGradeById_findEssayById_essay_hasOwner;
   topic: findEssayToGradeById_findEssayById_essay_topic;
   dueDate: any;
@@ -665,6 +726,61 @@ export interface findEssayToGradeById {
 
 export interface findEssayToGradeByIdVariables {
   input: FindEssayByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: returnGradedEssay
+// ====================================================
+
+export interface returnGradedEssay_returnGradedEssay_essay {
+  __typename: "Essay";
+  _id: string | null;
+  assigned: boolean;
+}
+
+export interface returnGradedEssay_returnGradedEssay {
+  __typename: "ReturnGradedEssayPayload";
+  essay: returnGradedEssay_returnGradedEssay_essay;
+}
+
+export interface returnGradedEssay {
+  returnGradedEssay: returnGradedEssay_returnGradedEssay;
+}
+
+export interface returnGradedEssayVariables {
+  input: ReturnGradedEssayInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateGradingDraft
+// ====================================================
+
+export interface updateGradingDraft_updateGradingDraft_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateGradingDraft_updateGradingDraft {
+  __typename: "UpdateGradingDraftPayload";
+  essay: updateGradingDraft_updateGradingDraft_essay;
+}
+
+export interface updateGradingDraft {
+  updateGradingDraft: updateGradingDraft_updateGradingDraft;
+}
+
+export interface updateGradingDraftVariables {
+  input: UpdateGradingDraftInput;
 }
 
 /* tslint:disable */
@@ -696,6 +812,7 @@ export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner {
 export interface findEssaysToGradeById_findEssaysToGradeById_essays {
   __typename: "Essay";
   _id: string | null;
+  assigned: boolean;
   readings: findEssaysToGradeById_findEssaysToGradeById_essays_readings;
   hasOwner: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner;
 }
@@ -1393,6 +1510,59 @@ export interface buildRubricEntryVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: removeRubricEntry
+// ====================================================
+
+export interface removeRubricEntry_removeRubricEntry {
+  __typename: "RemoveRubricEntryPayload";
+  removed: boolean;
+}
+
+export interface removeRubricEntry {
+  removeRubricEntry: removeRubricEntry_removeRubricEntry;
+}
+
+export interface removeRubricEntryVariables {
+  input: RemoveRubricEntryInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateRubricEntry
+// ====================================================
+
+export interface updateRubricEntry_updateRubricEntry_rubricEntry {
+  __typename: "RubricEntry";
+  _id: string | null;
+  entry: string;
+  score: number;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+}
+
+export interface updateRubricEntry_updateRubricEntry {
+  __typename: "UpdateRubricEntryPayload";
+  rubricEntry: updateRubricEntry_updateRubricEntry_rubricEntry;
+}
+
+export interface updateRubricEntry {
+  updateRubricEntry: updateRubricEntry_updateRubricEntry;
+}
+
+export interface updateRubricEntryVariables {
+  input: UpdateRubricEntryInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findRubricEntries
 // ====================================================
 
@@ -1605,51 +1775,44 @@ export interface me {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: removeRubricEntry
+// GraphQL query operation: findCompletedEssayById
 // ====================================================
 
-export interface removeRubricEntry_removeRubricEntry {
-  __typename: "RemoveRubricEntryPayload";
-  removed: boolean;
-}
-
-export interface removeRubricEntry {
-  removeRubricEntry: removeRubricEntry_removeRubricEntry;
-}
-
-export interface removeRubricEntryVariables {
-  input: RemoveRubricEntryInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: updateRubricEntry
-// ====================================================
-
-export interface updateRubricEntry_updateRubricEntry_rubricEntry {
+export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
-  _id: string | null;
   entry: string;
-  score: number;
   rubricSection: RubricSectionEnum;
-  rubricWritingLevels: WritingLevelEnum[];
+  score: number;
 }
 
-export interface updateRubricEntry_updateRubricEntry {
-  __typename: "UpdateRubricEntryPayload";
-  rubricEntry: updateRubricEntry_updateRubricEntry_rubricEntry;
+export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  draft: any;
+  score: number;
+  rubricEntries: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
 }
 
-export interface updateRubricEntry {
-  updateRubricEntry: updateRubricEntry_updateRubricEntry;
+export interface findCompletedEssayById_findEssayById_essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft;
 }
 
-export interface updateRubricEntryVariables {
-  input: UpdateRubricEntryInput;
+export interface findCompletedEssayById_findEssayById_essay {
+  __typename: "Essay";
+  finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
+}
+
+export interface findCompletedEssayById_findEssayById {
+  __typename: "FindEssayByIdPayload";
+  essay: findCompletedEssayById_findEssayById_essay;
+}
+
+export interface findCompletedEssayById {
+  findEssayById: findCompletedEssayById_findEssayById;
+}
+
+export interface findCompletedEssayByIdVariables {
+  input: FindEssayByIdInput;
 }
 
 /* tslint:disable */
@@ -1789,6 +1952,10 @@ export interface FindChaptersInTextInput {
   textTitle: string;
 }
 
+export interface FindCompletedEssaysByStudentIdInput {
+  studentId: string;
+}
+
 export interface FindCoursesByIdInput {
   _ids: string[];
 }
@@ -1854,6 +2021,28 @@ export interface RemoveRubricEntryInput {
   rubricEntryId: string;
 }
 
+export interface ReturnGradedEssayInput {
+  _id: string;
+  additionalComments?: string[] | null;
+  gradingDraft: any;
+  rubricEntries: ReturnedRubricEntryInput[];
+  score: number;
+}
+
+export interface ReturnedRubricEntryInput {
+  entry: string;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevel: WritingLevelEnum;
+  score: number;
+}
+
+export interface RubricEntryInput {
+  entry: string;
+  rubricSection: RubricSectionEnum;
+  rubricWritingLevels: WritingLevelEnum[];
+  score: number;
+}
+
 export interface SetAnswerTypeInput {
   essayId: string;
   questionType: QuestionTypeEnum;
@@ -1875,9 +2064,10 @@ export interface SubmitEssayFinalDraftInput {
 }
 
 export interface SubmittedFinalDraftsInput {
-  comments: string[];
+  additionalComments?: string[] | null;
   draft: any;
   gradingDraft: any;
+  rubricEntries: RubricEntryInput[];
   score: number;
 }
 
@@ -1924,6 +2114,11 @@ export interface UpdateDevelopingOrganizerInput {
   developingSentenceStructure: DevelopingSentenceStructureInput;
   essayId: string;
   restatement: string;
+}
+
+export interface UpdateGradingDraftInput {
+  essayId: string;
+  gradingDraft?: any | null;
 }
 
 export interface UpdateHowCauseEffectInput {
