@@ -2,6 +2,7 @@ import React, { FC, Dispatch, SetStateAction } from 'react'
 import { useRubricEditorContextProvider } from '../RubricEditorContext'
 import { gql, useMutation } from '@apollo/client'
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeRubricEntry,
   removeRubricEntryVariables,
 } from '../../../../../../schemaTypes'
