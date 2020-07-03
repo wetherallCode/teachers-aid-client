@@ -18,6 +18,7 @@ export const FIND_ESSAYS_TO_GRADE_BY_ID_QUERY = gql`
     findEssaysToGradeById(input: $input) {
       essays {
         _id
+        assigned
         readings {
           readingSections
         }
@@ -48,6 +49,7 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
       input: { teacherId: _id! },
     },
     onCompleted: (data) => {
+      console.log(data.findEssaysToGradeById.essays)
       console.log(
         data?.findEssaysToGradeById.essays.filter((essay) =>
           essay.hasOwner.inCourses.some(
@@ -63,9 +65,6 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
       data?.findEssaysToGradeById.essays.filter((essay) =>
         essay.hasOwner.inCourses.some((course) => course._id === courseId)
       )!
-      //   data?.findEssaysToGradeById.essays.filter((essay) =>
-      //     essay.hasOwner.inCourses.some((course) => course._id! === courseId)
-      //   )
     )
   }, [data, courseId])
   if (loading) return <div>Loading </div>

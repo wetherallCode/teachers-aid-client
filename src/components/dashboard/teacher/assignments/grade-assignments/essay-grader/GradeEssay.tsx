@@ -6,6 +6,9 @@ import {
   findEssayToGradeById,
 } from '../../../../../../schemaTypes'
 import { useGradeEssayContextProvider } from './GradeEssayContext'
+import { TeacherEssayEditor } from './TeacherEssayEditor'
+import { GradingTool } from './grading-tool/GradingTool'
+import { ReturnEssay } from './ReturnEssay'
 
 export type GradeEssayProps = {}
 
@@ -14,6 +17,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
     findEssayById(input: $input) {
       essay {
         _id
+        assigned
         hasOwner {
           firstName
           lastName
@@ -29,7 +33,12 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
           submittedFinalDraft {
             draft
             gradingDraft
-            comments
+            rubricEntries {
+              entry
+              score
+              rubricSection
+              rubricWritingLevels
+            }
           }
         }
       }
@@ -38,7 +47,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
 `
 
 export const GradeEssay: FC<GradeEssayProps> = () => {
-  const [, event] = useGradeEssayContextProvider()
+  const [state, event] = useGradeEssayContextProvider()
   const { assignmentId } = useParams()
   const { loading, data } = useQuery<
     findEssayToGradeById,
@@ -49,13 +58,31 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
     },
     onCompleted: (data) => {
       event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
+      event({
+        type: 'SET_WRITING_LEVEL',
+        payload: data.findEssayById.essay.topic.writingLevel,
+      })
+      event({
+        type: 'SET_DRAFT_TO_RETURN',
+        payload:
+          data.findEssayById.essay.finalDraft?.submittedFinalDraft.gradingDraft,
+      })
+      event({ type: 'NEXT' })
     },
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
+
   return (
     <>
-      <div>{data?.findEssayById.essay.hasOwner.firstName}</div>
+      {data?.findEssayById.essay.finalDraft && (
+        <>
+          <div>{data?.findEssayById.essay.hasOwner.firstName}</div>
+          <TeacherEssayEditor essay={data?.findEssayById.essay!} />
+          <GradingTool />
+          <ReturnEssay />
+        </>
+      )}
     </>
   )
 }
