@@ -30,6 +30,10 @@ export type gradeEssayMachineEvent =
   | { type: 'SET_RUBRIC_ENTRY'; payload: RubricEntryInput }
   | { type: 'SET_RUBRIC_ENTRIES'; payload: ReturnedRubricEntryInput[] }
   | { type: 'SET_SCORE'; payload: number }
+  | { type: 'SET_COMMENT'; payload: string }
+  | { type: 'RESET_COMMENT' }
+  | { type: 'ADD_ADDITIONAL_COMMENT'; payload: string }
+  | { type: 'REMOVE_COMMENT'; payload: number }
 
 export type gradeEssayMachineContext = {
   essayId: string
@@ -39,6 +43,8 @@ export type gradeEssayMachineContext = {
   rubricEntries: ReturnedRubricEntryInput[]
   writingLevel: WritingLevelEnum
   gradingDraft: string
+  comment: string
+  additionalComments: string[]
 }
 
 export const gradeEssayMachine = Machine<
@@ -61,6 +67,8 @@ export const gradeEssayMachine = Machine<
     score: 0,
     writingLevel: WritingLevelEnum.DEVELOPING,
     gradingDraft: '',
+    comment: '',
+    additionalComments: [],
   },
   states: {
     loading: {
@@ -149,6 +157,41 @@ export const gradeEssayMachine = Machine<
                 }
               }),
             },
+            SET_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  comment: evt.payload,
+                }
+              }),
+            },
+            RESET_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  contextProperty: '',
+                }
+              }),
+            },
+            ADD_ADDITIONAL_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  additionalComments: [...ctx.additionalComments, evt.payload],
+                }
+              }),
+            },
+            REMOVE_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  additionalComments: [
+                    ...ctx.additionalComments.slice(0, evt.payload),
+                    ...ctx.additionalComments.slice(evt.payload + 1),
+                  ],
+                }
+              }),
+            },
           },
         },
         academic: {
@@ -195,6 +238,41 @@ export const gradeEssayMachine = Machine<
                 }
               }),
             },
+            SET_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  comment: evt.payload,
+                }
+              }),
+            },
+            RESET_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  contextProperty: '',
+                }
+              }),
+            },
+            ADD_ADDITIONAL_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  additionalComments: [...ctx.additionalComments, evt.payload],
+                }
+              }),
+            },
+            REMOVE_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  additionalComments: [
+                    ...ctx.additionalComments.slice(0, evt.payload),
+                    ...ctx.additionalComments.slice(evt.payload + 1),
+                  ],
+                }
+              }),
+            },
           },
         },
         advanced: {
@@ -238,6 +316,41 @@ export const gradeEssayMachine = Machine<
                 return {
                   ...ctx,
                   score: evt.payload,
+                }
+              }),
+            },
+            SET_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  comment: evt.payload,
+                }
+              }),
+            },
+            RESET_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  contextProperty: '',
+                }
+              }),
+            },
+            ADD_ADDITIONAL_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  additionalComments: [...ctx.additionalComments, evt.payload],
+                }
+              }),
+            },
+            REMOVE_COMMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  additionalComments: [
+                    ...ctx.additionalComments.slice(0, evt.payload),
+                    ...ctx.additionalComments.slice(evt.payload + 1),
+                  ],
                 }
               }),
             },
