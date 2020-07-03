@@ -525,6 +525,52 @@ export interface submitEssayFinalDraftVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findCompletedEssayById
+// ====================================================
+
+export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  entry: string;
+  rubricSection: RubricSectionEnum;
+  score: number;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  draft: any;
+  score: number;
+  rubricEntries: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
+}
+
+export interface findCompletedEssayById_findEssayById_essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft;
+}
+
+export interface findCompletedEssayById_findEssayById_essay {
+  __typename: "Essay";
+  finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
+}
+
+export interface findCompletedEssayById_findEssayById {
+  __typename: "FindEssayByIdPayload";
+  essay: findCompletedEssayById_findEssayById_essay;
+}
+
+export interface findCompletedEssayById {
+  findEssayById: findCompletedEssayById_findEssayById;
+}
+
+export interface findCompletedEssayByIdVariables {
+  input: FindEssayByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findCompletedEssaysByStudentId
 // ====================================================
 
@@ -668,6 +714,53 @@ export interface findLessonsByUnitVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findEssaysToGradeById
+// ====================================================
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses {
+  __typename: "Course";
+  _id: string | null;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+  inCourses: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses[];
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays {
+  __typename: "Essay";
+  _id: string | null;
+  assigned: boolean;
+  readings: findEssaysToGradeById_findEssaysToGradeById_essays_readings;
+  hasOwner: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById {
+  __typename: "FindEssaysToGradeByIdPayload";
+  essays: findEssaysToGradeById_findEssaysToGradeById_essays[];
+}
+
+export interface findEssaysToGradeById {
+  findEssaysToGradeById: findEssaysToGradeById_findEssaysToGradeById;
+}
+
+export interface findEssaysToGradeByIdVariables {
+  input: FindEssaysToGradeByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findEssayToGradeById
 // ====================================================
 
@@ -781,53 +874,6 @@ export interface updateGradingDraft {
 
 export interface updateGradingDraftVariables {
   input: UpdateGradingDraftInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findEssaysToGradeById
-// ====================================================
-
-export interface findEssaysToGradeById_findEssaysToGradeById_essays_readings {
-  __typename: "Readings";
-  readingSections: string;
-}
-
-export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses {
-  __typename: "Course";
-  _id: string | null;
-}
-
-export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner {
-  __typename: "Student";
-  firstName: string;
-  lastName: string;
-  inCourses: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses[];
-}
-
-export interface findEssaysToGradeById_findEssaysToGradeById_essays {
-  __typename: "Essay";
-  _id: string | null;
-  assigned: boolean;
-  readings: findEssaysToGradeById_findEssaysToGradeById_essays_readings;
-  hasOwner: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner;
-}
-
-export interface findEssaysToGradeById_findEssaysToGradeById {
-  __typename: "FindEssaysToGradeByIdPayload";
-  essays: findEssaysToGradeById_findEssaysToGradeById_essays[];
-}
-
-export interface findEssaysToGradeById {
-  findEssaysToGradeById: findEssaysToGradeById_findEssaysToGradeById;
-}
-
-export interface findEssaysToGradeByIdVariables {
-  input: FindEssaysToGradeByIdInput;
 }
 
 /* tslint:disable */
@@ -1767,52 +1813,6 @@ export type me_me = me_me_Student | me_me_Teacher;
 
 export interface me {
   me: me_me | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findCompletedEssayById
-// ====================================================
-
-export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
-  __typename: "RubricEntry";
-  entry: string;
-  rubricSection: RubricSectionEnum;
-  score: number;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft {
-  __typename: "SubmittedFinalDraft";
-  draft: any;
-  score: number;
-  rubricEntries: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
-}
-
-export interface findCompletedEssayById_findEssayById_essay_finalDraft {
-  __typename: "FinalDraftContainer";
-  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft;
-}
-
-export interface findCompletedEssayById_findEssayById_essay {
-  __typename: "Essay";
-  finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
-}
-
-export interface findCompletedEssayById_findEssayById {
-  __typename: "FindEssayByIdPayload";
-  essay: findCompletedEssayById_findEssayById_essay;
-}
-
-export interface findCompletedEssayById {
-  findEssayById: findCompletedEssayById_findEssayById;
-}
-
-export interface findCompletedEssayByIdVariables {
-  input: FindEssayByIdInput;
 }
 
 /* tslint:disable */

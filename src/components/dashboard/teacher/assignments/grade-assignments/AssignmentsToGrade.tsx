@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { me_me_Teacher } from '../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
-import { EssaysToGrade } from './EssaysToGrade'
+import { EssaysToGrade } from './essay-grader/EssaysToGrade'
 
 export type AssignmentsToGradeProps = {}
 
