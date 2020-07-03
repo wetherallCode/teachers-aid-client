@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useParams } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 import { gql, useQuery } from '@apollo/client'
 import {
   findEssayToGradeByIdVariables,
@@ -48,6 +48,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
 
 export const GradeEssay: FC<GradeEssayProps> = () => {
   const [state, event] = useGradeEssayContextProvider()
+  const navigate = useNavigate()
   const { assignmentId } = useParams()
   const { loading, data } = useQuery<
     findEssayToGradeById,
@@ -75,6 +76,9 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
 
   return (
     <>
+      <button onClick={() => navigate('/dashboard/assignments/grade')}>
+        Back
+      </button>
       {data?.findEssayById.essay.finalDraft && (
         <>
           <div>{data?.findEssayById.essay.hasOwner.firstName}</div>
