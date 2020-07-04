@@ -33,6 +33,7 @@ export const ReturnEssay: FC<ReturnEssayProps> = () => {
         _id: state.context.essayId,
         gradingDraft: state.context.gradingDraft,
         rubricEntries: state.context.rubricEntries,
+        additionalComments: state.context.additionalComments,
         score: state.context.score,
       },
     },
