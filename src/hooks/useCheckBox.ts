@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-export const useCheckBox = () => {
-  const [list, setList] = useState<string[]>([])
+export const useCheckBox = (initialList: any[]) => {
+  const [list, setList] = useState<any[]>(initialList)
 
   const handleChange = (e: any) => {
     const eventValue = e.target.value
