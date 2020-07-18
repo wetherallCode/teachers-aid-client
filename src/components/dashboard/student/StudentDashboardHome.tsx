@@ -4,6 +4,7 @@ import { StudentAssignments } from './assignments/StudentAssignments'
 import { EssayToComplete } from './assignments/essays/assigned-essays/EssayToComplete'
 import { StudentEssayContextProvider } from './assignments/essays/assigned-essays/StudentEssayContext'
 import { CompletedEssay } from './assignments/essays/completed-essays/CompletedEssay'
+import { CompletedEssayContextProvider } from './assignments/essays/completed-essays/CompletedEssayContext'
 
 export const StudentDashboardHome = () => {
   return (
@@ -20,7 +21,11 @@ export const StudentDashboardHome = () => {
         />
         <Route
           path='assignments/completed/:completedEssay'
-          element={<CompletedEssay />}
+          element={
+            <CompletedEssayContextProvider>
+              <CompletedEssay />
+            </CompletedEssayContextProvider>
+          }
         />
       </Routes>
     </>
