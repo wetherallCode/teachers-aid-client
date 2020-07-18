@@ -56,6 +56,13 @@ export const CoursesNav: FC<TeacherNavProps> = ({
                 Lesson Editor
               </Link>
             </motion.li>
+            <motion.li variants={liVariants}>
+              <Link
+                to={`dashboard/courses/${navState.context.course}/assign-assignments`}
+              >
+                Assign Work
+              </Link>
+            </motion.li>
           </>
         )}
         <motion.li variants={liVariants}>
