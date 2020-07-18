@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { useParams, Routes, Route } from 'react-router'
 import { LessonEditor } from '../lessons/lesson-editor/LessonEditor'
 import { LessonEditorContextProvider } from '../lessons/lesson-editor/LessonEditorContext'
+import { AssignAssignments } from '../assignments/assign-assignments/AssignAssignments'
 
 export type CourseManagerProps = {}
 
@@ -10,7 +11,6 @@ export const CourseManager: FC<CourseManagerProps> = () => {
   const { course } = param
   return (
     <>
-      <div>{course}</div>
       <Routes>
         <Route
           path='lesson-editor'
@@ -20,6 +20,7 @@ export const CourseManager: FC<CourseManagerProps> = () => {
             </LessonEditorContextProvider>
           }
         />
+        <Route path='assign-assignments' element={<AssignAssignments />} />
       </Routes>
     </>
   )

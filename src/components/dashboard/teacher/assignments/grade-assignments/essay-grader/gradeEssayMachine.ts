@@ -4,6 +4,7 @@ import {
   RubricEntryInput,
   RubricSectionEnum,
   ReturnedRubricEntryInput,
+  ReturnGradedEssayInput,
 } from '../../../../../../schemaTypes'
 
 export type gradeEssayMachineSchema = {
@@ -23,8 +24,19 @@ export type gradeEssayMachineSchema = {
 export type gradeEssayMachineEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
+  | { type: 'SET_DRAFT_TO_GRADE'; payload: ReturnGradedEssayInput }
   | { type: 'SET_ESSAY_ID'; payload: string }
   | { type: 'SET_WRITING_LEVEL'; payload: WritingLevelEnum }
+  | {
+      type: 'SET_INTITIAL_DRAFT'
+      payload: {
+        writingLevel: WritingLevelEnum
+        draftToGrade: ReturnGradedEssayInput
+      }
+    }
+  | { type: 'SET_DRAFT'; payload: ReturnGradedEssayInput }
+  | { type: 'SET_DRAFT_SELECTOR'; payload: number }
+  | { type: 'SET_DRAFT_NUMBER_TO_GRADE'; payload: number }
   | { type: 'SET_DRAFT_TO_RETURN'; payload: string }
   | { type: 'SET_CURRENT_RUBRIC_SECTION'; payload: RubricSectionEnum }
   | { type: 'SET_RUBRIC_ENTRY'; payload: RubricEntryInput }
@@ -37,14 +49,12 @@ export type gradeEssayMachineEvent =
 
 export type gradeEssayMachineContext = {
   essayId: string
-  score: number
   currentRubricSection: RubricSectionEnum
   rubricEntry: RubricEntryInput
-  rubricEntries: ReturnedRubricEntryInput[]
   writingLevel: WritingLevelEnum
-  gradingDraft: string
+  draftSelector: number
   comment: string
-  additionalComments: string[]
+  draftToGrade: ReturnGradedEssayInput
 }
 
 export const gradeEssayMachine = Machine<
@@ -53,9 +63,19 @@ export const gradeEssayMachine = Machine<
   gradeEssayMachineEvent
 >({
   id: 'gradeEssay',
+  type: 'parallel',
   initial: 'loading',
   context: {
     essayId: '',
+    draftToGrade: {
+      _id: '',
+      draftNumber: 0,
+      gradingDraft: '',
+      rubricEntries: [],
+      additionalComments: [],
+      score: 0,
+    },
+    draftSelector: 0,
     rubricEntry: {
       entry: '',
       rubricSection: RubricSectionEnum.OVERALL,
@@ -63,17 +83,30 @@ export const gradeEssayMachine = Machine<
       score: 0,
     },
     currentRubricSection: RubricSectionEnum.OVERALL,
-    rubricEntries: [],
-    score: 0,
     writingLevel: WritingLevelEnum.DEVELOPING,
-    gradingDraft: '',
     comment: '',
-    additionalComments: [],
   },
   states: {
     loading: {
       on: {
         NEXT: 'grading',
+        SET_INTITIAL_DRAFT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              writingLevel: evt.payload.writingLevel,
+              draftToGrade: evt.payload.draftToGrade,
+            }
+          }),
+        },
+        SET_DRAFT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              draftToGrade: evt.payload,
+            }
+          }),
+        },
         SET_ESSAY_ID: {
           actions: assign((ctx, evt) => {
             return {
@@ -90,11 +123,11 @@ export const gradeEssayMachine = Machine<
             }
           }),
         },
-        SET_DRAFT_TO_RETURN: {
+        SET_DRAFT_SELECTOR: {
           actions: assign((ctx, evt) => {
             return {
               ...ctx,
-              gradingDraft: evt.payload,
+              draftSelector: evt.payload,
             }
           }),
         },
@@ -108,11 +141,16 @@ export const gradeEssayMachine = Machine<
             '': [
               {
                 target: 'developing',
-                cond: (ctx) => ctx.writingLevel === 'DEVELOPING',
+                cond: (ctx) => {
+                  return ctx.writingLevel === 'DEVELOPING'
+                },
               },
               {
                 target: 'academic',
-                cond: (ctx) => ctx.writingLevel === 'ACADEMIC',
+                cond: (ctx) => {
+                  console.log(ctx.writingLevel)
+                  return ctx.writingLevel === 'ACADEMIC'
+                },
               },
               {
                 target: 'advanced',
@@ -145,7 +183,10 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  rubricEntries: evt.payload,
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    rubricEntries: evt.payload,
+                  },
                 }
               }),
             },
@@ -153,7 +194,10 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  score: evt.payload,
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    score: evt.payload,
+                  },
                 }
               }),
             },
@@ -165,19 +209,17 @@ export const gradeEssayMachine = Machine<
                 }
               }),
             },
-            RESET_COMMENT: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  contextProperty: '',
-                }
-              }),
-            },
             ADD_ADDITIONAL_COMMENT: {
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  additionalComments: [...ctx.additionalComments, evt.payload],
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    additionalComments: [
+                      ...ctx.draftToGrade.additionalComments,
+                      evt.payload,
+                    ],
+                  },
                 }
               }),
             },
@@ -185,10 +227,19 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  additionalComments: [
-                    ...ctx.additionalComments.slice(0, evt.payload),
-                    ...ctx.additionalComments.slice(evt.payload + 1),
-                  ],
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    additionalComments: [
+                      ...ctx.draftToGrade.additionalComments,
+                      ...ctx.draftToGrade.additionalComments!.slice(
+                        0,
+                        evt.payload
+                      ),
+                      ...ctx.draftToGrade.additionalComments!.slice(
+                        evt.payload + 1
+                      ),
+                    ],
+                  },
                 }
               }),
             },
@@ -198,14 +249,6 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
-            SET_DRAFT_TO_RETURN: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  gradingDraft: evt.payload,
-                }
-              }),
-            },
             SET_CURRENT_RUBRIC_SECTION: {
               actions: assign((ctx, evt) => {
                 return {
@@ -226,7 +269,10 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  rubricEntries: evt.payload,
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    rubricEntries: evt.payload,
+                  },
                 }
               }),
             },
@@ -234,7 +280,10 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  score: evt.payload,
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    score: evt.payload,
+                  },
                 }
               }),
             },
@@ -246,19 +295,17 @@ export const gradeEssayMachine = Machine<
                 }
               }),
             },
-            RESET_COMMENT: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  contextProperty: '',
-                }
-              }),
-            },
             ADD_ADDITIONAL_COMMENT: {
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  additionalComments: [...ctx.additionalComments, evt.payload],
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    additionalComments: [
+                      ...ctx.draftToGrade.additionalComments,
+                      evt.payload,
+                    ],
+                  },
                 }
               }),
             },
@@ -266,10 +313,19 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  additionalComments: [
-                    ...ctx.additionalComments.slice(0, evt.payload),
-                    ...ctx.additionalComments.slice(evt.payload + 1),
-                  ],
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    additionalComments: [
+                      ...ctx.draftToGrade.additionalComments,
+                      ...ctx.draftToGrade.additionalComments!.slice(
+                        0,
+                        evt.payload
+                      ),
+                      ...ctx.draftToGrade.additionalComments!.slice(
+                        evt.payload + 1
+                      ),
+                    ],
+                  },
                 }
               }),
             },
@@ -279,14 +335,6 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
-            SET_DRAFT_TO_RETURN: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  gradingDraft: evt.payload,
-                }
-              }),
-            },
             SET_CURRENT_RUBRIC_SECTION: {
               actions: assign((ctx, evt) => {
                 return {
@@ -307,7 +355,10 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  rubricEntries: evt.payload,
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    rubricEntries: evt.payload,
+                  },
                 }
               }),
             },
@@ -315,7 +366,10 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  score: evt.payload,
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    score: evt.payload,
+                  },
                 }
               }),
             },
@@ -327,19 +381,17 @@ export const gradeEssayMachine = Machine<
                 }
               }),
             },
-            RESET_COMMENT: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  contextProperty: '',
-                }
-              }),
-            },
             ADD_ADDITIONAL_COMMENT: {
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  additionalComments: [...ctx.additionalComments, evt.payload],
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    additionalComments: [
+                      ...ctx.draftToGrade.additionalComments,
+                      evt.payload,
+                    ],
+                  },
                 }
               }),
             },
@@ -347,10 +399,19 @@ export const gradeEssayMachine = Machine<
               actions: assign((ctx, evt) => {
                 return {
                   ...ctx,
-                  additionalComments: [
-                    ...ctx.additionalComments.slice(0, evt.payload),
-                    ...ctx.additionalComments.slice(evt.payload + 1),
-                  ],
+                  draftToGrade: {
+                    ...ctx.draftToGrade,
+                    additionalComments: [
+                      ...ctx.draftToGrade.additionalComments,
+                      ...ctx.draftToGrade.additionalComments!.slice(
+                        0,
+                        evt.payload
+                      ),
+                      ...ctx.draftToGrade.additionalComments!.slice(
+                        evt.payload + 1
+                      ),
+                    ],
+                  },
                 }
               }),
             },

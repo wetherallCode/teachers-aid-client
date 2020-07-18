@@ -29,8 +29,8 @@ export const BUILD_RUBRIC_ENTRY_MUTATION = gql`
 
 export const RubricBuilder: FC<RubricBuilderProps> = () => {
   const [state, event] = useMachine(rubricBuilderMachine)
-  const [writingLevels, handleChange, resetList] = useCheckBox()
-  console.log(writingLevels)
+  const [writingLevels, handleChange, resetList] = useCheckBox([])
+
   useEffect(() => {
     event({
       type: 'SET_WRITING_LEVELS',
@@ -39,7 +39,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
   }, [event, writingLevels])
 
   const { rubricSectionEnum, writingLevelEnum } = useEnumContextProvider()
-  console.log(state.context.writingLevels)
+
   const [buildRubricEntry] = useMutation<
     buildRubricEntry,
     buildRubricEntryVariables
@@ -50,6 +50,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
         rubricWritingLevels: state.context.writingLevels,
         rubricSection: state.context.section,
         score: state.context.score,
+        howToImprove: state.context.howToImprove,
       },
     },
     onCompleted: (data) => console.log(data),
@@ -118,6 +119,13 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
       >
         &gt;
       </button>
+      <div>How to Improve</div>
+      <input
+        type='text'
+        onChange={(e: any) =>
+          event({ type: 'SET_HOW_TO_IMPROVE', payload: e.target.value })
+        }
+      />
       <div>
         <div>Entry</div>
         <div>{state.context.entry}</div>

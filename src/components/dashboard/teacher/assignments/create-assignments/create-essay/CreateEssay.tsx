@@ -30,14 +30,15 @@ export const CREATE_ESSAY_MUTATION = gql`
 
 export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
   const [state, event] = useCreateAssignmentContextPovider()
-  console.log(state.context.essay.dueTime)
-  const { writingLevel } = useEnumContextProvider()
+
+  const { writingLevelEnum } = useEnumContextProvider()
+
   const [topicQuestion, setTopicQuestion] = useState<TopicInput>({
     question: '',
     questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT,
     writingLevel: WritingLevelEnum.DEVELOPING,
   })
-  const [assignedCourseIds, handleChange] = useCheckBox()
+  const [assignedCourseIds, handleChange] = useCheckBox([])
 
   useEffect(() => {
     event({ type: 'SET_LINKED_COURSES_IDS', payload: assignedCourseIds })
@@ -145,7 +146,7 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
           }
         >
           <option value={undefined}>Pick a Level</option>
-          {writingLevel.map((type: string) => (
+          {writingLevelEnum.map((type: string) => (
             <option key={type!} value={type}>
               {type}
             </option>

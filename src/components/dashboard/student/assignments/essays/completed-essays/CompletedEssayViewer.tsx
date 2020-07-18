@@ -1,18 +1,17 @@
 import React, { FC } from 'react'
-import { findCompletedEssayById_findEssayById_essay } from '../../../../../../schemaTypes'
 
 export type CompletedEssayViewerProps = {
-  essay: findCompletedEssayById_findEssayById_essay
+  draft: string
 }
 
 export const CompletedEssayViewer: FC<CompletedEssayViewerProps> = ({
-  essay,
+  draft,
 }) => {
-  const [parsedEssay] = JSON.parse(essay.finalDraft?.submittedFinalDraft.draft)
+  const [parsedEssay] = JSON.parse(draft)
   const text = parsedEssay.children[0].text
   return (
     <>
-      <div>{text}</div>{' '}
+      <div>{text}</div>
     </>
   )
 }

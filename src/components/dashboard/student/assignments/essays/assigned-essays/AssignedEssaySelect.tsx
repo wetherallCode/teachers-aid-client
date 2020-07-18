@@ -15,6 +15,7 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
     findEssaysToCompleteByStudentId(input: $input) {
       essays {
         _id
+        paperBased
         readings {
           readingSections
         }
@@ -44,11 +45,13 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
   return (
     <>
       <div>Essays to complete</div>
-      {data?.findEssaysToCompleteByStudentId.essays.map((essay) => (
-        <Link to={`toComplete/${essay._id!}`} key={essay._id!}>
-          {essay.readings.readingSections}
-        </Link>
-      ))}
+      {data?.findEssaysToCompleteByStudentId.essays
+        .filter((essay) => !essay.paperBased)
+        .map((essay) => (
+          <Link to={`toComplete/${essay._id!}`} key={essay._id!}>
+            {essay.readings.readingSections}
+          </Link>
+        ))}
     </>
   )
 }

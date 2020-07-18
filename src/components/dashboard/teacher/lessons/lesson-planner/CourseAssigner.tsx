@@ -30,7 +30,7 @@ export const GET_COURSES_QUERY = gql`
 export const CourseAssigner: FC<CourseAssignerProps> = () => {
   const me = useUserContextProvider()
   const [, event] = useLessonPlannerContextProvider()
-  const [coursesList, handleChange] = useCheckBox()
+  const [coursesList, handleChange] = useCheckBox([])
 
   useEffect(() => {
     event({ type: 'ASSIGN_TO_COURSES', payload: coursesList })

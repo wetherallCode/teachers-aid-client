@@ -16,6 +16,7 @@ export const FIND_RUBRIC_ENTRIES = gql`
         score
         rubricSection
         rubricWritingLevels
+        howToImprove
       }
     }
   }

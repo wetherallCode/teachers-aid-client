@@ -28,18 +28,20 @@ export const AdditionalComments: FC<AdditionalCommentsProps> = () => {
         </button>
       </form>
       <div>
-        {state.context.additionalComments.map((comment, i: number) => {
-          return (
-            <div key={i}>
-              <span>{comment}</span>{' '}
-              <span
-                onClick={() => event({ type: 'REMOVE_COMMENT', payload: i })}
-              >
-                -
-              </span>
-            </div>
-          )
-        })}
+        {state.context.draftToGrade.additionalComments!.map(
+          (comment, i: number) => {
+            return (
+              <div key={i}>
+                <span>{comment}</span>{' '}
+                <span
+                  onClick={() => event({ type: 'REMOVE_COMMENT', payload: i })}
+                >
+                  -
+                </span>
+              </div>
+            )
+          }
+        )}
       </div>
     </>
   )

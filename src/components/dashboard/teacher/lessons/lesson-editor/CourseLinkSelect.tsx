@@ -16,7 +16,7 @@ export const CourseLinkSelect: FC<CourseLinkSelectProps> = ({
 }) => {
   const me: me_me_Teacher = useUserContextProvider()
   const [, event] = useLessonEditorContextProvider()
-  const [courseList, handleChange] = useCheckBox()
+  const [courseList, handleChange] = useCheckBox([])
   useEffect(() => {
     if (courseList.length > 0) {
       event({ type: 'ASSIGN_TO_COURSES', payload: courseList })

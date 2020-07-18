@@ -19,6 +19,13 @@ export const SET_ANSWER_TYPE_MUTATION = gql`
     setAnswerType(input: $input) {
       essay {
         _id
+        workingDraft {
+          organizer {
+            ... on AcademicOrganizer {
+              questionType
+            }
+          }
+        }
       }
     }
   }

@@ -14,7 +14,7 @@ export type CreateLessonProps = {
 export const CREATE_LESSON_MUTATION = gql`
   mutation createLesson($input: CreateLessonInput!) {
     createLesson(input: $input) {
-      lessons {
+      lesson {
         _id
         assignedMarkingPeriod
       }
@@ -42,9 +42,9 @@ export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
     startingPage,
     endingPage,
   } = state.context
-  console.log(startingPage, endingPage)
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [createLesson, { data, error }] = useMutation<createLessonVariables>(
+  const [createLesson] = useMutation<createLessonVariables>(
     CREATE_LESSON_MUTATION,
     {
       variables: {

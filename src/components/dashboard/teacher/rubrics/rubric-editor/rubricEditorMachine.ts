@@ -3,6 +3,7 @@ import {
   WritingLevelEnum,
   RubricSectionEnum,
   findRubricEntries_findRubricEntries_rubricEntries,
+  UpdateRubricEntryInput,
 } from '../../../../../schemaTypes'
 
 export type rubricEditorMachineSchema = {
@@ -20,6 +21,7 @@ export type rubricEditorMachineEvent =
   | { type: 'SET_WRITING_LEVEL'; payload: WritingLevelEnum }
   | { type: 'SET_WRITING_LEVEL_SELECTOR'; payload: number }
   | { type: 'SET_RUBRIC_SECTION'; payload: RubricSectionEnum }
+  | { type: 'SET_HOW_TO_IMPROVE'; payload: string }
   | { type: 'SET_RUBRIC_SECTION_SELECTOR'; payload: number }
   | {
       type: 'SET_RUBRIC_ENTRIES'
@@ -31,7 +33,7 @@ export type rubricEditorMachineEvent =
     }
   | {
       type: 'SET_EDITABLE_ENTRY'
-      payload: findRubricEntries_findRubricEntries_rubricEntries
+      payload: UpdateRubricEntryInput
     }
   | {
       type: 'SET_EDITABLE_ENTRY_WRITING_LEVEL_LIST'
@@ -45,7 +47,7 @@ export type rubricEditorMachineContext = {
   rubricSectionSelector: number
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
   selectedRubricEntry: findRubricEntries_findRubricEntries_rubricEntries
-  editableRubricEntry: findRubricEntries_findRubricEntries_rubricEntries
+  editableRubricEntry: UpdateRubricEntryInput
 }
 
 export const rubricEditorMachine = Machine<
@@ -54,7 +56,6 @@ export const rubricEditorMachine = Machine<
   rubricEditorMachineEvent
 >({
   id: 'rubricEditor',
-  // type: 'parallel',
   initial: 'selectEntry',
   context: {
     writingLevelSelector: 0,
@@ -68,15 +69,16 @@ export const rubricEditorMachine = Machine<
       entry: '',
       rubricWritingLevels: [],
       rubricSection: RubricSectionEnum.ANSWER,
+      howToImprove: '',
       score: 0,
     },
     editableRubricEntry: {
-      __typename: 'RubricEntry',
-      _id: '',
+      rubricEntryId: '',
       entry: '',
       rubricWritingLevels: [],
       rubricSection: RubricSectionEnum.ANSWER,
       score: 0,
+      howToImprove: '',
     },
   },
   states: {
@@ -128,6 +130,14 @@ export const rubricEditorMachine = Machine<
             return {
               ...ctx,
               selectedRubricEntry: evt.payload,
+              // editableRubricEntry: evt.payload,
+            }
+          }),
+        },
+        SET_EDITABLE_ENTRY: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
               editableRubricEntry: evt.payload,
             }
           }),
@@ -140,7 +150,6 @@ export const rubricEditorMachine = Machine<
         DELETE: 'delete',
         SET_EDITABLE_ENTRY: {
           actions: assign((ctx, evt) => {
-            console.log(evt.payload)
             return {
               ...ctx,
               editableRubricEntry: evt.payload,

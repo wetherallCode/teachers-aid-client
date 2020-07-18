@@ -13,7 +13,6 @@ export const GradingTool: FC<GradingToolProps> = () => {
   const [state] = useGradeEssayContextProvider()
 
   const { loading, data } = useQuery<findRubricEntries>(FIND_RUBRIC_ENTRIES, {
-    // onCompleted: (data) => console.log(data.findRubricEntries.rubricEntries),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
@@ -22,13 +21,13 @@ export const GradingTool: FC<GradingToolProps> = () => {
 
   return (
     <>
-      {state.matches('grading.developing') && (
+      {state.context.writingLevel === 'DEVELOPING' && (
         <DevelopingGradingTool rubricEntries={rubric} />
       )}
-      {state.matches('grading.academic') && (
+      {state.context.writingLevel === 'ACADEMIC' && (
         <AcademicGradingTool rubricEntries={rubric} />
       )}
-      {state.matches('grading.advanced') && (
+      {state.context.writingLevel === 'ADVANCED' && (
         <AdvancedGradingTool rubricEntries={rubric} />
       )}
     </>

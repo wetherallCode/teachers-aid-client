@@ -32,10 +32,11 @@ export const LessonSelect: FC<LessonSelectProps> = () => {
         courseId: state.context.courseId,
       },
     },
+    onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  console.log(data)
+  console.log(state.context.essay.lesson)
   return (
     <>
       <div>Select Lesson</div>

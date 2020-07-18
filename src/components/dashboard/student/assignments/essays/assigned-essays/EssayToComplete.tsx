@@ -133,8 +133,10 @@ export type updateWorkingDraftType = (
 
 export const EssayToComplete: FC<EssayToCompleteProps> = () => {
   const params = useParams()
-  const navigate = useNavigate()
   const { essayToComplete } = params
+
+  const navigate = useNavigate()
+
   const [state, event] = useStudentEssayContextProvider()
 
   useEffect(() => {
@@ -195,7 +197,6 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
           })
           event({ type: 'SET_RESTATEMENT', payload: organizer.restatement })
           if (organizer.questionType) {
-            console.log(organizer)
             event({
               type: 'SET_FULL_QUESTION_TYPE',
               payload: organizer.questionType,
@@ -308,11 +309,13 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
     .organizer as findEssayById_findEssayById_essay_workingDraft_organizer
 
   const submittedFinalDraft: SubmittedFinalDraftsInput = {
+    draftNumber: 0, //Because this component will always be the first draft
     draft: state.context.draftToUpdate,
     gradingDraft: state.context.draftToUpdate,
     rubricEntries: [],
     additionalComments: [],
     score: 0,
+    graded: false,
   }
 
   return (

@@ -12,6 +12,7 @@ import {
 } from '../../../../../../schemaTypes'
 import { Modal } from '../../../../../../animations'
 import { DeleteEntry } from '../delete/DeleteEntry'
+import { EditHowToImprove } from './EditHowToImprove'
 
 export type RubricEditorDisplayProps = {
   deleteEntry: boolean
@@ -44,12 +45,13 @@ export const RubricEditorDisplay: FC<RubricEditorDisplayProps> = ({
   >(UPDATE_RUBRIC_ENTRY_MUTATION, {
     variables: {
       input: {
-        rubricEntryId: state.context.selectedRubricEntry._id!,
+        rubricEntryId: state.context.editableRubricEntry.rubricEntryId!,
         entry: state.context.editableRubricEntry.entry,
         rubricSection: state.context.editableRubricEntry.rubricSection,
         rubricWritingLevels:
           state.context.editableRubricEntry.rubricWritingLevels,
         score: state.context.editableRubricEntry.score,
+        howToImprove: state.context.editableRubricEntry.howToImprove!,
       },
     },
     onCompleted: (data) => console.log(data),
@@ -57,11 +59,13 @@ export const RubricEditorDisplay: FC<RubricEditorDisplayProps> = ({
   })
   return (
     <>
+      <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
       <div>{state.context.selectedRubricEntry.entry}</div>
       <EditEntry />
       <EditScore />
       <EditSection />
       <EditWritingLevel />
+      <EditHowToImprove />
       <button
         onClick={() => {
           updateRubricEntry()
@@ -72,7 +76,6 @@ export const RubricEditorDisplay: FC<RubricEditorDisplayProps> = ({
       </button>
       <button
         onClick={() => {
-          // event({ type: 'DELETE' })
           setDeleteEntry(true)
         }}
       >

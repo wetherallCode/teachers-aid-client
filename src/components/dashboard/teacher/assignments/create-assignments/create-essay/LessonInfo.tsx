@@ -28,7 +28,6 @@ export const FIND_LESSON_BY_ID_QUERY = gql`
           startingSection
           endingSection
         }
-        linkedCourseIds
       }
     }
   }
@@ -67,10 +66,6 @@ export const LessonInfo: FC<LessonInfoProps> = ({ me }) => {
             : `${data?.findLessonById.lesson.assignedSections.startingSection} - ${data?.findLessonById.lesson.assignedSections.endingSection}`,
       })
       event({ type: 'SET_ASSIGNER_ID', payload: me._id! })
-      event({
-        type: 'SET_LINKED_COURSES_IDS',
-        payload: data.findLessonById.lesson.linkedCourseIds,
-      })
     },
     onError: (error) => console.error(error),
   })

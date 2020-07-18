@@ -25,9 +25,8 @@ export const FIND_COURSES_BY_ID_QUERY = gql`
 
 export const CourseLink: FC<CourseLinkProps> = () => {
   const [state] = useLessonEditorContextProvider()
-  console.log(state.context.courses)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loading, error, data: courseData } = useQuery<
+
+  const { loading, data: courseData } = useQuery<
     findCoursesById,
     findCoursesByIdVariables
   >(FIND_COURSES_BY_ID_QUERY, {
@@ -37,7 +36,7 @@ export const CourseLink: FC<CourseLinkProps> = () => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  console.log(courseData)
+
   return (
     <>
       <div>Linked Courses</div>

@@ -19,7 +19,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
   const [state, event] = useGradeEssayContextProvider()
   const { rubricSectionEnum } = useEnumContextProvider()
   const [sectionSelector, setSectionSelector] = useState(0)
-  const [rubricList, handleChange] = useCheckBox()
+  const [rubricList, handleChange] = useCheckBox([])
   const rubricEntriesList: ReturnedRubricEntryInput[] = []
 
   rubricList.forEach((entry: string) => {
@@ -28,8 +28,8 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
     const rubricEntryValues: ReturnedRubricEntryInput = {
       entry: splitValues[0],
       rubricSection: state.context.currentRubricSection,
-      rubricWritingLevel: WritingLevelEnum.DEVELOPING,
       score: Number(splitValues[1]),
+      howToImprove: splitValues[2],
     }
     rubricEntriesList.push(rubricEntryValues)
   })
@@ -44,7 +44,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
     if (averageScore) {
       event({
         type: 'SET_SCORE',
-        payload: averageScore,
+        payload: Number(averageScore.toFixed(2)),
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,7 +100,11 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
             <div key={entry._id!}>
               <input
                 type='checkbox'
-                value={[entry.entry, entry.score.toString()]}
+                value={[
+                  entry.entry,
+                  entry.score.toString(),
+                  entry.howToImprove!,
+                ]}
                 onChange={handleChange}
               />
               <span>{entry.entry}</span>
@@ -109,7 +113,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
       </div>
       <AdditionalComments />
       <span>Score: </span>
-      <span>{state.context.score}</span>
+      <span>{state.context.draftToGrade.score}</span>
     </>
   )
 }

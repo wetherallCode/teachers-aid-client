@@ -19,7 +19,6 @@ export const UPDATE_LESSON_MUTATION = gql`
     updateLesson(input: $input) {
       lessons {
         _id
-        linkedCourseIds
       }
     }
   }

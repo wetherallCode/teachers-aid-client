@@ -276,7 +276,6 @@ export const createAssignmentMachine = Machine<
         createEssay: {},
       },
     },
-
     readingGuide: {
       initial: 'unit',
       states: {

@@ -12,6 +12,7 @@ export const EditSection: FC<EditSectionProps> = () => {
     <>
       <div>Rubric Section</div>
       <select
+        value={state.context.editableRubricEntry.rubricSection}
         onChange={(e: any) => {
           if (e.target.value !== 'none') {
             event({

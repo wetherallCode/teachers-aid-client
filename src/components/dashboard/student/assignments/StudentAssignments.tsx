@@ -5,7 +5,6 @@ import { CompletedEssaySelect } from './essays/completed-essays/CompletedEssaySe
 export type StudentAssignmentsProps = {}
 
 export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
-  console.log('student-assignments')
   return (
     <>
       <div>Assignments to Complete</div>

@@ -5,6 +5,7 @@ import {
   submitEssayFinalDraft,
   submitEssayFinalDraftVariables,
   SubmittedFinalDraftsInput,
+  findEssayById_findEssayById_essay,
 } from '../../../../../../schemaTypes'
 
 export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
@@ -27,13 +28,13 @@ export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
 export type SubmitEssayFinalDraftInput = {
   _id: string
   submittedFinalDraft: SubmittedFinalDraftsInput
-  isLate: boolean
+  essay: findEssayById_findEssayById_essay
 }
 
 export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
   _id,
   submittedFinalDraft,
-  isLate,
+  essay,
 }) => {
   const navigate = useNavigate()
 
@@ -41,9 +42,45 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
     submitEssayFinalDraft,
     submitEssayFinalDraftVariables
   >(SUBMIT_FINAL_DRAFT_MUTATION, {
-    variables: { input: { _id, submittedFinalDraft, late: isLate } },
-    refetchQueries: ['findEssaysToComplete', 'findEssayById'],
+    // variables: {
+    //   input: { _id, submittedFinalDraft, late: isLate, paperBased: false },
+    // },
     onCompleted: () => navigate('/dashboard/assignments'),
+    refetchQueries: ['findEssaysToComplete', 'findEssayById'],
   })
-  return <button onClick={() => submitFinalDraft()}>Submit</button>
+
+  // function handleLate() {
+  //   const submittedDate: string = new Date().toLocaleString().substring(0, 9)
+  //   const submittedTime: string = new Date().toLocaleString().substring(10)
+
+  //   let isLate: boolean = false
+
+  //   if (submittedDate > essay.dueDate) {
+  //     isLate = true
+  //   }
+  //   if (essay.dueDate === submittedDate && essay.dueTime < submittedTime) {
+  //     isLate = true
+  //   }
+  //   return isLate
+  // }
+  // const lateness = handleLate()
+
+  return (
+    <button
+      onClick={() =>
+        submitFinalDraft({
+          variables: {
+            input: {
+              _id,
+              submittedFinalDraft,
+              late: true, //server will change based on time submitted
+              paperBased: false,
+            },
+          },
+        })
+      }
+    >
+      Submit
+    </button>
+  )
 }

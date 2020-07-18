@@ -7,6 +7,9 @@ import { EditAssignments } from './edit-assignments/EditAssignments'
 import { AssignmentsToGrade } from './grade-assignments/AssignmentsToGrade'
 import { GradeEssay } from './grade-assignments/essay-grader/GradeEssay'
 import { GradeEssayContextProvider } from './grade-assignments/essay-grader/GradeEssayContext'
+import { AssignAssignments } from './assign-assignments/AssignAssignments'
+import { GradePaperBasedAssignment } from './grade-assignments/paper-based/GradePaperBasedAssignment'
+import { PaperBasedContextProvider } from './grade-assignments/paper-based/PaperBasedContext'
 
 export type AssignmentDashboardProps = {}
 
@@ -24,13 +27,22 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
       <Route path='edit' element={<EditAssignments />} />
       <Route path='grade/*' element={<AssignmentsToGrade />} />
       <Route
-        path='grade/:assignmentId'
+        path='grade/:essayId'
         element={
           <GradeEssayContextProvider>
             <GradeEssay />
           </GradeEssayContextProvider>
         }
       />
+      <Route
+        path='grade/paper-based/:assignmentId'
+        element={
+          <PaperBasedContextProvider>
+            <GradePaperBasedAssignment />
+          </PaperBasedContextProvider>
+        }
+      />
+      <Route path='assign/*' element={<AssignAssignments />} />
     </Routes>
   )
 }

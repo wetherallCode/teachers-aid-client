@@ -12,6 +12,7 @@ import { MarkingPeriod } from './MarkingPeriod'
 import { SetSections } from './SetSections'
 import { ActivitiesEditor } from './ActivitiesEditor'
 import { CourseLink } from './CourseLink'
+import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 
 export type LessonEditorInfoProps = {
   updateLesson: updateLessonType
@@ -28,11 +29,10 @@ export const FIND_LESSON_FOR_LESSON_EDITOR_QUERY = gql`
           unitName
         }
         assignedMarkingPeriod
-        assignedCourse {
+        assignedCourses {
           _id
           name
         }
-        linkedCourseIds
         assignedSections {
           startingSection
           endingSection
@@ -69,11 +69,6 @@ export const FIND_LESSON_FOR_LESSON_EDITOR_QUERY = gql`
         lessonName
       }
     }
-    MarkingPeriod: __type(name: "MarkingPeriodEnum") {
-      enumValues {
-        name
-      }
-    }
   }
 `
 
@@ -81,13 +76,13 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
   updateLesson,
 }) => {
   const [state, event] = useLessonEditorContextProvider()
-
+  const { markingPeriod } = useEnumContextProvider()
   useEffect(() => {
     updateLesson()
   }, [state.context, updateLesson])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { loading, error, data } = useQuery<
+  const { loading, data } = useQuery<
     findLessonByIdForLessonEditor,
     findLessonByIdForLessonEditorVariables
   >(FIND_LESSON_FOR_LESSON_EDITOR_QUERY, {
@@ -101,7 +96,6 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
         inUnit,
         assignedMarkingPeriod,
         assignedSectionIdList,
-        linkedCourseIds,
         assignedSections,
         vocabList,
         beforeActivity,
@@ -126,7 +120,6 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
       })
       event({ type: 'SET_STARTING_PAGE', payload: pageNumbers.startingPage })
       event({ type: 'SET_ENDING_PAGE', payload: pageNumbers.endingPage })
-      event({ type: 'ASSIGN_TO_COURSES', payload: linkedCourseIds })
       const modifiedVocabList = vocabList.map((word) => ({
         word: word.word,
         definition: word.definition,
@@ -158,11 +151,9 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
       event({ type: 'SET_QUESTION_LIST', payload: modifiedQuestionList })
       event({ type: 'SET_ESSENTIAL_QUESTION', payload: essentialQuestion })
     },
+    onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  if (error) console.error(error)
-  console.log(data?.findLessonById.lesson.linkedCourseIds)
-  const markingPeriodList = data?.MarkingPeriod?.enumValues
 
   return (
     <>
@@ -178,9 +169,7 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
             unit={data?.findLessonById.lesson.inUnit!}
             updateLesson={updateLesson}
           />
-          <MarkingPeriod
-            markingPeriodList={markingPeriodList?.map((value) => value.name)!}
-          />
+          <MarkingPeriod markingPeriodList={markingPeriod} />
         </>
       )}
       <button onClick={() => event({ type: 'SECTION_SELECT' })}>

@@ -29,7 +29,7 @@ export const FIND_COMPLETED_ESSAYS_QUERY = gql`
 
 export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
-  console.log(me._id)
+
   const { loading, data } = useQuery<
     findCompletedEssaysByStudentId,
     findCompletedEssaysByStudentIdVariables

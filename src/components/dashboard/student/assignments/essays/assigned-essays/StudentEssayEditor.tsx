@@ -53,24 +53,6 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
     refetchQueries: ['findEssayById'],
   })
 
-  useEffect(() => {
-    const submittedDate: string = new Date().toLocaleString().substring(0, 9)
-    const submittedTime: string = new Date().toLocaleString().substring(10)
-
-    let isLate: boolean = false
-
-    if (submittedDate > essay.dueDate) {
-      isLate = true
-    }
-    if (essay.dueDate === submittedDate && essay.dueTime < submittedTime) {
-      isLate = true
-    }
-
-    event({ type: 'SET_LATE', payload: isLate })
-  }, [content, event, essay.dueDate, essay.dueTime])
-
-  console.log(state.context.isLate)
-
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
       case 'code':
@@ -142,7 +124,7 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
           <SubmitEssay
             _id={state.context.essayId}
             submittedFinalDraft={submittedFinalDraft}
-            isLate={state.context.isLate}
+            essay={essay}
           />
         )}
       </Slate>

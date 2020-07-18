@@ -8,7 +8,7 @@ export type RubricEditorProps = {}
 export const RubricEditor: FC<RubricEditorProps> = () => {
   const [state] = useRubricEditorContextProvider()
   const [deleteEntry, setDeleteEntry] = useState(false)
-  console.log(state.value)
+
   return (
     <>
       <div>Edit Rubric Entry</div>

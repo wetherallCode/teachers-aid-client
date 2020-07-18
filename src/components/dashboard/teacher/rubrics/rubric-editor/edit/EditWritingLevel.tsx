@@ -8,7 +8,11 @@ export type EditWritingLevelProps = {}
 
 export const EditWritingLevel: FC<EditWritingLevelProps> = () => {
   const [state, event] = useRubricEditorContextProvider()
-  const [writingLevelList, handleCheckbox] = useCheckBox()
+
+  const [writingLevelList, handleCheckbox] = useCheckBox(
+    state.context.editableRubricEntry.rubricWritingLevels
+  )
+
   const { writingLevelEnum } = useEnumContextProvider()
 
   useEffect(() => {
@@ -21,7 +25,7 @@ export const EditWritingLevel: FC<EditWritingLevelProps> = () => {
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [writingLevelList])
-
+  // console.log(state.context.editableRubricEntry.rubricWritingLevels)
   return (
     <>
       <div>Writing Levels</div>
@@ -30,9 +34,7 @@ export const EditWritingLevel: FC<EditWritingLevelProps> = () => {
           <input
             type='checkbox'
             value={level}
-            checked={state.context.editableRubricEntry.rubricWritingLevels.includes(
-              level
-            )}
+            checked={writingLevelList.includes(level)}
             onChange={handleCheckbox}
           />
           <div>{level}</div>

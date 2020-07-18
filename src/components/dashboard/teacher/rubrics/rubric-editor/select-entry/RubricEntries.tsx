@@ -23,6 +23,17 @@ export const RubricEntries: FC<RubricEntryDisplayProps> = ({
         <div
           onClick={() => {
             event({ type: 'SET_RUBRIC_ENTRY', payload: entry })
+            event({
+              type: 'SET_EDITABLE_ENTRY',
+              payload: {
+                rubricEntryId: entry._id!,
+                entry: entry.entry,
+                rubricSection: entry.rubricSection,
+                rubricWritingLevels: entry.rubricWritingLevels,
+                score: entry.score,
+                howToImprove: entry.howToImprove,
+              },
+            })
             event({ type: 'NEXT' })
           }}
           key={entry._id!}

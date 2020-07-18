@@ -20,6 +20,7 @@ export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_top
 export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
   __typename: "Essay";
   _id: string | null;
+  paperBased: boolean;
   readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
   topic: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic;
 }
@@ -224,9 +225,26 @@ export interface UpdateWorkingDraftVariables {
 // GraphQL mutation operation: setAnswerType
 // ====================================================
 
+export interface setAnswerType_setAnswerType_essay_workingDraft_organizer_AdvancedOrganizer {
+  __typename: "AdvancedOrganizer" | "DevelopingOrganizer";
+}
+
+export interface setAnswerType_setAnswerType_essay_workingDraft_organizer_AcademicOrganizer {
+  __typename: "AcademicOrganizer";
+  questionType: QuestionTypeEnum | null;
+}
+
+export type setAnswerType_setAnswerType_essay_workingDraft_organizer = setAnswerType_setAnswerType_essay_workingDraft_organizer_AdvancedOrganizer | setAnswerType_setAnswerType_essay_workingDraft_organizer_AcademicOrganizer;
+
+export interface setAnswerType_setAnswerType_essay_workingDraft {
+  __typename: "WorkingDraft";
+  organizer: setAnswerType_setAnswerType_essay_workingDraft_organizer | null;
+}
+
 export interface setAnswerType_setAnswerType_essay {
   __typename: "Essay";
   _id: string | null;
+  workingDraft: setAnswerType_setAnswerType_essay_workingDraft;
 }
 
 export interface setAnswerType_setAnswerType {
@@ -496,7 +514,7 @@ export interface submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft_su
 
 export interface submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft {
   __typename: "FinalDraftContainer";
-  submittedFinalDraft: submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft_submittedFinalDraft;
+  submittedFinalDraft: submitEssayFinalDraft_submitEssayFinalDraft_essay_finalDraft_submittedFinalDraft[];
 }
 
 export interface submitEssayFinalDraft_submitEssayFinalDraft_essay {
@@ -528,28 +546,142 @@ export interface submitEssayFinalDraftVariables {
 // GraphQL query operation: findCompletedEssayById
 // ====================================================
 
+export interface findCompletedEssayById_findEssayById_essay_topic {
+  __typename: "Topic";
+  question: string;
+  writingLevel: WritingLevelEnum;
+}
+
 export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
   entry: string;
   rubricSection: RubricSectionEnum;
   score: number;
+  howToImprove: string | null;
 }
 
 export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft {
   __typename: "SubmittedFinalDraft";
   draft: any;
+  gradingDraft: any;
   score: number;
+  draftNumber: number;
   rubricEntries: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
+  additionalComments: string[] | null;
 }
 
 export interface findCompletedEssayById_findEssayById_essay_finalDraft {
   __typename: "FinalDraftContainer";
-  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft;
+  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft[];
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
+  __typename: "DevelopingSentenceStructure";
+  subject: string;
+  verb: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer {
+  __typename: "DevelopingOrganizer";
+  basicQuestionType: BasicQuestionEnum | null;
+  developingSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure;
+  restatement: string;
+  answer: string;
+  conclusion: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure {
+  __typename: "AcademicSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer {
+  __typename: "AcademicOrganizer";
+  academicSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure;
+  restatement: string;
+  conclusion: string;
+  questionType: QuestionTypeEnum | null;
+  answerType: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure {
+  __typename: "AdvancedSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer {
+  __typename: "AdvancedOrganizer";
+  advancedSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure;
+  answerType: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType | null;
+  restatement: string;
+  conclusion: string;
+  questionType: QuestionTypeEnum | null;
+}
+
+export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer;
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft {
+  __typename: "WorkingDraft";
+  draft: any;
+  organizer: findCompletedEssayById_findEssayById_essay_workingDraft_organizer | null;
 }
 
 export interface findCompletedEssayById_findEssayById_essay {
   __typename: "Essay";
+  _id: string | null;
+  topic: findCompletedEssayById_findEssayById_essay_topic;
   finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
+  workingDraft: findCompletedEssayById_findEssayById_essay_workingDraft;
 }
 
 export interface findCompletedEssayById_findEssayById {
@@ -602,6 +734,131 @@ export interface findCompletedEssaysByStudentId {
 
 export interface findCompletedEssaysByStudentIdVariables {
   input: FindCompletedEssaysByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: resubmitEssayFinalDraft
+// ====================================================
+
+export interface resubmitEssayFinalDraft_resubmitEssayFinalDraft_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface resubmitEssayFinalDraft_resubmitEssayFinalDraft {
+  __typename: "ResubmitEssayFinalDraftPayload";
+  essay: resubmitEssayFinalDraft_resubmitEssayFinalDraft_essay;
+}
+
+export interface resubmitEssayFinalDraft {
+  resubmitEssayFinalDraft: resubmitEssayFinalDraft_resubmitEssayFinalDraft;
+}
+
+export interface resubmitEssayFinalDraftVariables {
+  input: ResubmitEssayFinalDraftInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assignEssays
+// ====================================================
+
+export interface assignEssays_assignEssays_essays {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface assignEssays_assignEssays {
+  __typename: "AssignEssaysPayload";
+  essays: assignEssays_assignEssays_essays[];
+}
+
+export interface assignEssays {
+  assignEssays: assignEssays_assignEssays;
+}
+
+export interface assignEssaysVariables {
+  input: AssignEssaysInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssaysByAssociatedLessonIdAndCourseId
+// ====================================================
+
+export interface findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays {
+  __typename: "Essay";
+  assigned: boolean;
+  hasOwner: findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays_hasOwner;
+  readings: findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays_readings;
+  dueDate: any;
+  assignedDate: any;
+}
+
+export interface findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId {
+  __typename: "FindEssaysByAssociatedLessonIdAndCourseIdPayload";
+  essays: findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays[];
+}
+
+export interface findEssaysByAssociatedLessonIdAndCourseId {
+  findEssaysByAssociatedLessonIdAndCourseId: findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId;
+}
+
+export interface findEssaysByAssociatedLessonIdAndCourseIdVariables {
+  input: FindEssaysByAssociatedLessonIdAndCourseIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findLessonsByCourse
+// ====================================================
+
+export interface findLessonsByCourse_findLessonByCourse_lessons {
+  __typename: "Lesson";
+  _id: string | null;
+  lessonName: string;
+}
+
+export interface findLessonsByCourse_findLessonByCourse {
+  __typename: "FindLessonByCoursePayload";
+  lessons: findLessonsByCourse_findLessonByCourse_lessons[];
+}
+
+export interface findLessonsByCourse {
+  findLessonByCourse: findLessonsByCourse_findLessonByCourse;
+}
+
+export interface findLessonsByCourseVariables {
+  input: FindLessonByCourseInput;
 }
 
 /* tslint:disable */
@@ -664,7 +921,6 @@ export interface findLessonById_findLessonById_lesson {
   questionList: findLessonById_findLessonById_lesson_questionList[];
   pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
   assignedSections: findLessonById_findLessonById_lesson_assignedSections;
-  linkedCourseIds: string[];
 }
 
 export interface findLessonById_findLessonById {
@@ -734,12 +990,27 @@ export interface findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner {
   inCourses: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner_inCourses[];
 }
 
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  draftNumber: number;
+  graded: boolean;
+}
+
+export interface findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  returned: boolean;
+  submitted: boolean;
+  submittedFinalDraft: findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft_submittedFinalDraft[];
+}
+
 export interface findEssaysToGradeById_findEssaysToGradeById_essays {
   __typename: "Essay";
   _id: string | null;
+  late: boolean;
   assigned: boolean;
   readings: findEssaysToGradeById_findEssaysToGradeById_essays_readings;
   hasOwner: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner;
+  finalDraft: findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft | null;
 }
 
 export interface findEssaysToGradeById_findEssaysToGradeById {
@@ -766,6 +1037,7 @@ export interface findEssaysToGradeByIdVariables {
 
 export interface findEssayToGradeById_findEssayById_essay_hasOwner {
   __typename: "Student";
+  _id: string | null;
   firstName: string;
   lastName: string;
 }
@@ -778,23 +1050,28 @@ export interface findEssayToGradeById_findEssayById_essay_topic {
 
 export interface findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
+  _id: string | null;
   entry: string;
   score: number;
   rubricSection: RubricSectionEnum;
-  rubricWritingLevels: WritingLevelEnum[];
 }
 
 export interface findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft {
   __typename: "SubmittedFinalDraft";
   draft: any;
   gradingDraft: any;
+  draftNumber: number;
+  score: number;
+  additionalComments: string[] | null;
   rubricEntries: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
 }
 
 export interface findEssayToGradeById_findEssayById_essay_finalDraft {
   __typename: "FinalDraftContainer";
   submitTime: any | null;
-  submittedFinalDraft: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft;
+  submitted: boolean;
+  returned: boolean;
+  submittedFinalDraft: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft[];
 }
 
 export interface findEssayToGradeById_findEssayById_essay {
@@ -882,6 +1159,153 @@ export interface updateGradingDraftVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findStudentsByCourse
+// ====================================================
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments {
+  __typename: "Essay" | "Reading_Guide" | "Test";
+  _id: string | null;
+  markingPeriod: MarkingPeriodEnum;
+  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_readings;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  hasAssignments: findStudentsByCourse_findStudentsByCourse_students_hasAssignments[];
+}
+
+export interface findStudentsByCourse_findStudentsByCourse {
+  __typename: "FindStudentsByCoursePayload";
+  students: findStudentsByCourse_findStudentsByCourse_students[];
+}
+
+export interface findStudentsByCourse {
+  findStudentsByCourse: findStudentsByCourse_findStudentsByCourse;
+}
+
+export interface findStudentsByCourseVariables {
+  input: FindStudentsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAssignmentById
+// ====================================================
+
+export interface findAssignmentById_findAssignmentById_assignment_Reading_Guide_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Reading_Guide_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Reading_Guide {
+  __typename: "Reading_Guide" | "Test";
+  _id: string | null;
+  hasOwner: findAssignmentById_findAssignmentById_assignment_Reading_Guide_hasOwner;
+  late: boolean;
+  readings: findAssignmentById_findAssignmentById_assignment_Reading_Guide_readings;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_workingDraft {
+  __typename: "WorkingDraft";
+  draft: any;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_topic {
+  __typename: "Topic";
+  writingLevel: WritingLevelEnum;
+  question: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  _id: string | null;
+  entry: string;
+  score: number;
+  rubricSection: RubricSectionEnum;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  draft: any;
+  gradingDraft: any;
+  draftNumber: number;
+  graded: boolean;
+  score: number;
+  additionalComments: string[] | null;
+  rubricEntries: findAssignmentById_findAssignmentById_assignment_Essay_finalDraft_submittedFinalDraft_rubricEntries[];
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submitTime: any | null;
+  submitted: boolean;
+  returned: boolean;
+  submittedFinalDraft: findAssignmentById_findAssignmentById_assignment_Essay_finalDraft_submittedFinalDraft[];
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_Essay {
+  __typename: "Essay";
+  _id: string | null;
+  hasOwner: findAssignmentById_findAssignmentById_assignment_Essay_hasOwner;
+  late: boolean;
+  readings: findAssignmentById_findAssignmentById_assignment_Essay_readings;
+  workingDraft: findAssignmentById_findAssignmentById_assignment_Essay_workingDraft;
+  topic: findAssignmentById_findAssignmentById_assignment_Essay_topic;
+  finalDraft: findAssignmentById_findAssignmentById_assignment_Essay_finalDraft | null;
+}
+
+export type findAssignmentById_findAssignmentById_assignment = findAssignmentById_findAssignmentById_assignment_Reading_Guide | findAssignmentById_findAssignmentById_assignment_Essay;
+
+export interface findAssignmentById_findAssignmentById {
+  __typename: "FindAssignmentByIdPayload";
+  assignment: findAssignmentById_findAssignmentById_assignment;
+}
+
+export interface findAssignmentById {
+  findAssignmentById: findAssignmentById_findAssignmentById;
+}
+
+export interface findAssignmentByIdVariables {
+  input: FindAssignmentByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findCoursesById
 // ====================================================
 
@@ -916,7 +1340,6 @@ export interface findCoursesByIdVariables {
 export interface updateLesson_updateLesson_lessons {
   __typename: "Lesson";
   _id: string | null;
-  linkedCourseIds: string[];
 }
 
 export interface updateLesson_updateLesson {
@@ -947,7 +1370,7 @@ export interface findLessonByIdForLessonEditor_findLessonById_lesson_inUnit {
   unitName: string;
 }
 
-export interface findLessonByIdForLessonEditor_findLessonById_lesson_assignedCourse {
+export interface findLessonByIdForLessonEditor_findLessonById_lesson_assignedCourses {
   __typename: "Course";
   _id: string | null;
   name: string;
@@ -1004,8 +1427,7 @@ export interface findLessonByIdForLessonEditor_findLessonById_lesson {
   assignedDate: any;
   inUnit: findLessonByIdForLessonEditor_findLessonById_lesson_inUnit;
   assignedMarkingPeriod: MarkingPeriodEnum;
-  assignedCourse: findLessonByIdForLessonEditor_findLessonById_lesson_assignedCourse;
-  linkedCourseIds: string[];
+  assignedCourses: findLessonByIdForLessonEditor_findLessonById_lesson_assignedCourses[];
   assignedSections: findLessonByIdForLessonEditor_findLessonById_lesson_assignedSections;
   pageNumbers: findLessonByIdForLessonEditor_findLessonById_lesson_pageNumbers;
   assignedSectionIdList: string[];
@@ -1023,19 +1445,8 @@ export interface findLessonByIdForLessonEditor_findLessonById {
   lesson: findLessonByIdForLessonEditor_findLessonById_lesson;
 }
 
-export interface findLessonByIdForLessonEditor_MarkingPeriod_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface findLessonByIdForLessonEditor_MarkingPeriod {
-  __typename: "__Type";
-  enumValues: findLessonByIdForLessonEditor_MarkingPeriod_enumValues[] | null;
-}
-
 export interface findLessonByIdForLessonEditor {
   findLessonById: findLessonByIdForLessonEditor_findLessonById;
-  MarkingPeriod: findLessonByIdForLessonEditor_MarkingPeriod | null;
 }
 
 export interface findLessonByIdForLessonEditorVariables {
@@ -1092,7 +1503,7 @@ export interface getCoursesForUserVariables {
 // GraphQL mutation operation: createLesson
 // ====================================================
 
-export interface createLesson_createLesson_lessons {
+export interface createLesson_createLesson_lesson {
   __typename: "Lesson";
   _id: string | null;
   assignedMarkingPeriod: MarkingPeriodEnum;
@@ -1100,7 +1511,7 @@ export interface createLesson_createLesson_lessons {
 
 export interface createLesson_createLesson {
   __typename: "CreateLessonPayload";
-  lessons: createLesson_createLesson_lessons[];
+  lesson: createLesson_createLesson_lesson;
 }
 
 export interface createLesson {
@@ -1619,6 +2030,7 @@ export interface findRubricEntries_findRubricEntries_rubricEntries {
   score: number;
   rubricSection: RubricSectionEnum;
   rubricWritingLevels: WritingLevelEnum[];
+  howToImprove: string | null;
 }
 
 export interface findRubricEntries_findRubricEntries {
@@ -1897,8 +2309,16 @@ export interface AdvancedSentenceStructureInput {
   verb: string;
 }
 
+export interface AssignEssaysInput {
+  assignedDate: any;
+  associatedLessonId: string;
+  dueDate: any;
+  studentIds: string[];
+}
+
 export interface BuildRubricEntryInput {
   entry: string;
+  howToImprove?: string | null;
   rubricSection: RubricSectionEnum;
   rubricWritingLevels: WritingLevelEnum[];
   score: number;
@@ -1948,6 +2368,10 @@ export interface DevelopingSentenceStructureInput {
   verb: string;
 }
 
+export interface FindAssignmentByIdInput {
+  assignmentId: string;
+}
+
 export interface FindChaptersInTextInput {
   textTitle: string;
 }
@@ -1964,12 +2388,21 @@ export interface FindEssayByIdInput {
   _id: string;
 }
 
+export interface FindEssaysByAssociatedLessonIdAndCourseIdInput {
+  courseId: string;
+  lessonId: string;
+}
+
 export interface FindEssaysToCompleteByStudentIdInput {
   studentId: string;
 }
 
 export interface FindEssaysToGradeByIdInput {
   teacherId: string;
+}
+
+export interface FindLessonByCourseInput {
+  courseId: string;
 }
 
 export interface FindLessonByIdInput {
@@ -1979,6 +2412,10 @@ export interface FindLessonByIdInput {
 export interface FindLessonsByUnitInput {
   courseId: string;
   unitId: string;
+}
+
+export interface FindStudentsByCourseInput {
+  courseId: string;
 }
 
 export interface FindTextSectionByIdInput {
@@ -2021,9 +2458,15 @@ export interface RemoveRubricEntryInput {
   rubricEntryId: string;
 }
 
+export interface ResubmitEssayFinalDraftInput {
+  essayId: string;
+  submittedFinalDraft: SubmittedFinalDraftsInput;
+}
+
 export interface ReturnGradedEssayInput {
   _id: string;
   additionalComments?: string[] | null;
+  draftNumber: number;
   gradingDraft: any;
   rubricEntries: ReturnedRubricEntryInput[];
   score: number;
@@ -2031,8 +2474,8 @@ export interface ReturnGradedEssayInput {
 
 export interface ReturnedRubricEntryInput {
   entry: string;
+  howToImprove?: string | null;
   rubricSection: RubricSectionEnum;
-  rubricWritingLevel: WritingLevelEnum;
   score: number;
 }
 
@@ -2060,12 +2503,15 @@ export interface SetOrganizerInput {
 export interface SubmitEssayFinalDraftInput {
   _id: string;
   late: boolean;
+  paperBased: boolean;
   submittedFinalDraft: SubmittedFinalDraftsInput;
 }
 
 export interface SubmittedFinalDraftsInput {
   additionalComments?: string[] | null;
   draft: any;
+  draftNumber: number;
+  graded: boolean;
   gradingDraft: any;
   rubricEntries: RubricEntryInput[];
   score: number;
@@ -2117,6 +2563,7 @@ export interface UpdateDevelopingOrganizerInput {
 }
 
 export interface UpdateGradingDraftInput {
+  draftNumber?: number | null;
   essayId: string;
   gradingDraft?: any | null;
 }
@@ -2155,6 +2602,7 @@ export interface UpdateProblemSolutionInput {
 
 export interface UpdateRubricEntryInput {
   entry: string;
+  howToImprove?: string | null;
   rubricEntryId: string;
   rubricSection: RubricSectionEnum;
   rubricWritingLevels: WritingLevelEnum[];

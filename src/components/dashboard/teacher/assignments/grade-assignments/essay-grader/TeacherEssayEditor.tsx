@@ -11,9 +11,7 @@ import {
 import { gql, useMutation } from '@apollo/client'
 import { useGradeEssayContextProvider } from './GradeEssayContext'
 
-export type TeacherEssayEditorProps = {
-  essay: findEssayToGradeById_findEssayById_essay
-}
+export type TeacherEssayEditorProps = {}
 
 export const UPDATE_GRADING_DRAFT_MUTATION = gql`
   mutation updateGradingDraft($input: UpdateGradingDraftInput!) {
@@ -25,20 +23,26 @@ export const UPDATE_GRADING_DRAFT_MUTATION = gql`
   }
 `
 
-export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = ({ essay }) => {
-  const [, event] = useGradeEssayContextProvider()
+export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
+  const [state] = useGradeEssayContextProvider()
+
   const editor = useMemo(() => withReact(createEditor()), [])
-  const parsedElement = JSON.parse(
-    essay.finalDraft?.submittedFinalDraft.gradingDraft
-  )
-  const [value, setValue] = useState(parsedElement)
+  // const parsedGradingDraft = JSON.parse(
+  //   essay.finalDraft?.submittedFinalDraft[
+  //     state.context.draftToGrade.draftNumber
+  //   ].gradingDraft
+  // )
+  const parsedGradingDraft = JSON.parse(state.context.draftToGrade.gradingDraft)
+  const [value, setValue] = useState(parsedGradingDraft)
+  useEffect(() => {
+    setValue(parsedGradingDraft)
+  }, [state.context.draftToGrade.gradingDraft])
   const content = JSON.stringify(value)
 
-  useEffect(() => {
-    console.log(content)
-    event({ type: 'SET_DRAFT_TO_RETURN', payload: content })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content])
+  // useEffect(() => {
+  //   event({ type: 'SET_DRAFT_TO_RETURN', payload: content })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [content])
 
   const [updateGradingDraft] = useMutation<
     updateGradingDraft,
@@ -46,8 +50,13 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = ({ essay }) => {
   >(UPDATE_GRADING_DRAFT_MUTATION, {
     variables: {
       input: {
-        essayId: essay._id!,
+        essayId: state.context.essayId!,
         gradingDraft: content,
+        draftNumber:
+          // essay.finalDraft?.submittedFinalDraft[
+          //   state.context.draftToGrade.draftNumber
+          // ].draftNumber,
+          state.context.draftToGrade.draftNumber,
       },
     },
     onCompleted: (data) => console.log(data),
@@ -55,7 +64,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = ({ essay }) => {
   })
 
   useEffect(() => {
-    updateGradingDraft()
+    // updateGradingDraft()
   }, [updateGradingDraft, content])
 
   const renderElement = useCallback((props) => {

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { gql, useQuery } from '@apollo/client'
 import {
@@ -9,6 +9,7 @@ import { useGradeEssayContextProvider } from './GradeEssayContext'
 import { TeacherEssayEditor } from './TeacherEssayEditor'
 import { GradingTool } from './grading-tool/GradingTool'
 import { ReturnEssay } from './ReturnEssay'
+import { DraftSelector } from './DraftSelector'
 
 export type GradeEssayProps = {}
 
@@ -19,6 +20,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
         _id
         assigned
         hasOwner {
+          _id
           firstName
           lastName
         }
@@ -30,14 +32,19 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
         dueTime
         finalDraft {
           submitTime
+          submitted
+          returned
           submittedFinalDraft {
             draft
             gradingDraft
+            draftNumber
+            score
+            additionalComments
             rubricEntries {
+              _id
               entry
               score
               rubricSection
-              rubricWritingLevels
             }
           }
         }
@@ -47,29 +54,45 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
 `
 
 export const GradeEssay: FC<GradeEssayProps> = () => {
-  const [, event] = useGradeEssayContextProvider()
+  const { essayId } = useParams()
   const navigate = useNavigate()
-  const { assignmentId } = useParams()
+
+  const [, event] = useGradeEssayContextProvider()
+  const [loadingDraft, setloadingDraft] = useState(false)
   const { loading, data } = useQuery<
     findEssayToGradeById,
     findEssayToGradeByIdVariables
   >(FIND_ESSAY_TO_GRADE_QUERY, {
     variables: {
-      input: { _id: assignmentId },
+      input: { _id: essayId },
     },
     onCompleted: (data) => {
-      console.log(data)
+      const lastSubmittedDraft =
+        data.findEssayById.essay.finalDraft?.submittedFinalDraft[
+          data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 1
+        ]
+      event({
+        type: 'SET_INTITIAL_DRAFT',
+        payload: {
+          writingLevel: data.findEssayById.essay.topic.writingLevel,
+          draftToGrade: {
+            _id: data.findEssayById.essay._id!,
+            draftNumber: lastSubmittedDraft?.draftNumber!,
+            gradingDraft: lastSubmittedDraft?.gradingDraft,
+            rubricEntries: lastSubmittedDraft?.rubricEntries!,
+            score: lastSubmittedDraft?.score!,
+            additionalComments: lastSubmittedDraft?.additionalComments,
+          },
+        },
+      })
       event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
+
       event({
-        type: 'SET_WRITING_LEVEL',
-        payload: data.findEssayById.essay.topic.writingLevel,
-      })
-      event({
-        type: 'SET_DRAFT_TO_RETURN',
+        type: 'SET_DRAFT_SELECTOR',
         payload:
-          data.findEssayById.essay.finalDraft?.submittedFinalDraft.gradingDraft,
+          data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! - 1,
       })
-      event({ type: 'NEXT' })
+      setloadingDraft(true)
     },
     onError: (error) => console.error(error),
   })
@@ -80,12 +103,12 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
       <button onClick={() => navigate('/dashboard/assignments/grade')}>
         Back
       </button>
-      {data?.findEssayById.essay.finalDraft && (
+      {loadingDraft && (
         <>
-          <div>{data?.findEssayById.essay.hasOwner.firstName}</div>
-          <TeacherEssayEditor essay={data?.findEssayById.essay!} />
+          <DraftSelector essay={data?.findEssayById.essay!} />
+          <TeacherEssayEditor />
           <GradingTool />
-          <ReturnEssay />
+          <ReturnEssay essay={data?.findEssayById.essay!} />
         </>
       )}
     </>

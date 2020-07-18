@@ -8,9 +8,9 @@ export type UnitSelectProps = {}
 
 export const UnitSelect: FC<UnitSelectProps> = () => {
   const [state, event] = useCreateAssignmentContextPovider()
-  console.log(state.context.essay.unit)
 
   const { loading, data } = useQuery<findUnits>(FIND_UNITS_QUERY, {
+    // onCompleted: (data) => console.log(data.findUnits.units),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

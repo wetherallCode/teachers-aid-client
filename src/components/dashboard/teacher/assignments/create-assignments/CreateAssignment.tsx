@@ -13,17 +13,19 @@ export type CreateAssignmentProps = {}
 export const CreateAssignment: FC<CreateAssignmentProps> = () => {
   const [state, event] = useCreateAssignmentContextPovider()
   const me: me_me_Teacher = useUserContextProvider()
-  console.log(state.context.assignedCourseId)
+
   return (
     <div>
       <div>Create Assignments</div>
       <div>Select Course</div>
       <select
-        onChange={(e: any) =>
-          event({ type: 'SET_COURSE_ID', payload: e.target.value })
-        }
+        onChange={(e: any) => {
+          if (e.target.value !== 'none') {
+            event({ type: 'SET_COURSE_ID', payload: e.target.value })
+          }
+        }}
       >
-        <option value={undefined}>Pick a Course</option>
+        <option value={'none'}>Pick a Course</option>
         {me.teachesCourses.map((course) => (
           <option key={course._id!} value={course._id!}>
             {course.name}
