@@ -13,7 +13,7 @@ export const Home = () => {
       <HomeScreenContainer>
         <MainScreen>
           <HomeScreenTitle>Welcome to Mr. Wetherall's Class</HomeScreenTitle>
-          <StyledLink to='/website'>
+          <StyledLink to='/lesson-home'>
             <GetStartedButton>Get Started</GetStartedButton>
           </StyledLink>
         </MainScreen>

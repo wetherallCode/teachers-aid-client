@@ -6,7 +6,7 @@ import {
   updateDevelopingOrganizerVariables,
   findCompletedEssayById_findEssayById_essay,
 } from '../../../../../../../../schemaTypes'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { UPDATE_DEVELOPING_ORGANIZER_MUTATION } from '../../../assigned-essays/organizers/developing/DevelopingOrganizer'
 import { DevelopingAnswer } from './DevelopingAnswer'
 import { DevelopingRestatement } from './DevelopingRestatement'

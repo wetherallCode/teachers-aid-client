@@ -10,7 +10,7 @@ import {
   findAssignmentById_findAssignmentById_assignment_Essay,
 } from '../../../../../../../schemaTypes'
 import { useMutation } from '@apollo/client'
-import { usePaperBasedContextProvider } from '../PaperBasedContext'
+import { usePaperBasedContextProvider } from '../state/PaperBasedContext'
 import { RESUBMIT_ESSAY_FINAL_DRAFT_MUTATION } from '../../../../../student/assignments/essays/completed-essays/SubmitRedoneEssay'
 import { useNavigate, Navigate } from 'react-router'
 

@@ -13,8 +13,9 @@ import {
 import { AcademicAnswerTypes } from './AcademicAnswerTypes'
 import { AcademicRestatement } from './AcademicRestatement'
 import { AcademicConclusion } from './AcademicConclusion'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+
 import { UPDATE_ACADEMIC_ORGANIZER_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicOrganizer'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 
 type AcademicOrganizerProps = {
   question: string

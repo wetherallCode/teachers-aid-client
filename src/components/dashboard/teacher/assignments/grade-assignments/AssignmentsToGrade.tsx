@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import { me_me_Teacher } from '../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
-import { EssaysToGrade } from './essay-grader/EssaysToGrade'
+import { EssaysToGrade } from './essays/essay-grader/EssaysToGrade'
 import { FindAssignmentByStudent } from './paper-based/FindAssignmentByStudent'
 
 export type AssignmentsToGradeProps = {}
@@ -25,8 +25,6 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
       {courseId && (
         <>
           <EssaysToGrade courseId={courseId} />
-
-          <div>Reading Guide List</div>
           <>
             <div>PaperBased Assignments</div>
             {courseId && <FindAssignmentByStudent courseId={courseId} />}

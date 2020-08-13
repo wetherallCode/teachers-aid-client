@@ -32,6 +32,7 @@ export const DuringActivities: FC<DuringActivitiesProps> = ({ protocols }) => {
                   academicOutcomeTypes: protocol.academicOutcomeTypes,
                   activityType: protocol.activityType,
                   task: protocol.task,
+                  isActive: false,
                 },
               ])
             }

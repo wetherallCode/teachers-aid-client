@@ -5,7 +5,7 @@ import {
   findLessonsByUnitVariables,
 } from '../../../../../schemaTypes'
 import { useLessonEditorContextProvider } from './LessonEditorContext'
-import { FIND_LESSONS_BY_UNIT_QUERY } from '../../assignments/create-assignments/create-essay/LessonSelect'
+import { FIND_LESSONS_BY_UNIT_QUERY } from '../../assignments/create-assignments/create-essay/EssayLessonSelect'
 
 export type LessonSelectProps = {
   unit: string

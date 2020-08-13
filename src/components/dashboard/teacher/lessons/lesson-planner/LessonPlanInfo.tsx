@@ -82,6 +82,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
         academicOutcomeTypes: protocol.academicOutcomeTypes,
         activityType: protocol.activityType,
         task: protocol.task,
+        isActive: false,
       }
       protocolList.push(protocolItem)
     })

@@ -24,6 +24,16 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    TimeOfDay: __type(name: "TimeOfDay") {
+      enumValues {
+        name
+      }
+    }
+    InformationStructureEnum: __type(name: "InformationStructureEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -41,7 +51,7 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
   return (
     <EnumContext.Provider
       value={{
-        markingPeriod: data?.MarkingPeriod?.enumValues?.map(
+        markingPeriodEnum: data?.MarkingPeriod?.enumValues?.map(
           (value) => value.name
         ),
         writingLevelEnum: data?.WritingLevelEnum?.enumValues?.map(
@@ -51,6 +61,10 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         rubricSectionEnum: data?.RubricSectionEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        timeOfDayEnum: data?.TimeOfDay?.enumValues?.map((value) => value.name),
+        informationStructureEnum: data?.InformationStructureEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}

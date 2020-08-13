@@ -6,6 +6,7 @@ import {
 } from '../../../../../../../schemaTypes'
 import { AssignEssay } from './AssignEssay'
 import { useAssignEssayByCourseContextProvider } from './AssignEssayByCourseContext'
+import { todaysLocaleDate } from '../../../../../../../utils'
 
 export type AssignLessonProps = {
   lessonId: string
@@ -37,8 +38,6 @@ export const FIND_ESSAYS_BY_LESSON_AND_COURSE_QUERY = gql`
 export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
   const [state, event] = useAssignEssayByCourseContextProvider()
 
-  const todaysDate: string = new Date().toLocaleString().substring(0, 9)
-  console.log(courseId, lessonId)
   const { loading, data } = useQuery<
     findEssaysByAssociatedLessonIdAndCourseId,
     findEssaysByAssociatedLessonIdAndCourseIdVariables
@@ -71,10 +70,10 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
       {data?.findEssaysByAssociatedLessonIdAndCourseId.essays.length! > 0 && (
         <>
           <div>AssignedDate: {state.context.assignedDate}</div>
-          {state.context.assignedDate !== todaysDate && (
+          {state.context.assignedDate !== todaysLocaleDate && (
             <button
               onClick={() =>
-                event({ type: 'SET_ASSIGNED_DATE', payload: todaysDate })
+                event({ type: 'SET_ASSIGNED_DATE', payload: todaysLocaleDate })
               }
             >
               Use Today's Date

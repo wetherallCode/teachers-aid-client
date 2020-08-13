@@ -4,12 +4,13 @@ import { LessonEditor } from '../lessons/lesson-editor/LessonEditor'
 import { LessonEditorContextProvider } from '../lessons/lesson-editor/LessonEditorContext'
 import { AssignAssignments } from '../assignments/assign-assignments/AssignAssignments'
 import { RosterDashboard } from './roster/RosterDashboard'
+import { ReadingGuideData } from '../assignments/readingGuideData/ReadingGuideData'
 
 export type CourseManagerProps = {}
 
 export const CourseManager: FC<CourseManagerProps> = () => {
-  const param = useParams()
-  const { course } = param
+  const { course } = useParams()
+
   return (
     <>
       <Routes>
@@ -22,7 +23,9 @@ export const CourseManager: FC<CourseManagerProps> = () => {
           }
         />
         <Route path='assign-assignments' element={<AssignAssignments />} />
-        <Route path='roster' element={<RosterDashboard />} />
+        <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
+
+        <Route path='roster/*' element={<RosterDashboard />} />
       </Routes>
     </>
   )

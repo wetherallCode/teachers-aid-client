@@ -12,6 +12,9 @@ export const MenuNav = styled(motion.nav)`
   width: 15vw;
   height: 100vh;
   background: var(--blue);
+  border-left: 3px solid var(--white);
+  border-top: 3px solid var(--white);
+  box-shadow: 3px 3px 3px 3px black;
   padding-left: 20px;
   padding-top: 20px;
   ul {

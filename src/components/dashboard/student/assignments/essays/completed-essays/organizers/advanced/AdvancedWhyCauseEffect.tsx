@@ -5,7 +5,7 @@ import {
   updateWhyCauseEffect,
   updateWhyCauseEffectVariables,
 } from '../../../../../../../../schemaTypes'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { UPDATE_WHY_CAUSE_EFFECT_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicWhyCauseEffect'
 
 export type AdvancedWhyCauseEffectProps = {}

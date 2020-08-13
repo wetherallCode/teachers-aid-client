@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { findAssignmentById_findAssignmentById_assignment_Essay } from '../../../../../../../schemaTypes'
-import { usePaperBasedContextProvider } from '../PaperBasedContext'
+import { usePaperBasedContextProvider } from '../state/PaperBasedContext'
 
 export type GradeEssayProps = {
   essay: findAssignmentById_findAssignmentById_assignment_Essay

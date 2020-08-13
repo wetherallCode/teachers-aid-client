@@ -4,13 +4,11 @@ import {
   findChaptersInText,
   findChaptersInTextVariables,
 } from '../../../../../schemaTypes'
-import {
-  sectionBuilderFSMContext,
-  sectionBuilderFSMEvent,
-} from './sectionBuilderFSM'
+
 import { State } from 'xstate'
 import { AddChapter } from './AddChapter'
 import { useToggle } from '../../../../../hooks'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
 export const FIND_CHAPTERS_IN_TEXT_QUERY = gql`
   query findChaptersInText($input: FindChaptersInTextInput!) {
@@ -24,19 +22,13 @@ export const FIND_CHAPTERS_IN_TEXT_QUERY = gql`
 `
 
 type ChapterSelectProps = {
-  state: State<sectionBuilderFSMContext, sectionBuilderFSMEvent, any, any>
-  event: (event: sectionBuilderFSMEvent) => void
+  // state: State<sectionBuilderFSMContext, sectionBuilderFSMEvent, any, any>
+  // event: (event: sectionBuilderFSMEvent) => void
 }
 
-export type sectionBuilderFSMState = State<
-  sectionBuilderFSMContext,
-  sectionBuilderFSMEvent,
-  any,
-  any
->
-
-export const ChapterSelect: FC<ChapterSelectProps> = ({ state, event }) => {
+export const ChapterSelect: FC<ChapterSelectProps> = () => {
   const [isAddChapterVisible, toggleVisible] = useToggle(false)
+  const [state, event] = useSectionBuilderContextProvider()
   const { loading, error, data } = useQuery<
     findChaptersInText,
     findChaptersInTextVariables
@@ -72,10 +64,10 @@ export const ChapterSelect: FC<ChapterSelectProps> = ({ state, event }) => {
             ))}
           </select>
           <div onClick={toggleVisible}>Add a New Chapter</div>
-          {isAddChapterVisible && <AddChapter state={state} />}
+          {isAddChapterVisible && <AddChapter />}
         </>
       ) : (
-        <AddChapter state={state} />
+        <AddChapter />
       )}
     </div>
   )

@@ -33,6 +33,7 @@ export const HomeScreenContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* text-shadow: 2px 2px 2px var(--grey); */
 `
 export const GetStartedButton = styled.button`
   ${media.macBookPro16} {
@@ -41,6 +42,7 @@ export const GetStartedButton = styled.button`
     font-size: 140%;
     color: var(--white);
     background-color: var(--blue);
+    box-shadow: 3px 3px 3px var(--grey);
   }
   ${media.iPhone} {
     width: 7rem;

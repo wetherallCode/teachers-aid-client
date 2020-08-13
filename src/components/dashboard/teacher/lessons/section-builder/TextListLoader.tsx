@@ -2,12 +2,10 @@ import React, { FC } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { findTexts } from '../../../../../schemaTypes'
 import { TextSelectionDisplay } from './TextSelectionDisplay'
-import { sectionBuilderFSMEvent } from './sectionBuilderFSM'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
-export type TextListLoaderProps = {
-  event: (event: sectionBuilderFSMEvent) => void
-}
+export type TextListLoaderProps = {}
 
 export const FIND_TEXTS_QUERY = gql`
   query findTexts {
@@ -21,7 +19,8 @@ export const FIND_TEXTS_QUERY = gql`
   }
 `
 
-export const TextListLoader: FC<TextListLoaderProps> = ({ event }) => {
+export const TextListLoader: FC<TextListLoaderProps> = () => {
+  const [, event] = useSectionBuilderContextProvider()
   const me = useUserContextProvider()
 
   const { loading, error, data } = useQuery<findTexts>(FIND_TEXTS_QUERY)
@@ -30,5 +29,5 @@ export const TextListLoader: FC<TextListLoaderProps> = ({ event }) => {
 
   const texts = data?.findTexts.texts.filter((text) => text.ownerId === me._id)
 
-  return <TextSelectionDisplay event={event} textList={texts!} />
+  return <TextSelectionDisplay textList={texts!} />
 }

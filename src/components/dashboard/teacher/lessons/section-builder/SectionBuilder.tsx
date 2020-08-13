@@ -6,7 +6,7 @@ import { VocabInfo } from './VocabInfo'
 import { QuestionsInfo } from './QuestionsInfo'
 import { ProtocolsInfo } from './ProtocolsInfo'
 import { CreateTextSection } from './CreateTextSection'
-import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 import { SectionBuilderInfoDisplay } from './SectionBuilderInfoDisplay'
 import styled from 'styled-components'
 
@@ -33,14 +33,14 @@ export const SectionBuilder = () => {
               gridTemplateColumns: '5fr 1fr',
             }}
           >
-            <TextListLoader event={event} />
+            <TextListLoader />
             <button onClick={() => event({ type: 'NEXT' })}>Next</button>
           </div>
         )}
         {state.matches('chapter') && (
           <>
             <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
-            <ChapterSelect state={state} event={event} />
+            <ChapterSelect />
             <button onClick={() => event({ type: 'NEXT' })}>Next</button>
           </>
         )}

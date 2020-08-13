@@ -5,7 +5,7 @@ import {
   createTextSection,
   createTextSectionVariables,
 } from '../../../../../schemaTypes'
-import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
 export const CREATE_TEXT_SECTION_MUTATION = gql`
   mutation createTextSection($input: CreateTextSectionInput!) {

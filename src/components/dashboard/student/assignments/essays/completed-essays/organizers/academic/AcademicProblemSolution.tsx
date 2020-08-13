@@ -6,7 +6,7 @@ import {
   updateProblemSolutionVariables,
 } from '../../../../../../../../schemaTypes'
 import { UPDATE_PROBLEM_SOLUTION_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicProblemSolution'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 
 export type AcademicProblemSolutionProps = {}
 

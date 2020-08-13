@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState, useEffect, useCallback } from 'react'
-import { useCompletedEssayContextProvider } from './CompletedEssayContext'
+import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { useMutation } from '@apollo/client'
 import { UPDATE_WORKING_DRAFT_MUTATION } from '../assigned-essays/EssayToComplete'
 import {

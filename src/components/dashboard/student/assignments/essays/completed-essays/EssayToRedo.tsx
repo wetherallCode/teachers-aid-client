@@ -6,7 +6,7 @@ import {
   findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
   SubmittedFinalDraftsInput,
 } from '../../../../../../schemaTypes'
-import { useCompletedEssayContextProvider } from './CompletedEssayContext'
+import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { RedoEssayEditor } from './RedoEssayEditor'
 import { RedoEssayOrganizer } from './organizers/RedoEssayOrganizer'
 import { SubmitRedoneEssay } from './SubmitRedoneEssay'

@@ -7,7 +7,7 @@ import {
   ProtocolActivityTypes,
   protocolEnumTypes,
 } from '../../../../../schemaTypes'
-import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
 export const PROTOCOL_ENUM_TYPES_QUERY = gql`
   query protocolEnumTypes {
@@ -31,6 +31,7 @@ export const ProtocolsInfo = () => {
     academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
     activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
     task: '',
+    isActive: false,
   })
   const [, event] = useSectionBuilderContextProvider()
   const { loading, error, data } = useQuery<protocolEnumTypes>(

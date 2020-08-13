@@ -35,13 +35,12 @@ export const SubmitRedoneEssay: FC<SubmitEssayFinalDraftInput> = ({
     variables: {
       input: { essayId: _id, submittedFinalDraft: submittedFinalDraft },
     },
-    onCompleted: (data) => {
-      console.log(data.resubmitEssayFinalDraft.essay)
+    onCompleted: () => {
       navigate('/dashboard/assignments')
     },
     refetchQueries: ['findCompletedEssaysByStudentId', 'findEssayById'],
   })
-  // console.log(submittedFinalDraft.draftNumber)
+
   return (
     <button
       onClick={() => {

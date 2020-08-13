@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 import styled from 'styled-components'
 
 export const SectionBuilderInfoDisplay = () => {

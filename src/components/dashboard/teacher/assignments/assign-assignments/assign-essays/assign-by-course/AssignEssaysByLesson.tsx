@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { LessonSelect } from '../LessonSelect'
+import { LessonSelect } from './LessonSelect'
 import { useParams } from 'react-router-dom'
 
 export type AssignEssaysByLessonProps = {}

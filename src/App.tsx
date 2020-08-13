@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Modal } from './animations'
 import { useUserContextProvider } from './contexts/UserContext'
@@ -13,9 +13,22 @@ import { LoginContainer, LoginToggle } from './styled/homeStyles'
 import { capitalizer } from './utils'
 import styled from 'styled-components'
 import { me_me } from './schemaTypes'
+import { DailyAgendaContextProvider } from './components/lesson/state/DailyAgendaContext'
+import { LessonMainMenu } from './components/lesson/LessonMainMenu'
 
 export type LoginToggleProps = {
   onClick: () => void
+}
+
+export type ErrorFallbackProps = { error: any }
+
+export const ErrorFallback: FC<ErrorFallbackProps> = ({ error }) => {
+  return (
+    <div role='alert'>
+      <p>Something went wrong:</p>
+      <pre style={{ color: 'red' }}>{error.message}</pre>
+    </div>
+  )
 }
 
 function App() {
@@ -55,6 +68,14 @@ function App() {
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='dashboard/*' element={<Dashboard />} />
+        <Route
+          path='lesson-home'
+          element={
+            <DailyAgendaContextProvider>
+              <LessonMainMenu />
+            </DailyAgendaContextProvider>
+          }
+        />
       </Routes>
     </AppContainer>
   )

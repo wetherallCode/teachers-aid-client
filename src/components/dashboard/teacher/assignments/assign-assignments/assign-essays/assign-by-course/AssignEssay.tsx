@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { useAssignEssayByCourseContextProvider } from './AssignEssayByCourseContext'
 import { gql, useMutation } from '@apollo/client'
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   assignEssays,
   assignEssaysVariables,
 } from '../../../../../../../schemaTypes'
@@ -19,7 +20,7 @@ export const ASSIGN_ESSAYS_MUTATION = gql`
 `
 
 export const AssignEssay: FC<AssignEssayProps> = () => {
-  const [state, event] = useAssignEssayByCourseContextProvider()
+  const [state] = useAssignEssayByCourseContextProvider()
   const [assignEssays] = useMutation<assignEssays, assignEssaysVariables>(
     ASSIGN_ESSAYS_MUTATION,
     {

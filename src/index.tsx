@@ -11,7 +11,7 @@ import {
   HttpLink,
 } from '@apollo/client'
 import { UserContextProvider } from './contexts/UserContext'
-import { MarkingPeriodContextProvider } from './components/home/MarkingPeriodContext'
+import { MarkingPeriodContextProvider } from './contexts/markingPeriod/MarkingPeriodContext'
 import { EnumContextProvider } from './contexts/EnumContext'
 
 const link = new HttpLink({

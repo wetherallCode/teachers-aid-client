@@ -48,7 +48,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
       {data?.findEssaysToCompleteByStudentId.essays
         .filter((essay) => !essay.paperBased)
         .map((essay) => (
-          <Link to={`toComplete/${essay._id!}`} key={essay._id!}>
+          <Link to={`essay/toComplete/${essay._id!}`} key={essay._id!}>
             {essay.readings.readingSections}
           </Link>
         ))}

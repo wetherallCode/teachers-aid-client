@@ -4,7 +4,7 @@ import { SectionAssigner } from './SectionAssigner'
 import { LessonPlanInfo } from './LessonPlanInfo'
 import { CourseAssigner } from './CourseAssigner'
 import { CreateLesson } from './CreateLesson'
-import { useMarkingPeriodContextProvider } from '../../../../home/MarkingPeriodContext'
+import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type LessonPlannerProps = {}
 

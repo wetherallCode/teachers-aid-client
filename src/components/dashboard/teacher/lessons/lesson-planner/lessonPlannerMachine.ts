@@ -94,12 +94,14 @@ export const lessonPlannerMachine = Machine<
       academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
+      isActive: false,
     },
     duringActivity: [],
     afterActivity: {
       academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
+      isActive: false,
     },
     questionList: [],
     essentialQuestion: {

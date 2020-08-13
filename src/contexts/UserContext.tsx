@@ -15,6 +15,11 @@ export const ME_QUERY = gql`
         teachesCourses {
           _id
           name
+          hasCourseInfo {
+            startsAt
+            endsAt
+            schoolDayType
+          }
         }
       }
       ... on Student {

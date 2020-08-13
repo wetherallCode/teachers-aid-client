@@ -161,6 +161,17 @@ export interface findEssayById_findEssayById_essay_topic {
   writingLevel: WritingLevelEnum;
 }
 
+export interface findEssayById_findEssayById_essay_lessonInfo_vocabList {
+  __typename: "TextSectionVocab";
+  word: string;
+  definition: string;
+}
+
+export interface findEssayById_findEssayById_essay_lessonInfo {
+  __typename: "Lesson";
+  vocabList: findEssayById_findEssayById_essay_lessonInfo_vocabList[];
+}
+
 export interface findEssayById_findEssayById_essay {
   __typename: "Essay";
   _id: string | null;
@@ -169,6 +180,7 @@ export interface findEssayById_findEssayById_essay {
   dueDate: any;
   dueTime: string;
   topic: findEssayById_findEssayById_essay_topic;
+  lessonInfo: findEssayById_findEssayById_essay_lessonInfo;
 }
 
 export interface findEssayById_findEssayById {
@@ -769,6 +781,181 @@ export interface resubmitEssayFinalDraftVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findReadingGuidesToComplete
+// ====================================================
+
+export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId_readingGuides_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  paperBased: boolean;
+  graded: boolean;
+  readings: findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId_readingGuides_readings;
+}
+
+export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId {
+  __typename: "FindReadingGuidesToCompleteByStudentIdPayload";
+  readingGuides: findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId_readingGuides[];
+}
+
+export interface findReadingGuidesToComplete {
+  findReadingGuidesToCompleteByStudentId: findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId;
+}
+
+export interface findReadingGuidesToCompleteVariables {
+  input: FindReadingGuidesToCompleteByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateReadingGuide
+// ====================================================
+
+export interface updateReadingGuide_updateReadingGuide_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface updateReadingGuide_updateReadingGuide {
+  __typename: "UpdateReadingGuidePayload";
+  readingGuide: updateReadingGuide_updateReadingGuide_readingGuide;
+}
+
+export interface updateReadingGuide {
+  updateReadingGuide: updateReadingGuide_updateReadingGuide;
+}
+
+export interface updateReadingGuideVariables {
+  input: UpdateReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findReadingGuideById
+// ====================================================
+
+export interface findReadingGuideById_findReadingGuideById_readingGuide_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo_vocabList {
+  __typename: "TextSectionVocab";
+  word: string;
+  definition: string;
+}
+
+export interface findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo {
+  __typename: "Lesson";
+  vocabList: findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo_vocabList[];
+  assignedSectionIdList: string[];
+}
+
+export interface findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  howIsSectionOrganized: InformationStructureEnum[];
+  whyWasSectionOrganized: string;
+  majorIssue: string;
+  majorSolution: string;
+  clarifyingQuestions: string[];
+}
+
+export interface findReadingGuideById_findReadingGuideById_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  readings: findReadingGuideById_findReadingGuideById_readingGuide_readings;
+  dueDate: any;
+  dueTime: string;
+  lessonInfo: findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo;
+  readingGuideFinal: findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal | null;
+}
+
+export interface findReadingGuideById_findReadingGuideById {
+  __typename: "FindReadingGuideByIdPayload";
+  readingGuide: findReadingGuideById_findReadingGuideById_readingGuide;
+}
+
+export interface findReadingGuideById {
+  findReadingGuideById: findReadingGuideById_findReadingGuideById;
+}
+
+export interface findReadingGuideByIdVariables {
+  input: FindReadingGuideByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: startReadingGuide
+// ====================================================
+
+export interface startReadingGuide_startReadingGuide_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface startReadingGuide_startReadingGuide {
+  __typename: "StartReadingGuidePayload";
+  readingGuide: startReadingGuide_startReadingGuide_readingGuide;
+}
+
+export interface startReadingGuide {
+  startReadingGuide: startReadingGuide_startReadingGuide;
+}
+
+export interface startReadingGuideVariables {
+  input: StartReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: submitReadingGuide
+// ====================================================
+
+export interface submitReadingGuide_submitReadingGuide_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface submitReadingGuide_submitReadingGuide {
+  __typename: "SubmitReadingGuidePayload";
+  readingGuide: submitReadingGuide_submitReadingGuide_readingGuide;
+}
+
+export interface submitReadingGuide {
+  submitReadingGuide: submitReadingGuide_submitReadingGuide;
+}
+
+export interface submitReadingGuideVariables {
+  input: SubmitReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assignEssays
 // ====================================================
 
@@ -867,6 +1054,76 @@ export interface findLessonsByCourseVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findReadingGuidesByAssociatedLessonAndCourseId
+// ====================================================
+
+export interface findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides {
+  __typename: "ReadingGuide";
+  assigned: boolean;
+  hasOwner: findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_hasOwner;
+  readings: findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readings;
+  dueDate: any;
+  assignedDate: any;
+}
+
+export interface findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId {
+  __typename: "FindReadingGuidesByAssociatedLessonAndCourseIdPayload";
+  readingGuides: findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides[];
+}
+
+export interface findReadingGuidesByAssociatedLessonAndCourseId {
+  findReadingGuidesByAssociatedLessonAndCourseId: findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId;
+}
+
+export interface findReadingGuidesByAssociatedLessonAndCourseIdVariables {
+  input: FindReadingGuidesByAssociatedLessonAndCourseIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assignReadingGuides
+// ====================================================
+
+export interface assignReadingGuides_assignReadingGuides_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface assignReadingGuides_assignReadingGuides {
+  __typename: "AssignReadingGuidesPayload";
+  readingGuides: assignReadingGuides_assignReadingGuides_readingGuides[];
+}
+
+export interface assignReadingGuides {
+  assignReadingGuides: assignReadingGuides_assignReadingGuides;
+}
+
+export interface assignReadingGuidesVariables {
+  input: AssignReadingGuidesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createEssay
 // ====================================================
 
@@ -915,12 +1172,26 @@ export interface findLessonById_findLessonById_lesson_assignedSections {
   endingSection: string;
 }
 
+export interface findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo {
+  __typename: "CourseInfo";
+  startsAt: string;
+  endsAt: string;
+  schoolDayType: SchoolDayType;
+}
+
+export interface findLessonById_findLessonById_lesson_assignedCourses {
+  __typename: "Course";
+  hasCourseInfo: findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo;
+  _id: string | null;
+}
+
 export interface findLessonById_findLessonById_lesson {
   __typename: "Lesson";
   _id: string | null;
   questionList: findLessonById_findLessonById_lesson_questionList[];
   pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
   assignedSections: findLessonById_findLessonById_lesson_assignedSections;
+  assignedCourses: findLessonById_findLessonById_lesson_assignedCourses[];
 }
 
 export interface findLessonById_findLessonById {
@@ -962,6 +1233,33 @@ export interface findLessonsByUnit {
 
 export interface findLessonsByUnitVariables {
   input: FindLessonsByUnitInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createReadingGuide
+// ====================================================
+
+export interface createReadingGuide_createReadingGuide_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface createReadingGuide_createReadingGuide {
+  __typename: "CreateReadingGuidePayload";
+  readingGuides: createReadingGuide_createReadingGuide_readingGuides[];
+}
+
+export interface createReadingGuide {
+  createReadingGuide: createReadingGuide_createReadingGuide;
+}
+
+export interface createReadingGuideVariables {
+  input: CreateReadingGuideInput;
 }
 
 /* tslint:disable */
@@ -1162,17 +1460,56 @@ export interface updateGradingDraftVariables {
 // GraphQL query operation: findStudentsByCourse
 // ====================================================
 
-export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_readings {
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test_readings {
   __typename: "Readings";
   readingSections: string;
 }
 
-export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments {
-  __typename: "Essay" | "Reading_Guide" | "Test";
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test {
+  __typename: "Test";
   _id: string | null;
   markingPeriod: MarkingPeriodEnum;
-  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_readings;
+  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test_readings;
 }
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submitted: boolean;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay {
+  __typename: "Essay";
+  _id: string | null;
+  markingPeriod: MarkingPeriodEnum;
+  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay_readings;
+  finalDraft: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay_finalDraft | null;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  submitted: boolean;
+}
+
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  markingPeriod: MarkingPeriodEnum;
+  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide_readings;
+  readingGuideFinal: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide_readingGuideFinal | null;
+  graded: boolean;
+}
+
+export type findStudentsByCourse_findStudentsByCourse_students_hasAssignments = findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test | findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay | findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide;
 
 export interface findStudentsByCourse_findStudentsByCourse_students {
   __typename: "Student";
@@ -1204,24 +1541,24 @@ export interface findStudentsByCourseVariables {
 // GraphQL query operation: findAssignmentById
 // ====================================================
 
-export interface findAssignmentById_findAssignmentById_assignment_Reading_Guide_hasOwner {
+export interface findAssignmentById_findAssignmentById_assignment_Test_hasOwner {
   __typename: "Student";
   firstName: string;
   lastName: string;
 }
 
-export interface findAssignmentById_findAssignmentById_assignment_Reading_Guide_readings {
+export interface findAssignmentById_findAssignmentById_assignment_Test_readings {
   __typename: "Readings";
   readingPages: string;
   readingSections: string;
 }
 
-export interface findAssignmentById_findAssignmentById_assignment_Reading_Guide {
-  __typename: "Reading_Guide" | "Test";
+export interface findAssignmentById_findAssignmentById_assignment_Test {
+  __typename: "Test";
   _id: string | null;
-  hasOwner: findAssignmentById_findAssignmentById_assignment_Reading_Guide_hasOwner;
+  hasOwner: findAssignmentById_findAssignmentById_assignment_Test_hasOwner;
   late: boolean;
-  readings: findAssignmentById_findAssignmentById_assignment_Reading_Guide_readings;
+  readings: findAssignmentById_findAssignmentById_assignment_Test_readings;
 }
 
 export interface findAssignmentById_findAssignmentById_assignment_Essay_hasOwner {
@@ -1285,7 +1622,36 @@ export interface findAssignmentById_findAssignmentById_assignment_Essay {
   finalDraft: findAssignmentById_findAssignmentById_assignment_Essay_finalDraft | null;
 }
 
-export type findAssignmentById_findAssignmentById_assignment = findAssignmentById_findAssignmentById_assignment_Reading_Guide | findAssignmentById_findAssignmentById_assignment_Essay;
+export interface findAssignmentById_findAssignmentById_assignment_ReadingGuide_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_ReadingGuide_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_ReadingGuide_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  submitted: boolean;
+}
+
+export interface findAssignmentById_findAssignmentById_assignment_ReadingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  hasOwner: findAssignmentById_findAssignmentById_assignment_ReadingGuide_hasOwner;
+  late: boolean;
+  readings: findAssignmentById_findAssignmentById_assignment_ReadingGuide_readings;
+  paperBased: boolean;
+  graded: boolean;
+  completed: boolean;
+  readingGuideFinal: findAssignmentById_findAssignmentById_assignment_ReadingGuide_readingGuideFinal | null;
+}
+
+export type findAssignmentById_findAssignmentById_assignment = findAssignmentById_findAssignmentById_assignment_Test | findAssignmentById_findAssignmentById_assignment_Essay | findAssignmentById_findAssignmentById_assignment_ReadingGuide;
 
 export interface findAssignmentById_findAssignmentById {
   __typename: "FindAssignmentByIdPayload";
@@ -1298,6 +1664,281 @@ export interface findAssignmentById {
 
 export interface findAssignmentByIdVariables {
   input: FindAssignmentByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findReadingGuideDataForCourseAndLesson
+// ====================================================
+
+export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  clarifyingQuestions: string[];
+  submitted: boolean;
+  howIsSectionOrganized: InformationStructureEnum[];
+  whyWasSectionOrganized: string;
+  majorIssue: string;
+  majorSolution: string;
+  majorIssueSolved: boolean;
+}
+
+export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides {
+  __typename: "ReadingGuide";
+  assigned: boolean;
+  hasOwner: findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_hasOwner;
+  readings: findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readings;
+  completed: boolean;
+  graded: boolean;
+  readingGuideFinal: findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readingGuideFinal | null;
+}
+
+export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId {
+  __typename: "FindReadingGuidesByAssociatedLessonAndCourseIdPayload";
+  readingGuides: findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides[];
+}
+
+export interface findReadingGuideDataForCourseAndLesson {
+  findReadingGuidesByAssociatedLessonAndCourseId: findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId;
+}
+
+export interface findReadingGuideDataForCourseAndLessonVariables {
+  input: FindReadingGuidesByAssociatedLessonAndCourseIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: addStudentsToCourse
+// ====================================================
+
+export interface addStudentsToCourse_addStudentsToCourse_students {
+  __typename: "Student";
+  _id: string | null;
+  userName: string;
+}
+
+export interface addStudentsToCourse_addStudentsToCourse {
+  __typename: "AddStudentsToCoursePayload";
+  students: addStudentsToCourse_addStudentsToCourse_students[];
+}
+
+export interface addStudentsToCourse {
+  addStudentsToCourse: addStudentsToCourse_addStudentsToCourse;
+}
+
+export interface addStudentsToCourseVariables {
+  input: AddStudentsToCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAllStudents
+// ====================================================
+
+export interface findAllStudents_findAllStudents_students_inCourses_hasCourseInfo {
+  __typename: "CourseInfo";
+  courseType: CourseTypeEnum;
+}
+
+export interface findAllStudents_findAllStudents_students_inCourses {
+  __typename: "Course";
+  _id: string | null;
+  hasCourseInfo: findAllStudents_findAllStudents_students_inCourses_hasCourseInfo;
+}
+
+export interface findAllStudents_findAllStudents_students {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  inCourses: findAllStudents_findAllStudents_students_inCourses[];
+}
+
+export interface findAllStudents_findAllStudents {
+  __typename: "FindAllStudentsPayload";
+  students: findAllStudents_findAllStudents_students[];
+}
+
+export interface findAllStudents {
+  findAllStudents: findAllStudents_findAllStudents;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findCourseByIdForStudentRegistration
+// ====================================================
+
+export interface findCourseByIdForStudentRegistration_findCourseById_course_hasStudents {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo_assignedSeats_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo_assignedSeats {
+  __typename: "StudentSeat";
+  deskNumber: number;
+  student: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo_assignedSeats_student | null;
+}
+
+export interface findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo {
+  __typename: "CourseInfo";
+  courseType: CourseTypeEnum;
+  assignedSeats: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo_assignedSeats[];
+}
+
+export interface findCourseByIdForStudentRegistration_findCourseById_course {
+  __typename: "Course";
+  _id: string | null;
+  hasStudents: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents[];
+  hasCourseInfo: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo;
+}
+
+export interface findCourseByIdForStudentRegistration_findCourseById {
+  __typename: "FindCourseByIdPayload";
+  course: findCourseByIdForStudentRegistration_findCourseById_course;
+}
+
+export interface findCourseByIdForStudentRegistration {
+  findCourseById: findCourseByIdForStudentRegistration_findCourseById;
+}
+
+export interface findCourseByIdForStudentRegistrationVariables {
+  input: FindCourseByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: registerStudent
+// ====================================================
+
+export interface registerStudent_registerStudent_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string | null;
+}
+
+export interface registerStudent_registerStudent {
+  __typename: "RegisterStudentPayload";
+  student: registerStudent_registerStudent_student;
+}
+
+export interface registerStudent {
+  registerStudent: registerStudent_registerStudent;
+}
+
+export interface registerStudentVariables {
+  input: RegisterStudentInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAllUsers
+// ====================================================
+
+export interface findAllUsers_findAllUsers_users_Student {
+  __typename: "Student";
+  userName: string;
+}
+
+export interface findAllUsers_findAllUsers_users_Teacher {
+  __typename: "Teacher";
+  userName: string;
+}
+
+export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
+
+export interface findAllUsers_findAllUsers {
+  __typename: "FindAllUsersPayload";
+  users: findAllUsers_findAllUsers_users[];
+}
+
+export interface findAllUsers {
+  findAllUsers: findAllUsers_findAllUsers;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assignSeats
+// ====================================================
+
+export interface assignSeats_assignSeats_courseInfo_assignedSeats_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+}
+
+export interface assignSeats_assignSeats_courseInfo_assignedSeats {
+  __typename: "StudentSeat";
+  deskNumber: number;
+  student: assignSeats_assignSeats_courseInfo_assignedSeats_student | null;
+}
+
+export interface assignSeats_assignSeats_courseInfo {
+  __typename: "CourseInfo";
+  assignedSeats: assignSeats_assignSeats_courseInfo_assignedSeats[];
+}
+
+export interface assignSeats_assignSeats {
+  __typename: "AssignSeatsPayload";
+  courseInfo: assignSeats_assignSeats_courseInfo;
+}
+
+export interface assignSeats {
+  assignSeats: assignSeats_assignSeats;
+}
+
+export interface assignSeatsVariables {
+  input: AssignSeatsInput;
 }
 
 /* tslint:disable */
@@ -2048,11 +2689,191 @@ export interface findRubricEntries {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findCourseInfoByCourseId
+// ====================================================
+
+export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course {
+  __typename: "Course";
+  _id: string | null;
+  name: string;
+}
+
+export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats_student_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  hasAbsences: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats_student_hasAbsences[];
+}
+
+export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats {
+  __typename: "StudentSeat";
+  deskNumber: number;
+  student: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats_student | null;
+}
+
+export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo {
+  __typename: "CourseInfo";
+  _id: string | null;
+  startsAt: string;
+  course: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course;
+  endsAt: string;
+  schoolDayType: SchoolDayType;
+  assignedSeats: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats[];
+}
+
+export interface findCourseInfoByCourseId_findCourseInfoByCourseId {
+  __typename: "FindCourseInfoByCourseIdPayload";
+  courseInfo: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo;
+}
+
+export interface findCourseInfoByCourseId {
+  findCourseInfoByCourseId: findCourseInfoByCourseId_findCourseInfoByCourseId;
+}
+
+export interface findCourseInfoByCourseIdVariables {
+  input: FindCourseInfoByCourseIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateDynamicLesson
+// ====================================================
+
+export interface updateDynamicLesson_UpdateDynamicLesson_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+}
+
+export interface updateDynamicLesson_UpdateDynamicLesson {
+  __typename: "UpdateDynamicLessonPayload";
+  lesson: updateDynamicLesson_UpdateDynamicLesson_lesson;
+}
+
+export interface updateDynamicLesson {
+  UpdateDynamicLesson: updateDynamicLesson_UpdateDynamicLesson;
+}
+
+export interface updateDynamicLessonVariables {
+  input: UpdateDynamicLessonInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findStudentInfoByStudentId
+// ====================================================
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasAssignments_Essay {
+  __typename: "Essay" | "Test";
+}
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  clarifyingQuestions: string[];
+  howIsSectionOrganized: InformationStructureEnum[];
+  majorIssue: string;
+  majorIssueSolved: boolean;
+  majorSolution: string;
+}
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide {
+  __typename: "ReadingGuide";
+  dueDate: any;
+  readingGuideFinal: findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide_readingGuideFinal | null;
+}
+
+export type findStudentInfoByStudentId_findStudentById_student_hasAssignments = findStudentInfoByStudentId_findStudentById_student_hasAssignments_Essay | findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide;
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasResponsibilityPoints {
+  __typename: "ResponsibilityPoints";
+  markingPeriod: MarkingPeriodEnum;
+  responsibilityPoints: number;
+}
+
+export interface findStudentInfoByStudentId_findStudentById_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  hasAbsences: findStudentInfoByStudentId_findStudentById_student_hasAbsences[];
+  hasAssignments: findStudentInfoByStudentId_findStudentById_student_hasAssignments[];
+  hasResponsibilityPoints: findStudentInfoByStudentId_findStudentById_student_hasResponsibilityPoints[];
+}
+
+export interface findStudentInfoByStudentId_findStudentById {
+  __typename: "FindStudentByIdPayload";
+  student: findStudentInfoByStudentId_findStudentById_student;
+}
+
+export interface findStudentInfoByStudentId {
+  findStudentById: findStudentInfoByStudentId_findStudentById;
+}
+
+export interface findStudentInfoByStudentIdVariables {
+  input: FindStudentByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findCourseById
+// ====================================================
+
+export interface findCourseById_findCourseById_course_hasStudents {
+  __typename: "Student";
+  firstName: string;
+}
+
+export interface findCourseById_findCourseById_course {
+  __typename: "Course";
+  hasStudents: findCourseById_findCourseById_course_hasStudents[];
+}
+
+export interface findCourseById_findCourseById {
+  __typename: "FindCourseByIdPayload";
+  course: findCourseById_findCourseById_course;
+}
+
+export interface findCourseById {
+  findCourseById: findCourseById_findCourseById;
+}
+
+export interface findCourseByIdVariables {
+  input: FindCourseByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: login
 // ====================================================
 
 export interface login_login_user {
-  __typename: "Teacher" | "Student";
+  __typename: "Student" | "Teacher";
   _id: string | null;
 }
 
@@ -2080,6 +2901,161 @@ export interface loginVariables {
 
 export interface logout {
   logout: boolean;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findLessonByCourseAndDate
+// ====================================================
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList {
+  __typename: "TextSectionVocab";
+  word: string;
+  definition: string;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers {
+  __typename: "PageNumbers";
+  startingPage: number;
+  endingPage: number;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections {
+  __typename: "LessonTextSections";
+  startingSection: string;
+  endingSection: string;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities {
+  __typename: "TextSectionProtocols";
+  task: string;
+  activityType: ProtocolActivityTypes;
+  academicOutcomeTypes: AcademicOutomeTypes;
+  isActive: boolean;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity {
+  __typename: "TextSectionProtocols";
+  task: string;
+  activityType: ProtocolActivityTypes;
+  academicOutcomeTypes: AcademicOutomeTypes;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity {
+  __typename: "TextSectionProtocols";
+  task: string;
+  activityType: ProtocolActivityTypes;
+  academicOutcomeTypes: AcademicOutomeTypes;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+  lessonName: string;
+  vocabList: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList[];
+  pageNumbers: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers;
+  assignedSections: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections;
+  objectives: string | null;
+  essentialQuestion: string;
+  duringActivities: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[];
+  beforeActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity;
+  afterActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity;
+  dynamicLesson: DynamicLessonEnums;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate {
+  __typename: "FindLessonByCourseAndDatePayload";
+  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson;
+}
+
+export interface findLessonByCourseAndDate {
+  findLessonByCourseAndDate: findLessonByCourseAndDate_findLessonByCourseAndDate;
+}
+
+export interface findLessonByCourseAndDateVariables {
+  input: FindLessonByCourseAndDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: enumValues
+// ====================================================
+
+export interface enumValues_MarkingPeriod_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_MarkingPeriod {
+  __typename: "__Type";
+  enumValues: enumValues_MarkingPeriod_enumValues[] | null;
+}
+
+export interface enumValues_WritingLevelEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_WritingLevelEnum {
+  __typename: "__Type";
+  enumValues: enumValues_WritingLevelEnum_enumValues[] | null;
+}
+
+export interface enumValues_QuestionTypeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_QuestionTypeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_QuestionTypeEnum_enumValues[] | null;
+}
+
+export interface enumValues_RubricSectionEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_RubricSectionEnum {
+  __typename: "__Type";
+  enumValues: enumValues_RubricSectionEnum_enumValues[] | null;
+}
+
+export interface enumValues_TimeOfDay_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_TimeOfDay {
+  __typename: "__Type";
+  enumValues: enumValues_TimeOfDay_enumValues[] | null;
+}
+
+export interface enumValues_InformationStructureEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_InformationStructureEnum {
+  __typename: "__Type";
+  enumValues: enumValues_InformationStructureEnum_enumValues[] | null;
+}
+
+export interface enumValues {
+  MarkingPeriod: enumValues_MarkingPeriod | null;
+  WritingLevelEnum: enumValues_WritingLevelEnum | null;
+  QuestionTypeEnum: enumValues_QuestionTypeEnum | null;
+  RubricSectionEnum: enumValues_RubricSectionEnum | null;
+  TimeOfDay: enumValues_TimeOfDay | null;
+  InformationStructureEnum: enumValues_InformationStructureEnum | null;
 }
 
 /* tslint:disable */
@@ -2138,62 +3114,6 @@ export interface SetCurrentMarkingPeriodVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: enumValues
-// ====================================================
-
-export interface enumValues_MarkingPeriod_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface enumValues_MarkingPeriod {
-  __typename: "__Type";
-  enumValues: enumValues_MarkingPeriod_enumValues[] | null;
-}
-
-export interface enumValues_WritingLevelEnum_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface enumValues_WritingLevelEnum {
-  __typename: "__Type";
-  enumValues: enumValues_WritingLevelEnum_enumValues[] | null;
-}
-
-export interface enumValues_QuestionTypeEnum_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface enumValues_QuestionTypeEnum {
-  __typename: "__Type";
-  enumValues: enumValues_QuestionTypeEnum_enumValues[] | null;
-}
-
-export interface enumValues_RubricSectionEnum_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface enumValues_RubricSectionEnum {
-  __typename: "__Type";
-  enumValues: enumValues_RubricSectionEnum_enumValues[] | null;
-}
-
-export interface enumValues {
-  MarkingPeriod: enumValues_MarkingPeriod | null;
-  WritingLevelEnum: enumValues_WritingLevelEnum | null;
-  QuestionTypeEnum: enumValues_QuestionTypeEnum | null;
-  RubricSectionEnum: enumValues_RubricSectionEnum | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: me
 // ====================================================
 
@@ -2205,10 +3125,18 @@ export interface me_me_Student {
   _id: string | null;
 }
 
+export interface me_me_Teacher_teachesCourses_hasCourseInfo {
+  __typename: "CourseInfo";
+  startsAt: string;
+  endsAt: string;
+  schoolDayType: SchoolDayType;
+}
+
 export interface me_me_Teacher_teachesCourses {
   __typename: "Course";
   _id: string | null;
   name: string;
+  hasCourseInfo: me_me_Teacher_teachesCourses_hasCourseInfo;
 }
 
 export interface me_me_Teacher {
@@ -2232,6 +3160,39 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: updateLessonProtocol
+// ====================================================
+
+export interface updateLessonProtocol_updateLessonProtocol_lesson_duringActivities {
+  __typename: "TextSectionProtocols";
+  isActive: boolean;
+}
+
+export interface updateLessonProtocol_updateLessonProtocol_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+  duringActivities: updateLessonProtocol_updateLessonProtocol_lesson_duringActivities[];
+}
+
+export interface updateLessonProtocol_updateLessonProtocol {
+  __typename: "UpdateProtocolPayload";
+  lesson: updateLessonProtocol_updateLessonProtocol_lesson;
+}
+
+export interface updateLessonProtocol {
+  updateLessonProtocol: updateLessonProtocol_updateLessonProtocol;
+}
+
+export interface updateLessonProtocolVariables {
+  input: UpdateLessonProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -2245,6 +3206,31 @@ export enum AcademicOutomeTypes {
 export enum BasicQuestionEnum {
   HOW = "HOW",
   WHY = "WHY",
+}
+
+export enum CourseTypeEnum {
+  ENGLISH_LANGUAGE_ARTS = "ENGLISH_LANGUAGE_ARTS",
+  MATH = "MATH",
+  RELATED_ARTS = "RELATED_ARTS",
+  SCIENCE = "SCIENCE",
+  SOCIAL_STUDIES = "SOCIAL_STUDIES",
+}
+
+export enum DynamicLessonEnums {
+  EXIT_ACTIVITY = "EXIT_ACTIVITY",
+  LESSON_DETAILS = "LESSON_DETAILS",
+  OFF = "OFF",
+  ON = "ON",
+  PROTOCOLS = "PROTOCOLS",
+  VOCAB = "VOCAB",
+  WARM_UP = "WARM_UP",
+}
+
+export enum InformationStructureEnum {
+  CAUSE_EFFECT = "CAUSE_EFFECT",
+  COMPARE_CONTRAST = "COMPARE_CONTRAST",
+  PROBLEM_SOLUTION = "PROBLEM_SOLUTION",
+  SEQUENCE = "SEQUENCE",
 }
 
 export enum MarkingPeriodEnum {
@@ -2271,6 +3257,18 @@ export enum RubricSectionEnum {
   GENERAL = "GENERAL",
   OVERALL = "OVERALL",
   TOPIC = "TOPIC",
+}
+
+export enum SchoolDayType {
+  A = "A",
+  B = "B",
+}
+
+export enum TimeOfDay {
+  AFTER_CLASS = "AFTER_CLASS",
+  AFTER_SCHOOL = "AFTER_SCHOOL",
+  BEFORE_CLASS = "BEFORE_CLASS",
+  BEFORE_SCHOOL = "BEFORE_SCHOOL",
 }
 
 export enum TitleEnum {
@@ -2303,6 +3301,11 @@ export interface AddNewTextInput {
   textTitle: string;
 }
 
+export interface AddStudentsToCourseInput {
+  courseId: string;
+  studentIds: string[];
+}
+
 export interface AdvancedSentenceStructureInput {
   object?: string | null;
   subject: string;
@@ -2314,6 +3317,18 @@ export interface AssignEssaysInput {
   associatedLessonId: string;
   dueDate: any;
   studentIds: string[];
+}
+
+export interface AssignReadingGuidesInput {
+  assignedDate: any;
+  associatedLessonId: string;
+  dueDate: any;
+  studentIds: string[];
+}
+
+export interface AssignSeatsInput {
+  courseId: string;
+  seat: StudentSeatInput;
 }
 
 export interface BuildRubricEntryInput {
@@ -2329,7 +3344,7 @@ export interface CreateEssayInput {
   assignedDate: any;
   associatedLessonId: string;
   dueDate: any;
-  dueTime: string;
+  dueTime: TimeOfDay;
   hasAssignerId: string;
   markingPeriod: MarkingPeriodEnum;
   maxPoints: number;
@@ -2352,6 +3367,18 @@ export interface CreateLessonInput {
   pageNumbers: PageNumbersInput;
   questionList: TextSectionQuestionsInput[];
   vocabList: TextSectionVocabInput[];
+}
+
+export interface CreateReadingGuideInput {
+  assignedCourseIds: string[];
+  assignedDate: any;
+  associatedLessonId: string;
+  dueDate: any;
+  dueTime: TimeOfDay;
+  hasAssignerId: string;
+  markingPeriod: MarkingPeriodEnum;
+  maxPoints: number;
+  readings: ReadingsInput;
 }
 
 export interface CreateTextSectionInput {
@@ -2380,6 +3407,14 @@ export interface FindCompletedEssaysByStudentIdInput {
   studentId: string;
 }
 
+export interface FindCourseByIdInput {
+  courseId: string;
+}
+
+export interface FindCourseInfoByCourseIdInput {
+  courseId: string;
+}
+
 export interface FindCoursesByIdInput {
   _ids: string[];
 }
@@ -2401,6 +3436,11 @@ export interface FindEssaysToGradeByIdInput {
   teacherId: string;
 }
 
+export interface FindLessonByCourseAndDateInput {
+  courseId: string;
+  lessonDate: any;
+}
+
 export interface FindLessonByCourseInput {
   courseId: string;
 }
@@ -2412,6 +3452,23 @@ export interface FindLessonByIdInput {
 export interface FindLessonsByUnitInput {
   courseId: string;
   unitId: string;
+}
+
+export interface FindReadingGuideByIdInput {
+  readingGuideId: string;
+}
+
+export interface FindReadingGuidesByAssociatedLessonAndCourseIdInput {
+  courseId: string;
+  lessonId: string;
+}
+
+export interface FindReadingGuidesToCompleteByStudentIdInput {
+  studentId: string;
+}
+
+export interface FindStudentByIdInput {
+  studentId: string;
 }
 
 export interface FindStudentsByCourseInput {
@@ -2452,6 +3509,16 @@ export interface PageNumbersInput {
 export interface ReadingsInput {
   readingPages: string;
   readingSections: string;
+}
+
+export interface RegisterStudentInput {
+  email?: string | null;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  password: string;
+  schoolId?: string | null;
+  userName: string;
 }
 
 export interface RemoveRubricEntryInput {
@@ -2500,11 +3567,28 @@ export interface SetOrganizerInput {
   writingLevel: WritingLevelEnum;
 }
 
+export interface StartReadingGuideInput {
+  paperBased: boolean;
+  readingGuideId: string;
+}
+
+export interface StudentSeatInput {
+  deskNumber: number;
+  studentId?: string | null;
+}
+
 export interface SubmitEssayFinalDraftInput {
   _id: string;
   late: boolean;
   paperBased: boolean;
   submittedFinalDraft: SubmittedFinalDraftsInput;
+}
+
+export interface SubmitReadingGuideInput {
+  completeReadingGuide?: boolean | null;
+  late: boolean;
+  paperBased: boolean;
+  readingGuideId: string;
 }
 
 export interface SubmittedFinalDraftsInput {
@@ -2520,6 +3604,7 @@ export interface SubmittedFinalDraftsInput {
 export interface TextSectionProtocolsInput {
   academicOutcomeTypes: AcademicOutomeTypes;
   activityType: ProtocolActivityTypes;
+  isActive: boolean;
   task: string;
 }
 
@@ -2562,6 +3647,11 @@ export interface UpdateDevelopingOrganizerInput {
   restatement: string;
 }
 
+export interface UpdateDynamicLessonInput {
+  dynamicLessonUpdate: DynamicLessonEnums;
+  lessonId: string;
+}
+
 export interface UpdateGradingDraftInput {
   draftNumber?: number | null;
   essayId: string;
@@ -2592,12 +3682,28 @@ export interface UpdateLessonInput {
   vocabList: TextSectionVocabInput[];
 }
 
+export interface UpdateLessonProtocolInput {
+  isActive: boolean;
+  lessonId: string;
+  task: string;
+}
+
 export interface UpdateProblemSolutionInput {
   essayId: string;
   problem: string;
   reasonForProblem: string;
   solvedBy: string;
   whySolutionSolved: string;
+}
+
+export interface UpdateReadingGuideInput {
+  clarifyingQuestions: string[];
+  howIsSectionOrganized?: InformationStructureEnum[] | null;
+  majorIssue: string;
+  majorIssueSolved: boolean;
+  majorSolution: string;
+  readingGuideId: string;
+  whyWasSectionOrganized: string;
 }
 
 export interface UpdateRubricEntryInput {

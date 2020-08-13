@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { useParams, useNavigate } from 'react-router'
 
 import { useQuery, gql } from '@apollo/client'
@@ -6,8 +6,7 @@ import {
   findCompletedEssayByIdVariables,
   findCompletedEssayById,
 } from '../../../../../../schemaTypes'
-import { CompletedEssayViewer } from './CompletedEssayViewer'
-import { useCompletedEssayContextProvider } from './CompletedEssayContext'
+import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { EssayToRedo } from './EssayToRedo'
 import { MultipleDraftView } from './MultipleDraftView'
 

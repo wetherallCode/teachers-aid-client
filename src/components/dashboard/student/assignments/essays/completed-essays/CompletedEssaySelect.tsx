@@ -45,7 +45,7 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
     <>
       <div>Completed Essays</div>
       {data?.findCompletedEssaysByStudentId.essays.map((essay) => (
-        <Link to={`completed/${essay._id!}`} key={essay._id!}>
+        <Link to={`essay/completed/${essay._id!}`} key={essay._id!}>
           {essay.readings.readingSections}
         </Link>
       ))}

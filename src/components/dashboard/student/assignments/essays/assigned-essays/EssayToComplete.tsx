@@ -108,6 +108,12 @@ export const FIND_ESSAY_BY_ID_QUERY = gql`
           questionType
           writingLevel
         }
+        lessonInfo {
+          vocabList {
+            word
+            definition
+          }
+        }
       }
     }
   }

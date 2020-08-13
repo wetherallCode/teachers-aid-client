@@ -12,7 +12,7 @@ import { AcademicProblemSolution } from './AcademicProblemSolution'
 import { AcademicHowCauseEffect } from './AcademicHowCauseEffect'
 import { AcademicWhyCauseEffect } from './AcademicWhyCauseEffect'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { SET_ANSWER_TYPE_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicAnswerTypes'
 import { Modal } from '../../../../../../../../animations'
 

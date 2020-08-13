@@ -130,18 +130,21 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
         academicOutcomeTypes: beforeActivity.academicOutcomeTypes,
         activityType: beforeActivity.activityType,
         task: beforeActivity.task,
+        isActive: false,
       }
       event({ type: 'SET_BEFORE_ACTIVITY', payload: modifiedBeforeActivity })
       const modifiedDuringActivity = duringActivities.map((activity) => ({
         academicOutcomeTypes: activity.academicOutcomeTypes,
         activityType: activity.activityType,
         task: activity.task,
+        isActive: false,
       }))
       event({ type: 'SET_DURING_ACTIVITY', payload: modifiedDuringActivity })
       const modifiedAfterActivity = {
         academicOutcomeTypes: afterActivity.academicOutcomeTypes,
         activityType: afterActivity.activityType,
         task: afterActivity.task,
+        isActive: false,
       }
       event({ type: 'SET_AFTER_ACTIVITY', payload: modifiedAfterActivity })
       const modifiedQuestionList = questionList.map((question) => ({

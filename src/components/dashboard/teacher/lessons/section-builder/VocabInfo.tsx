@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 import { TextSectionVocabInput } from '../../../../../schemaTypes'
 
 export const VocabInfo = () => {

@@ -1,12 +1,16 @@
 import React, { FC } from 'react'
 import { useCreateAssignmentContextPovider } from './CreateAssignmentContext'
-import { UnitSelect } from './create-essay/UnitSelect'
-import { LessonInfo } from './create-essay/LessonInfo'
+import { EssayUnitSelect } from './create-essay/EssayUnitSelect'
+
+import { EssayLessonInfo } from './create-essay/EssayLessonInfo'
 
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import { me_me_Teacher } from '../../../../../schemaTypes'
-import { LessonSelect } from './create-essay/LessonSelect'
-import { CreateEssay } from './create-essay/CreateEssay'
+import { EssayLessonSelect } from './create-essay/EssayLessonSelect'
+
+import { ReadingGuideUnitSelect } from './create-readingGuide/ReadingGuideUnitSelect'
+import { ReadingGuideLessonSelect } from './create-readingGuide/ReadingGuideLessonSelect'
+import { ReadingGuideLessonInfo } from './create-readingGuide/ReadingGuideLessonInfo'
 
 export type CreateAssignmentProps = {}
 
@@ -32,10 +36,21 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
           </option>
         ))}
       </select>
-      {state.matches('essay.unit') && <UnitSelect />}
-      {state.matches('essay.lesson') && <LessonSelect />}
-      {state.matches('essay.essayInfo') && <LessonInfo me={me} />}
-      {state.matches('essay.essayInfo') && <CreateEssay me={me} />}
+      {state.context.courseId && (
+        <>
+          <div>Essay</div>
+          {state.matches('essay.unit') && <EssayUnitSelect />}
+          {state.matches('essay.lesson') && <EssayLessonSelect />}
+          {state.matches('essay.essayInfo') && <EssayLessonInfo me={me} />}
+
+          <div>Reading Guide</div>
+          {state.matches('readingGuide.unit') && <ReadingGuideUnitSelect />}
+          {state.matches('readingGuide.lesson') && <ReadingGuideLessonSelect />}
+          {state.matches('readingGuide.readingGuideInfo') && (
+            <ReadingGuideLessonInfo me={me} />
+          )}
+        </>
+      )}
     </div>
   )
 }

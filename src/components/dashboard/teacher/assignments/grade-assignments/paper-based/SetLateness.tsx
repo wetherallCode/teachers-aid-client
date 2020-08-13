@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { findAssignmentById_findAssignmentById_assignment } from '../../../../../../schemaTypes'
-import { usePaperBasedContextProvider } from './PaperBasedContext'
+import { usePaperBasedContextProvider } from './state/PaperBasedContext'
 
 export type SetLatenessProps = {
   essay: findAssignmentById_findAssignmentById_assignment

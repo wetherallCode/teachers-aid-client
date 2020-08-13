@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { UpdateDevelopingOrganizerType } from './DevelopingOrganizer'
 
 export type DevelopingAnswerProps = {

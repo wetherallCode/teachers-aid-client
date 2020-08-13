@@ -24,6 +24,17 @@ export const FIND_STUDENTS_BY_COURSE_ID_QUERY = gql`
           readings {
             readingSections
           }
+          ... on Essay {
+            finalDraft {
+              submitted
+            }
+          }
+          ... on ReadingGuide {
+            readingGuideFinal {
+              submitted
+            }
+            graded
+          }
         }
       }
     }
@@ -33,9 +44,15 @@ export const FIND_STUDENTS_BY_COURSE_ID_QUERY = gql`
 export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
   courseId,
 }) => {
-  const [studentId, setStudentId] = useState('')
-  const [assignmentId, setAssignmentId] = useState('')
   const navigate = useNavigate()
+  const [studentId, setStudentId] = useState('')
+
+  const [essayId, setEssayId] = useState('')
+  const [readingGuideId, setReadingGuideId] = useState('')
+
+  // const [assignmentType, setAssignmentType] = useState<
+  //   'Test' | 'Essay' | 'ReadingGuide'
+  // >('Essay')
   const { loading, data } = useQuery<
     findStudentsByCourse,
     findStudentsByCourseVariables
@@ -44,10 +61,11 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
       input: { courseId },
     },
     // onCompleted: (data) =>
-    //   console.log(data.findStudentsByCourse.students[0].hasAssignments),
+    //  data.findStudentsByCourse.students.,
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
+
   const [student] = data?.findStudentsByCourse.students!.filter(
     (student) => student._id === studentId
   )
@@ -69,28 +87,61 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
         ))}
       </select>
       {student && (
-        <div>
-          <div>Essays</div>
-          <select
-            onChange={(e: any) => {
-              if (e.target.value !== 'none') setAssignmentId(e.target.value)
-            }}
-          >
-            <option value={'none'}>Pick an Essay</option>
-            {student.hasAssignments
-              .filter((assignment) => assignment.__typename === 'Essay')
-              .map((assignment) => (
-                <option key={assignment._id!} value={assignment._id!}>
-                  {assignment.readings.readingSections}
-                </option>
-              ))}
-          </select>
-          {assignmentId && (
-            <div onClick={() => navigate(`paper-based/${assignmentId}`)}>
-              Set Paper Based
-            </div>
-          )}
-        </div>
+        <>
+          <div>
+            <div>Essays</div>
+            <select
+              onChange={(e: any) => {
+                if (e.target.value !== 'none') setEssayId(e.target.value)
+              }}
+            >
+              <option value={'none'}>Pick an Essay</option>
+              {student.hasAssignments
+                .filter(
+                  (assignment) =>
+                    assignment.__typename === 'Essay' &&
+                    !assignment.finalDraft?.submitted
+                )
+                .map((assignment) => (
+                  <option key={assignment._id!} value={assignment._id!}>
+                    {assignment.readings.readingSections}
+                  </option>
+                ))}
+            </select>
+            {essayId && (
+              <div onClick={() => navigate(`paper-based/${essayId}`)}>
+                Set Paper Based
+              </div>
+            )}
+          </div>
+          <div>
+            <div>Reading Guides</div>
+            <select
+              onChange={(e: any) => {
+                if (e.target.value !== 'none') setReadingGuideId(e.target.value)
+              }}
+            >
+              <option value={'none'}>Pick an Reading Guide</option>
+              {student.hasAssignments
+                .filter(
+                  (assignment) =>
+                    assignment.__typename === 'ReadingGuide' &&
+                    !assignment.readingGuideFinal?.submitted &&
+                    !assignment.graded
+                )
+                .map((assignment) => (
+                  <option key={assignment._id!} value={assignment._id!}>
+                    {assignment.readings.readingSections}
+                  </option>
+                ))}
+            </select>
+            {readingGuideId && (
+              <div onClick={() => navigate(`paper-based/${readingGuideId}`)}>
+                Set Paper Based
+              </div>
+            )}
+          </div>
+        </>
       )}
     </>
   )

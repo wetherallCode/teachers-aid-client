@@ -14,7 +14,7 @@ import { AdvancedAnswerTypes } from './AdvancedAnswerTypes'
 
 import { AdvancedRestatement } from './AdvancedRestatement'
 import { AdvancedConclusion } from './AdvancedConclusion'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { UPDATE_ADVANCED_ORGANIZER_MUTATION } from '../../../assigned-essays/organizers/advanced/AdvancedOrganizer'
 
 export type AdvancedOrganizerProps = {

@@ -25,6 +25,7 @@ export const AfterActivity: FC<AfterActivityProps> = ({ protocols }) => {
                   academicOutcomeTypes: protocol.academicOutcomeTypes,
                   activityType: protocol.activityType,
                   task: protocol.task,
+                  isActive: false,
                 },
               })
             }}

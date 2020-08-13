@@ -13,7 +13,7 @@ import { AdvancedHowProblemSolution } from './AdvancedHowProblemSolution'
 import { AdvancedHowCauseEffect } from './AdvancedHowCauseEffect'
 import { AdvancedWhyCauseEffect } from './AdvancedWhyCauseEffect'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
-import { useCompletedEssayContextProvider } from '../../CompletedEssayContext'
+import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { SET_ANSWER_TYPE_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicAnswerTypes'
 import { Modal } from '../../../../../../../../animations'
 

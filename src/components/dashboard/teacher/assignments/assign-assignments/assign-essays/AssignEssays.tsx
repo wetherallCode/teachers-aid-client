@@ -8,8 +8,6 @@ export const AssignEssays: FC<AssignEssaysProps> = () => {
   return (
     <>
       <div>Assign Essays</div>
-      <div>AssignEssaysByCourse</div>
-      <div>AssignEssaysByStudent</div>
       <AssignEssayByCourseContextProvider>
         <AssignEssaysByLesson />
       </AssignEssayByCourseContextProvider>

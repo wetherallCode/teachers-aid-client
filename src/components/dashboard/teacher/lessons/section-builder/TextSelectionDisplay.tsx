@@ -1,16 +1,16 @@
 import React, { FC } from 'react'
 import { findTexts_findTexts_texts } from '../../../../../schemaTypes'
-import { sectionBuilderFSMEvent } from './sectionBuilderFSM'
+
 import { AddText } from './AddText'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
 export type TextSelectionDisplayProps = {
-  event: (event: sectionBuilderFSMEvent) => void
   textList: findTexts_findTexts_texts[]
 }
 export const TextSelectionDisplay: FC<TextSelectionDisplayProps> = ({
-  event,
   textList,
 }) => {
+  const [, event] = useSectionBuilderContextProvider()
   return (
     <div>
       <div>Texts: </div>

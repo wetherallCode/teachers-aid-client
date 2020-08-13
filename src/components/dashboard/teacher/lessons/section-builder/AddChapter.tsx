@@ -6,13 +6,11 @@ import {
 } from '../../../../../schemaTypes'
 import { useForm } from '../../../../../hooks'
 import { State } from 'xstate'
-import {
-  sectionBuilderFSMContext,
-  sectionBuilderFSMEvent,
-} from './sectionBuilderFSM'
+import { sectionBuilderMachineContext } from './state/sectionBuilderMachine'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
 export type AddChapterProps = {
-  state: State<sectionBuilderFSMContext, sectionBuilderFSMEvent, any, any>
+  // state: State<sectionBuilderMachineContext, sectionBuilderMachineEvent, any, any>
 }
 
 export const ADD_NEW_CHAPTER_MUTATION = gql`
@@ -25,7 +23,8 @@ export const ADD_NEW_CHAPTER_MUTATION = gql`
   }
 `
 
-export const AddChapter: FC<AddChapterProps> = ({ state }) => {
+export const AddChapter: FC<AddChapterProps> = () => {
+  const [state] = useSectionBuilderContextProvider()
   const [chapterValues, setValues] = useForm({
     title: '',
     number: '',

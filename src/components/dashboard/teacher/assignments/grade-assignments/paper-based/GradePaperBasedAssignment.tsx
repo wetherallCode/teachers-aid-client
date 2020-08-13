@@ -4,16 +4,12 @@ import { gql, useQuery } from '@apollo/client'
 import {
   findAssignmentByIdVariables,
   findAssignmentById,
-  submitEssayFinalDraft,
-  SubmittedFinalDraftsInput,
-  findAssignmentById_findAssignmentById_assignment_Essay,
   findAssignmentById_findAssignmentById_assignment,
 } from '../../../../../../schemaTypes'
-import { SubmitEssayFinalDraftInput } from '../../../../student/assignments/essays/completed-essays/SubmitRedoneEssay'
-import { usePaperBasedContextProvider } from './PaperBasedContext'
+import { usePaperBasedContextProvider } from './state/PaperBasedContext'
 import { SubmitEssay } from './essay/SubmitEssay'
-import { GradeEssay } from './essay/GradeEssay'
 import { SetLateness } from './SetLateness'
+import { SubmitReadingGuide } from './reading-guide/SubmitReadingGuide'
 
 export type GradePaperBasedAssignmentProps = {}
 
@@ -59,6 +55,14 @@ export const FIND_ASSIGNMENT_BY_ID_QUERY = gql`
             }
           }
         }
+        ... on ReadingGuide {
+          paperBased
+          graded
+          completed
+          readingGuideFinal {
+            submitted
+          }
+        }
       }
     }
   }
@@ -86,12 +90,15 @@ export const GradePaperBasedAssignment: FC<GradePaperBasedAssignmentProps> = () 
         payload: data.findAssignmentById.assignment.late,
       })
       event({ type: 'NEXT' })
+      if (data.findAssignmentById.assignment.__typename === 'ReadingGuide') {
+        // event({type: SET_, payload: })
+      }
     },
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
 
-  const essay: findAssignmentById_findAssignmentById_assignment = data
+  const assignment: findAssignmentById_findAssignmentById_assignment = data
     ?.findAssignmentById.assignment!
 
   return (
@@ -106,16 +113,35 @@ export const GradePaperBasedAssignment: FC<GradePaperBasedAssignmentProps> = () 
           {data?.findAssignmentById.assignment.readings.readingSections}
         </div>
       </>
-      {data?.findAssignmentById.assignment.late && (
-        <SetLateness essay={essay} />
-      )}
-      {essay.__typename === 'Essay' && state.matches('assignmentSelect.essay') && (
+      {assignment.__typename === 'Essay' &&
+        data?.findAssignmentById.assignment.late && (
+          <SetLateness essay={assignment} />
+        )}
+      {assignment.__typename === 'Essay' &&
+        state.matches('assignmentSelect.essay') && (
+          <>
+            <div>{assignment.topic.question}</div>
+            <SubmitEssay essay={assignment} />
+          </>
+        )}
+      {assignment.__typename === 'ReadingGuide' &&
+      state.matches('assignmentSelect.readingGuide') &&
+      !assignment.graded ? (
+        <SubmitReadingGuide
+          readingGuideId={assignmentId}
+          readingGuide={assignment}
+        />
+      ) : (
         <>
-          <div>{essay.topic.question}</div>
-          <SubmitEssay essay={essay} />
-          {/* <GradeEssay essay={essay} /> */}
+          {assignment.__typename === 'ReadingGuide' && (
+            <div>{assignment.completed ? 'Complete' : 'Incomplete'}</div>
+          )}
         </>
       )}
     </>
   )
 }
+
+// export type ReadingGuideCom[let]
+
+// export const ReadingGuideComplete

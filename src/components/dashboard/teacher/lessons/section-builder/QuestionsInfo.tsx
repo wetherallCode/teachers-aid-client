@@ -5,7 +5,7 @@ import {
   TextSectionQuestionsInput,
   QuestionTypeEnum,
 } from '../../../../../schemaTypes'
-import { useSectionBuilderContextProvider } from './SectionBuilderContext'
+import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 
 export const QUESTION_TYPE_ENUM_QUERY = gql`
   query questionTypeEnum {

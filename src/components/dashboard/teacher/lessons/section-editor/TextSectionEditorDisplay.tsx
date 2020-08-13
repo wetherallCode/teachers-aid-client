@@ -72,6 +72,7 @@ export const TextSectionEditorDisplay = () => {
     academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
     activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
     task: '',
+    isActive: false,
   })
   const [questionsItem, setQuestionsItem] = useState<TextSectionQuestionsInput>(
     { question: '', questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT }
@@ -144,6 +145,7 @@ export const TextSectionEditorDisplay = () => {
             academicOutcomeTypes: protocol.academicOutcomeTypes,
             activityType: protocol.activityType,
             task: protocol.task,
+            isActive: false,
           })
         ),
       })

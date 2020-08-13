@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { useCreateAssignmentContextPovider } from '../CreateAssignmentContext'
 import { dateConverter } from '../../../../../../utils'
@@ -11,11 +11,14 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createEssay,
   me_me_Teacher,
+  TimeOfDay,
+  MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
 
 export type CreateEssayProps = {
   me: me_me_Teacher
+  courseIdList: string[]
 }
 
 export const CREATE_ESSAY_MUTATION = gql`
@@ -28,21 +31,21 @@ export const CREATE_ESSAY_MUTATION = gql`
   }
 `
 
-export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
+export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
   const [state, event] = useCreateAssignmentContextPovider()
 
-  const { writingLevelEnum } = useEnumContextProvider()
+  const {
+    writingLevelEnum,
+    markingPeriodEnum,
+    timeOfDayEnum,
+  } = useEnumContextProvider()
 
   const [topicQuestion, setTopicQuestion] = useState<TopicInput>({
     question: '',
     questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT,
     writingLevel: WritingLevelEnum.DEVELOPING,
   })
-  const [assignedCourseIds, handleChange] = useCheckBox([])
-
-  useEffect(() => {
-    event({ type: 'SET_LINKED_COURSES_IDS', payload: assignedCourseIds })
-  }, [assignedCourseIds, event])
+  const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
 
   const [createEssay] = useMutation<createEssay, createEssayVariables>(
     CREATE_ESSAY_MUTATION,
@@ -50,10 +53,10 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
       variables: {
         input: {
           topicList: state.context.essay.topicList,
-          assignedCourseId: state.context.assignedCourseId,
+          assignedCourseId: assignedCourseIds,
           assignedDate: state.context.essay.assignedDate,
           dueDate: state.context.essay.dueDate,
-          dueTime: '8:00:00 AM',
+          dueTime: state.context.essay.dueTime,
           associatedLessonId: state.context.essay.lesson,
           hasAssignerId: state.context.hasAssignerId,
           markingPeriod: state.context.essay.markingPeriod,
@@ -95,19 +98,51 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
         />
       </span>
       <span>Time: </span>
-      <input
-        type='time'
+      <select
+        value={state.context.essay.dueTime}
         onChange={(e: any) =>
           event({
             type: 'SET_DUE_TIME',
             payload: e.target.value,
           })
         }
-      />
+      >
+        {timeOfDayEnum.map((time: TimeOfDay) => (
+          <option key={time!} value={time!}>
+            {time === 'BEFORE_SCHOOL'
+              ? 'Before School'
+              : time === 'BEFORE_CLASS'
+              ? 'Before Class'
+              : time === 'AFTER_CLASS'
+              ? 'After Class'
+              : 'After School'}
+          </option>
+        ))}
+      </select>
+      <div>Marking Period</div>
+      <select
+        value={state.context.essay.markingPeriod}
+        onChange={(e: any) =>
+          event({ type: 'SET_MARKING_PERIOD', payload: e.target.value })
+        }
+      >
+        {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+          <option key={mp} value={mp}>
+            {mp === 'FIRST'
+              ? 'First'
+              : mp === 'SECOND'
+              ? 'Second'
+              : mp === 'THIRD'
+              ? 'Third'
+              : 'Fourth'}
+          </option>
+        ))}
+      </select>
       <span>Max Points</span>
       <span>
         <input
           type='text'
+          value={state.context.essay.maxPoints}
           onChange={(e: any) =>
             event({ type: 'SET_MAX_POINTS', payload: Number(e.target.value) })
           }
@@ -166,20 +201,27 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me }) => {
         <div key={course._id!}>
           <input
             type='checkbox'
-            checked={
-              state.context.assignedCourseId.some(
-                (courseId) => courseId === course._id
-              )
-                ? true
-                : false
-            }
+            checked={assignedCourseIds.includes(course._id)}
             onChange={handleChange}
             value={course._id!}
           />
           <span>{course.name}</span>
         </div>
       ))}
-      <button onClick={() => createEssay()}>Create Essay</button>
+      <button
+        onClick={() => {
+          if (
+            assignedCourseIds.includes(state.context.courseId) &&
+            state.context.essay.dueDate
+          )
+            createEssay()
+        }}
+      >
+        {assignedCourseIds.includes(state.context.courseId) &&
+        state.context.essay.dueDate
+          ? 'Create Essays'
+          : 'Complete Form'}
+      </button>
     </>
   )
 }
