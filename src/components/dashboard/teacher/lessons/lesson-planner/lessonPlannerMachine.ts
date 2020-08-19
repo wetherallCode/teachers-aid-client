@@ -95,6 +95,7 @@ export const lessonPlannerMachine = Machine<
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
+      completed: false,
     },
     duringActivity: [],
     afterActivity: {
@@ -102,6 +103,7 @@ export const lessonPlannerMachine = Machine<
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
+      completed: false,
     },
     questionList: [],
     essentialQuestion: {

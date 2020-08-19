@@ -5,6 +5,11 @@ import {
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities,
   AcademicOutomeTypes,
   ProtocolActivityTypes,
+  CreateProtocolInput,
+  MarkingPeriodEnum,
+  AssessStudentProtocolInput,
+  ProtocolAssessmentEnum,
+  DiscussionTypesEnum,
 } from '../../../../../schemaTypes'
 
 export type teachersAidMachineSchema = {
@@ -12,8 +17,15 @@ export type teachersAidMachineSchema = {
     teachersAid: {}
     controlPanelActions: {
       states: {
-        livePeriod: {}
+        dynamicLesson: {}
         protocolManager: {}
+      }
+    }
+    studentControlPanel: {
+      states: {
+        studentBehavior: {}
+        studentAttendance: {}
+        studentProtocol: {}
       }
     }
   }
@@ -32,6 +44,17 @@ export type teachersAidMachineEvent =
       payload: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[]
     }
   | { type: 'SELECT_PROTOCOL'; payload: number }
+  | { type: 'SET_PRESENT_STUDENTS'; payload: string[] }
+  | {
+      type: 'UPDATE_LESSON_PROTOCOL'
+      payload: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities
+    }
+  | { type: 'ASSESS_PROTOCOL_DISPLAY' }
+  | { type: 'UPDATE_STUDENT_PROTOCOL'; payload: AssessStudentProtocolInput }
+  | { type: 'ADD_PARTNERS'; payload: string }
+  | { type: 'REMOVE_PARTNERS'; payload: number }
+  | { type: 'DISCUSSION_ASSESSMENT'; payload: DiscussionTypesEnum }
+  | { type: 'PROTOCOL_ASSESSMENT'; payload: ProtocolAssessmentEnum }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
@@ -41,6 +64,9 @@ export type teachersAidMachineContext = {
   protocols: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[]
   protocolSelect: number
   selectedProtocol: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities
+  protocolToCreate: CreateProtocolInput
+  presentStudentsIds: string[]
+  studentProtocolAssessment: AssessStudentProtocolInput
 }
 
 export const teachersAidMachine = Machine<
@@ -67,6 +93,7 @@ export const teachersAidMachine = Machine<
       schoolDayType: SchoolDayType.A,
       startsAt: '',
     },
+    presentStudentsIds: [],
     studentId: '',
     protocols: [],
     protocolSelect: 0,
@@ -76,6 +103,23 @@ export const teachersAidMachine = Machine<
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
+      completed: false,
+    },
+    protocolToCreate: {
+      academicOutcomeType: AcademicOutomeTypes.LOGIC_BUILDING,
+      markingPeriod: MarkingPeriodEnum.FIRST,
+      protocolActivityType: ProtocolActivityTypes.INDIVIDUAL,
+      studentIds: [],
+      task: '',
+    },
+    studentProtocolAssessment: {
+      studentId: '',
+      assessment: ProtocolAssessmentEnum.REFUSED_TO_WORK,
+      task: '',
+      assignedDate: '',
+      discussionLevel: DiscussionTypesEnum.NOT_REQUIRED,
+      partnerIds: null,
+      protocolActivityType: ProtocolActivityTypes.INDIVIDUAL,
     },
   },
   states: {
@@ -114,20 +158,27 @@ export const teachersAidMachine = Machine<
             }
           }),
         },
+        SET_PRESENT_STUDENTS: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              presentStudentsIds: evt.payload,
+            }
+          }),
+        },
       },
     },
     controlPanelActions: {
-      initial: 'livePeriod',
+      initial: 'dynamicLesson',
       states: {
-        livePeriod: {
+        dynamicLesson: {
           on: {
             NEXT: 'protocolManager',
           },
         },
-
         protocolManager: {
           on: {
-            NEXT: 'livePeriod',
+            NEXT: 'dynamicLesson',
             LOAD_PROTOCOLS: {
               actions: assign((ctx, evt) => {
                 return {
@@ -142,6 +193,106 @@ export const teachersAidMachine = Machine<
                   ...ctx,
                   protocolSelect: evt.payload,
                   selectedProtocol: ctx.protocols[evt.payload],
+                }
+              }),
+            },
+            UPDATE_LESSON_PROTOCOL: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  selectedProtocol: evt.payload,
+                }
+              }),
+            },
+          },
+        },
+      },
+    },
+    studentControlPanel: {
+      initial: 'studentBehavior',
+      states: {
+        studentBehavior: {
+          on: {
+            ASSESS_PROTOCOL_DISPLAY: 'studentProtocol',
+            UPDATE_STUDENT_PROTOCOL: {
+              actions: assign((ctx, evt) => {
+                console.log(evt.payload)
+                return {
+                  ...ctx,
+                  studentProtocolAssessment: evt.payload,
+                }
+              }),
+            },
+          },
+        },
+        studentAttendance: {
+          on: {
+            ASSESS_PROTOCOL_DISPLAY: 'studentProtocol',
+          },
+        },
+        studentProtocol: {
+          on: {
+            ASSESS_PROTOCOL_DISPLAY: 'studentProtocol',
+            UPDATE_STUDENT_PROTOCOL: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentProtocolAssessment: evt.payload,
+                }
+              }),
+            },
+            ADD_PARTNERS: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentProtocolAssessment: {
+                    ...ctx.studentProtocolAssessment,
+                    partnerIds: [
+                      ...ctx.studentProtocolAssessment.partnerIds,
+                      evt.payload,
+                    ],
+                  },
+                }
+              }),
+            },
+            REMOVE_PARTNERS: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentProtocolAssessment: {
+                    ...ctx.studentProtocolAssessment,
+                    partnerIds: [
+                      ...ctx.studentProtocolAssessment.partnerIds?.slice(
+                        0,
+                        evt.payload
+                      ),
+                      ...ctx.studentProtocolAssessment.partnerIds?.slice(
+                        evt.payload + 1
+                      ),
+                    ],
+                  },
+                }
+              }),
+            },
+            DISCUSSION_ASSESSMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentProtocolAssessment: {
+                    ...ctx.studentProtocolAssessment,
+                    discussionLevel: evt.payload,
+                  },
+                }
+              }),
+            },
+            PROTOCOL_ASSESSMENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentProtocolAssessment: {
+                    ...ctx.studentProtocolAssessment,
+                    assessment: evt.payload,
+                  },
                 }
               }),
             },

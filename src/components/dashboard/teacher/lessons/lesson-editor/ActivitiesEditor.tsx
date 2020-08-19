@@ -42,6 +42,7 @@ export const ActivitiesEditor: FC<ActivitiesEditorProps> = () => {
         activityType: protocol.activityType,
         task: protocol.task,
         isActive: false,
+        completed: false,
       })
     })
 

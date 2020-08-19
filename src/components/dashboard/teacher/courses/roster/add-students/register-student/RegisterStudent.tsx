@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import { useAddStudentsContextProvider } from '../state/AddStudentsContext'
 import {
@@ -6,10 +6,12 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   registerStudent,
   registerStudentVariables,
+  StudentCohortEnum,
 } from '../../../../../../../schemaTypes'
 import { RegisterUserNameAndPassword } from './RegisterUserNameAndPassword'
 import { Modal } from '../../../../../../../animations'
 import { AddToCourseModal } from './AddToCourseModal'
+import { redCohort } from '../../../../../../../utils'
 
 export type RegisterStudentProps = {}
 
@@ -68,7 +70,14 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
     },
     refetchQueries: ['findAllUsers'],
   })
-
+  useEffect(() => {
+    if (
+      redCohort.includes(state.context.studentToRegister.lastName.charAt(0))
+    ) {
+      event({ type: 'ADD_COHORT', payload: StudentCohortEnum.RED })
+    } else event({ type: 'ADD_COHORT', payload: StudentCohortEnum.WHITE })
+  }, [state.context.studentToRegister.lastName])
+  console.log(state.context.studentToRegister.cohort)
   if (loading) return <div>Loading </div>
   return (
     <>

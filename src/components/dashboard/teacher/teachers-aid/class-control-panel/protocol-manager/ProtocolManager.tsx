@@ -17,9 +17,25 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
   protocols,
 }) => {
   const [state, event] = useTeachersAidContextProvider()
+
+  const currentActiveProtocolIndex = protocols.findIndex(
+    (protocol) => protocol.isActive
+  )
+
   useEffect(() => {
-    event({ type: 'SELECT_PROTOCOL', payload: 0 })
-  }, [])
+    event({
+      type: 'SELECT_PROTOCOL',
+      payload:
+        currentActiveProtocolIndex === -1 ? 0 : currentActiveProtocolIndex,
+    })
+  }, [currentActiveProtocolIndex])
+
+  useEffect(() => {
+    event({
+      type: 'UPDATE_LESSON_PROTOCOL',
+      payload: protocols[state.context.protocolSelect],
+    })
+  }, [protocols, state.context.protocolSelect])
 
   return (
     <>

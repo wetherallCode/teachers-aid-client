@@ -4,6 +4,7 @@ import { MutationFunctionOptions } from '@apollo/client'
 import {
   registerStudent,
   registerStudentVariables,
+  StudentCohortEnum,
 } from '../../../../../../../schemaTypes'
 
 export type AddToCourseModalProps = {
@@ -47,6 +48,8 @@ export const AddToCourseModal: FC<AddToCourseModalProps> = ({
               email: '',
               middleName: '',
               schoolId: '',
+              cohort: StudentCohortEnum.RED,
+              virtual: false,
               password: 'password',
               userName: '',
             },

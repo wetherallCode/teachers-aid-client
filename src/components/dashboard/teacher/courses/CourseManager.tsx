@@ -5,6 +5,8 @@ import { LessonEditorContextProvider } from '../lessons/lesson-editor/LessonEdit
 import { AssignAssignments } from '../assignments/assign-assignments/AssignAssignments'
 import { RosterDashboard } from './roster/RosterDashboard'
 import { ReadingGuideData } from '../assignments/readingGuideData/ReadingGuideData'
+import { EditCourseContextProvider } from './edit-course/state/EditCourseContext'
+import { EditCourse } from './edit-course/EditCourse'
 
 export type CourseManagerProps = {}
 
@@ -26,6 +28,14 @@ export const CourseManager: FC<CourseManagerProps> = () => {
         <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
 
         <Route path='roster/*' element={<RosterDashboard />} />
+        <Route
+          path='edit-course'
+          element={
+            <EditCourseContextProvider>
+              <EditCourse />
+            </EditCourseContextProvider>
+          }
+        />
       </Routes>
     </>
   )

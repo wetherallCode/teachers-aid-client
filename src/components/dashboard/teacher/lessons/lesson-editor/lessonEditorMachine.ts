@@ -113,6 +113,7 @@ export const lessonEditorMachine = Machine<
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
+      completed: false,
     },
     duringActivity: [],
     afterActivity: {
@@ -120,6 +121,7 @@ export const lessonEditorMachine = Machine<
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
+      completed: false,
     },
     protocolList: [],
     questionList: [],

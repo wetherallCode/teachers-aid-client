@@ -74,15 +74,28 @@ export const AddToCourse: FC<AddToCourseProps> = ({ course }) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-
+  // console.log(
+  //   data?.findAllStudents.students.filter(
+  //     (student) =>
+  //       student.inCourses.length === 0 &&
+  //       student.inCourses.some((thisCourse) => thisCourse._id === course._id)
+  //   )
+  // )
+  console.log(
+    data?.findAllStudents.students.map(
+      (student) =>
+        student.inCourses.length === 0 ||
+        student.inCourses.some((thisCourse) => thisCourse._id !== course._id)
+    )
+  )
   const studentsNotInCourse = data?.findAllStudents.students.filter(
     (student) =>
       // student.inCourses.some((courses) => courses._id! !== course._id) ||
-      student.inCourses.length === 0 &&
+      student.inCourses.length === 0 ||
       student.inCourses.some((thisCourse) => thisCourse._id === course._id)
     // &&
     // student.inCourses.some(
-    //   (studentdsCourses) =>
+    //   (studentdsCourses) =>s
     //     !studentdsCourses.hasCourseInfo.courseType.includes(
     //       course.hasCourseInfo.courseType
     //     )

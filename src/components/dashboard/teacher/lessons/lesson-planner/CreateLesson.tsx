@@ -74,7 +74,7 @@ export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
       onCompleted: (data) => console.log(data),
       onError: (error) => console.log(error),
 
-      refetchQueries: [],
+      refetchQueries: ['findLessonByCourseAndDate'],
     }
   )
   return (

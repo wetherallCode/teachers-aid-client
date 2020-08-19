@@ -83,6 +83,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
         activityType: protocol.activityType,
         task: protocol.task,
         isActive: false,
+        completed: false,
       }
       protocolList.push(protocolItem)
     })

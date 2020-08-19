@@ -33,6 +33,7 @@ export const DuringActivities: FC<DuringActivitiesProps> = ({ protocols }) => {
                   activityType: protocol.activityType,
                   task: protocol.task,
                   isActive: false,
+                  completed: false,
                 },
               ])
             }

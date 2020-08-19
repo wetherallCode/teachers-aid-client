@@ -24,6 +24,7 @@ export const TwentyFourSeatFloorPlan = styled.div`
 `
 export const TwelveSeatFloorPlan = styled.div`
   display: grid;
+  height: 100%;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
 `
@@ -34,6 +35,7 @@ export const PairSeatingGroup = styled.div`
   height: 100%;
   grid-column-gap: 2px;
 `
+
 export const LeftSide = styled.div`
   height: 100%;
   display: grid;
@@ -45,8 +47,21 @@ export const RightSide = styled.div`
   display: grid;
   align-items: center;
 `
+export const CenterSide = styled.div`
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+
 export const DeskContainer = styled.div`
   width: 80%;
+  height: 65%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px var(--grey);
+`
+export const IndividualDeskContainer = styled.div`
+  width: 40%;
   height: 65%;
   border-radius: 5px;
   box-shadow: 2px 2px 2px var(--grey);
@@ -56,6 +71,7 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
   border-radius: 5px;
   background-color: ${({ absent, assigned }) =>
     !assigned ? 'var(--grey)' : absent ? 'var(--red)' : 'var(--blue)'};
+
   color: var(--white);
   text-shadow: 2px 2px 2px black;
   display: grid;

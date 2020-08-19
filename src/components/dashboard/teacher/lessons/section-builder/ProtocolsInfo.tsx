@@ -32,6 +32,7 @@ export const ProtocolsInfo = () => {
     activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
     task: '',
     isActive: false,
+    completed: false,
   })
   const [, event] = useSectionBuilderContextProvider()
   const { loading, error, data } = useQuery<protocolEnumTypes>(

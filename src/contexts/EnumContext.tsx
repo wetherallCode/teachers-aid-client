@@ -34,6 +34,31 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    DiscussionTypesEnum: __type(name: "DiscussionTypesEnum") {
+      enumValues {
+        name
+      }
+    }
+    ProtocolAssessmentEnum: __type(name: "ProtocolAssessmentEnum") {
+      enumValues {
+        name
+      }
+    }
+    CourseMaxSizeEnum: __type(name: "CourseMaxSizeEnum") {
+      enumValues {
+        name
+      }
+    }
+    CourseTypeEnum: __type(name: "CourseTypeEnum") {
+      enumValues {
+        name
+      }
+    }
+    SchoolDayType: __type(name: "SchoolDayType") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -65,6 +90,21 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
         ),
         timeOfDayEnum: data?.TimeOfDay?.enumValues?.map((value) => value.name),
         informationStructureEnum: data?.InformationStructureEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        discussionTypesEnum: data?.DiscussionTypesEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        protocolAssessmentEnum: data?.ProtocolAssessmentEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        courseMaxSizeEnum: data?.CourseMaxSizeEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        courseTypeEnum: data?.CourseTypeEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        schoolDayType: data?.SchoolDayType?.enumValues?.map(
           (value) => value.name
         ),
       }}

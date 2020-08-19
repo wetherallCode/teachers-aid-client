@@ -39,6 +39,7 @@ export const FIND_LESSON_QUERY = gql`
           activityType
           academicOutcomeTypes
           isActive
+          completed
         }
         beforeActivity {
           task
@@ -64,8 +65,8 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
     me.teachesCourses.filter(
       (course) =>
         Date.parse(time) >
-          Date.parse(timeFinder(course.hasCourseInfo.startsAt)) &&
-        Date.parse(time) < Date.parse(timeFinder(course.hasCourseInfo.endsAt))
+          Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
+        Date.parse(time) < Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
     )
   const courses =
     me.__typename === 'Teacher' &&
@@ -112,7 +113,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
             {data ? (
               <>
                 {courseToLoad.name}:{' '}
-                {data.findLessonByCourseAndDate.lesson.lessonName}{' '}
+                {data.findLessonByCourseAndDate.lesson?.lessonName}{' '}
                 <button
                   onClick={() => {
                     if (courseToLoad) event({ type: 'TODAYS_LESSON' })

@@ -52,6 +52,7 @@ export const SetSections: FC<SectionsProps> = ({ updateLesson }) => {
         activityType: protocol.activityType,
         task: protocol.task,
         isActive: false,
+        completed: false,
       })
     })
   })

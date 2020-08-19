@@ -16,7 +16,7 @@ export type DynamicLessonManagerProps = {
 }
 
 export type DynamicLessonButtonProps = {
-  currentLessonSetting: boolean
+  currentLessonSetting?: boolean
 }
 
 export const UPDATE_DYNAMIC_LESSON_MUTATION = gql`
@@ -50,27 +50,41 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
       },
     })
   }
+
   return (
     <>
       <DynamicLessonHeader>Dynamic Lesson</DynamicLessonHeader>
-      <DynamicLessonButton
-        currentLessonSetting={lesson.dynamicLesson === 'WARM_UP' && true}
-        onClick={() => handleClick(DynamicLessonEnums.WARM_UP)}
-      >
-        Warm Up
-      </DynamicLessonButton>
-      <DynamicLessonButton
-        currentLessonSetting={lesson.dynamicLesson === 'LESSON_DETAILS' && true}
-        onClick={() => handleClick(DynamicLessonEnums.LESSON_DETAILS)}
-      >
-        Lesson Details
-      </DynamicLessonButton>
-      <DynamicLessonButton
-        currentLessonSetting={lesson.dynamicLesson === 'VOCAB' && true}
-        onClick={() => handleClick(DynamicLessonEnums.VOCAB)}
-      >
-        Vocab
-      </DynamicLessonButton>
+      {lesson.dynamicLesson === 'OFF' ? (
+        <div>
+          <DynamicLessonButton
+            // currentLessonSetting={}
+            onClick={() => handleClick(DynamicLessonEnums.ON)}
+          >
+            Start Lesson
+          </DynamicLessonButton>
+        </div>
+      ) : (
+        <>
+          <DynamicLessonButton
+            currentLessonSetting={lesson.dynamicLesson === 'WARM_UP'}
+            onClick={() => handleClick(DynamicLessonEnums.WARM_UP)}
+          >
+            Warm Up
+          </DynamicLessonButton>
+          <DynamicLessonButton
+            currentLessonSetting={lesson.dynamicLesson === 'LESSON_DETAILS'}
+            onClick={() => handleClick(DynamicLessonEnums.LESSON_DETAILS)}
+          >
+            Lesson Details
+          </DynamicLessonButton>
+          <DynamicLessonButton
+            currentLessonSetting={lesson.dynamicLesson === 'VOCAB'}
+            onClick={() => handleClick(DynamicLessonEnums.VOCAB)}
+          >
+            Vocab
+          </DynamicLessonButton>
+        </>
+      )}
     </>
   )
 }

@@ -26,6 +26,7 @@ export const BeforeActivity: FC<BeforeActivityProps> = ({ protocols }) => {
                   activityType: protocol.activityType,
                   task: protocol.task,
                   isActive: false,
+                  completed: false,
                 },
               })
             }}

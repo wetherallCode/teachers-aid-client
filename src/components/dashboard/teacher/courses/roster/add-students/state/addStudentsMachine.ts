@@ -2,6 +2,7 @@ import { Machine, assign } from 'xstate'
 import {
   RegisterStudentInput,
   AddStudentsToCourseInput,
+  StudentCohortEnum,
 } from '../../../../../../../schemaTypes'
 
 export type addStudentsMachineSchema = {
@@ -22,6 +23,7 @@ export type addStudentsMachineEvent =
   | { type: 'ADD_USERNAME'; payload: string }
   | { type: 'ADD_MIDDLE_NAME'; payload: string }
   | { type: 'ADD_SCHOOL_ID'; payload: string }
+  | { type: 'ADD_COHORT'; payload: StudentCohortEnum }
   | { type: 'RESET_REGISTER_INPUTS'; payload: RegisterStudentInput }
   | { type: 'SET_COURSE_ID'; payload: string }
   | { type: 'ADD_STUDENT_IDS'; payload: string }
@@ -46,6 +48,8 @@ export const addStudentsMachine = Machine<
       email: '',
       middleName: '',
       schoolId: '',
+      cohort: StudentCohortEnum.RED,
+      virtual: false,
       password: 'password',
       userName: '',
     },
@@ -102,6 +106,17 @@ export const addStudentsMachine = Machine<
               studentToRegister: {
                 ...ctx.studentToRegister,
                 schoolId: evt.payload,
+              },
+            }
+          }),
+        },
+        ADD_COHORT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              studentToRegister: {
+                ...ctx.studentToRegister,
+                cohort: evt.payload,
               },
             }
           }),

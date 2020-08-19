@@ -54,24 +54,19 @@ export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
       }),
     onError: (error) => console.error(error),
   })
-
+  console.log(me)
   return (
     <>
       {me.teachesCourses.map((course) => (
         <CourseSelectButton
           key={course._id!}
-          onClick={async () => {
+          onClick={() => {
             loadCourse({ variables: { input: { courseId: course._id! } } })
-            // event({ type: 'COURSE_SELECT' })
           }}
         >
           {course.name}
         </CourseSelectButton>
       ))}
-      <CourseSelectButton>extra course</CourseSelectButton>
-      <CourseSelectButton>extra course</CourseSelectButton>
-      <CourseSelectButton>extra course</CourseSelectButton>
-      <CourseSelectButton>extra course</CourseSelectButton>
     </>
   )
 }

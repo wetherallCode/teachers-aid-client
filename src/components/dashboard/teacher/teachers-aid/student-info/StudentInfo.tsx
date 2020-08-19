@@ -4,12 +4,14 @@ import { gql, useLazyQuery } from '@apollo/client'
 import {
   findStudentInfoByStudentId,
   findStudentInfoByStudentIdVariables,
+  DiscussionTypesEnum,
 } from '../../../../../schemaTypes'
 import {
   StudentInfoDisplay,
   StudentControlPanel,
   StudentNameContainer,
 } from '../styles/studentInfoStyles'
+import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 
 export type StudentInfoProps = {}
 export const FIND_STUDENT_INFORMATION_QUERY = gql`
@@ -24,6 +26,7 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
         }
         hasAssignments {
           ... on ReadingGuide {
+            _id
             dueDate
             readingGuideFinal {
               clarifyingQuestions
@@ -38,13 +41,32 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
           markingPeriod
           responsibilityPoints
         }
+        hasProtocols {
+          _id
+          completed
+          assignedDate
+          academicOutcomeType
+          student {
+            _id
+            firstName
+          }
+          isActive
+          task
+          partners {
+            _id
+          }
+          discussionLevel
+          completed
+          assessment
+          protocolActivityType
+        }
       }
     }
   }
 `
 
 export const StudentInfo: FC<StudentInfoProps> = () => {
-  const [state] = useTeachersAidContextProvider()
+  const [state, event] = useTeachersAidContextProvider()
   const [loadStudentInfo, { loading, data }] = useLazyQuery<
     findStudentInfoByStudentId,
     findStudentInfoByStudentIdVariables
@@ -52,12 +74,44 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
     variables: {
       input: { studentId: state.context.studentId },
     },
-    // onCompleted: (data) => console.log(data),
+    fetchPolicy: 'network-only',
+    onCompleted: (data) => {
+      console.log('loaded')
+      if (
+        data?.findStudentById.student.hasProtocols.some(
+          (protocol) => protocol.isActive
+        )
+      ) {
+        const [protocol] = data?.findStudentById.student.hasProtocols.filter(
+          (protocol) => protocol.isActive
+        )
+        const partnerList = protocol.partners?.map(
+          (partner) => partner._id
+        ) as string[]
+        event({
+          type: 'UPDATE_STUDENT_PROTOCOL',
+          payload: {
+            assessment: protocol!.assessment!,
+            protocolActivityType: protocol.protocolActivityType,
+            task: protocol.task,
+            assignedDate: protocol.assignedDate,
+            discussionLevel:
+              protocol.protocolActivityType === 'INDIVIDUAL'
+                ? DiscussionTypesEnum.NOT_REQUIRED
+                : protocol.discussionLevel,
+            studentId: data.findStudentById.student._id!,
+            partnerIds: protocol.partners ? partnerList! : [],
+          },
+        })
+      }
+    },
     onError: (error) => console.error(error),
   })
 
   useEffect(() => {
-    if (state.context.studentId) loadStudentInfo()
+    if (state.context.studentId) {
+      loadStudentInfo()
+    }
   }, [loadStudentInfo, state.context.studentId])
 
   if (loading)
@@ -79,7 +133,10 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
         </StudentNameContainer>
       </StudentInfoDisplay>
       <StudentControlPanel>
-        <div>Control Panel</div>
+        <StudentControlPanelDisplay
+          loadStudentInfo={loadStudentInfo}
+          student={data?.findStudentById.student!}
+        />
       </StudentControlPanel>
     </>
   )

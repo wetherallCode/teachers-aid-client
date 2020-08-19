@@ -37,6 +37,9 @@ export const CoursesNav: FC<TeacherNavProps> = ({
                 </Link>
               </motion.li>
             ))}
+            <motion.li variants={liVariants}>
+              <Link to={`dashboard/courses/create-course`}>New Course</Link>
+            </motion.li>
           </>
         )}
         {navState.matches('courses.home.courseSelect') && (
@@ -73,6 +76,13 @@ export const CoursesNav: FC<TeacherNavProps> = ({
                 to={`dashboard/courses/${navState.context.course}/view-reading-guide-data`}
               >
                 ReadingGuide Data
+              </Link>
+            </motion.li>
+            <motion.li variants={liVariants}>
+              <Link
+                to={`dashboard/courses/${navState.context.course}/edit-course`}
+              >
+                Edit Course
               </Link>
             </motion.li>
           </>

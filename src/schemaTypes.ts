@@ -1181,7 +1181,7 @@ export interface findLessonById_findLessonById_lesson_assignedCourses_hasCourseI
 
 export interface findLessonById_findLessonById_lesson_assignedCourses {
   __typename: "Course";
-  hasCourseInfo: findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo;
+  hasCourseInfo: findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo | null;
   _id: string | null;
 }
 
@@ -1727,6 +1727,147 @@ export interface findReadingGuideDataForCourseAndLessonVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createCourseInfo
+// ====================================================
+
+export interface createCourseInfo_createCourseInfo_courseInfo {
+  __typename: "CourseInfo";
+  _id: string | null;
+}
+
+export interface createCourseInfo_createCourseInfo {
+  __typename: "CreateCourseInfoPayload";
+  courseInfo: createCourseInfo_createCourseInfo_courseInfo;
+}
+
+export interface createCourseInfo {
+  createCourseInfo: createCourseInfo_createCourseInfo;
+}
+
+export interface createCourseInfoVariables {
+  input: CreateCourseInfoInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: addCourseToTeacher
+// ====================================================
+
+export interface addCourseToTeacher_addCourseToTeacher_teacher {
+  __typename: "Teacher";
+  _id: string | null;
+}
+
+export interface addCourseToTeacher_addCourseToTeacher {
+  __typename: "AddCourseToTeacherPayload";
+  teacher: addCourseToTeacher_addCourseToTeacher_teacher;
+}
+
+export interface addCourseToTeacher {
+  addCourseToTeacher: addCourseToTeacher_addCourseToTeacher;
+}
+
+export interface addCourseToTeacherVariables {
+  input: AddCourseToTeacherInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: removeCourse
+// ====================================================
+
+export interface removeCourse_removeCourse {
+  __typename: "RemoveCoursePayload";
+  removed: boolean;
+}
+
+export interface removeCourse {
+  removeCourse: removeCourse_removeCourse;
+}
+
+export interface removeCourseVariables {
+  input: RemoveCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createCourse
+// ====================================================
+
+export interface createCourse_createCourse_course {
+  __typename: "Course";
+  _id: string | null;
+}
+
+export interface createCourse_createCourse {
+  __typename: "CreateCoursePayload";
+  course: createCourse_createCourse_course;
+}
+
+export interface createCourse {
+  createCourse: createCourse_createCourse;
+}
+
+export interface createCourseVariables {
+  input: CreateCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateCourseInfo
+// ====================================================
+
+export interface updateCourseInfo_updateCourseInfo_courseInfo_course_hasCourseInfo {
+  __typename: "CourseInfo";
+  _id: string | null;
+}
+
+export interface updateCourseInfo_updateCourseInfo_courseInfo_course {
+  __typename: "Course";
+  _id: string | null;
+  hasCourseInfo: updateCourseInfo_updateCourseInfo_courseInfo_course_hasCourseInfo | null;
+}
+
+export interface updateCourseInfo_updateCourseInfo_courseInfo {
+  __typename: "CourseInfo";
+  course: updateCourseInfo_updateCourseInfo_courseInfo_course;
+}
+
+export interface updateCourseInfo_updateCourseInfo {
+  __typename: "UpdateCourseInfoPayload";
+  courseInfo: updateCourseInfo_updateCourseInfo_courseInfo;
+}
+
+export interface updateCourseInfo {
+  updateCourseInfo: updateCourseInfo_updateCourseInfo;
+}
+
+export interface updateCourseInfoVariables {
+  input: UpdateCourseInfoInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: addStudentsToCourse
 // ====================================================
 
@@ -1766,7 +1907,7 @@ export interface findAllStudents_findAllStudents_students_inCourses_hasCourseInf
 export interface findAllStudents_findAllStudents_students_inCourses {
   __typename: "Course";
   _id: string | null;
-  hasCourseInfo: findAllStudents_findAllStudents_students_inCourses_hasCourseInfo;
+  hasCourseInfo: findAllStudents_findAllStudents_students_inCourses_hasCourseInfo | null;
 }
 
 export interface findAllStudents_findAllStudents_students {
@@ -1825,7 +1966,7 @@ export interface findCourseByIdForStudentRegistration_findCourseById_course {
   __typename: "Course";
   _id: string | null;
   hasStudents: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents[];
-  hasCourseInfo: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo;
+  hasCourseInfo: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo | null;
 }
 
 export interface findCourseByIdForStudentRegistration_findCourseById {
@@ -1925,6 +2066,7 @@ export interface assignSeats_assignSeats_courseInfo_assignedSeats {
 
 export interface assignSeats_assignSeats_courseInfo {
   __typename: "CourseInfo";
+  _id: string | null;
   assignedSeats: assignSeats_assignSeats_courseInfo_assignedSeats[];
 }
 
@@ -1939,6 +2081,86 @@ export interface assignSeats {
 
 export interface assignSeatsVariables {
   input: AssignSeatsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findRosterByCourse
+// ====================================================
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasProtocols {
+  __typename: "Protocol";
+  completed: boolean;
+  assessment: ProtocolAssessmentEnum | null;
+  discussionLevel: DiscussionTypesEnum | null;
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasUnExcusedLatenesses {
+  __typename: "UnexcusedLateness";
+  markingPeriod: MarkingPeriodEnum;
+  dayLate: any;
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasExcusedLatenesses {
+  __typename: "ExcusedLateness";
+  markingPeriod: MarkingPeriodEnum;
+  dayLateExcused: any;
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences {
+  __typename: "StudentAbsence";
+  markingPeriod: MarkingPeriodEnum;
+  dayAbsent: any;
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAssignments {
+  __typename: "Essay" | "ReadingGuide" | "Test";
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student {
+  __typename: "Student";
+  _id: string | null;
+  userName: string;
+  lastName: string;
+  firstName: string;
+  hasProtocols: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasProtocols[];
+  hasUnExcusedLatenesses: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasUnExcusedLatenesses[];
+  hasExcusedLatenesses: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasExcusedLatenesses[];
+  hasAbsences: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences[];
+  hasAssignments: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAssignments[];
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats {
+  __typename: "StudentSeat";
+  deskNumber: number;
+  student: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student | null;
+}
+
+export interface findRosterByCourse_findCourseById_course_hasCourseInfo {
+  __typename: "CourseInfo";
+  assignedSeats: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats[];
+}
+
+export interface findRosterByCourse_findCourseById_course {
+  __typename: "Course";
+  hasCourseInfo: findRosterByCourse_findCourseById_course_hasCourseInfo | null;
+}
+
+export interface findRosterByCourse_findCourseById {
+  __typename: "FindCourseByIdPayload";
+  course: findRosterByCourse_findCourseById_course;
+}
+
+export interface findRosterByCourse {
+  findCourseById: findRosterByCourse_findCourseById;
+}
+
+export interface findRosterByCourseVariables {
+  input: FindCourseByIdInput;
 }
 
 /* tslint:disable */
@@ -2773,6 +2995,194 @@ export interface updateDynamicLessonVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: finishStudentProtocol
+// ====================================================
+
+export interface finishStudentProtocol_finishProtocol_protocols {
+  __typename: "Protocol";
+  _id: string | null;
+}
+
+export interface finishStudentProtocol_finishProtocol {
+  __typename: "FinishProtocolPayload";
+  protocols: finishStudentProtocol_finishProtocol_protocols[];
+}
+
+export interface finishStudentProtocol {
+  finishProtocol: finishStudentProtocol_finishProtocol;
+}
+
+export interface finishStudentProtocolVariables {
+  input: FinishProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: deleteProtocols
+// ====================================================
+
+export interface deleteProtocols_removeProtocol {
+  __typename: "RemoveProtocolPayload";
+  deleteCount: number;
+}
+
+export interface deleteProtocols {
+  removeProtocol: deleteProtocols_removeProtocol;
+}
+
+export interface deleteProtocolsVariables {
+  input: RemoveProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateLessonProtocol
+// ====================================================
+
+export interface updateLessonProtocol_updateLessonProtocol_lesson_duringActivities {
+  __typename: "TextSectionProtocols";
+  isActive: boolean;
+}
+
+export interface updateLessonProtocol_updateLessonProtocol_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+  duringActivities: updateLessonProtocol_updateLessonProtocol_lesson_duringActivities[];
+}
+
+export interface updateLessonProtocol_updateLessonProtocol {
+  __typename: "UpdateProtocolPayload";
+  lesson: updateLessonProtocol_updateLessonProtocol_lesson;
+}
+
+export interface updateLessonProtocol {
+  updateLessonProtocol: updateLessonProtocol_updateLessonProtocol;
+}
+
+export interface updateLessonProtocolVariables {
+  input: UpdateLessonProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: startProtocol
+// ====================================================
+
+export interface startProtocol_startProtocol_lesson_duringActivities {
+  __typename: "TextSectionProtocols";
+  isActive: boolean;
+}
+
+export interface startProtocol_startProtocol_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+  duringActivities: startProtocol_startProtocol_lesson_duringActivities[];
+}
+
+export interface startProtocol_startProtocol {
+  __typename: "StartProtocolPayload";
+  lesson: startProtocol_startProtocol_lesson;
+}
+
+export interface startProtocol {
+  startProtocol: startProtocol_startProtocol;
+}
+
+export interface startProtocolVariables {
+  input: StartProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createStudentProtocol
+// ====================================================
+
+export interface createStudentProtocol_createProtocol_protocols_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+}
+
+export interface createStudentProtocol_createProtocol_protocols {
+  __typename: "Protocol";
+  _id: string | null;
+  student: createStudentProtocol_createProtocol_protocols_student;
+}
+
+export interface createStudentProtocol_createProtocol {
+  __typename: "CreateProtocolPayload";
+  protocols: createStudentProtocol_createProtocol_protocols[];
+}
+
+export interface createStudentProtocol {
+  createProtocol: createStudentProtocol_createProtocol;
+}
+
+export interface createStudentProtocolVariables {
+  input: CreateProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assessStudentProtocol
+// ====================================================
+
+export interface assessStudentProtocol_assessStudentProtocol_protocols_student {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface assessStudentProtocol_assessStudentProtocol_protocols_partners {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface assessStudentProtocol_assessStudentProtocol_protocols {
+  __typename: "Protocol";
+  _id: string | null;
+  student: assessStudentProtocol_assessStudentProtocol_protocols_student;
+  partners: assessStudentProtocol_assessStudentProtocol_protocols_partners[] | null;
+}
+
+export interface assessStudentProtocol_assessStudentProtocol {
+  __typename: "AssessStudentProtocolPayload";
+  protocols: assessStudentProtocol_assessStudentProtocol_protocols[];
+}
+
+export interface assessStudentProtocol {
+  assessStudentProtocol: assessStudentProtocol_assessStudentProtocol;
+}
+
+export interface assessStudentProtocolVariables {
+  input: AssessStudentProtocolInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findStudentInfoByStudentId
 // ====================================================
 
@@ -2796,6 +3206,7 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasAssignmen
 
 export interface findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide {
   __typename: "ReadingGuide";
+  _id: string | null;
   dueDate: any;
   readingGuideFinal: findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide_readingGuideFinal | null;
 }
@@ -2808,6 +3219,32 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasResponsib
   responsibilityPoints: number;
 }
 
+export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+}
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols_partners {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols {
+  __typename: "Protocol";
+  _id: string | null;
+  completed: boolean;
+  assignedDate: any;
+  academicOutcomeType: AcademicOutomeTypes;
+  student: findStudentInfoByStudentId_findStudentById_student_hasProtocols_student;
+  isActive: boolean;
+  task: string;
+  partners: findStudentInfoByStudentId_findStudentById_student_hasProtocols_partners[] | null;
+  discussionLevel: DiscussionTypesEnum | null;
+  assessment: ProtocolAssessmentEnum | null;
+  protocolActivityType: ProtocolActivityTypes;
+}
+
 export interface findStudentInfoByStudentId_findStudentById_student {
   __typename: "Student";
   _id: string | null;
@@ -2816,6 +3253,7 @@ export interface findStudentInfoByStudentId_findStudentById_student {
   hasAbsences: findStudentInfoByStudentId_findStudentById_student_hasAbsences[];
   hasAssignments: findStudentInfoByStudentId_findStudentById_student_hasAssignments[];
   hasResponsibilityPoints: findStudentInfoByStudentId_findStudentById_student_hasResponsibilityPoints[];
+  hasProtocols: findStudentInfoByStudentId_findStudentById_student_hasProtocols[];
 }
 
 export interface findStudentInfoByStudentId_findStudentById {
@@ -2936,6 +3374,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duri
   activityType: ProtocolActivityTypes;
   academicOutcomeTypes: AcademicOutomeTypes;
   isActive: boolean;
+  completed: boolean;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity {
@@ -2969,7 +3408,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate {
   __typename: "FindLessonByCourseAndDatePayload";
-  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson;
+  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson | null;
 }
 
 export interface findLessonByCourseAndDate {
@@ -3049,6 +3488,56 @@ export interface enumValues_InformationStructureEnum {
   enumValues: enumValues_InformationStructureEnum_enumValues[] | null;
 }
 
+export interface enumValues_DiscussionTypesEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_DiscussionTypesEnum {
+  __typename: "__Type";
+  enumValues: enumValues_DiscussionTypesEnum_enumValues[] | null;
+}
+
+export interface enumValues_ProtocolAssessmentEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_ProtocolAssessmentEnum {
+  __typename: "__Type";
+  enumValues: enumValues_ProtocolAssessmentEnum_enumValues[] | null;
+}
+
+export interface enumValues_CourseMaxSizeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_CourseMaxSizeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_CourseMaxSizeEnum_enumValues[] | null;
+}
+
+export interface enumValues_CourseTypeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_CourseTypeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_CourseTypeEnum_enumValues[] | null;
+}
+
+export interface enumValues_SchoolDayType_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_SchoolDayType {
+  __typename: "__Type";
+  enumValues: enumValues_SchoolDayType_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -3056,6 +3545,11 @@ export interface enumValues {
   RubricSectionEnum: enumValues_RubricSectionEnum | null;
   TimeOfDay: enumValues_TimeOfDay | null;
   InformationStructureEnum: enumValues_InformationStructureEnum | null;
+  DiscussionTypesEnum: enumValues_DiscussionTypesEnum | null;
+  ProtocolAssessmentEnum: enumValues_ProtocolAssessmentEnum | null;
+  CourseMaxSizeEnum: enumValues_CourseMaxSizeEnum | null;
+  CourseTypeEnum: enumValues_CourseTypeEnum | null;
+  SchoolDayType: enumValues_SchoolDayType | null;
 }
 
 /* tslint:disable */
@@ -3136,7 +3630,7 @@ export interface me_me_Teacher_teachesCourses {
   __typename: "Course";
   _id: string | null;
   name: string;
-  hasCourseInfo: me_me_Teacher_teachesCourses_hasCourseInfo;
+  hasCourseInfo: me_me_Teacher_teachesCourses_hasCourseInfo | null;
 }
 
 export interface me_me_Teacher {
@@ -3160,39 +3654,6 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL mutation operation: updateLessonProtocol
-// ====================================================
-
-export interface updateLessonProtocol_updateLessonProtocol_lesson_duringActivities {
-  __typename: "TextSectionProtocols";
-  isActive: boolean;
-}
-
-export interface updateLessonProtocol_updateLessonProtocol_lesson {
-  __typename: "Lesson";
-  _id: string | null;
-  duringActivities: updateLessonProtocol_updateLessonProtocol_lesson_duringActivities[];
-}
-
-export interface updateLessonProtocol_updateLessonProtocol {
-  __typename: "UpdateProtocolPayload";
-  lesson: updateLessonProtocol_updateLessonProtocol_lesson;
-}
-
-export interface updateLessonProtocol {
-  updateLessonProtocol: updateLessonProtocol_updateLessonProtocol;
-}
-
-export interface updateLessonProtocolVariables {
-  input: UpdateLessonProtocolInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -3208,12 +3669,26 @@ export enum BasicQuestionEnum {
   WHY = "WHY",
 }
 
+export enum CourseMaxSizeEnum {
+  THIRTY = "THIRTY",
+  THIRTY_SIX = "THIRTY_SIX",
+  TWELVE = "TWELVE",
+  TWENTY_FOUR = "TWENTY_FOUR",
+}
+
 export enum CourseTypeEnum {
   ENGLISH_LANGUAGE_ARTS = "ENGLISH_LANGUAGE_ARTS",
   MATH = "MATH",
   RELATED_ARTS = "RELATED_ARTS",
   SCIENCE = "SCIENCE",
   SOCIAL_STUDIES = "SOCIAL_STUDIES",
+}
+
+export enum DiscussionTypesEnum {
+  DISCUSSED = "DISCUSSED",
+  NOT_REQUIRED = "NOT_REQUIRED",
+  SOME_DISCUSSION = "SOME_DISCUSSION",
+  THOROUGHLY_DISCUSSED = "THOROUGHLY_DISCUSSED",
 }
 
 export enum DynamicLessonEnums {
@@ -3245,6 +3720,13 @@ export enum ProtocolActivityTypes {
   THINK_PAIR_SHARE = "THINK_PAIR_SHARE",
 }
 
+export enum ProtocolAssessmentEnum {
+  REFUSED_TO_WORK = "REFUSED_TO_WORK",
+  SLOW_TO_GET_STARTED = "SLOW_TO_GET_STARTED",
+  WORKED_POORLY = "WORKED_POORLY",
+  WORKED_WELL = "WORKED_WELL",
+}
+
 export enum QuestionTypeEnum {
   HOW_CAUSE_EFFECT = "HOW_CAUSE_EFFECT",
   HOW_PROBLEM_SOLUTION = "HOW_PROBLEM_SOLUTION",
@@ -3262,6 +3744,11 @@ export enum RubricSectionEnum {
 export enum SchoolDayType {
   A = "A",
   B = "B",
+}
+
+export enum StudentCohortEnum {
+  RED = "RED",
+  WHITE = "WHITE",
 }
 
 export enum TimeOfDay {
@@ -3290,6 +3777,11 @@ export interface AcademicSentenceStructureInput {
   verb: string;
 }
 
+export interface AddCourseToTeacherInput {
+  courseId: string;
+  teacherId: string;
+}
+
 export interface AddNewChapterInput {
   chapterNumber: number;
   chapterTitle: string;
@@ -3310,6 +3802,16 @@ export interface AdvancedSentenceStructureInput {
   object?: string | null;
   subject: string;
   verb: string;
+}
+
+export interface AssessStudentProtocolInput {
+  assessment?: ProtocolAssessmentEnum | null;
+  assignedDate?: any | null;
+  discussionLevel?: DiscussionTypesEnum | null;
+  partnerIds?: string[] | null;
+  protocolActivityType: ProtocolActivityTypes;
+  studentId: string;
+  task: string;
 }
 
 export interface AssignEssaysInput {
@@ -3337,6 +3839,21 @@ export interface BuildRubricEntryInput {
   rubricSection: RubricSectionEnum;
   rubricWritingLevels: WritingLevelEnum[];
   score: number;
+}
+
+export interface CreateCourseInfoInput {
+  courseId: string;
+  courseMaxSize: CourseMaxSizeEnum;
+  courseType: CourseTypeEnum;
+  endsAt: string;
+  halfDayEndsAt: string;
+  halfDayStartsAt: string;
+  schoolDayType: SchoolDayType;
+  startsAt: string;
+}
+
+export interface CreateCourseInput {
+  name: string;
 }
 
 export interface CreateEssayInput {
@@ -3367,6 +3884,14 @@ export interface CreateLessonInput {
   pageNumbers: PageNumbersInput;
   questionList: TextSectionQuestionsInput[];
   vocabList: TextSectionVocabInput[];
+}
+
+export interface CreateProtocolInput {
+  academicOutcomeType: AcademicOutomeTypes;
+  markingPeriod: MarkingPeriodEnum;
+  protocolActivityType: ProtocolActivityTypes;
+  studentIds: string[];
+  task: string;
 }
 
 export interface CreateReadingGuideInput {
@@ -3491,6 +4016,13 @@ export interface FindUserDataInput {
   _id: string;
 }
 
+export interface FinishProtocolInput {
+  assignedDate: any;
+  lessonId: string;
+  studentIds: string[];
+  task: string;
+}
+
 export interface LessonTextSectionsInput {
   endingSection: string;
   startingSection: string;
@@ -3512,6 +4044,7 @@ export interface ReadingsInput {
 }
 
 export interface RegisterStudentInput {
+  cohort: StudentCohortEnum;
   email?: string | null;
   firstName: string;
   lastName: string;
@@ -3519,6 +4052,18 @@ export interface RegisterStudentInput {
   password: string;
   schoolId?: string | null;
   userName: string;
+  virtual: boolean;
+}
+
+export interface RemoveCourseInput {
+  courseId: string;
+}
+
+export interface RemoveProtocolInput {
+  assignedDate: any;
+  lessonId: string;
+  studentIds: string[];
+  task: string;
 }
 
 export interface RemoveRubricEntryInput {
@@ -3567,6 +4112,12 @@ export interface SetOrganizerInput {
   writingLevel: WritingLevelEnum;
 }
 
+export interface StartProtocolInput {
+  isActive: boolean;
+  lessonId: string;
+  task: string;
+}
+
 export interface StartReadingGuideInput {
   paperBased: boolean;
   readingGuideId: string;
@@ -3604,6 +4155,7 @@ export interface SubmittedFinalDraftsInput {
 export interface TextSectionProtocolsInput {
   academicOutcomeTypes: AcademicOutomeTypes;
   activityType: ProtocolActivityTypes;
+  completed: boolean;
   isActive: boolean;
   task: string;
 }
@@ -3636,6 +4188,17 @@ export interface UpdateAdvancedOrganizerInput {
   conclusion: string;
   essayId: string;
   restatement: string;
+}
+
+export interface UpdateCourseInfoInput {
+  courseId: string;
+  courseType?: CourseTypeEnum | null;
+  endsAt?: string | null;
+  halfDayEndsAt?: string | null;
+  halfDayStartsAt?: string | null;
+  name: string;
+  schoolDayType?: SchoolDayType | null;
+  startsAt?: string | null;
 }
 
 export interface UpdateDevelopingOrganizerInput {
@@ -3683,8 +4246,10 @@ export interface UpdateLessonInput {
 }
 
 export interface UpdateLessonProtocolInput {
+  assignedDate: any;
   isActive: boolean;
   lessonId: string;
+  studentIds: string[];
   task: string;
 }
 

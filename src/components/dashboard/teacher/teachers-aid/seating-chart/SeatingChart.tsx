@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
 import { TwentyFourSeatChart } from './TwentyFourSeatChart'
+import { TwelveSeatChart } from './TwelveSeatChart'
 
 export type SeatingChartProps = {}
 
@@ -11,7 +12,7 @@ export const SeatingChart: FC<SeatingChartProps> = () => {
   return (
     <>
       {courseMaxSize === 12 ? (
-        <div>Twelve Students</div>
+        <TwelveSeatChart />
       ) : courseMaxSize === 24 ? (
         <TwentyFourSeatChart />
       ) : courseMaxSize === 30 ? (

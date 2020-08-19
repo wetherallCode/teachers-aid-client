@@ -9,9 +9,7 @@ import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { PeriodSelectorDisplay } from './PeriodSelectorDisplay'
 import { ProtocolManager } from '../protocol-manager/ProtocolManager'
 import { DynamicLessonManager } from '../DynamicLesson/DynamicLessonManager'
-import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import {
-  me_me_Teacher,
   findLessonByCourseAndDate,
   findLessonByCourseAndDateVariables,
 } from '../../../../../../schemaTypes'
@@ -44,11 +42,16 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
     },
     onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
+  if (loading)
+    return (
+      <CenteredDiv>
+        <div>No Lesson Scheduled for Today</div>
+      </CenteredDiv>
+    )
 
   return (
     <>
-      {state.matches('controlPanelActions.livePeriod') &&
+      {state.matches('controlPanelActions.dynamicLesson') &&
         state.context.courseInfo._id &&
         !state.context.courseSelectVisible && (
           <>

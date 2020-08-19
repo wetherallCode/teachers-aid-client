@@ -4,6 +4,7 @@ import { AddStudents } from './add-students/AddStudents'
 import { AddStudentsContextProvider } from './add-students/state/AddStudentsContext'
 import { AssignSeats } from './assign-seats/AssignSeats'
 import { AssignSeatsContextProvider } from './assign-seats/state/AssignSeatsContext'
+import { ViewRoster } from './view-roster/ViewRoster'
 
 export type RosterDashboardProps = {}
 
@@ -12,6 +13,7 @@ export const RosterDashboard: FC<RosterDashboardProps> = () => {
     <>
       <Link to='add-students'>Add Students to Course</Link>
       <Link to='assign-seats'>Assign Seats</Link>
+      <Link to='view-roster'>View Roster</Link>
       <Routes>
         <Route
           path='add-students'
@@ -26,6 +28,7 @@ export const RosterDashboard: FC<RosterDashboardProps> = () => {
             <AssignSeats />
           </AssignSeatsContextProvider>
         </Route>
+        <Route path='view-roster' element={<ViewRoster />} />
       </Routes>
     </>
   )
