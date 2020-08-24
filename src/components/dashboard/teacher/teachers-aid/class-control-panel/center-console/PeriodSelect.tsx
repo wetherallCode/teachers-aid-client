@@ -15,7 +15,7 @@ export const PeriodSelect: FC<PeriodSelectProps> = () => {
       <PeriodSelectDisplay>
         <div
           onClick={() => {
-            event({ type: 'NEXT' })
+            event({ type: 'PREVIOUS' })
           }}
         >
           {!state.context.courseSelectVisible &&
