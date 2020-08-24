@@ -8,6 +8,8 @@ import { CoursesHome } from './courses/CoursesHome'
 import { RubricsDashboard } from './rubrics/RubricsDashboard'
 import { TeachersAid } from './teachers-aid/TeachersAid'
 import { TeachersAidContextProvider } from './teachers-aid/state/TeachersAidContext'
+import { SchoolDay } from '../school-day/SchoolDay'
+import { SchoolDayContextProvider } from '../school-day/state/SchoolDayContext'
 
 export const TeacherDashboardHome = () => {
   // const me = useUserContextProvider() as me_me_Teacher
@@ -38,14 +40,7 @@ export const TeacherDashboardHome = () => {
           }
         />
       </Routes>
-      {pathname === '/dashboard' && (
-        <>
-          <button onClick={() => navigate('/dashboard/teachers-aid')}>
-            Teacher's Aid
-          </button>
-          <button onClick={() => navigate('/lesson-home')}>Class Lesson</button>
-        </>
-      )}
+      {pathname === '/dashboard' && <SchoolDay />}
     </TeacherDashboardContainer>
   )
 }

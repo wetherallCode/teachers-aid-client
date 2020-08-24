@@ -4,6 +4,7 @@ import {
   ProtocolManagerContainer,
   DynamicLessonContainer,
   CenteredDiv,
+  MainScreenManagerContainer,
 } from '../../styles/classControlPanelStyles'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { PeriodSelectorDisplay } from './PeriodSelectorDisplay'
@@ -17,6 +18,7 @@ import {
 import { date } from '../../../../../../utils'
 import { useQuery } from '@apollo/client'
 import { FIND_LESSON_QUERY } from '../../../../../lesson/LessonMainMenu'
+import { MainScreenManager } from './MainScreenManager'
 
 export type ControlPanelDisplayProps = {}
 
@@ -73,14 +75,14 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
         !state.context.courseSelectVisible && (
           <>
             {data?.findLessonByCourseAndDate.lesson ? (
-              <ProtocolManagerContainer>
+              <>
                 <ProtocolManager
                   protocols={
                     data?.findLessonByCourseAndDate.lesson.duringActivities!
                   }
                   lesson={data?.findLessonByCourseAndDate.lesson!}
                 />
-              </ProtocolManagerContainer>
+              </>
             ) : (
               <CenteredDiv>
                 <div>No Lesson Scheduled for Today</div>
@@ -88,6 +90,22 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
             )}
           </>
         )}
+      {state.matches('controlPanelActions.mainScreenManager')! &&
+        state.context.courseInfo._id &&
+        !state.context.courseSelectVisible && (
+          <>
+            {/* {data?.findLessonByCourseAndDate.lesson ? ( */}
+            <MainScreenManagerContainer>
+              <MainScreenManager />
+            </MainScreenManagerContainer>
+            {/* ) : (
+              <CenteredDiv>
+                <div>No Lesson Scheduled for Today</div>
+              </CenteredDiv>
+            )} */}
+          </>
+        )}
+
       {state.context.courseSelectVisible && (
         <PeriodSelectDisplayContainer>
           <PeriodSelectorDisplay />

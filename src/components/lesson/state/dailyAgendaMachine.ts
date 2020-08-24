@@ -4,11 +4,12 @@ export type dailyAgendaMachineSchema = {
   states: {
     getLesson: {}
     todaysLesson: {}
+    oldLesson: {}
   }
 }
 export type dailyAgendaMachineEvent =
   | { type: 'TODAYS_LESSON' }
-  | { type: 'PREVIOUS' }
+  | { type: 'GET_LESSON' }
   | { type: 'POLLING' }
 
 export type dailyAgendaMachineContext = {
@@ -33,6 +34,7 @@ export const dailyAgendaMachine = Machine<
     },
     todaysLesson: {
       on: {
+        GET_LESSON: 'getLesson',
         POLLING: {
           actions: assign((ctx) => {
             return {
@@ -43,5 +45,6 @@ export const dailyAgendaMachine = Machine<
         },
       },
     },
+    oldLesson: {},
   },
 })

@@ -19,18 +19,55 @@ export const GET_COURSE_INFO_QUERY = gql`
         startsAt
         course {
           _id
+          name
+          hasStudents {
+            _id
+            firstName
+            lastName
+            cohort
+            hasAbsences {
+              dayAbsent
+            }
+            hasProtocols {
+              _id
+              student {
+                _id
+                firstName
+                lastName
+              }
+              isActive
+              response
+            }
+          }
         }
         endsAt
         schoolDayType
-        course {
-          name
-        }
+        cohortBasedSeating
         assignedSeats {
           deskNumber
+          redCohortStudent {
+            _id
+            firstName
+            lastName
+            cohort
+            hasAbsences {
+              dayAbsent
+            }
+          }
+          whiteCohortStudent {
+            _id
+            firstName
+            lastName
+            cohort
+            hasAbsences {
+              dayAbsent
+            }
+          }
           student {
             _id
             firstName
             lastName
+            cohort
             hasAbsences {
               dayAbsent
             }
@@ -52,9 +89,10 @@ export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
         type: 'SET_COURSE',
         payload: data.findCourseInfoByCourseId.courseInfo,
       }),
+    pollInterval: 1000,
     onError: (error) => console.error(error),
   })
-  console.log(me)
+
   return (
     <>
       {me.teachesCourses.map((course) => (

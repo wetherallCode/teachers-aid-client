@@ -20,12 +20,26 @@ export const FIND_COURSE_BY_ID_QUERY = gql`
           _id
           firstName
           lastName
+          virtual
+          cohort
         }
         hasCourseInfo {
           courseType
+          cohortBasedSeating
           assignedSeats {
             deskNumber
             student {
+              _id
+              firstName
+              lastName
+            }
+            deskNumber
+            redCohortStudent {
+              _id
+              firstName
+              lastName
+            }
+            whiteCohortStudent {
               _id
               firstName
               lastName

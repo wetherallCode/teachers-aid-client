@@ -7,6 +7,7 @@ import {
 } from '../../../../../../schemaTypes'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { date } from '../../../../../../utils'
+import { ProtocolControllerButton } from '../../styles/classControlPanelStyles'
 
 export type DeleteProtocolsProps = {
   lessonId: string
@@ -38,7 +39,14 @@ export const DeleteProtocols: FC<DeleteProtocolsProps> = ({ lessonId }) => {
   })
   return (
     <>
-      <button onClick={() => deleteProtocols()}>Delete Protocols</button>
+      <ProtocolControllerButton
+        onClick={() => {
+          deleteProtocols()
+          event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
+        }}
+      >
+        Delete
+      </ProtocolControllerButton>
     </>
   )
 }

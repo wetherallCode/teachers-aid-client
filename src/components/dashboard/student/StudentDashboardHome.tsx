@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import { StudentAssignments } from './assignments/StudentAssignments'
 import { EssayToComplete } from './assignments/essays/assigned-essays/EssayToComplete'
 import { StudentEssayContextProvider } from './assignments/essays/assigned-essays/StudentEssayContext'
@@ -7,8 +7,11 @@ import { CompletedEssay } from './assignments/essays/completed-essays/CompletedE
 import { CompletedEssayContextProvider } from './assignments/essays/completed-essays/state/CompletedEssayContext'
 import { ReadingGuideToComplete } from './assignments/readingGuides/ReadingGuideToComplete'
 import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state/ReadingGuideToCompleteContext'
+import { LessonMainMenu } from '../../lesson/LessonMainMenu'
+import { DailyAgendaContextProvider } from '../../lesson/state/DailyAgendaContext'
 
 export const StudentDashboardHome = () => {
+  const { pathname } = useLocation()
   return (
     <>
       <Routes>
@@ -38,6 +41,11 @@ export const StudentDashboardHome = () => {
           }
         />
       </Routes>
+      {pathname === '/dashboard' && (
+        <DailyAgendaContextProvider>
+          <LessonMainMenu />
+        </DailyAgendaContextProvider>
+      )}
     </>
   )
 }

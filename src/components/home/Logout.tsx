@@ -1,7 +1,7 @@
 import React, { FC, Dispatch, SetStateAction } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { logout } from '../../schemaTypes'
-import { LogoutLink } from '../../styled/homeStyles'
+import { LogoutLink } from './homeStyles'
 import { useNavigate } from 'react-router-dom'
 
 export const LOGOUT_MUTATION = gql`

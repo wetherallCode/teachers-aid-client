@@ -17,6 +17,7 @@ export type teachersAidMachineSchema = {
     teachersAid: {}
     controlPanelActions: {
       states: {
+        mainScreenManager: {}
         dynamicLesson: {}
         protocolManager: {}
       }
@@ -31,12 +32,14 @@ export type teachersAidMachineSchema = {
   }
 }
 export type teachersAidMachineEvent =
+  | { type: 'SEATING_CHART' }
   | {
       type: 'SET_COURSE'
       payload: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
     }
   | { type: 'SET_STUDENT_ID'; payload: string }
   | { type: 'NEXT' }
+  | { type: 'PREVIOUS' }
   | { type: 'COURSE_SELECT' }
   | { type: 'START_LIVE_PERIOD' }
   | {
@@ -55,6 +58,9 @@ export type teachersAidMachineEvent =
   | { type: 'REMOVE_PARTNERS'; payload: number }
   | { type: 'DISCUSSION_ASSESSMENT'; payload: DiscussionTypesEnum }
   | { type: 'PROTOCOL_ASSESSMENT'; payload: ProtocolAssessmentEnum }
+  | { type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' }
+  | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' }
+  | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
@@ -66,7 +72,11 @@ export type teachersAidMachineContext = {
   selectedProtocol: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities
   protocolToCreate: CreateProtocolInput
   presentStudentsIds: string[]
+  activeProtocol: boolean
   studentProtocolAssessment: AssessStudentProtocolInput
+  mainScreenSeatingChart: boolean
+  mainScreenVirtualAttendance: boolean
+  mainScreenVirtualProtocolResponses: boolean
 }
 
 export const teachersAidMachine = Machine<
@@ -84,15 +94,18 @@ export const teachersAidMachine = Machine<
       __typename: 'CourseInfo',
       _id: '',
       assignedSeats: [],
+      cohortBasedSeating: false,
       endsAt: '',
       course: {
         __typename: 'Course',
         _id: '',
         name: '',
+        hasStudents: [],
       },
       schoolDayType: SchoolDayType.A,
       startsAt: '',
     },
+    activeProtocol: false,
     presentStudentsIds: [],
     studentId: '',
     protocols: [],
@@ -121,6 +134,9 @@ export const teachersAidMachine = Machine<
       partnerIds: null,
       protocolActivityType: ProtocolActivityTypes.INDIVIDUAL,
     },
+    mainScreenSeatingChart: true,
+    mainScreenVirtualAttendance: false,
+    mainScreenVirtualProtocolResponses: false,
   },
   states: {
     teachersAid: {
@@ -171,14 +187,52 @@ export const teachersAidMachine = Machine<
     controlPanelActions: {
       initial: 'dynamicLesson',
       states: {
+        mainScreenManager: {
+          on: {
+            PREVIOUS: 'protocolManager',
+            NEXT: 'dynamicLesson',
+            CHANGE_MAIN_SCREEN_SEATING_CHART: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: true,
+                  mainScreenVirtualAttendance: false,
+                  mainScreenVirtualProtocolResponses: false,
+                }
+              }),
+            },
+            CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: false,
+                  mainScreenVirtualAttendance: true,
+                  mainScreenVirtualProtocolResponses: false,
+                }
+              }),
+            },
+            CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: false,
+                  mainScreenVirtualAttendance: false,
+                  mainScreenVirtualProtocolResponses: true,
+                }
+              }),
+            },
+          },
+        },
         dynamicLesson: {
           on: {
+            PREVIOUS: 'mainScreenManager',
             NEXT: 'protocolManager',
           },
         },
         protocolManager: {
           on: {
-            NEXT: 'dynamicLesson',
+            PREVIOUS: 'dynamicLesson',
+            NEXT: 'mainScreenManager',
             LOAD_PROTOCOLS: {
               actions: assign((ctx, evt) => {
                 return {
@@ -193,6 +247,26 @@ export const teachersAidMachine = Machine<
                   ...ctx,
                   protocolSelect: evt.payload,
                   selectedProtocol: ctx.protocols[evt.payload],
+                }
+              }),
+            },
+            CHANGE_MAIN_SCREEN_SEATING_CHART: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: true,
+                  mainScreenVirtualAttendance: false,
+                  mainScreenVirtualProtocolResponses: false,
+                }
+              }),
+            },
+            CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: false,
+                  mainScreenVirtualAttendance: false,
+                  mainScreenVirtualProtocolResponses: true,
                 }
               }),
             },

@@ -5,6 +5,7 @@ import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import {
   updateLessonProtocol,
   updateLessonProtocolVariables,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   startProtocol,
   startProtocolVariables,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,6 +14,10 @@ import {
   MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import { date } from '../../../../../../utils'
+import {
+  ProtocolSelectorContainer,
+  ProtocolSelectorButton,
+} from '../../styles/classControlPanelStyles'
 
 export type SelectProtocolProps = {
   lessonId: string
@@ -59,7 +64,7 @@ export const CREATE__PROTOCOL_MUTATION = gql`
 
 export const SelectProtocol: FC<SelectProtocolProps> = ({ lessonId }) => {
   const [state, event] = useTeachersAidContextProvider()
-
+  console.log(state.context.presentStudentsIds)
   const [createStudentProtocol] = useMutation<
     createStudentProtocol,
     createStudentProtocolVariables
@@ -115,19 +120,21 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({ lessonId }) => {
   })
 
   return (
-    <>
+    <ProtocolSelectorContainer>
       {!state.context.selectedProtocol.completed && (
-        <button
+        <ProtocolSelectorButton
           onClick={() => {
             startProtocol()
           }}
         >
           Start Protocol
-        </button>
+        </ProtocolSelectorButton>
       )}
       {state.context.selectedProtocol.completed && (
-        <button onClick={() => reactivateProtocol()}>Reactivate</button>
+        <ProtocolSelectorButton onClick={() => reactivateProtocol()}>
+          Reactivate
+        </ProtocolSelectorButton>
       )}
-    </>
+    </ProtocolSelectorContainer>
   )
 }

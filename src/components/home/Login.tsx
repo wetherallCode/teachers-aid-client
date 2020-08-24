@@ -5,12 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { gql, useMutation } from '@apollo/client'
 import { login, loginVariables, me_me } from '../../schemaTypes'
 
-import {
-  Button,
-  LoginRow,
-  LoginWrapper,
-  LoginTitle,
-} from '../../styled/loginStyles'
+import { Button, LoginRow, LoginWrapper, LoginTitle } from './loginStyles'
 import { useUserContextProvider } from '../../contexts/UserContext'
 
 const LOGIN_MUTATION = gql`
@@ -53,7 +48,7 @@ export const Login: FC<LoginProps> = ({ toggleLogin }) => {
   useEffect(() => {
     if (me && data) {
       toggleLogin()
-      navigate('dashboard')
+      // navigate('dashboard')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [me, data])

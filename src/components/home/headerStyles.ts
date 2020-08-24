@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { media } from '.'
-import { LoginToggleProps } from '../App'
+
+import { LoginToggleProps } from '../../App'
+import { media } from './media'
 
 export const Header = styled.header`
   display: grid;

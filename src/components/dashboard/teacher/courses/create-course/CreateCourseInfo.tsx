@@ -4,6 +4,7 @@ import { useCreateCourseContextProvider } from './state/CreateCourseContext'
 import { gql, useMutation } from '@apollo/client'
 import {
   createCourseInfoVariables,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createCourseInfo,
   SchoolDayType,
   CourseTypeEnum,
@@ -11,6 +12,7 @@ import {
   addCourseToTeacherVariables,
   CourseMaxSizeEnum,
   me_me_Teacher,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeCourse,
   removeCourseVariables,
 } from '../../../../../schemaTypes'
@@ -157,21 +159,49 @@ export const CreateCourseInfo: FC<CreateCourseInfoProps> = () => {
           </option>
         ))}
       </select>
-      <div>Course's Max Size</div>
-      <select
-        onChange={(e: any) => {
-          if (e.target.value !== 'none') {
-            event({ type: 'ADD_COURSE_MAX_SIZE', payload: e.target.value })
+      <div>Is there Cohort Seating?</div>
+      <div>
+        <button
+          onClick={() => event({ type: 'COHORT_BASED', payload: false })}
+          style={
+            state.context.courseInfo.cohortBasedSeating
+              ? { backgroundColor: 'var(--blue)', color: 'var(--white)' }
+              : { backgroundColor: 'var(--red)', color: 'var(--white)' }
           }
-        }}
-      >
-        <option value={'none'}>Select a Class Size</option>
-        {courseMaxSizeEnum.map((courseSize: CourseMaxSizeEnum) => (
-          <option key={courseSize!} value={courseSize}>
-            {courseSize}
-          </option>
-        ))}
-      </select>
+        >
+          No
+        </button>
+        <button
+          onClick={() => event({ type: 'COHORT_BASED', payload: true })}
+          style={
+            state.context.courseInfo.cohortBasedSeating
+              ? { backgroundColor: 'var(--red)', color: 'var(--white)' }
+              : { backgroundColor: 'var(--blue)', color: 'var(--white)' }
+          }
+        >
+          Yes
+        </button>
+      </div>
+
+      {!state.context.courseInfo.cohortBasedSeating && (
+        <>
+          <div>Course's Max Size</div>
+          <select
+            onChange={(e: any) => {
+              if (e.target.value !== 'none') {
+                event({ type: 'ADD_COURSE_MAX_SIZE', payload: e.target.value })
+              }
+            }}
+          >
+            <option value={'none'}>Select a Class Size</option>
+            {courseMaxSizeEnum.map((courseSize: CourseMaxSizeEnum) => (
+              <option key={courseSize!} value={courseSize}>
+                {courseSize}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
       <button
         onClick={() => {
           createCourseInfo()

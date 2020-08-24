@@ -8,6 +8,7 @@ export const ME_QUERY = gql`
       userName
       firstName
       lastName
+      password
       _id
       ... on Teacher {
         __typename
@@ -24,6 +25,16 @@ export const ME_QUERY = gql`
       }
       ... on Student {
         __typename
+        inCourses {
+          _id
+          name
+          hasCourseInfo {
+            _id
+            startsAt
+            endsAt
+            schoolDayType
+          }
+        }
       }
     }
   }

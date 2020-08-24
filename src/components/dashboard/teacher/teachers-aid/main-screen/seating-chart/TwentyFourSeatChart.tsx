@@ -5,7 +5,7 @@ import {
   DeskContainer,
   LeftSide,
   RightSide,
-} from '../styles/seatingChartStyles'
+} from '../../styles/seatingChartStyles'
 import { Desk } from './Desk'
 
 export type TwentyFourSeatChartProps = {}

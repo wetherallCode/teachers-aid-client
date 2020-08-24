@@ -41,7 +41,6 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
     <>
       {lesson && protocols ? (
         <>
-          <div>Protocol Manager</div>
           {!protocols.some((protocol) => protocol.isActive) ? (
             <ProtocolSelector lesson={lesson} />
           ) : (

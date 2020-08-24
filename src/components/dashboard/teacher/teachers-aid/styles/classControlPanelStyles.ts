@@ -67,11 +67,98 @@ export const RandomStudentGeneratorButton = styled.button`
   width: 80%;
 `
 
+// export const ProtocolManagerContainer = styled.div`
+//   display: grid;
+//   justify-items: center;
+//   align-items: center;
+// `
 export const ProtocolManagerContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+`
+export const ProtocolHeaderContainer = styled.div`
+  grid-row: 1/3;
+  grid-column: 4/-4;
   display: grid;
   justify-items: center;
   align-items: center;
 `
+export const ProtocolHeader = styled.div`
+  font-size: 1.4rem;
+`
+
+export const ProtocolSelectorBackContainer = styled.div`
+  grid-row: 3/-3;
+  grid-column: 1/3;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+export const ProtocolSelectorBack = styled.div`
+  font-size: 1.4rem;
+`
+
+export const ProtocolSelectorTaskContainer = styled.div`
+  grid-row: 3/-3;
+  grid-column: 4/-4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+export const ProtocolSelectorTask = styled.div`
+  font-size: 1.4rem;
+`
+
+export const ProtocolSelectorNextContainer = styled.div`
+  grid-row: 3/-3;
+  grid-column: -1/-3;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+export const ProtocolSelectorNext = styled.div`
+  font-size: 1.4rem;
+`
+
+export const ProtocolSelectorContainer = styled.div`
+  grid-row: -3/-1;
+  grid-column: 4/-4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+export const ProtocolSelectorButton = styled.button`
+  font-size: 1.4rem;
+  color: var(--blue);
+  border-radius: 5px;
+`
+export const ProtocolInfoContainer = styled.div`
+  grid-row: 2/-3;
+  grid-column: 3/-3;
+  display: grid;
+  justify-items: left;
+  align-items: center;
+`
+export const ProtocolInfo = styled.div`
+  font-size: 1rem;
+`
+export const ProtocolControllerContainer = styled.div`
+  grid-row: -3/-1;
+  grid-column: 3/-3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+`
+
+export const ProtocolControllerButton = styled.button`
+  font-size: 1rem;
+  color: var(--blue);
+  border-radius: 5px;
+  width: 90%;
+`
+
 export const DynamicLessonContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -79,6 +166,21 @@ export const DynamicLessonContainer = styled.div`
   justify-items: center;
   align-items: center;
 `
+export const MainScreenManagerContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+`
+export const MainScreenControlButton = styled.button`
+  font-size: 1.4rem;
+  color: var(--blue);
+  border-radius: 5px;
+  height: 40%;
+  width: 90%;
+`
+
 export const DynamicLessonHeader = styled.div`
   grid-column: 1 / 4;
   font-size: 1.4rem;
@@ -91,7 +193,7 @@ export const CenteredDiv = styled.div`
 
 export const DynamicLessonButton = styled.button<DynamicLessonButtonProps>`
   color: var(--blue);
-  height: 20%;
+  height: 40%;
   width: 70%;
   border-radius: 5px;
   background-color: ${({ currentLessonSetting }) =>

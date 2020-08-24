@@ -7,10 +7,22 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   finishStudentProtocol,
   finishStudentProtocolVariables,
+  AcademicOutomeTypes,
 } from '../../../../../../schemaTypes'
 import { UPDATE_LESSON_PROTOCOL_MUTATION } from './SelectProtocol'
-import { date } from '../../../../../../utils'
+import {
+  date,
+  academicOutcomeTypes,
+  protocolActivityTypes,
+} from '../../../../../../utils'
 import { DeleteProtocols } from './DeleteProtocols'
+import {
+  ProtocolManagerContainer,
+  ProtocolInfo,
+  ProtocolInfoContainer,
+  ProtocolControllerContainer,
+  ProtocolControllerButton,
+} from '../../styles/classControlPanelStyles'
 
 export type ActivatedProtocolDisplayProps = { lessonId: string }
 
@@ -61,34 +73,51 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
     },
     refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
   })
-  console.log(state.context.selectedProtocol.completed)
+
+  const outcomeType = academicOutcomeTypes(
+    state.context.selectedProtocol.academicOutcomeTypes
+  )
+  const activityTypes = protocolActivityTypes(
+    state.context.selectedProtocol.activityType
+  )
+
   return (
-    <>
-      <div>{state.context.selectedProtocol.academicOutcomeTypes}</div>
-      <div>{state.context.selectedProtocol.activityType}</div>
-      <div>{state.context.selectedProtocol.task}</div>
-      {state.context.selectedProtocol.completed ? (
-        <button
+    <ProtocolManagerContainer>
+      <ProtocolInfoContainer>
+        <ProtocolInfo>Outcome Type: {outcomeType}</ProtocolInfo>
+        <ProtocolInfo>Activity: {activityTypes}</ProtocolInfo>
+        <ProtocolInfo>Task: {state.context.selectedProtocol.task}</ProtocolInfo>
+      </ProtocolInfoContainer>
+      <ProtocolControllerContainer>
+        <ProtocolControllerButton
           onClick={() => {
-            back()
+            if (state.context.mainScreenSeatingChart) {
+              event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' })
+            } else event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
           }}
         >
-          Back
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            finishStudentProtocol()
-            // event({
-            //   type: 'UPDATE_LESSON_PROTOCOL',
-            //   payload: { ...state.context.selectedProtocol, completed: true },
-            // })
-          }}
-        >
-          Finish
-        </button>
-      )}
-      <DeleteProtocols lessonId={lessonId} />
-    </>
+          {state.context.mainScreenSeatingChart ? 'Responses' : 'Seating Chart'}
+        </ProtocolControllerButton>
+        {state.context.selectedProtocol.completed ? (
+          <ProtocolControllerButton
+            onClick={() => {
+              back()
+              event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
+            }}
+          >
+            Back
+          </ProtocolControllerButton>
+        ) : (
+          <ProtocolControllerButton
+            onClick={() => {
+              finishStudentProtocol()
+            }}
+          >
+            Finish
+          </ProtocolControllerButton>
+        )}
+        <DeleteProtocols lessonId={lessonId} />
+      </ProtocolControllerContainer>
+    </ProtocolManagerContainer>
   )
 }

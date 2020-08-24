@@ -28,6 +28,7 @@ export type createCourseMachineEvent =
   | { type: 'ADD_COURSE_MAX_SIZE'; payload: CourseMaxSizeEnum }
   | { type: 'ADD_COURSE_TYPE'; payload: CourseTypeEnum }
   | { type: 'ADD_SCHOOL_DAY_TYPE'; payload: SchoolDayType }
+  | { type: 'COHORT_BASED'; payload: boolean }
 
 export type createCourseMachineContext = {
   courseTitle: CreateCourseInput
@@ -54,6 +55,7 @@ export const createCourseMachine = Machine<
       startsAt: '',
       endsAt: '',
       halfDayStartsAt: '',
+      cohortBasedSeating: false,
       halfDayEndsAt: '',
       schoolDayType: SchoolDayType.A,
     },
@@ -112,6 +114,18 @@ export const createCourseMachine = Machine<
               courseInfo: {
                 ...ctx.courseInfo,
                 halfDayStartsAt: evt.payload,
+              },
+            }
+          }),
+        },
+        COHORT_BASED: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              courseInfo: {
+                ...ctx.courseInfo,
+                cohortBasedSeating: evt.payload,
+                courseMaxSize: CourseMaxSizeEnum.TWELVE,
               },
             }
           }),

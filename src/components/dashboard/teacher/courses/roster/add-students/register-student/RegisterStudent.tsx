@@ -77,7 +77,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
       event({ type: 'ADD_COHORT', payload: StudentCohortEnum.RED })
     } else event({ type: 'ADD_COHORT', payload: StudentCohortEnum.WHITE })
   }, [state.context.studentToRegister.lastName])
-  console.log(state.context.studentToRegister.cohort)
+
   if (loading) return <div>Loading </div>
   return (
     <>

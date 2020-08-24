@@ -3,13 +3,15 @@ import {
   TwelveSeatFloorPlan,
   IndividualDeskContainer,
   CenterSide,
-} from '../styles/seatingChartStyles'
+} from '../../styles/seatingChartStyles'
 import { Desk } from './Desk'
+import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 
 export type TwelveSeatChartProps = {}
 
 export const TwelveSeatChart: FC<TwelveSeatChartProps> = () => {
-  console.log(Object.keys(Array.apply(null, Array(13))))
+  const [state] = useTeachersAidContextProvider()
+
   return (
     <TwelveSeatFloorPlan>
       <CenterSide>

@@ -6,6 +6,9 @@ import {
   addStudentsToCourseVariables,
   findAllStudents,
   findCourseByIdForStudentRegistration_findCourseById_course,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  initializeStudent,
+  initializeStudentVariables,
 } from '../../../../../../../schemaTypes'
 import { useAddStudentsContextProvider } from '../state/AddStudentsContext'
 
@@ -47,6 +50,15 @@ export const FIND_ALL_STUDENTS_QUERY = gql`
     }
   }
 `
+export const INITIALIZE_STUDENT_MUTATION = gql`
+  mutation initializeStudent($input: InitializeStudentsInput!) {
+    initializeStudents(input: $input) {
+      students {
+        _id
+      }
+    }
+  }
+`
 
 export const AddToCourse: FC<AddToCourseProps> = ({ course }) => {
   const [state, event] = useAddStudentsContextProvider()
@@ -55,39 +67,34 @@ export const AddToCourse: FC<AddToCourseProps> = ({ course }) => {
     event({ type: 'SET_COURSE_ID', payload: course._id! })
   }, [course, event])
 
+  const [initializeStudent] = useMutation<
+    initializeStudent,
+    initializeStudentVariables
+  >(INITIALIZE_STUDENT_MUTATION, {
+    variables: {
+      input: {
+        courseId: state.context.addStudentToCourse.courseId,
+        studentIds: state.context.addStudentToCourse.studentIds,
+      },
+    },
+    onCompleted: (data) => console.log(data),
+    refetchQueries: [],
+  })
+
   const [addStudentsToCourse] = useMutation<
     addStudentsToCourse,
     addStudentsToCourseVariables
   >(ADD_STUDENTS_TO_COURSE_MUTATION, {
     variables: { input: state.context.addStudentToCourse },
-    onCompleted: (data) => console.log(data),
+    onCompleted: (data) => initializeStudent(),
     refetchQueries: [],
   })
 
   const { loading, data } = useQuery<findAllStudents>(FIND_ALL_STUDENTS_QUERY, {
-    // onCompleted: (data) =>
-    //   console.log(
-    //     data.findAllStudents.students.filter((student) =>
-    //       student.inCourses.some((courses) => courses._id! !== course._id)
-    //     )
-    //   ),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  // console.log(
-  //   data?.findAllStudents.students.filter(
-  //     (student) =>
-  //       student.inCourses.length === 0 &&
-  //       student.inCourses.some((thisCourse) => thisCourse._id === course._id)
-  //   )
-  // )
-  console.log(
-    data?.findAllStudents.students.map(
-      (student) =>
-        student.inCourses.length === 0 ||
-        student.inCourses.some((thisCourse) => thisCourse._id !== course._id)
-    )
-  )
+
   const studentsNotInCourse = data?.findAllStudents.students.filter(
     (student) =>
       // student.inCourses.some((courses) => courses._id! !== course._id) ||

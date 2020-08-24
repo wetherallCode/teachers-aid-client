@@ -16,7 +16,6 @@ import {
   StartingDisplay,
 } from './styles/seatingChartStyles'
 import { gql } from '@apollo/client'
-import { SeatingChart } from './seating-chart/SeatingChart'
 import { StudentInfo } from './student-info/StudentInfo'
 import { ClassControlPanel } from './class-control-panel/center-console/ClassControlPanel'
 import { RandomStudentGenerator } from './class-control-panel/random-student-generator/RandomStudentGenerator'
@@ -25,6 +24,7 @@ import { me_me_Teacher } from '../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { TimerPresets } from './class-control-panel/timer/TimerPresets'
 import { Greetings } from '../../../home/Greetings'
+import { MainScreenDisplay } from './main-screen/MainScreenDisplay'
 
 export type TeachersAidProps = {}
 
@@ -42,6 +42,7 @@ export const COURSE_QUERY = gql`
 
 export const TeachersAid: FC<TeachersAidProps> = () => {
   const [state, event] = useTeachersAidContextProvider()
+
   const me: me_me_Teacher = useUserContextProvider()
   const title = capitalizer(me.title)
   // const [courseToLoad] =
@@ -54,15 +55,12 @@ export const TeachersAid: FC<TeachersAidProps> = () => {
   //   )
 
   useEffect(() => {
-    const presentStudents = state.context.courseInfo.assignedSeats
-      .filter((desk) => desk.student !== null)
-      .filter(
-        (student) =>
-          !student.student?.hasAbsences.some((day) => day.dayAbsent === date)
-      )
-      .map((student) => student.student?._id) as string[]
-
-    // .map((student) => student.student)
+    const presentStudents = state.context.courseInfo.course.hasStudents
+      // .filter((desk) => desk.student !== null)
+      .filter((student) => {
+        return !student?.hasAbsences.some((day) => day.dayAbsent === date)
+      })
+      .map((student) => student?._id) as string[]
 
     event({
       type: 'SET_PRESENT_STUDENTS',
@@ -81,7 +79,7 @@ export const TeachersAid: FC<TeachersAidProps> = () => {
               <Greetings phrase={`${title}. ${me.lastName}!`} />
             </StartingDisplay>
           ) : (
-            <SeatingChart />
+            <MainScreenDisplay />
           )}
         </SeatingChartContainer>
         <StudentInfoContainer>
@@ -90,7 +88,7 @@ export const TeachersAid: FC<TeachersAidProps> = () => {
           ) : (
             <>
               <StudentInfoDisplay>
-                <StudentNameContainer></StudentNameContainer>
+                <StudentNameContainer />
               </StudentInfoDisplay>
               <StudentControlPanel></StudentControlPanel>
             </>

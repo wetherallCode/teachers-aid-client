@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { media } from '.'
+
 import { Link } from 'react-router-dom'
-import { LoginToggleProps } from '../App'
+import { LoginToggleProps } from '../../App'
+import { media } from './media'
 
 export const HomeScreenTitle = styled.h1`
   ${media.macBookPro16} {

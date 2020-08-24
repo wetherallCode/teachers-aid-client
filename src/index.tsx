@@ -13,6 +13,7 @@ import {
 import { UserContextProvider } from './contexts/UserContext'
 import { MarkingPeriodContextProvider } from './contexts/markingPeriod/MarkingPeriodContext'
 import { EnumContextProvider } from './contexts/EnumContext'
+import { SchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 
 const link = new HttpLink({
   uri: 'http://localhost:4005/graphql',
@@ -32,7 +33,9 @@ ReactDOM.render(
         <UserContextProvider>
           <MarkingPeriodContextProvider>
             <EnumContextProvider>
-              <App />
+              <SchoolDayContextProvider>
+                <App />
+              </SchoolDayContextProvider>
             </EnumContextProvider>
           </MarkingPeriodContextProvider>
         </UserContextProvider>

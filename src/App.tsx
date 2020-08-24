@@ -8,13 +8,24 @@ import { Login } from './components/home/Login'
 import { Nav } from './components/home/Nav'
 import { useToggle } from './hooks'
 
-import { Header, HomeLink, UserNameHeader } from './styled/headerStyles'
-import { LoginContainer, LoginToggle } from './styled/homeStyles'
-import { capitalizer } from './utils'
+import {
+  Header,
+  HomeLink,
+  UserNameHeader,
+} from './components/home/headerStyles'
+import { LoginContainer, LoginToggle } from './components/home/homeStyles'
+import { capitalizer, date } from './utils'
 import styled from 'styled-components'
-import { me_me } from './schemaTypes'
+import {
+  me_me,
+  findCurrentSchoolDay,
+  findCurrentSchoolDayVariables,
+} from './schemaTypes'
 import { DailyAgendaContextProvider } from './components/lesson/state/DailyAgendaContext'
 import { LessonMainMenu } from './components/lesson/LessonMainMenu'
+import { useQuery } from '@apollo/client'
+import { FIND_CURRENT_SCHOOL_DAY_QUERY } from './components/dashboard/school-day/SchoolDay'
+import { useSchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 
 export type LoginToggleProps = {
   onClick: () => void
@@ -33,7 +44,25 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({ error }) => {
 
 function App() {
   const me: me_me = useUserContextProvider()
+  const [, event] = useSchoolDayContextProvider()
+  const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
 
+  const { data, loading } = useQuery<
+    findCurrentSchoolDay,
+    findCurrentSchoolDayVariables
+  >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
+    variables: {
+      input: { date: date },
+    },
+    onCompleted: (data) => {
+      if (data.findSchoolDayByDate.schoolDay)
+        setCurrentSchoolDay({
+          type: 'SET_TODAYS_SCHOOL_DAY',
+          payload: data?.findSchoolDayByDate?.schoolDay!,
+        })
+    },
+    onError: (error) => console.error(error),
+  })
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [isNavOpen, setIsNavOpen] = useState(false)
 

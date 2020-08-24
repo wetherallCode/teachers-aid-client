@@ -26,6 +26,7 @@ export const StudentControlPanelDisplay: FC<StudentControlPanelDisplayProps> = (
     }
   }, [student])
   const protocols = student?.hasProtocols
+  console.log(protocols)
 
   return (
     <>

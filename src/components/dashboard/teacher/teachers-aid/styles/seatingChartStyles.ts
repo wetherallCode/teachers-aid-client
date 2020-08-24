@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { DeskDisplayProps } from '../seating-chart/Desk'
+import { DeskDisplayProps } from '../main-screen/seating-chart/Desk'
 
 export const SeatingChartContainer = styled.div`
   background-color: var(--white);

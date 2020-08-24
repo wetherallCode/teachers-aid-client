@@ -1,4 +1,8 @@
-import { InformationStructureEnum } from './schemaTypes'
+import {
+  InformationStructureEnum,
+  AcademicOutomeTypes,
+  ProtocolActivityTypes,
+} from './schemaTypes'
 
 export const capitalizer = (word: string) => {
   return word.substring(0, 1) + word.substring(1).toLowerCase()
@@ -46,6 +50,18 @@ export const informationStructure = (item: InformationStructureEnum) => {
     ? 'Problem and Solution'
     : 'Compare and Contrast'
 }
+
+export const academicOutcomeTypes = (outcomes: AcademicOutomeTypes) =>
+  outcomes === AcademicOutomeTypes.SCHEMA_BUIDING
+    ? 'Schema Building'
+    : outcomes === AcademicOutomeTypes.LOGIC_BUILDING
+    ? 'Logic Building'
+    : 'Socratic Question'
+
+export const protocolActivityTypes = (activities: ProtocolActivityTypes) =>
+  activities === ProtocolActivityTypes.INDIVIDUAL
+    ? 'Individual'
+    : 'Think Pair Share'
 
 export const macBookPro = window.screen.width === 1792
 export const macBook = window.screen.width === 1280
