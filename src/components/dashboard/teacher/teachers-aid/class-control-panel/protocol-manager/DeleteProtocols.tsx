@@ -43,6 +43,7 @@ export const DeleteProtocols: FC<DeleteProtocolsProps> = ({ lessonId }) => {
         onClick={() => {
           deleteProtocols()
           event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
+          event({ type: 'PREVIOUS' })
         }}
       >
         Delete

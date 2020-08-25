@@ -111,6 +111,7 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
           <ProtocolControllerButton
             onClick={() => {
               finishStudentProtocol()
+              event({ type: 'PREVIOUS' })
             }}
           >
             Finish

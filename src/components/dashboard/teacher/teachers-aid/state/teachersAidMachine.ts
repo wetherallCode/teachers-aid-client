@@ -233,6 +233,7 @@ export const teachersAidMachine = Machine<
           on: {
             PREVIOUS: 'dynamicLesson',
             NEXT: 'mainScreenManager',
+
             LOAD_PROTOCOLS: {
               actions: assign((ctx, evt) => {
                 return {
