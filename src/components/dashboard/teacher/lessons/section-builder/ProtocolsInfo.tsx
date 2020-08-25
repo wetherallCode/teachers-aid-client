@@ -1,30 +1,17 @@
 import React, { useState } from 'react'
-
-import { gql, useQuery } from '@apollo/client'
 import {
   TextSectionProtocolsInput,
   AcademicOutomeTypes,
   ProtocolActivityTypes,
-  protocolEnumTypes,
 } from '../../../../../schemaTypes'
 import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
-
-export const PROTOCOL_ENUM_TYPES_QUERY = gql`
-  query protocolEnumTypes {
-    AcademicOutomeTypes: __type(name: "AcademicOutomeTypes") {
-      enumValues {
-        name
-      }
-    }
-    ProtocolActivityTypes: __type(name: "ProtocolActivityTypes") {
-      enumValues {
-        name
-      }
-    }
-  }
-`
+import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 
 export const ProtocolsInfo = () => {
+  const {
+    academicOutcomeTypes,
+    protocolActivityTypes,
+  } = useEnumContextProvider()
   const [protocolValues, setProtocolValues] = useState<
     TextSectionProtocolsInput
   >({
@@ -35,17 +22,7 @@ export const ProtocolsInfo = () => {
     completed: false,
   })
   const [, event] = useSectionBuilderContextProvider()
-  const { loading, error, data } = useQuery<protocolEnumTypes>(
-    PROTOCOL_ENUM_TYPES_QUERY
-  )
-  if (loading) return <div>Loading </div>
-  if (error) console.error(error)
-  const academicOutcomes = data?.AcademicOutomeTypes?.enumValues?.map(
-    (type) => type.name
-  )
-  const protocolActivities = data?.ProtocolActivityTypes?.enumValues?.map(
-    (type) => type.name
-  )
+
   return (
     <form onSubmit={(e: any) => e.preventDefault}>
       <div>Protocols</div>
@@ -59,7 +36,7 @@ export const ProtocolsInfo = () => {
         }
       >
         <option value={undefined}>Choose One</option>
-        {academicOutcomes?.map((outcome) => (
+        {academicOutcomeTypes?.map((outcome: AcademicOutomeTypes) => (
           <option key={outcome} value={outcome}>
             {outcome}
           </option>
@@ -75,7 +52,7 @@ export const ProtocolsInfo = () => {
         }
       >
         <option value={undefined}>Choose One</option>
-        {protocolActivities?.map((outcome) => (
+        {protocolActivityTypes?.map((outcome: ProtocolActivityTypes) => (
           <option key={outcome} value={outcome}>
             {outcome}
           </option>

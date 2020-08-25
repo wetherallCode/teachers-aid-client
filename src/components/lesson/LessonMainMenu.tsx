@@ -136,17 +136,6 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
     onError: (error) => console.error(error),
   })
 
-  // const { data: signInData } = useQuery<
-  //   studentSignedInCheck,
-  //   studentSignedInCheckVariables
-  // >(STUDENT_SIGNED_IN_CHECK_QUERY, {
-  //   variables: {
-  //     input: { lessonDate: date },
-  //   },
-  //   // onCompleted: (data) => {},
-  //   onError: (error) => console.error(error),
-  // })
-
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id
   )

@@ -5,6 +5,13 @@ import {
 } from '../../../schemaTypes'
 import { useUserContextProvider } from '../../../contexts/UserContext'
 import { StudentProtocolResponse } from './StudentProtocolResponse'
+import {
+  ProtocolsContainer,
+  ProtocolTypeContainer,
+  ProtocolTask,
+  ProtocolTaskContainer,
+} from '../lessonStyles'
+import { academicOutcomeTypes } from '../../../utils'
 
 export type ProtocolsProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -12,15 +19,21 @@ export type ProtocolsProps = {
 
 export const Protocols: FC<ProtocolsProps> = ({ lesson }) => {
   const me: me_me = useUserContextProvider()
-  const [response, setResponse] = useState('')
   const [protocol] = lesson.duringActivities.filter(
     (protocol) => protocol.isActive
   )
-  console.log(protocol)
+
   return (
-    <>
-      <div>{protocol.task}</div>
-      <>{me.__typename === 'Student' && <StudentProtocolResponse me={me} />}</>
-    </>
+    <ProtocolsContainer>
+      <ProtocolTypeContainer>
+        <div>{academicOutcomeTypes(protocol.academicOutcomeTypes)}</div>
+      </ProtocolTypeContainer>
+
+      <ProtocolTaskContainer>
+        <ProtocolTask>{protocol.task}</ProtocolTask>
+      </ProtocolTaskContainer>
+
+      {me.__typename === 'Student' && <StudentProtocolResponse me={me} />}
+    </ProtocolsContainer>
   )
 }

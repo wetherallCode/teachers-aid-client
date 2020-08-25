@@ -4,14 +4,15 @@ import {
   sectionEditorMachineContext,
 } from './sectionEditorMachine'
 import { State } from 'xstate'
-import { MutationFunctionOptions, useQuery } from '@apollo/client'
+import { MutationFunctionOptions } from '@apollo/client'
 import {
   updateTextSection,
   updateTextSectionVariables,
   TextSectionProtocolsInput,
-  protocolEnumTypes,
+  AcademicOutomeTypes,
+  ProtocolActivityTypes,
 } from '../../../../../schemaTypes'
-import { PROTOCOL_ENUM_TYPES_QUERY } from '../section-builder/ProtocolsInfo'
+import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 
 export type AddProtocolsProps = {
   protocolItem: TextSectionProtocolsInput
@@ -36,16 +37,15 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
   updateTextSection,
   toggleProtocolItemInputs,
 }) => {
+  const {
+    academicOutcomeTypes,
+    protocolActivityTypes,
+  } = useEnumContextProvider()
+
   useEffect(() => {
     updateTextSection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.context.hasProtocols])
-
-  const { loading, error, data } = useQuery<protocolEnumTypes>(
-    PROTOCOL_ENUM_TYPES_QUERY
-  )
-  if (loading) return <div>Loading </div>
-  if (error) console.error(error)
 
   const newList = [
     ...state.context.hasProtocols.slice(0, currentIndexForItem + 1),
@@ -64,9 +64,9 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
             })
           }
         >
-          {data?.AcademicOutomeTypes?.enumValues?.map((outcomeType) => (
-            <option key={outcomeType.name!} value={outcomeType.name!}>
-              {outcomeType.name}
+          {academicOutcomeTypes.map((outcomeType: AcademicOutomeTypes) => (
+            <option key={outcomeType} value={outcomeType}>
+              {outcomeType}
             </option>
           ))}
         </select>
@@ -79,9 +79,9 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
             })
           }
         >
-          {data?.ProtocolActivityTypes?.enumValues?.map((activity) => (
-            <option key={activity.name!} value={activity.name!}>
-              {activity.name}
+          {protocolActivityTypes.map((activity: ProtocolActivityTypes) => (
+            <option key={activity} value={activity}>
+              {activity}
             </option>
           ))}
         </select>

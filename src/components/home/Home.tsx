@@ -15,14 +15,6 @@ import { gql, useQuery, useLazyQuery } from '@apollo/client'
 import { InitialPasswordChange } from './InitialPasswordChange'
 import { PasswordCheck } from './PasswordCheck'
 
-export const PASSWORD_CHECK_MUTATION = gql`
-  query passwordCheck($input: PasswordCheckInput!) {
-    passwordCheck(input: $input) {
-      firstTimeLoginIn
-    }
-  }
-`
-
 export const Home = () => {
   const me: me_me = useUserContextProvider()
   const [isLoginVisible, toggleLogin] = useToggle(false)

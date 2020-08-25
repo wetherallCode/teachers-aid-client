@@ -59,6 +59,16 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    AcademicOutcomeTypes: __type(name: "AcademicOutcomeTypes") {
+      enumValues {
+        name
+      }
+    }
+    ProtocolActivityTypes: __type(name: "ProtocolActivityTypes") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -105,6 +115,12 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         schoolDayType: data?.SchoolDayType?.enumValues?.map(
+          (value) => value.name
+        ),
+        academicOutcomeTypes: data?.AcademicOutcomeTypes?.enumValues?.map(
+          (value) => value.name
+        ),
+        protocolActivityTypes: data?.ProtocolActivityTypes?.enumValues?.map(
           (value) => value.name
         ),
       }}

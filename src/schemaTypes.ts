@@ -1105,7 +1105,7 @@ export interface findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociate
   hasOwner: findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays_hasOwner;
   readings: findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId_essays_readings;
   dueDate: string;
-  assignedDate: any;
+  assignedDate: string;
 }
 
 export interface findEssaysByAssociatedLessonIdAndCourseId_findEssaysByAssociatedLessonIdAndCourseId {
@@ -1176,7 +1176,7 @@ export interface findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuide
   hasOwner: findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_hasOwner;
   readings: findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readings;
   dueDate: string;
-  assignedDate: any;
+  assignedDate: string;
 }
 
 export interface findReadingGuidesByAssociatedLessonAndCourseId_findReadingGuidesByAssociatedLessonAndCourseId {
@@ -2809,40 +2809,6 @@ export interface createTextSectionVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: protocolEnumTypes
-// ====================================================
-
-export interface protocolEnumTypes_AcademicOutomeTypes_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface protocolEnumTypes_AcademicOutomeTypes {
-  __typename: "__Type";
-  enumValues: protocolEnumTypes_AcademicOutomeTypes_enumValues[] | null;
-}
-
-export interface protocolEnumTypes_ProtocolActivityTypes_enumValues {
-  __typename: "__EnumValue";
-  name: string;
-}
-
-export interface protocolEnumTypes_ProtocolActivityTypes {
-  __typename: "__Type";
-  enumValues: protocolEnumTypes_ProtocolActivityTypes_enumValues[] | null;
-}
-
-export interface protocolEnumTypes {
-  AcademicOutomeTypes: protocolEnumTypes_AcademicOutomeTypes | null;
-  ProtocolActivityTypes: protocolEnumTypes_ProtocolActivityTypes | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: questionTypeEnum
 // ====================================================
 
@@ -3661,28 +3627,6 @@ export interface findCourseByIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: passwordCheck
-// ====================================================
-
-export interface passwordCheck_passwordCheck {
-  __typename: "PasswordCheckPayload";
-  firstTimeLoginIn: boolean;
-}
-
-export interface passwordCheck {
-  passwordCheck: passwordCheck_passwordCheck;
-}
-
-export interface passwordCheckVariables {
-  input: PasswordCheckInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: changePassword
 // ====================================================
 
@@ -3750,6 +3694,28 @@ export interface logout {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: passwordCheck
+// ====================================================
+
+export interface passwordCheck_passwordCheck {
+  __typename: "PasswordCheckPayload";
+  firstTimeLoginIn: boolean;
+}
+
+export interface passwordCheck {
+  passwordCheck: passwordCheck_passwordCheck;
+}
+
+export interface passwordCheckVariables {
+  input: PasswordCheckInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findStudentProtocol
 // ====================================================
 
@@ -3761,6 +3727,7 @@ export interface findStudentProtocol_findStudentById_student_hasProtocols {
   academicOutcomeType: AcademicOutomeTypes;
   task: string;
   isActive: boolean;
+  response: string | null;
 }
 
 export interface findStudentProtocol_findStudentById_student {
@@ -4087,6 +4054,26 @@ export interface enumValues_SchoolDayType {
   enumValues: enumValues_SchoolDayType_enumValues[] | null;
 }
 
+export interface enumValues_AcademicOutcomeTypes_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_AcademicOutcomeTypes {
+  __typename: "__Type";
+  enumValues: enumValues_AcademicOutcomeTypes_enumValues[] | null;
+}
+
+export interface enumValues_ProtocolActivityTypes_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_ProtocolActivityTypes {
+  __typename: "__Type";
+  enumValues: enumValues_ProtocolActivityTypes_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -4099,6 +4086,8 @@ export interface enumValues {
   CourseMaxSizeEnum: enumValues_CourseMaxSizeEnum | null;
   CourseTypeEnum: enumValues_CourseTypeEnum | null;
   SchoolDayType: enumValues_SchoolDayType | null;
+  AcademicOutcomeTypes: enumValues_AcademicOutcomeTypes | null;
+  ProtocolActivityTypes: enumValues_ProtocolActivityTypes | null;
 }
 
 /* tslint:disable */
@@ -4433,7 +4422,7 @@ export interface CreateCourseInput {
 
 export interface CreateEssayInput {
   assignedCourseId: string[];
-  assignedDate: any;
+  assignedDate: string;
   associatedLessonId: string;
   dueDate: string;
   dueTime: TimeOfDay;
@@ -4471,7 +4460,7 @@ export interface CreateProtocolInput {
 
 export interface CreateReadingGuideInput {
   assignedCourseIds: string[];
-  assignedDate: any;
+  assignedDate: string;
   associatedLessonId: string;
   dueDate: string;
   dueTime: TimeOfDay;
@@ -4738,7 +4727,7 @@ export interface StudentSeatInput {
 
 export interface StudentSignInInput {
   courseId: string;
-  lessonDate: any;
+  lessonDate: string;
   studentId: string;
   virtual?: boolean | null;
 }

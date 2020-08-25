@@ -1,5 +1,10 @@
 import React, { FC } from 'react'
 import { findLessonByCourseAndDate_findLessonByCourseAndDate_lesson } from '../../../schemaTypes'
+import {
+  LessonComponentTitleContainer,
+  LessonComponentDetailsContainer,
+  LessonComponentDetailsStyle,
+} from '../lessonStyles'
 
 export type WarmUpProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -8,8 +13,12 @@ export type WarmUpProps = {
 export const WarmUp: FC<WarmUpProps> = ({ lesson }) => {
   return (
     <>
-      <div>Warm up</div>
-      <div>{lesson.beforeActivity.task}</div>
+      <LessonComponentTitleContainer>Warm up</LessonComponentTitleContainer>
+      <LessonComponentDetailsContainer>
+        <LessonComponentDetailsStyle>
+          {lesson.beforeActivity.task}
+        </LessonComponentDetailsStyle>
+      </LessonComponentDetailsContainer>
     </>
   )
 }

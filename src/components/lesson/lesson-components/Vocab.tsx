@@ -1,5 +1,10 @@
 import React, { FC } from 'react'
 import { findLessonByCourseAndDate_findLessonByCourseAndDate_lesson } from '../../../schemaTypes'
+import {
+  LessonComponentTitleContainer,
+  LessonComponentDetailsContainer,
+  VocabWordContainer,
+} from '../lessonStyles'
 
 export type VocabProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -8,11 +13,14 @@ export type VocabProps = {
 export const Vocab: FC<VocabProps> = ({ lesson }) => {
   return (
     <>
-      {lesson.vocabList.map((word, i: number) => (
-        <div key={i}>
-          {word.word}: {word.definition}
-        </div>
-      ))}
+      <LessonComponentTitleContainer>Vocab</LessonComponentTitleContainer>
+      <VocabWordContainer>
+        {lesson.vocabList.map((word, i: number) => (
+          <li key={i}>
+            {word.word}: {word.definition}
+          </li>
+        ))}
+      </VocabWordContainer>
     </>
   )
 }

@@ -9,6 +9,14 @@ import {
   AcademicOutomeTypes,
 } from '../../../schemaTypes'
 import { gql, useQuery, useMutation } from '@apollo/client'
+import {
+  ProtocolResponseContainer,
+  ProtocolResponseButtonContainer,
+  ProtocolResponseButton,
+  ProtocolResponseArea,
+  ProtocolResponseHeader,
+  ProtocolResponse,
+} from '../lessonStyles'
 
 export type StudentProtocolResponseProps = {
   me: me_me
@@ -24,6 +32,7 @@ export const FIND_STUDENT_PROTOCOL_QUERY = gql`
           academicOutcomeType
           task
           isActive
+          response
         }
       }
     }
@@ -53,6 +62,7 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
     completed: false,
     isActive: false,
     task: '',
+    response: null,
   })
   const { loading, data } = useQuery<
     findStudentProtocol,
@@ -75,16 +85,41 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
     {
       variables: { input: { protocolId: protocol._id!, response } },
       onCompleted: (data) => console.log(data),
-      refetchQueries: [],
+      refetchQueries: ['findStudentProtocol'],
     }
   )
+  const isProtocolRespondedTo = data?.findStudentById.student.hasProtocols
+    .filter((protocol) => protocol.isActive)
+    .some((protocol) => protocol.response)
+
+  const protocolResponse = data?.findStudentById.student.hasProtocols
+    .filter((protocol) => protocol.isActive)
+    .map((protocol) => protocol.response)
 
   if (loading) return <div>Loading </div>
   return (
     <>
-      <div>Respond to this Task:</div>
-      <textarea onChange={(e: any) => setResponse(e.target.value)} />
-      <button onClick={() => respond()}>Respond</button>
+      {isProtocolRespondedTo ? (
+        <ProtocolResponseContainer>
+          <ProtocolResponse>{protocolResponse}</ProtocolResponse>
+        </ProtocolResponseContainer>
+      ) : (
+        <>
+          <ProtocolResponseContainer>
+            <ProtocolResponseHeader>
+              Respond to this Task
+            </ProtocolResponseHeader>
+            <ProtocolResponseArea
+              onChange={(e: any) => setResponse(e.target.value)}
+            />
+          </ProtocolResponseContainer>
+          <ProtocolResponseButtonContainer>
+            <ProtocolResponseButton onClick={() => respond()}>
+              Respond
+            </ProtocolResponseButton>
+          </ProtocolResponseButtonContainer>
+        </>
+      )}
     </>
   )
 }
