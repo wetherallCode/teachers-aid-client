@@ -87,9 +87,12 @@ export const StopLessonButton = styled.button`
   color: var(--blue);
 `
 
-export const LessonMainScreen = styled(Standard4x6Container)`
+export const LessonMainScreen = styled.div`
   grid-row: 1/-2;
   grid-column: 4/-1;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
 `
 export const LessonComponentTypeContainer = styled.div`
   display: grid;
@@ -105,8 +108,12 @@ export const LessonComponentTypeStyle = styled.div`
   font-size: 2rem;
 `
 
-export const ProtocolsContainer = styled(Standard8x12Container)`
-  height: 100%;
+export const ProtocolsContainer = styled.div`
+  grid-row: 1/-2;
+  grid-column: 4/-1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 `
 
 export const ProtocolTypeContainer = styled.div`

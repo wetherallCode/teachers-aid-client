@@ -18,6 +18,7 @@ import {
   LessonComponentTypeStyle,
   StopLessonContainer,
   LessonPageContainer,
+  ProtocolsContainer,
 } from '../lessonStyles'
 import { date } from '../../../utils'
 
@@ -53,19 +54,21 @@ export const DynamicLesson = ({
           Stop Lesson
         </StopLessonButton>
       </StopLessonContainer>
-      <LessonMainScreen id='1'>
-        {lesson.duringActivities.some((protocol) => protocol.isActive) ? (
+
+      {lesson.duringActivities.some((protocol) => protocol.isActive) ? (
+        <ProtocolsContainer>
           <Protocols lesson={lesson} />
-        ) : (
-          <>
-            {dynamicLesson === 'WARM_UP' && <WarmUp lesson={lesson} />}
-            {dynamicLesson === 'LESSON_DETAILS' && (
-              <LessonDetails lesson={lesson} />
-            )}
-            {dynamicLesson === 'VOCAB' && <Vocab lesson={lesson} />}
-          </>
-        )}
-      </LessonMainScreen>
+        </ProtocolsContainer>
+      ) : (
+        <LessonMainScreen>
+          {dynamicLesson === 'WARM_UP' && <WarmUp lesson={lesson} />}
+          {dynamicLesson === 'LESSON_DETAILS' && (
+            <LessonDetails lesson={lesson} />
+          )}
+          {dynamicLesson === 'VOCAB' && <Vocab lesson={lesson} />}
+        </LessonMainScreen>
+      )}
+
       <LessonComponentTypeContainer>
         <LessonComponentTypeStyle>Live Class</LessonComponentTypeStyle>{' '}
       </LessonComponentTypeContainer>

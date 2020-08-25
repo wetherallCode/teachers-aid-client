@@ -24,7 +24,7 @@ export const Protocols: FC<ProtocolsProps> = ({ lesson }) => {
   )
 
   return (
-    <ProtocolsContainer>
+    <>
       <ProtocolTypeContainer>
         <div>{academicOutcomeTypes(protocol.academicOutcomeTypes)}</div>
       </ProtocolTypeContainer>
@@ -34,6 +34,6 @@ export const Protocols: FC<ProtocolsProps> = ({ lesson }) => {
       </ProtocolTaskContainer>
 
       {me.__typename === 'Student' && <StudentProtocolResponse me={me} />}
-    </ProtocolsContainer>
+    </>
   )
 }
