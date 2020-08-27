@@ -5,7 +5,7 @@ import {
   updateHowCauseEffect,
   updateHowCauseEffectVariables,
 } from '../../../../../../../../schemaTypes'
-import { useStudentEssayContextProvider } from '../../StudentEssayContext'
+import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 
 export type AcademicHowCauseEffectProps = {}
 

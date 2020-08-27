@@ -6,7 +6,7 @@ import {
   AcademicSentenceStructureInput,
   QuestionTypeEnum,
   AdvancedSentenceStructureInput,
-} from '../../../../../../schemaTypes'
+} from '../../../../../../../schemaTypes'
 
 export type studentEssayMachineSchema = {
   states: {
@@ -451,6 +451,7 @@ export const studentEssayMachine = Machine<
             },
             restatement: {
               on: {
+                PREVIOUS: 'identifications',
                 NEXT: 'answer',
                 SET_RESTATEMENT: {
                   actions: assign((ctx, evt) => {

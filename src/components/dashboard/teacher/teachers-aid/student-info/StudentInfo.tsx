@@ -113,7 +113,7 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
       loadStudentInfo()
     }
   }, [loadStudentInfo, state.context.studentId])
-
+  // console.log(state.context.)
   if (loading)
     return (
       <>

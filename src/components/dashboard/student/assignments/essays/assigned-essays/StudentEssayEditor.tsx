@@ -8,9 +8,16 @@ import {
   UpdateWorkingDraftVariables,
   SubmittedFinalDraftsInput,
 } from '../../../../../../schemaTypes'
-import { useStudentEssayContextProvider } from './StudentEssayContext'
+import { useStudentEssayContextProvider } from './state-and-styles/StudentEssayContext'
 import { useMutation } from '@apollo/client'
 import { SubmitEssay } from './SubmitEssay'
+import {
+  EssayEditorContainer,
+  EssayEditorBackgroundContainer,
+  EssaySheet,
+  SubmitEssayContainer,
+  OrganizerControlButtonContainer,
+} from './state-and-styles/assignedEssayStyles'
 
 type StudentEssayEditorProps = {
   essay: findEssayById_findEssayById_essay
@@ -28,17 +35,23 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
   essay,
   submittedFinalDraft,
 }) => {
+  // console.log(essay.workingDraft.draft)
   const [state, event] = useStudentEssayContextProvider()
 
   const editor = useMemo(() => withReact(createEditor()), [])
   const parsedEssay = JSON.parse(essay.workingDraft.draft)
   const [value, setValue] = useState(parsedEssay)
   const content = JSON.stringify(value)
-
+  console.log(content)
+  // console.log(content === '' ? '' : content)
+  // console.log(content === `[{"type":"paragraph","children":[{"text":""}]}]`)
   useEffect(() => {
     event({ type: 'SET_DRAFT', payload: content })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content])
+
+  useEffect(() => {
+    updateWorkingDraft()
+  }, [state.context.draftToUpdate])
 
   const [updateWorkingDraft] = useMutation<
     UpdateWorkingDraft,
@@ -50,6 +63,8 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
         updatedDraft: state.context.draftToUpdate,
       },
     },
+    onCompleted: (data) =>
+      console.log(data.updateWorkingDraft.essay.workingDraft),
     refetchQueries: ['findEssayById'],
   })
 
@@ -67,68 +82,80 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
   }, [])
 
   return (
-    <>
-      <Slate
-        editor={editor}
-        value={value as Node[]}
-        onChange={(value) => {
-          setValue(value as Node[])
-        }}
-      >
-        <Editable
-          renderElement={renderElement}
-          spellCheck
-          renderLeaf={renderLeaf}
-          autoFocus
-          placeholder='Start with your topic statement....'
-          onKeyDown={(e) => {
-            updateWorkingDraft()
-            // if (!e.ctrlKey) {
-            // return
-            // }
-            // switch (e.key) {
-            //   case '`': {
-            //     e.preventDefault()
-            //     const [match] = Editor.nodes(editor, {
-            //       match: (n) => n.type === 'code',
-            //     })
-            //     Transforms.setNodes(
-            //       editor,
-            //       { type: match ? 'paragraph' : 'code' },
-            //       { match: (n) => Editor.isBlock(editor, n) }
-            //     )
-            //     break
-            //   }
-            //   case 'b': {
-            //     e.preventDefault()
-            //     CustomEditor.toggleBoldMark(editor)
-            //     break
-            //   }
-            //   case 's': {
-            //     e.preventDefault()
-            //     CustomEditor.toggleStrikeThrough(editor)
-            //     break
-            //   }
-            //   case 'u': {
-            //     e.preventDefault()
-            //     CustomEditor.toggleUnderline(editor)
-            //     break
-            //   }
-            // case '17': {
-            //   e.preventDefault()
-            // }
-            // }
-          }}
-        />
-        {value[0].children[0].text !== '' && (
-          <SubmitEssay
-            _id={state.context.essayId}
-            submittedFinalDraft={submittedFinalDraft}
-            essay={essay}
-          />
-        )}
-      </Slate>
-    </>
+    <EssayEditorBackgroundContainer>
+      <EssayEditorContainer>
+        <EssaySheet>
+          <Slate
+            editor={editor}
+            value={value as Node[]}
+            onChange={(value: any) => {
+              setValue(value as Node[])
+            }}
+          >
+            <Editable
+              renderElement={renderElement}
+              spellCheck
+              autoFocus={true}
+              renderLeaf={renderLeaf}
+              style={{
+                // boxShadow: 'black',
+                height: '98%',
+              }}
+              placeholder={`Let's get started...`}
+              onKeyDown={(e) => {
+                // e.preventDefault()
+                event({ type: 'SET_DRAFT', payload: content })
+                // updateWorkingDraft()
+                // if (!e.ctrlKey) {
+                // return
+                // }
+                // switch (e.key) {
+                //   case '`': {
+                //     e.preventDefault()
+                //     const [match] = Editor.nodes(editor, {
+                //       match: (n) => n.type === 'code',
+                //     })
+                //     Transforms.setNodes(
+                //       editor,
+                //       { type: match ? 'paragraph' : 'code' },
+                //       { match: (n) => Editor.isBlock(editor, n) }
+                //     )
+                //     break
+                //   }
+                //   case 'b': {
+                //     e.preventDefault()
+                //     CustomEditor.toggleBoldMark(editor)
+                //     break
+                //   }
+                //   case 's': {
+                //     e.preventDefault()
+                //     CustomEditor.toggleStrikeThrough(editor)
+                //     break
+                //   }
+                //   case 'u': {
+                //     e.preventDefault()
+                //     CustomEditor.toggleUnderline(editor)
+                //     break
+                //   }
+                // case '17': {
+                //   e.preventDefault()
+                // }
+                // }
+              }}
+            />
+          </Slate>
+        </EssaySheet>
+        <OrganizerControlButtonContainer>
+          {value[0].children[0].text !== '' && (
+            <SubmitEssay
+              _id={state.context.essayId}
+              submittedFinalDraft={submittedFinalDraft}
+              essay={essay}
+            />
+          )}
+        </OrganizerControlButtonContainer>
+      </EssayEditorContainer>
+    </EssayEditorBackgroundContainer>
   )
 }
 const CodeElement = (props: any) => {

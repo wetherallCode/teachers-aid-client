@@ -7,6 +7,11 @@ import {
   findReadingGuidesToCompleteVariables,
 } from '../../../../../schemaTypes'
 import { Link } from 'react-router-dom'
+import {
+  AssignmentTypeTitle,
+  AssignmentTypeContentContainer,
+  AssignmentLink,
+} from '../assignmentsStyles'
 
 export type AssignedReadingGuideSelectProps = {}
 
@@ -38,22 +43,28 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = (
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
+
   return (
     <>
-      <div>Reading Guides to Complete</div>
-      {data?.findReadingGuidesToCompleteByStudentId.readingGuides
-        .filter(
-          (readingGuide) => !readingGuide.paperBased && !readingGuide.graded
-        )
-        .map((readingGuide) => (
-          <Link
-            to={`reading-guide/toComplete/${readingGuide._id!}`}
-            key={readingGuide._id!}
-          >
-            {readingGuide.readings.readingSections}
-          </Link>
-        ))}
+      <AssignmentTypeTitle>
+        <div>Reading Guides to Complete</div>
+      </AssignmentTypeTitle>
+      {loading ? null : (
+        <AssignmentTypeContentContainer>
+          {data?.findReadingGuidesToCompleteByStudentId.readingGuides
+            .filter(
+              (readingGuide) => !readingGuide.paperBased && !readingGuide.graded
+            )
+            .map((readingGuide) => (
+              <AssignmentLink
+                to={`reading-guide/toComplete/${readingGuide._id!}`}
+                key={readingGuide._id!}
+              >
+                {readingGuide.readings.readingSections}
+              </AssignmentLink>
+            ))}
+        </AssignmentTypeContentContainer>
+      )}
     </>
   )
 }

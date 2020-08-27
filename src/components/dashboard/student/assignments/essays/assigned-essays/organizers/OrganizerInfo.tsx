@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useStudentEssayContextProvider } from '../StudentEssayContext'
+import { useStudentEssayContextProvider } from '../state-and-styles/StudentEssayContext'
 import { DevelopingOrganizer } from './developing/DevelopingOrganizer'
 import { gql, useMutation } from '@apollo/client'
 import {
@@ -71,7 +71,7 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
         },
       },
       onCompleted: (data) => {
-        console.log(data.setOrganizer.essay.workingDraft.organizer)
+        // console.log(data.setOrganizer.essay.workingDraft.organizer)
       },
       onError: (error) => console.error(error),
       refetchQueries: ['findEssayById'],
@@ -80,7 +80,6 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
 
   useEffect(() => {
     if (!organizer) {
-      console.log(organizer)
       setOrganizer()
     }
   }, [organizer, setOrganizer])
@@ -90,7 +89,7 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
       {organizer && (
         <>
           {state.matches('organizers.developingOrganizer') && (
-            <DevelopingOrganizer />
+            <DevelopingOrganizer question={question} />
           )}
           {state.matches('organizers.academicOrganizer') && (
             <AcademicOrganizer question={question} />

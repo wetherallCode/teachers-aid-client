@@ -7,6 +7,11 @@ import {
 } from '../../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { Link } from 'react-router-dom'
+import {
+  AssignmentTypeTitle,
+  AssignmentTypeContentContainer,
+  AssignmentLink,
+} from '../../assignmentsStyles'
 
 export type AssignedEssaySelectProps = {}
 
@@ -36,22 +41,37 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
     variables: {
       input: { studentId: me._id! },
     },
+    pollInterval: 10000,
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
-
-  if (loading) return <div>Loading </div>
+  console.log(data?.findEssaysToCompleteByStudentId.essays)
+  // if (loading)
+  //   return (
+  //     <AssignmentTypeTitle>
+  //       <div>Essays to complete</div>
+  //     </AssignmentTypeTitle>
+  //   )
 
   return (
     <>
-      <div>Essays to complete</div>
-      {data?.findEssaysToCompleteByStudentId.essays
-        .filter((essay) => !essay.paperBased)
-        .map((essay) => (
-          <Link to={`essay/toComplete/${essay._id!}`} key={essay._id!}>
-            {essay.readings.readingSections}
-          </Link>
-        ))}
+      <AssignmentTypeTitle>
+        <div>Essays to complete</div>
+      </AssignmentTypeTitle>
+      {loading ? null : (
+        <AssignmentTypeContentContainer>
+          {data?.findEssaysToCompleteByStudentId.essays
+            .filter((essay) => !essay.paperBased)
+            .map((essay) => (
+              <AssignmentLink
+                to={`essay/toComplete/${essay._id!}`}
+                key={essay._id!}
+              >
+                {essay.readings.readingSections}
+              </AssignmentLink>
+            ))}
+        </AssignmentTypeContentContainer>
+      )}
     </>
   )
 }

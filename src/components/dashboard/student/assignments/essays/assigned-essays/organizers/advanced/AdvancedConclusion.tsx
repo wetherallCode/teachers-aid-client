@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { UpdateAdvancedOrganizerType } from './AdvancedOrganizer'
-import { useStudentEssayContextProvider } from '../../StudentEssayContext'
+import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 
 export type AdvancedConclusionProps = {
   updateAdvancedOrganizer: UpdateAdvancedOrganizerType

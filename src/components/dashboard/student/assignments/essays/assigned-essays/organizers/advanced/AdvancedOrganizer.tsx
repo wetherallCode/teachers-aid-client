@@ -4,7 +4,7 @@ import {
   updateAdvancedOrganizer,
   updateAdvancedOrganizerVariables,
 } from '../../../../../../../../schemaTypes'
-import { useStudentEssayContextProvider } from '../../StudentEssayContext'
+import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 
 import { AdvancedAnswerTypes } from './AdvancedAnswerTypes'
 

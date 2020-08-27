@@ -8,6 +8,7 @@ export type TextPickerProps = {
 
 export const TextPicker: FC<TextPickerProps> = ({ textList }) => {
   const [, event] = useLessonPlannerContextProvider()
+  console.log(textList)
   return (
     <>
       <div>Texts: </div>

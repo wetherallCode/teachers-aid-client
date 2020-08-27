@@ -18,8 +18,14 @@ import {
   findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType,
   SubmittedFinalDraftsInput,
 } from '../../../../../../schemaTypes'
-import { useStudentEssayContextProvider } from './StudentEssayContext'
+import { useStudentEssayContextProvider } from './state-and-styles/StudentEssayContext'
 import { OrganizerInfo } from './organizers/OrganizerInfo'
+import {
+  EssayContainer,
+  AssignmentDetailsContainer,
+  EssayInfoContainer,
+  OrganizerContainer,
+} from './state-and-styles/assignedEssayStyles'
 
 export type EssayToCompleteProps = {}
 
@@ -138,11 +144,8 @@ export type updateWorkingDraftType = (
 ) => void
 
 export const EssayToComplete: FC<EssayToCompleteProps> = () => {
-  const params = useParams()
-  const { essayToComplete } = params
-
+  const { essayToComplete } = useParams()
   const navigate = useNavigate()
-
   const [state, event] = useStudentEssayContextProvider()
 
   useEffect(() => {
@@ -156,6 +159,16 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
         input: { _id: essayToComplete },
       },
       onCompleted: (data) => {
+        const draftToParse = JSON.parse(
+          data.findEssayById.essay.workingDraft.draft
+        )
+        const stringDraft = JSON.stringify(draftToParse)
+        console.log(stringDraft)
+        event({
+          type: 'SET_DRAFT',
+          payload: stringDraft,
+        })
+        // console.log()
         event({
           type: 'SET_WRITING_LEVEL',
           payload: data.findEssayById.essay.topic.writingLevel,
@@ -313,7 +326,7 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
 
   const organizer = data?.findEssayById.essay.workingDraft
     .organizer as findEssayById_findEssayById_essay_workingDraft_organizer
-
+  // console.log(state.context.draftToUpdate)
   const submittedFinalDraft: SubmittedFinalDraftsInput = {
     draftNumber: 0, //Because this component will always be the first draft
     draft: state.context.draftToUpdate,
@@ -325,30 +338,32 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
   }
 
   return (
-    <>
-      <button onClick={() => navigate('/dashboard/assignments')}>Back</button>
-      <div>{data?.findEssayById.essay.readings.readingSections}</div>
+    <EssayContainer>
+      <AssignmentDetailsContainer>
+        <div>{data?.findEssayById.essay.readings.readingSections}</div>
+        <button onClick={() => navigate('/dashboard/assignments')}>Back</button>
+      </AssignmentDetailsContainer>
+      <EssayInfoContainer>Hints and Info</EssayInfoContainer>
       {data?.findEssayById.essay ? (
         <>
           {state.matches('organizers') && (
-            <OrganizerInfo
-              organizer={organizer}
-              question={data.findEssayById.essay.topic.question}
-            />
+            <OrganizerContainer>
+              <OrganizerInfo
+                organizer={organizer}
+                question={data.findEssayById.essay.topic.question}
+              />
+            </OrganizerContainer>
           )}
           {state.matches('workingDraft') && (
-            <>
-              <StudentEssayEditor
-                essay={data?.findEssayById.essay!}
-                submittedFinalDraft={submittedFinalDraft}
-              />
-              <div>Rubric</div>
-            </>
+            <StudentEssayEditor
+              essay={data?.findEssayById.essay!}
+              submittedFinalDraft={submittedFinalDraft}
+            />
           )}
         </>
       ) : (
         <div>No Essay</div>
       )}
-    </>
+    </EssayContainer>
   )
 }

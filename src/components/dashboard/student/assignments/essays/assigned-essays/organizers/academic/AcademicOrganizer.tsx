@@ -4,7 +4,7 @@ import {
   updateAcademicOrganizer,
   updateAcademicOrganizerVariables,
 } from '../../../../../../../../schemaTypes'
-import { useStudentEssayContextProvider } from '../../StudentEssayContext'
+import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { AcademicAnswerTypes } from './AcademicAnswerTypes'
 import { AcademicRestatement } from './AcademicRestatement'
 import { AcademicConclusion } from './AcademicConclusion'

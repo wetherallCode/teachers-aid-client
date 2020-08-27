@@ -7,6 +7,11 @@ import {
 } from '../../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { Link } from 'react-router-dom'
+import {
+  AssignmentTypeTitle,
+  AssignmentTypeContentContainer,
+  AssignmentLink,
+} from '../../assignmentsStyles'
 
 export type CompletedEssaySelectProps = {}
 export const FIND_COMPLETED_ESSAYS_QUERY = gql`
@@ -40,15 +45,29 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
     onCompleted: (data) => console.log(data.findCompletedEssaysByStudentId),
     onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
+  if (loading)
+    return (
+      <AssignmentTypeTitle>
+        <div>Completed Essays</div>
+      </AssignmentTypeTitle>
+    )
   return (
     <>
-      <div>Completed Essays</div>
-      {data?.findCompletedEssaysByStudentId.essays.map((essay) => (
-        <Link to={`essay/completed/${essay._id!}`} key={essay._id!}>
-          {essay.readings.readingSections}
-        </Link>
-      ))}
+      <AssignmentTypeTitle>
+        <div>Completed Essays</div>
+      </AssignmentTypeTitle>
+      {loading ? null : (
+        <AssignmentTypeContentContainer>
+          {data?.findCompletedEssaysByStudentId.essays.map((essay) => (
+            <AssignmentLink
+              to={`essay/completed/${essay._id!}`}
+              key={essay._id!}
+            >
+              {essay.readings.readingSections}
+            </AssignmentLink>
+          ))}
+        </AssignmentTypeContentContainer>
+      )}
     </>
   )
 }
