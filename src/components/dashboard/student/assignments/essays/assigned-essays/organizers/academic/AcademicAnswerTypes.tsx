@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
+// import { useStudentEssayContextProvider } from '../../StudentEssayContext'
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setAnswerType,
@@ -11,6 +11,15 @@ import { AcademicProblemSolution } from './AcademicProblemSolution'
 import { AcademicHowCauseEffect } from './AcademicHowCauseEffect'
 import { AcademicWhyCauseEffect } from './AcademicWhyCauseEffect'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
+import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
+import {
+  AcademicQuestionTypeContainer,
+  OrganizerControlButtonContainer,
+  OrganizerControlButton,
+  AcademicRestatementTitle,
+  AcademicQuestionTypeSelect,
+  AcademicQuestionAnswerTypeContainer,
+} from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicAnswerTypesProps = {}
 
@@ -34,7 +43,8 @@ export const SET_ANSWER_TYPE_MUTATION = gql`
 export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
-
+  // console.log(state.context.academicOrganizer.questionType)
+  console.log(state.context.academicOrganizer.answer.preLoaded)
   const [setAnswerType] = useMutation<setAnswerType, setAnswerTypeVariables>(
     SET_ANSWER_TYPE_MUTATION,
     {
@@ -51,7 +61,8 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
 
   useEffect(() => {
     if (!state.context.academicOrganizer.answer.preLoaded) {
-      setAnswerType()
+      // setAnswerType()
+      console.log('setting')
     }
   }, [
     setAnswerType,
@@ -61,7 +72,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
 
   useEffect(() => {
     if (state.context.academicOrganizer.answer.preLoaded) {
-      event({ type: 'NEXT' })
+      // event({ type: 'NEXT' })
     }
   }, [event, state.context.academicOrganizer.answer.preLoaded])
 
@@ -69,40 +80,62 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
     <>
       {state.matches('organizers.academicOrganizer.answer.questionType') && (
         <>
-          <span>What is the Question Type: </span>
-          <span>
-            <select
-              value={state.context.academicOrganizer.questionType}
-              onChange={(e: any) => {
-                if (e.target.value !== 'none') {
-                  event({
-                    type: 'SET_FULL_QUESTION_TYPE',
-                    payload: e.target.value,
-                  })
-                }
+          <AcademicQuestionTypeContainer>
+            <AcademicRestatementTitle>
+              <div>What is the Question Type: </div>
+            </AcademicRestatementTitle>
+            <AcademicQuestionTypeContainer>
+              <AcademicQuestionTypeSelect
+                value={state.context.academicOrganizer.questionType}
+                onChange={(e: any) => {
+                  if (e.target.value !== 'none') {
+                    event({
+                      type: 'SET_FULL_QUESTION_TYPE',
+                      payload: e.target.value,
+                    })
+                    setAnswerType({
+                      variables: {
+                        input: {
+                          essayId: state.context.essayId,
+                          questionType: e.target.value,
+                        },
+                      },
+                    })
+                  }
+                }}
+              >
+                <option value={'none'}>Pick a Question Type</option>
+                {questionTypeEnum.map((question: QuestionTypeEnum) => (
+                  <option key={question} value={question}>
+                    {question === 'HOW_PROBLEM_SOLUTION'
+                      ? 'How: Problem and Solution'
+                      : question === 'HOW_CAUSE_EFFECT'
+                      ? 'How: Cause and Effect'
+                      : 'Why: Cause and Effect'}
+                  </option>
+                ))}
+              </AcademicQuestionTypeSelect>
+            </AcademicQuestionTypeContainer>
+          </AcademicQuestionTypeContainer>
+          <OrganizerControlButtonContainer>
+            <OrganizerControlButton
+              onClick={() => {
+                event({ type: 'PREVIOUS' })
               }}
             >
-              <option value={'none'}>Pick a Question Type</option>
-              {questionTypeEnum.map((question: QuestionTypeEnum) => (
-                <option key={question} value={question}>
-                  {question === 'HOW_PROBLEM_SOLUTION'
-                    ? 'How: Problem and Solution'
-                    : question === 'HOW_CAUSE_EFFECT'
-                    ? 'How: Cause and Effect'
-                    : 'Why: Cause and Effect'}
-                </option>
-              ))}
-            </select>
-            <button
+              Back
+            </OrganizerControlButton>
+            <OrganizerControlButton
               onClick={() => {
                 event({ type: 'NEXT' })
               }}
             >
-              Use this Question Type
-            </button>
-          </span>
+              Next
+            </OrganizerControlButton>
+          </OrganizerControlButtonContainer>
         </>
       )}
+
       {state.matches('organizers.academicOrganizer.answer.problemSolution') &&
         state.context.academicOrganizer.questionType ===
           QuestionTypeEnum.HOW_PROBLEM_SOLUTION && <AcademicProblemSolution />}

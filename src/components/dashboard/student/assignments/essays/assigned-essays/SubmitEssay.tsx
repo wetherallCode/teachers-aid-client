@@ -38,13 +38,14 @@ export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
 export type SubmitEssayFinalDraftInput = {
   _id: string
   submittedFinalDraft: SubmittedFinalDraftsInput
-  essay: findEssayById_findEssayById_essay
+  // essay: findEssayById_findEssayById_essay
+  response: boolean
 }
 
 export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
   _id,
   submittedFinalDraft,
-  essay,
+  response,
 }) => {
   const navigate = useNavigate()
   const [, event] = useStudentEssayContextProvider()
@@ -86,22 +87,26 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
           Review Essay
         </EssaySubmitButton>
       )}
-      {!submitToggle ? (
-        <EssaySubmitButton
-          color={'var(--blue)'}
-          submitFinal={submitToggle}
-          onClick={() => setSubmitToggle(true)}
-        >
-          Submit
-        </EssaySubmitButton>
-      ) : (
-        <EssaySubmitButton
-          color={'var(--red)'}
-          submitFinal={submitToggle}
-          onClick={() => submitFinalDraft()}
-        >
-          Are you sure?
-        </EssaySubmitButton>
+      {response && (
+        <>
+          {!submitToggle ? (
+            <EssaySubmitButton
+              color={'var(--blue)'}
+              submitFinal={submitToggle}
+              onClick={() => setSubmitToggle(true)}
+            >
+              Submit
+            </EssaySubmitButton>
+          ) : (
+            <EssaySubmitButton
+              color={'var(--red)'}
+              submitFinal={submitToggle}
+              onClick={() => submitFinalDraft()}
+            >
+              Are you sure?
+            </EssaySubmitButton>
+          )}
+        </>
       )}
       {/* <SubmitEssayModal isToggled={isToggled} setIsToggled={setIsToggled}>
         <SubmitEssayModalContainer>

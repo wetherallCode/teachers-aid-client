@@ -10,6 +10,12 @@ import { AdvancedAnswerTypes } from './AdvancedAnswerTypes'
 
 import { AdvancedRestatement } from './AdvancedRestatement'
 import { AdvancedConclusion } from './AdvancedConclusion'
+import {
+  OrganizerTitleContainer,
+  OrganizerTitleStyle,
+  QuestionContainer,
+  QuestionStyle,
+} from '../../state-and-styles/assignedEssayStyles'
 
 export type AdvancedOrganizerProps = {
   question: string
@@ -55,8 +61,12 @@ export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({ question }) => {
 
   return (
     <>
-      <div>advancedOrganizer</div>
-      <div>{question}</div>
+      <OrganizerTitleContainer>
+        <OrganizerTitleStyle>Organize for this Question</OrganizerTitleStyle>
+      </OrganizerTitleContainer>
+      <QuestionContainer>
+        <QuestionStyle>{question}</QuestionStyle>
+      </QuestionContainer>
       {state.matches('organizers.advancedOrganizer.restatement') && (
         <AdvancedRestatement
           updateAdvancedOrganizer={updateAdvancedOrganizer}

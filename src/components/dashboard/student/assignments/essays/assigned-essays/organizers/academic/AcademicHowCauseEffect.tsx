@@ -6,6 +6,14 @@ import {
   updateHowCauseEffectVariables,
 } from '../../../../../../../../schemaTypes'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
+import {
+  AcademicQuestionAnswerTypeContainer,
+  AcademicRestatementTitle,
+  AnswerTypeContainter,
+  PartInput,
+  OrganizerControlButtonContainer,
+  OrganizerControlButton,
+} from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicHowCauseEffectProps = {}
 
@@ -53,46 +61,62 @@ export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
   ])
   return (
     <>
-      <button
-        onClick={() => {
-          event({ type: 'PREVIOUS' })
-          event({ type: 'SET_PRE_LOADED', payload: false })
-        }}
-      >
-        Change Question Type
-      </button>
-      <div>How: Cause and Effect</div>
-      <div>
-        What was {object} like before {subject} {verb}ed
-      </div>
-      <input
-        value={state.context.academicOrganizer.answer.howCauseEffect.before}
-        onChange={(e: any) => {
-          event({
-            type: 'SET_HOW_CAUSE_EFFECT',
-            payload: {
-              ...howCauseEffect,
-              before: e.target.value,
-            },
-          })
-        }}
-      />
-      <div>
-        How was {object} different because of {subject}?
-      </div>
-      <input
-        value={state.context.academicOrganizer.answer.howCauseEffect.after}
-        onChange={(e: any) => {
-          event({
-            type: 'SET_HOW_CAUSE_EFFECT',
-            payload: {
-              ...howCauseEffect,
-              after: e.target.value,
-            },
-          })
-        }}
-      />
-      <button onClick={() => event({ type: 'NEXT' })}>Next</button>
+      <AcademicQuestionAnswerTypeContainer>
+        <AcademicRestatementTitle>
+          <div>How Question: Cause and Effect</div>
+        </AcademicRestatementTitle>
+        <AnswerTypeContainter>
+          <div>
+            What was {object} like before {subject} {verb}ed
+          </div>
+          <PartInput
+            value={state.context.academicOrganizer.answer.howCauseEffect.before}
+            onChange={(e: any) => {
+              event({
+                type: 'SET_HOW_CAUSE_EFFECT',
+                payload: {
+                  ...howCauseEffect,
+                  before: e.target.value,
+                },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+        <AnswerTypeContainter>
+          <div>
+            How was {object} different because of {subject}?
+          </div>
+          <PartInput
+            value={state.context.academicOrganizer.answer.howCauseEffect.after}
+            onChange={(e: any) => {
+              event({
+                type: 'SET_HOW_CAUSE_EFFECT',
+                payload: {
+                  ...howCauseEffect,
+                  after: e.target.value,
+                },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+      </AcademicQuestionAnswerTypeContainer>
+      <OrganizerControlButtonContainer>
+        <OrganizerControlButton
+          onClick={() => {
+            event({ type: 'PREVIOUS' })
+            event({ type: 'SET_PRE_LOADED', payload: false })
+          }}
+        >
+          Back
+        </OrganizerControlButton>
+        <OrganizerControlButton
+          onClick={() => {
+            event({ type: 'NEXT' })
+          }}
+        >
+          Next
+        </OrganizerControlButton>{' '}
+      </OrganizerControlButtonContainer>
     </>
   )
 }

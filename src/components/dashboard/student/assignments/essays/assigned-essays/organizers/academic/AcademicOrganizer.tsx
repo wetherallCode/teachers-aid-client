@@ -8,6 +8,12 @@ import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEs
 import { AcademicAnswerTypes } from './AcademicAnswerTypes'
 import { AcademicRestatement } from './AcademicRestatement'
 import { AcademicConclusion } from './AcademicConclusion'
+import {
+  OrganizerTitleContainer,
+  OrganizerTitleStyle,
+  QuestionContainer,
+  QuestionStyle,
+} from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicOrganizerProps = {
   question: string
@@ -52,11 +58,15 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({ question }) => {
     onError: (err) => console.error(err),
     refetchQueries: ['findEssayById'],
   })
-
+  console.log(state.value)
   return (
     <>
-      <div>AcademicOrganizer</div>
-      <div>{question}</div>
+      <OrganizerTitleContainer>
+        <OrganizerTitleStyle>Organize for this Question</OrganizerTitleStyle>
+      </OrganizerTitleContainer>
+      <QuestionContainer>
+        <QuestionStyle>{question}</QuestionStyle>
+      </QuestionContainer>
       {state.matches('organizers.academicOrganizer.restatement') && (
         <AcademicRestatement
           updateAcademicOrganizer={updateAcademicOrganizer}

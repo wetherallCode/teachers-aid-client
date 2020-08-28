@@ -210,7 +210,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
         {state.matches('organizers.developingOrganizer.conclusion') && (
           <>
             <RestatementTitle>
-              Write your conlcusion (pay attention to the hints!)
+              Write your conclusion (pay attention to the hints!)
             </RestatementTitle>
             <RestatementInput
               autoFocus={true}

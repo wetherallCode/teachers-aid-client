@@ -678,6 +678,8 @@ export const studentEssayMachine = Machine<
                 questionType: {
                   on: {
                     NEXT: 'transition',
+                    PREVIOUS:
+                      '#studentEssay.organizers.academicOrganizer.restatement',
                     SET_FULL_QUESTION_TYPE: {
                       actions: assign((ctx, evt) => {
                         return {

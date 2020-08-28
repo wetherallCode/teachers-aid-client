@@ -1,6 +1,18 @@
 import React, { FC, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { UpdateAcademicOrganizerType } from './AcademicOrganizer'
+import {
+  AcademicPartsOfQuestionContainer,
+  PartsOfQuestionTitle,
+  AcademicPartContainer,
+  OrganizerControlButtonContainer,
+  OrganizerControlButton,
+  PartInput,
+  AcademicRestatementContainer,
+  RestatementOutput,
+  AcademicRestatementTitle,
+  AcademicRestatementInput,
+} from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicRestatementProps = {
   updateAcademicOrganizer: UpdateAcademicOrganizerType
@@ -21,59 +33,79 @@ export const AcademicRestatement: FC<AcademicRestatementProps> = ({
 
   return (
     <>
-      <div>Set the Parts of the Question</div>
-      <span>What is the Subject of the question: </span>
-      <span>
-        <input
-          value={
-            state.context.academicOrganizer.academicSentenceStructure.subject
-          }
+      <AcademicPartsOfQuestionContainer>
+        <PartsOfQuestionTitle>
+          Set the Parts of the Question
+        </PartsOfQuestionTitle>
+        <AcademicPartContainer>
+          <div>What is the Subject of the question: </div>
+          <PartInput
+            value={
+              state.context.academicOrganizer.academicSentenceStructure.subject
+            }
+            onChange={(e: any) =>
+              event({
+                type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT',
+                payload: e.target.value,
+              })
+            }
+          />
+        </AcademicPartContainer>
+
+        <AcademicPartContainer>
+          <div>What is the Verb of the question: </div>
+          <PartInput
+            value={
+              state.context.academicOrganizer.academicSentenceStructure.verb
+            }
+            onChange={(e: any) =>
+              event({
+                type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_VERB',
+                payload: e.target.value,
+              })
+            }
+          />
+        </AcademicPartContainer>
+
+        <AcademicPartContainer>
+          <div>What is the Object of the question: </div>
+
+          <PartInput
+            value={
+              state.context.academicOrganizer.academicSentenceStructure.object!
+            }
+            onChange={(e: any) =>
+              event({
+                type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT',
+                payload: e.target.value,
+              })
+            }
+          />
+        </AcademicPartContainer>
+      </AcademicPartsOfQuestionContainer>
+      <AcademicRestatementContainer>
+        <AcademicRestatementTitle>
+          <div>Restatement</div>
+        </AcademicRestatementTitle>
+        <AcademicRestatementInput
+          type='text'
+          value={state.context.academicOrganizer.restatement}
           onChange={(e: any) =>
             event({
-              type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT',
+              type: 'SET_RESTATEMENT',
               payload: e.target.value,
             })
           }
         />
-      </span>
-      <span>What is the Verb of the question: </span>
-      <span>
-        <input
-          value={state.context.academicOrganizer.academicSentenceStructure.verb}
-          onChange={(e: any) =>
-            event({
-              type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_VERB',
-              payload: e.target.value,
-            })
-          }
-        />
-      </span>
-      <span>What is the Object of the question: </span>
-      <span>
-        <input
-          value={
-            state.context.academicOrganizer.academicSentenceStructure.object!
-          }
-          onChange={(e: any) =>
-            event({
-              type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT',
-              payload: e.target.value,
-            })
-          }
-        />
-      </span>
-      <div>Restatement</div>
-      <input
-        type='text'
-        value={state.context.academicOrganizer.restatement}
-        onChange={(e: any) =>
-          event({
-            type: 'SET_RESTATEMENT',
-            payload: e.target.value,
-          })
-        }
-      />
-      <button onClick={() => event({ type: 'NEXT' })}>Next</button>
+        <RestatementOutput>
+          <div> {state.context.academicOrganizer.restatement}</div>
+        </RestatementOutput>
+      </AcademicRestatementContainer>
+      <OrganizerControlButtonContainer>
+        <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
+          Next
+        </OrganizerControlButton>
+      </OrganizerControlButtonContainer>
     </>
   )
 }

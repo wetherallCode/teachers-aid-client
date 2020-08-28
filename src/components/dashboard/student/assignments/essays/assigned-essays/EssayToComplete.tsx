@@ -25,7 +25,15 @@ import {
   AssignmentDetailsContainer,
   EssayInfoContainer,
   OrganizerContainer,
+  OrganizerControlButtonContainer,
+  AssignmentDetailsReadingInfo,
+  AssignmentDetailsDueDate,
+  AssignmentDetailsGoBackButtonContainer,
+  AssignmentDetailsGoBackButton,
+  AssignmentDetailsPartContainers,
 } from './state-and-styles/assignedEssayStyles'
+import { EssayInfo } from './essay-info/EssayInfo'
+import { SubmitEssay } from './SubmitEssay'
 
 export type EssayToCompleteProps = {}
 
@@ -326,7 +334,7 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
 
   const organizer = data?.findEssayById.essay.workingDraft
     .organizer as findEssayById_findEssayById_essay_workingDraft_organizer
-  // console.log(state.context.draftToUpdate)
+
   const submittedFinalDraft: SubmittedFinalDraftsInput = {
     draftNumber: 0, //Because this component will always be the first draft
     draft: state.context.draftToUpdate,
@@ -340,10 +348,29 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
   return (
     <EssayContainer>
       <AssignmentDetailsContainer>
-        <div>{data?.findEssayById.essay.readings.readingSections}</div>
-        <button onClick={() => navigate('/dashboard/assignments')}>Back</button>
+        <AssignmentDetailsPartContainers>
+          <AssignmentDetailsReadingInfo>
+            Read pages {data?.findEssayById.essay.readings.readingPages}:{' '}
+            {data?.findEssayById.essay.readings.readingSections}
+          </AssignmentDetailsReadingInfo>
+        </AssignmentDetailsPartContainers>
+        <AssignmentDetailsPartContainers>
+          <AssignmentDetailsDueDate>
+            Essay due: {data?.findEssayById.essay.dueDate} at{' '}
+            {data?.findEssayById.essay.dueTime}
+          </AssignmentDetailsDueDate>
+        </AssignmentDetailsPartContainers>
+        <AssignmentDetailsGoBackButtonContainer>
+          <AssignmentDetailsGoBackButton
+            onClick={() => navigate('/dashboard/assignments')}
+          >
+            Go Back to Assignments
+          </AssignmentDetailsGoBackButton>
+        </AssignmentDetailsGoBackButtonContainer>
       </AssignmentDetailsContainer>
-      <EssayInfoContainer>Hints and Info</EssayInfoContainer>
+      <EssayInfoContainer>
+        <EssayInfo />
+      </EssayInfoContainer>
       {data?.findEssayById.essay ? (
         <>
           {state.matches('organizers') && (
@@ -355,14 +382,16 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
             </OrganizerContainer>
           )}
           {state.matches('workingDraft') && (
-            <StudentEssayEditor
-              essay={data?.findEssayById.essay!}
-              submittedFinalDraft={submittedFinalDraft}
-            />
+            <>
+              <StudentEssayEditor
+                essay={data?.findEssayById.essay!}
+                submittedFinalDraft={submittedFinalDraft}
+              />
+            </>
           )}
         </>
       ) : (
-        <div>No Essay</div>
+        <div>Something messed up</div>
       )}
     </EssayContainer>
   )

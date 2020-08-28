@@ -15,9 +15,10 @@ import {
   EssayEditorContainer,
   EssayEditorBackgroundContainer,
   EssaySheet,
-  SubmitEssayContainer,
   OrganizerControlButtonContainer,
+  EssayOrganizerSheet,
 } from './state-and-styles/assignedEssayStyles'
+import { EssayOrganizer } from './essay-info/essay-organizers/EssayOrganizer'
 
 type StudentEssayEditorProps = {
   essay: findEssayById_findEssayById_essay
@@ -35,16 +36,12 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
   essay,
   submittedFinalDraft,
 }) => {
-  // console.log(essay.workingDraft.draft)
   const [state, event] = useStudentEssayContextProvider()
-
   const editor = useMemo(() => withReact(createEditor()), [])
   const parsedEssay = JSON.parse(essay.workingDraft.draft)
   const [value, setValue] = useState(parsedEssay)
   const content = JSON.stringify(value)
-  console.log(content)
-  // console.log(content === '' ? '' : content)
-  // console.log(content === `[{"type":"paragraph","children":[{"text":""}]}]`)
+
   useEffect(() => {
     event({ type: 'SET_DRAFT', payload: content })
   }, [content])
@@ -84,6 +81,9 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
   return (
     <EssayEditorBackgroundContainer>
       <EssayEditorContainer>
+        <EssayOrganizerSheet>
+          <EssayOrganizer organizer={essay.workingDraft.organizer!} />
+        </EssayOrganizerSheet>
         <EssaySheet>
           <Slate
             editor={editor}
@@ -98,10 +98,10 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
               autoFocus={true}
               renderLeaf={renderLeaf}
               style={{
-                // boxShadow: 'black',
                 height: '98%',
+                // userSelect: 'none',
               }}
-              placeholder={`Let's get started...`}
+              placeholder={`Your essay goes here; let's get started...`}
               onKeyDown={(e) => {
                 // e.preventDefault()
                 event({ type: 'SET_DRAFT', payload: content })
@@ -145,16 +145,14 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
             />
           </Slate>
         </EssaySheet>
-        <OrganizerControlButtonContainer>
-          {value[0].children[0].text !== '' && (
-            <SubmitEssay
-              _id={state.context.essayId}
-              submittedFinalDraft={submittedFinalDraft}
-              essay={essay}
-            />
-          )}
-        </OrganizerControlButtonContainer>
       </EssayEditorContainer>
+      <OrganizerControlButtonContainer>
+        <SubmitEssay
+          _id={state.context.essayId}
+          submittedFinalDraft={submittedFinalDraft}
+          response={value[0].children[0].text !== ''}
+        />
+      </OrganizerControlButtonContainer>
     </EssayEditorBackgroundContainer>
   )
 }

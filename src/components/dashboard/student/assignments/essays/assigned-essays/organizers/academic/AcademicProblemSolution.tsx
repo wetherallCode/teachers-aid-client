@@ -6,6 +6,15 @@ import {
   updateProblemSolution,
   updateProblemSolutionVariables,
 } from '../../../../../../../../schemaTypes'
+import {
+  AcademicQuestionAnswerTypeContainer,
+  QuestionTypeChangeButton,
+  AnswerTypeContainter,
+  OrganizerControlButtonContainer,
+  OrganizerControlButton,
+  AcademicRestatementTitle,
+  PartInput,
+} from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicProblemSolutionProps = {}
 
@@ -56,74 +65,92 @@ export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
 
   return (
     <>
-      <button
-        onClick={() => {
-          event({ type: 'PREVIOUS' })
-          event({ type: 'SET_PRE_LOADED', payload: false })
-        }}
-      >
-        Change Question Type
-      </button>
-      <div>How: Problem and Solution</div>
-      <div>What is the problem for {subject}?</div>
-      <input
-        value={state.context.academicOrganizer.answer.problemSolution.problem}
-        onChange={(e: any) => {
-          event({
-            type: 'SET_PROBLEM_SOLUTION',
-            payload: { ...problemSolution, problem: e.target.value },
-          })
-        }}
-      />
-      <div>Why is this {subject}'s problem?</div>
-      <input
-        value={
-          state.context.academicOrganizer.answer.problemSolution
-            .reasonForProblem
-        }
-        onChange={(e: any) => {
-          event({
-            type: 'SET_PROBLEM_SOLUTION',
-            payload: {
-              ...problemSolution,
-              reasonForProblem: e.target.value,
-            },
-          })
-        }}
-      />
-      <div>How did {subject} solve the problem?</div>
-      <input
-        value={state.context.academicOrganizer.answer.problemSolution.solvedBy}
-        onChange={(e: any) => {
-          event({
-            type: 'SET_PROBLEM_SOLUTION',
-            payload: { ...problemSolution, solvedBy: e.target.value },
-          })
-        }}
-      />
-      <div>Why did the solution solve {subject}'s problem?</div>
-      <input
-        value={
-          state.context.academicOrganizer.answer.problemSolution
-            .whySolutionSolved
-        }
-        onChange={(e: any) => {
-          event({
-            type: 'SET_PROBLEM_SOLUTION',
-            payload: {
-              ...problemSolution,
-              whySolutionSolved: e.target.value,
-            },
-          })
-        }}
-      />
-      <button
-        onClick={() => {
-          event({ type: 'NEXT' })
-        }}
-      >
-        Next
-      </button>
+      <AcademicQuestionAnswerTypeContainer>
+        <AcademicRestatementTitle>
+          <div>How Question: Problem and Solution</div>
+        </AcademicRestatementTitle>
+        <AnswerTypeContainter>
+          <div>What is the problem for {subject}?</div>
+          <PartInput
+            value={
+              state.context.academicOrganizer.answer.problemSolution.problem
+            }
+            onChange={(e: any) => {
+              event({
+                type: 'SET_PROBLEM_SOLUTION',
+                payload: { ...problemSolution, problem: e.target.value },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+        <AnswerTypeContainter>
+          <div>Why is this {subject}'s problem?</div>
+          <PartInput
+            value={
+              state.context.academicOrganizer.answer.problemSolution
+                .reasonForProblem
+            }
+            onChange={(e: any) => {
+              event({
+                type: 'SET_PROBLEM_SOLUTION',
+                payload: {
+                  ...problemSolution,
+                  reasonForProblem: e.target.value,
+                },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+        <AnswerTypeContainter>
+          <div>How did {subject} solve the problem?</div>
+          <PartInput
+            value={
+              state.context.academicOrganizer.answer.problemSolution.solvedBy
+            }
+            onChange={(e: any) => {
+              event({
+                type: 'SET_PROBLEM_SOLUTION',
+                payload: { ...problemSolution, solvedBy: e.target.value },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+        <AnswerTypeContainter>
+          <div>Why did the solution solve {subject}'s problem?</div>
+          <PartInput
+            value={
+              state.context.academicOrganizer.answer.problemSolution
+                .whySolutionSolved
+            }
+            onChange={(e: any) => {
+              event({
+                type: 'SET_PROBLEM_SOLUTION',
+                payload: {
+                  ...problemSolution,
+                  whySolutionSolved: e.target.value,
+                },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+      </AcademicQuestionAnswerTypeContainer>
+      <OrganizerControlButtonContainer>
+        <OrganizerControlButton
+          onClick={() => {
+            event({ type: 'PREVIOUS' })
+            event({ type: 'SET_PRE_LOADED', payload: false })
+          }}
+        >
+          Back
+        </OrganizerControlButton>
+        <OrganizerControlButton
+          onClick={() => {
+            event({ type: 'NEXT' })
+          }}
+        >
+          Next
+        </OrganizerControlButton>
+      </OrganizerControlButtonContainer>
     </>
   )
 }

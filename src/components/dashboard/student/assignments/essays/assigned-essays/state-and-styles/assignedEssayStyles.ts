@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { Standard8x12Container } from '../../../../../../../appStyles'
-import { Slate } from 'slate-react'
 import { Modal } from '../../../../../../../animations'
 
 export const EssayContainer = styled(Standard8x12Container)`
@@ -13,7 +12,38 @@ export const AssignmentDetailsContainer = styled.div`
   background-color: var(--blue);
   color: var(--white);
   border-left: 3px solid var(--white);
+
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
 `
+export const AssignmentDetailsPartContainers = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+
+export const AssignmentDetailsReadingInfo = styled.div`
+  font-size: 1.4rem;
+`
+
+export const AssignmentDetailsDueDate = styled.div`
+  font-size: 1.4rem;
+`
+
+export const AssignmentDetailsGoBackButtonContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+export const AssignmentDetailsGoBackButton = styled.button`
+  width: 80%;
+  height: 40%;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  color: var(--blue);
+  text-shadow: 1px 1px var(--grey);
+`
+
 export const EssayInfoContainer = styled.div`
   grid-row: 4/-1;
   grid-column: -4/-1;
@@ -74,6 +104,12 @@ export const PartsOfQuestionContainer = styled.div`
   display: grid;
 `
 
+export const AcademicPartsOfQuestionContainer = styled(
+  PartsOfQuestionContainer
+)`
+  grid-row: 3/5;
+`
+
 export const PartsOfQuestionTitle = styled.div`
   font-size: 2rem;
   justify-self: center;
@@ -87,6 +123,11 @@ export const PartContainer = styled.div`
   align-items: center;
   font-size: 1.3rem;
 `
+
+export const AcademicPartContainer = styled(PartContainer)`
+  justify-items: left;
+`
+
 export const PartInput = styled.input`
   justify-self: left;
   border: 1px solid var(--white);
@@ -129,7 +170,7 @@ export const EssaySubmitButton = styled(OrganizerControlButton)<
 >`
   font-size: 2rem;
   width: 75%;
-  height: 100%;
+  height: 37%;
   box-shadow: 1px 1px 2px 1px var(--grey);
   border-radius: 5px;
   background-color: ${({ color }) => color};
@@ -146,9 +187,46 @@ export const RestatementTitle = styled.div`
   align-items: center;
   font-size: 2rem;
 `
+
+export const AcademicRestatementContainer = styled(Standard8x12Container)`
+  grid-row: 5/8;
+  grid-column: 3/-3;
+`
+export const AcademicRestatementTitle = styled(RestatementTitle)`
+  grid-row: 1/3;
+`
+
+export const AcademicQuestionTypeContainer = styled(Standard8x12Container)`
+  grid-row: 3/7;
+  grid-column: 3/-3;
+`
+export const AcademicQuestionTypeSelect = styled.select`
+  grid-row: 3/5;
+  grid-column: 1/-1;
+  font-size: 1.2rem;
+  color: var(--blue);
+  padding: 1%;
+`
+export const AcademicQuestionAnswerTypeContainer = styled(
+  Standard8x12Container
+)`
+  grid-row: 3/-2;
+  grid-column: 1/-1;
+  grid-auto-flow: column;
+`
+export const QuestionTypeChangeButton = styled.div`
+  grid-row: 3/-2;
+  grid-column: 3/-3;
+`
+
+export const AnswerTypeContainter = styled(PartContainer)`
+  grid-column: 3/-3;
+  justify-items: left;
+`
+
 export const RestatementInput = styled.input`
   grid-row: 5/6;
-  grid-column: 3/-3;
+  grid-column: 2/-2;
   border: 1px solid var(--blue);
   width: 100%;
   height: 20%;
@@ -159,14 +237,37 @@ export const RestatementInput = styled.input`
     border-bottom: 1px solid var(--blue);
   }
 `
+
+export const AcademicConclusionInput = styled(RestatementInput)`
+  grid-column: 3/-3;
+`
+
+export const AcademicRestatementInput = styled.input`
+  grid-row: 4/5;
+  grid-column: 1/-1;
+  height: 50%;
+  width: 100%;
+  font-size: 1.2rem;
+  border: 1px solid var(--white);
+  color: var(--blue);
+  border-bottom: 1px solid var(--blue);
+`
+
 export const RestatementOutput = styled.div`
   grid-row: 6/8;
-  grid-column: 3/-3;
+  grid-column: 2/-2;
   display: grid;
   justify-items: left;
   align-items: center;
   font-size: 1.2rem;
   color: var(--blue);
+`
+export const AcademicRestatementOutput = styled(RestatementOutput)`
+  grid-row: 6/7;
+`
+
+export const AcademicConclusionOutput = styled(RestatementOutput)`
+  grid-column: 3/-3;
 `
 
 export const AnswerInput = styled.textarea`
@@ -177,6 +278,7 @@ export const AnswerInput = styled.textarea`
   height: 100%;
   font-size: 1.2rem;
   color: var(--blue);
+  font-family: inherit;
   /* :enabled {
     border: 1px solid var(--white);
     border-bottom: 1px solid var(--blue);
@@ -202,12 +304,119 @@ export const EssayEditorBackgroundContainer = styled(Standard8x12Container)`
 export const EssayEditorContainer = styled.div`
   grid-row: 1/-2;
   grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `
 export const EssaySheet = styled.div`
-  margin: 5%;
+  margin: 3%;
   border: 1px solid black;
   box-shadow: 2px 2px 2px 1px var(--grey);
   height: 95%;
+  user-select: none;
+`
+
+export const EssayOrganizerSheet = styled(EssaySheet)`
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  grid-template-columns: repeat(12, 1fr);
+`
+
+export const EssayOrganizerTitle = styled.div`
+  grid-row: 1/2;
+  grid-column: 1/-1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 2rem;
+  text-decoration: underline;
+`
+
+export const EssayOrganizerRestatement = styled.div`
+  grid-row: 2/3;
+  grid-column: 2/-2;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  border-top: 1px solid var(--blue);
+  border-right: 1px solid var(--blue);
+  border-left: 1px solid var(--blue);
+  border-bottom: 1px solid var(--blue);
+`
+
+export const EssayOrganizerConclusion = styled.div`
+  grid-row: -3/-2;
+  grid-column: 2/-2;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  border-right: 1px solid var(--blue);
+  border-left: 1px solid var(--blue);
+  border-bottom: 1px solid var(--blue);
+  border-top: 1px solid var(--blue);
+`
+
+export const EssayOrganizerAnswer = styled.div`
+  grid-row: 3/7;
+  grid-column: 2/-2;
+`
+
+export const DevelopingOrganizerAnswerBod = styled.div``
+
+export const AcademicEssayOrganizerAnswer = styled(EssayOrganizerAnswer)`
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  border-left: 1px solid var(--blue);
+  border-right: 1px solid var(--blue);
+`
+
+export const AcademicEssayOrganizerAnswerBlock = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+`
+
+export const AcademicEssayOrganizerAnswerBlockHeader = styled.div`
+  justify-self: center;
+  align-self: center;
+  text-decoration: underline;
+  text-align: center;
+`
+export const AcademicEssayOrganizerAnswerBlockBody = styled.div`
+  justify-self: center;
+  align-self: center;
+`
+
+export const HowProblemSolutionOrganizerAnswer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+`
+
+export const HowCauseEffectOrganizerAnswer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`
+export const WhyCauseEffectOrganizerAnswer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`
+
+export const EssayOrganizerPartHeader = styled.div`
+  font-size: 1.5rem;
+  text-decoration: underline;
+  justify-self: center;
+  align-self: center;
+`
+
+export const EssayOrganizerPartBody = styled.div`
+  font-size: 1.2rem;
+  align-self: start;
+`
+
+export const DevelopingEssayOrganizerPartBody = styled(EssayOrganizerPartBody)`
+  justify-self: center;
+`
+export const EssayOrganizerRestatementBody = styled(EssayOrganizerPartBody)`
+  /* align-self: start; */
 `
 export const SubmitEssayContainer = styled.div`
   grid-row: 1/-2;
