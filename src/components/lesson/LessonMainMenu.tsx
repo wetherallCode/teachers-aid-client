@@ -25,6 +25,7 @@ import {
   LessonNameStyle,
 } from './lessonStyles'
 import { DynamicLesson } from './lessson-types/DynamicLesson'
+import { StaticLesson } from './lessson-types/StaticLesson'
 
 export type LessonMainMenuProps = {}
 
@@ -152,6 +153,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
     })
     return check
   }
+  console.log(handleSignInCheck(me._id!))
 
   const [studentSignIn] = useMutation<studentSignIn, studentSignInVariables>(
     STUDENT_SIGN_IN_MUTATION,
@@ -169,7 +171,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
         startPolling!(100)
         event({ type: 'POLLING' })
       },
-      refetchQueries: ['studentSignedInCheck'],
+      refetchQueries: ['studentSignedInCheck', 'me'],
     }
   )
 
@@ -251,7 +253,10 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
               />
             </>
           ) : (
-            <div>Static Lesson</div>
+            <StaticLesson
+              lesson={data?.findLessonByCourseAndDate.lesson!}
+              courseToLoad={courseToLoad}
+            />
           )}
         </>
       )}

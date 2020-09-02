@@ -127,6 +127,9 @@ export type studentEssayMachineEvent =
   | { type: 'SET_DRAFT'; payload: string }
   | { type: 'SET_LATE'; payload: boolean }
   | { type: 'SET_PRE_LOADED'; payload: boolean }
+  | { type: 'SET_HELP_DISPLAY' }
+  | { type: 'SET_VOCAB_DISPLAY' }
+  | { type: 'SET_RUBRIC_DISPLAY' }
 
 export type studentEssayMachineContext = {
   essayId: string
@@ -196,6 +199,9 @@ export type studentEssayMachineContext = {
   }
   draftToUpdate: string
   isLate: boolean
+  helpDisplay: boolean
+  vocabDisplay: boolean
+  rubricDisplay: boolean
 }
 
 export const studentEssayMachine = Machine<
@@ -276,6 +282,9 @@ export const studentEssayMachine = Machine<
     },
     draftToUpdate: '',
     isLate: false,
+    helpDisplay: true,
+    vocabDisplay: false,
+    rubricDisplay: false,
   },
   states: {
     info: {
@@ -390,6 +399,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             identifications: {
@@ -447,6 +474,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             restatement: {
@@ -461,6 +506,24 @@ export const studentEssayMachine = Machine<
                         ...ctx.developingOrganizer,
                         restatement: evt.payload,
                       },
+                    }
+                  }),
+                },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
                     }
                   }),
                 },
@@ -481,6 +544,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             conclusion: {
@@ -495,6 +576,24 @@ export const studentEssayMachine = Machine<
                         ...ctx.developingOrganizer,
                         conclusion: evt.payload,
                       },
+                    }
+                  }),
+                },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
                     }
                   }),
                 },
@@ -612,6 +711,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             restatement: {
@@ -670,6 +787,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             answer: {
@@ -702,6 +837,24 @@ export const studentEssayMachine = Machine<
                               preLoaded: evt.payload,
                             },
                           },
+                        }
+                      }),
+                    },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
                         }
                       }),
                     },
@@ -751,6 +904,24 @@ export const studentEssayMachine = Machine<
                         }
                       }),
                     },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
+                        }
+                      }),
+                    },
                   },
                 },
                 whyCauseEffect: {
@@ -771,6 +942,24 @@ export const studentEssayMachine = Machine<
                               whyCauseEffect: evt.payload,
                             },
                           },
+                        }
+                      }),
+                    },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
                         }
                       }),
                     },
@@ -810,6 +999,24 @@ export const studentEssayMachine = Machine<
                         }
                       }),
                     },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
+                        }
+                      }),
+                    },
                   },
                 },
               },
@@ -826,6 +1033,24 @@ export const studentEssayMachine = Machine<
                         ...ctx.academicOrganizer,
                         conclusion: evt.payload,
                       },
+                    }
+                  }),
+                },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
                     }
                   }),
                 },
@@ -943,6 +1168,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             restatement: {
@@ -1001,6 +1244,24 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
               },
             },
             answer: {
@@ -1031,6 +1292,24 @@ export const studentEssayMachine = Machine<
                               preLoaded: evt.payload,
                             },
                           },
+                        }
+                      }),
+                    },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
                         }
                       }),
                     },
@@ -1080,6 +1359,24 @@ export const studentEssayMachine = Machine<
                         }
                       }),
                     },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
+                        }
+                      }),
+                    },
                   },
                 },
                 whyCauseEffect: {
@@ -1099,6 +1396,24 @@ export const studentEssayMachine = Machine<
                               whyCauseEffect: evt.payload,
                             },
                           },
+                        }
+                      }),
+                    },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
                         }
                       }),
                     },
@@ -1138,6 +1453,24 @@ export const studentEssayMachine = Machine<
                         }
                       }),
                     },
+                    SET_HELP_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: true,
+                          vocabDisplay: false,
+                        }
+                      }),
+                    },
+                    SET_VOCAB_DISPLAY: {
+                      actions: assign((ctx) => {
+                        return {
+                          ...ctx,
+                          helpDisplay: false,
+                          vocabDisplay: true,
+                        }
+                      }),
+                    },
                   },
                 },
               },
@@ -1154,6 +1487,24 @@ export const studentEssayMachine = Machine<
                         ...ctx.advancedOrganizer,
                         conclusion: evt.payload,
                       },
+                    }
+                  }),
+                },
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
                     }
                   }),
                 },
@@ -1179,6 +1530,36 @@ export const studentEssayMachine = Machine<
             return {
               ...ctx,
               isLate: evt.payload,
+            }
+          }),
+        },
+        SET_HELP_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: true,
+              vocabDisplay: false,
+              rubricDisplay: false,
+            }
+          }),
+        },
+        SET_VOCAB_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: false,
+              vocabDisplay: true,
+              rubricDisplay: false,
+            }
+          }),
+        },
+        SET_RUBRIC_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: false,
+              vocabDisplay: false,
+              rubricDisplay: true,
             }
           }),
         },

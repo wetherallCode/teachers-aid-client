@@ -56,6 +56,44 @@ export interface findCurrentSchoolDayCount {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createSignInSheets
+// ====================================================
+
+export interface createSignInSheets_createSignInSheets_schoolDay_signInSheets_course {
+  __typename: "Course";
+  _id: string | null;
+}
+
+export interface createSignInSheets_createSignInSheets_schoolDay_signInSheets {
+  __typename: "StudentSignInSheet";
+  course: createSignInSheets_createSignInSheets_schoolDay_signInSheets_course;
+}
+
+export interface createSignInSheets_createSignInSheets_schoolDay {
+  __typename: "SchoolDay";
+  _id: string | null;
+  signInSheets: createSignInSheets_createSignInSheets_schoolDay_signInSheets[] | null;
+}
+
+export interface createSignInSheets_createSignInSheets {
+  __typename: "CreateSignInSheetsPayload";
+  schoolDay: createSignInSheets_createSignInSheets_schoolDay;
+}
+
+export interface createSignInSheets {
+  createSignInSheets: createSignInSheets_createSignInSheets;
+}
+
+export interface createSignInSheetsVariables {
+  input: CreateSignInSheetsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findCurrentSchoolDay
 // ====================================================
 
@@ -124,6 +162,7 @@ export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
   paperBased: boolean;
   readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
   topic: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic;
+  markingPeriod: MarkingPeriodEnum;
 }
 
 export interface findEssaysToComplete_findEssaysToCompleteByStudentId {
@@ -665,6 +704,18 @@ export interface findCompletedEssayById_findEssayById_essay_topic {
   writingLevel: WritingLevelEnum;
 }
 
+export interface findCompletedEssayById_findEssayById_essay_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_score {
+  __typename: "Score";
+  maxPoints: number;
+  earnedPoints: number;
+}
+
 export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
   entry: string;
@@ -793,6 +844,8 @@ export interface findCompletedEssayById_findEssayById_essay {
   __typename: "Essay";
   _id: string | null;
   topic: findCompletedEssayById_findEssayById_essay_topic;
+  readings: findCompletedEssayById_findEssayById_essay_readings;
+  score: findCompletedEssayById_findEssayById_essay_score;
   finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
   workingDraft: findCompletedEssayById_findEssayById_essay_workingDraft;
 }
@@ -834,6 +887,7 @@ export interface findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_e
   _id: string | null;
   readings: findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays_readings;
   topic: findCompletedEssaysByStudentId_findCompletedEssaysByStudentId_essays_topic;
+  markingPeriod: MarkingPeriodEnum;
 }
 
 export interface findCompletedEssaysByStudentId_findCompletedEssaysByStudentId {
@@ -896,6 +950,7 @@ export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStuden
   paperBased: boolean;
   graded: boolean;
   readings: findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId_readingGuides_readings;
+  markingPeriod: MarkingPeriodEnum;
 }
 
 export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId {
@@ -4201,8 +4256,20 @@ export interface me_me_Student {
 
 export type me_me = me_me_Teacher | me_me_Student;
 
+export interface me_findCurrentMarkingPeriod_markingPeriod {
+  __typename: "MarkingPeriod";
+  _id: string | null;
+  currentMarkingPeriod: MarkingPeriodEnum;
+}
+
+export interface me_findCurrentMarkingPeriod {
+  __typename: "FindCurrentMarkingPeriodPayload";
+  markingPeriod: me_findCurrentMarkingPeriod_markingPeriod;
+}
+
 export interface me {
   me: me_me | null;
+  findCurrentMarkingPeriod: me_findCurrentMarkingPeriod;
 }
 
 /* tslint:disable */
@@ -4474,6 +4541,11 @@ export interface CreateSchoolDayInput {
   cohortWeek: StudentCohortEnum;
   currentSchoolDayType: SchoolDayType;
   schoolDayCount: number;
+}
+
+export interface CreateSignInSheetsInput {
+  courseIds: string[];
+  todaysDate: string;
 }
 
 export interface CreateTextSectionInput {

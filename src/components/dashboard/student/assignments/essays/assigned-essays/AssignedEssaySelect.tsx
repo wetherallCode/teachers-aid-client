@@ -11,7 +11,9 @@ import {
   AssignmentTypeTitle,
   AssignmentTypeContentContainer,
   AssignmentLink,
+  CompletionMessage,
 } from '../../assignmentsStyles'
+import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type AssignedEssaySelectProps = {}
 
@@ -27,6 +29,7 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
         topic {
           writingLevel
         }
+        markingPeriod
       }
     }
   }
@@ -34,6 +37,8 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
 
 export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const { currentMarkingPeriod } = markingPeriodState.context
   const { loading, data } = useQuery<
     findEssaysToComplete,
     findEssaysToCompleteVariables
@@ -45,13 +50,10 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
-  console.log(data?.findEssaysToCompleteByStudentId.essays)
-  // if (loading)
-  //   return (
-  //     <AssignmentTypeTitle>
-  //       <div>Essays to complete</div>
-  //     </AssignmentTypeTitle>
-  //   )
+
+  const essaysForMarkingPeriod = data?.findEssaysToCompleteByStudentId.essays.filter(
+    (essay) => essay.markingPeriod === currentMarkingPeriod
+  )
 
   return (
     <>
@@ -59,18 +61,31 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
         <div>Essays to complete</div>
       </AssignmentTypeTitle>
       {loading ? null : (
-        <AssignmentTypeContentContainer>
-          {data?.findEssaysToCompleteByStudentId.essays
-            .filter((essay) => !essay.paperBased)
-            .map((essay) => (
-              <AssignmentLink
-                to={`essay/toComplete/${essay._id!}`}
-                key={essay._id!}
-              >
-                {essay.readings.readingSections}
-              </AssignmentLink>
-            ))}
-        </AssignmentTypeContentContainer>
+        <>
+          {data?.findEssaysToCompleteByStudentId.essays.length! === 0 ? (
+            <AssignmentTypeContentContainer>
+              <CompletionMessage>
+                <ul>
+                  <li>All Essays for Marking Period Complete</li>
+                </ul>
+              </CompletionMessage>
+            </AssignmentTypeContentContainer>
+          ) : (
+            <AssignmentTypeContentContainer>
+              {essaysForMarkingPeriod &&
+                essaysForMarkingPeriod
+                  .filter((essay) => !essay.paperBased)
+                  .map((essay) => (
+                    <AssignmentLink
+                      to={`essay/toComplete/${essay._id!}`}
+                      key={essay._id!}
+                    >
+                      {essay.readings.readingSections}
+                    </AssignmentLink>
+                  ))}
+            </AssignmentTypeContentContainer>
+          )}
+        </>
       )}
     </>
   )

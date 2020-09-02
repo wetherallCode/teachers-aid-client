@@ -7,7 +7,8 @@ import {
 
 export type readingGuideToCompleteMachineSchema = {
   states: {
-    readingGuide: {}
+    questions: {}
+    clarifyingQuestions: {}
   }
 }
 export type readingGuideToCompleteMachineEvent =
@@ -30,6 +31,8 @@ export type readingGuideToCompleteMachineEvent =
         | 'majorSolution'
         | 'clarifyingQuestions'
     }
+  | { type: 'SET_HELP_DISPLAY' }
+  | { type: 'SET_VOCAB_DISPLAY' }
 
 export type readingGuideToCompleteMachineContext = {
   updateReadingGuideInputs: UpdateReadingGuideInput
@@ -41,6 +44,8 @@ export type readingGuideToCompleteMachineContext = {
     | 'majorIssueSolved'
     | 'majorSolution'
     | 'clarifyingQuestions'
+  helpDisplay: boolean
+  vocabDisplay: boolean
 }
 
 export const readingGuideToCompleteMachine = Machine<
@@ -49,7 +54,7 @@ export const readingGuideToCompleteMachine = Machine<
   readingGuideToCompleteMachineEvent
 >({
   id: 'readingGuideToComplete',
-  initial: 'readingGuide',
+  initial: 'questions',
   context: {
     updateReadingGuideInputs: {
       readingGuideId: '',
@@ -66,10 +71,13 @@ export const readingGuideToCompleteMachine = Machine<
       paperBased: false,
     },
     help: 'howIsSectionOrganized',
+    helpDisplay: true,
+    vocabDisplay: false,
   },
   states: {
-    readingGuide: {
+    questions: {
       on: {
+        NEXT: 'clarifyingQuestions',
         SET_READING_GUIDE_ID: {
           actions: assign((ctx, evt) => {
             return {
@@ -140,6 +148,38 @@ export const readingGuideToCompleteMachine = Machine<
             }
           }),
         },
+
+        SET_HELP: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              help: evt.payload,
+            }
+          }),
+        },
+        SET_HELP_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: true,
+              vocabDisplay: false,
+            }
+          }),
+        },
+        SET_VOCAB_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: false,
+              vocabDisplay: true,
+            }
+          }),
+        },
+      },
+    },
+    clarifyingQuestions: {
+      on: {
+        PREVIOUS: 'questions',
         SET_CLARIFYING_QUESTION: {
           actions: assign((ctx, evt) => {
             return {
@@ -156,6 +196,24 @@ export const readingGuideToCompleteMachine = Machine<
             return {
               ...ctx,
               help: evt.payload,
+            }
+          }),
+        },
+        SET_HELP_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: true,
+              vocabDisplay: false,
+            }
+          }),
+        },
+        SET_VOCAB_DISPLAY: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              helpDisplay: false,
+              vocabDisplay: true,
             }
           }),
         },

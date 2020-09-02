@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type LessonNameProps = {}
 

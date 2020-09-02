@@ -51,3 +51,9 @@ export const AssignmentLink = styled(Link)`
   text-decoration: none;
   color: var(--blue);
 `
+export const CompletionMessage = styled.div`
+  font-size: 2rem;
+`
+export const AssignmentLinkLi = styled.li`
+  font-size: 2rem;
+`

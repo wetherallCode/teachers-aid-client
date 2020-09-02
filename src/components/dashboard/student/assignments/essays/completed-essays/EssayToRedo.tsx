@@ -10,14 +10,13 @@ import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { RedoEssayEditor } from './RedoEssayEditor'
 import { RedoEssayOrganizer } from './organizers/RedoEssayOrganizer'
 import { SubmitRedoneEssay } from './SubmitRedoneEssay'
-import { HowToImprove } from './HowToImprove'
 
 export type EssayToRedoProps = {
   essay: findCompletedEssayById_findEssayById_essay
-  waysToImprove: (string | null)[]
+  // waysToImprove: (string | null)[]
 }
 
-export const EssayToRedo: FC<EssayToRedoProps> = ({ essay, waysToImprove }) => {
+export const EssayToRedo: FC<EssayToRedoProps> = ({ essay }) => {
   const [state, event] = useCompletedEssayContextProvider()
   const [loaded, setLoaded] = useState(false)
   useEffect(() => {
@@ -103,8 +102,8 @@ export const EssayToRedo: FC<EssayToRedoProps> = ({ essay, waysToImprove }) => {
       {loaded && (
         <>
           <RedoEssayEditor essay={essay} />
-          <RedoEssayOrganizer essay={essay} />
-          <HowToImprove waysToImprove={waysToImprove} />
+          {/* <RedoEssayOrganizer essay={essay} /> */}
+
           <SubmitRedoneEssay
             _id={state.context.essayId}
             submittedFinalDraft={submittedFinalDraft}

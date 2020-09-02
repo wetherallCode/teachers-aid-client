@@ -5,7 +5,7 @@ import {
   findChaptersInTextVariables,
 } from '../../../../../schemaTypes'
 import { FIND_CHAPTERS_IN_TEXT_QUERY } from '../section-builder/ChapterSelect'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type LessonPlannerChapterSelectProps = {
   text: string

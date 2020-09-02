@@ -58,11 +58,9 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
         !state.context.courseSelectVisible && (
           <>
             {data?.findLessonByCourseAndDate.lesson ? (
-              <DynamicLessonContainer>
-                <DynamicLessonManager
-                  lesson={data?.findLessonByCourseAndDate.lesson!}
-                />
-              </DynamicLessonContainer>
+              <DynamicLessonManager
+                lesson={data?.findLessonByCourseAndDate.lesson!}
+              />
             ) : (
               <CenteredDiv>
                 <div>No Lesson Scheduled for Today</div>

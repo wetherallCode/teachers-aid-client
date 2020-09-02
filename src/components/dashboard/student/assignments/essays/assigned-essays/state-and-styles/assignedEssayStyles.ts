@@ -38,19 +38,21 @@ export const AssignmentDetailsGoBackButtonContainer = styled.div`
 export const AssignmentDetailsGoBackButton = styled.button`
   width: 80%;
   height: 40%;
-  font-size: 1.4rem;
+  font-size: larger;
   border-radius: 5px;
   color: var(--blue);
   text-shadow: 1px 1px var(--grey);
 `
 
-export const EssayInfoContainer = styled.div`
+export const EssayInfoContainer = styled(Standard8x12Container)`
   grid-row: 4/-1;
   grid-column: -4/-1;
   background-color: var(--grey);
   color: var(--blue);
   border-left: 3px solid var(--white);
   border-top: 3px solid var(--white);
+  font-size: 1.3rem;
+  overflow: scroll;
 `
 export const OrganizerContainer = styled(Standard8x12Container)`
   grid-row: 1/-1;

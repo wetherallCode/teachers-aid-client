@@ -1,4 +1,5 @@
 import { Machine, assign } from 'xstate'
+import { DynamicLessonEnums } from '../../../schemaTypes'
 
 export type dailyAgendaMachineSchema = {
   states: {
@@ -11,9 +12,11 @@ export type dailyAgendaMachineEvent =
   | { type: 'TODAYS_LESSON' }
   | { type: 'GET_LESSON' }
   | { type: 'POLLING' }
+  | { type: 'SET_STATIC_LESSON_TYPE'; payload: DynamicLessonEnums }
 
 export type dailyAgendaMachineContext = {
   polling: boolean
+  staticLessonTypes: DynamicLessonEnums
 }
 
 export const dailyAgendaMachine = Machine<
@@ -25,6 +28,7 @@ export const dailyAgendaMachine = Machine<
   initial: 'getLesson',
   context: {
     polling: false,
+    staticLessonTypes: DynamicLessonEnums.WARM_UP,
   },
   states: {
     getLesson: {
@@ -40,6 +44,14 @@ export const dailyAgendaMachine = Machine<
             return {
               ...ctx,
               polling: !ctx.polling,
+            }
+          }),
+        },
+        SET_STATIC_LESSON_TYPE: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              staticLessonTypes: evt.payload,
             }
           }),
         },

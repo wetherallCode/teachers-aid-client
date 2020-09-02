@@ -43,8 +43,7 @@ export const SET_ANSWER_TYPE_MUTATION = gql`
 export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
-  // console.log(state.context.academicOrganizer.questionType)
-  console.log(state.context.academicOrganizer.answer.preLoaded)
+
   const [setAnswerType] = useMutation<setAnswerType, setAnswerTypeVariables>(
     SET_ANSWER_TYPE_MUTATION,
     {
@@ -55,7 +54,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
         },
       },
       onCompleted: (data) => console.log(data),
-      refetchQueries: ['findEssayById'],
+      refetchQueries: [''],
     }
   )
 
@@ -75,7 +74,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
       // event({ type: 'NEXT' })
     }
   }, [event, state.context.academicOrganizer.answer.preLoaded])
-
+  console.log(state.context.academicOrganizer.answer.preLoaded)
   return (
     <>
       {state.matches('organizers.academicOrganizer.answer.questionType') && (
@@ -86,7 +85,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
             </AcademicRestatementTitle>
             <AcademicQuestionTypeContainer>
               <AcademicQuestionTypeSelect
-                value={state.context.academicOrganizer.questionType}
+                // value={state.context.academicOrganizer.questionType}
                 onChange={(e: any) => {
                   if (e.target.value !== 'none') {
                     event({

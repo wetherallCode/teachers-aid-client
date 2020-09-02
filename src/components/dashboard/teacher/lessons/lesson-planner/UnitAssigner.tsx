@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { findUnits } from '../../../../../schemaTypes'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type UnitAssignerProps = {}
 

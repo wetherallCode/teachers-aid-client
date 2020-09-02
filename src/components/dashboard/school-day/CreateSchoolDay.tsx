@@ -69,7 +69,7 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
       },
     },
     onCompleted: (data) => event({ type: 'CURRENT_SCHOOL_DAY' }),
-    refetchQueries: ['findCurrentSchoolDayCount'],
+    refetchQueries: ['findCurrentSchoolDayCount', 'findCurrentSchoolDay'],
   })
 
   const redWeek =

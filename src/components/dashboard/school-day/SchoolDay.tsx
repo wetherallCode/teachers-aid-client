@@ -4,12 +4,17 @@ import { CurrentSchoolDay } from './CurrentSchoolDay'
 import { CreateSchoolDay } from './CreateSchoolDay'
 import { EditSchoolDay } from './EditSchoolDay'
 import { useNavigate } from 'react-router'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useMutation } from '@apollo/client'
 import {
   findCurrentSchoolDay,
   findCurrentSchoolDayVariables,
+  me_me_Teacher,
+  createSignInSheets,
+  createSignInSheetsVariables,
 } from '../../../schemaTypes'
 import { date } from '../../../utils'
+import { useUserContextProvider } from '../../../contexts/UserContext'
+import { CreateSignInSheets } from './CreateSignInSheets'
 
 export type SchoolDayProps = {}
 
@@ -35,9 +40,19 @@ export const FIND_CURRENT_SCHOOL_DAY_QUERY = gql`
     }
   }
 `
+// export const CREATE_SIGN_IN_SHEETS_MUTATION = gql`
+//   mutation createSignInSheets($input: CreateSignInSheetsInput!) {
+//     createSignInSheets(input: $input) {
+//       schoolDay {
+//         _id
+//       }
+//     }
+//   }
+// `
 
 export const SchoolDay: FC<SchoolDayProps> = () => {
   const [state, event] = useSchoolDayContextProvider()
+  const me: me_me_Teacher = useUserContextProvider()
   const navigate = useNavigate()
 
   const { data, loading } = useQuery<
@@ -56,6 +71,16 @@ export const SchoolDay: FC<SchoolDayProps> = () => {
     },
     onError: (error) => console.error(error),
   })
+
+  const todaysCourses = me.teachesCourses.filter(
+    (course) =>
+      course.hasCourseInfo?.schoolDayType ===
+      data?.findSchoolDayByDate.schoolDay?.currentSchoolDayType
+  )
+
+  const hasSignInSheets =
+    data?.findSchoolDayByDate.schoolDay?.signInSheets?.length! > 0
+  console.log(hasSignInSheets)
   return (
     <>
       <>
@@ -64,6 +89,14 @@ export const SchoolDay: FC<SchoolDayProps> = () => {
             {data?.findSchoolDayByDate.schoolDay ? (
               <>
                 <CurrentSchoolDay schoolDay={state.context.currentSchoolDay} />
+                {!hasSignInSheets && (
+                  <CreateSignInSheets
+                    todaysCourses={todaysCourses}
+                    signInSheets={
+                      data.findSchoolDayByDate.schoolDay.signInSheets!
+                    }
+                  />
+                )}
                 <button>Edit School Day</button>
               </>
             ) : (

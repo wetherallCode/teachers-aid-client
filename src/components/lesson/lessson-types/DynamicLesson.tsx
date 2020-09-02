@@ -21,6 +21,7 @@ import {
   ProtocolsContainer,
 } from '../lessonStyles'
 import { date } from '../../../utils'
+import { ExitActivity } from '../lesson-components/ExitActivity'
 
 export type DynamicLessonProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -51,7 +52,7 @@ export const DynamicLesson = ({
             event({ type: 'GET_LESSON' })
           }}
         >
-          Stop Lesson
+          Leave Lesson
         </StopLessonButton>
       </StopLessonContainer>
 
@@ -66,11 +67,14 @@ export const DynamicLesson = ({
             <LessonDetails lesson={lesson} />
           )}
           {dynamicLesson === 'VOCAB' && <Vocab lesson={lesson} />}
+          {dynamicLesson === 'EXIT_ACTIVITY' && (
+            <ExitActivity lesson={lesson} />
+          )}
         </LessonMainScreen>
       )}
 
       <LessonComponentTypeContainer>
-        <LessonComponentTypeStyle>Live Class</LessonComponentTypeStyle>{' '}
+        <LessonComponentTypeStyle>Live Class</LessonComponentTypeStyle>
       </LessonComponentTypeContainer>
     </LessonPageContainer>
   )

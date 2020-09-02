@@ -7,11 +7,35 @@ import {
   findReadingGuideById_findReadingGuideById_readingGuide,
   InformationStructureEnum,
 } from '../../../../../schemaTypes'
-import { useReadingGuideToCompleteContextProvider } from './state/ReadingGuideToCompleteContext'
+import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
 import { useCheckBox } from '../../../../../hooks/useCheckBox'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import { informationStructure } from '../../../../../utils'
 import { SubmitReadingGuide } from './SubmitReadingGuide'
+import {
+  SectionOrganizationContainer,
+  ReadingGuideHeader,
+  MajorSolutionContainer,
+  ReasonForOrganizationContainer,
+  MajorIssueContainer,
+  MajorIssueSolvedContainer,
+  ClarifyingQuestionsContainer,
+  SubmitReadingGuideContainer,
+  SectionOrganizationBodyContainer,
+  ReadingGuideInput,
+  ReadingGuideTextArea,
+  ReadingGuideSelect,
+  ClarifyingQuestionsForm,
+  ClarifyingQuestionsTextArea,
+  ClarifyingQuestionsAddButton,
+  ClarifyingQuestionsSubmittedQuestionsDisplay,
+  ClarifyingQuestionsSubmittedQuestionTitle,
+  SubmitReadingGuideButton,
+  ClarifyingQuestionsTitle,
+  ClarifyingQuestionsSubmittedQuestion,
+  ClarifyingQuestionsBlock,
+} from './state-and-styles/readingGuideStyles'
+import { doneInvoke } from 'xstate'
 
 export type CompleteReadingGuideProps = {
   readingGuideInfo: findReadingGuideById_findReadingGuideById_readingGuide
@@ -36,6 +60,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
 
   const [questionToClarify, setQuestionToClarify] = useState('')
   const [clarifyingQuestions, setClarifyingQuestions] = useState<string[]>([])
+
   const handleDelete = (index: number) => {
     setClarifyingQuestions((list) => [
       ...list.slice(0, index),
@@ -69,146 +94,213 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
 
   const multipleSections =
     readingGuideInfo.lessonInfo.assignedSectionIdList.length > 1
-
+  console.log(state.context.updateReadingGuideInputs.majorIssueSolved)
   return (
     <>
-      <div
-        onMouseOver={() =>
-          event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
-        }
-      >
-        <div>
-          {multipleSections
-            ? 'How is the information in these sections organized?'
-            : 'How is the information in this section organized?'}
-        </div>
-        {informationStructureEnum.map((item: InformationStructureEnum) => (
-          <div key={item}>
-            <span>
-              <input type='checkbox' value={item} onChange={handleChecks} />
-            </span>
-            <span>{informationStructure(item)}</span>
-          </div>
-        ))}
-      </div>
-      <div
-        onMouseOver={() =>
-          event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
-        }
-      >
-        {infoStructureList.length > 1
-          ? 'Why do you think the author used these ways to organize the information?'
-          : 'Why do you think the author used this way to organize the information?'}
-      </div>
-      <input
-        onFocus={() =>
-          event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
-        }
-        onChange={(e: any) =>
-          event({ type: 'SET_WHY_IS_ORGANIZED', payload: e.target.value })
-        }
-      />
-      <div
-        onMouseOver={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
-      >
-        {multipleSections
-          ? 'What was the major issue discussed in the sections'
-          : 'What was the major issue discussed in the section'}
-      </div>
-      <input
-        onFocus={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
-        onChange={(e: any) =>
-          event({ type: 'SET_MAJOR_ISSUE', payload: e.target.value })
-        }
-      />
-      <div
-        onMouseOver={() =>
-          event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
-        }
-      >
-        {multipleSections
-          ? 'Was the issue handled in the sections'
-          : 'Was the issue handled in the section'}
-      </div>
-      <select
-        onFocus={() => event({ type: 'SET_HELP', payload: 'majorIssueSolved' })}
-        onChange={(e: any) =>
-          event({
-            type: 'SET_MAJOR_ISSUE_SOLVED',
-            payload: e.target.value === 'True' ? true : false,
-          })
-        }
-      >
-        <option>Yes</option>
-        <option>No</option>
-      </select>
-      {state.context.updateReadingGuideInputs.majorIssueSolved ? (
-        <div
-          onMouseOver={() =>
-            event({ type: 'SET_HELP', payload: 'majorSolution' })
-          }
-        >
-          <div>How was the issue solved?</div>
-          <input
-            onFocus={() =>
-              event({ type: 'SET_HELP', payload: 'majorSolution' })
+      <ReadingGuideHeader>
+        <div>Reading Guide</div>
+      </ReadingGuideHeader>
+      {state.matches('questions') && (
+        <>
+          <SectionOrganizationContainer
+            onMouseOver={() =>
+              event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
             }
-            onChange={(e: any) =>
-              event({ type: 'SET_MAJOR_SOLUTION', payload: e.target.value })
+          >
+            <div>
+              {multipleSections ? (
+                <>
+                  <span>
+                    1. How is the information in these sections organized?
+                  </span>{' '}
+                  <span style={{ color: 'var(--grey)' }}>
+                    (Click as many as you think make sense)
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span>
+                    1. How is the information in this sections organized?
+                  </span>{' '}
+                  <span style={{ color: 'var(--grey)' }}>
+                    (Click as many as you think make sense)
+                  </span>
+                </>
+              )}
+            </div>
+            <SectionOrganizationBodyContainer>
+              {informationStructureEnum.map(
+                (item: InformationStructureEnum) => (
+                  <div key={item}>
+                    <input
+                      type='checkbox'
+                      value={item}
+                      onChange={handleChecks}
+                    />
+                    <span>{informationStructure(item)}</span>
+                  </div>
+                )
+              )}
+            </SectionOrganizationBodyContainer>
+          </SectionOrganizationContainer>
+          <ReasonForOrganizationContainer>
+            <div
+              onMouseOver={() =>
+                event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
+              }
+            >
+              {infoStructureList.length > 1
+                ? '2. Why do you think the author used these ways to organize the information?'
+                : '2. Why do you think the author used this way to organize the information?'}
+            </div>
+            <ReadingGuideTextArea
+              placeholder='Explain your thinking here...'
+              onFocus={() =>
+                event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
+              }
+              onChange={(e: any) =>
+                event({ type: 'SET_WHY_IS_ORGANIZED', payload: e.target.value })
+              }
+            />
+          </ReasonForOrganizationContainer>
+          <MajorIssueContainer>
+            <div
+              onMouseOver={() =>
+                event({ type: 'SET_HELP', payload: 'majorIssue' })
+              }
+            >
+              {multipleSections
+                ? '3. What was the major issue discussed in the sections'
+                : '3. What was the major issue discussed in the section'}
+            </div>
+            <ReadingGuideInput
+              onFocus={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
+              onChange={(e: any) =>
+                event({ type: 'SET_MAJOR_ISSUE', payload: e.target.value })
+              }
+            />
+          </MajorIssueContainer>
+          <MajorIssueSolvedContainer
+            onMouseOver={() =>
+              event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
             }
-          />
-        </div>
-      ) : (
-        <div
-          onMouseOver={() =>
-            event({ type: 'SET_HELP', payload: 'majorSolution' })
-          }
-        >
-          <div>Why was the issue not solved?</div>
-          <input
-            onFocus={() =>
-              event({ type: 'SET_HELP', payload: 'majorSolution' })
-            }
-            onChange={(e: any) =>
-              event({ type: 'SET_MAJOR_SOLUTION', payload: e.target.value })
-            }
-          />
-        </div>
+          >
+            {multipleSections
+              ? '4. Was the issue handled or problem solved in the sections?'
+              : '4. Was the issue handled or problem solved in the section?'}
+
+            <ReadingGuideSelect
+              onFocus={() =>
+                event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
+              }
+              onChange={(e: any) => {
+                console.log(e.target.value)
+                event({
+                  type: 'SET_MAJOR_ISSUE_SOLVED',
+                  payload: e.target.value === 'Yes' ? true : false,
+                })
+              }}
+            >
+              <option>Yes</option>
+              <option>No</option>
+            </ReadingGuideSelect>
+          </MajorIssueSolvedContainer>
+          {state.context.updateReadingGuideInputs.majorIssueSolved ? (
+            <MajorSolutionContainer
+              onMouseOver={() =>
+                event({ type: 'SET_HELP', payload: 'majorSolution' })
+              }
+            >
+              <div>5. How was the issue solved?</div>
+              <ReadingGuideInput
+                onFocus={() =>
+                  event({ type: 'SET_HELP', payload: 'majorSolution' })
+                }
+                onChange={(e: any) =>
+                  event({ type: 'SET_MAJOR_SOLUTION', payload: e.target.value })
+                }
+              />
+            </MajorSolutionContainer>
+          ) : (
+            <MajorSolutionContainer
+              onMouseOver={() =>
+                event({ type: 'SET_HELP', payload: 'majorSolution' })
+              }
+            >
+              <div>5. Why was the issue not solved?</div>
+              <ReadingGuideInput
+                onFocus={() =>
+                  event({ type: 'SET_HELP', payload: 'majorSolution' })
+                }
+                onChange={(e: any) =>
+                  event({
+                    type: 'SET_MAJOR_SOLUTION',
+                    payload: e.target.value,
+                  })
+                }
+              />
+            </MajorSolutionContainer>
+          )}
+        </>
       )}
-      <div
-        onMouseOver={() =>
-          event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
-        }
-      >
-        Come up with at least one (or more) questions that would help you
-        understand the section better.
-      </div>
-      <form onSubmit={(e: any) => e.preventDefault()}>
-        <input
-          onFocus={() =>
+      {state.matches('clarifyingQuestions') && (
+        <ClarifyingQuestionsContainer
+          onMouseOver={() =>
             event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
           }
-          onChange={(e: any) => setQuestionToClarify(e.target.value)}
-        />
-        <button
-          type='reset'
-          onClick={() => {
-            setClarifyingQuestions((list) => [...list, questionToClarify])
-            setQuestionToClarify('')
-          }}
         >
-          Add Question
-        </button>
-      </form>
-      <div>
-        {clarifyingQuestions.map((question, i) => (
-          <div key={i}>
-            <span>{question}</span>
-            <span onClick={() => handleDelete(i)}>-</span>
-          </div>
-        ))}
-      </div>
-      {infoStructureList.length > 0 && <SubmitReadingGuide />}
+          <ClarifyingQuestionsTitle>
+            6. Come up with at least one (or more) questions that would help you
+            understand the section better.
+          </ClarifyingQuestionsTitle>
+          <ClarifyingQuestionsForm onSubmit={(e: any) => e.preventDefault()}>
+            <ClarifyingQuestionsTextArea
+              onFocus={() =>
+                event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
+              }
+              onChange={(e: any) => setQuestionToClarify(e.target.value)}
+            />
+            <ClarifyingQuestionsAddButton
+              type='reset'
+              onClick={() => {
+                setClarifyingQuestions((list) => [...list, questionToClarify])
+                setQuestionToClarify('')
+              }}
+            >
+              Add Question
+            </ClarifyingQuestionsAddButton>
+          </ClarifyingQuestionsForm>
+          <ClarifyingQuestionsSubmittedQuestionsDisplay>
+            <ClarifyingQuestionsSubmittedQuestionTitle>
+              Click on Question to Delete
+            </ClarifyingQuestionsSubmittedQuestionTitle>
+            <ClarifyingQuestionsBlock>
+              {clarifyingQuestions.map((question, i) => (
+                <ClarifyingQuestionsSubmittedQuestion key={i}>
+                  <span onMouseOver={() => {}} onClick={() => handleDelete(i)}>
+                    {i + 1}. {question}
+                  </span>
+                </ClarifyingQuestionsSubmittedQuestion>
+              ))}
+            </ClarifyingQuestionsBlock>
+          </ClarifyingQuestionsSubmittedQuestionsDisplay>
+        </ClarifyingQuestionsContainer>
+      )}
+
+      {state.matches('clarifyingQuestions') ? (
+        <SubmitReadingGuideContainer>
+          <SubmitReadingGuideButton onClick={() => event({ type: 'PREVIOUS' })}>
+            Back
+          </SubmitReadingGuideButton>
+          {infoStructureList.length > 0 && <SubmitReadingGuide />}
+        </SubmitReadingGuideContainer>
+      ) : (
+        <SubmitReadingGuideContainer>
+          <SubmitReadingGuideButton onClick={() => event({ type: 'NEXT' })}>
+            Next
+          </SubmitReadingGuideButton>
+        </SubmitReadingGuideContainer>
+      )}
     </>
   )
 }

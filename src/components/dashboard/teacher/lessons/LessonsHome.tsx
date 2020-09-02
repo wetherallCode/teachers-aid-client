@@ -4,8 +4,9 @@ import { SectionBuilder } from './section-builder/SectionBuilder'
 import { SectionEditor } from './section-editor/SectionEditor'
 import { SectionEditorContextProvider } from './section-editor/sectionEditorContext'
 import { LessonPlanner } from './lesson-planner/LessonPlanner'
-import { LessonPlannerContextProvider } from './lesson-planner/lessonPlannerContext'
+
 import { SectionBuilderContextProvider } from './section-builder/state/SectionBuilderContext'
+import { LessonPlannerContextProvider } from './lesson-planner/state-and-styles/lessonPlannerContext'
 
 export const LessonsHome = () => {
   return (

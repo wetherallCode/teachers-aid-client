@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { START_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/StartReadingGuide'
+
 import {
   startReadingGuide,
   startReadingGuideVariables,
@@ -10,6 +10,7 @@ import {
 import { useMutation } from '@apollo/client'
 import { SUBMIT_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/SubmitReadingGuide'
 import { usePaperBasedContextProvider } from '../state/PaperBasedContext'
+import { START_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/ReadingGuideToComplete'
 
 export type SubmitReadingGuideProps = {
   readingGuideId: string

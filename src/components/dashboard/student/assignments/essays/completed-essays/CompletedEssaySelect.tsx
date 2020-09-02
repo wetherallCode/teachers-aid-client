@@ -11,7 +11,9 @@ import {
   AssignmentTypeTitle,
   AssignmentTypeContentContainer,
   AssignmentLink,
+  AssignmentLinkLi,
 } from '../../assignmentsStyles'
+import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type CompletedEssaySelectProps = {}
 export const FIND_COMPLETED_ESSAYS_QUERY = gql`
@@ -27,6 +29,7 @@ export const FIND_COMPLETED_ESSAYS_QUERY = gql`
         topic {
           writingLevel
         }
+        markingPeriod
       }
     }
   }
@@ -34,6 +37,8 @@ export const FIND_COMPLETED_ESSAYS_QUERY = gql`
 
 export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const { currentMarkingPeriod } = markingPeriodState.context
 
   const { loading, data } = useQuery<
     findCompletedEssaysByStudentId,
@@ -42,9 +47,15 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
     variables: {
       input: { studentId: me._id! },
     },
+    pollInterval: 10000,
     onCompleted: (data) => console.log(data.findCompletedEssaysByStudentId),
     onError: (error) => console.error(error),
   })
+
+  const essaysForMarkingPeriod = data?.findCompletedEssaysByStudentId.essays.filter(
+    (essay) => essay.markingPeriod === currentMarkingPeriod
+  )
+
   if (loading)
     return (
       <AssignmentTypeTitle>
@@ -58,13 +69,14 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
       </AssignmentTypeTitle>
       {loading ? null : (
         <AssignmentTypeContentContainer>
-          {data?.findCompletedEssaysByStudentId.essays.map((essay) => (
-            <AssignmentLink
-              to={`essay/completed/${essay._id!}`}
-              key={essay._id!}
-            >
-              {essay.readings.readingSections}
-            </AssignmentLink>
+          {essaysForMarkingPeriod?.map((essay) => (
+            <ul key={essay._id!}>
+              <AssignmentLinkLi>
+                <AssignmentLink to={`essay/completed/${essay._id!}`}>
+                  {essay.readings.readingSections}
+                </AssignmentLink>
+              </AssignmentLinkLi>
+            </ul>
           ))}
         </AssignmentTypeContentContainer>
       )}

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import {
   findTextSectionsById,
   findTextSectionsByIdVariables,

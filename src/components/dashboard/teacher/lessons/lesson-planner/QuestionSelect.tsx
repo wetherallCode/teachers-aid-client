@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { TextSectionQuestionsInput } from '../../../../../schemaTypes'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type QuestionSelectProps = {
   questionsList: TextSectionQuestionsInput[]

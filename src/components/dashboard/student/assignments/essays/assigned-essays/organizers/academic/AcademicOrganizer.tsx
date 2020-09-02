@@ -58,7 +58,7 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({ question }) => {
     onError: (err) => console.error(err),
     refetchQueries: ['findEssayById'],
   })
-  console.log(state.value)
+
   return (
     <>
       <OrganizerTitleContainer>

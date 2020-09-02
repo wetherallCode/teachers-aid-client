@@ -56,7 +56,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
-
+  console.log(state.context.readingGuide.dueTime)
   return (
     <>
       <div>Create Reading Guide</div>
@@ -94,17 +94,20 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
           })
         }}
       >
-        {timeOfDayEnum.map((time: TimeOfDay) => (
-          <option key={time!} value={time!}>
-            {time === 'BEFORE_SCHOOL'
-              ? 'Before School'
-              : time === 'BEFORE_CLASS'
-              ? 'Before Class'
-              : time === 'AFTER_CLASS'
-              ? 'After Class'
-              : 'After School'}
-          </option>
-        ))}
+        {timeOfDayEnum.map((time: TimeOfDay) => {
+          console.log(time)
+          return (
+            <option key={time!} value={time!}>
+              {time === 'BEFORE_SCHOOL'
+                ? 'Before School'
+                : time === 'BEFORE_CLASS'
+                ? 'Before Class'
+                : time === 'AFTER_CLASS'
+                ? 'After Class'
+                : 'After School'}
+            </option>
+          )
+        })}
       </select>
       <div>Marking Period</div>
       <select

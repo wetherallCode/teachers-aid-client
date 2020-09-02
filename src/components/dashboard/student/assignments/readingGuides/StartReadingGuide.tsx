@@ -5,20 +5,11 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   startReadingGuide,
 } from '../../../../../schemaTypes'
+import { START_READING_GUIDE_MUTATION } from './ReadingGuideToComplete'
 
 export type StartReadingGuideProps = {
   readingGuideId: string
 }
-
-export const START_READING_GUIDE_MUTATION = gql`
-  mutation startReadingGuide($input: StartReadingGuideInput!) {
-    startReadingGuide(input: $input) {
-      readingGuide {
-        _id
-      }
-    }
-  }
-`
 
 export const StartReadingGuide: FC<StartReadingGuideProps> = ({
   readingGuideId,

@@ -25,7 +25,6 @@ import {
   AssignmentDetailsContainer,
   EssayInfoContainer,
   OrganizerContainer,
-  OrganizerControlButtonContainer,
   AssignmentDetailsReadingInfo,
   AssignmentDetailsDueDate,
   AssignmentDetailsGoBackButtonContainer,
@@ -33,7 +32,6 @@ import {
   AssignmentDetailsPartContainers,
 } from './state-and-styles/assignedEssayStyles'
 import { EssayInfo } from './essay-info/EssayInfo'
-import { SubmitEssay } from './SubmitEssay'
 
 export type EssayToCompleteProps = {}
 
@@ -331,7 +329,7 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
     }
   )
   if (loading) return <div>Loading </div>
-
+  console.log(data?.findEssayById.essay.topic.writingLevel)
   const organizer = data?.findEssayById.essay.workingDraft
     .organizer as findEssayById_findEssayById_essay_workingDraft_organizer
 
@@ -344,7 +342,9 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
     score: 0,
     graded: false,
   }
-
+  // console.log('help: ' + state.context.helpDisplay)
+  // console.log('vocab: ' + state.context.vocabDisplay)
+  // console.log('rubric: ' + state.context.rubricDisplay)
   return (
     <EssayContainer>
       <AssignmentDetailsContainer>
@@ -368,9 +368,13 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
           </AssignmentDetailsGoBackButton>
         </AssignmentDetailsGoBackButtonContainer>
       </AssignmentDetailsContainer>
+
       <EssayInfoContainer>
-        <EssayInfo />
+        <EssayInfo
+          vocabList={data?.findEssayById.essay.lessonInfo.vocabList!}
+        />
       </EssayInfoContainer>
+
       {data?.findEssayById.essay ? (
         <>
           {state.matches('organizers') && (

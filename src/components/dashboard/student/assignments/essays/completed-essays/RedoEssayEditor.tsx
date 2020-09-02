@@ -16,16 +16,20 @@ export type RedoEssayEditorProps = {
 
 export const RedoEssayEditor: FC<RedoEssayEditorProps> = ({ essay }) => {
   const [state, event] = useCompletedEssayContextProvider()
-
   const editor = useMemo(() => withReact(createEditor()), [])
-  const parsedEssay = JSON.parse(essay.workingDraft.draft)
+  const parsedEssay = JSON.parse(state.context.draftToUpdate)
   const [value, setValue] = useState(parsedEssay)
   const content = JSON.stringify(value)
 
   useEffect(() => {
     event({ type: 'SET_DRAFT', payload: content })
+    event({ type: 'SET_TEXT_TO_SUBMIT', payload: value[0].children[0].text })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content])
+
+  useEffect(() => {
+    updateWorkingDraft()
+  }, [state.context.draftToUpdate])
 
   const [updateWorkingDraft] = useMutation<
     UpdateWorkingDraft,
@@ -65,9 +69,14 @@ export const RedoEssayEditor: FC<RedoEssayEditorProps> = ({ essay }) => {
           spellCheck
           renderLeaf={renderLeaf}
           autoFocus
+          style={{
+            height: '98%',
+            // userSelect: 'none',
+          }}
           placeholder='Start with your topic statement....'
           onKeyDown={(e) => {
-            updateWorkingDraft()
+            event({ type: 'SET_DRAFT', payload: content })
+            // updateWorkingDraft()
             // if (!e.ctrlKey) {
             // return
             // }

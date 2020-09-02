@@ -11,7 +11,9 @@ import {
   AssignmentTypeTitle,
   AssignmentTypeContentContainer,
   AssignmentLink,
+  CompletionMessage,
 } from '../assignmentsStyles'
+import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type AssignedReadingGuideSelectProps = {}
 
@@ -27,12 +29,15 @@ export const READING_GUIDES_TO_COMPLETE_QUERY = gql`
         readings {
           readingSections
         }
+        markingPeriod
       }
     }
   }
 `
 export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const { currentMarkingPeriod } = markingPeriodState.context
   const { loading, data } = useQuery<
     findReadingGuidesToComplete,
     findReadingGuidesToCompleteVariables
@@ -43,6 +48,9 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = (
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+  const readingGuidesForMarkingPeriod = data?.findReadingGuidesToCompleteByStudentId.readingGuides.filter(
+    (guide) => guide.markingPeriod === currentMarkingPeriod
+  )
 
   return (
     <>
@@ -50,20 +58,39 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = (
         <div>Reading Guides to Complete</div>
       </AssignmentTypeTitle>
       {loading ? null : (
-        <AssignmentTypeContentContainer>
-          {data?.findReadingGuidesToCompleteByStudentId.readingGuides
-            .filter(
-              (readingGuide) => !readingGuide.paperBased && !readingGuide.graded
-            )
-            .map((readingGuide) => (
-              <AssignmentLink
-                to={`reading-guide/toComplete/${readingGuide._id!}`}
-                key={readingGuide._id!}
-              >
-                {readingGuide.readings.readingSections}
-              </AssignmentLink>
-            ))}
-        </AssignmentTypeContentContainer>
+        <>
+          {data?.findReadingGuidesToCompleteByStudentId.readingGuides.length ===
+          0 ? (
+            <AssignmentTypeContentContainer>
+              <CompletionMessage>
+                <ul>
+                  <li>All Reading Guides for Marking Period Complete</li>
+                </ul>
+              </CompletionMessage>
+            </AssignmentTypeContentContainer>
+          ) : (
+            <AssignmentTypeContentContainer>
+              {readingGuidesForMarkingPeriod &&
+                readingGuidesForMarkingPeriod
+                  .filter(
+                    (readingGuide) =>
+                      !readingGuide.paperBased && !readingGuide.graded
+                  )
+                  .map((readingGuide) => (
+                    <ul>
+                      <li>
+                        <AssignmentLink
+                          to={`reading-guide/toComplete/${readingGuide._id!}`}
+                          key={readingGuide._id!}
+                        >
+                          {readingGuide.readings.readingSections}
+                        </AssignmentLink>
+                      </li>
+                    </ul>
+                  ))}
+            </AssignmentTypeContentContainer>
+          )}
+        </>
       )}
     </>
   )

@@ -85,6 +85,8 @@ export const StopLessonButton = styled.button`
   background-color: var(--grey);
   font-size: 1.5rem;
   color: var(--blue);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px black;
 `
 
 export const LessonMainScreen = styled.div`
@@ -101,6 +103,7 @@ export const LessonComponentTypeContainer = styled.div`
   grid-row: -2/-1;
   grid-column: 4/-1;
   background-color: var(--blue);
+  grid-auto-flow: column;
 `
 export const LessonComponentTypeStyle = styled.div`
   color: var(--white);

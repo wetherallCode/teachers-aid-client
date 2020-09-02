@@ -6,7 +6,8 @@ import {
   submitReadingGuideVariables,
 } from '../../../../../schemaTypes'
 import { useNavigate } from 'react-router'
-import { useReadingGuideToCompleteContextProvider } from './state/ReadingGuideToCompleteContext'
+import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
+import { SubmitReadingGuideButton } from './state-and-styles/readingGuideStyles'
 
 export type SubmitReadingGuideProps = {}
 
@@ -35,7 +36,9 @@ export const SubmitReadingGuide: FC<SubmitReadingGuideProps> = () => {
 
   return (
     <>
-      <button onClick={() => submitReadingGuide()}>Submit</button>
+      <SubmitReadingGuideButton onClick={() => submitReadingGuide()}>
+        Submit
+      </SubmitReadingGuideButton>
     </>
   )
 }

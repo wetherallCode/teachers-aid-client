@@ -161,10 +161,17 @@ export const ProtocolControllerButton = styled.button`
 
 export const DynamicLessonContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr 3fr;
-  justify-items: center;
-  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 3fr 1fr;
+  /* justify-items: center;
+  align-items: center; */
+`
+
+export const DynamicLessonOnOffContainer = styled.div`
+  grid-column: 1/-1;
+  grid-row: 3/4;
+  justify-self: center;
+  align-self: center;
 `
 export const MainScreenManagerContainer = styled.div`
   display: grid;
@@ -182,8 +189,10 @@ export const MainScreenControlButton = styled.button`
 `
 
 export const DynamicLessonHeader = styled.div`
-  grid-column: 1 / 4;
+  grid-column: 1 / -1;
   font-size: 1.4rem;
+  align-self: center;
+  justify-self: center;
 `
 export const CenteredDiv = styled.div`
   display: grid;
@@ -200,4 +209,25 @@ export const DynamicLessonButton = styled.button<DynamicLessonButtonProps>`
     currentLessonSetting ? 'var(--red)' : 'var(--white)'};
   color: ${({ currentLessonSetting }) =>
     currentLessonSetting ? 'var(--white)' : 'var(--blue)'};
+  align-self: center;
+  justify-self: center;
+`
+export const DynamicLessonOnButton = styled(DynamicLessonButton)`
+  grid-row: 2/3;
+  grid-column: 1/-1;
+`
+
+export const DynamicLessonOffButtonContainer = styled.div`
+  grid-row: 3/-1;
+  grid-column: 1/-1;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+`
+export const DynamicLessonOffButton = styled.button`
+  color: var(--white);
+  background-color: var(--red);
+  height: 80%;
+  width: 70%;
+  border-radius: 5px;
 `

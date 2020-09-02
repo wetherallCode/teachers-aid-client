@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import { TextSectionProtocolsInput } from '../../../../../schemaTypes'
 import { ProtocolSelect } from './ProtocolSelect'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type DuringActivitySelectProps = {
   protocolList: TextSectionProtocolsInput[]

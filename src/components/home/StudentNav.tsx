@@ -22,9 +22,9 @@ export const StudentNav: FC<StudentNavProps> = ({
         <motion.li variants={liVariants}>
           <Link to='dashboard/assignments'>Assignments</Link>
         </motion.li>
-        <motion.li variants={liVariants}>
+        {/* <motion.li variants={liVariants}>
           <Link to='dashboard/grades'>Grades</Link>
-        </motion.li>
+        </motion.li> */}
         <motion.li variants={liVariants}>
           <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
         </motion.li>

@@ -9,6 +9,10 @@ import {
 import {
   DynamicLessonHeader,
   DynamicLessonButton,
+  DynamicLessonContainer,
+  DynamicLessonOnButton,
+  DynamicLessonOffButtonContainer,
+  DynamicLessonOffButton,
 } from '../../styles/classControlPanelStyles'
 
 export type DynamicLessonManagerProps = {
@@ -50,19 +54,17 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
       },
     })
   }
-
+  console.log(lesson.dynamicLesson === 'OFF')
   return (
-    <>
+    <DynamicLessonContainer>
       <DynamicLessonHeader>Dynamic Lesson</DynamicLessonHeader>
       {lesson.dynamicLesson === 'OFF' ? (
-        <div>
-          <DynamicLessonButton
-            // currentLessonSetting={}
-            onClick={() => handleClick(DynamicLessonEnums.ON)}
-          >
-            Start Lesson
-          </DynamicLessonButton>
-        </div>
+        <DynamicLessonOnButton
+          // currentLessonSetting={}
+          onClick={() => handleClick(DynamicLessonEnums.ON)}
+        >
+          Start Lesson
+        </DynamicLessonOnButton>
       ) : (
         <>
           <DynamicLessonButton
@@ -83,8 +85,22 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
           >
             Vocab
           </DynamicLessonButton>
+          <DynamicLessonButton
+            currentLessonSetting={lesson.dynamicLesson === 'EXIT_ACTIVITY'}
+            onClick={() => handleClick(DynamicLessonEnums.EXIT_ACTIVITY)}
+          >
+            Cool Down
+          </DynamicLessonButton>
+          <DynamicLessonOffButtonContainer>
+            <DynamicLessonOffButton
+              // currentLessonSetting={}
+              onClick={() => handleClick(DynamicLessonEnums.OFF)}
+            >
+              End Lesson
+            </DynamicLessonOffButton>
+          </DynamicLessonOffButtonContainer>
         </>
       )}
-    </>
+    </DynamicLessonContainer>
   )
 }

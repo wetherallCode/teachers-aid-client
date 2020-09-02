@@ -11,58 +11,59 @@ import {
 export type completedEssayMachineSchema = {
   states: {
     reviewEssay: {}
-    redoEssay: {
-      states: {
-        loading: {}
-        organizers: {
-          states: {
-            transition: {}
-            developingOrganizer: {
-              states: {
-                loading: {}
-                identifications: {}
-                restatement: {}
-                answer: {}
-                conclusion: {}
-              }
-            }
-            academicOrganizer: {
-              states: {
-                loading: {}
-                restatement: {}
-                answer: {
-                  states: {
-                    questionType: {}
-                    transition: {}
-                    problemSolution: {}
-                    whyCauseEffect: {}
-                    howCauseEffect: {}
-                  }
-                }
-                conclusion: {}
-              }
-            }
-            advancedOrganizer: {
-              states: {
-                loading: {}
-                restatement: {}
-                answer: {
-                  states: {
-                    questionType: {}
-                    transition: {}
-                    problemSolution: {}
-                    whyCauseEffect: {}
-                    howCauseEffect: {}
-                  }
-                }
-                conclusion: {}
-              }
-            }
-          }
-        }
-        workingDraft: {}
-      }
-    }
+    redoEssay: {}
+    // redoEssay: {
+    //   states: {
+    //     loading: {}
+    //     organizers: {
+    //       states: {
+    //         transition: {}
+    //         developingOrganizer: {
+    //           states: {
+    //             loading: {}
+    //             identifications: {}
+    //             restatement: {}
+    //             answer: {}
+    //             conclusion: {}
+    //           }
+    //         }
+    //         academicOrganizer: {
+    //           states: {
+    //             loading: {}
+    //             restatement: {}
+    //             answer: {
+    //               states: {
+    //                 questionType: {}
+    //                 transition: {}
+    //                 problemSolution: {}
+    //                 whyCauseEffect: {}
+    //                 howCauseEffect: {}
+    //               }
+    //             }
+    //             conclusion: {}
+    //           }
+    //         }
+    //         advancedOrganizer: {
+    //           states: {
+    //             loading: {}
+    //             restatement: {}
+    //             answer: {
+    //               states: {
+    //                 questionType: {}
+    //                 transition: {}
+    //                 problemSolution: {}
+    //                 whyCauseEffect: {}
+    //                 howCauseEffect: {}
+    //               }
+    //             }
+    //             conclusion: {}
+    //           }
+    //         }
+    //       }
+    //     }
+    //     workingDraft: {}
+    // }
+    // }
   }
 }
 export type completedEssayMachineEvent =
@@ -131,6 +132,7 @@ export type completedEssayMachineEvent =
     }
   | { type: 'SET_QUESTION_TYPE'; payload: string }
   | { type: 'SET_DRAFT'; payload: string }
+  | { type: 'SET_TEXT_TO_SUBMIT'; payload: string }
 
 export type completedEssayMachineContext = {
   draftNumber: number
@@ -199,6 +201,7 @@ export type completedEssayMachineContext = {
     conclusion: string
   }
   draftToUpdate: string
+  textToSubmit: string
 }
 
 export const completedEssayMachine = Machine<
@@ -278,6 +281,7 @@ export const completedEssayMachine = Machine<
       conclusion: '',
     },
     draftToUpdate: '',
+    textToSubmit: '',
   },
   states: {
     reviewEssay: {
@@ -307,979 +311,1008 @@ export const completedEssayMachine = Machine<
             }
           }),
         },
+        SET_DRAFT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              draftToUpdate: evt.payload,
+            }
+          }),
+        },
       },
     },
+    // redoEssay: {
+    //   initial: 'loading',
+    //   type: 'parallel',
+    //   states: {
+    //     loading: {
+    //       on: {
+    //         PREVIOUS: '#completedEssay.reviewEssay',
+    //         SET_DRAFT: {
+    //           actions: assign((ctx, evt) => {
+    //             return {
+    //               ...ctx,
+    //               draftToUpdate: evt.payload,
+    //             }
+    //           }),
+    //         },
+    //         ORGANIZER: 'organizers',
+    //       },
+    //     },
+    //     organizers: {
+    //       initial: 'transition',
+    //       states: {
+    //         transition: {
+    //           on: {
+    //             '': [
+    //               {
+    //                 target: 'developingOrganizer',
+    //                 cond: (ctx) => ctx.writingLevel === 'DEVELOPING',
+    //               },
+    //               {
+    //                 target: 'academicOrganizer',
+    //                 cond: (ctx) => ctx.writingLevel === 'ACADEMIC',
+    //               },
+    //               {
+    //                 target: 'advancedOrganizer',
+    //                 cond: (ctx) => ctx.writingLevel === 'ADVANCED',
+    //               },
+    //             ],
+    //           },
+    //         },
+    //         developingOrganizer: {
+    //           initial: 'loading',
+    //           states: {
+    //             loading: {
+    //               on: {
+    //                 NEXT: 'identifications',
+    //                 SET_BASIC_QUESTION_TYPE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         questionType: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_DEVELOPING_SENTENCE_STRUCTURE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         developingSentenceStructure: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         developingSentenceStructure: {
+    //                           ...ctx.developingOrganizer
+    //                             .developingSentenceStructure,
+    //                           subject: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_DEVELOPING_SENTENCE_STRUCTURE_VERB: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         developingSentenceStructure: {
+    //                           ...ctx.developingOrganizer
+    //                             .developingSentenceStructure,
+    //                           verb: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_RESTATEMENT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         restatement: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ANSWER: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         answer: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_CONCLUSION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         conclusion: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             identifications: {
+    //               on: {
+    //                 NEXT: 'restatement',
+    //                 SET_BASIC_QUESTION_TYPE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         questionType: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_DEVELOPING_SENTENCE_STRUCTURE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         developingSentenceStructure: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         developingSentenceStructure: {
+    //                           ...ctx.developingOrganizer
+    //                             .developingSentenceStructure,
+    //                           subject: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_DEVELOPING_SENTENCE_STRUCTURE_VERB: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         developingSentenceStructure: {
+    //                           ...ctx.developingOrganizer
+    //                             .developingSentenceStructure,
+    //                           verb: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             restatement: {
+    //               on: {
+    //                 NEXT: 'answer',
+    //                 SET_RESTATEMENT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         restatement: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             answer: {
+    //               on: {
+    //                 PREVIOUS: 'restatement',
+    //                 NEXT: 'conclusion',
+    //                 SET_ANSWER: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         answer: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             conclusion: {
+    //               on: {
+    //                 PREVIOUS: 'answer',
+    //                 NEXT: '#completedEssay.redoEssay.workingDraft',
+    //                 SET_CONCLUSION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       developingOrganizer: {
+    //                         ...ctx.developingOrganizer,
+    //                         conclusion: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //           },
+    //         },
+    //         academicOrganizer: {
+    //           initial: 'loading',
+    //           type: 'parallel',
+    //           states: {
+    //             loading: {
+    //               on: {
+    //                 NEXT: 'restatement',
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...evt.payload,
+    //                           object: evt.payload.object!,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...ctx.academicOrganizer
+    //                             .academicSentenceStructure,
+    //                           subject: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE_VERB: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...ctx.academicOrganizer
+    //                             .academicSentenceStructure,
+    //                           verb: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...ctx.academicOrganizer
+    //                             .academicSentenceStructure,
+    //                           object: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_RESTATEMENT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         restatement: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_FULL_QUESTION_TYPE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         questionType: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_PROBLEM_SOLUTION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         answer: {
+    //                           ...ctx.academicOrganizer.answer,
+    //                           problemSolution: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_HOW_CAUSE_EFFECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         answer: {
+    //                           ...ctx.academicOrganizer.answer,
+    //                           howCauseEffect: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_WHY_CAUSE_EFFECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         answer: {
+    //                           ...ctx.academicOrganizer.answer,
+    //                           whyCauseEffect: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_CONCLUSION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         conclusion: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             restatement: {
+    //               on: {
+    //                 NEXT: 'answer',
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...ctx.academicOrganizer
+    //                             .academicSentenceStructure,
+    //                           subject: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE_VERB: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...ctx.academicOrganizer
+    //                             .academicSentenceStructure,
+    //                           verb: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         academicSentenceStructure: {
+    //                           ...ctx.academicOrganizer
+    //                             .academicSentenceStructure,
+    //                           object: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_RESTATEMENT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         restatement: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             answer: {
+    //               initial: 'questionType',
+    //               // type: 'parallel',
+    //               states: {
+    //                 questionType: {
+    //                   on: {
+    //                     NEXT: 'transition',
+    //                     SET_FULL_QUESTION_TYPE: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           academicOrganizer: {
+    //                             ...ctx.academicOrganizer,
+    //                             questionType: evt.payload,
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                     // SET_PRE_LOADED: {
+    //                     //   actions: assign((ctx, evt) => {
+    //                     //     return {
+    //                     //       ...ctx,
+    //                     //       academicOrganizer: {
+    //                     //         ...ctx.academicOrganizer,
+    //                     //         answer: {
+    //                     //           ...ctx.academicOrganizer.answer,
+    //                     //           preLoaded: evt.payload,
+    //                     //         },
+    //                     //       },
+    //                     //     }
+    //                     //   }),
+    //                     // },
+    //                   },
+    //                 },
+    //                 transition: {
+    //                   on: {
+    //                     '': [
+    //                       {
+    //                         target: 'problemSolution',
+    //                         cond: (ctx) =>
+    //                           ctx.academicOrganizer.questionType ===
+    //                           'HOW_PROBLEM_SOLUTION',
+    //                       },
+    //                       {
+    //                         target: 'howCauseEffect',
+    //                         cond: (ctx) =>
+    //                           ctx.academicOrganizer.questionType ===
+    //                           'HOW_CAUSE_EFFECT',
+    //                       },
+    //                       {
+    //                         target: 'whyCauseEffect',
+    //                         cond: (ctx) =>
+    //                           ctx.academicOrganizer.questionType ===
+    //                           'WHY_CAUSE_EFFECT',
+    //                       },
+    //                     ],
+    //                   },
+    //                 },
+    //                 problemSolution: {
+    //                   on: {
+    //                     PREVIOUS:
+    //                       '#completedEssay.redoEssay.organizers.academicOrganizer.answer.questionType',
+    //                     NEXT:
+    //                       '#completedEssay.redoEssay.organizers.academicOrganizer.conclusion',
+    //                     SET_PROBLEM_SOLUTION: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           academicOrganizer: {
+    //                             ...ctx.academicOrganizer,
+    //                             answer: {
+    //                               ...ctx.academicOrganizer.answer,
+    //                               problemSolution: evt.payload,
+    //                             },
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                   },
+    //                 },
+    //                 whyCauseEffect: {
+    //                   on: {
+    //                     PREVIOUS:
+    //                       '#completedEssay.redoEssay.organizers.academicOrganizer.answer.questionType',
+    //                     NEXT:
+    //                       '#completedEssay.redoEssay.organizers.academicOrganizer.conclusion',
+    //                     SET_WHY_CAUSE_EFFECT: {
+    //                       actions: assign((ctx, evt) => {
+    //                         console.log(
+    //                           ctx.academicOrganizer.answer.whyCauseEffect
+    //                         )
+    //                         return {
+    //                           ...ctx,
+    //                           academicOrganizer: {
+    //                             ...ctx.academicOrganizer,
+    //                             answer: {
+    //                               ...ctx.academicOrganizer.answer,
+    //                               whyCauseEffect: evt.payload,
+    //                             },
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                   },
+    //                 },
+    //                 howCauseEffect: {
+    //                   on: {
+    //                     PREVIOUS:
+    //                       '#completedEssay.redoEssay.organizers.academicOrganizer.answer.questionType',
+    //                     NEXT:
+    //                       '#completedEssay.redoEssay.organizers.academicOrganizer.conclusion',
+    //                     SET_HOW_CAUSE_EFFECT: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           academicOrganizer: {
+    //                             ...ctx.academicOrganizer,
+    //                             answer: {
+    //                               ...ctx.academicOrganizer.answer,
+    //                               howCauseEffect: evt.payload,
+    //                             },
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                     // SET_PRE_LOADED: {
+    //                     //   actions: assign((ctx, evt) => {
+    //                     //     return {
+    //                     //       ...ctx,
+    //                     //       academicOrganizer: {
+    //                     //         ...ctx.academicOrganizer,
+    //                     //         answer: {
+    //                     //           ...ctx.academicOrganizer.answer,
+    //                     //           preLoaded: evt.payload,
+    //                     //         },
+    //                     //       },
+    //                     //     }
+    //                     //   }),
+    //                     // },
+    //                   },
+    //                 },
+    //               },
+    //             },
+    //             conclusion: {
+    //               on: {
+    //                 PREVIOUS: 'answer',
+    //                 NEXT: '#completedEssay.redoEssay.workingDraft',
+    //                 SET_CONCLUSION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       academicOrganizer: {
+    //                         ...ctx.academicOrganizer,
+    //                         conclusion: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //           },
+    //         },
+    //         advancedOrganizer: {
+    //           initial: 'loading',
+    //           states: {
+    //             loading: {
+    //               on: {
+    //                 NEXT: 'restatement',
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...evt.payload,
+    //                           object: evt.payload.object!,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE_SUBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...ctx.advancedOrganizer
+    //                             .advancedSentenceStructure,
+    //                           subject: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE_VERB: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...ctx.advancedOrganizer
+    //                             .advancedSentenceStructure,
+    //                           verb: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE_OBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...ctx.advancedOrganizer
+    //                             .advancedSentenceStructure,
+    //                           object: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_RESTATEMENT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         restatement: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_FULL_QUESTION_TYPE: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         questionType: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_PROBLEM_SOLUTION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         answer: {
+    //                           ...ctx.advancedOrganizer.answer,
+    //                           problemSolution: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_HOW_CAUSE_EFFECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         answer: {
+    //                           ...ctx.advancedOrganizer.answer,
+    //                           howCauseEffect: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_WHY_CAUSE_EFFECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         answer: {
+    //                           ...ctx.advancedOrganizer.answer,
+    //                           whyCauseEffect: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_CONCLUSION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         conclusion: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             restatement: {
+    //               on: {
+    //                 NEXT: 'answer',
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE_SUBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...ctx.advancedOrganizer
+    //                             .advancedSentenceStructure,
+    //                           subject: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE_VERB: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...ctx.advancedOrganizer
+    //                             .advancedSentenceStructure,
+    //                           verb: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_ADVANCED_SENTENCE_STRUCTURE_OBJECT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         advancedSentenceStructure: {
+    //                           ...ctx.advancedOrganizer
+    //                             .advancedSentenceStructure,
+    //                           object: evt.payload,
+    //                         },
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //                 SET_RESTATEMENT: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         restatement: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //             answer: {
+    //               initial: 'questionType',
+    //               states: {
+    //                 questionType: {
+    //                   on: {
+    //                     NEXT: 'transition',
+    //                     SET_FULL_QUESTION_TYPE: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           advancedOrganizer: {
+    //                             ...ctx.advancedOrganizer,
+    //                             questionType: evt.payload,
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                     // SET_PRE_LOADED: {
+    //                     //   actions: assign((ctx, evt) => {
+    //                     //     return {
+    //                     //       ...ctx,
+    //                     //       advancedOrganizer: {
+    //                     //         ...ctx.advancedOrganizer,
+    //                     //         answer: {
+    //                     //           ...ctx.advancedOrganizer.answer,
+    //                     //           preLoaded: evt.payload,
+    //                     //         },
+    //                     //       },
+    //                     //     }
+    //                     //   }),
+    //                     // },
+    //                   },
+    //                 },
+    //                 transition: {
+    //                   on: {
+    //                     '': [
+    //                       {
+    //                         target: 'problemSolution',
+    //                         cond: (ctx) =>
+    //                           ctx.advancedOrganizer.questionType ===
+    //                           'HOW_PROBLEM_SOLUTION',
+    //                       },
+    //                       {
+    //                         target: 'howCauseEffect',
+    //                         cond: (ctx) =>
+    //                           ctx.advancedOrganizer.questionType ===
+    //                           'HOW_CAUSE_EFFECT',
+    //                       },
+    //                       {
+    //                         target: 'whyCauseEffect',
+    //                         cond: (ctx) =>
+    //                           ctx.advancedOrganizer.questionType ===
+    //                           'WHY_CAUSE_EFFECT',
+    //                       },
+    //                     ],
+    //                   },
+    //                 },
+    //                 problemSolution: {
+    //                   on: {
+    //                     PREVIOUS:
+    //                       '#completedEssay.redoEssay.organizers.advancedOrganizer.answer.questionType',
+    //                     NEXT:
+    //                       '#completedEssay.redoEssay.organizers.advancedOrganizer.conclusion',
+    //                     SET_PROBLEM_SOLUTION: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           advancedOrganizer: {
+    //                             ...ctx.advancedOrganizer,
+    //                             answer: {
+    //                               ...ctx.advancedOrganizer.answer,
+    //                               problemSolution: evt.payload,
+    //                             },
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                   },
+    //                 },
+    //                 whyCauseEffect: {
+    //                   on: {
+    //                     PREVIOUS:
+    //                       '#completedEssay.redoEssay.organizers.advancedOrganizer.answer.questionType',
+    //                     NEXT:
+    //                       '#completedEssay.redoEssay.organizers.advancedOrganizer.conclusion',
+    //                     SET_WHY_CAUSE_EFFECT: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           advancedOrganizer: {
+    //                             ...ctx.advancedOrganizer,
+    //                             answer: {
+    //                               ...ctx.advancedOrganizer.answer,
+    //                               whyCauseEffect: evt.payload,
+    //                             },
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                   },
+    //                 },
+    //                 howCauseEffect: {
+    //                   on: {
+    //                     PREVIOUS:
+    //                       '#completedEssay.redoEssay.organizers.advancedOrganizer.answer.questionType',
+    //                     NEXT:
+    //                       '#completedEssay.redoEssay.organizers.advancedOrganizer.conclusion',
+    //                     SET_HOW_CAUSE_EFFECT: {
+    //                       actions: assign((ctx, evt) => {
+    //                         return {
+    //                           ...ctx,
+    //                           advancedOrganizer: {
+    //                             ...ctx.advancedOrganizer,
+    //                             answer: {
+    //                               ...ctx.advancedOrganizer.answer,
+    //                               howCauseEffect: evt.payload,
+    //                             },
+    //                           },
+    //                         }
+    //                       }),
+    //                     },
+    //                     // SET_PRE_LOADED: {
+    //                     //   actions: assign((ctx, evt) => {
+    //                     //     return {
+    //                     //       ...ctx,
+    //                     //       advancedOrganizer: {
+    //                     //         ...ctx.advancedOrganizer,
+    //                     //         answer: {
+    //                     //           ...ctx.advancedOrganizer.answer,
+    //                     //           preLoaded: evt.payload,
+    //                     //         },
+    //                     //       },
+    //                     //     }
+    //                     //   }),
+    //                     // },
+    //                   },
+    //                 },
+    //               },
+    //             },
+    //             conclusion: {
+    //               on: {
+    //                 PREVIOUS: 'answer',
+    //                 NEXT: '#completedEssay.redoEssay.workingDraft',
+    //                 SET_CONCLUSION: {
+    //                   actions: assign((ctx, evt) => {
+    //                     return {
+    //                       ...ctx,
+    //                       advancedOrganizer: {
+    //                         ...ctx.advancedOrganizer,
+    //                         conclusion: evt.payload,
+    //                       },
+    //                     }
+    //                   }),
+    //                 },
+    //               },
+    //             },
+    //           },
+    //         },
+    //       },
+    //     },
+    //     workingDraft: {},
+    //   },
+    // },
     redoEssay: {
-      initial: 'loading',
-      type: 'parallel',
-      states: {
-        loading: {
-          on: {
-            PREVIOUS: '#completedEssay.reviewEssay',
-            SET_DRAFT: {
-              actions: assign((ctx, evt) => {
-                return {
-                  ...ctx,
-                  draftToUpdate: evt.payload,
-                }
-              }),
-            },
-            ORGANIZER: 'organizers',
-          },
+      on: {
+        PREVIOUS: 'reviewEssay',
+        SET_DRAFT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              draftToUpdate: evt.payload,
+            }
+          }),
         },
-        organizers: {
-          initial: 'transition',
-          states: {
-            transition: {
-              on: {
-                '': [
-                  {
-                    target: 'developingOrganizer',
-                    cond: (ctx) => ctx.writingLevel === 'DEVELOPING',
-                  },
-                  {
-                    target: 'academicOrganizer',
-                    cond: (ctx) => ctx.writingLevel === 'ACADEMIC',
-                  },
-                  {
-                    target: 'advancedOrganizer',
-                    cond: (ctx) => ctx.writingLevel === 'ADVANCED',
-                  },
-                ],
-              },
-            },
-            developingOrganizer: {
-              initial: 'loading',
-              states: {
-                loading: {
-                  on: {
-                    NEXT: 'identifications',
-                    SET_BASIC_QUESTION_TYPE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            questionType: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_DEVELOPING_SENTENCE_STRUCTURE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            developingSentenceStructure: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            developingSentenceStructure: {
-                              ...ctx.developingOrganizer
-                                .developingSentenceStructure,
-                              subject: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_DEVELOPING_SENTENCE_STRUCTURE_VERB: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            developingSentenceStructure: {
-                              ...ctx.developingOrganizer
-                                .developingSentenceStructure,
-                              verb: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_RESTATEMENT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            restatement: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_ANSWER: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            answer: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_CONCLUSION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            conclusion: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                identifications: {
-                  on: {
-                    NEXT: 'restatement',
-                    SET_BASIC_QUESTION_TYPE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            questionType: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_DEVELOPING_SENTENCE_STRUCTURE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            developingSentenceStructure: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            developingSentenceStructure: {
-                              ...ctx.developingOrganizer
-                                .developingSentenceStructure,
-                              subject: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_DEVELOPING_SENTENCE_STRUCTURE_VERB: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            developingSentenceStructure: {
-                              ...ctx.developingOrganizer
-                                .developingSentenceStructure,
-                              verb: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                restatement: {
-                  on: {
-                    NEXT: 'answer',
-                    SET_RESTATEMENT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            restatement: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                answer: {
-                  on: {
-                    PREVIOUS: 'restatement',
-                    NEXT: 'conclusion',
-                    SET_ANSWER: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            answer: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                conclusion: {
-                  on: {
-                    PREVIOUS: 'answer',
-                    NEXT: '#completedEssay.redoEssay.workingDraft',
-                    SET_CONCLUSION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          developingOrganizer: {
-                            ...ctx.developingOrganizer,
-                            conclusion: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-              },
-            },
-            academicOrganizer: {
-              initial: 'loading',
-              type: 'parallel',
-              states: {
-                loading: {
-                  on: {
-                    NEXT: 'restatement',
-                    SET_ACADEMIC_SENTENCE_STRUCTURE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...evt.payload,
-                              object: evt.payload.object!,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...ctx.academicOrganizer
-                                .academicSentenceStructure,
-                              subject: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ACADEMIC_SENTENCE_STRUCTURE_VERB: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...ctx.academicOrganizer
-                                .academicSentenceStructure,
-                              verb: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...ctx.academicOrganizer
-                                .academicSentenceStructure,
-                              object: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_RESTATEMENT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            restatement: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_FULL_QUESTION_TYPE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            questionType: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_PROBLEM_SOLUTION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            answer: {
-                              ...ctx.academicOrganizer.answer,
-                              problemSolution: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_HOW_CAUSE_EFFECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            answer: {
-                              ...ctx.academicOrganizer.answer,
-                              howCauseEffect: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_WHY_CAUSE_EFFECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            answer: {
-                              ...ctx.academicOrganizer.answer,
-                              whyCauseEffect: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_CONCLUSION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            conclusion: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                restatement: {
-                  on: {
-                    NEXT: 'answer',
-                    SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...ctx.academicOrganizer
-                                .academicSentenceStructure,
-                              subject: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ACADEMIC_SENTENCE_STRUCTURE_VERB: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...ctx.academicOrganizer
-                                .academicSentenceStructure,
-                              verb: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            academicSentenceStructure: {
-                              ...ctx.academicOrganizer
-                                .academicSentenceStructure,
-                              object: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_RESTATEMENT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            restatement: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                answer: {
-                  initial: 'questionType',
-                  // type: 'parallel',
-                  states: {
-                    questionType: {
-                      on: {
-                        NEXT: 'transition',
-                        SET_FULL_QUESTION_TYPE: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              academicOrganizer: {
-                                ...ctx.academicOrganizer,
-                                questionType: evt.payload,
-                              },
-                            }
-                          }),
-                        },
-                        // SET_PRE_LOADED: {
-                        //   actions: assign((ctx, evt) => {
-                        //     return {
-                        //       ...ctx,
-                        //       academicOrganizer: {
-                        //         ...ctx.academicOrganizer,
-                        //         answer: {
-                        //           ...ctx.academicOrganizer.answer,
-                        //           preLoaded: evt.payload,
-                        //         },
-                        //       },
-                        //     }
-                        //   }),
-                        // },
-                      },
-                    },
-                    transition: {
-                      on: {
-                        '': [
-                          {
-                            target: 'problemSolution',
-                            cond: (ctx) =>
-                              ctx.academicOrganizer.questionType ===
-                              'HOW_PROBLEM_SOLUTION',
-                          },
-                          {
-                            target: 'howCauseEffect',
-                            cond: (ctx) =>
-                              ctx.academicOrganizer.questionType ===
-                              'HOW_CAUSE_EFFECT',
-                          },
-                          {
-                            target: 'whyCauseEffect',
-                            cond: (ctx) =>
-                              ctx.academicOrganizer.questionType ===
-                              'WHY_CAUSE_EFFECT',
-                          },
-                        ],
-                      },
-                    },
-                    problemSolution: {
-                      on: {
-                        PREVIOUS:
-                          '#completedEssay.redoEssay.organizers.academicOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.redoEssay.organizers.academicOrganizer.conclusion',
-                        SET_PROBLEM_SOLUTION: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              academicOrganizer: {
-                                ...ctx.academicOrganizer,
-                                answer: {
-                                  ...ctx.academicOrganizer.answer,
-                                  problemSolution: evt.payload,
-                                },
-                              },
-                            }
-                          }),
-                        },
-                      },
-                    },
-                    whyCauseEffect: {
-                      on: {
-                        PREVIOUS:
-                          '#completedEssay.redoEssay.organizers.academicOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.redoEssay.organizers.academicOrganizer.conclusion',
-                        SET_WHY_CAUSE_EFFECT: {
-                          actions: assign((ctx, evt) => {
-                            console.log(
-                              ctx.academicOrganizer.answer.whyCauseEffect
-                            )
-                            return {
-                              ...ctx,
-                              academicOrganizer: {
-                                ...ctx.academicOrganizer,
-                                answer: {
-                                  ...ctx.academicOrganizer.answer,
-                                  whyCauseEffect: evt.payload,
-                                },
-                              },
-                            }
-                          }),
-                        },
-                      },
-                    },
-                    howCauseEffect: {
-                      on: {
-                        PREVIOUS:
-                          '#completedEssay.redoEssay.organizers.academicOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.redoEssay.organizers.academicOrganizer.conclusion',
-                        SET_HOW_CAUSE_EFFECT: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              academicOrganizer: {
-                                ...ctx.academicOrganizer,
-                                answer: {
-                                  ...ctx.academicOrganizer.answer,
-                                  howCauseEffect: evt.payload,
-                                },
-                              },
-                            }
-                          }),
-                        },
-                        // SET_PRE_LOADED: {
-                        //   actions: assign((ctx, evt) => {
-                        //     return {
-                        //       ...ctx,
-                        //       academicOrganizer: {
-                        //         ...ctx.academicOrganizer,
-                        //         answer: {
-                        //           ...ctx.academicOrganizer.answer,
-                        //           preLoaded: evt.payload,
-                        //         },
-                        //       },
-                        //     }
-                        //   }),
-                        // },
-                      },
-                    },
-                  },
-                },
-                conclusion: {
-                  on: {
-                    PREVIOUS: 'answer',
-                    NEXT: '#completedEssay.redoEssay.workingDraft',
-                    SET_CONCLUSION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          academicOrganizer: {
-                            ...ctx.academicOrganizer,
-                            conclusion: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-              },
-            },
-            advancedOrganizer: {
-              initial: 'loading',
-              states: {
-                loading: {
-                  on: {
-                    NEXT: 'restatement',
-                    SET_ADVANCED_SENTENCE_STRUCTURE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...evt.payload,
-                              object: evt.payload.object!,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ADVANCED_SENTENCE_STRUCTURE_SUBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...ctx.advancedOrganizer
-                                .advancedSentenceStructure,
-                              subject: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ADVANCED_SENTENCE_STRUCTURE_VERB: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...ctx.advancedOrganizer
-                                .advancedSentenceStructure,
-                              verb: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ADVANCED_SENTENCE_STRUCTURE_OBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...ctx.advancedOrganizer
-                                .advancedSentenceStructure,
-                              object: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_RESTATEMENT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            restatement: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_FULL_QUESTION_TYPE: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            questionType: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                    SET_PROBLEM_SOLUTION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            answer: {
-                              ...ctx.advancedOrganizer.answer,
-                              problemSolution: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_HOW_CAUSE_EFFECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            answer: {
-                              ...ctx.advancedOrganizer.answer,
-                              howCauseEffect: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_WHY_CAUSE_EFFECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            answer: {
-                              ...ctx.advancedOrganizer.answer,
-                              whyCauseEffect: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_CONCLUSION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            conclusion: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                restatement: {
-                  on: {
-                    NEXT: 'answer',
-                    SET_ADVANCED_SENTENCE_STRUCTURE_SUBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...ctx.advancedOrganizer
-                                .advancedSentenceStructure,
-                              subject: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ADVANCED_SENTENCE_STRUCTURE_VERB: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...ctx.advancedOrganizer
-                                .advancedSentenceStructure,
-                              verb: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_ADVANCED_SENTENCE_STRUCTURE_OBJECT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            advancedSentenceStructure: {
-                              ...ctx.advancedOrganizer
-                                .advancedSentenceStructure,
-                              object: evt.payload,
-                            },
-                          },
-                        }
-                      }),
-                    },
-                    SET_RESTATEMENT: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            restatement: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-                answer: {
-                  initial: 'questionType',
-                  states: {
-                    questionType: {
-                      on: {
-                        NEXT: 'transition',
-                        SET_FULL_QUESTION_TYPE: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              advancedOrganizer: {
-                                ...ctx.advancedOrganizer,
-                                questionType: evt.payload,
-                              },
-                            }
-                          }),
-                        },
-                        // SET_PRE_LOADED: {
-                        //   actions: assign((ctx, evt) => {
-                        //     return {
-                        //       ...ctx,
-                        //       advancedOrganizer: {
-                        //         ...ctx.advancedOrganizer,
-                        //         answer: {
-                        //           ...ctx.advancedOrganizer.answer,
-                        //           preLoaded: evt.payload,
-                        //         },
-                        //       },
-                        //     }
-                        //   }),
-                        // },
-                      },
-                    },
-                    transition: {
-                      on: {
-                        '': [
-                          {
-                            target: 'problemSolution',
-                            cond: (ctx) =>
-                              ctx.advancedOrganizer.questionType ===
-                              'HOW_PROBLEM_SOLUTION',
-                          },
-                          {
-                            target: 'howCauseEffect',
-                            cond: (ctx) =>
-                              ctx.advancedOrganizer.questionType ===
-                              'HOW_CAUSE_EFFECT',
-                          },
-                          {
-                            target: 'whyCauseEffect',
-                            cond: (ctx) =>
-                              ctx.advancedOrganizer.questionType ===
-                              'WHY_CAUSE_EFFECT',
-                          },
-                        ],
-                      },
-                    },
-                    problemSolution: {
-                      on: {
-                        PREVIOUS:
-                          '#completedEssay.redoEssay.organizers.advancedOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.redoEssay.organizers.advancedOrganizer.conclusion',
-                        SET_PROBLEM_SOLUTION: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              advancedOrganizer: {
-                                ...ctx.advancedOrganizer,
-                                answer: {
-                                  ...ctx.advancedOrganizer.answer,
-                                  problemSolution: evt.payload,
-                                },
-                              },
-                            }
-                          }),
-                        },
-                      },
-                    },
-                    whyCauseEffect: {
-                      on: {
-                        PREVIOUS:
-                          '#completedEssay.redoEssay.organizers.advancedOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.redoEssay.organizers.advancedOrganizer.conclusion',
-                        SET_WHY_CAUSE_EFFECT: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              advancedOrganizer: {
-                                ...ctx.advancedOrganizer,
-                                answer: {
-                                  ...ctx.advancedOrganizer.answer,
-                                  whyCauseEffect: evt.payload,
-                                },
-                              },
-                            }
-                          }),
-                        },
-                      },
-                    },
-                    howCauseEffect: {
-                      on: {
-                        PREVIOUS:
-                          '#completedEssay.redoEssay.organizers.advancedOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.redoEssay.organizers.advancedOrganizer.conclusion',
-                        SET_HOW_CAUSE_EFFECT: {
-                          actions: assign((ctx, evt) => {
-                            return {
-                              ...ctx,
-                              advancedOrganizer: {
-                                ...ctx.advancedOrganizer,
-                                answer: {
-                                  ...ctx.advancedOrganizer.answer,
-                                  howCauseEffect: evt.payload,
-                                },
-                              },
-                            }
-                          }),
-                        },
-                        // SET_PRE_LOADED: {
-                        //   actions: assign((ctx, evt) => {
-                        //     return {
-                        //       ...ctx,
-                        //       advancedOrganizer: {
-                        //         ...ctx.advancedOrganizer,
-                        //         answer: {
-                        //           ...ctx.advancedOrganizer.answer,
-                        //           preLoaded: evt.payload,
-                        //         },
-                        //       },
-                        //     }
-                        //   }),
-                        // },
-                      },
-                    },
-                  },
-                },
-                conclusion: {
-                  on: {
-                    PREVIOUS: 'answer',
-                    NEXT: '#completedEssay.redoEssay.workingDraft',
-                    SET_CONCLUSION: {
-                      actions: assign((ctx, evt) => {
-                        return {
-                          ...ctx,
-                          advancedOrganizer: {
-                            ...ctx.advancedOrganizer,
-                            conclusion: evt.payload,
-                          },
-                        }
-                      }),
-                    },
-                  },
-                },
-              },
-            },
-          },
+        SET_TEXT_TO_SUBMIT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              textToSubmit: evt.payload,
+            }
+          }),
         },
-        workingDraft: {},
       },
     },
   },

@@ -4,7 +4,7 @@ import {
   createLessonVariables,
   MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { dateConverter } from '../../../../../utils'
 
 export type CreateLessonProps = {

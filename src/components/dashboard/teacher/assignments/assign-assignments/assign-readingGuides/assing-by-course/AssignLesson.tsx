@@ -6,6 +6,7 @@ import {
   findReadingGuidesByAssociatedLessonAndCourseIdVariables,
 } from '../../../../../../../schemaTypes'
 import { AssignReadingGuide } from './AssignReadingGuide'
+import { time } from '../../../../../../../utils'
 
 export type AssignLessonProps = {
   lessonId: string
@@ -68,9 +69,7 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  console.log(
-    data?.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides
-  )
+
   return (
     <>
       {data?.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides

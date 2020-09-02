@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { findTextSectionsById } from '../../../../../schemaTypes'
 
 export type PagesProps = {

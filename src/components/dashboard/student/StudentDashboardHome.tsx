@@ -6,10 +6,11 @@ import { StudentEssayContextProvider } from './assignments/essays/assigned-essay
 import { CompletedEssay } from './assignments/essays/completed-essays/CompletedEssay'
 import { CompletedEssayContextProvider } from './assignments/essays/completed-essays/state/CompletedEssayContext'
 import { ReadingGuideToComplete } from './assignments/readingGuides/ReadingGuideToComplete'
-import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state/ReadingGuideToCompleteContext'
+import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { LessonMainMenu } from '../../lesson/LessonMainMenu'
 import { DailyAgendaContextProvider } from '../../lesson/state/DailyAgendaContext'
 import { StudentAssignmentContextProvider } from './assignments/StudentAssignmentContext'
+import { StudentGrades } from './grades/StudentGrades'
 
 export const StudentDashboardHome = () => {
   const { pathname } = useLocation()
@@ -41,6 +42,7 @@ export const StudentDashboardHome = () => {
             </ReadingGuideToCompleteContextProvider>
           }
         />
+        <Route path='grades/*' element={<StudentGrades />} />
       </Routes>
       {pathname === '/dashboard' && (
         <DailyAgendaContextProvider>

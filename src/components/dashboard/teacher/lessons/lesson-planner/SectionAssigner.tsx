@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { LessonPlannerTextListLoader } from './LessonPlannerTextListLoader'
 import { LessonPlannerChapterSelect } from './LessonPlannerChapterSelect'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { SectionSelect } from './SectionSelect'
 import { UnitAssigner } from './UnitAssigner'
 
@@ -12,15 +12,15 @@ export const SectionAssigner: FC<SectionAssignerProps> = () => {
 
   return (
     <>
-      <div>Assign Sections: </div>
-      <div>In Text: </div>
-      <LessonPlannerTextListLoader />
-      <div>In Chapter: </div>
-      <LessonPlannerChapterSelect text={state.context.fromText} />
-      <SectionSelect />
-      <UnitAssigner />
-      <div>Starting Section: {state.context.startingSection}</div>
-      <div>Starting Section: {state.context.endingSection}</div>
+      {state.matches('sections.text') && <LessonPlannerTextListLoader />}
+      {state.matches('sections.chapter') && (
+        <div>
+          <div>In Chapter: </div>
+          <LessonPlannerChapterSelect text={state.context.fromText} />
+        </div>
+      )}
+      {state.matches('sections.sectionList') && <SectionSelect />}
+      {state.matches('sections.unit') && <UnitAssigner />}
     </>
   )
 }

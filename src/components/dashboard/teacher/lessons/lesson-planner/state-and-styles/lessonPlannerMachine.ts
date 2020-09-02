@@ -6,7 +6,7 @@ import {
   ProtocolActivityTypes,
   TextSectionQuestionsInput,
   QuestionTypeEnum,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 
 export type lessonPlannerMachineSchema = {
   states: {
@@ -16,6 +16,7 @@ export type lessonPlannerMachineSchema = {
         text: {}
         chapter: {}
         sectionList: {}
+        unit: {}
       }
     }
     lessonInfo: {}
@@ -188,6 +189,10 @@ export const lessonPlannerMachine = Machine<
                 return { ...ctx, endingSection: evt.payload }
               }),
             },
+          },
+        },
+        unit: {
+          on: {
             SET_UNIT: {
               actions: assign((ctx, evt) => {
                 return {

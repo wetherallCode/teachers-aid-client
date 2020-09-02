@@ -37,6 +37,12 @@ export const ME_QUERY = gql`
         }
       }
     }
+    findCurrentMarkingPeriod {
+      markingPeriod {
+        _id
+        currentMarkingPeriod
+      }
+    }
   }
 `
 

@@ -5,7 +5,7 @@ import {
   findTextSectionsByChapterVariables,
 } from '../../../../../schemaTypes'
 import { FIND_TEXT_SECTIONS_BY_CHAPTER_QUERY } from '../section-editor/TextSectionList'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type SectionSelectProps = {}
 
@@ -82,8 +82,12 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
         >
           Add Section
         </button>
-        <button onClick={() => event({ type: 'NEXT' })}>Next</button>
       </form>
+      <div>Starting Section: {state.context.startingSection}</div>
+      {state.context.endingSection && (
+        <div>Ending Section: {state.context.endingSection}</div>
+      )}
+      <button onClick={() => event({ type: 'NEXT' })}>Next</button>
     </div>
   )
 }

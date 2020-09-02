@@ -7,7 +7,7 @@ import {
 } from '../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import { useCheckBox } from '../../../../../hooks/useCheckBox'
-import { useLessonPlannerContextProvider } from './lessonPlannerContext'
+import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 
 export type CourseAssignerProps = {}
 
