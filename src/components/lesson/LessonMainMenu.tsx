@@ -23,7 +23,7 @@ import {
   CurrentLesson,
   GoToLessonButton,
   LessonNameStyle,
-} from './lessonStyles'
+} from './state/lessonStyles'
 import { DynamicLesson } from './lessson-types/DynamicLesson'
 import { StaticLesson } from './lessson-types/StaticLesson'
 
@@ -153,7 +153,6 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
     })
     return check
   }
-  console.log(handleSignInCheck(me._id!))
 
   const [studentSignIn] = useMutation<studentSignIn, studentSignInVariables>(
     STUDENT_SIGN_IN_MUTATION,
@@ -263,4 +262,3 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
     </>
   )
 }
-// lesson={data?.findLessonByCourseAndDate.lesson!}
