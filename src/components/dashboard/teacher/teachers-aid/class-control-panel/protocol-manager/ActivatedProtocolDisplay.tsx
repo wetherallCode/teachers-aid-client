@@ -7,7 +7,7 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   finishStudentProtocol,
   finishStudentProtocolVariables,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
 } from '../../../../../../schemaTypes'
 import { UPDATE_LESSON_PROTOCOL_MUTATION } from './SelectProtocol'
 import {

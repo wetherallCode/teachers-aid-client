@@ -3,7 +3,7 @@ import {
   MarkingPeriodEnum,
   TextSectionVocabInput,
   TextSectionProtocolsInput,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
   ProtocolActivityTypes,
   TextSectionQuestionsInput,
 } from '../../../../../schemaTypes'
@@ -109,7 +109,7 @@ export const lessonEditorMachine = Machine<
     courses: [],
     vocabList: [],
     beforeActivity: {
-      academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
+      academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
@@ -117,7 +117,7 @@ export const lessonEditorMachine = Machine<
     },
     duringActivity: [],
     afterActivity: {
-      academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
+      academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,

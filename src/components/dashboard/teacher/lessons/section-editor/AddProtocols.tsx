@@ -9,7 +9,7 @@ import {
   updateTextSection,
   updateTextSectionVariables,
   TextSectionProtocolsInput,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
   ProtocolActivityTypes,
 } from '../../../../../schemaTypes'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
@@ -64,7 +64,7 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
             })
           }
         >
-          {academicOutcomeTypes.map((outcomeType: AcademicOutomeTypes) => (
+          {academicOutcomeTypes.map((outcomeType: AcademicOutcomeTypes) => (
             <option key={outcomeType} value={outcomeType}>
               {outcomeType}
             </option>

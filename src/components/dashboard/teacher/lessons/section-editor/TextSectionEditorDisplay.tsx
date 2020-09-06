@@ -8,7 +8,7 @@ import {
   updateTextSectionVariables,
   TextSectionVocabInput,
   TextSectionProtocolsInput,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
   ProtocolActivityTypes,
   TextSectionQuestionsInput,
   QuestionTypeEnum,
@@ -69,7 +69,7 @@ export const TextSectionEditorDisplay = () => {
     definition: '',
   })
   const [protocolItem, setProtocolItem] = useState<TextSectionProtocolsInput>({
-    academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
+    academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
     activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
     task: '',
     isActive: false,

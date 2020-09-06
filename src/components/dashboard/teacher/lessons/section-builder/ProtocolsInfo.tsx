@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   TextSectionProtocolsInput,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
   ProtocolActivityTypes,
 } from '../../../../../schemaTypes'
 import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
@@ -15,7 +15,7 @@ export const ProtocolsInfo = () => {
   const [protocolValues, setProtocolValues] = useState<
     TextSectionProtocolsInput
   >({
-    academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
+    academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
     activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
     task: '',
     isActive: false,
@@ -36,7 +36,7 @@ export const ProtocolsInfo = () => {
         }
       >
         <option value={undefined}>Choose One</option>
-        {academicOutcomeTypes?.map((outcome: AcademicOutomeTypes) => (
+        {academicOutcomeTypes?.map((outcome: AcademicOutcomeTypes) => (
           <option key={outcome} value={outcome}>
             {outcome}
           </option>
