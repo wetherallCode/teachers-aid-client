@@ -2,6 +2,7 @@ import React from 'react'
 import {
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
   me_me_Teacher_teachesCourses,
+  me_me,
 } from '../../../schemaTypes'
 import { WarmUp } from '../lesson-components/WarmUp'
 import { LessonDetails } from '../lesson-components/LessonDetails'
@@ -19,9 +20,11 @@ import {
   StopLessonContainer,
   LessonPageContainer,
   ProtocolsContainer,
-} from '../lessonStyles'
+} from '../state/lessonStyles'
 import { date } from '../../../utils'
 import { ExitActivity } from '../lesson-components/ExitActivity'
+import { StudentQuestionPrompt } from '../student-lesson/StudentQuestionPrompt'
+import { useUserContextProvider } from '../../../contexts/UserContext'
 
 export type DynamicLessonProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -34,6 +37,7 @@ export const DynamicLesson = ({
   courseToLoad,
   stopPolling,
 }: DynamicLessonProps) => {
+  const me: me_me = useUserContextProvider()
   const [, event] = useDailyAgendaContextProvider()
   const { dynamicLesson } = lesson
   return (
@@ -74,7 +78,13 @@ export const DynamicLesson = ({
       )}
 
       <LessonComponentTypeContainer>
-        <LessonComponentTypeStyle>Live Class</LessonComponentTypeStyle>
+        <LessonComponentTypeStyle>
+          {me.__typename === 'Student' ? (
+            <StudentQuestionPrompt courseToLoad={courseToLoad!} />
+          ) : (
+            'Class is Live'
+          )}
+        </LessonComponentTypeStyle>
       </LessonComponentTypeContainer>
     </LessonPageContainer>
   )
