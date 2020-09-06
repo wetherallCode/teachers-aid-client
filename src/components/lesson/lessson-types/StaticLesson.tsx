@@ -13,7 +13,7 @@ import {
   StopLessonContainer,
   StopLessonButton,
   LessonMainScreen,
-} from '../lessonStyles'
+} from '../state/lessonStyles'
 import { date } from '../../../utils'
 import { useDailyAgendaContextProvider } from '../state/DailyAgendaContext'
 import { WarmUp } from '../lesson-components/WarmUp'
