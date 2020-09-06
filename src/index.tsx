@@ -15,9 +15,13 @@ import { MarkingPeriodContextProvider } from './contexts/markingPeriod/MarkingPe
 import { EnumContextProvider } from './contexts/EnumContext'
 import { SchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 
+// const link = new HttpLink({
+//   uri: 'https://mrwetherall.org/graphql',
+//   credentials: 'same-origin',
+// })
 const link = new HttpLink({
-  uri: 'https://mrwetherall.org/graphql',
-  credentials: 'same-origin',
+  uri: 'https://teachers-aid-server.herokuapp.com/graphql',
+  credentials: 'include',
 })
 
 const client = new ApolloClient({
