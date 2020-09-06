@@ -16,8 +16,8 @@ import { EnumContextProvider } from './contexts/EnumContext'
 import { SchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 
 const link = new HttpLink({
-  uri: 'http://localhost:4005/graphql',
-  credentials: 'include',
+  uri: 'https://mrwetherall.org/graphql',
+  credentials: 'same-origin',
 })
 
 const client = new ApolloClient({
