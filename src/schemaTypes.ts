@@ -2542,21 +2542,21 @@ export interface findLessonByIdForLessonEditor_findLessonById_lesson_vocabList {
 
 export interface findLessonByIdForLessonEditor_findLessonById_lesson_beforeActivity {
   __typename: "TextSectionProtocols";
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   activityType: ProtocolActivityTypes;
   task: string;
 }
 
 export interface findLessonByIdForLessonEditor_findLessonById_lesson_duringActivities {
   __typename: "TextSectionProtocols";
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   activityType: ProtocolActivityTypes;
   task: string;
 }
 
 export interface findLessonByIdForLessonEditor_findLessonById_lesson_afterActivity {
   __typename: "TextSectionProtocols";
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   activityType: ProtocolActivityTypes;
   task: string;
 }
@@ -2685,7 +2685,7 @@ export interface findTextSectionsById_findTextSectionsById_textSections_hasVocab
 
 export interface findTextSectionsById_findTextSectionsById_textSections_hasProtocols {
   __typename: "TextSectionProtocols";
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   activityType: ProtocolActivityTypes;
   task: string;
 }
@@ -2747,6 +2747,33 @@ export interface findUnits_findUnits {
 
 export interface findUnits {
   findUnits: findUnits_findUnits;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createUnit
+// ====================================================
+
+export interface createUnit_createUnit_unit {
+  __typename: "Unit";
+  _id: string | null;
+}
+
+export interface createUnit_createUnit {
+  __typename: "CreateUnitPayload";
+  unit: createUnit_createUnit_unit;
+}
+
+export interface createUnit {
+  createUnit: createUnit_createUnit;
+}
+
+export interface createUnitVariables {
+  input: CreateUnitInput;
 }
 
 /* tslint:disable */
@@ -2961,7 +2988,7 @@ export interface FindTextSectionById_findTextSectionById_textSection_hasQuestion
 export interface FindTextSectionById_findTextSectionById_textSection_hasProtocols {
   __typename: "TextSectionProtocols";
   activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   task: string;
 }
 
@@ -3610,7 +3637,7 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols
   _id: string | null;
   completed: boolean;
   assignedDate: string;
-  academicOutcomeType: AcademicOutomeTypes;
+  academicOutcomeType: AcademicOutcomeTypes;
   student: findStudentInfoByStudentId_findStudentById_student_hasProtocols_student;
   isActive: boolean;
   task: string;
@@ -3779,7 +3806,7 @@ export interface findStudentProtocol_findStudentById_student_hasProtocols {
   _id: string | null;
   completed: boolean;
   assignedDate: string;
-  academicOutcomeType: AcademicOutomeTypes;
+  academicOutcomeType: AcademicOutcomeTypes;
   task: string;
   isActive: boolean;
   response: string | null;
@@ -3877,7 +3904,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duri
   __typename: "TextSectionProtocols";
   task: string;
   activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
   completed: boolean;
 }
@@ -3886,14 +3913,14 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_befo
   __typename: "TextSectionProtocols";
   task: string;
   activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity {
   __typename: "TextSectionProtocols";
   task: string;
   activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
@@ -3988,6 +4015,40 @@ export interface studentSignIn {
 
 export interface studentSignInVariables {
   input: StudentSignInInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createStudentQuestion
+// ====================================================
+
+export interface createStudentQuestion_createStudentQuestion_studentQuestions_questions {
+  __typename: "StudentQuestion";
+  studentId: string;
+  question: string;
+}
+
+export interface createStudentQuestion_createStudentQuestion_studentQuestions {
+  __typename: "StudentQuestions";
+  _id: string | null;
+  questions: createStudentQuestion_createStudentQuestion_studentQuestions_questions[];
+}
+
+export interface createStudentQuestion_createStudentQuestion {
+  __typename: "CreateStudentQuestionPayload";
+  studentQuestions: createStudentQuestion_createStudentQuestion_studentQuestions;
+}
+
+export interface createStudentQuestion {
+  createStudentQuestion: createStudentQuestion_createStudentQuestion;
+}
+
+export interface createStudentQuestionVariables {
+  input: CreateStudentQuestionInput;
 }
 
 /* tslint:disable */
@@ -4281,7 +4342,7 @@ export interface me {
 // START Enums and Input Objects
 //==============================================================
 
-export enum AcademicOutomeTypes {
+export enum AcademicOutcomeTypes {
   LOGIC_BUILDING = "LOGIC_BUILDING",
   SCHEMA_BUIDING = "SCHEMA_BUIDING",
   SOCRATIC_QUESTIONS = "SOCRATIC_QUESTIONS",
@@ -4518,7 +4579,7 @@ export interface CreateLessonInput {
 }
 
 export interface CreateProtocolInput {
-  academicOutcomeType: AcademicOutomeTypes;
+  academicOutcomeType: AcademicOutcomeTypes;
   markingPeriod: MarkingPeriodEnum;
   protocolActivityType: ProtocolActivityTypes;
   studentIds: string[];
@@ -4548,6 +4609,12 @@ export interface CreateSignInSheetsInput {
   todaysDate: string;
 }
 
+export interface CreateStudentQuestionInput {
+  courseId: string;
+  question: string;
+  studentId: string;
+}
+
 export interface CreateTextSectionInput {
   fromChapterId: string;
   hasProtocols: TextSectionProtocolsInput[];
@@ -4555,6 +4622,10 @@ export interface CreateTextSectionInput {
   hasVocab: TextSectionVocabInput[];
   header: string;
   pageNumbers: PageNumbersInput;
+}
+
+export interface CreateUnitInput {
+  unitName: string;
 }
 
 export interface DevelopingSentenceStructureInput {
@@ -4829,7 +4900,7 @@ export interface SubmittedFinalDraftsInput {
 }
 
 export interface TextSectionProtocolsInput {
-  academicOutcomeTypes: AcademicOutomeTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
   activityType: ProtocolActivityTypes;
   completed: boolean;
   isActive: boolean;
