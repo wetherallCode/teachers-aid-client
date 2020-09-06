@@ -1,6 +1,6 @@
 import {
   InformationStructureEnum,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
   ProtocolActivityTypes,
 } from './schemaTypes'
 
@@ -51,10 +51,10 @@ export const informationStructure = (item: InformationStructureEnum) => {
     : 'Compare and Contrast'
 }
 
-export const academicOutcomeTypes = (outcomes: AcademicOutomeTypes) =>
-  outcomes === AcademicOutomeTypes.SCHEMA_BUIDING
+export const academicOutcomeTypes = (outcomes: AcademicOutcomeTypes) =>
+  outcomes === AcademicOutcomeTypes.SCHEMA_BUIDING
     ? 'Schema Building'
-    : outcomes === AcademicOutomeTypes.LOGIC_BUILDING
+    : outcomes === AcademicOutcomeTypes.LOGIC_BUILDING
     ? 'Logic Building'
     : 'Socratic Question'
 
