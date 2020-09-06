@@ -45,7 +45,6 @@ export const CreateSignInSheets: FC<CreateSignInSheetsProps> = ({
   })
 
   const signInSheetCheck = signInSheets.some((sheet) => sheet.studentsSignInlog)
-  console.log(signInSheetCheck)
 
   return (
     <>
