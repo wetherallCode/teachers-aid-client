@@ -4,7 +4,7 @@ import {
   LessonComponentTitleContainer,
   LessonComponentDetailsContainer,
   VocabWordContainer,
-} from '../lessonStyles'
+} from '../state/lessonStyles'
 
 export type VocabProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson

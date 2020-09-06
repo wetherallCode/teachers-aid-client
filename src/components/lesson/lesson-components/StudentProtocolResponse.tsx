@@ -6,7 +6,7 @@ import {
   respondToProtocol,
   respondToProtocolVariables,
   findStudentProtocol_findStudentById_student_hasProtocols,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
 } from '../../../schemaTypes'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {
@@ -16,7 +16,7 @@ import {
   ProtocolResponseArea,
   ProtocolResponseHeader,
   ProtocolResponse,
-} from '../lessonStyles'
+} from '../state/lessonStyles'
 
 export type StudentProtocolResponseProps = {
   me: me_me
@@ -57,7 +57,7 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
   >({
     __typename: 'Protocol',
     _id: '',
-    academicOutcomeType: AcademicOutomeTypes.LOGIC_BUILDING,
+    academicOutcomeType: AcademicOutcomeTypes.LOGIC_BUILDING,
     assignedDate: '',
     completed: false,
     isActive: false,

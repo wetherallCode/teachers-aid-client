@@ -10,7 +10,7 @@ import {
   ProtocolTypeContainer,
   ProtocolTask,
   ProtocolTaskContainer,
-} from '../lessonStyles'
+} from '../state/lessonStyles'
 import { academicOutcomeTypes } from '../../../utils'
 
 export type ProtocolsProps = {

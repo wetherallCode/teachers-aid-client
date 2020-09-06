@@ -4,7 +4,7 @@ import {
   LessonComponentTitleContainer,
   LessonComponentDetailsContainer,
   LessonComponentDetailsStyle,
-} from '../lessonStyles'
+} from '../state/lessonStyles'
 
 export type ExitActivityProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
