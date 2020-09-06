@@ -1,12 +1,17 @@
 import React, { FC, useState, useEffect } from 'react'
 import {
   TextSectionProtocolsInput,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
   ProtocolActivityTypes,
 } from '../../../../../schemaTypes'
 import { ProtocolSelect } from './ProtocolSelect'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
+import {
+  AfterActivityContainer,
+  ActivityCategorySelect,
+  ActivityCategoryInput,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type AfterActivityProps = {
   protocolList: TextSectionProtocolsInput[]
@@ -18,8 +23,9 @@ export const AfterActivity: FC<AfterActivityProps> = ({ protocolList }) => {
     academicOutcomeTypes,
     protocolActivityTypes,
   } = useEnumContextProvider()
+
   const [coolDown, setCoolDown] = useState<TextSectionProtocolsInput>({
-    academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
+    academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
     activityType: ProtocolActivityTypes.INDIVIDUAL,
     task: '',
     completed: false,
@@ -32,8 +38,7 @@ export const AfterActivity: FC<AfterActivityProps> = ({ protocolList }) => {
     event({ type: 'SET_AFTER_ACTIVITY', payload: coolDown })
   }, [coolDown, event])
   return (
-    <>
-      <div>After Activity</div>
+    <AfterActivityContainer>
       {/* <ProtocolSelect
         protocolList={protocolList}
         protocolSelectList={protocolSelectList}
@@ -41,7 +46,7 @@ export const AfterActivity: FC<AfterActivityProps> = ({ protocolList }) => {
         selectAmount={1}
       /> */}
       <div>Academic Outcome</div>
-      <select
+      <ActivityCategorySelect
         onChange={(e: any) => {
           if (e.target.value !== 'none') {
             setCoolDown({ ...coolDown, academicOutcomeTypes: e.target.value })
@@ -49,13 +54,13 @@ export const AfterActivity: FC<AfterActivityProps> = ({ protocolList }) => {
         }}
       >
         <option value='none'>Select Outcome Type</option>
-        {academicOutcomeTypes.map((type: AcademicOutomeTypes) => (
+        {academicOutcomeTypes.map((type: AcademicOutcomeTypes) => (
           <option key={type!}>{type}</option>
         ))}
-      </select>
+      </ActivityCategorySelect>
 
       <div>Activity Type</div>
-      <select
+      <ActivityCategorySelect
         onChange={(e: any) => {
           if (e.target.value !== 'none') {
             setCoolDown({ ...coolDown, activityType: e.target.value })
@@ -66,14 +71,14 @@ export const AfterActivity: FC<AfterActivityProps> = ({ protocolList }) => {
         {protocolActivityTypes.map((type: ProtocolActivityTypes) => (
           <option key={type!}>{type}</option>
         ))}
-      </select>
+      </ActivityCategorySelect>
 
       <div>Task</div>
-      <input
+      <ActivityCategoryInput
         onChange={(e: any) =>
           setCoolDown({ ...coolDown, task: e.target.value })
         }
       />
-    </>
+    </AfterActivityContainer>
   )
 }

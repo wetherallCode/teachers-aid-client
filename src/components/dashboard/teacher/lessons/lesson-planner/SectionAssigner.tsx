@@ -14,10 +14,7 @@ export const SectionAssigner: FC<SectionAssignerProps> = () => {
     <>
       {state.matches('sections.text') && <LessonPlannerTextListLoader />}
       {state.matches('sections.chapter') && (
-        <div>
-          <div>In Chapter: </div>
-          <LessonPlannerChapterSelect text={state.context.fromText} />
-        </div>
+        <LessonPlannerChapterSelect text={state.context.fromText} />
       )}
       {state.matches('sections.sectionList') && <SectionSelect />}
       {state.matches('sections.unit') && <UnitAssigner />}

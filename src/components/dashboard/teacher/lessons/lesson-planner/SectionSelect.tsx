@@ -6,6 +6,18 @@ import {
 } from '../../../../../schemaTypes'
 import { FIND_TEXT_SECTIONS_BY_CHAPTER_QUERY } from '../section-editor/TextSectionList'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
+import {
+  TextPickerHeader,
+  TextPickerBody,
+  SectionPickerBody,
+  SectionPickerHeader,
+  SectionPickerButtonContainer,
+  SectionPickerNextButton,
+  SectionSelectorOption,
+  SectionSelectorOptionAddButton,
+  SectionPickerSelectOptionsForm,
+  SectionSelectorOptionAddButtonContainer,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type SectionSelectProps = {}
 
@@ -36,58 +48,103 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
     variables: {
       input: { fromChapterId: state.context.fromChapterId },
     },
+    onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
-  if (error) console.error(error)
 
   return (
-    <div>
-      <form onSubmit={(e: any) => e.preventDefault()}>
-        <select
-          onChange={(e: any) => {
-            console.log(e.target.value)
-            if (e.target.value !== 'Select a Section') {
-              const arr = e.target.value.split(',')
-              event({ type: 'SET_CURRENT_SECTION', payload: [arr[0], arr[1]] })
-            } else event({ type: 'SET_CURRENT_SECTION', payload: ['none'] })
-          }}
+    <>
+      <SectionPickerHeader>
+        What Sections are in the Lesson?
+      </SectionPickerHeader>
+      <SectionPickerBody>
+        <SectionPickerSelectOptionsForm
+          onSubmit={(e: any) => e.preventDefault()}
         >
-          <option value={undefined}>Select a Section</option>
-          {data?.findTextSectionsByChapter.textSections.map((sections) => (
-            <option
-              key={sections._id!}
-              value={[sections._id!, sections.header]}
+          {/* <select
+            onChange={(e: any) => {
+              console.log(e.target.value)
+              if (e.target.value !== 'Select a Section') {
+                const arr = e.target.value.split(',')
+                event({
+                  type: 'SET_CURRENT_SECTION',
+                  payload: [arr[0], arr[1]],
+                })
+              } else event({ type: 'SET_CURRENT_SECTION', payload: ['none'] })
+            }}
+          >
+            <option value={undefined}>Select a Section</option>
+            {data?.findTextSectionsByChapter.textSections.map((sections) => (
+              <option
+                key={sections._id!}
+                value={[sections._id!, sections.header]}
+              >
+                {sections.header}
+              </option>
+            ))}
+          </select> */}
+          <div>
+            {data?.findTextSectionsByChapter.textSections.map((section) =>
+              loading ? (
+                'Loading Sections...'
+              ) : (
+                <SectionSelectorOption
+                  key={section._id!}
+                  // selected={section._id === state.context.currentSection[0]}
+                  selected={state.context.textSectionList.includes(
+                    section._id!
+                  )}
+                  onClick={() =>
+                    event({
+                      type: 'SET_CURRENT_SECTION',
+                      payload: [section._id!, section.header],
+                    })
+                  }
+                >
+                  {section.header}
+                </SectionSelectorOption>
+              )
+            )}
+          </div>
+          <SectionSelectorOptionAddButtonContainer>
+            <SectionSelectorOptionAddButton
+              type='reset'
+              onClick={() => {
+                if (
+                  state.context.currentSection.length > 0 &&
+                  !state.context.currentSection.includes('none')
+                ) {
+                  event({
+                    type: 'ADD_SECTIONS',
+                    payload: [
+                      state.context.currentSection[0],
+                      state.context.currentSection[1],
+                    ],
+                  })
+                  event({ type: 'SET_CURRENT_SECTION', payload: ['none'] })
+                }
+              }}
             >
-              {sections.header}
-            </option>
-          ))}
-        </select>
-        <button
-          type='reset'
-          onClick={() => {
-            if (
-              state.context.currentSection.length > 0 &&
-              !state.context.currentSection.includes('none')
-            ) {
-              event({
-                type: 'ADD_SECTIONS',
-                payload: [
-                  state.context.currentSection[0],
-                  state.context.currentSection[1],
-                ],
-              })
-              event({ type: 'SET_CURRENT_SECTION', payload: ['none'] })
-            }
-          }}
-        >
-          Add Section
-        </button>
-      </form>
-      <div>Starting Section: {state.context.startingSection}</div>
-      {state.context.endingSection && (
-        <div>Ending Section: {state.context.endingSection}</div>
-      )}
-      <button onClick={() => event({ type: 'NEXT' })}>Next</button>
-    </div>
+              Add Section
+            </SectionSelectorOptionAddButton>
+          </SectionSelectorOptionAddButtonContainer>
+        </SectionPickerSelectOptionsForm>
+        <div>
+          <div>Starting Section: {state.context.startingSection}</div>
+          {state.context.endingSection !== state.context.startingSection && (
+            <div>Ending Section: {state.context.endingSection}</div>
+          )}
+        </div>
+      </SectionPickerBody>
+      <SectionPickerButtonContainer>
+        <SectionPickerNextButton onClick={() => event({ type: 'PREVIOUS' })}>
+          Back
+        </SectionPickerNextButton>
+        {state.context.startingSection && (
+          <SectionPickerNextButton onClick={() => event({ type: 'NEXT' })}>
+            Next
+          </SectionPickerNextButton>
+        )}
+      </SectionPickerButtonContainer>
+    </>
   )
 }

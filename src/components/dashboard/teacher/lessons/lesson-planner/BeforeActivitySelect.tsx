@@ -2,11 +2,16 @@ import React, { FC, useState, useEffect } from 'react'
 import {
   TextSectionProtocolsInput,
   ProtocolActivityTypes,
-  AcademicOutomeTypes,
+  AcademicOutcomeTypes,
 } from '../../../../../schemaTypes'
 import { ProtocolSelect } from './ProtocolSelect'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
+import {
+  BeforeActivityContainer,
+  ActivityCategorySelect,
+  ActivityCategoryInput,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type BeforeActivitySelectProps = {
   protocolList: TextSectionProtocolsInput[]
@@ -23,7 +28,7 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
   } = useEnumContextProvider()
 
   const [warmUp, setWarmUp] = useState<TextSectionProtocolsInput>({
-    academicOutcomeTypes: AcademicOutomeTypes.LOGIC_BUILDING,
+    academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
     activityType: ProtocolActivityTypes.INDIVIDUAL,
     task: '',
     completed: false,
@@ -39,8 +44,7 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
   }, [event, warmUp])
 
   return (
-    <>
-      <div>Before Activity</div>
+    <BeforeActivityContainer>
       {/* <ProtocolSelect
         protocolList={protocolList}
         protocolSelectList={protocolSelectList}
@@ -48,21 +52,37 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
         selectAmount={1}
       /> */}
       <div>Academic Outcome</div>
-      <input
-        onChange={(e: any) =>
-          setWarmUp({ ...warmUp, academicOutcomeTypes: e.target.value })
-        }
-      />
+      <ActivityCategorySelect
+        onChange={(e: any) => {
+          if (e.target.value !== 'none') {
+            setWarmUp({ ...warmUp, academicOutcomeTypes: e.target.value })
+          }
+        }}
+      >
+        <option value='none'>Select Outcome Type</option>
+        {academicOutcomeTypes.map((type: AcademicOutcomeTypes) => (
+          <option key={type!}>{type}</option>
+        ))}
+      </ActivityCategorySelect>
+
       <div>Activity Type</div>
-      <input
-        onChange={(e: any) =>
-          setWarmUp({ ...warmUp, activityType: e.target.value })
-        }
-      />
+      <ActivityCategorySelect
+        onChange={(e: any) => {
+          if (e.target.value !== 'none') {
+            setWarmUp({ ...warmUp, activityType: e.target.value })
+          }
+        }}
+      >
+        <option value='none'>Select Outcome Type</option>
+        {protocolActivityTypes.map((type: ProtocolActivityTypes) => (
+          <option key={type!}>{type}</option>
+        ))}
+      </ActivityCategorySelect>
+
       <div>Task</div>
-      <input
+      <ActivityCategoryInput
         onChange={(e: any) => setWarmUp({ ...warmUp, task: e.target.value })}
       />
-    </>
+    </BeforeActivityContainer>
   )
 }

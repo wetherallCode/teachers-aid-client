@@ -1,6 +1,15 @@
 import React, { FC } from 'react'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { TextSectionQuestionsInput } from '../../../../../schemaTypes'
+import {
+  EssentialQuestionContainer,
+  EssentialQuestionTitle,
+  EssentialQuestionOptionSelect,
+  EssentialQuestionAddContainter,
+  EssentialQuestionInput,
+  EssentialQuestionAddTitle,
+  EssentialQuestionOptionsContainer,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type EssentialQuestionProps = {
   questionsList: TextSectionQuestionsInput[]
@@ -9,21 +18,46 @@ export type EssentialQuestionProps = {
 export const EssentialQuestion: FC<EssentialQuestionProps> = ({
   questionsList,
 }) => {
-  const [, event] = useLessonPlannerContextProvider()
+  const [state, event] = useLessonPlannerContextProvider()
 
   return (
-    <div>
-      <div>Essential Question</div>
-      {questionsList.map((question, i) => (
-        <div
-          key={i}
-          onClick={() =>
-            event({ type: 'SET_ESSENTIAL_QUESTION', payload: question })
+    <EssentialQuestionContainer>
+      <EssentialQuestionTitle>Essential Question</EssentialQuestionTitle>
+      <EssentialQuestionOptionsContainer>
+        {questionsList.map((question, i) => (
+          <EssentialQuestionOptionSelect
+            key={i}
+            selected={state.context.essentialQuestion === question.question}
+            onClick={() => {
+              if (state.context.essentialQuestion !== question.question) {
+                event({
+                  type: 'SET_ESSENTIAL_QUESTION',
+                  payload: question.question,
+                })
+              } else
+                event({
+                  type: 'SET_ESSENTIAL_QUESTION',
+                  payload: '',
+                })
+            }}
+          >
+            {question.question}
+          </EssentialQuestionOptionSelect>
+        ))}
+      </EssentialQuestionOptionsContainer>
+      <EssentialQuestionAddContainter>
+        <EssentialQuestionAddTitle>
+          Use different Question:{' '}
+        </EssentialQuestionAddTitle>
+        <EssentialQuestionInput
+          onChange={(e: any) =>
+            event({
+              type: 'SET_ESSENTIAL_QUESTION',
+              payload: e.target.value,
+            })
           }
-        >
-          {question.question}
-        </div>
-      ))}
-    </div>
+        />
+      </EssentialQuestionAddContainter>
+    </EssentialQuestionContainer>
   )
 }

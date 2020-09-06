@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import {
@@ -14,6 +14,16 @@ import { AfterActivity } from './AfterActivity'
 import { EssentialQuestion } from './EssentialQuestion'
 import { Pages } from './Pages'
 import { LessonName } from './LessonName'
+import {
+  LessonInfoContainer,
+  LessonInfoTitleContainer,
+  LessonPlannerSectionHeader,
+  LessonPlannerActivityBody,
+  VocabList,
+  ActivityContainer,
+  ActivitySelectorContainer,
+  LessonPlannerButton,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type LessonPlanInfoProps = {}
 
@@ -44,12 +54,12 @@ export const FIND_TEXT_SECTIONS_BY_ID_QUERY = gql`
     }
   }
 `
-
+export type ActivitySelectorValues = 'BEFORE' | 'DURING' | 'AFTER'
 export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
   const [state, event] = useLessonPlannerContextProvider()
+  const [activity, setActivity] = useState<ActivitySelectorValues>('BEFORE')
 
-  // console.log(state.context)
-  const { loading, error, data } = useQuery<
+  const { data } = useQuery<
     findTextSectionsById,
     findTextSectionsByIdVariables
   >(FIND_TEXT_SECTIONS_BY_ID_QUERY, {
@@ -71,11 +81,12 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
         })
       })
     },
+    onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
-  if (error) console.error(error)
+  // if (loading) return <div>Loading </div>
 
   const protocolList: TextSectionProtocolsInput[] = []
+
   data?.findTextSectionsById.textSections.forEach((section) =>
     section.hasProtocols.forEach((protocol) => {
       const protocolItem = {
@@ -90,6 +101,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
   )
 
   const questionsList: TextSectionQuestionsInput[] = []
+
   data?.findTextSectionsById.textSections.forEach((section) => {
     section.hasQuestions.forEach((question) => {
       const questionItem = {
@@ -100,23 +112,82 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
     })
   })
 
+  // const {
+  //   beforeActivity,
+  //   duringActivity,
+  //   afterActivity,
+  //   essentialQuestion,
+  // } = state.context
+
+  // const readyToSubmit =
+  //   beforeActivity.task !== '' &&
+  //   duringActivity.length > 0 &&
+  //   afterActivity.task !== '' &&
+  //   essentialQuestion.question !== ''
+  // console.log(readyToSubmit)
   return (
     <>
-      <div>Information</div>
-      <div>Vocab</div>
-      <div>
-        {state.context.vocabList.map((word, i) => (
-          <div key={i}>
-            {word.word}: {word.definition}
+      <LessonPlannerSectionHeader>
+        <div>Lesson Information</div>
+      </LessonPlannerSectionHeader>
+      <LessonPlannerActivityBody>
+        <VocabList>
+          <div>Vocab</div>
+          {/* <div>Add New Vocab Word</div> */}
+          <div>
+            {state.context.vocabList.map((word, i) => (
+              <div key={i}>
+                {word.word}: {word.definition}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <Pages data={data!} />
-      <BeforeActivitySelect protocolList={protocolList} />
-      <DuringActivitySelect protocolList={protocolList} />
-      <AfterActivity protocolList={protocolList} />
-      <EssentialQuestion questionsList={questionsList} />
-      <LessonName />
+          <Pages data={data!} />
+        </VocabList>
+        <LessonName />
+        <ActivityContainer>
+          <ActivitySelectorContainer>
+            <div
+              onClick={() =>
+                activity === 'BEFORE'
+                  ? setActivity('AFTER')
+                  : activity === 'DURING'
+                  ? setActivity('BEFORE')
+                  : setActivity('DURING')
+              }
+            >
+              &lt;
+            </div>
+            <div>
+              {activity === 'BEFORE'
+                ? 'Before Activity'
+                : activity === 'DURING'
+                ? 'During Activities'
+                : 'After Activity'}
+            </div>
+            <div
+              onClick={() =>
+                activity === 'BEFORE'
+                  ? setActivity('DURING')
+                  : activity === 'DURING'
+                  ? setActivity('AFTER')
+                  : setActivity('BEFORE')
+              }
+            >
+              &gt;
+            </div>
+          </ActivitySelectorContainer>
+          {activity === 'BEFORE' && (
+            <BeforeActivitySelect protocolList={protocolList} />
+          )}
+          {activity === 'DURING' && (
+            <DuringActivitySelect protocolList={protocolList} />
+          )}
+          {activity === 'AFTER' && (
+            <AfterActivity protocolList={protocolList} />
+          )}
+        </ActivityContainer>
+        <EssentialQuestion questionsList={questionsList} />
+      </LessonPlannerActivityBody>
     </>
   )
 }

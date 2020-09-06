@@ -1,5 +1,11 @@
 import React, { FC, Dispatch, SetStateAction, useState } from 'react'
 import { TextSectionProtocolsInput } from '../../../../../schemaTypes'
+import {
+  DuringActivityContainer,
+  DuringActivityTitle,
+  DuringActivityBody,
+  DuringActivitySelection,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type ProtocolSelectProps = {
   protocolList: TextSectionProtocolsInput[]
@@ -14,28 +20,49 @@ export const ProtocolSelect: FC<ProtocolSelectProps> = ({
   protocolSelectList,
   selectAmount,
 }) => {
-  const [selectCounter, setSelectCounter] = useState(0)
+  // const [selectCounter, setSelectCounter] = useState(0)
+  console.log(protocolSelectList)
   return (
-    <div>
-      <div>Protocols</div>
-      <div>
-        {protocolList.map((item, i) => (
-          <div
-            key={i}
-            onClick={() => {
-              if (selectCounter < selectAmount) {
-                setProtocolSelectList([...protocolSelectList, item])
-                setSelectCounter(selectCounter + 1)
-              }
-              if (selectCounter === selectAmount && selectAmount === 1) {
-                setProtocolSelectList([item])
-              }
-            }}
-          >
-            {item.task}
-          </div>
-        ))}
-      </div>
-    </div>
+    <DuringActivityContainer>
+      <DuringActivityTitle>Select from these Protocols</DuringActivityTitle>
+      <DuringActivityBody>
+        {protocolList.map((item, i) => {
+          const selected = protocolSelectList.some(
+            (protocol) => protocol.task === item.task
+          )
+
+          return (
+            <DuringActivitySelection
+              key={i}
+              selected={selected}
+              onClick={() => {
+                if (!selected) {
+                  // if (selectCounter < selectAmount) {
+                  //   setProtocolSelectList([...protocolSelectList, item])
+                  //   setSelectCounter(selectCounter + 1)
+                  // }
+                  // if (selectCounter === selectAmount && selectAmount === 1) {
+                  //   setProtocolSelectList([item])
+                  // }
+                  setProtocolSelectList([...protocolSelectList, item])
+                }
+                if (selected) {
+                  const index = protocolSelectList.findIndex(
+                    (items) => items.task === item.task
+                  )
+                  console.log(index)
+                  setProtocolSelectList([
+                    ...protocolSelectList.slice(0, index),
+                    ...protocolSelectList.slice(index + 1),
+                  ])
+                }
+              }}
+            >
+              {item.task}
+            </DuringActivitySelection>
+          )
+        })}
+      </DuringActivityBody>
+    </DuringActivityContainer>
   )
 }

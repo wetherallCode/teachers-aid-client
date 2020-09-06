@@ -6,10 +6,10 @@ import {
 } from '../../../../../schemaTypes'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { dateConverter } from '../../../../../utils'
+import { LessonPlannerButton } from './state-and-styles/lessonPlannerStyles'
+import { useNavigate } from 'react-router'
 
-export type CreateLessonProps = {
-  mp: MarkingPeriodEnum
-}
+export type CreateLessonProps = {}
 
 export const CREATE_LESSON_MUTATION = gql`
   mutation createLesson($input: CreateLessonInput!) {
@@ -22,9 +22,9 @@ export const CREATE_LESSON_MUTATION = gql`
   }
 `
 
-export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
+export const CreateLesson: FC<CreateLessonProps> = () => {
   const [state] = useLessonPlannerContextProvider()
-
+  const navigate = useNavigate()
   const {
     afterActivity,
     beforeActivity,
@@ -41,6 +41,7 @@ export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
     lessonName,
     startingPage,
     endingPage,
+    markingPeriod,
   } = state.context
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -51,7 +52,7 @@ export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
         input: {
           assignedCourses: courses,
           assignedDate: dateConverter(date),
-          assignedMarkingPeriod: mp,
+          assignedMarkingPeriod: markingPeriod,
           inUnit,
           assignedSections: {
             startingSection,
@@ -64,23 +65,24 @@ export const CreateLesson: FC<CreateLessonProps> = ({ mp }) => {
           afterActivity,
           questionList,
           duringActivities: duringActivity,
-          essentialQuestion: essentialQuestion.question,
+          essentialQuestion: essentialQuestion,
           pageNumbers: {
             startingPage,
             endingPage,
           },
         },
       },
-      onCompleted: (data) => console.log(data),
+      onCompleted: () => navigate('/dashboard'),
       onError: (error) => console.log(error),
 
       refetchQueries: ['findLessonByCourseAndDate'],
     }
   )
   return (
-    <div>
-      <div>Create Lesson</div>
-      <button onClick={() => createLesson()}>Create</button>
-    </div>
+    <>
+      <LessonPlannerButton onClick={() => createLesson()}>
+        Create Lesson
+      </LessonPlannerButton>
+    </>
   )
 }

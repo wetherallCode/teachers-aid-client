@@ -6,6 +6,13 @@ import {
 } from '../../../../../schemaTypes'
 import { FIND_CHAPTERS_IN_TEXT_QUERY } from '../section-builder/ChapterSelect'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
+import {
+  TextPickerTextSelection,
+  TextPickerHeader,
+  TextPickerBody,
+  SectionPickerButtonContainer,
+  SectionPickerNextButton,
+} from './state-and-styles/lessonPlannerStyles'
 
 export type LessonPlannerChapterSelectProps = {
   text: string
@@ -14,20 +21,25 @@ export type LessonPlannerChapterSelectProps = {
 export const LessonPlannerChapterSelect: FC<LessonPlannerChapterSelectProps> = ({
   text,
 }) => {
-  const [, event] = useLessonPlannerContextProvider()
+  const [state, event] = useLessonPlannerContextProvider()
   const { loading, error, data } = useQuery<
     findChaptersInText,
     findChaptersInTextVariables
   >(FIND_CHAPTERS_IN_TEXT_QUERY, {
     variables: { input: { textTitle: text } },
+    onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
-  if (error) console.error(error)
 
   return (
-    <div>
-      <div>Chapter</div>
-      <select
+    <>
+      <TextPickerHeader>
+        Select Chapter from {state.context.fromText}
+      </TextPickerHeader>
+      {loading ? (
+        <TextPickerBody></TextPickerBody>
+      ) : (
+        <TextPickerBody>
+          {/* <select
         onChange={(e: any) => {
           if (e.target.value !== 'Choose a Chapter') {
             const arr = e.target.value.split(',')
@@ -46,7 +58,30 @@ export const LessonPlannerChapterSelect: FC<LessonPlannerChapterSelectProps> = (
             {chapter.chapterTitle}
           </option>
         ))}
-      </select>
-    </div>
+      </select> */}
+          {data?.findChaptersInText.chapters.map((chapter) => (
+            <TextPickerTextSelection
+              onClick={() => {
+                event({ type: 'SET_CHAPTER_ID', payload: chapter._id! })
+                event({
+                  type: 'SET_CHAPTER_TITLE',
+                  payload: chapter.chapterTitle,
+                })
+                event({ type: 'NEXT' })
+              }}
+              key={chapter._id!}
+              // value={[chapter._id!, chapter.chapterTitle]}
+            >
+              {chapter.chapterTitle}
+            </TextPickerTextSelection>
+          ))}
+        </TextPickerBody>
+      )}
+      <SectionPickerButtonContainer>
+        <SectionPickerNextButton onClick={() => event({ type: 'PREVIOUS' })}>
+          Back
+        </SectionPickerNextButton>
+      </SectionPickerButtonContainer>
+    </>
   )
 }
