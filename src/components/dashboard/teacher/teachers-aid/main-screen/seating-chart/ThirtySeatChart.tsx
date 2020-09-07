@@ -1,18 +1,18 @@
 import React, { FC } from 'react'
 import {
-  TwentyFourSeatFloorPlan,
+  ThirtySeatFloorPlan,
   PairSeatingGroup,
-  DeskContainer,
   LeftSide,
+  DeskContainer,
   RightSide,
 } from '../../styles/seatingChartStyles'
 import { Desk } from './Desk'
 
-export type TwentyFourSeatChartProps = {}
+export type ThirtySeatChartProps = {}
 
-export const TwentyFourSeatChart: FC<TwentyFourSeatChartProps> = () => {
+export const ThirtySeatChart: FC<ThirtySeatChartProps> = () => {
   return (
-    <TwentyFourSeatFloorPlan>
+    <ThirtySeatFloorPlan>
       <PairSeatingGroup>
         <LeftSide>
           <DeskContainer>
@@ -157,6 +157,42 @@ export const TwentyFourSeatChart: FC<TwentyFourSeatChartProps> = () => {
           </DeskContainer>
         </RightSide>
       </PairSeatingGroup>
-    </TwentyFourSeatFloorPlan>
+      <PairSeatingGroup>
+        <LeftSide>
+          <DeskContainer>
+            <Desk deskNumber={25} />
+          </DeskContainer>
+        </LeftSide>
+        <RightSide>
+          <DeskContainer>
+            <Desk deskNumber={26} />
+          </DeskContainer>
+        </RightSide>
+      </PairSeatingGroup>
+      <PairSeatingGroup>
+        <LeftSide>
+          <DeskContainer>
+            <Desk deskNumber={27} />
+          </DeskContainer>
+        </LeftSide>
+        <RightSide>
+          <DeskContainer>
+            <Desk deskNumber={28} />
+          </DeskContainer>
+        </RightSide>
+      </PairSeatingGroup>
+      <PairSeatingGroup>
+        <LeftSide>
+          <DeskContainer>
+            <Desk deskNumber={29} />
+          </DeskContainer>
+        </LeftSide>
+        <RightSide>
+          <DeskContainer>
+            <Desk deskNumber={30} />
+          </DeskContainer>
+        </RightSide>
+      </PairSeatingGroup>
+    </ThirtySeatFloorPlan>
   )
 }

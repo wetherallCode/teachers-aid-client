@@ -16,6 +16,13 @@ export const StartingDisplay = styled.div`
   align-items: center;
 `
 
+export const ThirtySeatFloorPlan = styled.div`
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+`
+
 export const TwentyFourSeatFloorPlan = styled.div`
   display: grid;
   height: 100%;

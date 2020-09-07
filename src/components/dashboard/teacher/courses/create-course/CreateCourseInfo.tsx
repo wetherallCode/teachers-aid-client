@@ -183,25 +183,25 @@ export const CreateCourseInfo: FC<CreateCourseInfoProps> = () => {
         </button>
       </div>
 
-      {!state.context.courseInfo.cohortBasedSeating && (
-        <>
-          <div>Course's Max Size</div>
-          <select
-            onChange={(e: any) => {
-              if (e.target.value !== 'none') {
-                event({ type: 'ADD_COURSE_MAX_SIZE', payload: e.target.value })
-              }
-            }}
-          >
-            <option value={'none'}>Select a Class Size</option>
-            {courseMaxSizeEnum.map((courseSize: CourseMaxSizeEnum) => (
-              <option key={courseSize!} value={courseSize}>
-                {courseSize}
-              </option>
-            ))}
-          </select>
-        </>
-      )}
+      {/* {!state.context.courseInfo.cohortBasedSeating && ( */}
+      <>
+        <div>Course's Max Size</div>
+        <select
+          onChange={(e: any) => {
+            if (e.target.value !== 'none') {
+              event({ type: 'ADD_COURSE_MAX_SIZE', payload: e.target.value })
+            }
+          }}
+        >
+          <option value={'none'}>Select a Class Size</option>
+          {courseMaxSizeEnum.map((courseSize: CourseMaxSizeEnum) => (
+            <option key={courseSize!} value={courseSize}>
+              {courseSize}
+            </option>
+          ))}
+        </select>
+      </>
+      {/* )} */}
       <button
         onClick={() => {
           createCourseInfo()
