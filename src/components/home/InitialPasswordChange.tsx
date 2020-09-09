@@ -6,6 +6,7 @@ import {
 } from '../../schemaTypes'
 import { gql, useMutation } from '@apollo/client'
 import { useNavigate } from 'react-router'
+import { AcceptNewPasswordButton, NewPasswordInpt } from './homeStyles'
 
 export type InitialPasswordChangeProps = { me: me_me }
 export const CHANGE_PASSWORD_MUTATION = gql`
@@ -35,7 +36,8 @@ export const InitialPasswordChange: FC<InitialPasswordChangeProps> = ({
   return (
     <>
       <div>Change your password!</div>
-      <input
+      <NewPasswordInpt
+        type='password'
         onChange={(e: any) => {
           if (e.target.value !== '') {
             setNewPassword(e.target.value)
@@ -43,13 +45,13 @@ export const InitialPasswordChange: FC<InitialPasswordChangeProps> = ({
         }}
       />
       {newPassword && (
-        <button
+        <AcceptNewPasswordButton
           onClick={() => {
             changePassword()
           }}
         >
           Accept New Password
-        </button>
+        </AcceptNewPasswordButton>
       )}
     </>
   )
