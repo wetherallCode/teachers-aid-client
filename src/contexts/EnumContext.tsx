@@ -80,7 +80,7 @@ type EnumContextProps = {
 
 export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
   const { loading, error, data } = useQuery<enumValues>(ENUM_VALUES)
-  if (loading) return <div>Loading </div>
+  // if (loading) return <div>Loading </div>
   if (error) console.error(error)
 
   return (

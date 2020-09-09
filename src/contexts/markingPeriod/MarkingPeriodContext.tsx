@@ -50,7 +50,7 @@ export const MarkingPeriodContextProvider: FC<MarkingPeriodContext> = ({
         }),
     }
   )
-  if (loading) return <div>Loading </div>
+  if (loading) return <div>Loading, it may take a little bit. Be patient. </div>
   if (error) console.error(error)
 
   return (
