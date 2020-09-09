@@ -74,7 +74,7 @@ export const AssignWhiteCohort: FC<AssignWhiteCohortProps> = ({
 
   return (
     <>
-      <div>Assign Red Cohort Seats</div>
+      <div>Assign Cohort Two Seats</div>
       {course.hasStudents
         .filter((student) => student.cohort === StudentCohortEnum.WHITE)
         .map((student) => {
