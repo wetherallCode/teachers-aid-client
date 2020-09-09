@@ -24,6 +24,7 @@ export const FIND_COURSE_BY_ID_QUERY = gql`
           cohort
         }
         hasCourseInfo {
+          _id
           courseType
           cohortBasedSeating
           assignedSeats {
