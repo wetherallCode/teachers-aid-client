@@ -22,12 +22,17 @@ export const InitialPasswordChange: FC<InitialPasswordChangeProps> = ({
   me,
 }) => {
   const [newPassword, setNewPassword] = useState('')
+  const [passwordDoubleCheck, setPasswordDoubleCheck] = useState('')
   const navigate = useNavigate()
   const [changePassword] = useMutation<changePassword, changePasswordVariables>(
     CHANGE_PASSWORD_MUTATION,
     {
       variables: {
-        input: { userName: me.userName, oldPassword: 'password', newPassword },
+        input: {
+          userName: me.userName,
+          oldPassword: 'password',
+          newPassword: passwordDoubleCheck,
+        },
       },
       onCompleted: (data) => navigate('/'),
       refetchQueries: ['me'],
@@ -44,7 +49,16 @@ export const InitialPasswordChange: FC<InitialPasswordChangeProps> = ({
           }
         }}
       />
-      {newPassword && (
+      <div>Type your password in again to double check!</div>
+      <NewPasswordInpt
+        type='password'
+        onChange={(e: any) => {
+          if (e.target.value !== '') {
+            setPasswordDoubleCheck(e.target.value)
+          }
+        }}
+      />
+      {passwordDoubleCheck === newPassword && (
         <AcceptNewPasswordButton
           onClick={() => {
             changePassword()
