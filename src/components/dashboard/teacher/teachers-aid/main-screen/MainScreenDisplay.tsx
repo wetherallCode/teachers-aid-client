@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { SeatingChart } from './seating-chart/SeatingChart'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
-import { VirtualProtocolResponse } from './VirtualProtocolResponse'
+import { VirtualProtocolResponse } from './protocol-response/VirtualProtocolResponse'
 import { useSchoolDayContextProvider } from '../../../school-day/state/SchoolDayContext'
 import { Attendance } from './seating-chart/Attendance'
 

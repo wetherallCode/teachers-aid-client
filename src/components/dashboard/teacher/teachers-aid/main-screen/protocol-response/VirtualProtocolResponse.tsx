@@ -1,10 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
-import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
+import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { gql, useQuery } from '@apollo/client'
 import {
   findVirtualResponses,
   findVirtualResponsesVariables,
-} from '../../../../../schemaTypes'
+  ProtocolActivityTypes,
+} from '../../../../../../schemaTypes'
+import { ProtocolResponseAssessor } from './ProtocolResponseAssessor'
 
 export type VirtualProtocolResponseProps = {}
 export const VIRTUAL_RESPONSE_QUERY = gql`
@@ -27,6 +29,9 @@ export const VIRTUAL_RESPONSE_QUERY = gql`
               }
               isActive
               response
+              assignedDate
+              task
+              protocolActivityType
             }
           }
         }
@@ -37,7 +42,14 @@ export const VIRTUAL_RESPONSE_QUERY = gql`
 export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
   const [state, event] = useTeachersAidContextProvider()
   const [responseList, setResponseList] = useState<
-    { studentName: string; response: string }[]
+    {
+      studentName: string
+      response: string
+      studentId: string
+      assignedDate: string
+      task: string
+      protocolActivityType: ProtocolActivityTypes
+    }[]
   >([])
 
   const { loading, data } = useQuery<
@@ -77,6 +89,10 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
               {
                 studentName: `${value.student.lastName}, ${value.student.firstName}`,
                 response: value.response!,
+                studentId: value.student._id!,
+                assignedDate: value.assignedDate!,
+                protocolActivityType: value.protocolActivityType,
+                task: value.task,
               },
             ])
           }
@@ -90,9 +106,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
     <>
       <div>
         {responseList.map((response, i: number) => (
-          <div key={i}>
-            {i + 1}: {response.studentName}: {response.response}
-          </div>
+          <ProtocolResponseAssessor response={response} i={i} />
         ))}
       </div>
     </>
