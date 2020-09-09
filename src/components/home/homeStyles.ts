@@ -111,11 +111,11 @@ export const LoginToggle = styled.div<LoginToggleProps>`
   margin-right: 2%;
 `
 export const PasswordContainer = styled.div`
-  grid-row: 4/5;
+  grid-row: 4/7;
   grid-column: 1/-1;
   font-size: 2rem;
   display: grid;
-  height: 140%;
+  /* height: 140%; */
   justify-items: center;
   align-items: center;
 `
