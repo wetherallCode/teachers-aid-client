@@ -62,6 +62,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
   >(REGISTER_STUDENT_MUTATION, {
     variables: { input: state.context.studentToRegister },
     onCompleted: (data) => {
+      console.log(data.registerStudent.student.firstName)
       event({
         type: 'ADD_STUDENT_IDS',
         payload: data.registerStudent.student._id!,
@@ -77,7 +78,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
       event({ type: 'ADD_COHORT', payload: StudentCohortEnum.RED })
     } else event({ type: 'ADD_COHORT', payload: StudentCohortEnum.WHITE })
   }, [state.context.studentToRegister.lastName])
-
+  console.log(state.context.studentToRegister.cohort)
   if (loading) return <div>Loading </div>
   return (
     <>
@@ -108,7 +109,23 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
             event({ type: 'ADD_EMAIL', payload: e.target.value })
           }
         />
-        <RegisterUserNameAndPassword userNamesInUse={userNamesInUse!} />
+        <div>School Id:</div>
+        <input
+          onChange={(e: any) =>
+            event({ type: 'ADD_SCHOOL_ID', payload: e.target.value })
+          }
+        />
+        <div>Change Cohort:</div>
+        <select
+          value={state.context.studentToRegister.cohort}
+          onChange={(e: any) =>
+            event({ type: 'ADD_COHORT', payload: e.target.value })
+          }
+        >
+          <option value={StudentCohortEnum.RED}>Red</option>
+          <option value={StudentCohortEnum.WHITE}>White</option>
+        </select>
+        {/* <RegisterUserNameAndPassword userNamesInUse={userNamesInUse!} /> */}
         {!addToCourseToggle &&
           userNamesInUse?.includes(
             state.context.studentToRegister.userName

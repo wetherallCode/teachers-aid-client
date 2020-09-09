@@ -110,6 +110,18 @@ export const addStudentsMachine = Machine<
             }
           }),
         },
+        ADD_EMAIL: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              studentToRegister: {
+                ...ctx.studentToRegister,
+                email: evt.payload,
+                userName: evt.payload,
+              },
+            }
+          }),
+        },
         ADD_COHORT: {
           actions: assign((ctx, evt) => {
             return {
