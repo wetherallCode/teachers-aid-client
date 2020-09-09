@@ -2159,6 +2159,7 @@ export interface findCourseByIdForStudentRegistration_findCourseById_course_hasC
 
 export interface findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo {
   __typename: "CourseInfo";
+  _id: string | null;
   courseType: CourseTypeEnum;
   cohortBasedSeating: boolean;
   assignedSeats: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo_assignedSeats[];
@@ -3509,6 +3510,9 @@ export interface findVirtualResponses_findCourseInfoByCourseId_courseInfo_course
   student: findVirtualResponses_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols_student;
   isActive: boolean;
   response: string | null;
+  assignedDate: string;
+  task: string;
+  protocolActivityType: ProtocolActivityTypes;
 }
 
 export interface findVirtualResponses_findCourseInfoByCourseId_courseInfo_course_hasStudents {
