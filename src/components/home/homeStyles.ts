@@ -49,7 +49,7 @@ export const GetStartedButton = styled.button`
   ${media.macBookPro16} {
     width: 10rem;
     height: 3rem;
-    font-size: smaller;
+    font-size: larger;
     color: var(--white);
     background-color: var(--blue);
     box-shadow: 3px 3px 3px var(--grey);
