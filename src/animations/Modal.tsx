@@ -21,7 +21,7 @@ export const Modal = ({ isToggled, setIsToggled, children }: ModalProps) => {
           exit={{ opacity: 0 }}
           style={{
             position: 'fixed',
-            width: '20%',
+            width: '40%',
             top: '10%',
             left: '50%',
             transform: 'translate3d(-50%, 0, 0)',
