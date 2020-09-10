@@ -22,10 +22,17 @@ export const LoginRow = styled.div`
   grid-template-columns: 1fr 1fr;
   margin: 2%;
 `
+export const ButtonContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: end;
+`
 export const Button = styled.button`
   height: 2rem;
   width: 15rem;
+  margin-top: 10%;
   font-size: 1.5rem;
   background: var(--blue);
   color: var(--white);
+  justify-self: center;
 `

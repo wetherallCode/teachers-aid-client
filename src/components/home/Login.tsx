@@ -5,7 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { gql, useMutation } from '@apollo/client'
 import { login, loginVariables, me_me } from '../../schemaTypes'
 
-import { Button, LoginRow, LoginWrapper, LoginTitle } from './loginStyles'
+import {
+  Button,
+  LoginRow,
+  LoginWrapper,
+  LoginTitle,
+  ButtonContainer,
+} from './loginStyles'
 import { useUserContextProvider } from '../../contexts/UserContext'
 
 const LOGIN_MUTATION = gql`
@@ -84,14 +90,16 @@ export const Login: FC<LoginProps> = ({ toggleLogin }) => {
             onChange={handleChange}
           />
         </LoginRow>
-        <Button
-          type='submit'
-          onClick={() => {
-            loginMutation()
-          }}
-        >
-          Login
-        </Button>
+        <ButtonContainer>
+          <Button
+            type='submit'
+            onClick={() => {
+              loginMutation()
+            }}
+          >
+            Login
+          </Button>
+        </ButtonContainer>
       </form>
     </LoginWrapper>
   )
