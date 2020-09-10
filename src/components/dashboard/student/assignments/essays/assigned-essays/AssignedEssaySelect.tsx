@@ -72,17 +72,21 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
             </AssignmentTypeContentContainer>
           ) : (
             <AssignmentTypeContentContainer>
-              {essaysForMarkingPeriod &&
-                essaysForMarkingPeriod
-                  .filter((essay) => !essay.paperBased)
-                  .map((essay) => (
-                    <AssignmentLink
-                      to={`essay/toComplete/${essay._id!}`}
-                      key={essay._id!}
-                    >
-                      {essay.readings.readingSections}
-                    </AssignmentLink>
-                  ))}
+              <ul>
+                {essaysForMarkingPeriod &&
+                  essaysForMarkingPeriod
+                    .filter((essay) => !essay.paperBased)
+                    .map((essay) => (
+                      <li style={{ fontSize: '2rem' }}>
+                        <AssignmentLink
+                          to={`essay/toComplete/${essay._id!}`}
+                          key={essay._id!}
+                        >
+                          {essay.readings.readingSections}
+                        </AssignmentLink>
+                      </li>
+                    ))}
+              </ul>
             </AssignmentTypeContentContainer>
           )}
         </>
