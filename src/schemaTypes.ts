@@ -143,47 +143,6 @@ export interface findCurrentSchoolDayVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findEssaysToComplete
-// ====================================================
-
-export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings {
-  __typename: "Readings";
-  readingSections: string;
-}
-
-export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic {
-  __typename: "Topic";
-  writingLevel: WritingLevelEnum;
-}
-
-export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
-  __typename: "Essay";
-  _id: string | null;
-  paperBased: boolean;
-  readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
-  topic: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic;
-  markingPeriod: MarkingPeriodEnum;
-}
-
-export interface findEssaysToComplete_findEssaysToCompleteByStudentId {
-  __typename: "FindEssaysToCompleteByStudentIdPayload";
-  essays: findEssaysToComplete_findEssaysToCompleteByStudentId_essays[];
-}
-
-export interface findEssaysToComplete {
-  findEssaysToCompleteByStudentId: findEssaysToComplete_findEssaysToCompleteByStudentId;
-}
-
-export interface findEssaysToCompleteVariables {
-  input: FindEssaysToCompleteByStudentIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findEssayById
 // ====================================================
 
@@ -4335,6 +4294,47 @@ export interface me_findCurrentMarkingPeriod {
 export interface me {
   me: me_me | null;
   findCurrentMarkingPeriod: me_findCurrentMarkingPeriod;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssaysToComplete
+// ====================================================
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic {
+  __typename: "Topic";
+  writingLevel: WritingLevelEnum;
+}
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
+  __typename: "Essay";
+  _id: string | null;
+  paperBased: boolean;
+  readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
+  topic: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findEssaysToComplete_findEssaysToCompleteByStudentId {
+  __typename: "FindEssaysToCompleteByStudentIdPayload";
+  essays: findEssaysToComplete_findEssaysToCompleteByStudentId_essays[];
+}
+
+export interface findEssaysToComplete {
+  findEssaysToCompleteByStudentId: findEssaysToComplete_findEssaysToCompleteByStudentId;
+}
+
+export interface findEssaysToCompleteVariables {
+  input: FindEssaysToCompleteByStudentIdInput;
 }
 
 /* tslint:disable */
