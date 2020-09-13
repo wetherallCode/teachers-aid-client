@@ -22,4 +22,6 @@ export const EssayInfoBody = styled(ReadingGuideInfoBody)``
 
 export const EssaySectionOrganizationBodyEntry = styled(
   SectionOrganizationBodyEntry
-)``
+)`
+  padding-top: 10%;
+`

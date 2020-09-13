@@ -123,34 +123,39 @@ export const TextSectionEditorDisplay = () => {
         type: 'SET_PAGE_NUMBERS',
         payload: data.findTextSectionById.textSection.pageNumbers,
       })
-      event({
-        type: 'SET_VOCAB_LIST',
-        payload: data.findTextSectionById.textSection.hasVocab.map((word) => ({
-          word: word.word,
-          definition: word.definition,
-        })),
-      })
-      event({
-        type: 'SET_QUESTIONS_LIST',
-        payload: data.findTextSectionById.textSection.hasQuestions.map(
-          (question) => ({
-            question: question.question,
-            questionType: question.questionType,
-          })
-        ),
-      })
-      event({
-        type: 'SET_PROTOCOLS_LIST',
-        payload: data.findTextSectionById.textSection.hasProtocols.map(
-          (protocol) => ({
-            academicOutcomeTypes: protocol.academicOutcomeTypes,
-            activityType: protocol.activityType,
-            task: protocol.task,
-            isActive: false,
-            completed: false,
-          })
-        ),
-      })
+      data.findTextSectionById.textSection.hasVocab &&
+        event({
+          type: 'SET_VOCAB_LIST',
+          payload: data.findTextSectionById.textSection.hasVocab?.map(
+            (word) => ({
+              word: word.word,
+              definition: word.definition,
+            })
+          ),
+        })
+      data.findTextSectionById.textSection.hasQuestions &&
+        event({
+          type: 'SET_QUESTIONS_LIST',
+          payload: data.findTextSectionById.textSection.hasQuestions?.map(
+            (question) => ({
+              question: question.question,
+              questionType: question.questionType,
+            })
+          ),
+        })
+      data.findTextSectionById.textSection.hasProtocols &&
+        event({
+          type: 'SET_PROTOCOLS_LIST',
+          payload: data.findTextSectionById.textSection.hasProtocols?.map(
+            (protocol) => ({
+              academicOutcomeTypes: protocol.academicOutcomeTypes,
+              activityType: protocol.activityType,
+              task: protocol.task,
+              isActive: false,
+              completed: false,
+            })
+          ),
+        })
     },
   })
   if (loading) return <div>Loading </div>

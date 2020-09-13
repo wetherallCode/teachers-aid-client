@@ -16,8 +16,8 @@ import { EnumContextProvider } from './contexts/EnumContext'
 import { SchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 
 // const link = new HttpLink({
-//   uri: 'https://mrwetherall.org/graphql',
-//   credentials: 'same-origin',
+//   uri: 'https://localhost:4000/graphql',
+//   credentials: 'include',
 // })
 const link = new HttpLink({
   uri: 'https://teachers-aid-server.herokuapp.com/graphql',

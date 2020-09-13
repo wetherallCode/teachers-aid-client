@@ -36,7 +36,7 @@ export const ActivitiesEditor: FC<ActivitiesEditorProps> = () => {
   const questions: TextSectionQuestionsInput[] = []
 
   data?.findTextSectionsById.textSections.forEach((section) => {
-    section.hasProtocols.forEach((protocol) => {
+    section.hasProtocols?.forEach((protocol) => {
       protocols.push({
         academicOutcomeTypes: protocol.academicOutcomeTypes,
         activityType: protocol.activityType,
@@ -46,7 +46,7 @@ export const ActivitiesEditor: FC<ActivitiesEditorProps> = () => {
       })
     })
 
-    section.hasQuestions.forEach((question) => {
+    section.hasQuestions?.forEach((question) => {
       questions.push({
         question: question.question,
         questionType: question.questionType,

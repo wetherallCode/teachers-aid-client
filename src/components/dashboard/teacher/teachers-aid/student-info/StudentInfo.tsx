@@ -12,6 +12,7 @@ import {
   StudentNameContainer,
 } from '../styles/studentInfoStyles'
 import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
+import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type StudentInfoProps = {}
 export const FIND_STUDENT_INFORMATION_QUERY = gql`
@@ -23,6 +24,10 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
         lastName
         hasAbsences {
           dayAbsent
+        }
+        hasResponsibilityPoints {
+          _id
+          markingPeriod
         }
         hasAssignments {
           ... on ReadingGuide {
@@ -59,6 +64,7 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
           completed
           assessment
           protocolActivityType
+          markingPeriod
         }
       }
     }
@@ -67,6 +73,8 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
 
 export const StudentInfo: FC<StudentInfoProps> = () => {
   const [state, event] = useTeachersAidContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+
   const [loadStudentInfo, { loading, data }] = useLazyQuery<
     findStudentInfoByStudentId,
     findStudentInfoByStudentIdVariables
@@ -101,6 +109,7 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
                 : protocol.discussionLevel,
             studentId: data.findStudentById.student._id!,
             partnerIds: protocol.partners ? partnerList! : [],
+            markingPeriod: protocol.markingPeriod,
           },
         })
       }
@@ -113,7 +122,13 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
       loadStudentInfo()
     }
   }, [loadStudentInfo, state.context.studentId])
-  // console.log(state.context.)
+
+  const [
+    responsibilityPoints,
+  ] = data?.findStudentById.student.hasResponsibilityPoints.filter(
+    (rp) => rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
+  )
+  console.log(responsibilityPoints.responsibilityPoints)
   if (loading)
     return (
       <>
@@ -131,6 +146,7 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
           {data?.findStudentById.student.firstName}{' '}
           {data?.findStudentById.student.lastName}
         </StudentNameContainer>
+        <div>{responsibilityPoints.responsibilityPoints}</div>
       </StudentInfoDisplay>
       <StudentControlPanel>
         <StudentControlPanelDisplay

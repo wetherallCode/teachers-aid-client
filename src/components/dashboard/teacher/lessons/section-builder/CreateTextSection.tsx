@@ -35,7 +35,10 @@ export const CreateTextSection = () => {
         hasVocab: state.context.hasVocab,
       },
     },
-    onCompleted: () => event({ type: 'COMPLETE' }),
+    onCompleted: () => {
+      event({ type: 'RESET_SECTION' })
+      event({ type: 'COMPLETE' })
+    },
     refetchQueries: ['FindTextSectionById'],
   })
   return <button onClick={() => createTextSection()}>Add Section</button>

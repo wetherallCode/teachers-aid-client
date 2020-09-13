@@ -79,7 +79,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
   useEffect(() => {
     updateDevelopingOrganizer()
   }, [state.context.developingOrganizer, updateDevelopingOrganizer])
-
+  console.log(state.value)
   return (
     <>
       <OrganizerTitleContainer>
@@ -113,7 +113,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
             </QuestionTypeContainer>
             <PartsOfQuestionContainer>
               <PartsOfQuestionTitle>
-                Set the Parts of the Question
+                Identify the Parts of the Question:
               </PartsOfQuestionTitle>
               <PartContainer>
                 <div>What is the Subject of the question: </div>
@@ -156,7 +156,10 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
         {state.matches('organizers.developingOrganizer.restatement') && (
           <>
             <RestatementTitle>
-              <div>Restate the Question in the form of a statement</div>
+              <div>
+                Restate the question in the form of a statement with the correct
+                ending:
+              </div>
             </RestatementTitle>
             <RestatementInput
               autoFocus={true}

@@ -31,6 +31,7 @@ export type sectionBuilderMachineEvent =
   | { type: 'SET_VOCAB_LIST'; payload: TextSectionVocabInput }
   | { type: 'SET_QUESTIONS_LIST'; payload: TextSectionQuestionsInput }
   | { type: 'SET_PROTOCOLS_LIST'; payload: TextSectionProtocolsInput }
+  | { type: 'RESET_SECTION' }
 
 export type sectionBuilderMachineContext = {
   fromText: string
@@ -168,6 +169,24 @@ export const sectionBuilderMachine = Machine<
       on: {
         PREVIOUS: 'protocols',
         COMPLETE: 'text',
+        RESET_SECTION: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              fromText: '',
+              fromChapterId: '',
+              fromChapterTitle: '',
+              header: '',
+              pageNumbers: {
+                startingPage: 0,
+                endingPage: 0,
+              },
+              hasProtocols: [],
+              hasQuestions: [],
+              hasVocab: [],
+            }
+          }),
+        },
       },
     },
   },

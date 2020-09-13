@@ -198,6 +198,7 @@ export const LessonPlannerActivityBody = styled(Standard8x12Container)`
 export const VocabList = styled.div`
   grid-row: 2/-1;
   grid-column: 1/4;
+  overflow: scroll;
 `
 
 export const LessonNameContainer = styled.div`
@@ -225,6 +226,7 @@ export const LessonNameInput = styled.input`
 export const ActivityContainer = styled.div`
   grid-row: 2/5;
   grid-column: 4/-1;
+  overflow: scroll;
 `
 
 export const ActivitySelectorContainer = styled.div`

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title } from './sectionBuilderStyles'
+import { Title } from './state/sectionBuilderStyles'
 import { TextListLoader } from './TextListLoader'
 import { ChapterSelect } from './ChapterSelect'
 import { VocabInfo } from './VocabInfo'
@@ -107,9 +107,9 @@ export const SectionBuilder = () => {
             <VocabInfo />
             <button
               onClick={() => {
-                if (state.context.hasVocab.length > 0) {
-                  event({ type: 'NEXT' })
-                }
+                // if (state.context.hasVocab.length > 0) {
+                event({ type: 'NEXT' })
+                // }
               }}
             >
               Next
@@ -122,9 +122,9 @@ export const SectionBuilder = () => {
             <QuestionsInfo />
             <button
               onClick={() => {
-                if (state.context.hasQuestions.length > 0) {
-                  event({ type: 'NEXT' })
-                }
+                // if (state.context.hasQuestions.length > 0) {
+                event({ type: 'NEXT' })
+                // }
               }}
             >
               Next
@@ -137,9 +137,9 @@ export const SectionBuilder = () => {
             <ProtocolsInfo />
             <button
               onClick={() => {
-                if (state.context.hasProtocols.length > 0) {
-                  event({ type: 'NEXT' })
-                }
+                // if (state.context.hasProtocols.length > 0) {
+                event({ type: 'NEXT' })
+                // }
               }}
             >
               Next
@@ -150,7 +150,7 @@ export const SectionBuilder = () => {
           <div>
             <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
             <CreateTextSection />
-            <button onClick={() => event({ type: 'NEXT' })}>Next</button>
+            {/* <button onClick={() => event({ type: 'NEXT' })}>Next</button> */}
           </div>
         )}
       </div>

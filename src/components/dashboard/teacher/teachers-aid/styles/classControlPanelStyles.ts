@@ -200,6 +200,13 @@ export const CenteredDiv = styled.div`
   align-items: center;
 `
 
+export const DynamicLessonButtonContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  background-color: inherit;
+`
+
 export const DynamicLessonButton = styled.button<DynamicLessonButtonProps>`
   color: var(--blue);
   height: 40%;

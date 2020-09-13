@@ -18,7 +18,21 @@ export const Rubrics: FC<RubricsProps> = () => {
           <ul>
             {state.context.writingLevel === 'DEVELOPING' && (
               <EssaySectionOrganizationBodyEntry>
-                Developing Rubric
+                <>
+                  <EssaySectionOrganizationBodyEntry>
+                    Must have all three parts of the essay: A restatement,
+                    answer, conclusion.
+                  </EssaySectionOrganizationBodyEntry>
+                  <EssaySectionOrganizationBodyEntry>
+                    Answer must be on topic with the question asked.
+                  </EssaySectionOrganizationBodyEntry>
+                  <EssaySectionOrganizationBodyEntry>
+                    Conclusion must be a consequence of the subject's actions.
+                  </EssaySectionOrganizationBodyEntry>
+                  <EssaySectionOrganizationBodyEntry>
+                    Use only material from the assigned text.
+                  </EssaySectionOrganizationBodyEntry>
+                </>
               </EssaySectionOrganizationBodyEntry>
             )}
             {state.context.writingLevel === 'ACADEMIC' && (

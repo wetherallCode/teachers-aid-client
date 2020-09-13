@@ -48,10 +48,13 @@ export const MarkingPeriodContextProvider: FC<MarkingPeriodContext> = ({
           payload:
             data?.findCurrentMarkingPeriod.markingPeriod.currentMarkingPeriod,
         }),
+      onError: (error) => <div>Things went wrong, please refresh!</div>,
     }
   )
-  if (loading) return <div>Loading, it may take a little bit. Be patient. </div>
-  if (error) console.error(error)
+  if (loading)
+    return (
+      <div>Getting things ready, it may take a little bit. Be patient. </div>
+    )
 
   return (
     <MarkingPeriodContext.Provider value={[state, event]}>

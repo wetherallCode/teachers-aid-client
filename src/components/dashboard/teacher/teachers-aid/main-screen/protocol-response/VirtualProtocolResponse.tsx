@@ -5,6 +5,7 @@ import {
   findVirtualResponses,
   findVirtualResponsesVariables,
   ProtocolActivityTypes,
+  MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import { ProtocolResponseAssessor } from './ProtocolResponseAssessor'
 
@@ -30,6 +31,7 @@ export const VIRTUAL_RESPONSE_QUERY = gql`
               isActive
               response
               assignedDate
+              markingPeriod
               task
               protocolActivityType
             }
@@ -47,6 +49,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       response: string
       studentId: string
       assignedDate: string
+      markingPeriod: MarkingPeriodEnum
       task: string
       protocolActivityType: ProtocolActivityTypes
     }[]
@@ -63,11 +66,12 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
     pollInterval: 1000,
     onError: (error) => console.error(error),
   })
-  console.log(
-    data?.findCourseInfoByCourseId.courseInfo.course.hasLessons.some((lesson) =>
-      lesson.duringActivities.some((activity) => activity.isActive)
-    )
-  )
+
+  // console.log(
+  //   data?.findCourseInfoByCourseId.courseInfo.course.hasLessons.some((lesson) =>
+  //     lesson.duringActivities.some((activity) => activity.isActive)
+  //   )
+  // )
 
   useEffect(() => {
     if (
@@ -80,7 +84,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
         (student) =>
           student.hasProtocols.filter((protocol) => protocol.isActive)
       )
-      console.log(studentProtocols)
+
       for (const response of studentProtocols) {
         for (const value of response) {
           if (value.response) {
@@ -93,6 +97,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
                 assignedDate: value.assignedDate!,
                 protocolActivityType: value.protocolActivityType,
                 task: value.task,
+                markingPeriod: value.markingPeriod,
               },
             ])
           }

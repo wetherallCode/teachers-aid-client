@@ -18,6 +18,13 @@ export const MainScreenManager: FC<MainScreenManagerProps> = () => {
       >
         Attendance
       </MainScreenControlButton>
+      <MainScreenControlButton
+        onClick={() =>
+          event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' })
+        }
+      >
+        Questions
+      </MainScreenControlButton>
     </>
   )
 }

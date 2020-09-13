@@ -61,6 +61,7 @@ export type teachersAidMachineEvent =
   | { type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' }
+  | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
@@ -77,6 +78,12 @@ export type teachersAidMachineContext = {
   mainScreenSeatingChart: boolean
   mainScreenVirtualAttendance: boolean
   mainScreenVirtualProtocolResponses: boolean
+  mainScreenVirtualQuestionViewer: boolean
+  currentMainScreenView:
+    | 'SEATING_CHART'
+    | 'QUESTIONS'
+    | 'PROTOCOL_RESPONSES'
+    | 'VIRTUAL_ATTENDANCE'
 }
 
 export const teachersAidMachine = Machine<
@@ -133,10 +140,13 @@ export const teachersAidMachine = Machine<
       discussionLevel: DiscussionTypesEnum.NOT_REQUIRED,
       partnerIds: null,
       protocolActivityType: ProtocolActivityTypes.INDIVIDUAL,
+      markingPeriod: MarkingPeriodEnum.FIRST,
     },
     mainScreenSeatingChart: true,
     mainScreenVirtualAttendance: false,
     mainScreenVirtualProtocolResponses: false,
+    mainScreenVirtualQuestionViewer: false,
+    currentMainScreenView: 'SEATING_CHART',
   },
   states: {
     teachersAid: {
@@ -192,32 +202,50 @@ export const teachersAidMachine = Machine<
             PREVIOUS: 'protocolManager',
             NEXT: 'dynamicLesson',
             CHANGE_MAIN_SCREEN_SEATING_CHART: {
-              actions: assign((ctx, evt) => {
+              actions: assign((ctx) => {
                 return {
                   ...ctx,
                   mainScreenSeatingChart: true,
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: false,
+                  mainScreenVirtualQuestionViewer: false,
+                  currentMainScreenView: 'SEATING_CHART',
                 }
               }),
             },
             CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE: {
-              actions: assign((ctx, evt) => {
+              actions: assign((ctx) => {
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
                   mainScreenVirtualAttendance: true,
                   mainScreenVirtualProtocolResponses: false,
+                  mainScreenVirtualQuestionViewer: false,
+                  currentMainScreenView: 'VIRTUAL_ATTENDANCE',
                 }
               }),
             },
             CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES: {
-              actions: assign((ctx, evt) => {
+              actions: assign((ctx) => {
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: true,
+                  mainScreenVirtualQuestionViewer: false,
+                  currentMainScreenView: 'PROTOCOL_RESPONSES',
+                }
+              }),
+            },
+            CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER: {
+              actions: assign((ctx) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: false,
+                  mainScreenVirtualAttendance: false,
+                  mainScreenVirtualProtocolResponses: false,
+                  mainScreenVirtualQuestionViewer: true,
+                  currentMainScreenView: 'QUESTIONS',
                 }
               }),
             },
@@ -258,6 +286,8 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: true,
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: false,
+                  mainScreenVirtualQuestionViewer: false,
+                  currentMainScreenView: 'SEATING_CHART',
                 }
               }),
             },
@@ -268,6 +298,8 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: false,
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: true,
+                  mainScreenVirtualQuestionViewer: false,
+                  currentMainScreenView: 'PROTOCOL_RESPONSES',
                 }
               }),
             },

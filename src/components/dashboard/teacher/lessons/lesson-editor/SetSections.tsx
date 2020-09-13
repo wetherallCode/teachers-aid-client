@@ -37,16 +37,16 @@ export const SetSections: FC<SectionsProps> = ({ updateLesson }) => {
   const protocols: TextSectionProtocolsInput[] = []
 
   data?.findTextSectionsById.textSections.forEach((section) => {
-    section.hasVocab.forEach((word) => {
+    section.hasVocab?.forEach((word) => {
       vocab.push({ word: word.word, definition: word.definition })
     })
-    section.hasQuestions.forEach((question) => {
+    section.hasQuestions?.forEach((question) => {
       questions.push({
         question: question.question,
         questionType: question.questionType,
       })
     })
-    section.hasProtocols.forEach((protocol) => {
+    section.hasProtocols?.forEach((protocol) => {
       protocols.push({
         academicOutcomeTypes: protocol.academicOutcomeTypes,
         activityType: protocol.activityType,

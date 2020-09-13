@@ -4,9 +4,11 @@ import {
   assessStudentProtocolVariables,
   ProtocolActivityTypes,
   ProtocolAssessmentEnum,
+  MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import { useMutation } from '@apollo/client'
 import { ASSESS_PROTOCOL_MUTATION } from '../../student-info/protocols/AssessProtocol'
+import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type ProtocolResponseAssessorProps = {
   response: {
@@ -16,6 +18,7 @@ export type ProtocolResponseAssessorProps = {
     assignedDate: string
     task: string
     protocolActivityType: ProtocolActivityTypes
+    markingPeriod: MarkingPeriodEnum
   }
   i: number
 }
@@ -24,16 +27,17 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
   response,
   i,
 }) => {
-  const [protocolAssessment, setProtocolAssessment] = useState<
-    ProtocolAssessmentEnum
-  >(ProtocolAssessmentEnum.REFUSED_TO_WORK)
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  // const [protocolAssessment, setProtocolAssessment] = useState<
+  //   ProtocolAssessmentEnum
+  // >(ProtocolAssessmentEnum.REFUSED_TO_WORK)
 
   const [assessProtocol] = useMutation<
     assessStudentProtocol,
     assessStudentProtocolVariables
   >(ASSESS_PROTOCOL_MUTATION, {
     onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    refetchQueries: ['findVirtualResponses'],
   })
   return (
     <>
@@ -48,7 +52,8 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
                   assignedDate: response.assignedDate,
                   protocolActivityType: response.protocolActivityType,
                   task: response.task,
-                  assessment: ProtocolAssessmentEnum.WORKED_POORLY,
+                  assessment: ProtocolAssessmentEnum.WORKED_WELL,
+                  markingPeriod: response.markingPeriod,
                 },
               },
             })
@@ -66,7 +71,8 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
                   assignedDate: response.assignedDate,
                   protocolActivityType: response.protocolActivityType,
                   task: response.task,
-                  assessment: ProtocolAssessmentEnum.WORKED_WELL,
+                  assessment: ProtocolAssessmentEnum.WORKED_VERY_WELL,
+                  markingPeriod: response.markingPeriod,
                 },
               },
             })

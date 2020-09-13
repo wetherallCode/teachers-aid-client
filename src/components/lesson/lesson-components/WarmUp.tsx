@@ -66,7 +66,7 @@ export const WarmUp: FC<WarmUpProps> = ({ lesson }) => {
 
   return (
     <>
-      <LessonComponentTitleContainer>Warm up</LessonComponentTitleContainer>
+      <LessonComponentTitleContainer>Warm Up</LessonComponentTitleContainer>
       <LessonComponentDetailsContainer>
         <LessonComponentDetailsStyle>
           {lesson.beforeActivity.task}

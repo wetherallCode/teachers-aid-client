@@ -165,6 +165,7 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
         input: { _id: essayToComplete },
       },
       onCompleted: (data) => {
+        console.log(data)
         const draftToParse = JSON.parse(
           data.findEssayById.essay.workingDraft.draft
         )
@@ -329,7 +330,7 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
     }
   )
   if (loading) return <div>Loading </div>
-  console.log(data?.findEssayById.essay.topic.writingLevel)
+  console.log(data)
   const organizer = data?.findEssayById.essay.workingDraft
     .organizer as findEssayById_findEssayById_essay_workingDraft_organizer
 

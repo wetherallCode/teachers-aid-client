@@ -10,7 +10,7 @@ export type EssayHelpProps = {}
 
 export const EssayHelp: FC<EssayHelpProps> = () => {
   const [state] = useStudentEssayContextProvider()
-
+  console.log()
   return (
     <>
       <EssayInfoTitle>Help with Your Essay</EssayInfoTitle>
@@ -18,28 +18,72 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('organizers.developingOrganizer.identifications') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Developing IDs
+              Why Questions: Why is the reason something happened.
+              {/* ; Ending: For a
+              certain reason. */}
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              How Questions: How is the way something changed something or the
+              way a problem was solved.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The subject of a sentence is the person, place or thing (Noun)
+              that is doing something or being something. Example: Robert threw
+              the ball. Robert is the subject.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The verb is the thing the subject is doing or being. In the
+              example, threw is the verb (the ball is the object of the verb).
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
         {state.matches('organizers.developingOrganizer.restatement') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Developing Restatement
+              To restate a question take off the question word (How or Why) and
+              the word ‘did’ if it is in the question.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              Change the verb to past tense. Usually the -ed ending but double
+              check on google if -ed ending doesn’t sound correct.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              Now add a phrase to the end of your restatement that matches the
+              question word.
+              <ul>
+                <li>Why questions will end 'for a certain reason.'</li>
+                <li>How questions will end 'in a certain way.'</li>
+              </ul>
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
         {state.matches('organizers.developingOrganizer.answer') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Developing Answer
+              Do your best to answer the question in a way that fits the
+              question type.
+              <ul>
+                <li>
+                  How questions want to know the way problems are solved or the
+                  way things affect or change other things.
+                </li>
+                <li>
+                  Why questions want to know what caused this to happen (What
+                  were the reasons this happened).
+                </li>
+              </ul>
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
         {state.matches('organizers.developingOrganizer.conclusion') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Developing Conclusion
+              Think of a consequence of the restatement. What was a consequence
+              of the subject’s actions, or the way that subject was being.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              Do not use “That is how the subject did what they did…” as a
+              conclusion because that just restates the restatement.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -142,9 +186,17 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('workingDraft') && (
           <ul>
             {state.context.writingLevel === 'DEVELOPING' && (
-              <EssaySectionOrganizationBodyEntry>
-                Developing Rubric Help
-              </EssaySectionOrganizationBodyEntry>
+              <>
+                <EssaySectionOrganizationBodyEntry>
+                  Use the organizer on the left to put your ideas into a
+                  paragraph that has the three parts of your essay: a
+                  restatement, answer, and conclusion.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Do your best to proofread to catch and mistakes and do your
+                  best.
+                </EssaySectionOrganizationBodyEntry>
+              </>
             )}
             {state.context.writingLevel === 'ACADEMIC' && (
               <EssaySectionOrganizationBodyEntry>

@@ -55,6 +55,7 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
   })
+
   const [back] = useMutation<
     updateLessonProtocol,
     updateLessonProtocolVariables
@@ -81,6 +82,11 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
     state.context.selectedProtocol.activityType
   )
 
+  const handleMainScreenSwitch = () =>
+    !state.context.mainScreenVirtualProtocolResponses
+      ? event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' })
+      : event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
+
   return (
     <ProtocolManagerContainer>
       <ProtocolInfoContainer>
@@ -89,14 +95,10 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
         <ProtocolInfo>Task: {state.context.selectedProtocol.task}</ProtocolInfo>
       </ProtocolInfoContainer>
       <ProtocolControllerContainer>
-        <ProtocolControllerButton
-          onClick={() => {
-            if (state.context.mainScreenSeatingChart) {
-              event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' })
-            } else event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
-          }}
-        >
-          {state.context.mainScreenSeatingChart ? 'Responses' : 'Seating Chart'}
+        <ProtocolControllerButton onClick={handleMainScreenSwitch}>
+          {!state.context.mainScreenVirtualProtocolResponses
+            ? 'Responses'
+            : 'Other'}
         </ProtocolControllerButton>
         {state.context.selectedProtocol.completed ? (
           <ProtocolControllerButton

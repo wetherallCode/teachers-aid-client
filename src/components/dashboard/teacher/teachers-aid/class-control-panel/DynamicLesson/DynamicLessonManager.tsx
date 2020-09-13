@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
   updateDynamicLesson,
@@ -13,7 +13,11 @@ import {
   DynamicLessonOnButton,
   DynamicLessonOffButtonContainer,
   DynamicLessonOffButton,
+  DynamicLessonButtonContainer,
 } from '../../styles/classControlPanelStyles'
+import { WarmUp } from '../../../../../lesson/lesson-components/WarmUp'
+import { WarmUpManager } from '../warmup-manager/WarmUpManager'
+import { CoolDownManager } from '../coolDown-manager/CoolDownManager'
 
 export type DynamicLessonManagerProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -54,7 +58,7 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
       },
     })
   }
-  console.log(lesson.dynamicLesson === 'OFF')
+  console.log(lesson.dynamicLesson !== 'WARM_UP')
   return (
     <DynamicLessonContainer>
       <DynamicLessonHeader>Dynamic Lesson</DynamicLessonHeader>
@@ -67,12 +71,18 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
         </DynamicLessonOnButton>
       ) : (
         <>
-          <DynamicLessonButton
-            currentLessonSetting={lesson.dynamicLesson === 'WARM_UP'}
-            onClick={() => handleClick(DynamicLessonEnums.WARM_UP)}
-          >
-            Warm Up
-          </DynamicLessonButton>
+          <DynamicLessonButtonContainer>
+            {lesson.dynamicLesson === 'WARM_UP' ? (
+              <WarmUpManager lesson={lesson} />
+            ) : (
+              <DynamicLessonButton
+                // currentLessonSetting={lesson.dynamicLesson === 'WARM_UP'}
+                onClick={() => handleClick(DynamicLessonEnums.WARM_UP)}
+              >
+                Warm Up
+              </DynamicLessonButton>
+            )}
+          </DynamicLessonButtonContainer>
           <DynamicLessonButton
             currentLessonSetting={lesson.dynamicLesson === 'LESSON_DETAILS'}
             onClick={() => handleClick(DynamicLessonEnums.LESSON_DETAILS)}
@@ -85,12 +95,18 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
           >
             Vocab
           </DynamicLessonButton>
-          <DynamicLessonButton
-            currentLessonSetting={lesson.dynamicLesson === 'EXIT_ACTIVITY'}
-            onClick={() => handleClick(DynamicLessonEnums.EXIT_ACTIVITY)}
-          >
-            Cool Down
-          </DynamicLessonButton>
+          <DynamicLessonButtonContainer>
+            {lesson.dynamicLesson === 'EXIT_ACTIVITY' ? (
+              <CoolDownManager lesson={lesson} />
+            ) : (
+              <DynamicLessonButton
+                // currentLessonSetting={lesson.dynamicLesson === 'EXIT_ACTIVITY'}
+                onClick={() => handleClick(DynamicLessonEnums.EXIT_ACTIVITY)}
+              >
+                Cool Down
+              </DynamicLessonButton>
+            )}
+          </DynamicLessonButtonContainer>
           <DynamicLessonOffButtonContainer>
             <DynamicLessonOffButton
               // currentLessonSetting={}

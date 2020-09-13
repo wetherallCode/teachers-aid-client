@@ -68,11 +68,11 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
     },
     onCompleted: (data) => {
       data?.findTextSectionsById.textSections.forEach((section) => {
-        section.hasVocab.forEach((word) => {
+        section.hasVocab?.forEach((word) => {
           const vocabItem = { word: word.word, definition: word.definition }
           event({ type: 'SET_VOCAB_LIST', payload: vocabItem })
         })
-        section.hasQuestions.forEach((question) => {
+        section.hasQuestions?.forEach((question) => {
           const questionItem = {
             question: question.question,
             questionType: question.questionType,
@@ -88,7 +88,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
   const protocolList: TextSectionProtocolsInput[] = []
 
   data?.findTextSectionsById.textSections.forEach((section) =>
-    section.hasProtocols.forEach((protocol) => {
+    section.hasProtocols?.forEach((protocol) => {
       const protocolItem = {
         academicOutcomeTypes: protocol.academicOutcomeTypes,
         activityType: protocol.activityType,
@@ -103,7 +103,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
   const questionsList: TextSectionQuestionsInput[] = []
 
   data?.findTextSectionsById.textSections.forEach((section) => {
-    section.hasQuestions.forEach((question) => {
+    section.hasQuestions?.forEach((question) => {
       const questionItem = {
         questionType: question.questionType,
         question: question.question,

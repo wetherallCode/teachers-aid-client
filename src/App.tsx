@@ -1,5 +1,5 @@
 import React, { useState, FC } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import { Modal } from './animations'
 import { useUserContextProvider } from './contexts/UserContext'
 import { Dashboard } from './components/dashboard/Dashboard'
@@ -97,14 +97,18 @@ function App() {
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='dashboard/*' element={<Dashboard />} />
-        <Route
-          path='lesson-home'
-          element={
-            <DailyAgendaContextProvider>
-              <LessonMainMenu />
-            </DailyAgendaContextProvider>
-          }
-        />
+        {!me ? (
+          <Navigate to='/' />
+        ) : (
+          <Route
+            path='lesson-home'
+            element={
+              <DailyAgendaContextProvider>
+                <LessonMainMenu />
+              </DailyAgendaContextProvider>
+            }
+          />
+        )}
       </Routes>
     </AppContainer>
   )

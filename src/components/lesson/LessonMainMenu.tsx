@@ -10,6 +10,7 @@ import {
   studentSignInVariables,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   studentSignIn,
+  SchoolDayType,
 } from '../../schemaTypes'
 import { capitalizer, time, timeFinder, date } from '../../utils'
 import { useDailyAgendaContextProvider } from './state/DailyAgendaContext'
@@ -26,6 +27,8 @@ import {
 } from './state/lessonStyles'
 import { DynamicLesson } from './lessson-types/DynamicLesson'
 import { StaticLesson } from './lessson-types/StaticLesson'
+import { useSchoolDayContextProvider } from '../dashboard/school-day/state/SchoolDayContext'
+import { useNavigate } from 'react-router'
 
 export type LessonMainMenuProps = {}
 
@@ -68,11 +71,13 @@ export const FIND_LESSON_QUERY = gql`
           task
           activityType
           academicOutcomeTypes
+          isActive
         }
         afterActivity {
           task
           activityType
           academicOutcomeTypes
+          isActive
         }
         dynamicLesson
       }
@@ -107,6 +112,10 @@ export const STUDENT_SIGN_IN_MUTATION = gql`
 export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
   const me: me_me = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
+  const navigate = useNavigate()
+  const [schoolDayState] = useSchoolDayContextProvider()
+  const { currentSchoolDayType } = schoolDayState.context.currentSchoolDay
+
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
@@ -114,7 +123,8 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
             Date.parse(time) >
               Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
             Date.parse(time) <
-              Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
+              Date.parse(timeFinder(course.hasCourseInfo?.endsAt!)) &&
+            course.hasCourseInfo?.schoolDayType === currentSchoolDayType
         )
       : me.inCourses.filter(
           (course) =>
@@ -123,7 +133,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
             Date.parse(time) <
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
         )
-
+  console.log(courseToLoad)
   const [
     loadLesson,
     { loading, data, startPolling, stopPolling },
@@ -183,6 +193,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
   }, [courseToLoad, loadLesson])
 
   if (loading) return <div>Loading </div>
+  if (!me) navigate('/')
   return (
     <>
       {state.matches('getLesson') && (
