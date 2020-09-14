@@ -123,12 +123,10 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
     }
   }, [loadStudentInfo, state.context.studentId])
 
-  const [
-    responsibilityPoints,
-  ] = data?.findStudentById.student.hasResponsibilityPoints.filter(
+  const currentResponsibilityPoints = data?.findStudentById.student.hasResponsibilityPoints.filter(
     (rp) => rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
   )
-  console.log(responsibilityPoints.responsibilityPoints)
+
   if (loading)
     return (
       <>
@@ -146,7 +144,7 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
           {data?.findStudentById.student.firstName}{' '}
           {data?.findStudentById.student.lastName}
         </StudentNameContainer>
-        <div>{responsibilityPoints.responsibilityPoints}</div>
+        {/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
       </StudentInfoDisplay>
       <StudentControlPanel>
         <StudentControlPanelDisplay

@@ -15,7 +15,7 @@ import { InitialPasswordChange } from './InitialPasswordChange'
 import { PasswordCheck } from './PasswordCheck'
 
 export const Home = () => {
-  const me: me_me = useUserContextProvider()
+  const me = useUserContextProvider()
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [passwordCheck, setPasswordCheck] = useState(false)
 

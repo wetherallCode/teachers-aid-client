@@ -28,7 +28,7 @@ import {
 import { DynamicLesson } from './lessson-types/DynamicLesson'
 import { StaticLesson } from './lessson-types/StaticLesson'
 import { useSchoolDayContextProvider } from '../dashboard/school-day/state/SchoolDayContext'
-import { useNavigate } from 'react-router'
+import { useNavigate, Navigate } from 'react-router'
 
 export type LessonMainMenuProps = {}
 
@@ -193,7 +193,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
   }, [courseToLoad, loadLesson])
 
   if (loading) return <div>Loading </div>
-  if (!me) navigate('/')
+  if (!me) return <Navigate to='/' />
   return (
     <>
       {state.matches('getLesson') && (

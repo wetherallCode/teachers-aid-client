@@ -80,8 +80,8 @@ type EnumContextProps = {
 
 export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
   const { loading, error, data } = useQuery<enumValues>(ENUM_VALUES, {
-    onCompleted: (data) => console.log(data),
-    onError: (error) => <div>Things went wrong, please refresh!</div>,
+    // onCompleted: (data) => console.log(data),
+    onError: (error) => error && <div>Things went wrong, please refresh!</div>,
   })
   if (loading) return <div>Preparing some stuff, hold on!</div>
 

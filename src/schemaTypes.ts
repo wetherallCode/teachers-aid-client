@@ -4414,20 +4414,8 @@ export interface me_me_Student {
 
 export type me_me = me_me_Teacher | me_me_Student;
 
-export interface me_findCurrentMarkingPeriod_markingPeriod {
-  __typename: "MarkingPeriod";
-  _id: string | null;
-  currentMarkingPeriod: MarkingPeriodEnum;
-}
-
-export interface me_findCurrentMarkingPeriod {
-  __typename: "FindCurrentMarkingPeriodPayload";
-  markingPeriod: me_findCurrentMarkingPeriod_markingPeriod;
-}
-
 export interface me {
   me: me_me | null;
-  findCurrentMarkingPeriod: me_findCurrentMarkingPeriod;
 }
 
 /* tslint:disable */

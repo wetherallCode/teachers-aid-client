@@ -48,7 +48,8 @@ export const MarkingPeriodContextProvider: FC<MarkingPeriodContext> = ({
           payload:
             data?.findCurrentMarkingPeriod.markingPeriod.currentMarkingPeriod,
         }),
-      onError: (error) => <div>Things went wrong, please refresh!</div>,
+      onError: (error) =>
+        error && <div>Things went wrong, please refresh!</div>,
     }
   )
   if (loading)
