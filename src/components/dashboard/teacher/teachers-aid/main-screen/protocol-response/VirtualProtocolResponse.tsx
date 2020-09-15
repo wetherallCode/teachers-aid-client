@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, Fragment } from 'react'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { gql, useQuery } from '@apollo/client'
 import {
@@ -111,7 +111,9 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
     <>
       <div>
         {responseList.map((response, i: number) => (
-          <ProtocolResponseAssessor response={response} i={i} />
+          <Fragment key={i}>
+            <ProtocolResponseAssessor response={response} i={i} />
+          </Fragment>
         ))}
       </div>
     </>

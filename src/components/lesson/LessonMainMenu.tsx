@@ -42,6 +42,7 @@ export const FIND_LESSON_QUERY = gql`
           word
           definition
         }
+        assignedMarkingPeriod
         pageNumbers {
           startingPage
           endingPage

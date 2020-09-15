@@ -228,8 +228,11 @@ export const VocabWordContainer = styled.ul`
   justify-self: left;
   grid-auto-rows: 10%;
   font-size: 2rem;
+  overflow: scroll;
 `
-export const VocabWordStyle = styled.li``
+export const VocabWordStyle = styled.li`
+  padding-bottom: 2%;
+`
 
 export const StudentQuestionContainer = styled.div``
 export const AskAQuestionButton = styled.button`

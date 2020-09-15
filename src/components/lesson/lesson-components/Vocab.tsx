@@ -4,6 +4,7 @@ import {
   LessonComponentTitleContainer,
   LessonComponentDetailsContainer,
   VocabWordContainer,
+  VocabWordStyle,
 } from '../state/lessonStyles'
 
 export type VocabProps = {
@@ -16,9 +17,9 @@ export const Vocab: FC<VocabProps> = ({ lesson }) => {
       <LessonComponentTitleContainer>Vocab</LessonComponentTitleContainer>
       <VocabWordContainer>
         {lesson.vocabList.map((word, i: number) => (
-          <li key={i}>
+          <VocabWordStyle key={i}>
             {word.word}: {word.definition}
-          </li>
+          </VocabWordStyle>
         ))}
       </VocabWordContainer>
     </>

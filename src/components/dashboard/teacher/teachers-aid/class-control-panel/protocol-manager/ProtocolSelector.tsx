@@ -59,7 +59,7 @@ export const ProtocolSelector: FC<ProtocolSelectorProps> = ({ lesson }) => {
           &gt;
         </ProtocolSelectorNext>
       </ProtocolSelectorNextContainer>
-      <SelectProtocol lessonId={lesson._id!} />
+      <SelectProtocol lessonId={lesson._id!} lesson={lesson} />
     </ProtocolManagerContainer>
   )
 }

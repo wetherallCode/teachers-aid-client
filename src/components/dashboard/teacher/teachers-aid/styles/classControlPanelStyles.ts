@@ -183,6 +183,7 @@ export const MainScreenManagerContainer = styled.div`
 export const MainScreenControlButton = styled.button`
   font-size: 1.4rem;
   color: var(--blue);
+  background-color: var(--white);
   border-radius: 5px;
   height: 40%;
   width: 90%;

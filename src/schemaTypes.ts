@@ -4025,6 +4025,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
   _id: string | null;
   lessonName: string;
   vocabList: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList[];
+  assignedMarkingPeriod: MarkingPeriodEnum;
   pageNumbers: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers;
   assignedCourses: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses[];
   assignedSections: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections;

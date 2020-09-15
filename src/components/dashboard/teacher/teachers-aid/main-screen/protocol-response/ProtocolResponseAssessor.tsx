@@ -43,7 +43,7 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
     <>
       <div key={i}>
         <button
-          style={{ backgroundColor: 'var(--red)', color: 'var(--blue)' }}
+          style={{ backgroundColor: 'var(--red)', color: 'var(--white)' }}
           onClick={() =>
             assessProtocol({
               variables: {
@@ -62,7 +62,7 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
           Good Job
         </button>
         <button
-          style={{ backgroundColor: 'var(--red)', color: 'var(--blue)' }}
+          style={{ backgroundColor: 'var(--blue)', color: 'var(--white)' }}
           onClick={() =>
             assessProtocol({
               variables: {

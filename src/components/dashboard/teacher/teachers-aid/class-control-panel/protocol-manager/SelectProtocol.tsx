@@ -12,6 +12,7 @@ import {
   createStudentProtocol,
   createStudentProtocolVariables,
   MarkingPeriodEnum,
+  findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
 } from '../../../../../../schemaTypes'
 import { date } from '../../../../../../utils'
 import {
@@ -21,6 +22,7 @@ import {
 
 export type SelectProtocolProps = {
   lessonId: string
+  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
 }
 export const UPDATE_LESSON_PROTOCOL_MUTATION = gql`
   mutation updateLessonProtocol($input: UpdateLessonProtocolInput!) {
@@ -62,9 +64,12 @@ export const CREATE__PROTOCOL_MUTATION = gql`
   }
 `
 
-export const SelectProtocol: FC<SelectProtocolProps> = ({ lessonId }) => {
+export const SelectProtocol: FC<SelectProtocolProps> = ({
+  lessonId,
+  lesson,
+}) => {
   const [state, event] = useTeachersAidContextProvider()
-  console.log(state.context.presentStudentsIds)
+
   const [createStudentProtocol] = useMutation<
     createStudentProtocol,
     createStudentProtocolVariables
@@ -74,7 +79,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({ lessonId }) => {
         academicOutcomeType:
           state.context.selectedProtocol.academicOutcomeTypes,
         studentIds: state.context.presentStudentsIds,
-        markingPeriod: MarkingPeriodEnum.FIRST,
+        markingPeriod: lesson.assignedMarkingPeriod,
         protocolActivityType: state.context.selectedProtocol.activityType,
         task: state.context.selectedProtocol.task,
       },
