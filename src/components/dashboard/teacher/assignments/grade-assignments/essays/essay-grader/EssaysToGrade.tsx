@@ -102,15 +102,17 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
   return (
     <>
       <div>Essays To Grade</div>
-      {essayList !== undefined &&
-        essayList
-          .filter((essay) => essay.late === false)
-          .map((essay) => (
-            <Link to={essay._id!} key={essay._id!}>
-              {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-              {essay.readings.readingSections}
-            </Link>
-          ))}
+      <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
+        {essayList !== undefined &&
+          essayList
+            .filter((essay) => essay.late === false)
+            .map((essay) => (
+              <Link to={essay._id!} key={essay._id!}>
+                {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
+                {essay.readings.readingSections}
+              </Link>
+            ))}
+      </div>
       <div>Late Essays</div>
       {essayList !== undefined &&
         essayList

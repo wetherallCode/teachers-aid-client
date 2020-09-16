@@ -134,6 +134,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
             Date.parse(time) <
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
         )
+  console.log(currentSchoolDayType)
   console.log(courseToLoad)
   const [
     loadLesson,

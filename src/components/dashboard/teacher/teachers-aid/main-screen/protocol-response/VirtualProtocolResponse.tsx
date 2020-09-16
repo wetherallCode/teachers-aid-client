@@ -62,7 +62,13 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
     variables: {
       input: { courseId: state.context.courseInfo.course._id! },
     },
-    onCompleted: (data) => console.log(data),
+    onCompleted: (data) =>
+      console.log(
+        data.findCourseInfoByCourseId.courseInfo.course.hasStudents.map(
+          (student) =>
+            student.hasProtocols.filter((protocol) => protocol.response)
+        )
+      ),
     pollInterval: 1000,
     onError: (error) => console.error(error),
   })
@@ -105,7 +111,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       }
     } else setResponseList([])
   }, [data?.findCourseInfoByCourseId.courseInfo.course.hasLessons])
-
+  console.log('responseList: ' + responseList)
   if (loading) return <div>Loading </div>
   return (
     <>
