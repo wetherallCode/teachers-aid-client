@@ -42,7 +42,7 @@ export const VIRTUAL_RESPONSE_QUERY = gql`
   }
 `
 export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
-  const [state, event] = useTeachersAidContextProvider()
+  const [state] = useTeachersAidContextProvider()
   const [responseList, setResponseList] = useState<
     {
       studentName: string
@@ -54,7 +54,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       protocolActivityType: ProtocolActivityTypes
     }[]
   >([])
-
+  console.log(responseList)
   const { loading, data } = useQuery<
     findVirtualResponses,
     findVirtualResponsesVariables
@@ -66,18 +66,14 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       console.log(
         data.findCourseInfoByCourseId.courseInfo.course.hasStudents.map(
           (student) =>
-            student.hasProtocols.filter((protocol) => protocol.response)
+            student.hasProtocols.filter(
+              (protocol) => protocol.isActive && protocol.response
+            )
         )
       ),
     pollInterval: 1000,
     onError: (error) => console.error(error),
   })
-
-  // console.log(
-  //   data?.findCourseInfoByCourseId.courseInfo.course.hasLessons.some((lesson) =>
-  //     lesson.duringActivities.some((activity) => activity.isActive)
-  //   )
-  // )
 
   useEffect(() => {
     if (
@@ -110,8 +106,10 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
         }
       }
     } else setResponseList([])
-  }, [data?.findCourseInfoByCourseId.courseInfo.course.hasLessons])
+  }, [data])
+
   console.log('responseList: ' + responseList)
+
   if (loading) return <div>Loading </div>
   return (
     <>

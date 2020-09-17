@@ -78,13 +78,13 @@ export const DynamicLesson = ({
       )}
 
       <LessonComponentTypeContainer>
-        <LessonComponentTypeStyle>
+        {/* <LessonComponentTypeStyle>
           {me.__typename === 'Student' ? (
             <StudentQuestionPrompt courseToLoad={courseToLoad!} />
           ) : (
             'Class is Live'
           )}
-        </LessonComponentTypeStyle>
+        </LessonComponentTypeStyle> */}
       </LessonComponentTypeContainer>
     </LessonPageContainer>
   )

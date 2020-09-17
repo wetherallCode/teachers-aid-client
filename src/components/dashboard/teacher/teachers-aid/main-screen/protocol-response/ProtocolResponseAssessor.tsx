@@ -8,7 +8,6 @@ import {
 } from '../../../../../../schemaTypes'
 import { useMutation } from '@apollo/client'
 import { ASSESS_PROTOCOL_MUTATION } from '../../student-info/protocols/AssessProtocol'
-import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type ProtocolResponseAssessorProps = {
   response: {
@@ -27,11 +26,6 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
   response,
   i,
 }) => {
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
-  // const [protocolAssessment, setProtocolAssessment] = useState<
-  //   ProtocolAssessmentEnum
-  // >(ProtocolAssessmentEnum.REFUSED_TO_WORK)
-
   const [assessProtocol] = useMutation<
     assessStudentProtocol,
     assessStudentProtocolVariables
@@ -41,7 +35,7 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
   })
   return (
     <>
-      <div key={i}>
+      <div>
         <button
           style={{ backgroundColor: 'var(--red)', color: 'var(--white)' }}
           onClick={() =>

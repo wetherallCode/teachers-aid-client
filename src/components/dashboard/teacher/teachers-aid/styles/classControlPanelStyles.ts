@@ -42,6 +42,7 @@ export const PeriodSelectDisplayContainer = styled.div`
 export const CourseSelectButton = styled.button`
   width: 90%;
   height: 40%;
+  font-size: 1.5vw;
   background-color: var(--white);
   color: var(--blue);
 `
@@ -101,13 +102,13 @@ export const ProtocolSelectorBack = styled.div`
 
 export const ProtocolSelectorTaskContainer = styled.div`
   grid-row: 3/-3;
-  grid-column: 4/-4;
+  grid-column: 3/-3;
   display: grid;
   justify-items: center;
   align-items: center;
 `
 export const ProtocolSelectorTask = styled.div`
-  font-size: 1.4rem;
+  font-size: 2vw;
 `
 
 export const ProtocolSelectorNextContainer = styled.div`
@@ -155,6 +156,7 @@ export const ProtocolControllerContainer = styled.div`
 export const ProtocolControllerButton = styled.button`
   font-size: 1rem;
   color: var(--blue);
+  background-color: var(--white);
   border-radius: 5px;
   width: 90%;
 `
@@ -212,6 +214,7 @@ export const DynamicLessonButton = styled.button<DynamicLessonButtonProps>`
   color: var(--blue);
   height: 40%;
   width: 70%;
+  font-size: 1.5vw;
   border-radius: 5px;
   background-color: ${({ currentLessonSetting }) =>
     currentLessonSetting ? 'var(--red)' : 'var(--white)'};
