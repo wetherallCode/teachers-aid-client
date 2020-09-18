@@ -11,6 +11,8 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   studentSignIn,
   SchoolDayType,
+  findCurrentSchoolDay,
+  findCurrentSchoolDayVariables,
 } from '../../schemaTypes'
 import { capitalizer, time, timeFinder, date } from '../../utils'
 import { useDailyAgendaContextProvider } from './state/DailyAgendaContext'
@@ -29,6 +31,7 @@ import { DynamicLesson } from './lessson-types/DynamicLesson'
 import { StaticLesson } from './lessson-types/StaticLesson'
 import { useSchoolDayContextProvider } from '../dashboard/school-day/state/SchoolDayContext'
 import { useNavigate, Navigate } from 'react-router'
+import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../dashboard/school-day/SchoolDay'
 
 export type LessonMainMenuProps = {}
 
@@ -114,8 +117,22 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
   const me: me_me = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
   const navigate = useNavigate()
-  const [schoolDayState] = useSchoolDayContextProvider()
-  const { currentSchoolDayType } = schoolDayState.context.currentSchoolDay
+
+  const { data: schoolDayData } = useQuery<
+    findCurrentSchoolDay,
+    findCurrentSchoolDayVariables
+  >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
+    variables: {
+      input: { date: date },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+
+  // const [schoolDayState] = useSchoolDayContextProvider()
+  // const { schoolDayData?.findSchoolDayByDate.schoolDay. } = schoolDayState.context.currentSchoolDay
+  const schoolDayType = schoolDayData?.findSchoolDayByDate.schoolDay
+    ?.currentSchoolDayType!
 
   const [courseToLoad] =
     me.__typename === 'Teacher'
@@ -125,7 +142,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
               Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
             Date.parse(time) <
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!)) &&
-            course.hasCourseInfo?.schoolDayType === currentSchoolDayType
+            course.hasCourseInfo?.schoolDayType === schoolDayType
         )
       : me.inCourses.filter(
           (course) =>
@@ -134,8 +151,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
             Date.parse(time) <
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
         )
-  console.log(currentSchoolDayType)
-  console.log(courseToLoad)
+
   const [
     loadLesson,
     { loading, data, startPolling, stopPolling },
