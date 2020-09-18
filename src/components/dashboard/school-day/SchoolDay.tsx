@@ -80,7 +80,6 @@ export const SchoolDay: FC<SchoolDayProps> = () => {
 
   const hasSignInSheets =
     data?.findSchoolDayByDate.schoolDay?.signInSheets?.length! > 0
-  console.log(data?.findSchoolDayByDate)
 
   return (
     <>

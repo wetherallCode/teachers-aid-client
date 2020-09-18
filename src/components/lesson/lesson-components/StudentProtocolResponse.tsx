@@ -96,7 +96,6 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
     .filter((protocol) => protocol.isActive)
     .map((protocol) => protocol.response)
 
-  if (loading) return <div>Loading </div>
   return (
     <>
       {isProtocolRespondedTo ? (

@@ -132,6 +132,7 @@ export const ProtocolSelectorContainer = styled.div`
 export const ProtocolSelectorButton = styled.button`
   font-size: 1.4rem;
   color: var(--blue);
+  background-color: var(--white);
   border-radius: 5px;
 `
 export const ProtocolInfoContainer = styled.div`

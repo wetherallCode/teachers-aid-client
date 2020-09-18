@@ -129,8 +129,6 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
     onError: (error) => console.error(error),
   })
 
-  // const [schoolDayState] = useSchoolDayContextProvider()
-  // const { schoolDayData?.findSchoolDayByDate.schoolDay. } = schoolDayState.context.currentSchoolDay
   const schoolDayType = schoolDayData?.findSchoolDayByDate.schoolDay
     ?.currentSchoolDayType!
 

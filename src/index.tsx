@@ -15,10 +15,10 @@ import { MarkingPeriodContextProvider } from './contexts/markingPeriod/MarkingPe
 import { EnumContextProvider } from './contexts/EnumContext'
 import { SchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 
-// const link = new HttpLink({
-//   uri: 'https://localhost:4000/graphql',
-//   credentials: 'include',
-// })
+const localLink = new HttpLink({
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'include',
+})
 const link = new HttpLink({
   uri: 'https://teachers-aid-server.herokuapp.com/graphql',
   credentials: 'include',
@@ -26,7 +26,8 @@ const link = new HttpLink({
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link,
+  // link,
+  link: localLink,
   connectToDevTools: true,
 })
 

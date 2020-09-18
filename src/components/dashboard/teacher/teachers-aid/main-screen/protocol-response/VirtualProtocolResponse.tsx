@@ -54,7 +54,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       protocolActivityType: ProtocolActivityTypes
     }[]
   >([])
-  console.log(responseList)
+
   const { loading, data } = useQuery<
     findVirtualResponses,
     findVirtualResponsesVariables
@@ -62,15 +62,11 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
     variables: {
       input: { courseId: state.context.courseInfo.course._id! },
     },
-    onCompleted: (data) =>
-      console.log(
-        data.findCourseInfoByCourseId.courseInfo.course.hasStudents.map(
-          (student) =>
-            student.hasProtocols.filter(
-              (protocol) => protocol.isActive && protocol.response
-            )
-        )
-      ),
+    onCompleted: (data) => {
+      data.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
+        (student) => student.hasProtocols
+      )
+    },
     pollInterval: 1000,
     onError: (error) => console.error(error),
   })
