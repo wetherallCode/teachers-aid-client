@@ -224,14 +224,12 @@ export const LessonDetailLeft = styled.div`
 export const VocabWordContainer = styled.ul`
   grid-row: 2/-1;
   grid-column: 1/-1;
-  display: grid;
-  justify-self: left;
-  grid-auto-rows: 10%;
-  font-size: 2rem;
+
+  font-size: 3vw;
   overflow: scroll;
 `
 export const VocabWordStyle = styled.li`
-  padding-bottom: 2%;
+  margin-bottom: 3%;
 `
 
 export const StudentQuestionContainer = styled.div``
