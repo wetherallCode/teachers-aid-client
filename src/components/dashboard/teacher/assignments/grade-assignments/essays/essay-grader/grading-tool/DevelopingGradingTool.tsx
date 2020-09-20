@@ -33,7 +33,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
     }
     rubricEntriesList.push(rubricEntryValues)
   })
-
+  console.log(state.context.draftToGrade.rubricEntries)
   const totalScore = rubricEntriesList
     .map((entry) => entry.score)
     .reduce((a, b) => a + b, 0)
@@ -100,6 +100,9 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
             <div key={entry._id!}>
               <input
                 type='checkbox'
+                checked={state.context.draftToGrade.rubricEntries.some(
+                  (entries) => entries.entry === entry.entry
+                )}
                 value={[
                   entry.entry,
                   entry.score.toString(),
