@@ -99,7 +99,6 @@ export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
         <CourseSelectButton
           key={course._id!}
           onClick={() => {
-            console.log('click')
             loadCourse({ variables: { input: { courseId: course._id! } } })
           }}
         >

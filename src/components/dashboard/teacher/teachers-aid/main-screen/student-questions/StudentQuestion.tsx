@@ -8,16 +8,16 @@ export type StudentQuestionProps = {
 
 export const StudentQuestion: FC<StudentQuestionProps> = ({ question }) => {
   const [state] = useTeachersAidContextProvider()
-  const [student] = state.context.courseInfo.course.hasStudents.filter(
-    (student) => student._id === question.studentId
-  )
+  // const [student] = state.context.courseInfo.course.hasStudents.filter(
+  //   (student) => student._id === question.studentId
+  // )
 
   return (
-    <>
-      <span>{student} </span>
+    <div>
+      <span>{question.student.firstName} </span>
       <span>
         {question.timeAsked}: {question.question}
       </span>
-    </>
+    </div>
   )
 }

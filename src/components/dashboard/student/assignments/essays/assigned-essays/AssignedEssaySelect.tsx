@@ -46,7 +46,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
     variables: {
       input: { studentId: me._id! },
     },
-    pollInterval: 10000,
+    pollInterval: 1000,
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })

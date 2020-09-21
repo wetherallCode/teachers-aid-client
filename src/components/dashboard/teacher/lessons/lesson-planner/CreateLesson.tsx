@@ -43,7 +43,24 @@ export const CreateLesson: FC<CreateLessonProps> = () => {
     endingPage,
     markingPeriod,
   } = state.context
-
+  console.log(
+    afterActivity,
+    beforeActivity,
+    courses,
+    date,
+    duringActivity,
+    endingSection,
+    textSectionList,
+    essentialQuestion,
+    questionList,
+    startingSection,
+    vocabList,
+    inUnit,
+    lessonName,
+    startingPage,
+    endingPage,
+    markingPeriod
+  )
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [createLesson] = useMutation<createLessonVariables>(
     CREATE_LESSON_MUTATION,

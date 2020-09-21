@@ -8,6 +8,7 @@ import {
   MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import { ProtocolResponseAssessor } from './ProtocolResponseAssessor'
+import { respond } from 'xstate/lib/actions'
 
 export type VirtualProtocolResponseProps = {}
 export const VIRTUAL_RESPONSE_QUERY = gql`
@@ -63,8 +64,61 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       input: { courseId: state.context.courseInfo.course._id! },
     },
     onCompleted: (data) => {
-      data.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
-        (student) => student.hasProtocols
+      // const students = data.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
+      //   (student) => student.hasProtocols
+      //   // .filter((protocol) => protocol.isActive)
+      //   // .filter((protocol) => protocol.response)
+      // )
+      // for (const student of students) {
+      //   if (
+      //     student.hasProtocols.filter(
+      //       (protocol) => protocol.isActive && protocol.response
+      //     ).length > 0
+      //   ) {
+      //     const [responded] = student.hasProtocols.filter(
+      //       (protocol) => protocol.isActive && protocol.response
+      //     )
+      //     console.log(responded.student._id, responded.response)
+      //     if (
+      //       responseList.some(
+      //         (response) => response.studentId !== responded.student._id!
+      //       ) ||
+      //       responseList.length === 0
+      //     ) {
+      //       // console.log(responded.student.firstName)
+      //       console.log('hello')
+      //       setResponseList((list) => [
+      //         ...list,
+      //         {
+      //           studentName: `${responded.student.lastName}, ${responded.student.firstName}`,
+      //           response: responded.response!,
+      //           studentId: responded.student._id!,
+      //           assignedDate: responded.assignedDate!,
+      //           protocolActivityType: responded.protocolActivityType,
+      //           task: responded.task,
+      //           markingPeriod: responded.markingPeriod,
+      //         },
+      //       ])
+      //     }
+      //     // else
+      //     //   setResponseList([
+      //     //     ...responseList,
+      //     //     {
+      //     //       studentName: `${responded.student.lastName}, ${responded.student.firstName}`,
+      //     //       response: responded.response!,
+      //     //       studentId: responded.student._id!,
+      //     //       assignedDate: responded.assignedDate!,
+      //     //       protocolActivityType: responded.protocolActivityType,
+      //     //       task: responded.task,
+      //     //       markingPeriod: responded.markingPeriod,
+      //     //     },
+      //     //   ])
+      //   }
+      // }
+      console.log(
+        data.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
+          (student) => student.hasProtocols
+        )
       )
     },
     pollInterval: 1000,
@@ -72,41 +126,95 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
   })
 
   useEffect(() => {
-    if (
-      data?.findCourseInfoByCourseId.courseInfo.course.hasLessons.some(
-        (lesson) =>
-          lesson.duringActivities.some((activity) => activity.isActive)
-      )
-    ) {
-      const studentProtocols = data?.findCourseInfoByCourseId.courseInfo.course.hasStudents.map(
-        (student) =>
-          student.hasProtocols.filter((protocol) => protocol.isActive)
-      )
+    const students = data?.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
+      (student) => student.hasProtocols
+      // .filter((protocol) => protocol.isActive)
+      // .filter((protocol) => protocol.response)
+    )
+    if (students) {
+      for (const student of students!) {
+        if (
+          student.hasProtocols.filter(
+            (protocol) => protocol.isActive && protocol.response
+          ).length > 0
+        ) {
+          const [responded] = student.hasProtocols.filter(
+            (protocol) => protocol.isActive && protocol.response
+          )
 
-      for (const response of studentProtocols) {
-        for (const value of response) {
-          if (value.response) {
-            setResponseList([
-              ...responseList,
+          if (
+            responseList.some(
+              (response) => response.studentId === responded.student._id!
+            )
+            // || responseList.length === 0
+          ) {
+            console.log(responded.student.firstName + ' is on the list')
+          } else {
+            setResponseList((list) => [
+              ...list,
               {
-                studentName: `${value.student.lastName}, ${value.student.firstName}`,
-                response: value.response!,
-                studentId: value.student._id!,
-                assignedDate: value.assignedDate!,
-                protocolActivityType: value.protocolActivityType,
-                task: value.task,
-                markingPeriod: value.markingPeriod,
+                studentName: `${responded.student.lastName}, ${responded.student.firstName}`,
+                response: responded.response!,
+                studentId: responded.student._id!,
+                assignedDate: responded.assignedDate!,
+                protocolActivityType: responded.protocolActivityType,
+                task: responded.task,
+                markingPeriod: responded.markingPeriod,
               },
             ])
           }
+          // else
+          //   setResponseList([
+          //     ...responseList,
+          //     {
+          //       studentName: `${responded.student.lastName}, ${responded.student.firstName}`,
+          //       response: responded.response!,
+          //       studentId: responded.student._id!,
+          //       assignedDate: responded.assignedDate!,
+          //       protocolActivityType: responded.protocolActivityType,
+          //       task: responded.task,
+          //       markingPeriod: responded.markingPeriod,
+          //     },
+          //   ])
         }
       }
-    } else setResponseList([])
+    }
   }, [data])
+  // console.log(responseList)
+  // useEffect(() => {
+  //   if (
+  //     data?.findCourseInfoByCourseId.courseInfo.course.hasLessons.some(
+  //       (lesson) =>
+  //         lesson.duringActivities.some((activity) => activity.isActive)
+  //     )
+  //   ) {
+  //     const studentProtocols = data?.findCourseInfoByCourseId.courseInfo.course.hasStudents.map(
+  //       (student) =>
+  //         student.hasProtocols.filter((protocol) => protocol.isActive)
+  //     )
 
-  console.log('responseList: ' + responseList)
+  //     for (const response of studentProtocols) {
+  //       for (const value of response) {
+  //         if (value.response) {
+  //           setResponseList([
+  //             ...responseList,
+  //             {
+  //               studentName: `${value.student.lastName}, ${value.student.firstName}`,
+  //               response: value.response!,
+  //               studentId: value.student._id!,
+  //               assignedDate: value.assignedDate!,
+  //               protocolActivityType: value.protocolActivityType,
+  //               task: value.task,
+  //               markingPeriod: value.markingPeriod,
+  //             },
+  //           ])
+  //         }
+  //       }
+  //     }
+  //   } else setResponseList([])
+  // }, [data])
 
-  if (loading) return <div>Loading </div>
+  // if (loading) return <div>Loading </div>
   return (
     <>
       <div>

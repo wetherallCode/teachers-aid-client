@@ -150,6 +150,12 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
         )
 
+  const [fakeCourse] =
+    me.__typename === 'Teacher'
+      ? me.teachesCourses.filter((course) => course.name === 'Cohort Class')
+      : me.__typename === 'Student' &&
+        me.inCourses.filter((course) => course.name === 'Cohort Class')
+
   const [
     loadLesson,
     { loading, data, startPolling, stopPolling },
@@ -199,14 +205,19 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
       refetchQueries: ['studentSignedInCheck', 'me'],
     }
   )
-
+  const useFake = false
   useEffect(() => {
+    if (useFake) {
+      loadLesson({
+        variables: { input: { courseId: fakeCourse._id!, lessonDate: date } },
+      })
+    }
     if (courseToLoad) {
       loadLesson({
         variables: { input: { courseId: courseToLoad._id!, lessonDate: date } },
       })
     }
-  }, [courseToLoad, loadLesson])
+  }, [courseToLoad, loadLesson, useFake])
 
   if (loading) return <div>Loading </div>
   if (!me) return <Navigate to='/' />
@@ -228,13 +239,24 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
               <>
                 {data?.findLessonByCourseAndDate.lesson ? (
                   <>
-                    <CurrentLesson>Current Lesson</CurrentLesson>
+                    <CurrentLesson>
+                      {useFake ? 'Fake Lesson' : 'Current Lesson'}
+                    </CurrentLesson>
+
                     <LessonNameStyle>
-                      {me.__typename === 'Teacher' && `${courseToLoad.name}`}
+                      {!useFake
+                        ? me.__typename === 'Teacher' &&
+                          `${courseToLoad.name}: `
+                        : me.__typename === 'Teacher' && `${fakeCourse.name}: `}
                       {data.findLessonByCourseAndDate.lesson?.lessonName}
                     </LessonNameStyle>
                     <GoToLessonButton
                       onClick={() => {
+                        if (fakeCourse) {
+                          event({ type: 'TODAYS_LESSON' })
+                          startPolling!(100)
+                          event({ type: 'POLLING' })
+                        }
                         if (courseToLoad) {
                           if (
                             me.__typename === 'Student' &&
@@ -276,6 +298,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
                 lesson={data?.findLessonByCourseAndDate.lesson!}
                 stopPolling={stopPolling!}
                 courseToLoad={courseToLoad}
+                fakeCourse={fakeCourse}
               />
             </>
           ) : (

@@ -45,6 +45,7 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = (
     variables: {
       input: { studentId: me._id! },
     },
+    pollInterval: 1000,
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })

@@ -105,6 +105,11 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
       </button>
       {loadingDraft && (
         <>
+          <div>
+            {data?.findEssayById.essay.hasOwner.lastName},{' '}
+            {data?.findEssayById.essay.hasOwner.firstName}
+          </div>
+          <div>{data?.findEssayById.essay.topic.question}</div>
           <DraftSelector essay={data?.findEssayById.essay!} />
           <TeacherEssayEditor />
           <GradingTool />

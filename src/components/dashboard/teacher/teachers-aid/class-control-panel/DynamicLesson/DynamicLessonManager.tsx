@@ -44,7 +44,7 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
     updateDynamicLesson,
     updateDynamicLessonVariables
   >(UPDATE_DYNAMIC_LESSON_MUTATION, {
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) => console.log(data),
     refetchQueries: ['findLessonByCourseAndDate'],
   })
 
@@ -58,7 +58,7 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
       },
     })
   }
-  console.log(lesson.dynamicLesson !== 'WARM_UP')
+
   return (
     <DynamicLessonContainer>
       <DynamicLessonHeader>Dynamic Lesson</DynamicLessonHeader>

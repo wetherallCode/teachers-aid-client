@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import {
   findStudentQuestions,
@@ -16,7 +16,11 @@ export const FIND_STUDENT_QUESTIONS_QUERY = gql`
   query findStudentQuestions($input: FindStudentQuestionsInput!) {
     findStudentQuestions(input: $input) {
       studentQuestions {
-        studentId
+        student {
+          _id
+          firstName
+          lastName
+        }
         question
         timeAsked
       }
@@ -26,14 +30,17 @@ export const FIND_STUDENT_QUESTIONS_QUERY = gql`
 
 export const StudentQuestionViewer: FC<StudentQuestionViewerProps> = () => {
   const [state] = useTeachersAidContextProvider()
+
   const { loading, data } = useQuery<
     findStudentQuestions,
     findStudentQuestionsVariables
   >(FIND_STUDENT_QUESTIONS_QUERY, {
     variables: {
-      input: { courseId: state.context.courseInfo._id!, date },
+      input: { courseId: state.context.courseInfo.course._id!, date },
     },
-    onCompleted: (data) => console.log(data),
+    pollInterval: 1000,
+    onCompleted: (data) =>
+      console.log(data.findStudentQuestions.studentQuestions),
     onError: (error) => console.error(error),
   })
 
@@ -41,9 +48,13 @@ export const StudentQuestionViewer: FC<StudentQuestionViewerProps> = () => {
   return (
     <>
       <div>Student Question</div>
-      {data?.findStudentQuestions.studentQuestions.map((question) => (
-        <StudentQuestion question={question} />
-      ))}
+      {data?.findStudentQuestions.studentQuestions.map(
+        (question, i: number) => (
+          <Fragment key={i}>
+            <StudentQuestion question={question} />
+          </Fragment>
+        )
+      )}
     </>
   )
 }

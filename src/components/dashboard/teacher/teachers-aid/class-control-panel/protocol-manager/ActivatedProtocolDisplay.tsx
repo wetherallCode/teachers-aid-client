@@ -114,6 +114,7 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
             onClick={() => {
               finishStudentProtocol()
               event({ type: 'PREVIOUS' })
+              event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
             }}
           >
             Finish

@@ -22,6 +22,7 @@ export const Attendance: FC<AttendanceProps> = () => {
     const student = course?.map((course) =>
       course.studentsSignInlog?.filter((student) => student._id !== studentId)
     )
+
     // absentStudents.push(student!)
   }
 

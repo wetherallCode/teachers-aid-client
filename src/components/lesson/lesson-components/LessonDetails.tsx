@@ -19,9 +19,9 @@ export const LessonDetails: FC<LessonDetailsProps> = ({ lesson }) => {
         <div>Lesson Details</div>
       </LessonComponentTitleContainer>
       <LessonDetailsContainer>
-        <LessonDetailCenter>
+        {/* <LessonDetailCenter>
           Lesson Name: {lesson.lessonName}
-        </LessonDetailCenter>
+        </LessonDetailCenter> */}
         <LessonDetailCenter>
           Essential Question: {lesson.essentialQuestion}
         </LessonDetailCenter>
@@ -31,7 +31,7 @@ export const LessonDetails: FC<LessonDetailsProps> = ({ lesson }) => {
           {lesson.assignedSections.startingSection}
           {lesson.assignedSections.endingSection !==
             lesson.assignedSections.startingSection &&
-            '-' + lesson.assignedSections.endingSection}
+            ' - ' + lesson.assignedSections.endingSection}
         </LessonDetailCenter>
         <LessonDetailCenter>Objectives</LessonDetailCenter>
         <div>{lesson?.objectives}</div>

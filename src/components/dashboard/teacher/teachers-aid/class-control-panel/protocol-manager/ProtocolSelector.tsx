@@ -19,7 +19,7 @@ export type ProtocolSelectorProps = {
 }
 export const ProtocolSelector: FC<ProtocolSelectorProps> = ({ lesson }) => {
   const [state, event] = useTeachersAidContextProvider()
-
+  console.log(state.context.protocolSelect)
   return (
     <ProtocolManagerContainer>
       <ProtocolHeaderContainer>

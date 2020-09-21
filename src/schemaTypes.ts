@@ -3613,9 +3613,16 @@ export interface findVirtualResponsesVariables {
 // GraphQL query operation: findStudentQuestions
 // ====================================================
 
+export interface findStudentQuestions_findStudentQuestions_studentQuestions_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
 export interface findStudentQuestions_findStudentQuestions_studentQuestions {
   __typename: "StudentQuestion";
-  studentId: string;
+  student: findStudentQuestions_findStudentQuestions_studentQuestions_student;
   question: string;
   timeAsked: string;
 }
@@ -3958,12 +3965,180 @@ export interface respondToProtocolVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findLessonByCourseAndDate
+// ====================================================
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList {
+  __typename: "TextSectionVocab";
+  word: string;
+  definition: string;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers {
+  __typename: "PageNumbers";
+  startingPage: number;
+  endingPage: number;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets_studentsSignInlog {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets {
+  __typename: "StudentSignInSheet";
+  studentsSignInlog: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets_studentsSignInlog[] | null;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses {
+  __typename: "Course";
+  _id: string | null;
+  hasSignInSheets: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets[];
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections {
+  __typename: "LessonTextSections";
+  startingSection: string;
+  endingSection: string;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities {
+  __typename: "TextSectionProtocols";
+  task: string;
+  activityType: ProtocolActivityTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
+  isActive: boolean;
+  completed: boolean;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity {
+  __typename: "TextSectionProtocols";
+  task: string;
+  activityType: ProtocolActivityTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
+  isActive: boolean;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity {
+  __typename: "TextSectionProtocols";
+  task: string;
+  activityType: ProtocolActivityTypes;
+  academicOutcomeTypes: AcademicOutcomeTypes;
+  isActive: boolean;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+  lessonName: string;
+  vocabList: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList[];
+  assignedMarkingPeriod: MarkingPeriodEnum;
+  pageNumbers: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers;
+  assignedCourses: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses[];
+  assignedSections: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections;
+  objectives: string | null;
+  essentialQuestion: string;
+  duringActivities: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[];
+  beforeActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity;
+  afterActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity;
+  dynamicLesson: DynamicLessonEnums;
+}
+
+export interface findLessonByCourseAndDate_findLessonByCourseAndDate {
+  __typename: "FindLessonByCourseAndDatePayload";
+  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson | null;
+}
+
+export interface findLessonByCourseAndDate {
+  findLessonByCourseAndDate: findLessonByCourseAndDate_findLessonByCourseAndDate;
+}
+
+export interface findLessonByCourseAndDateVariables {
+  input: FindLessonByCourseAndDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: studentSignedInCheck
+// ====================================================
+
+export interface studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets_studentsSignInlog {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets {
+  __typename: "StudentSignInSheet";
+  studentsSignInlog: studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets_studentsSignInlog[] | null;
+}
+
+export interface studentSignedInCheck_findSchoolDayByDate_schoolDay {
+  __typename: "SchoolDay";
+  _id: string | null;
+  signInSheets: studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets[] | null;
+}
+
+export interface studentSignedInCheck_findSchoolDayByDate {
+  __typename: "FindSchoolDayByDatePayload";
+  schoolDay: studentSignedInCheck_findSchoolDayByDate_schoolDay | null;
+}
+
+export interface studentSignedInCheck {
+  findSchoolDayByDate: studentSignedInCheck_findSchoolDayByDate;
+}
+
+export interface studentSignedInCheckVariables {
+  input: FindSchoolDayByDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: studentSignIn
+// ====================================================
+
+export interface studentSignIn_studentSignIn_schoolDay {
+  __typename: "SchoolDay";
+  _id: string | null;
+}
+
+export interface studentSignIn_studentSignIn {
+  __typename: "StudentSignInPayload";
+  schoolDay: studentSignIn_studentSignIn_schoolDay;
+}
+
+export interface studentSignIn {
+  studentSignIn: studentSignIn_studentSignIn;
+}
+
+export interface studentSignInVariables {
+  input: StudentSignInInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createStudentQuestion
 // ====================================================
 
+export interface createStudentQuestion_createStudentQuestion_studentQuestions_questions_student {
+  __typename: "Student";
+  _id: string | null;
+}
+
 export interface createStudentQuestion_createStudentQuestion_studentQuestions_questions {
   __typename: "StudentQuestion";
-  studentId: string;
+  student: createStudentQuestion_createStudentQuestion_studentQuestions_questions_student;
   question: string;
 }
 
@@ -4254,169 +4429,6 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findLessonByCourseAndDate
-// ====================================================
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList {
-  __typename: "TextSectionVocab";
-  word: string;
-  definition: string;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers {
-  __typename: "PageNumbers";
-  startingPage: number;
-  endingPage: number;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets_studentsSignInlog {
-  __typename: "Student";
-  _id: string | null;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets {
-  __typename: "StudentSignInSheet";
-  studentsSignInlog: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets_studentsSignInlog[] | null;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses {
-  __typename: "Course";
-  _id: string | null;
-  hasSignInSheets: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasSignInSheets[];
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections {
-  __typename: "LessonTextSections";
-  startingSection: string;
-  endingSection: string;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities {
-  __typename: "TextSectionProtocols";
-  task: string;
-  activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutcomeTypes;
-  isActive: boolean;
-  completed: boolean;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity {
-  __typename: "TextSectionProtocols";
-  task: string;
-  activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutcomeTypes;
-  isActive: boolean;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity {
-  __typename: "TextSectionProtocols";
-  task: string;
-  activityType: ProtocolActivityTypes;
-  academicOutcomeTypes: AcademicOutcomeTypes;
-  isActive: boolean;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
-  __typename: "Lesson";
-  _id: string | null;
-  lessonName: string;
-  vocabList: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_vocabList[];
-  assignedMarkingPeriod: MarkingPeriodEnum;
-  pageNumbers: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_pageNumbers;
-  assignedCourses: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses[];
-  assignedSections: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections;
-  objectives: string | null;
-  essentialQuestion: string;
-  duringActivities: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[];
-  beforeActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity;
-  afterActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity;
-  dynamicLesson: DynamicLessonEnums;
-}
-
-export interface findLessonByCourseAndDate_findLessonByCourseAndDate {
-  __typename: "FindLessonByCourseAndDatePayload";
-  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson | null;
-}
-
-export interface findLessonByCourseAndDate {
-  findLessonByCourseAndDate: findLessonByCourseAndDate_findLessonByCourseAndDate;
-}
-
-export interface findLessonByCourseAndDateVariables {
-  input: FindLessonByCourseAndDateInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: studentSignedInCheck
-// ====================================================
-
-export interface studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets_studentsSignInlog {
-  __typename: "Student";
-  _id: string | null;
-}
-
-export interface studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets {
-  __typename: "StudentSignInSheet";
-  studentsSignInlog: studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets_studentsSignInlog[] | null;
-}
-
-export interface studentSignedInCheck_findSchoolDayByDate_schoolDay {
-  __typename: "SchoolDay";
-  _id: string | null;
-  signInSheets: studentSignedInCheck_findSchoolDayByDate_schoolDay_signInSheets[] | null;
-}
-
-export interface studentSignedInCheck_findSchoolDayByDate {
-  __typename: "FindSchoolDayByDatePayload";
-  schoolDay: studentSignedInCheck_findSchoolDayByDate_schoolDay | null;
-}
-
-export interface studentSignedInCheck {
-  findSchoolDayByDate: studentSignedInCheck_findSchoolDayByDate;
-}
-
-export interface studentSignedInCheckVariables {
-  input: FindSchoolDayByDateInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: studentSignIn
-// ====================================================
-
-export interface studentSignIn_studentSignIn_schoolDay {
-  __typename: "SchoolDay";
-  _id: string | null;
-}
-
-export interface studentSignIn_studentSignIn {
-  __typename: "StudentSignInPayload";
-  schoolDay: studentSignIn_studentSignIn_schoolDay;
-}
-
-export interface studentSignIn {
-  studentSignIn: studentSignIn_studentSignIn;
-}
-
-export interface studentSignInVariables {
-  input: StudentSignInInput;
 }
 
 /* tslint:disable */

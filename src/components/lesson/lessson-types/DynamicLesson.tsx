@@ -29,6 +29,7 @@ import { useUserContextProvider } from '../../../contexts/UserContext'
 export type DynamicLessonProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
   courseToLoad?: me_me_Teacher_teachesCourses
+  fakeCourse?: me_me_Teacher_teachesCourses
   stopPolling: () => void
 }
 
@@ -36,6 +37,7 @@ export const DynamicLesson = ({
   lesson,
   courseToLoad,
   stopPolling,
+  fakeCourse,
 }: DynamicLessonProps) => {
   const me: me_me = useUserContextProvider()
   const [, event] = useDailyAgendaContextProvider()
@@ -78,13 +80,16 @@ export const DynamicLesson = ({
       )}
 
       <LessonComponentTypeContainer>
-        {/* <LessonComponentTypeStyle>
+        <LessonComponentTypeStyle>
           {me.__typename === 'Student' ? (
-            <StudentQuestionPrompt courseToLoad={courseToLoad!} />
+            <StudentQuestionPrompt
+              courseToLoad={courseToLoad!}
+              fakeCourse={fakeCourse!}
+            />
           ) : (
             'Class is Live'
           )}
-        </LessonComponentTypeStyle> */}
+        </LessonComponentTypeStyle>
       </LessonComponentTypeContainer>
     </LessonPageContainer>
   )

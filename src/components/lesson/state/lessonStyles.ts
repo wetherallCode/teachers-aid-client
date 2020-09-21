@@ -224,8 +224,8 @@ export const LessonDetailLeft = styled.div`
 export const VocabWordContainer = styled.ul`
   grid-row: 2/-1;
   grid-column: 1/-1;
-
-  font-size: 3vw;
+  margin-left: 3%;
+  font-size: 2vw;
   overflow: scroll;
 `
 export const VocabWordStyle = styled.li`

@@ -77,15 +77,17 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
       )
       setProtocol(protocol)
     },
+    pollInterval: 1000,
     onError: (error) => console.error(error),
   })
 
+  console.log(protocol)
   const [respond] = useMutation<respondToProtocol, respondToProtocolVariables>(
     RESPOND_TO_PROTOCOL_MUTATION,
     {
       variables: { input: { protocolId: protocol._id!, response } },
       onCompleted: (data) => console.log(data),
-      refetchQueries: ['findStudentProtocol'],
+      refetchQueries: ['findStudentProtocol', 'findVirtualResponses'],
     }
   )
   const isProtocolRespondedTo = data?.findStudentById.student.hasProtocols

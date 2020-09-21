@@ -19,6 +19,7 @@ import { useUserContextProvider } from '../../../contexts/UserContext'
 
 export type StudentQuestionPromptProps = {
   courseToLoad?: me_me_Teacher_teachesCourses
+  fakeCourse: me_me_Teacher_teachesCourses
 }
 
 export const CREATE_STUDENT_QUESTION_MUTATION = gql`
@@ -27,7 +28,9 @@ export const CREATE_STUDENT_QUESTION_MUTATION = gql`
       studentQuestions {
         _id
         questions {
-          studentId
+          student {
+            _id
+          }
           question
         }
       }
@@ -37,6 +40,7 @@ export const CREATE_STUDENT_QUESTION_MUTATION = gql`
 
 export const StudentQuestionPrompt: FC<StudentQuestionPromptProps> = ({
   courseToLoad,
+  fakeCourse,
 }) => {
   const me: me_me = useUserContextProvider()
   const [isQuestionVisible, toggleQuestion] = useToggle(false)
@@ -47,7 +51,11 @@ export const StudentQuestionPrompt: FC<StudentQuestionPromptProps> = ({
     createStudentQuestionVariables
   >(CREATE_STUDENT_QUESTION_MUTATION, {
     variables: {
-      input: { courseId: courseToLoad?._id!, question, studentId: me._id! },
+      input: {
+        courseId: fakeCourse ? fakeCourse._id! : courseToLoad?._id!,
+        question,
+        studentId: me._id!,
+      },
     },
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
