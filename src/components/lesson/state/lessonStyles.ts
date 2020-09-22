@@ -212,10 +212,11 @@ export const LessonDetailsContainer = styled.div`
   /* justify-items: center;
   align-items: center; */
   grid-template-rows: 1fr 1fr 1fr 6fr;
-  font-size: 2rem;
+  font-size: 2vw;
 `
 export const LessonDetailCenter = styled.div`
   justify-self: center;
+  margin-bottom: 3%;
 `
 
 export const LessonDetailLeft = styled.div`

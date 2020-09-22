@@ -81,7 +81,6 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
     onError: (error) => console.error(error),
   })
 
-  console.log(protocol)
   const [respond] = useMutation<respondToProtocol, respondToProtocolVariables>(
     RESPOND_TO_PROTOCOL_MUTATION,
     {
