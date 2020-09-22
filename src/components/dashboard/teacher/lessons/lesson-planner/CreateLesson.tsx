@@ -14,7 +14,7 @@ export type CreateLessonProps = {}
 export const CREATE_LESSON_MUTATION = gql`
   mutation createLesson($input: CreateLessonInput!) {
     createLesson(input: $input) {
-      lesson {
+      lessons {
         _id
         assignedMarkingPeriod
       }

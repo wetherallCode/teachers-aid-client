@@ -2650,7 +2650,7 @@ export interface getCoursesForUserVariables {
 // GraphQL mutation operation: createLesson
 // ====================================================
 
-export interface createLesson_createLesson_lesson {
+export interface createLesson_createLesson_lessons {
   __typename: "Lesson";
   _id: string | null;
   assignedMarkingPeriod: MarkingPeriodEnum;
@@ -2658,7 +2658,7 @@ export interface createLesson_createLesson_lesson {
 
 export interface createLesson_createLesson {
   __typename: "CreateLessonPayload";
-  lesson: createLesson_createLesson_lesson;
+  lessons: createLesson_createLesson_lessons[];
 }
 
 export interface createLesson {

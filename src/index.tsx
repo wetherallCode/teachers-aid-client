@@ -26,8 +26,8 @@ const link = new HttpLink({
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link,
-  // link: localLink,
+  // link,
+  link: localLink,
   connectToDevTools: true,
 })
 
