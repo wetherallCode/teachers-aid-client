@@ -51,7 +51,7 @@ export const UserContextProvider: FC<UserContextProps> = ({ children }) => {
     // onCompleted: (data) => console.log(data),
     onError: (error) => error && <div>Things went wrong, please refresh!</div>,
   })
-  if (loading) return <div>'Working on it...'</div>
+  if (loading) return <div>'Starting the Server...'</div>
 
   return (
     <UserContext.Provider value={data?.me}>{children}</UserContext.Provider>
