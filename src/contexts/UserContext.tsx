@@ -51,7 +51,24 @@ export const UserContextProvider: FC<UserContextProps> = ({ children }) => {
     // onCompleted: (data) => console.log(data),
     onError: (error) => error && <div>Things went wrong, please refresh!</div>,
   })
-  if (loading) return <div>'Starting the Server...'</div>
+  if (loading)
+    return (
+      <div
+        style={{
+          display: 'grid',
+          fontSize: '3vw',
+          color: 'var(--blue)',
+          height: '100vh',
+        }}
+      >
+        <div style={{ justifySelf: 'center', alignSelf: 'center' }}>
+          <span>Starting the Server </span>
+          <span aria-label='🚀🚀🚀' role='img'>
+            🚀🚀🚀
+          </span>
+        </div>
+      </div>
+    )
 
   return (
     <UserContext.Provider value={data?.me}>{children}</UserContext.Provider>

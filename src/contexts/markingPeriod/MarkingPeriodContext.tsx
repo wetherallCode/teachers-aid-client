@@ -52,10 +52,22 @@ export const MarkingPeriodContextProvider: FC<MarkingPeriodContext> = ({
         error && <div>Things went wrong, please refresh!</div>,
     }
   )
-  if (loading)
+  if (loading) {
     return (
-      <div>Getting things ready, it may take a little bit. Be patient. </div>
+      <div
+        style={{
+          display: 'grid',
+          fontSize: '3vw',
+          color: 'var(--blue)',
+          height: '100vh',
+        }}
+      >
+        <div style={{ justifySelf: 'center', alignSelf: 'center' }}>
+          <span>Getting things ready, be patient! </span>
+        </div>
+      </div>
     )
+  }
 
   return (
     <MarkingPeriodContext.Provider value={[state, event]}>

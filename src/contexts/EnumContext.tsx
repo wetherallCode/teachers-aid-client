@@ -83,7 +83,21 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
     // onCompleted: (data) => console.log(data),
     onError: (error) => error && <div>Things went wrong, please refresh!</div>,
   })
-  if (loading) return <div>Preparing some stuff, hold on!</div>
+  if (loading)
+    return (
+      <div
+        style={{
+          display: 'grid',
+          fontSize: '3vw',
+          color: 'var(--blue)',
+          height: '100vh',
+        }}
+      >
+        <div style={{ justifySelf: 'center', alignSelf: 'center' }}>
+          <span>Almost there... </span>
+        </div>
+      </div>
+    )
 
   return (
     <EnumContext.Provider
