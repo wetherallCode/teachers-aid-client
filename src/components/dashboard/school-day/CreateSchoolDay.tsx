@@ -1,6 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { gql, useMutation, useQuery } from '@apollo/client'
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createSchoolDay,
   createSchoolDayVariables,
   findCurrentSchoolDayCount,
@@ -63,14 +64,25 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
         cohortWeek: state.context.createSchoolDay.cohortWeek,
         schoolDayCount: state.context.createSchoolDay.schoolDayCount + 1,
         currentSchoolDayType:
-          state.context.createSchoolDay.currentSchoolDayType === SchoolDayType.A
-            ? SchoolDayType.B
-            : SchoolDayType.A,
+          state.context.createSchoolDay.currentSchoolDayType,
+        // state.context.createSchoolDay.currentSchoolDayType === SchoolDayType.A
+        //   ? SchoolDayType.B
+        //   : SchoolDayType.A,
       },
     },
     onCompleted: (data) => event({ type: 'CURRENT_SCHOOL_DAY' }),
     refetchQueries: ['findCurrentSchoolDayCount', 'findCurrentSchoolDay'],
   })
+
+  useEffect(() => {
+    event({
+      type: 'SET_CURRENT_SCHOOL_DAY_TYPE',
+      payload:
+        state.context.createSchoolDay.currentSchoolDayType === SchoolDayType.A
+          ? SchoolDayType.B
+          : SchoolDayType.A,
+    })
+  }, [])
 
   const redWeek =
     state.context.createSchoolDay.cohortWeek === StudentCohortEnum.RED
@@ -120,12 +132,46 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
       </>
       <>
         <div>What type of School Day?</div>
-        {state.context.createSchoolDay.currentSchoolDayType ===
-        SchoolDayType.A ? (
-          <div>B Day</div>
-        ) : (
-          <div>A Day</div>
-        )}
+        {
+          // state.context.createSchoolDay.currentSchoolDayType ===
+          // SchoolDayType.A ?
+          //  (
+          <>
+            <div
+              style={
+                state.context.createSchoolDay.currentSchoolDayType ===
+                SchoolDayType.B
+                  ? { color: 'var(--red)' }
+                  : { color: 'var(--blue)' }
+              }
+              onClick={() =>
+                event({
+                  type: 'SET_CURRENT_SCHOOL_DAY_TYPE',
+                  payload: SchoolDayType.B,
+                })
+              }
+            >
+              B Day
+            </div>
+
+            <div
+              style={
+                state.context.createSchoolDay.currentSchoolDayType ===
+                SchoolDayType.A
+                  ? { color: 'var(--red)' }
+                  : { color: 'var(--blue)' }
+              }
+              onClick={() =>
+                event({
+                  type: 'SET_CURRENT_SCHOOL_DAY_TYPE',
+                  payload: SchoolDayType.A,
+                })
+              }
+            >
+              A Day
+            </div>
+          </>
+        }
       </>
       <>
         <div>What day of school is it?</div>
