@@ -25,6 +25,11 @@ export const AssignmentNav: FC<TeacherNavProps> = ({
           <Link to='dashboard/assignments/assign'>Assign</Link>
         </motion.li>
         <motion.li variants={liVariants}>
+          <Link to='dashboard/assignments/article-reviews'>
+            Article Reviews
+          </Link>
+        </motion.li>
+        <motion.li variants={liVariants}>
           <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
         </motion.li>
       </motion.ul>

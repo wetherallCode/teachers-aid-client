@@ -143,6 +143,129 @@ export interface findCurrentSchoolDayVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findArticleReviewsByStudent
+// ====================================================
+
+export interface findArticleReviewsByStudent_findArticleReviewsByStudent_articleReviews {
+  __typename: "ArticleReview";
+  _id: string | null;
+  assignedDate: string;
+  paperBased: boolean;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findArticleReviewsByStudent_findArticleReviewsByStudent {
+  __typename: "FindArticleReviewsByStudentPayload";
+  articleReviews: findArticleReviewsByStudent_findArticleReviewsByStudent_articleReviews[];
+}
+
+export interface findArticleReviewsByStudent {
+  findArticleReviewsByStudent: findArticleReviewsByStudent_findArticleReviewsByStudent;
+}
+
+export interface findArticleReviewsByStudentVariables {
+  input: FindArticleReviewsByStudentInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findArticleReviewById
+// ====================================================
+
+export interface findArticleReviewById_findArticleReviewById_articleReview {
+  __typename: "ArticleReview";
+  _id: string | null;
+  articleAuthor: string;
+  articleLink: string;
+  articleTitle: string;
+  assignedDate: string;
+  bias: boolean | null;
+  dueDate: string;
+  dueTime: string;
+  issue: string;
+  publishedDate: string | null;
+  solutions: string | null;
+  topicsImportance: string;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findArticleReviewById_findArticleReviewById {
+  __typename: "FindArticleReviewByIdPayload";
+  articleReview: findArticleReviewById_findArticleReviewById_articleReview;
+}
+
+export interface findArticleReviewById {
+  findArticleReviewById: findArticleReviewById_findArticleReviewById;
+}
+
+export interface findArticleReviewByIdVariables {
+  input: FindArticleReviewByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: submitArticleReview
+// ====================================================
+
+export interface submitArticleReview_submitArticleReview_articleReview {
+  __typename: "ArticleReview";
+  _id: string | null;
+}
+
+export interface submitArticleReview_submitArticleReview {
+  __typename: "SubmitArticleReviewPayload";
+  articleReview: submitArticleReview_submitArticleReview_articleReview;
+}
+
+export interface submitArticleReview {
+  submitArticleReview: submitArticleReview_submitArticleReview;
+}
+
+export interface submitArticleReviewVariables {
+  input: SubmitArticleReviewInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateArticleReview
+// ====================================================
+
+export interface updateArticleReview_updateArticleReview_articleReview {
+  __typename: "ArticleReview";
+  _id: string | null;
+}
+
+export interface updateArticleReview_updateArticleReview {
+  __typename: "UpdateArticleReviewPayload";
+  articleReview: updateArticleReview_updateArticleReview_articleReview;
+}
+
+export interface updateArticleReview {
+  updateArticleReview: updateArticleReview_updateArticleReview;
+}
+
+export interface updateArticleReviewVariables {
+  input: UpdateArticleReviewInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findEssaysToComplete
 // ====================================================
 
@@ -1104,6 +1227,33 @@ export interface submitReadingGuide {
 
 export interface submitReadingGuideVariables {
   input: SubmitReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createArticleReviews
+// ====================================================
+
+export interface createArticleReviews_createArticleReviews_articleReviews {
+  __typename: "ArticleReview";
+  _id: string | null;
+}
+
+export interface createArticleReviews_createArticleReviews {
+  __typename: "CreateArticleReviewsPayload";
+  articleReviews: createArticleReviews_createArticleReviews_articleReviews[];
+}
+
+export interface createArticleReviews {
+  createArticleReviews: createArticleReviews_createArticleReviews;
+}
+
+export interface createArticleReviewsVariables {
+  input: CreateArticleReviewsInput;
 }
 
 /* tslint:disable */
@@ -3938,6 +4088,39 @@ export interface findStudentProtocolVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findActiveProtocolByStudent
+// ====================================================
+
+export interface findActiveProtocolByStudent_findActiveProtocolByStudent_protocol {
+  __typename: "Protocol";
+  _id: string | null;
+  completed: boolean;
+  assignedDate: string;
+  academicOutcomeType: AcademicOutcomeTypes;
+  task: string;
+  isActive: boolean;
+  response: string | null;
+}
+
+export interface findActiveProtocolByStudent_findActiveProtocolByStudent {
+  __typename: "FindActiveProtocolByStudentPayload";
+  protocol: findActiveProtocolByStudent_findActiveProtocolByStudent_protocol;
+}
+
+export interface findActiveProtocolByStudent {
+  findActiveProtocolByStudent: findActiveProtocolByStudent_findActiveProtocolByStudent;
+}
+
+export interface findActiveProtocolByStudentVariables {
+  input: FindActiveProtocolByStudentInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: respondToProtocol
 // ====================================================
 
@@ -4436,6 +4619,50 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL query operation: findArticleReviewsByCourse
+// ====================================================
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+  schoolId: string | null;
+  _id: string | null;
+}
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews {
+  __typename: "ArticleReview";
+  _id: string | null;
+  score: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score;
+  hasOwner: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner;
+  assignedDate: string;
+  completed: boolean;
+}
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse {
+  __typename: "FindArticleReviewsByCoursePayload";
+  articleReviews: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews[];
+}
+
+export interface findArticleReviewsByCourse {
+  findArticleReviewsByCourse: findArticleReviewsByCourse_findArticleReviewsByCourse;
+}
+
+export interface findArticleReviewsByCourseVariables {
+  input: FindArticleReviewsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -4642,6 +4869,15 @@ export interface ControlWarmUpInput {
   lessonId: string;
 }
 
+export interface CreateArticleReviewsInput {
+  assignedCourseId: string[];
+  assignedDate: string;
+  dueDate: string;
+  dueTime: TimeOfDay;
+  hasAssignerId: string;
+  markingPeriod: MarkingPeriodEnum;
+}
+
 export interface CreateCourseInfoInput {
   cohortBasedSeating: boolean;
   courseId: string;
@@ -4741,6 +4977,24 @@ export interface CreateUnitInput {
 export interface DevelopingSentenceStructureInput {
   subject: string;
   verb: string;
+}
+
+export interface FindActiveProtocolByStudentInput {
+  studentId: string;
+}
+
+export interface FindArticleReviewByIdInput {
+  articleReviewId: string;
+}
+
+export interface FindArticleReviewsByCourseInput {
+  courseId: string;
+  markingPeriod?: MarkingPeriodEnum | null;
+}
+
+export interface FindArticleReviewsByStudentInput {
+  markingPeriod: MarkingPeriodEnum;
+  studentId: string;
 }
 
 export interface FindAssignmentByIdInput {
@@ -4990,6 +5244,11 @@ export interface StudentSignInInput {
   virtual?: boolean | null;
 }
 
+export interface SubmitArticleReviewInput {
+  articleReviewId: string;
+  markingPeriod: MarkingPeriodEnum;
+}
+
 export interface SubmitEssayFinalDraftInput {
   _id: string;
   late: boolean;
@@ -5050,6 +5309,18 @@ export interface UpdateAdvancedOrganizerInput {
   conclusion: string;
   essayId: string;
   restatement: string;
+}
+
+export interface UpdateArticleReviewInput {
+  articleAuthor: string;
+  articleLink: string;
+  articleReviewId: string;
+  articleTitle: string;
+  bias?: boolean | null;
+  issue: string;
+  publishedDate?: string | null;
+  solutions?: string | null;
+  topicsImportance: string;
 }
 
 export interface UpdateCourseInfoInput {

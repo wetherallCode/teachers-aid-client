@@ -11,6 +11,8 @@ import { LessonMainMenu } from '../../lesson/LessonMainMenu'
 import { DailyAgendaContextProvider } from '../../lesson/state/DailyAgendaContext'
 import { StudentAssignmentContextProvider } from './assignments/StudentAssignmentContext'
 import { StudentGrades } from './grades/StudentGrades'
+import { ArticleReviewToComplete } from './assignments/articleReviews/ArticleReviewToComplete'
+import { ArticleReviewToCompleteContextProvider } from './assignments/articleReviews/state-styles/ArticleReviewToCompleteContext'
 
 export const StudentDashboardHome = () => {
   const { pathname } = useLocation()
@@ -40,6 +42,14 @@ export const StudentDashboardHome = () => {
             <ReadingGuideToCompleteContextProvider>
               <ReadingGuideToComplete />
             </ReadingGuideToCompleteContextProvider>
+          }
+        />
+        <Route
+          path='assignments/articleReview/toComplete/:articleReviewToComplete'
+          element={
+            <ArticleReviewToCompleteContextProvider>
+              <ArticleReviewToComplete />
+            </ArticleReviewToCompleteContextProvider>
           }
         />
         <Route path='grades/*' element={<StudentGrades />} />

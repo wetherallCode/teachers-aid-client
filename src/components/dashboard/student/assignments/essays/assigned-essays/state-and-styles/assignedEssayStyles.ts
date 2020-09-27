@@ -12,7 +12,6 @@ export const AssignmentDetailsContainer = styled.div`
   background-color: var(--blue);
   color: var(--white);
   border-left: 3px solid var(--white);
-
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
 `

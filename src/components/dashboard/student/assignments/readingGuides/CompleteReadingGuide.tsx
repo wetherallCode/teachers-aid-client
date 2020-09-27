@@ -35,7 +35,6 @@ import {
   ClarifyingQuestionsSubmittedQuestion,
   ClarifyingQuestionsBlock,
 } from './state-and-styles/readingGuideStyles'
-import { doneInvoke } from 'xstate'
 
 export type CompleteReadingGuideProps = {
   readingGuideInfo: findReadingGuideById_findReadingGuideById_readingGuide

@@ -7,6 +7,8 @@ import {
   respondToProtocolVariables,
   findStudentProtocol_findStudentById_student_hasProtocols,
   AcademicOutcomeTypes,
+  findActiveProtocolByStudent,
+  findActiveProtocolByStudentVariables,
 } from '../../../schemaTypes'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {
@@ -39,6 +41,22 @@ export const FIND_STUDENT_PROTOCOL_QUERY = gql`
   }
 `
 
+export const FIND_ACTIVE_STUDENT_PROTOCOL_QUERY = gql`
+  query findActiveProtocolByStudent($input: FindActiveProtocolByStudentInput!) {
+    findActiveProtocolByStudent(input: $input) {
+      protocol {
+        _id
+        completed
+        assignedDate
+        academicOutcomeType
+        task
+        isActive
+        response
+      }
+    }
+  }
+`
+
 export const RESPOND_TO_PROTOCOL_MUTATION = gql`
   mutation respondToProtocol($input: RespondToProtocolInput!) {
     respondToProtocol(input: $input) {
@@ -64,6 +82,17 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
     task: '',
     response: null,
   })
+  const { data: activeProtocol } = useQuery<
+    findActiveProtocolByStudent,
+    findActiveProtocolByStudentVariables
+  >(FIND_ACTIVE_STUDENT_PROTOCOL_QUERY, {
+    variables: {
+      input: { studentId: me._id! },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+
   const { loading, data } = useQuery<
     findStudentProtocol,
     findStudentProtocolVariables
@@ -89,6 +118,7 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
       refetchQueries: ['findStudentProtocol', 'findVirtualResponses'],
     }
   )
+
   const isProtocolRespondedTo = data?.findStudentById.student.hasProtocols
     .filter((protocol) => protocol.isActive)
     .some((protocol) => protocol.response)

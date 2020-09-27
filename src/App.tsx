@@ -46,7 +46,7 @@ function App() {
   const me: me_me = useUserContextProvider()
   const [, event] = useSchoolDayContextProvider()
   const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
-
+  console.log(me)
   const { data, loading } = useQuery<
     findCurrentSchoolDay,
     findCurrentSchoolDayVariables

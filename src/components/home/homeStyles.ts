@@ -94,7 +94,7 @@ export const LoginLink = styled(StyledLink)`
 
 export const LogoutLink = styled.div`
   color: var(--white);
-
+  cursor: pointer;
   ${media.iPhone} {
     font-size: 1rem;
   }

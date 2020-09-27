@@ -10,6 +10,7 @@ import {
   AssignmentTypeContainer,
 } from './assignmentsStyles'
 import { useStudentAssignmentContextProvider } from './StudentAssignmentContext'
+import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
 
 export type StudentAssignmentsProps = {}
 
@@ -35,6 +36,11 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
         <AssignmentsTypeStyle onClick={() => event({ type: 'READING_GUIDES' })}>
           Reading Guides to Complete
         </AssignmentsTypeStyle>
+        <AssignmentsTypeStyle
+          onClick={() => event({ type: 'ARTICLE_REVIEWS' })}
+        >
+          Article Reviews to Complete
+        </AssignmentsTypeStyle>
       </AssignmentsTypeSelectorPanel>
       <AssignmentTypeContainer>
         {state.matches('essaysToComplete') && <AssignedEssaySelect />}
@@ -42,6 +48,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
         {state.matches('readingGuidesToComplete') && (
           <AssignedReadingGuideSelect />
         )}
+        {state.matches('articleReviewsToComplete') && <ArticleReviewSelect />}
       </AssignmentTypeContainer>
     </AssignmentsToCompleteContainer>
   )

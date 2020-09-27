@@ -11,6 +11,9 @@ import { AssignAssignments } from './assign-assignments/AssignAssignments'
 import { GradePaperBasedAssignment } from './grade-assignments/paper-based/GradePaperBasedAssignment'
 import { PaperBasedContextProvider } from './grade-assignments/paper-based/state/PaperBasedContext'
 
+import { ArticleReviewManager } from './article-reviews/ArticleReviewManager'
+import { ArticleReviewContextProvider } from './article-reviews/state-styles/ArticleReviewContext'
+
 export type AssignmentDashboardProps = {}
 
 export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
@@ -22,6 +25,14 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
           <CreateAssignmentContextProvider>
             <CreateAssignment />
           </CreateAssignmentContextProvider>
+        }
+      />
+      <Route
+        path='article-reviews'
+        element={
+          <ArticleReviewContextProvider>
+            <ArticleReviewManager />
+          </ArticleReviewContextProvider>
         }
       />
       <Route path='edit' element={<EditAssignments />} />
