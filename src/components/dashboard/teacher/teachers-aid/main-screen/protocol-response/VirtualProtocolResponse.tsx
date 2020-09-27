@@ -9,6 +9,7 @@ import {
 } from '../../../../../../schemaTypes'
 import { ProtocolResponseAssessor } from './ProtocolResponseAssessor'
 import { respond } from 'xstate/lib/actions'
+import { VirtualProtocolContainer } from '../../styles/mainScreenStyles'
 
 export type VirtualProtocolResponseProps = {}
 export const VIRTUAL_RESPONSE_QUERY = gql`
@@ -217,13 +218,13 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
   // if (loading) return <div>Loading </div>
   return (
     <>
-      <div>
+      <VirtualProtocolContainer>
         {responseList.map((response, i: number) => (
           <Fragment key={i}>
             <ProtocolResponseAssessor response={response} i={i} />
           </Fragment>
         ))}
-      </div>
+      </VirtualProtocolContainer>
     </>
   )
 }
