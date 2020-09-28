@@ -33,6 +33,7 @@ export type readingGuideToCompleteMachineEvent =
     }
   | { type: 'SET_HELP_DISPLAY' }
   | { type: 'SET_VOCAB_DISPLAY' }
+  | { type: 'SET_READING_GUIDE_INPUTS'; payload: UpdateReadingGuideInput }
 
 export type readingGuideToCompleteMachineContext = {
   updateReadingGuideInputs: UpdateReadingGuideInput
@@ -78,6 +79,14 @@ export const readingGuideToCompleteMachine = Machine<
     questions: {
       on: {
         NEXT: 'clarifyingQuestions',
+        SET_READING_GUIDE_INPUTS: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              updateReadingGuideInputs: evt.payload,
+            }
+          }),
+        },
         SET_READING_GUIDE_ID: {
           actions: assign((ctx, evt) => {
             return {

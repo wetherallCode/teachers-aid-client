@@ -1150,6 +1150,7 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide_readingG
   majorIssue: string;
   majorSolution: string;
   clarifyingQuestions: string[];
+  majorIssueSolved: boolean;
 }
 
 export interface findReadingGuideById_findReadingGuideById_readingGuide {

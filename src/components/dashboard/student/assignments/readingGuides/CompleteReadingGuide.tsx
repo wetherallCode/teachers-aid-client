@@ -55,10 +55,14 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
   const [state, event] = useReadingGuideToCompleteContextProvider()
 
   const { informationStructureEnum } = useEnumContextProvider()
-  const [infoStructureList, handleChecks] = useCheckBox([])
+  const [infoStructureList, handleChecks] = useCheckBox(
+    state.context.updateReadingGuideInputs.howIsSectionOrganized!
+  )
 
   const [questionToClarify, setQuestionToClarify] = useState('')
-  const [clarifyingQuestions, setClarifyingQuestions] = useState<string[]>([])
+  const [clarifyingQuestions, setClarifyingQuestions] = useState<string[]>(
+    state.context.updateReadingGuideInputs.clarifyingQuestions
+  )
 
   const handleDelete = (index: number) => {
     setClarifyingQuestions((list) => [
@@ -66,13 +70,13 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
       ...list.slice(index + 1),
     ])
   }
-
+  console.log(state.context.updateReadingGuideInputs.clarifyingQuestions)
   const [updateReadingGuide] = useMutation<
     updateReadingGuide,
     updateReadingGuideVariables
   >(UPDATE_READING_GUIDE_MUTATION, {
     variables: { input: state.context.updateReadingGuideInputs },
-    // onCompleted: (data) => console.log(data),
+    onCompleted: (data) => console.log(data.updateReadingGuide.readingGuide),
     refetchQueries: ['findReadingGuideById'],
   })
 
@@ -93,7 +97,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
 
   const multipleSections =
     readingGuideInfo.lessonInfo.assignedSectionIdList.length > 1
-  console.log(state.context.updateReadingGuideInputs.majorIssueSolved)
+
   return (
     <>
       <ReadingGuideHeader>
@@ -134,6 +138,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                     <input
                       type='checkbox'
                       value={item}
+                      checked={infoStructureList.includes(item)}
                       onChange={handleChecks}
                     />
                     <span>{informationStructure(item)}</span>
@@ -157,6 +162,9 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
               onFocus={() =>
                 event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
               }
+              value={
+                state.context.updateReadingGuideInputs.whyWasSectionOrganized
+              }
               onChange={(e: any) =>
                 event({ type: 'SET_WHY_IS_ORGANIZED', payload: e.target.value })
               }
@@ -174,6 +182,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
             </div>
             <ReadingGuideInput
               onFocus={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
+              value={state.context.updateReadingGuideInputs.majorIssue}
               onChange={(e: any) =>
                 event({ type: 'SET_MAJOR_ISSUE', payload: e.target.value })
               }
@@ -192,16 +201,20 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
               onFocus={() =>
                 event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
               }
+              value={
+                state.context.updateReadingGuideInputs.majorIssueSolved
+                  ? 'true'
+                  : 'false'
+              }
               onChange={(e: any) => {
-                console.log(e.target.value)
                 event({
                   type: 'SET_MAJOR_ISSUE_SOLVED',
-                  payload: e.target.value === 'Yes' ? true : false,
+                  payload: e.target.value === 'true' ? true : false,
                 })
               }}
             >
-              <option>Yes</option>
-              <option>No</option>
+              <option value='true'>Yes</option>
+              <option value='false'>No</option>
             </ReadingGuideSelect>
           </MajorIssueSolvedContainer>
           {state.context.updateReadingGuideInputs.majorIssueSolved ? (
@@ -215,6 +228,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 onFocus={() =>
                   event({ type: 'SET_HELP', payload: 'majorSolution' })
                 }
+                value={state.context.updateReadingGuideInputs.majorSolution}
                 onChange={(e: any) =>
                   event({ type: 'SET_MAJOR_SOLUTION', payload: e.target.value })
                 }
@@ -231,6 +245,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 onFocus={() =>
                   event({ type: 'SET_HELP', payload: 'majorSolution' })
                 }
+                value={state.context.updateReadingGuideInputs.majorSolution}
                 onChange={(e: any) =>
                   event({
                     type: 'SET_MAJOR_SOLUTION',
@@ -291,7 +306,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
           <SubmitReadingGuideButton onClick={() => event({ type: 'PREVIOUS' })}>
             Back
           </SubmitReadingGuideButton>
-          {infoStructureList.length > 0 && <SubmitReadingGuide />}
+          <SubmitReadingGuide />
         </SubmitReadingGuideContainer>
       ) : (
         <SubmitReadingGuideContainer>

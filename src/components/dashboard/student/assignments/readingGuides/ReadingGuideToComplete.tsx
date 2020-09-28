@@ -57,6 +57,7 @@ export const FIND_READING_GUIDE_BY_ID_QUERY = gql`
           majorIssue
           majorSolution
           clarifyingQuestions
+          majorIssueSolved
         }
       }
     }
@@ -97,7 +98,28 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
       input: { readingGuideId: readingGuideToComplete },
     },
     onCompleted: (data) => {
+      const {
+        clarifyingQuestions,
+        majorIssue,
+        howIsSectionOrganized,
+        majorSolution,
+        whyWasSectionOrganized,
+        majorIssueSolved,
+      } = data.findReadingGuideById.readingGuide.readingGuideFinal!
+      console.log(majorIssueSolved)
       event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete })
+      event({
+        type: 'SET_READING_GUIDE_INPUTS',
+        payload: {
+          clarifyingQuestions,
+          majorIssue,
+          howIsSectionOrganized,
+          majorSolution,
+          whyWasSectionOrganized,
+          majorIssueSolved,
+          readingGuideId: readingGuideToComplete,
+        },
+      })
       if (!data?.findReadingGuideById.readingGuide.readingGuideFinal) {
         startReadingGuide()
       }

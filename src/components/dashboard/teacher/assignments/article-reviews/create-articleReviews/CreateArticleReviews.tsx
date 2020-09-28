@@ -43,7 +43,7 @@ export const CreateArticleReviews: FC<CreateArticleReviewsProps> = () => {
     event({ type: 'SET_ASSIGNER_ID', payload: me._id! })
     event({
       type: 'SET_ASSIGNED_COURSE_ID',
-      payload: courses,
+      payload: fakeCourse,
     })
   }, [me])
 
