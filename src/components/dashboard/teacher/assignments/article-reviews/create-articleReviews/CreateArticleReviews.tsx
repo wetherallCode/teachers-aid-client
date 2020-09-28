@@ -43,10 +43,10 @@ export const CreateArticleReviews: FC<CreateArticleReviewsProps> = () => {
     event({ type: 'SET_ASSIGNER_ID', payload: me._id! })
     event({
       type: 'SET_ASSIGNED_COURSE_ID',
-      payload: fakeCourse,
+      payload: courses,
     })
   }, [me])
-
+  console.log(state.context.articleReviewToCreate.assignedCourseId)
   const [createArticleReviews] = useMutation<
     createArticleReviews,
     createArticleReviewsVariables
