@@ -78,7 +78,7 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = (
                       !readingGuide.paperBased && !readingGuide.graded
                   )
                   .map((readingGuide) => (
-                    <ul>
+                    <ul key={readingGuide._id!}>
                       <li>
                         <AssignmentLink
                           to={`reading-guide/toComplete/${readingGuide._id!}`}
