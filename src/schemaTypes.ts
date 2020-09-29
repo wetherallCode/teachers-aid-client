@@ -1263,6 +1263,50 @@ export interface createArticleReviewsVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findArticleReviewsByCourse
+// ====================================================
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+  schoolId: string | null;
+  _id: string | null;
+}
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews {
+  __typename: "ArticleReview";
+  _id: string | null;
+  score: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score;
+  hasOwner: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner;
+  assignedDate: string;
+  completed: boolean;
+}
+
+export interface findArticleReviewsByCourse_findArticleReviewsByCourse {
+  __typename: "FindArticleReviewsByCoursePayload";
+  articleReviews: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews[];
+}
+
+export interface findArticleReviewsByCourse {
+  findArticleReviewsByCourse: findArticleReviewsByCourse_findArticleReviewsByCourse;
+}
+
+export interface findArticleReviewsByCourseVariables {
+  input: FindArticleReviewsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assignEssays
 // ====================================================
 
@@ -4613,50 +4657,6 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findArticleReviewsByCourse
-// ====================================================
-
-export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score {
-  __typename: "Score";
-  earnedPoints: number;
-}
-
-export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner {
-  __typename: "Student";
-  firstName: string;
-  lastName: string;
-  schoolId: string | null;
-  _id: string | null;
-}
-
-export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews {
-  __typename: "ArticleReview";
-  _id: string | null;
-  score: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score;
-  hasOwner: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner;
-  assignedDate: string;
-  completed: boolean;
-}
-
-export interface findArticleReviewsByCourse_findArticleReviewsByCourse {
-  __typename: "FindArticleReviewsByCoursePayload";
-  articleReviews: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews[];
-}
-
-export interface findArticleReviewsByCourse {
-  findArticleReviewsByCourse: findArticleReviewsByCourse_findArticleReviewsByCourse;
-}
-
-export interface findArticleReviewsByCourseVariables {
-  input: FindArticleReviewsByCourseInput;
 }
 
 /* tslint:disable */
