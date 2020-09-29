@@ -27,7 +27,7 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
           <EssaysToGrade courseId={courseId} />
           <>
             <div>PaperBased Assignments</div>
-            {/* {courseId && <FindAssignmentByStudent courseId={courseId} />} */}
+            {courseId && <FindAssignmentByStudent courseId={courseId} />}
           </>
         </>
       )}
