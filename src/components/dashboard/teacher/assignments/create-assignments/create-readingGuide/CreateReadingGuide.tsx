@@ -56,7 +56,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
-  console.log(state.context.readingGuide.dueTime)
+
   return (
     <>
       <div>Create Reading Guide</div>
@@ -76,12 +76,13 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
       <span>
         <input
           type='date'
-          onChange={(e: any) =>
+          onChange={(e: any) => {
+            console.log(e.target.value)
             event({
               type: 'SET_READING_GUIDE_DUE_DATE',
               payload: dateConverter(e.target.value),
             })
-          }
+          }}
         />
       </span>
       <span>Time: </span>
@@ -95,7 +96,6 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
         }}
       >
         {timeOfDayEnum.map((time: TimeOfDay) => {
-          console.log(time)
           return (
             <option key={time!} value={time!}>
               {time === 'BEFORE_SCHOOL'
