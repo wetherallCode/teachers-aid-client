@@ -98,28 +98,41 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
       input: { readingGuideId: readingGuideToComplete },
     },
     onCompleted: (data) => {
-      const {
-        clarifyingQuestions,
-        majorIssue,
-        howIsSectionOrganized,
-        majorSolution,
-        whyWasSectionOrganized,
-        majorIssueSolved,
-      } = data.findReadingGuideById.readingGuide.readingGuideFinal!
-      console.log(majorIssueSolved)
+      // const {
+      //   clarifyingQuestions,
+      //   majorIssue,
+      //   howIsSectionOrganized,
+      //   majorSolution,
+      //   whyWasSectionOrganized,
+      //   majorIssueSolved,
+      // } = data.findReadingGuideById.readingGuide.readingGuideFinal!
+
       event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete })
-      event({
-        type: 'SET_READING_GUIDE_INPUTS',
-        payload: {
-          clarifyingQuestions,
-          majorIssue,
-          howIsSectionOrganized,
-          majorSolution,
-          whyWasSectionOrganized,
-          majorIssueSolved,
-          readingGuideId: readingGuideToComplete,
-        },
-      })
+      if (data.findReadingGuideById.readingGuide.readingGuideFinal)
+        event({
+          type: 'SET_READING_GUIDE_INPUTS',
+          payload: {
+            clarifyingQuestions:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .clarifyingQuestions,
+            majorIssue:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .majorIssue,
+            howIsSectionOrganized:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .howIsSectionOrganized,
+            majorSolution:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .majorSolution,
+            whyWasSectionOrganized:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .whyWasSectionOrganized,
+            majorIssueSolved:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .majorIssueSolved,
+            readingGuideId: readingGuideToComplete,
+          },
+        })
       if (!data?.findReadingGuideById.readingGuide.readingGuideFinal) {
         startReadingGuide()
       }

@@ -82,7 +82,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
               </option>
             ))}
           </select> */}
-          <div>
+          <div style={{ overflow: 'scroll' }}>
             {data?.findTextSectionsByChapter.textSections.map((section) =>
               loading ? (
                 'Loading Sections...'
