@@ -10,6 +10,7 @@ import { TeachersAid } from './teachers-aid/TeachersAid'
 import { TeachersAidContextProvider } from './teachers-aid/state/TeachersAidContext'
 import { SchoolDay } from '../school-day/SchoolDay'
 import { SchoolDayContextProvider } from '../school-day/state/SchoolDayContext'
+import { ParentContacts } from './parent-contact/ParentContacts'
 
 export const TeacherDashboardHome = () => {
   // const me = useUserContextProvider() as me_me_Teacher
@@ -41,6 +42,9 @@ export const TeacherDashboardHome = () => {
         />
       </Routes>
       {pathname === '/dashboard' && <SchoolDay />}
+      <Routes>
+        <Route path='parentContacts/*' element={<ParentContacts />} />
+      </Routes>
     </TeacherDashboardContainer>
   )
 }
