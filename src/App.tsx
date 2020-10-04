@@ -5,7 +5,7 @@ import { useUserContextProvider } from './contexts/UserContext'
 import { Dashboard } from './components/dashboard/Dashboard'
 import { Home } from './components/home/Home'
 import { Login } from './components/home/Login'
-import { Nav } from './components/home/Nav'
+import { Nav } from './navigation/Nav'
 import { useToggle } from './hooks'
 
 import {

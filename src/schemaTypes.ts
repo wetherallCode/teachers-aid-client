@@ -1286,6 +1286,7 @@ export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleRe
   hasOwner: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner;
   assignedDate: string;
   completed: boolean;
+  late: boolean;
 }
 
 export interface findArticleReviewsByCourse_findArticleReviewsByCourse {
@@ -1697,12 +1698,112 @@ export interface findEssayToGradeById_findEssayById_essay_topic {
   writingLevel: WritingLevelEnum;
 }
 
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
+  __typename: "DevelopingSentenceStructure";
+  subject: string;
+  verb: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer {
+  __typename: "DevelopingOrganizer";
+  restatement: string;
+  developingSentenceStructure: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure;
+  basicQuestionType: BasicQuestionEnum | null;
+  answer: string;
+  conclusion: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure {
+  __typename: "AcademicSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType = findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer {
+  __typename: "AcademicOrganizer";
+  academicSentenceStructure: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure;
+  questionType: QuestionTypeEnum | null;
+  answerType: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType | null;
+  restatement: string;
+  conclusion: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure {
+  __typename: "AdvancedSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType = findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer {
+  __typename: "AdvancedOrganizer";
+  advancedSentenceStructure: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure;
+  questionType: QuestionTypeEnum | null;
+  answerType: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType | null;
+  restatement: string;
+  conclusion: string;
+}
+
+export type findEssayToGradeById_findEssayById_essay_workingDraft_organizer = findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer;
+
+export interface findEssayToGradeById_findEssayById_essay_workingDraft {
+  __typename: "WorkingDraft";
+  organizer: findEssayToGradeById_findEssayById_essay_workingDraft_organizer | null;
+}
+
 export interface findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
-  _id: string | null;
   entry: string;
   score: number;
   rubricSection: RubricSectionEnum;
+  howToImprove: string | null;
 }
 
 export interface findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft {
@@ -1731,6 +1832,7 @@ export interface findEssayToGradeById_findEssayById_essay {
   topic: findEssayToGradeById_findEssayById_essay_topic;
   dueDate: string;
   dueTime: string;
+  workingDraft: findEssayToGradeById_findEssayById_essay_workingDraft;
   finalDraft: findEssayToGradeById_findEssayById_essay_finalDraft | null;
 }
 
@@ -3272,6 +3374,100 @@ export interface findTextSectionsByChapterVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findParentContactsByTeacherId
+// ====================================================
+
+export interface findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts {
+  __typename: "ParentContact";
+  _id: string | null;
+  student: findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts_student;
+  date: string;
+  contactType: ContactTypeEnum;
+  contentOfContact: string;
+}
+
+export interface findParentContactsByTeacherId_findParentContactsByTeacherId {
+  __typename: "FindParentContactsByTeacherIdPayload";
+  parentContacts: findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts[];
+}
+
+export interface findParentContactsByTeacherId {
+  findParentContactsByTeacherId: findParentContactsByTeacherId_findParentContactsByTeacherId;
+}
+
+export interface findParentContactsByTeacherIdVariables {
+  input: FindParentContactsByTeacherIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createParentContact
+// ====================================================
+
+export interface createParentContact_createParentContact_parentContact {
+  __typename: "ParentContact";
+  _id: string | null;
+}
+
+export interface createParentContact_createParentContact {
+  __typename: "CreateParentContactPayload";
+  parentContact: createParentContact_createParentContact_parentContact;
+}
+
+export interface createParentContact {
+  createParentContact: createParentContact_createParentContact;
+}
+
+export interface createParentContactVariables {
+  input: CreateParentContactInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findStudentsByCourseForParentContacts
+// ====================================================
+
+export interface findStudentsByCourseForParentContacts_findStudentsByCourse_students {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findStudentsByCourseForParentContacts_findStudentsByCourse {
+  __typename: "FindStudentsByCoursePayload";
+  students: findStudentsByCourseForParentContacts_findStudentsByCourse_students[];
+}
+
+export interface findStudentsByCourseForParentContacts {
+  findStudentsByCourse: findStudentsByCourseForParentContacts_findStudentsByCourse;
+}
+
+export interface findStudentsByCourseForParentContactsVariables {
+  input: FindStudentsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: buildRubricEntry
 // ====================================================
 
@@ -4528,6 +4724,16 @@ export interface enumValues_ProtocolActivityTypes {
   enumValues: enumValues_ProtocolActivityTypes_enumValues[] | null;
 }
 
+export interface enumValues_ContactTypeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_ContactTypeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_ContactTypeEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -4542,6 +4748,7 @@ export interface enumValues {
   SchoolDayType: enumValues_SchoolDayType | null;
   AcademicOutcomeTypes: enumValues_AcademicOutcomeTypes | null;
   ProtocolActivityTypes: enumValues_ProtocolActivityTypes | null;
+  ContactTypeEnum: enumValues_ContactTypeEnum | null;
 }
 
 /* tslint:disable */
@@ -4677,6 +4884,12 @@ export enum AcademicOutcomeTypes {
 export enum BasicQuestionEnum {
   HOW = "HOW",
   WHY = "WHY",
+}
+
+export enum ContactTypeEnum {
+  EMAIL = "EMAIL",
+  PHONE = "PHONE",
+  VIDEO = "VIDEO",
 }
 
 export enum CourseMaxSizeEnum {
@@ -4925,6 +5138,14 @@ export interface CreateLessonInput {
   vocabList: TextSectionVocabInput[];
 }
 
+export interface CreateParentContactInput {
+  contactType: ContactTypeEnum;
+  contentOfContact: string;
+  date: string;
+  studentId: string;
+  teacherId: string;
+}
+
 export interface CreateProtocolInput {
   academicOutcomeType: AcademicOutcomeTypes;
   markingPeriod: MarkingPeriodEnum;
@@ -5055,6 +5276,10 @@ export interface FindLessonByIdInput {
 export interface FindLessonsByUnitInput {
   courseId: string;
   unitId: string;
+}
+
+export interface FindParentContactsByTeacherIdInput {
+  teacherId: string;
 }
 
 export interface FindReadingGuideByIdInput {
@@ -5193,6 +5418,7 @@ export interface ReturnGradedEssayInput {
 }
 
 export interface ReturnedRubricEntryInput {
+  _id?: string | null;
   entry: string;
   howToImprove?: string | null;
   rubricSection: RubricSectionEnum;
