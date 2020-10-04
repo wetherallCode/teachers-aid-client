@@ -69,6 +69,11 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    ContactTypeEnum: __type(name: "ContactTypeEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -137,6 +142,9 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         protocolActivityTypes: data?.ProtocolActivityTypes?.enumValues?.map(
+          (value) => value.name
+        ),
+        contactTypeEnum: data?.ContactTypeEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}
