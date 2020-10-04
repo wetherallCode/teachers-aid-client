@@ -26,6 +26,7 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
         }
         assignedDate
         completed
+        late
       }
     }
   }
@@ -78,11 +79,12 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
         ))}
       </select>
       {dateToReview?.map((reviews) => (
-        <div>
+        <div key={reviews._id!}>
           {reviews.hasOwner.firstName}:{' '}
           {Number(reviews.score.earnedPoints) > 0
             ? reviews.score.earnedPoints
             : 'Missing'}
+          {reviews.late && Number(reviews.score.earnedPoints) > 0 && ' late'}
         </div>
       ))}
     </>
