@@ -9,9 +9,40 @@ export const capitalizer = (word: string) => {
 }
 
 export const dateConverter = (date: string) => {
-  return (
-    date.substring(5, 7) + '/' + date.substring(8) + '/' + date.substring(0, 4)
-  )
+  console.log(date)
+  //  '2020-10-03'
+  if (date.charAt(5) === '0' && date.charAt(8) === '0') {
+    return (
+      date.substring(6, 7) +
+      '/' +
+      date.substring(9) +
+      '/' +
+      date.substring(0, 4)
+    )
+  } else if (date.charAt(5) === '0' && date.charAt(8) !== '0') {
+    return (
+      date.substring(6, 7) +
+      '/' +
+      date.substring(8) +
+      '/' +
+      date.substring(0, 4)
+    )
+  } else if (date.charAt(5) !== '0' && date.charAt(8) === '0') {
+    return (
+      date.substring(5, 7) +
+      '/' +
+      date.substring(9) +
+      '/' +
+      date.substring(0, 4)
+    )
+  } else
+    return (
+      date.substring(5, 7) +
+      '/' +
+      date.substring(8) +
+      '/' +
+      date.substring(0, 4)
+    )
 }
 
 export const timeConverter = (time: string) => {
