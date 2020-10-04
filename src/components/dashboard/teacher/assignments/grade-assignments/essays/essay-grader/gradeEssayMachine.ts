@@ -5,6 +5,7 @@ import {
   RubricSectionEnum,
   ReturnedRubricEntryInput,
   ReturnGradedEssayInput,
+  findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries,
 } from '../../../../../../../schemaTypes'
 
 export type gradeEssayMachineSchema = {
@@ -46,6 +47,10 @@ export type gradeEssayMachineEvent =
   | { type: 'RESET_COMMENT' }
   | { type: 'ADD_ADDITIONAL_COMMENT'; payload: string }
   | { type: 'REMOVE_COMMENT'; payload: number }
+  | {
+      type: 'SET_PREVIOUS_RUBRIC_ENTRIES'
+      payload: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[]
+    }
 
 export type gradeEssayMachineContext = {
   essayId: string
@@ -55,6 +60,7 @@ export type gradeEssayMachineContext = {
   draftSelector: number
   comment: string
   draftToGrade: ReturnGradedEssayInput
+  previousRubricEntries: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[]
 }
 
 export const gradeEssayMachine = Machine<
@@ -82,9 +88,11 @@ export const gradeEssayMachine = Machine<
       rubricWritingLevels: [WritingLevelEnum.DEVELOPING],
       score: 0,
     },
+
     currentRubricSection: RubricSectionEnum.OVERALL,
     writingLevel: WritingLevelEnum.DEVELOPING,
     comment: '',
+    previousRubricEntries: [],
   },
   states: {
     loading: {
@@ -137,32 +145,38 @@ export const gradeEssayMachine = Machine<
       initial: 'transition',
       states: {
         transition: {
-          on: {
-            '': [
-              {
-                target: 'developing',
-                cond: (ctx) => {
-                  return ctx.writingLevel === 'DEVELOPING'
-                },
+          always: [
+            {
+              target: 'developing',
+              cond: (ctx) => {
+                return ctx.writingLevel === 'DEVELOPING'
               },
-              {
-                target: 'academic',
-                cond: (ctx) => {
-                  console.log(ctx.writingLevel)
-                  return ctx.writingLevel === 'ACADEMIC'
-                },
+            },
+            {
+              target: 'academic',
+              cond: (ctx) => {
+                console.log(ctx.writingLevel)
+                return ctx.writingLevel === 'ACADEMIC'
               },
-              {
-                target: 'advanced',
-                cond: (ctx) => ctx.writingLevel === 'ADVANCED',
-              },
-            ],
-          },
+            },
+            {
+              target: 'advanced',
+              cond: (ctx) => ctx.writingLevel === 'ADVANCED',
+            },
+          ],
         },
         developing: {
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            SET_PREVIOUS_RUBRIC_ENTRIES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  previousRubricEntries: evt.payload,
+                }
+              }),
+            },
             SET_CURRENT_RUBRIC_SECTION: {
               actions: assign((ctx, evt) => {
                 return {
@@ -249,6 +263,14 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            SET_PREVIOUS_RUBRIC_ENTRIES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  previousRubricEntries: evt.payload,
+                }
+              }),
+            },
             SET_CURRENT_RUBRIC_SECTION: {
               actions: assign((ctx, evt) => {
                 return {
@@ -335,6 +357,14 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            SET_PREVIOUS_RUBRIC_ENTRIES: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  previousRubricEntries: evt.payload,
+                }
+              }),
+            },
             SET_CURRENT_RUBRIC_SECTION: {
               actions: assign((ctx, evt) => {
                 return {

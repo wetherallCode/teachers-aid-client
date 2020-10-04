@@ -1,8 +1,10 @@
 import React, { FC, useState, useEffect } from 'react'
 import { useGradeEssayContextProvider } from '../GradeEssayContext'
 import {
+  findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
   findRubricEntries_findRubricEntries_rubricEntries,
   ReturnedRubricEntryInput,
+  RubricSectionEnum,
   WritingLevelEnum,
 } from '../../../../../../../../schemaTypes'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
@@ -11,6 +13,7 @@ import { AdditionalComments } from './AdditionalComments'
 
 export type DevelopingGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
+  organizer?: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer
 }
 
 export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
@@ -21,19 +24,19 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
   const [sectionSelector, setSectionSelector] = useState(0)
   const [rubricList, handleChange] = useCheckBox([])
   const rubricEntriesList: ReturnedRubricEntryInput[] = []
-
   rubricList.forEach((entry: string) => {
     const splitValues = entry.split(',')
 
     const rubricEntryValues: ReturnedRubricEntryInput = {
       entry: splitValues[0],
-      rubricSection: state.context.currentRubricSection,
+      rubricSection: splitValues[3] as RubricSectionEnum,
       score: Number(splitValues[1]),
       howToImprove: splitValues[2],
     }
     rubricEntriesList.push(rubricEntryValues)
   })
-  console.log(state.context.draftToGrade.rubricEntries)
+
+  console.log(rubricEntriesList)
   const totalScore = rubricEntriesList
     .map((entry) => entry.score)
     .reduce((a, b) => a + b, 0)
@@ -58,6 +61,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sectionSelector, rubricSectionEnum])
 
+  console.log(state.context.previousRubricEntries)
   return (
     <>
       <div>Developing Rubric</div>
@@ -93,30 +97,38 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
         {rubricEntries
           .filter(
             (entry) =>
-              entry.rubricWritingLevels.includes(WritingLevelEnum.ACADEMIC) &&
+              entry.rubricWritingLevels.includes(WritingLevelEnum.DEVELOPING) &&
               entry.rubricSection === state.context.currentRubricSection
           )
-          .map((entry) => (
-            <div key={entry._id!}>
-              <input
-                type='checkbox'
-                checked={state.context.draftToGrade.rubricEntries.some(
-                  (entries) => entries.entry === entry.entry
-                )}
-                value={[
-                  entry.entry,
-                  entry.score.toString(),
-                  entry.howToImprove!,
-                ]}
-                onChange={handleChange}
-              />
-              <span>{entry.entry}</span>
-            </div>
-          ))}
+          .map((entry) => {
+            return (
+              <div key={entry._id!}>
+                <input
+                  type='checkbox'
+                  checked={state.context.draftToGrade.rubricEntries.some(
+                    (entries) => entries.entry === entry.entry
+                  )}
+                  value={[
+                    entry.entry,
+                    entry.score.toString(),
+                    entry.howToImprove!,
+                    entry.rubricSection,
+                  ]}
+                  onChange={handleChange}
+                />
+                <span>{entry.entry}</span>
+              </div>
+            )
+          })}
       </div>
       <AdditionalComments />
       <span>Score: </span>
       <span>{state.context.draftToGrade.score}</span>
+      <div>
+        {state.context.previousRubricEntries.map((entry, i: number) => (
+          <div key={i}>{entry.entry}</div>
+        ))}
+      </div>
     </>
   )
 }

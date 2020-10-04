@@ -30,6 +30,74 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
         }
         dueDate
         dueTime
+        workingDraft {
+          organizer {
+            ... on DevelopingOrganizer {
+              restatement
+              developingSentenceStructure {
+                subject
+                verb
+              }
+              basicQuestionType
+              answer
+              conclusion
+            }
+            ... on AcademicOrganizer {
+              academicSentenceStructure {
+                subject
+                verb
+                object
+              }
+              questionType
+              answerType {
+                ... on HowCauseEffectAnswerType {
+                  before
+                  cause
+                  after
+                }
+                ... on ProblemSolutionAnswerType {
+                  problem
+                  reasonForProblem
+                  solvedBy
+                  whySolutionSolved
+                }
+                ... on WhyCauseEffectAnswerType {
+                  ultimateCause
+                  proximateCause
+                }
+              }
+              restatement
+              conclusion
+            }
+            ... on AdvancedOrganizer {
+              advancedSentenceStructure {
+                subject
+                verb
+                object
+              }
+              questionType
+              answerType {
+                ... on HowCauseEffectAnswerType {
+                  before
+                  cause
+                  after
+                }
+                ... on ProblemSolutionAnswerType {
+                  problem
+                  reasonForProblem
+                  solvedBy
+                  whySolutionSolved
+                }
+                ... on WhyCauseEffectAnswerType {
+                  ultimateCause
+                  proximateCause
+                }
+              }
+              restatement
+              conclusion
+            }
+          }
+        }
         finalDraft {
           submitTime
           submitted
@@ -41,10 +109,10 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
             score
             additionalComments
             rubricEntries {
-              _id
               entry
               score
               rubricSection
+              howToImprove
             }
           }
         }
@@ -92,10 +160,25 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
         payload:
           data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! - 1,
       })
+
+      data.findEssayById.essay.finalDraft?.submittedFinalDraft !== undefined &&
+        data.findEssayById.essay.finalDraft?.submittedFinalDraft.length > 1 &&
+        event({
+          type: 'SET_PREVIOUS_RUBRIC_ENTRIES',
+          payload: data.findEssayById.essay.finalDraft?.submittedFinalDraft[
+            data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
+          ].rubricEntries!,
+        })
+
+      const previousComments = data.findEssayById.essay.finalDraft?.submittedFinalDraft.map(
+        (draft) => draft.additionalComments
+      )
+      console.log(previousComments && previousComments)
       setloadingDraft(true)
     },
     onError: (error) => console.error(error),
   })
+
   if (loading) return <div>Loading </div>
 
   return (
@@ -112,7 +195,10 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
           <div>{data?.findEssayById.essay.topic.question}</div>
           <DraftSelector essay={data?.findEssayById.essay!} />
           <TeacherEssayEditor />
-          <GradingTool />
+          <GradingTool
+            organizer={data?.findEssayById.essay.workingDraft.organizer!}
+          />
+
           <ReturnEssay essay={data?.findEssayById.essay!} />
         </>
       )}

@@ -5,11 +5,21 @@ import { AcademicGradingTool } from './AcademicGradingTool'
 import { AdvancedGradingTool } from './AdvancedGradingTool'
 import { useQuery } from '@apollo/client'
 import { FIND_RUBRIC_ENTRIES } from '../../../../../rubrics/rubric-editor/select-entry/SelectEntry'
-import { findRubricEntries } from '../../../../../../../../schemaTypes'
+import {
+  findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer,
+  findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer,
+  findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
+  findRubricEntries,
+} from '../../../../../../../../schemaTypes'
 
-export type GradingToolProps = {}
+export type GradingToolProps = {
+  organizer:
+    | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer
+    | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer
+    | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer
+}
 
-export const GradingTool: FC<GradingToolProps> = () => {
+export const GradingTool: FC<GradingToolProps> = ({ organizer }) => {
   const [state] = useGradeEssayContextProvider()
 
   const { loading, data } = useQuery<findRubricEntries>(FIND_RUBRIC_ENTRIES, {
@@ -18,11 +28,15 @@ export const GradingTool: FC<GradingToolProps> = () => {
   if (loading) return <div>Loading </div>
 
   const rubric = data?.findRubricEntries.rubricEntries!
-
+  // const developingOrganizer =
+  //   organizer.__typename === 'DevelopingOrganizer' && organizer
   return (
     <>
       {state.context.writingLevel === 'DEVELOPING' && (
-        <DevelopingGradingTool rubricEntries={rubric} />
+        <DevelopingGradingTool
+          rubricEntries={rubric}
+          // organizer={organizer}
+        />
       )}
       {state.context.writingLevel === 'ACADEMIC' && (
         <AcademicGradingTool rubricEntries={rubric} />
