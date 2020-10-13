@@ -10,6 +10,19 @@ import { TeacherEssayEditor } from './TeacherEssayEditor'
 import { GradingTool } from './grading-tool/GradingTool'
 import { ReturnEssay } from './ReturnEssay'
 import { DraftSelector } from './DraftSelector'
+import {
+  EssayGraderContainer,
+  EssayScreen,
+  GoBackButton,
+  NameAndAssignmentContainer,
+  NameContainer,
+  OrganizerForEssayToGradeContainer,
+  ReturnEssayContainer,
+  ScoreContainer,
+} from './essay-grader-styles/EssaysToGradeStyles'
+import { OrganizerContainer } from '../../../../../student/assignments/essays/assigned-essays/state-and-styles/assignedEssayStyles'
+import { PreviousEssayViewer } from './PreviousEssayViewer'
+import { EssayToGradeOrganizer } from './EssayToGradeOrganizer'
 
 export type GradeEssayProps = {}
 
@@ -30,6 +43,10 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
         }
         dueDate
         dueTime
+        readings {
+          readingPages
+          readingSections
+        }
         workingDraft {
           organizer {
             ... on DevelopingOrganizer {
@@ -125,7 +142,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   const { essayId } = useParams()
   const navigate = useNavigate()
 
-  const [, event] = useGradeEssayContextProvider()
+  const [state, event] = useGradeEssayContextProvider()
   const [loadingDraft, setloadingDraft] = useState(false)
   const { loading, data } = useQuery<
     findEssayToGradeById,
@@ -139,6 +156,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
         data.findEssayById.essay.finalDraft?.submittedFinalDraft[
           data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 1
         ]
+
       event({
         type: 'SET_INTITIAL_DRAFT',
         payload: {
@@ -153,13 +171,48 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
           },
         },
       })
-      event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
+      if (
+        data.findEssayById.essay.finalDraft?.submittedFinalDraft[
+          data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
+        ]
+      ) {
+        const previousDraft =
+          data.findEssayById.essay.finalDraft?.submittedFinalDraft[
+            data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
+          ]
+        console.log(previousDraft.draftNumber)
+        event({
+          type: 'SET_PREVIOUS_DRAFT',
+          payload: {
+            _id: data.findEssayById.essay._id!,
+            draftNumber: previousDraft?.draftNumber!,
+            gradingDraft: previousDraft?.gradingDraft,
+            rubricEntries: previousDraft?.rubricEntries!,
+            score: previousDraft?.score!,
+            additionalComments: previousDraft?.additionalComments,
+          },
+        })
+      }
 
-      event({
-        type: 'SET_DRAFT_SELECTOR',
-        payload:
-          data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! - 1,
-      })
+      // console.log(state.context.previousDraft)
+      event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
+      if (
+        data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! > 1
+      ) {
+        event({
+          type: 'SET_DRAFT_SELECTOR',
+          payload:
+            data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! -
+            2,
+        })
+      } else {
+        event({
+          type: 'SET_DRAFT_SELECTOR',
+          payload:
+            data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! -
+            1,
+        })
+      }
 
       data.findEssayById.essay.finalDraft?.submittedFinalDraft !== undefined &&
         data.findEssayById.essay.finalDraft?.submittedFinalDraft.length > 1 &&
@@ -173,35 +226,86 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
       const previousComments = data.findEssayById.essay.finalDraft?.submittedFinalDraft.map(
         (draft) => draft.additionalComments
       )
-      console.log(previousComments && previousComments)
+
       setloadingDraft(true)
     },
     onError: (error) => console.error(error),
   })
 
   if (loading) return <div>Loading </div>
-
+  console.log(data?.findEssayById.essay.workingDraft.organizer)
   return (
-    <>
-      <button onClick={() => navigate('/dashboard/assignments/grade')}>
-        Back
-      </button>
+    <EssayGraderContainer>
       {loadingDraft && (
         <>
-          <div>
-            {data?.findEssayById.essay.hasOwner.lastName},{' '}
-            {data?.findEssayById.essay.hasOwner.firstName}
-          </div>
-          <div>{data?.findEssayById.essay.topic.question}</div>
-          <DraftSelector essay={data?.findEssayById.essay!} />
-          <TeacherEssayEditor />
+          <EssayScreen>
+            <GoBackButton
+              onClick={() => navigate('/dashboard/assignments/grade')}
+            >
+              &larr; Back
+            </GoBackButton>
+            <DraftSelector essay={data?.findEssayById.essay!} />
+
+            {data?.findEssayById.essay.finalDraft?.submittedFinalDraft[
+              data?.findEssayById.essay.finalDraft.submittedFinalDraft.length -
+                2
+            ] ? (
+              <>
+                {state.context.organizerToggle ? (
+                  <OrganizerForEssayToGradeContainer>
+                    <EssayToGradeOrganizer
+                      organizer={
+                        data?.findEssayById.essay.workingDraft.organizer!
+                      }
+                    />
+                  </OrganizerForEssayToGradeContainer>
+                ) : (
+                  <PreviousEssayViewer />
+                )}
+              </>
+            ) : (
+              <OrganizerForEssayToGradeContainer>
+                <EssayToGradeOrganizer
+                  organizer={data?.findEssayById.essay.workingDraft.organizer!}
+                />
+              </OrganizerForEssayToGradeContainer>
+            )}
+            <TeacherEssayEditor />
+          </EssayScreen>
+          <NameContainer>
+            <NameAndAssignmentContainer>
+              <div>
+                {data?.findEssayById.essay.hasOwner.lastName},{' '}
+                {data?.findEssayById.essay.hasOwner.firstName}
+              </div>
+              <div>{data?.findEssayById.essay.topic.question}</div>
+              <div>
+                <span>
+                  Pages {data?.findEssayById.essay.readings.readingPages}:
+                </span>{' '}
+                <span>
+                  {data?.findEssayById.essay.readings.readingSections}
+                </span>
+              </div>
+            </NameAndAssignmentContainer>
+            <ReturnEssayContainer>
+              <ReturnEssay essay={data?.findEssayById.essay!} />
+            </ReturnEssayContainer>
+            <ScoreContainer>
+              <span>Score: </span>
+              <span>{state.context.draftToGrade.score}</span>
+              <div>
+                {state.context.previousRubricEntries.map((entry, i: number) => (
+                  <div key={i}>{entry.entry}</div>
+                ))}
+              </div>
+            </ScoreContainer>
+          </NameContainer>
           <GradingTool
             organizer={data?.findEssayById.essay.workingDraft.organizer!}
           />
-
-          <ReturnEssay essay={data?.findEssayById.essay!} />
         </>
       )}
-    </>
+    </EssayGraderContainer>
   )
 }

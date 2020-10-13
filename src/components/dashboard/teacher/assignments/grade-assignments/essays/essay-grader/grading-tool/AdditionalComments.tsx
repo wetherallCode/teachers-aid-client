@@ -1,4 +1,12 @@
 import React, { FC } from 'react'
+import {
+  AddCommentButton,
+  AddCommentContainer,
+  AddCommentInput,
+  AdditionalCommentsContainer,
+  AdditionalCommentTitle,
+  Comments,
+} from '../essay-grader-styles/EssaysToGradeStyles'
 import { useGradeEssayContextProvider } from '../GradeEssayContext'
 
 export type AdditionalCommentsProps = {}
@@ -6,15 +14,15 @@ export type AdditionalCommentsProps = {}
 export const AdditionalComments: FC<AdditionalCommentsProps> = () => {
   const [state, event] = useGradeEssayContextProvider()
   return (
-    <>
-      <form onSubmit={(e: any) => e.preventDefault()}>
-        <div>Additional Comments</div>
-        <input
+    <AdditionalCommentsContainer>
+      <AdditionalCommentTitle>Additional Comments</AdditionalCommentTitle>
+      <AddCommentContainer onSubmit={(e: any) => e.preventDefault()}>
+        <AddCommentInput
           onChange={(e: any) =>
             event({ type: 'SET_COMMENT', payload: e.target.value })
           }
         />
-        <button
+        <AddCommentButton
           type='reset'
           onClick={() => {
             event({
@@ -25,24 +33,23 @@ export const AdditionalComments: FC<AdditionalCommentsProps> = () => {
           }}
         >
           Add Comment
-        </button>
-      </form>
-      <div>
+        </AddCommentButton>
+      </AddCommentContainer>
+      <Comments>
         {state.context.draftToGrade.additionalComments!.map(
           (comment, i: number) => {
             return (
               <div key={i}>
-                <span>{comment}</span>{' '}
                 <span
                   onClick={() => event({ type: 'REMOVE_COMMENT', payload: i })}
                 >
-                  -
+                  {comment}
                 </span>
               </div>
             )
           }
         )}
-      </div>
-    </>
+      </Comments>
+    </AdditionalCommentsContainer>
   )
 }

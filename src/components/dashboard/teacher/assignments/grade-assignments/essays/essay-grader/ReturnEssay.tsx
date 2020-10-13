@@ -8,6 +8,7 @@ import {
 } from '../../../../../../../schemaTypes'
 import { useGradeEssayContextProvider } from './GradeEssayContext'
 import { useNavigate } from 'react-router'
+import { ReturnEssayButton } from './essay-grader-styles/EssaysToGradeStyles'
 
 export type ReturnEssayProps = {
   essay: findEssayToGradeById_findEssayById_essay
@@ -31,23 +32,26 @@ export const ReturnEssay: FC<ReturnEssayProps> = ({ essay }) => {
     returnGradedEssay,
     returnGradedEssayVariables
   >(RETURN_GRADED_ESSAY_MUTATION, {
-    variables: {
-      input: {
-        _id: state.context.essayId,
-        gradingDraft: state.context.draftToGrade.gradingDraft,
-        rubricEntries: state.context.draftToGrade.rubricEntries,
-        draftNumber: state.context.draftToGrade.draftNumber,
-        additionalComments: state.context.draftToGrade.additionalComments,
-        score: state.context.draftToGrade.score,
-      },
-    },
+    variables: { input: state.context.draftToGrade },
+    // {
+    // input: {
+    //   _id: state.context.essayId,
+    //   gradingDraft: state.context.draftToGrade.gradingDraft,
+    //   rubricEntries: state.context.draftToGrade.rubricEntries,
+    //   draftNumber: state.context.draftToGrade.draftNumber,
+    //   additionalComments: state.context.draftToGrade.additionalComments,
+    //   score: state.context.draftToGrade.score,
+    // },
+
+    // },
+    onError: (error) => console.error(error),
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
 
   return (
     <>
-      <button
+      <ReturnEssayButton
         onClick={() => {
           if (
             essay.finalDraft?.submittedFinalDraft.length! - 1 ===
@@ -61,7 +65,7 @@ export const ReturnEssay: FC<ReturnEssayProps> = ({ essay }) => {
         }}
       >
         Return
-      </button>
+      </ReturnEssayButton>
     </>
   )
 }

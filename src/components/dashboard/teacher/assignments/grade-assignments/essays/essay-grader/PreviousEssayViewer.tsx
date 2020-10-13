@@ -12,21 +12,22 @@ import { useGradeEssayContextProvider } from './GradeEssayContext'
 import {
   DraftName,
   EssayToGradeContainer,
+  PreviousEssayContainer,
 } from './essay-grader-styles/EssaysToGradeStyles'
 
-export type TeacherEssayEditorProps = {}
+export type PreviousEssayViewerProps = {}
 
-export const UPDATE_GRADING_DRAFT_MUTATION = gql`
-  mutation updateGradingDraft($input: UpdateGradingDraftInput!) {
-    updateGradingDraft(input: $input) {
-      essay {
-        _id
-      }
-    }
-  }
-`
+// export const UPDATE_GRADING_DRAFT_MUTATION = gql`
+//   mutation updateGradingDraft($input: UpdateGradingDraftInput!) {
+//     updateGradingDraft(input: $input) {
+//       essay {
+//         _id
+//       }
+//     }
+//   }
+// `
 
-export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
+export const PreviousEssayViewer: FC<PreviousEssayViewerProps> = () => {
   const [state] = useGradeEssayContextProvider()
 
   const editor = useMemo(() => withReact(createEditor()), [])
@@ -35,12 +36,15 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
   //     state.context.draftToGrade.draftNumber
   //   ].gradingDraft
   // )
-  const parsedGradingDraft = JSON.parse(state.context.draftToGrade.gradingDraft)
+  console.log(state.context.previousDraft.gradingDraft)
+  const parsedGradingDraft = JSON.parse(
+    state.context.previousDraft.gradingDraft
+  )
   const [value, setValue] = useState(parsedGradingDraft)
   useEffect(() => {
     setValue(parsedGradingDraft)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.context.draftToGrade.gradingDraft])
+  }, [state.context.previousDraft.gradingDraft])
   const content = JSON.stringify(value)
 
   // useEffect(() => {
@@ -48,28 +52,28 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [content])
 
-  const [updateGradingDraft] = useMutation<
-    updateGradingDraft,
-    updateGradingDraftVariables
-  >(UPDATE_GRADING_DRAFT_MUTATION, {
-    variables: {
-      input: {
-        essayId: state.context.essayId!,
-        gradingDraft: content,
-        draftNumber:
-          // essay.finalDraft?.submittedFinalDraft[
-          //   state.context.draftToGrade.draftNumber
-          // ].draftNumber,
-          state.context.draftToGrade.draftNumber,
-      },
-    },
-    onCompleted: (data) => console.log(data),
-    refetchQueries: ['findEssayToGradeById'],
-  })
+  //   const [updateGradingDraft] = useMutation<
+  //     updateGradingDraft,
+  //     updateGradingDraftVariables
+  //   >(UPDATE_GRADING_DRAFT_MUTATION, {
+  //     variables: {
+  //       input: {
+  //         essayId: state.context.essayId!,
+  //         gradingDraft: content,
+  //         draftNumber:
+  //           // essay.finalDraft?.submittedFinalDraft[
+  //           //   state.context.draftToGrade.draftNumber
+  //           // ].draftNumber,
+  //           state.context.draftToGrade.draftNumber,
+  //       },
+  //     },
+  //     onCompleted: (data) => console.log(data),
+  //     refetchQueries: ['findEssayToGradeById'],
+  //   })
 
-  useEffect(() => {
-    // updateGradingDraft()
-  }, [updateGradingDraft, content])
+  //   useEffect(() => {
+  //     // updateGradingDraft()
+  //   }, [updateGradingDraft, content])
 
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -85,8 +89,10 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
   }, [])
 
   return (
-    <EssayToGradeContainer>
-      <DraftName>Draft To Grade</DraftName>
+    <PreviousEssayContainer>
+      <DraftName>
+        Draft {Number(state.context.previousDraft.draftNumber) + 1}
+      </DraftName>
       <Slate
         editor={editor}
         value={value as Node[]}
@@ -139,7 +145,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
           }}
         />
       </Slate>
-    </EssayToGradeContainer>
+    </PreviousEssayContainer>
   )
 }
 const CodeElement = (props: any) => {

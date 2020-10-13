@@ -90,7 +90,21 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('organizers.academicOrganizer.restatement') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Academic Restatement
+              The subject of a sentence is the person, place or thing (Noun)
+              that is doing something or being something. Example: Robert threw
+              the ball. Robert is the subject.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The verb is the thing the subject is doing or being. In the
+              example, threw is the verb.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The Direct Object of the Verb is what receives the verb's action.
+              In the example: the ball is the object of the verb. A simple test
+              to find a direct object, ask "What did the subject verb?" If there
+              is a person, place, thing, or idea, then that is the direct
+              object. If the words "on, to, with, in," or another preposition
+              comes before the object, then there is no direct object.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -98,6 +112,9 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
           <ul>
             <EssaySectionOrganizationBodyEntry>
               Academic QuestionType
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              Academic Restatement
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}

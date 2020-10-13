@@ -8,6 +8,7 @@ import { ReadingGuideData } from '../assignments/readingGuideData/ReadingGuideDa
 import { EditCourseContextProvider } from './edit-course/state/EditCourseContext'
 import { EditCourse } from './edit-course/EditCourse'
 import { AssignmentManager } from './course-assignments/AssignmentManager'
+import { AssignmentManagerContextProvider } from './course-assignments/state-styles/AssignmentManagerContext'
 
 export type CourseManagerProps = {}
 
@@ -26,7 +27,14 @@ export const CourseManager: FC<CourseManagerProps> = () => {
           }
         />
         <Route path='assign-assignments' element={<AssignAssignments />} />
-        <Route path='assignment-manager' element={<AssignmentManager />} />
+        <Route
+          path='assignment-manager'
+          element={
+            <AssignmentManagerContextProvider>
+              <AssignmentManager />
+            </AssignmentManagerContextProvider>
+          }
+        />
         <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
 
         <Route path='roster/*' element={<RosterDashboard />} />

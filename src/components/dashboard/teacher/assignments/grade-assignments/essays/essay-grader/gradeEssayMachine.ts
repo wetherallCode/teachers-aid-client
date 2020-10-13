@@ -35,6 +35,7 @@ export type gradeEssayMachineEvent =
         draftToGrade: ReturnGradedEssayInput
       }
     }
+  | { type: 'SET_PREVIOUS_DRAFT'; payload: ReturnGradedEssayInput }
   | { type: 'SET_DRAFT'; payload: ReturnGradedEssayInput }
   | { type: 'SET_DRAFT_SELECTOR'; payload: number }
   | { type: 'SET_DRAFT_NUMBER_TO_GRADE'; payload: number }
@@ -45,6 +46,7 @@ export type gradeEssayMachineEvent =
   | { type: 'SET_SCORE'; payload: number }
   | { type: 'SET_COMMENT'; payload: string }
   | { type: 'RESET_COMMENT' }
+  | { type: 'TOGGLE_ORGANIZER'; payload: boolean }
   | { type: 'ADD_ADDITIONAL_COMMENT'; payload: string }
   | { type: 'REMOVE_COMMENT'; payload: number }
   | {
@@ -58,8 +60,10 @@ export type gradeEssayMachineContext = {
   rubricEntry: RubricEntryInput
   writingLevel: WritingLevelEnum
   draftSelector: number
+  organizerToggle: boolean
   comment: string
   draftToGrade: ReturnGradedEssayInput
+  previousDraft: ReturnGradedEssayInput
   previousRubricEntries: findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[]
 }
 
@@ -81,7 +85,16 @@ export const gradeEssayMachine = Machine<
       additionalComments: [],
       score: 0,
     },
+    previousDraft: {
+      _id: '',
+      draftNumber: 0,
+      gradingDraft: '',
+      rubricEntries: [],
+      additionalComments: [],
+      score: 0,
+    },
     draftSelector: 0,
+    organizerToggle: false,
     rubricEntry: {
       entry: '',
       rubricSection: RubricSectionEnum.OVERALL,
@@ -107,11 +120,28 @@ export const gradeEssayMachine = Machine<
             }
           }),
         },
+        SET_PREVIOUS_DRAFT: {
+          actions: assign((ctx, evt) => {
+            console.log(evt.payload)
+            return {
+              ...ctx,
+              previousDraft: evt.payload,
+            }
+          }),
+        },
         SET_DRAFT: {
           actions: assign((ctx, evt) => {
             return {
               ...ctx,
-              draftToGrade: evt.payload,
+              previousDraft: evt.payload,
+            }
+          }),
+        },
+        TOGGLE_ORGANIZER: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              organizerToggle: evt.payload,
             }
           }),
         },

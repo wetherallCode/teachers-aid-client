@@ -4,12 +4,22 @@ import {
   findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
   findRubricEntries_findRubricEntries_rubricEntries,
   ReturnedRubricEntryInput,
+  RubricEntryInput,
   RubricSectionEnum,
   WritingLevelEnum,
 } from '../../../../../../../../schemaTypes'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
 import { useCheckBox } from '../../../../../../../../hooks/useCheckBox'
 import { AdditionalComments } from './AdditionalComments'
+import {
+  AdditionalCommentsContainer,
+  RubricCheckBoxContainer,
+  RubricCheckBoxInput,
+  RubricContainer,
+  RubricSectionEnumContainer,
+  RubricTypeTitle,
+} from '../essay-grader-styles/EssaysToGradeStyles'
+import { sortByRubricEntryScore } from '../../../../../../../../utils'
 
 export type DevelopingGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
@@ -36,7 +46,6 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
     rubricEntriesList.push(rubricEntryValues)
   })
 
-  console.log(rubricEntriesList)
   const totalScore = rubricEntriesList
     .map((entry) => entry.score)
     .reduce((a, b) => a + b, 0)
@@ -61,74 +70,79 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sectionSelector, rubricSectionEnum])
 
-  console.log(state.context.previousRubricEntries)
   return (
     <>
-      <div>Developing Rubric</div>
+      <RubricContainer>
+        <RubricTypeTitle>
+          <div>Developing Rubric</div>
+        </RubricTypeTitle>
 
-      <>
-        <button
-          onClick={(e: any) => {
-            if (
-              rubricSectionEnum.indexOf(state.context.currentRubricSection) > 0
-            ) {
-              setSectionSelector(sectionSelector - 1)
-            }
-          }}
-        >
-          &lt;
-        </button>
-        <span>{state.context.currentRubricSection}</span>
-        <button
-          onClick={(e: any) => {
-            if (
-              rubricSectionEnum.indexOf(state.context.currentRubricSection) <
-              rubricSectionEnum.length - 1
-            ) {
-              setSectionSelector(sectionSelector + 1)
-            }
-          }}
-        >
-          &gt;
-        </button>
-      </>
+        <RubricSectionEnumContainer>
+          <div
+            onClick={(e: any) => {
+              if (
+                rubricSectionEnum.indexOf(state.context.currentRubricSection) >
+                0
+              ) {
+                setSectionSelector(sectionSelector - 1)
+              }
+            }}
+          >
+            &lt;
+          </div>
 
-      <div>
-        {rubricEntries
-          .filter(
-            (entry) =>
-              entry.rubricWritingLevels.includes(WritingLevelEnum.DEVELOPING) &&
-              entry.rubricSection === state.context.currentRubricSection
-          )
-          .map((entry) => {
-            return (
-              <div key={entry._id!}>
-                <input
-                  type='checkbox'
-                  checked={state.context.draftToGrade.rubricEntries.some(
-                    (entries) => entries.entry === entry.entry
-                  )}
-                  value={[
-                    entry.entry,
-                    entry.score.toString(),
-                    entry.howToImprove!,
-                    entry.rubricSection,
-                  ]}
-                  onChange={handleChange}
-                />
-                <span>{entry.entry}</span>
-              </div>
+          <div>{state.context.currentRubricSection}</div>
+          <div
+            onClick={(e: any) => {
+              if (
+                rubricSectionEnum.indexOf(state.context.currentRubricSection) <
+                rubricSectionEnum.length - 1
+              ) {
+                setSectionSelector(sectionSelector + 1)
+              }
+            }}
+          >
+            &gt;
+          </div>
+        </RubricSectionEnumContainer>
+
+        <RubricCheckBoxContainer>
+          {rubricEntries
+            .filter(
+              (entry) =>
+                entry.rubricWritingLevels.includes(
+                  WritingLevelEnum.DEVELOPING
+                ) && entry.rubricSection === state.context.currentRubricSection
             )
-          })}
-      </div>
+            .sort(sortByRubricEntryScore)
+            .map((entry) => {
+              return (
+                <div key={entry._id!}>
+                  <RubricCheckBoxInput
+                    style={{
+                      alignSelf: 'center',
+                      height: '1.5vw',
+                      width: '1.5vw',
+                    }}
+                    type='checkbox'
+                    checked={state.context.draftToGrade.rubricEntries.some(
+                      (entries) => entries.entry === entry.entry
+                    )}
+                    value={[
+                      entry.entry,
+                      entry.score.toString(),
+                      entry.howToImprove!,
+                      entry.rubricSection,
+                    ]}
+                    onChange={handleChange}
+                  />
+                  <span>{entry.entry}</span>
+                </div>
+              )
+            })}
+        </RubricCheckBoxContainer>
+      </RubricContainer>
       <AdditionalComments />
-      <span>Score: </span>
-      <span>{state.context.draftToGrade.score}</span>
-      <div>
-        {state.context.previousRubricEntries.map((entry, i: number) => (
-          <div key={i}>{entry.entry}</div>
-        ))}
-      </div>
     </>
   )
 }

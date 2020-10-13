@@ -8,6 +8,15 @@ import {
   findRubricEntries_findRubricEntries_rubricEntries,
 } from '../../../../../../../../schemaTypes'
 import { AdditionalComments } from './AdditionalComments'
+import {
+  RubricContainer,
+  AdditionalCommentsContainer,
+  RubricCheckBoxContainer,
+  RubricCheckBoxInput,
+  RubricSectionEnumContainer,
+  RubricTypeTitle,
+} from '../essay-grader-styles/EssaysToGradeStyles'
+import { sortByRubricEntryScore } from '../../../../../../../../utils'
 
 export type AdvancedGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
@@ -60,60 +69,64 @@ export const AdvancedGradingTool: FC<AdvancedGradingToolProps> = ({
 
   return (
     <>
-      <div>Advanced Rubric</div>
+      <RubricContainer>
+        <RubricTypeTitle>
+          <div>Advanced Rubric</div>
+        </RubricTypeTitle>
 
-      <>
-        <button
-          onClick={(e: any) => {
-            if (
-              rubricSectionEnum.indexOf(state.context.currentRubricSection) > 0
-            ) {
-              setSectionSelector(sectionSelector - 1)
-            }
-          }}
-        >
-          &lt;
-        </button>
-        <span>{state.context.currentRubricSection}</span>
-        <button
-          onClick={(e: any) => {
-            if (
-              rubricSectionEnum.indexOf(state.context.currentRubricSection) <
-              rubricSectionEnum.length - 1
-            ) {
-              setSectionSelector(sectionSelector + 1)
-            }
-          }}
-        >
-          &gt;
-        </button>
-      </>
+        <RubricSectionEnumContainer>
+          <button
+            onClick={(e: any) => {
+              if (
+                rubricSectionEnum.indexOf(state.context.currentRubricSection) >
+                0
+              ) {
+                setSectionSelector(sectionSelector - 1)
+              }
+            }}
+          >
+            &lt;
+          </button>
+          <span>{state.context.currentRubricSection}</span>
+          <button
+            onClick={(e: any) => {
+              if (
+                rubricSectionEnum.indexOf(state.context.currentRubricSection) <
+                rubricSectionEnum.length - 1
+              ) {
+                setSectionSelector(sectionSelector + 1)
+              }
+            }}
+          >
+            &gt;
+          </button>
+        </RubricSectionEnumContainer>
 
-      <div>
-        {rubricEntries
-          .filter(
-            (entry) =>
-              entry.rubricWritingLevels.includes(WritingLevelEnum.ACADEMIC) &&
-              entry.rubricSection === state.context.currentRubricSection
-          )
-          .map((entry) => (
-            <div key={entry._id!}>
-              <input
-                type='checkbox'
-                value={[
-                  entry.entry,
-                  entry.score.toString(),
-                  entry.howToImprove!,
-                ]}
-                onChange={handleChange}
-              />
-              <span>{entry.entry}</span>
-            </div>
-          ))}
-      </div>
+        <RubricCheckBoxContainer>
+          {rubricEntries
+            .filter(
+              (entry) =>
+                entry.rubricWritingLevels.includes(WritingLevelEnum.ACADEMIC) &&
+                entry.rubricSection === state.context.currentRubricSection
+            )
+            .sort(sortByRubricEntryScore)
+            .map((entry) => (
+              <div key={entry._id!}>
+                <RubricCheckBoxInput
+                  type='checkbox'
+                  value={[
+                    entry.entry,
+                    entry.score.toString(),
+                    entry.howToImprove!,
+                  ]}
+                  onChange={handleChange}
+                />
+                <span>{entry.entry}</span>
+              </div>
+            ))}
+        </RubricCheckBoxContainer>
+      </RubricContainer>
       <AdditionalComments />
-      <span>Score: </span>
-      <span>{state.context.draftToGrade.score}</span>
     </>
   )
 }

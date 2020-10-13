@@ -11,6 +11,7 @@ import {
   findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
   findRubricEntries,
 } from '../../../../../../../../schemaTypes'
+import { GradingToolContainer } from '../essay-grader-styles/EssaysToGradeStyles'
 
 export type GradingToolProps = {
   organizer:
@@ -31,7 +32,7 @@ export const GradingTool: FC<GradingToolProps> = ({ organizer }) => {
   // const developingOrganizer =
   //   organizer.__typename === 'DevelopingOrganizer' && organizer
   return (
-    <>
+    <GradingToolContainer>
       {state.context.writingLevel === 'DEVELOPING' && (
         <DevelopingGradingTool
           rubricEntries={rubric}
@@ -44,6 +45,6 @@ export const GradingTool: FC<GradingToolProps> = ({ organizer }) => {
       {state.context.writingLevel === 'ADVANCED' && (
         <AdvancedGradingTool rubricEntries={rubric} />
       )}
-    </>
+    </GradingToolContainer>
   )
 }

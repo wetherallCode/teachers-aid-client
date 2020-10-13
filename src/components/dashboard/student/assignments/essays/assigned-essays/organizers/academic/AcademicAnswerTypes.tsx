@@ -19,6 +19,9 @@ import {
   AcademicRestatementTitle,
   AcademicQuestionTypeSelect,
   AcademicQuestionAnswerTypeContainer,
+  AcademicRestatementContainer,
+  AcademicRestatementInput,
+  RestatementOutput,
 } from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicAnswerTypesProps = {}
@@ -74,7 +77,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
       // event({ type: 'NEXT' })
     }
   }, [event, state.context.academicOrganizer.answer.preLoaded])
-  console.log(state.context.academicOrganizer.answer.preLoaded)
+  console.log(state.value)
   return (
     <>
       {state.matches('organizers.academicOrganizer.answer.questionType') && (
@@ -115,6 +118,24 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
                 ))}
               </AcademicQuestionTypeSelect>
             </AcademicQuestionTypeContainer>
+            <AcademicRestatementContainer>
+              <AcademicRestatementTitle>
+                <div>Restatement</div>
+              </AcademicRestatementTitle>
+              <AcademicRestatementInput
+                type='text'
+                value={state.context.academicOrganizer.restatement}
+                onChange={(e: any) =>
+                  event({
+                    type: 'SET_RESTATEMENT',
+                    payload: e.target.value,
+                  })
+                }
+              />
+              <RestatementOutput>
+                <div> {state.context.academicOrganizer.restatement}</div>
+              </RestatementOutput>
+            </AcademicRestatementContainer>
           </AcademicQuestionTypeContainer>
           <OrganizerControlButtonContainer>
             <OrganizerControlButton

@@ -826,6 +826,17 @@ export const studentEssayMachine = Machine<
                         }
                       }),
                     },
+                    SET_RESTATEMENT: {
+                      actions: assign((ctx, evt) => {
+                        return {
+                          ...ctx,
+                          academicOrganizer: {
+                            ...ctx.academicOrganizer,
+                            restatement: evt.payload,
+                          },
+                        }
+                      }),
+                    },
                     SET_PRE_LOADED: {
                       actions: assign((ctx, evt) => {
                         return {
@@ -1277,6 +1288,17 @@ export const studentEssayMachine = Machine<
                           advancedOrganizer: {
                             ...ctx.advancedOrganizer,
                             questionType: evt.payload,
+                          },
+                        }
+                      }),
+                    },
+                    SET_RESTATEMENT: {
+                      actions: assign((ctx, evt) => {
+                        return {
+                          ...ctx,
+                          advancedOrganizer: {
+                            ...ctx.advancedOrganizer,
+                            restatement: evt.payload,
                           },
                         }
                       }),

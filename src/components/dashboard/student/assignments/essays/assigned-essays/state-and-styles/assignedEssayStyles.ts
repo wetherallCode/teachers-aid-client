@@ -108,7 +108,7 @@ export const PartsOfQuestionContainer = styled.div`
 export const AcademicPartsOfQuestionContainer = styled(
   PartsOfQuestionContainer
 )`
-  grid-row: 3/5;
+  grid-row: 3/7;
 `
 
 export const PartsOfQuestionTitle = styled.div`
@@ -190,8 +190,8 @@ export const RestatementTitle = styled.div`
 `
 
 export const AcademicRestatementContainer = styled(Standard8x12Container)`
-  grid-row: 5/8;
-  grid-column: 3/-3;
+  grid-row: 6/9;
+  grid-column: 1/-1;
 `
 export const AcademicRestatementTitle = styled(RestatementTitle)`
   grid-row: 1/3;
@@ -204,7 +204,7 @@ export const AcademicQuestionTypeContainer = styled(Standard8x12Container)`
 export const AcademicQuestionTypeSelect = styled.select`
   grid-row: 3/5;
   grid-column: 1/-1;
-  font-size: 1.2rem;
+  font-size: 1.5vw;
   color: var(--blue);
   padding: 1%;
 `
@@ -246,9 +246,9 @@ export const AcademicConclusionInput = styled(RestatementInput)`
 export const AcademicRestatementInput = styled.input`
   grid-row: 4/5;
   grid-column: 1/-1;
-  height: 50%;
+  height: 100%;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.5vw;
   border: 1px solid var(--white);
   color: var(--blue);
   border-bottom: 1px solid var(--blue);
@@ -409,7 +409,7 @@ export const EssayOrganizerPartHeader = styled.div`
 `
 
 export const EssayOrganizerPartBody = styled.div`
-  font-size: 1.2rem;
+  font-size: 1vw;
   align-self: start;
 `
 

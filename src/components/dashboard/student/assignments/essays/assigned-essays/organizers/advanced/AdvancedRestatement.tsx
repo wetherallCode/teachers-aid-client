@@ -62,7 +62,7 @@ export const AdvancedRestatement: FC<AdvancedRestatementProps> = ({
           }
         />
       </span>
-      <div>Restatement</div>
+      {/* <div>Restatement</div>
       <input
         type='text'
         value={state.context.advancedOrganizer.restatement}
@@ -72,7 +72,7 @@ export const AdvancedRestatement: FC<AdvancedRestatementProps> = ({
             payload: e.target.value,
           })
         }
-      />
+      /> */}
       <button onClick={() => event({ type: 'NEXT' })}>Next</button>
     </>
   )

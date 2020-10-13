@@ -83,7 +83,7 @@ export const AcademicRestatement: FC<AcademicRestatementProps> = ({
           />
         </AcademicPartContainer>
       </AcademicPartsOfQuestionContainer>
-      <AcademicRestatementContainer>
+      {/* <AcademicRestatementContainer>
         <AcademicRestatementTitle>
           <div>Restatement</div>
         </AcademicRestatementTitle>
@@ -100,7 +100,7 @@ export const AcademicRestatement: FC<AcademicRestatementProps> = ({
         <RestatementOutput>
           <div> {state.context.academicOrganizer.restatement}</div>
         </RestatementOutput>
-      </AcademicRestatementContainer>
+      </AcademicRestatementContainer> */}
       <OrganizerControlButtonContainer>
         <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
           Next

@@ -77,6 +77,17 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = () => {
                 </option>
               ))}
             </select>
+            <div>Restatement</div>
+            <input
+              type='text'
+              value={state.context.advancedOrganizer.restatement}
+              onChange={(e: any) =>
+                event({
+                  type: 'SET_RESTATEMENT',
+                  payload: e.target.value,
+                })
+              }
+            />
             <button
               onClick={() => {
                 event({ type: 'NEXT' })
