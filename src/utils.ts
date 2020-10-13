@@ -2,10 +2,20 @@ import {
   InformationStructureEnum,
   AcademicOutcomeTypes,
   ProtocolActivityTypes,
+  RubricEntryInput,
 } from './schemaTypes'
 
 export const capitalizer = (word: string) => {
   return word.substring(0, 1) + word.substring(1).toLowerCase()
+}
+
+export const sortByRubricEntryScore = (
+  a: RubricEntryInput,
+  b: RubricEntryInput
+) => {
+  if (a.score < b.score) {
+    return 1
+  } else return -1
 }
 
 export const dateConverter = (date: string) => {

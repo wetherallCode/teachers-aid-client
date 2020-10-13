@@ -1698,6 +1698,12 @@ export interface findEssayToGradeById_findEssayById_essay_topic {
   writingLevel: WritingLevelEnum;
 }
 
+export interface findEssayToGradeById_findEssayById_essay_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
 export interface findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
   __typename: "DevelopingSentenceStructure";
   subject: string;
@@ -1832,6 +1838,7 @@ export interface findEssayToGradeById_findEssayById_essay {
   topic: findEssayToGradeById_findEssayById_essay_topic;
   dueDate: string;
   dueTime: string;
+  readings: findEssayToGradeById_findEssayById_essay_readings;
   workingDraft: findEssayToGradeById_findEssayById_essay_workingDraft;
   finalDraft: findEssayToGradeById_findEssayById_essay_finalDraft | null;
 }
@@ -5412,7 +5419,7 @@ export interface ReturnGradedEssayInput {
   _id: string;
   additionalComments?: string[] | null;
   draftNumber: number;
-  gradingDraft: any;
+  gradingDraft: string;
   rubricEntries: ReturnedRubricEntryInput[];
   score: number;
 }
