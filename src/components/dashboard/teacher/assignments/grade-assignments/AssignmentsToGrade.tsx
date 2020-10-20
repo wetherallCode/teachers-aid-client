@@ -10,7 +10,7 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
   const [courseId, setCourseId] = useState('')
   const me: me_me_Teacher = useUserContextProvider()
   const { teachesCourses } = me
-
+  console.log(courseId)
   return (
     <>
       <div>Grade Assignments</div>

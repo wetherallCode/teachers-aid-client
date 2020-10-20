@@ -101,8 +101,8 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
             <EssaySectionOrganizationBodyEntry>
               The Direct Object of the Verb is what receives the verb's action.
               In the example: the ball is the object of the verb. A simple test
-              to find a direct object, ask "What did the subject verb?" If there
-              is a person, place, thing, or idea, then that is the direct
+              to find a direct object, ask "What did the (subject) (verb)?" If
+              there is a person, place, thing, or idea, then that is the direct
               object. If the words "on, to, with, in," or another preposition
               comes before the object, then there is no direct object.
             </EssaySectionOrganizationBodyEntry>
@@ -111,11 +111,52 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('organizers.academicOrganizer.answer.questionType') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Academic QuestionType
+              To find the Question Type:
+              <ul>
+                <EssaySectionOrganizationBodyEntry>
+                  Look at the question word and use these directions to figure
+                  it out
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Why questions are always cause and effect so select Why: Cause
+                  and Effect
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  How questions can be both, so look at the verb next.
+                </EssaySectionOrganizationBodyEntry>
+                <ul>
+                  <EssaySectionOrganizationBodyEntry>
+                    If the verb is a synonym for cause or effect (Affect,
+                    Change, Evolve, Influence, Shape) it is How: Cause and
+                    Effect
+                  </EssaySectionOrganizationBodyEntry>
+                  <EssaySectionOrganizationBodyEntry>
+                    If the verb isn’t a synonym for cause or effect its problem
+                    and solution so select How: Problem and Solution
+                  </EssaySectionOrganizationBodyEntry>
+                </ul>
+              </ul>
             </EssaySectionOrganizationBodyEntry>
             <EssaySectionOrganizationBodyEntry>
-              Academic Restatement
+              The rules to writing a topic sentence are the same, except the
+              ending might change depending on the question type.
             </EssaySectionOrganizationBodyEntry>
+            <ul>
+              <EssaySectionOrganizationBodyEntry>
+                If the question type is Why: Cause and Effect the ending will be
+                "...for a certain way"
+              </EssaySectionOrganizationBodyEntry>
+              <EssaySectionOrganizationBodyEntry>
+                If the question type is How: Cause and Effect the ending will be
+                "...in certain way"
+              </EssaySectionOrganizationBodyEntry>
+              <EssaySectionOrganizationBodyEntry>
+                If the question type is How: Problem and Solution the ending
+                will be "...to solve a problem" unless the words problem and
+                solution are already in the question then end "...in certain
+                way"
+              </EssaySectionOrganizationBodyEntry>
+            </ul>
           </ul>
         )}
         {state.matches(
@@ -123,7 +164,25 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Academic Problem Solution
+              If you didn't fill in the subject, verb, and object, go back or
+              else this section won't make sense.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              All How: Problem and Solution Questions need to give a complete
+              explanation of the problem and then a complete explanation of the
+              solution. To do this, answer each of these questions with
+              paraphrased answers found in the text.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              Some of the answers may actually come from earlier parts of the
+              text that aren't covered in the assigned sections, but have been
+              covered in our lessons already. Its ok to use this information as
+              long as you are paraphrasing.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              When answering the questions on this page, be careful not to
+              confuse how questions and why questions. How is asking for the
+              way, and why is asking for the reason.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -132,7 +191,20 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Academic whyCauseEffect
+              If you didn't fill in the subject, verb, and object, go back or
+              else this section won't make sense.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The proximate cause is the direct reason something happened. So
+              think of the thing that happened to make the (subject) (verb)
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The ultimate cause is the reason the proximate cause happened. Its
+              the big picture reason. For example: "Why did you make a
+              sandwich?" The proximate cause is: I was hungry. To find the
+              ultimate cause ask "Why was I hungry?". The answer is I haven't
+              eaten in 6 hours. That's how I want you to think about why
+              questions.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -141,14 +213,41 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Academic howCauseEffect
+              If you didn't fill in the subject, verb, and object, go back or
+              else this section won't make sense.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              All How: Cause and Effect questions are basically asking you about
+              how things/people affect or change other things or people.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              To answer completely you need to explain what the object of the
+              verb was like before the subject of the question. This should only
+              be one sentence to set up the answer.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The second part of the answer needs to explain the way the object
+              of the question was different because of subject of the question.
+              This can be two sentences at the most.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
         {state.matches('organizers.academicOrganizer.conclusion') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Academic Conclusion
+              The conclusion is still going to need to be a consequence of the
+              topic, but now I want you to set the consequence up in a certain
+              way.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              First, start the conclusion this way "As a result of (subject)
+              (verb+ing) (object if one exists), " then you write the
+              consequence. Be careful to add an ing ending to the verb and if no
+              object of verb exists, then just put a comma after the verb.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              For example: "As a result of Robert throwing the ball, a glass
+              window was broken."
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -217,7 +316,12 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
             )}
             {state.context.writingLevel === 'ACADEMIC' && (
               <EssaySectionOrganizationBodyEntry>
-                Academic Rubric Help
+                As always, start the essay with the restatement as your topic
+                sentence, and end it with the conclusion, but the answer is
+                going need more structure. Use the organizer as a guide to
+                putting the answer together. Use transitions to connect your
+                ideas and keep it as simple as you can while fully explaining
+                the topic sentence.
               </EssaySectionOrganizationBodyEntry>
             )}
             {state.context.writingLevel === 'ADVANCED' && (

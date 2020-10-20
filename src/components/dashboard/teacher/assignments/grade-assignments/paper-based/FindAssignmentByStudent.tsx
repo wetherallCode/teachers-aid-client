@@ -60,8 +60,6 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
     variables: {
       input: { courseId },
     },
-    // onCompleted: (data) =>
-    //  data.findStudentsByCourse.students.,
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

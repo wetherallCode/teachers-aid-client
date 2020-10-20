@@ -45,8 +45,8 @@ export const ReturnEssay: FC<ReturnEssayProps> = ({ essay }) => {
 
     // },
     onError: (error) => console.error(error),
-    onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    onCompleted: () => navigate('/dashboard/assignments/grade'),
+    refetchQueries: ['findEssaysToGradeById'],
   })
 
   return (
@@ -59,7 +59,6 @@ export const ReturnEssay: FC<ReturnEssayProps> = ({ essay }) => {
           ) {
             if (state.context.draftToGrade.rubricEntries.length !== 0) {
               returnGradedEssay()
-              navigate('/dashboard/assignments/grade')
             } else console.log('You are required to check rubric entries')
           } else console.log('You cannot return a graded draft!')
         }}
