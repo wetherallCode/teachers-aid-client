@@ -5,6 +5,8 @@ import {
   StyledLink,
   HomeScreenContainer,
   PasswordContainer,
+  GetStartedButtonContainer,
+  GetAssignmentsButton,
 } from './homeStyles'
 import { useUserContextProvider } from '../../contexts/UserContext'
 import { Modal } from '../../animations/Modal'
@@ -13,12 +15,15 @@ import { useToggle } from '../../hooks'
 import { me_me } from '../../schemaTypes'
 import { InitialPasswordChange } from './InitialPasswordChange'
 import { PasswordCheck } from './PasswordCheck'
+import { useNavigate } from 'react-router'
 
 export const Home = () => {
-  const me = useUserContextProvider()
+  const me: me_me = useUserContextProvider()
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [passwordCheck, setPasswordCheck] = useState(false)
-
+  const navigate = useNavigate()
+  const student = me && me.__typename === 'Student'
+  console.log(student)
   return (
     <>
       <HomeScreenContainer>
@@ -32,9 +37,16 @@ export const Home = () => {
                 )}
                 <PasswordContainer>
                   {!passwordCheck ? (
-                    <StyledLink to='/lesson-home'>
-                      <GetStartedButton>Go to Lesson</GetStartedButton>
-                    </StyledLink>
+                    <GetStartedButtonContainer>
+                      <StyledLink to='/lesson-home'>
+                        <GetStartedButton>Go to Lesson</GetStartedButton>
+                      </StyledLink>
+                      <StyledLink to='/dashboard/assignments'>
+                        <GetAssignmentsButton>
+                          Get Assignments
+                        </GetAssignmentsButton>
+                      </StyledLink>
+                    </GetStartedButtonContainer>
                   ) : (
                     <InitialPasswordChange me={me} />
                   )}

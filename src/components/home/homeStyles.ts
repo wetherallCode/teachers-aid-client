@@ -45,11 +45,22 @@ export const GetStartedButtonContainer = styled.div`
   justify-items: center;
   align-items: center;
 `
+
+export const GetAssignmentsButton = styled.button`
+  width: 10rem;
+  height: 3rem;
+  margin-top: 10%;
+  font-size: 1.1vw;
+  color: var(--white);
+  background-color: var(--blue);
+  box-shadow: 3px 3px 3px var(--grey);
+`
+
 export const GetStartedButton = styled.button`
   ${media.macBookPro16} {
     width: 10rem;
     height: 3rem;
-    font-size: smaller;
+    font-size: 1.1vw;
     color: var(--white);
     background-color: var(--blue);
     box-shadow: 3px 3px 3px var(--grey);
@@ -57,7 +68,7 @@ export const GetStartedButton = styled.button`
   ${media.iPhone} {
     width: 7rem;
     height: 2rem;
-    font-size: 80%;
+    font-size: 1.1vw;
     color: var(--white);
     background-color: var(--blue);
   }
