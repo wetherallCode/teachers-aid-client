@@ -5,6 +5,7 @@ import {
   setAnswerType,
   setAnswerTypeVariables,
   QuestionTypeEnum,
+  findEssayById_findEssayById_essay_workingDraft_organizer,
 } from '../../../../../../../../schemaTypes'
 import { useMutation } from '@apollo/client'
 
@@ -14,9 +15,13 @@ import { AdvancedWhyCauseEffect } from './AdvancedWhyCauseEffect'
 import { SET_ANSWER_TYPE_MUTATION } from '../academic/AcademicAnswerTypes'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
 
-export type AdvancedAnswerTypesProps = {}
+export type AdvancedAnswerTypesProps = {
+  organizer: findEssayById_findEssayById_essay_workingDraft_organizer
+}
 
-export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = () => {
+export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = ({
+  organizer,
+}) => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
   console.log(state.context.advancedOrganizer.answer.preLoaded)
@@ -90,7 +95,11 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = () => {
             />
             <button
               onClick={() => {
-                event({ type: 'NEXT' })
+                if (
+                  organizer.__typename === 'AdvancedOrganizer' &&
+                  organizer.answerType !== null
+                )
+                  event({ type: 'NEXT' })
               }}
             >
               Use this Question Type

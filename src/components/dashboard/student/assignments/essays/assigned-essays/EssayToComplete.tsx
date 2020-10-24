@@ -165,12 +165,10 @@ export const EssayToComplete: FC<EssayToCompleteProps> = () => {
         input: { _id: essayToComplete },
       },
       onCompleted: (data) => {
-        console.log(data)
         const draftToParse = JSON.parse(
           data.findEssayById.essay.workingDraft.draft
         )
         const stringDraft = JSON.stringify(draftToParse)
-        console.log(stringDraft)
         event({
           type: 'SET_DRAFT',
           payload: stringDraft,

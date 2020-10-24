@@ -83,7 +83,9 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
       setOrganizer()
     }
   }, [organizer, setOrganizer])
-
+  console.log(
+    organizer.__typename === 'AcademicOrganizer' && organizer.answerType
+  )
   return (
     <>
       {organizer && (
@@ -92,10 +94,10 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
             <DevelopingOrganizer question={question} />
           )}
           {state.matches('organizers.academicOrganizer') && (
-            <AcademicOrganizer question={question} />
+            <AcademicOrganizer question={question} organizer={organizer} />
           )}
           {state.matches('organizers.advancedOrganizer') && (
-            <AdvancedOrganizer question={question} />
+            <AdvancedOrganizer question={question} organizer={organizer} />
           )}
         </>
       )}

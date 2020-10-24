@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useMutation, MutationFunctionOptions } from '@apollo/client'
 import {
+  findEssayById_findEssayById_essay_workingDraft_organizer,
   updateAcademicOrganizer,
   updateAcademicOrganizerVariables,
 } from '../../../../../../../../schemaTypes'
@@ -17,6 +18,7 @@ import {
 
 export type AcademicOrganizerProps = {
   question: string
+  organizer: findEssayById_findEssayById_essay_workingDraft_organizer
 }
 
 export const UPDATE_ACADEMIC_ORGANIZER_MUTATION = gql`
@@ -38,7 +40,10 @@ export type UpdateAcademicOrganizerType = (
     | undefined
 ) => void
 
-export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({ question }) => {
+export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
+  question,
+  organizer,
+}) => {
   const [state] = useStudentEssayContextProvider()
 
   const [updateAcademicOrganizer] = useMutation<
@@ -73,7 +78,7 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({ question }) => {
         />
       )}
       {state.matches('organizers.academicOrganizer.answer') && (
-        <AcademicAnswerTypes />
+        <AcademicAnswerTypes organizer={organizer} />
       )}
       {state.matches('organizers.academicOrganizer.conclusion') && (
         <AcademicConclusion updateAcademicOrganizer={updateAcademicOrganizer} />

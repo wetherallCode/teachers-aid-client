@@ -5,6 +5,7 @@ import {
   setAnswerType,
   setAnswerTypeVariables,
   QuestionTypeEnum,
+  findEssayById_findEssayById_essay_workingDraft_organizer,
 } from '../../../../../../../../schemaTypes'
 import { gql, useMutation } from '@apollo/client'
 import { AcademicProblemSolution } from './AcademicProblemSolution'
@@ -24,7 +25,9 @@ import {
   RestatementOutput,
 } from '../../state-and-styles/assignedEssayStyles'
 
-export type AcademicAnswerTypesProps = {}
+export type AcademicAnswerTypesProps = {
+  organizer: findEssayById_findEssayById_essay_workingDraft_organizer
+}
 
 export const SET_ANSWER_TYPE_MUTATION = gql`
   mutation setAnswerType($input: SetAnswerTypeInput!) {
@@ -43,7 +46,9 @@ export const SET_ANSWER_TYPE_MUTATION = gql`
   }
 `
 
-export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
+export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = ({
+  organizer,
+}) => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
 
@@ -77,7 +82,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
       // event({ type: 'NEXT' })
     }
   }, [event, state.context.academicOrganizer.answer.preLoaded])
-  console.log(state.context.academicOrganizer.questionType)
+
   return (
     <>
       {state.matches('organizers.academicOrganizer.answer.questionType') && (
@@ -147,7 +152,11 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
             </OrganizerControlButton>
             <OrganizerControlButton
               onClick={() => {
-                event({ type: 'NEXT' })
+                if (
+                  organizer.__typename === 'AcademicOrganizer' &&
+                  organizer.answerType !== null
+                )
+                  event({ type: 'NEXT' })
               }}
             >
               Next

@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useMutation, MutationFunctionOptions } from '@apollo/client'
 import {
+  findEssayById_findEssayById_essay_workingDraft_organizer,
   updateAdvancedOrganizer,
   updateAdvancedOrganizerVariables,
 } from '../../../../../../../../schemaTypes'
@@ -19,6 +20,7 @@ import {
 
 export type AdvancedOrganizerProps = {
   question: string
+  organizer: findEssayById_findEssayById_essay_workingDraft_organizer
 }
 
 export const UPDATE_ADVANCED_ORGANIZER_MUTATION = gql`
@@ -39,7 +41,10 @@ export type UpdateAdvancedOrganizerType = (
     | undefined
 ) => void
 
-export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({ question }) => {
+export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({
+  question,
+  organizer,
+}) => {
   const [state] = useStudentEssayContextProvider()
 
   const [updateAdvancedOrganizer] = useMutation<
@@ -73,7 +78,7 @@ export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({ question }) => {
         />
       )}
       {state.matches('organizers.advancedOrganizer.answer') && (
-        <AdvancedAnswerTypes />
+        <AdvancedAnswerTypes organizer={organizer} />
       )}
       {state.matches('organizers.advancedOrganizer.conclusion') && (
         <AdvancedConclusion updateAdvancedOrganizer={updateAdvancedOrganizer} />
