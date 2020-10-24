@@ -144,17 +144,17 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
             <ul>
               <EssaySectionOrganizationBodyEntry>
                 If the question type is Why: Cause and Effect the ending will be
-                "...for a certain way"
+                "...for many reasons."
               </EssaySectionOrganizationBodyEntry>
               <EssaySectionOrganizationBodyEntry>
                 If the question type is How: Cause and Effect the ending will be
-                "...in certain way"
+                "...in certain way."
               </EssaySectionOrganizationBodyEntry>
               <EssaySectionOrganizationBodyEntry>
                 If the question type is How: Problem and Solution the ending
-                will be "...to solve a problem" unless the words problem and
+                will be "...to solve a problem." unless the words problem and
                 solution are already in the question then end "...in certain
-                way"
+                way."
               </EssaySectionOrganizationBodyEntry>
             </ul>
           </ul>
