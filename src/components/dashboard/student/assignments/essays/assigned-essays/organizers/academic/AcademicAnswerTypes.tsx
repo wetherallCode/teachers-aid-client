@@ -77,7 +77,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = () => {
       // event({ type: 'NEXT' })
     }
   }, [event, state.context.academicOrganizer.answer.preLoaded])
-  console.log(state.value)
+  console.log(state.context.academicOrganizer.questionType)
   return (
     <>
       {state.matches('organizers.academicOrganizer.answer.questionType') && (
