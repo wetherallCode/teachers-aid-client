@@ -83,9 +83,7 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
       setOrganizer()
     }
   }, [organizer, setOrganizer])
-  console.log(
-    organizer.__typename === 'AcademicOrganizer' && organizer.answerType
-  )
+
   return (
     <>
       {organizer && (
