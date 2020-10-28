@@ -10,18 +10,33 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
   const [courseId, setCourseId] = useState('')
   const me: me_me_Teacher = useUserContextProvider()
   const { teachesCourses } = me
-  console.log(courseId)
+
   return (
     <>
-      <div>Grade Assignments</div>
-      <select onChange={(e: any) => setCourseId(e.target.value)}>
+      <div>Grade Essays</div>
+      {/* <select onChange={(e: any) => setCourseId(e.target.value)}>
         <option value={'none'}>Pick a Course</option>
         {teachesCourses.map((course) => (
           <option key={course._id!} value={course._id!}>
             {course.name}
           </option>
         ))}
-      </select>
+      </select> */}
+      <div>
+        <div
+          style={{
+            display: 'grid',
+            justifyItems: 'space-between',
+            gridAutoFlow: 'column',
+          }}
+        >
+          {teachesCourses.slice(1).map((course) => (
+            <span key={course._id} onClick={() => setCourseId(course._id!)}>
+              {course.name}
+            </span>
+          ))}
+        </div>
+      </div>
       {courseId && (
         <>
           <EssaysToGrade courseId={courseId} />

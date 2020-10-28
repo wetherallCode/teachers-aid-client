@@ -2187,6 +2187,99 @@ export interface findReadingGuideDataForCourseAndLessonVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findEssaysByAssociatedLessonId
+// ====================================================
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  schoolId: string | null;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  returned: boolean;
+  submitted: boolean;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays {
+  __typename: "Essay";
+  _id: string | null;
+  readings: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_readings;
+  hasOwner: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_hasOwner;
+  score: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_score;
+  finalDraft: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_finalDraft | null;
+  exempt: boolean;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId {
+  __typename: "FindEssaysByAssociatedLessonIdPayload";
+  essays: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays[];
+}
+
+export interface findEssaysByAssociatedLessonId {
+  findEssaysByAssociatedLessonId: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId;
+}
+
+export interface findEssaysByAssociatedLessonIdVariables {
+  input: FindEssaysByAssociatedLessonIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findResponsibilityPointsByCourse
+// ====================================================
+
+export interface findResponsibilityPointsByCourse_findResponsibilityPointsByCourse_responsibilityPointList_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  schoolId: string | null;
+}
+
+export interface findResponsibilityPointsByCourse_findResponsibilityPointsByCourse_responsibilityPointList {
+  __typename: "ResponsibilityPoints";
+  student: findResponsibilityPointsByCourse_findResponsibilityPointsByCourse_responsibilityPointList_student;
+  responsibilityPoints: number;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findResponsibilityPointsByCourse_findResponsibilityPointsByCourse {
+  __typename: "FindResponsibilityPointsByCoursePayload";
+  responsibilityPointList: findResponsibilityPointsByCourse_findResponsibilityPointsByCourse_responsibilityPointList[];
+}
+
+export interface findResponsibilityPointsByCourse {
+  findResponsibilityPointsByCourse: findResponsibilityPointsByCourse_findResponsibilityPointsByCourse;
+}
+
+export interface findResponsibilityPointsByCourseVariables {
+  input: FindResponsibilityPointsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createCourseInfo
 // ====================================================
 
@@ -5259,6 +5352,10 @@ export interface FindEssaysByAssociatedLessonIdAndCourseIdInput {
   lessonId: string;
 }
 
+export interface FindEssaysByAssociatedLessonIdInput {
+  associatedLessonId: string;
+}
+
 export interface FindEssaysToCompleteByStudentIdInput {
   studentId: string;
 }
@@ -5300,6 +5397,10 @@ export interface FindReadingGuidesByAssociatedLessonAndCourseIdInput {
 
 export interface FindReadingGuidesToCompleteByStudentIdInput {
   studentId: string;
+}
+
+export interface FindResponsibilityPointsByCourseInput {
+  courseId: string;
 }
 
 export interface FindSchoolDayByDateInput {

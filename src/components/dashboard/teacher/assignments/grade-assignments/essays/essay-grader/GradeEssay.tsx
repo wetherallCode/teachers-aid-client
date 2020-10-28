@@ -141,7 +141,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
 export const GradeEssay: FC<GradeEssayProps> = () => {
   const { essayId } = useParams()
   const navigate = useNavigate()
-
+  console.log(essayId)
   const [state, event] = useGradeEssayContextProvider()
   const [loadingDraft, setloadingDraft] = useState(false)
   const { loading, data } = useQuery<
