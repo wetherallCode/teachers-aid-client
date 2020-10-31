@@ -169,7 +169,7 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
               <AcademicEssayOrganizerAnswerBlock
                 style={{
                   borderTop: '1px solid var(--blue)',
-                  borderRight: '1px solid var(--blue)',
+                  // borderRight: '1px solid var(--blue)',
                 }}
               >
                 <AcademicEssayOrganizerAnswerBlockHeader>
