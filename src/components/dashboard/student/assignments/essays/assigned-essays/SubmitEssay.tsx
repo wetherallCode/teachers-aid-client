@@ -14,6 +14,7 @@ import {
   SubmitEssayModalSubmitButton,
   SubmitEssayModal,
   SubmitEssayModalMessage,
+  EssaySubmitCheck,
 } from './state-and-styles/assignedEssayStyles'
 import { Modal } from '../../../../../../animations'
 import { useStudentEssayContextProvider } from './state-and-styles/StudentEssayContext'
@@ -81,12 +82,13 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
         </EssaySubmitButton>
       ) : (
         <EssaySubmitButton
-          color={'var(--blue)'}
+          color={'var(--red)'}
           onClick={() => setSubmitToggle(false)}
         >
-          Review Essay
+          No
         </EssaySubmitButton>
       )}
+      {submitToggle && <EssaySubmitCheck>Are you Sure?</EssaySubmitCheck>}
       {response && (
         <>
           {!submitToggle ? (
@@ -99,11 +101,11 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
             </EssaySubmitButton>
           ) : (
             <EssaySubmitButton
-              color={'var(--red)'}
+              color={'var(--blue)'}
               submitFinal={submitToggle}
               onClick={() => submitFinalDraft()}
             >
-              Are you sure?
+              Yes
             </EssaySubmitButton>
           )}
         </>
