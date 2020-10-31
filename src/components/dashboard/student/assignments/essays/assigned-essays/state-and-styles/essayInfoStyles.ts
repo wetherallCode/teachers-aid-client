@@ -12,7 +12,7 @@ export const EssayInfoSwitchButtonContainer = styled(
 )``
 
 export const EssayInfoSwitchButton = styled(ReadingGuideInfoSwitchButton)`
-  font-size: larger;
+  font-size: 2vh;
   width: 80%;
 `
 

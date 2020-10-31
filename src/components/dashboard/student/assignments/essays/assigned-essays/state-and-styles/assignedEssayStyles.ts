@@ -37,7 +37,7 @@ export const AssignmentDetailsGoBackButtonContainer = styled.div`
 export const AssignmentDetailsGoBackButton = styled.button`
   width: 80%;
   height: 40%;
-  font-size: larger;
+  font-size: 2vh;
   border-radius: 5px;
   color: var(--blue);
   text-shadow: 1px 1px var(--grey);
@@ -154,9 +154,9 @@ export const OrganizerControlButtonContainer = styled.div`
 export const OrganizerControlButton = styled.button`
   background-color: var(--blue);
   color: var(--white);
-  font-size: 2rem;
+  font-size: 3vh;
   width: 75%;
-  height: 37%;
+  height: 4vh;
   box-shadow: 1px 1px 2px 1px var(--grey);
   border-radius: 5px;
 `
@@ -169,12 +169,15 @@ export type EssaySubmitButtonProps = {
 export const EssaySubmitButton = styled(OrganizerControlButton)<
   EssaySubmitButtonProps
 >`
-  font-size: 2rem;
+  font-size: 3vh;
   width: 75%;
-  height: 37%;
+  height: 4vh;
   box-shadow: 1px 1px 2px 1px var(--grey);
   border-radius: 5px;
   background-color: ${({ color }) => color};
+`
+export const EssaySubmitCheck = styled.div`
+  font-size: 3vh;
 `
 
 export const RestatementContainer = styled.div`
@@ -312,7 +315,7 @@ export const EssaySheet = styled.div`
   margin: 3%;
   border: 1px solid black;
   box-shadow: 2px 2px 2px 1px var(--grey);
-  height: 95%;
+  height: 75vh;
   user-select: none;
 `
 
@@ -320,6 +323,7 @@ export const EssayOrganizerSheet = styled(EssaySheet)`
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   grid-template-columns: repeat(12, 1fr);
+  font-size: 2vh;
 `
 
 export const EssayOrganizerTitle = styled.div`
@@ -328,7 +332,7 @@ export const EssayOrganizerTitle = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 3.5vh;
   text-decoration: underline;
 `
 
@@ -383,7 +387,7 @@ export const AcademicEssayOrganizerAnswerBlockHeader = styled.div`
 `
 export const AcademicEssayOrganizerAnswerBlockBody = styled.div`
   justify-self: center;
-  align-self: center;
+  align-self: start;
 `
 
 export const HowProblemSolutionOrganizerAnswer = styled.div`
@@ -402,14 +406,14 @@ export const WhyCauseEffectOrganizerAnswer = styled.div`
 `
 
 export const EssayOrganizerPartHeader = styled.div`
-  font-size: 1.5rem;
+  font-size: 2.5vh;
   text-decoration: underline;
   justify-self: center;
   align-self: center;
 `
 
 export const EssayOrganizerPartBody = styled.div`
-  font-size: 1vw;
+  /* font-size: 2; */
   align-self: start;
 `
 
