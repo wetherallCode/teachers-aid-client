@@ -25,6 +25,7 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
           _id
         }
         assignedDate
+        dueDate
         completed
         late
       }

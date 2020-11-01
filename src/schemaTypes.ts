@@ -1285,6 +1285,7 @@ export interface findArticleReviewsByCourse_findArticleReviewsByCourse_articleRe
   score: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_score;
   hasOwner: findArticleReviewsByCourse_findArticleReviewsByCourse_articleReviews_hasOwner;
   assignedDate: string;
+  dueDate: string;
   completed: boolean;
   late: boolean;
 }
