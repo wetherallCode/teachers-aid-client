@@ -235,9 +235,11 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
         </EssayRedoButtonContainer>
       </EssayViewContainer>
       <EssayInfoContainer>
-        {state.matches('redoEssay') && (
+        {
+          // state.matches('redoEssay') && (
           <HowToImprove waysToImprove={waysToImprove} />
-        )}
+          // )
+        }
       </EssayInfoContainer>
     </EssayContainer>
   )
