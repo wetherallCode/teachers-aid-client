@@ -167,7 +167,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
         payload: data.findEssayById.essay.workingDraft.draft,
       })
     },
-    pollInterval: 10000,
+    // pollInterval: 10000,
     onError: (error) => console.error(error),
   })
 
