@@ -32,6 +32,38 @@ export const AssignmentTypeContainer = styled(Standard8x12Container)`
   grid-row: 1/-1;
   grid-column: 4/-1;
 `
+export const MarkingPeriodSelectorContainer = styled.div`
+  grid-row: -2/-1;
+  grid-column: 1/-1;
+  display: grid;
+
+  font-size: 2vw;
+  grid-template-columns: 1fr 1fr;
+`
+
+export const MarkingPeriodSelectorTitle = styled.div`
+  justify-self: right;
+  align-self: center;
+  margin-right: 10%;
+`
+
+export const MarkingPeriodSelectorSwitch = styled.div`
+  justify-self: left;
+  align-self: center;
+  /* margin-left: 10%; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  width: 60%;
+`
+
+export const MarkingPeriodSelectedSwitchArrow = styled.div`
+  cursor: pointer;
+`
+
+export const MarkingPeriodSelectedMarkingPeriod = styled.div``
+
 export const AssignmentTypeTitle = styled.div`
   display: grid;
   grid-row: 1/2;
@@ -42,9 +74,10 @@ export const AssignmentTypeTitle = styled.div`
 `
 export const AssignmentTypeContentContainer = styled.div`
   display: grid;
-  grid-row: 2/-1;
+  grid-row: 2/-2;
   grid-column: 2/-2;
   grid-auto-rows: 10%;
+  overflow: scroll;
 `
 export const AssignmentLink = styled(Link)`
   font-size: 2rem;

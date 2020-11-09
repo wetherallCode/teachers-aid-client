@@ -30,6 +30,7 @@ export type readingGuideToCompleteMachineEvent =
         | 'majorIssueSolved'
         | 'majorSolution'
         | 'clarifyingQuestions'
+        | 'general'
     }
   | { type: 'SET_HELP_DISPLAY' }
   | { type: 'SET_VOCAB_DISPLAY' }
@@ -45,6 +46,7 @@ export type readingGuideToCompleteMachineContext = {
     | 'majorIssueSolved'
     | 'majorSolution'
     | 'clarifyingQuestions'
+    | 'general'
   helpDisplay: boolean
   vocabDisplay: boolean
 }
@@ -71,7 +73,7 @@ export const readingGuideToCompleteMachine = Machine<
       late: true,
       paperBased: false,
     },
-    help: 'howIsSectionOrganized',
+    help: 'general',
     helpDisplay: true,
     vocabDisplay: false,
   },

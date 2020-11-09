@@ -6,14 +6,14 @@ import {
   me_me_Student,
 } from '../../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
-import { Link } from 'react-router-dom'
 import {
   AssignmentTypeTitle,
   AssignmentTypeContentContainer,
   AssignmentLink,
   AssignmentLinkLi,
+  CompletionMessage,
 } from '../../assignmentsStyles'
-import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { useStudentAssignmentContextProvider } from '../../StudentAssignmentContext'
 
 export type CompletedEssaySelectProps = {}
 export const FIND_COMPLETED_ESSAYS_QUERY = gql`
@@ -37,8 +37,7 @@ export const FIND_COMPLETED_ESSAYS_QUERY = gql`
 
 export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
-  const { currentMarkingPeriod } = markingPeriodState.context
+  const [state] = useStudentAssignmentContextProvider()
 
   const { loading, data } = useQuery<
     findCompletedEssaysByStudentId,
@@ -53,7 +52,7 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
   })
 
   const essaysForMarkingPeriod = data?.findCompletedEssaysByStudentId.essays.filter(
-    (essay) => essay.markingPeriod === currentMarkingPeriod
+    (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
   )
 
   if (loading)
@@ -78,6 +77,15 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
               </AssignmentLinkLi>
             </ul>
           ))}
+          {essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0 && (
+            <AssignmentTypeContentContainer>
+              <CompletionMessage>
+                <ul>
+                  <li>No Essays Completed</li>
+                </ul>
+              </CompletionMessage>
+            </AssignmentTypeContentContainer>
+          )}
         </AssignmentTypeContentContainer>
       )}
     </>

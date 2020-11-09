@@ -82,7 +82,9 @@ export const QuestionBlock = styled.div`
   display: grid;
   grid-template-rows: 1fr 2fr;
 `
-
+export const Required = styled.span`
+  color: var(--red);
+`
 export const SectionOrganizationContainer = styled.div`
   grid-row: 2/3;
   grid-column: 2/-2;

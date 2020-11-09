@@ -152,6 +152,7 @@ export interface findArticleReviewsByStudent_findArticleReviewsByStudent_article
   assignedDate: string;
   paperBased: boolean;
   markingPeriod: MarkingPeriodEnum;
+  submitted: boolean;
 }
 
 export interface findArticleReviewsByStudent_findArticleReviewsByStudent {
@@ -1145,8 +1146,8 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide_lessonIn
 
 export interface findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
-  howIsSectionOrganized: InformationStructureEnum[];
-  whyWasSectionOrganized: string;
+  howIsSectionOrganized: InformationStructureEnum[] | null;
+  whyWasSectionOrganized: string | null;
   majorIssue: string;
   majorSolution: string;
   clarifyingQuestions: string[];
@@ -1659,6 +1660,7 @@ export interface findEssaysToGradeById_findEssaysToGradeById_essays {
   _id: string | null;
   late: boolean;
   assigned: boolean;
+  markingPeriod: MarkingPeriodEnum;
   readings: findEssaysToGradeById_findEssaysToGradeById_essays_readings;
   hasOwner: findEssaysToGradeById_findEssaysToGradeById_essays_hasOwner;
   finalDraft: findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft | null;
@@ -2152,8 +2154,8 @@ export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssoc
   __typename: "ReadingGuideFinalContainer";
   clarifyingQuestions: string[];
   submitted: boolean;
-  howIsSectionOrganized: InformationStructureEnum[];
-  whyWasSectionOrganized: string;
+  howIsSectionOrganized: InformationStructureEnum[] | null;
+  whyWasSectionOrganized: string | null;
   majorIssue: string;
   majorSolution: string;
   majorIssueSolved: boolean;
@@ -4199,7 +4201,7 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasAssignmen
 export interface findStudentInfoByStudentId_findStudentById_student_hasAssignments_ReadingGuide_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
   clarifyingQuestions: string[];
-  howIsSectionOrganized: InformationStructureEnum[];
+  howIsSectionOrganized: InformationStructureEnum[] | null;
   majorIssue: string;
   majorIssueSolved: boolean;
   majorSolution: string;

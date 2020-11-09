@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { AssignedEssaySelect } from './essays/assigned-essays/AssignedEssaySelect'
 import { CompletedEssaySelect } from './essays/completed-essays/CompletedEssaySelect'
 import { AssignedReadingGuideSelect } from './readingGuides/AssignedReadingGuideSelect'
@@ -11,12 +11,20 @@ import {
 } from './assignmentsStyles'
 import { useStudentAssignmentContextProvider } from './StudentAssignmentContext'
 import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
+import { MarkingPeriodSelector } from './MarkingPeriodSelector'
+import { useMarkingPeriodContextProvider } from '../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { MarkingPeriodEnum } from '../../../../schemaTypes'
 
 export type StudentAssignmentsProps = {}
 
 export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
   const [state, event] = useStudentAssignmentContextProvider()
-
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  // const { currentMarkingPeriod } = markingPeriodState.context
+  // const fakeCurrentMarkingPeriod = MarkingPeriodEnum.SECOND
+  // useEffect(() => {
+  //   event({ type: 'SET_MARKING_PERIOD', payload: fakeCurrentMarkingPeriod })
+  // }, [])
   return (
     <AssignmentsToCompleteContainer>
       <AssignmentsTypeSelectorPanel>
@@ -49,6 +57,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
           <AssignedReadingGuideSelect />
         )}
         {state.matches('articleReviewsToComplete') && <ArticleReviewSelect />}
+        <MarkingPeriodSelector />
       </AssignmentTypeContainer>
     </AssignmentsToCompleteContainer>
   )

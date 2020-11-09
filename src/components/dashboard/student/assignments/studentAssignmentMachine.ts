@@ -1,4 +1,5 @@
 import { Machine, assign } from 'xstate'
+import { MarkingPeriodEnum } from '../../../../schemaTypes'
 
 export type studentAssignmentMachineSchema = {
   states: {
@@ -14,8 +15,11 @@ export type studentAssignmentMachineEvent =
   | { type: 'COMPLETED_ESSAYS' }
   | { type: 'READING_GUIDES' }
   | { type: 'ARTICLE_REVIEWS' }
+  | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
 
-export type studentAssignmentMachineContext = {}
+export type studentAssignmentMachineContext = {
+  selectedMarkingPeriod: MarkingPeriodEnum
+}
 
 export const studentAssignmentMachine = Machine<
   studentAssignmentMachineContext,
@@ -24,13 +28,23 @@ export const studentAssignmentMachine = Machine<
 >({
   id: 'studentAssignments',
   initial: 'essaysToComplete',
-  context: {},
+  context: {
+    selectedMarkingPeriod: MarkingPeriodEnum.FIRST,
+  },
   states: {
     essaysToComplete: {
       on: {
         COMPLETED_ESSAYS: 'completedEssays',
         READING_GUIDES: 'readingGuidesToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
+        SET_MARKING_PERIOD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              selectedMarkingPeriod: evt.payload,
+            }
+          }),
+        },
       },
     },
     completedEssays: {
@@ -38,6 +52,14 @@ export const studentAssignmentMachine = Machine<
         ESSAYS_TO_COMPLETE: 'essaysToComplete',
         READING_GUIDES: 'readingGuidesToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
+        SET_MARKING_PERIOD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              selectedMarkingPeriod: evt.payload,
+            }
+          }),
+        },
       },
     },
     readingGuidesToComplete: {
@@ -45,6 +67,14 @@ export const studentAssignmentMachine = Machine<
         COMPLETED_ESSAYS: 'completedEssays',
         ESSAYS_TO_COMPLETE: 'essaysToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
+        SET_MARKING_PERIOD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              selectedMarkingPeriod: evt.payload,
+            }
+          }),
+        },
       },
     },
     articleReviewsToComplete: {
@@ -52,6 +82,14 @@ export const studentAssignmentMachine = Machine<
         ESSAYS_TO_COMPLETE: 'essaysToComplete',
         COMPLETED_ESSAYS: 'completedEssays',
         READING_GUIDES: 'readingGuidesToComplete',
+        SET_MARKING_PERIOD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              selectedMarkingPeriod: evt.payload,
+            }
+          }),
+        },
       },
     },
   },

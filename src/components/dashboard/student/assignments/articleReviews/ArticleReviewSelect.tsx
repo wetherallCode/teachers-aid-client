@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
 import React, { FC } from 'react'
-import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import {
   findArticleReviewsByStudent,
@@ -13,6 +12,7 @@ import {
   CompletionMessage,
   AssignmentLink,
 } from '../assignmentsStyles'
+import { useStudentAssignmentContextProvider } from '../StudentAssignmentContext'
 
 export type ArticleReviewSelectProps = {}
 export const ARTICE_REVIEWS_TO_COMPLETE_QUERY = gql`
@@ -23,21 +23,24 @@ export const ARTICE_REVIEWS_TO_COMPLETE_QUERY = gql`
         assignedDate
         paperBased
         markingPeriod
+        submitted
       }
     }
   }
 `
 export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
   const me: me_me_Student = useUserContextProvider()
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
-  const { currentMarkingPeriod } = markingPeriodState.context
+  const [state] = useStudentAssignmentContextProvider()
 
   const { loading, data } = useQuery<
     findArticleReviewsByStudent,
     findArticleReviewsByStudentVariables
   >(ARTICE_REVIEWS_TO_COMPLETE_QUERY, {
     variables: {
-      input: { studentId: me._id!, markingPeriod: currentMarkingPeriod },
+      input: {
+        studentId: me._id!,
+        markingPeriod: state.context.selectedMarkingPeriod,
+      },
     },
     pollInterval: 1000,
     onCompleted: (data) =>
@@ -56,7 +59,10 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
       </AssignmentTypeTitle>
       {loading ? null : (
         <>
-          {data?.findArticleReviewsByStudent.articleReviews.length! === 0 ? (
+          {data?.findArticleReviewsByStudent.articleReviews &&
+          data?.findArticleReviewsByStudent.articleReviews.some(
+            (review) => review.submitted
+          ) ? (
             <AssignmentTypeContentContainer>
               <CompletionMessage>
                 <ul>
@@ -71,16 +77,24 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
                   data?.findArticleReviewsByStudent.articleReviews
                     .filter((review) => !review.paperBased)
                     .map((review) => (
-                      <li style={{ fontSize: '2rem' }}>
+                      <li key={review._id!} style={{ fontSize: '2rem' }}>
                         <AssignmentLink
                           to={`articleReview/toComplete/${review._id!}`}
-                          key={review._id!}
                         >
                           {review.assignedDate}
                         </AssignmentLink>
                       </li>
                     ))}
               </ul>
+            </AssignmentTypeContentContainer>
+          )}
+          {data?.findArticleReviewsByStudent.articleReviews.length === 0 && (
+            <AssignmentTypeContentContainer>
+              <CompletionMessage>
+                <ul>
+                  <li>No Article Reviews Assigned</li>
+                </ul>
+              </CompletionMessage>
             </AssignmentTypeContentContainer>
           )}
         </>

@@ -105,47 +105,47 @@ export const ReadingGuideDataViewer: FC<DataViewerProps> = ({
         ]
       }
       if (
-        guide.readingGuideFinal.howIsSectionOrganized.includes(
+        guide.readingGuideFinal.howIsSectionOrganized!.includes(
           InformationStructureEnum.PROBLEM_SOLUTION
         )
       ) {
         problemSolutionTypes = problemSolutionTypes + 1
         problemSolutionReasons = [
           ...problemSolutionReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized,
+          guide.readingGuideFinal.whyWasSectionOrganized!,
         ]
       }
       if (
-        guide.readingGuideFinal.howIsSectionOrganized.includes(
+        guide.readingGuideFinal.howIsSectionOrganized!.includes(
           InformationStructureEnum.CAUSE_EFFECT
         )
       ) {
         causeEffectTypes = causeEffectTypes + 1
         causeEffectReasons = [
           ...causeEffectReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized,
+          guide.readingGuideFinal.whyWasSectionOrganized!,
         ]
       }
       if (
-        guide.readingGuideFinal.howIsSectionOrganized.includes(
+        guide.readingGuideFinal.howIsSectionOrganized!.includes(
           InformationStructureEnum.COMPARE_CONTRAST
         )
       ) {
         compareContrastTypes = compareContrastTypes + 1
         compareContrastReasons = [
           ...compareContrastReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized,
+          guide.readingGuideFinal.whyWasSectionOrganized!,
         ]
       }
       if (
-        guide.readingGuideFinal.howIsSectionOrganized.includes(
+        guide.readingGuideFinal.howIsSectionOrganized!.includes(
           InformationStructureEnum.SEQUENCE
         )
       ) {
         sequenceTypes = sequenceTypes + 1
         sequenceReasons = [
           ...sequenceReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized,
+          guide.readingGuideFinal.whyWasSectionOrganized!,
         ]
       }
     }

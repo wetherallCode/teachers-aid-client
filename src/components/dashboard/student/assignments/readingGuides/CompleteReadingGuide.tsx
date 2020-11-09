@@ -34,6 +34,7 @@ import {
   ClarifyingQuestionsTitle,
   ClarifyingQuestionsSubmittedQuestion,
   ClarifyingQuestionsBlock,
+  Required,
 } from './state-and-styles/readingGuideStyles'
 
 export type CompleteReadingGuideProps = {
@@ -70,7 +71,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
       ...list.slice(index + 1),
     ])
   }
-  console.log(state.context.updateReadingGuideInputs.clarifyingQuestions)
+
   const [updateReadingGuide] = useMutation<
     updateReadingGuide,
     updateReadingGuideVariables
@@ -106,11 +107,15 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
       {state.matches('questions') && (
         <>
           <SectionOrganizationContainer
-            onMouseOver={() =>
-              event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
-            }
+          // onMouseOver={() =>
+          //   event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
+          // }
           >
-            <div>
+            <div
+              onClick={() =>
+                event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
+              }
+            >
               {multipleSections ? (
                 <>
                   <span>
@@ -123,7 +128,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
               ) : (
                 <>
                   <span>
-                    1. How is the information in this sections organized?
+                    1. How is the information in this section organized?
                   </span>{' '}
                   <span style={{ color: 'var(--grey)' }}>
                     (Click as many as you think make sense)
@@ -149,7 +154,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
           </SectionOrganizationContainer>
           <ReasonForOrganizationContainer>
             <div
-              onMouseOver={() =>
+              onClick={() =>
                 event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
               }
             >
@@ -172,13 +177,27 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
           </ReasonForOrganizationContainer>
           <MajorIssueContainer>
             <div
-              onMouseOver={() =>
-                event({ type: 'SET_HELP', payload: 'majorIssue' })
-              }
+            // onClick={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
             >
-              {multipleSections
-                ? '3. What was the major issue discussed in the sections'
-                : '3. What was the major issue discussed in the section'}
+              {multipleSections ? (
+                <div
+                  onClick={() =>
+                    event({ type: 'SET_HELP', payload: 'majorIssue' })
+                  }
+                >
+                  <Required>* </Required>3. What was the major issue discussed
+                  in the sections
+                </div>
+              ) : (
+                <div
+                  onClick={() =>
+                    event({ type: 'SET_HELP', payload: 'majorIssue' })
+                  }
+                >
+                  <Required>* </Required>3. What was the major issue discussed
+                  in the section
+                </div>
+              )}
             </div>
             <ReadingGuideInput
               onFocus={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
@@ -189,13 +208,29 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
             />
           </MajorIssueContainer>
           <MajorIssueSolvedContainer
-            onMouseOver={() =>
-              event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
-            }
+          // onMouseOver={() =>
+          //   event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
+          // }
           >
-            {multipleSections
-              ? '4. Was the issue handled or problem solved in the sections?'
-              : '4. Was the issue handled or problem solved in the section?'}
+            {multipleSections ? (
+              <div
+                onClick={() =>
+                  event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
+                }
+              >
+                <Required>* </Required>
+                4. Was the issue handled or problem solved in the sections?
+              </div>
+            ) : (
+              <div
+                onClick={() =>
+                  event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
+                }
+              >
+                <Required>* </Required>
+                4. Was the issue handled or problem solved in the section?
+              </div>
+            )}
 
             <ReadingGuideSelect
               onFocus={() =>
@@ -219,11 +254,17 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
           </MajorIssueSolvedContainer>
           {state.context.updateReadingGuideInputs.majorIssueSolved ? (
             <MajorSolutionContainer
-              onMouseOver={() =>
-                event({ type: 'SET_HELP', payload: 'majorSolution' })
-              }
+            // onMouseOver={() =>
+            //   event({ type: 'SET_HELP', payload: 'majorSolution' })
+            // }
             >
-              <div>5. How was the issue solved?</div>
+              <div
+                onClick={() =>
+                  event({ type: 'SET_HELP', payload: 'majorSolution' })
+                }
+              >
+                <Required>* </Required>5. How was the issue solved?
+              </div>
               <ReadingGuideInput
                 onFocus={() =>
                   event({ type: 'SET_HELP', payload: 'majorSolution' })
@@ -240,7 +281,13 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 event({ type: 'SET_HELP', payload: 'majorSolution' })
               }
             >
-              <div>5. Why was the issue not solved?</div>
+              <div
+                onClick={() =>
+                  event({ type: 'SET_HELP', payload: 'majorSolution' })
+                }
+              >
+                <Required>* </Required>5. Why was the issue not solved?
+              </div>
               <ReadingGuideInput
                 onFocus={() =>
                   event({ type: 'SET_HELP', payload: 'majorSolution' })
@@ -259,11 +306,16 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
       )}
       {state.matches('clarifyingQuestions') && (
         <ClarifyingQuestionsContainer
-          onMouseOver={() =>
-            event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
-          }
+        // onMouseOver={() =>
+        //   event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
+        // }
         >
-          <ClarifyingQuestionsTitle>
+          <ClarifyingQuestionsTitle
+            onClick={() =>
+              event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
+            }
+          >
+            <Required>* </Required>
             6. Come up with at least one (or more) questions that would help you
             understand the section better.
           </ClarifyingQuestionsTitle>
@@ -291,9 +343,12 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
             <ClarifyingQuestionsBlock>
               {clarifyingQuestions.map((question, i) => (
                 <ClarifyingQuestionsSubmittedQuestion key={i}>
-                  <span onMouseOver={() => {}} onClick={() => handleDelete(i)}>
+                  <Required
+                    onMouseOver={() => {}}
+                    onClick={() => handleDelete(i)}
+                  >
                     {i + 1}. {question}
-                  </span>
+                  </Required>
                 </ClarifyingQuestionsSubmittedQuestion>
               ))}
             </ClarifyingQuestionsBlock>

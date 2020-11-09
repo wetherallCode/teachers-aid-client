@@ -98,15 +98,6 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
       input: { readingGuideId: readingGuideToComplete },
     },
     onCompleted: (data) => {
-      // const {
-      //   clarifyingQuestions,
-      //   majorIssue,
-      //   howIsSectionOrganized,
-      //   majorSolution,
-      //   whyWasSectionOrganized,
-      //   majorIssueSolved,
-      // } = data.findReadingGuideById.readingGuide.readingGuideFinal!
-
       event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete })
       if (data.findReadingGuideById.readingGuide.readingGuideFinal)
         event({
@@ -124,9 +115,8 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
             majorSolution:
               data.findReadingGuideById.readingGuide.readingGuideFinal
                 .majorSolution,
-            whyWasSectionOrganized:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .whyWasSectionOrganized,
+            whyWasSectionOrganized: data.findReadingGuideById.readingGuide
+              .readingGuideFinal.whyWasSectionOrganized!,
             majorIssueSolved:
               data.findReadingGuideById.readingGuide.readingGuideFinal
                 .majorIssueSolved,

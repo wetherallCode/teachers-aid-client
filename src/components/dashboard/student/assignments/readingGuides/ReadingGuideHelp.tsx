@@ -4,15 +4,36 @@ import {
   ReadingGuideInfoTitle,
   ReadingGuideInfoBody,
   SectionOrganizationBodyEntry,
+  Required,
 } from './state-and-styles/readingGuideStyles'
 export type ReadingGuideHelpProps = {}
 
 export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
   const [state] = useReadingGuideToCompleteContextProvider()
+  console.log(state.context.help)
   return (
     <>
       <ReadingGuideInfoTitle>Help with the Reading Guide</ReadingGuideInfoTitle>
       <ReadingGuideInfoBody>
+        {state.context.help === 'general' && (
+          <ul>
+            <SectionOrganizationBodyEntry>
+              Complete Reading Guide to the best of your ability. Answer the
+              questions by reading through the assigned text, but if you don't
+              know the answer, please give me your best guess.
+            </SectionOrganizationBodyEntry>
+            <br />
+            <SectionOrganizationBodyEntry>
+              To get full credit you need to complete every question/task that
+              has a red asterisk <Required>*</Required>
+            </SectionOrganizationBodyEntry>
+            <br />
+            <SectionOrganizationBodyEntry>
+              If you need help understanding the question/task, click on the
+              question to get help.
+            </SectionOrganizationBodyEntry>
+          </ul>
+        )}
         {state.context.help === 'majorIssue' && (
           <ul>
             <SectionOrganizationBodyEntry>
