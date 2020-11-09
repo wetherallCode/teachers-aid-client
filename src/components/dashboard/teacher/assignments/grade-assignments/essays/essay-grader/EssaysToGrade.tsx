@@ -4,10 +4,13 @@ import {
   findEssaysToGradeByIdVariables,
   me_me_Teacher,
   findEssaysToGradeById_findEssaysToGradeById_essays,
+  MarkingPeriodEnum,
 } from '../../../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../../../contexts/UserContext'
 import { useQuery, gql } from '@apollo/client'
 import { Link } from 'react-router-dom'
+import { useMarkingPeriodContextProvider } from '../../../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { useEnumContextProvider } from '../../../../../../../contexts/EnumContext'
 
 export type EssaysToGradeProps = {
   courseId: string
@@ -20,7 +23,7 @@ export const FIND_ESSAYS_TO_GRADE_BY_ID_QUERY = gql`
         _id
         late
         assigned
-
+        markingPeriod
         readings {
           readingSections
         }
@@ -48,7 +51,11 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
   const [essayList, setEssayList] = useState<
     findEssaysToGradeById_findEssaysToGradeById_essays[]
   >([])
-
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const { markingPeriodEnum } = useEnumContextProvider()
+  const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
+    markingPeriodState.context.currentMarkingPeriod
+  )
   const [resubmittedEssayList, setResubmittedEssayList] = useState<
     findEssaysToGradeById_findEssaysToGradeById_essays[]
   >([])
@@ -97,15 +104,33 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
       )!
     )
   }, [data, courseId])
+
   if (loading) return <div>Loading </div>
 
+  console.log(
+    essayList &&
+      essayList.filter(
+        (essay) => essay.late && essay.markingPeriod === markingPeriodToGrade
+      )
+  )
   return (
     <>
       <div>Essays To Grade</div>
+      <select onChange={(e: any) => setMarkingPeriodToGrade(e.target.value)}>
+        {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+          <option key={mp} value={mp}>
+            {mp}
+          </option>
+        ))}
+      </select>
       <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
         {essayList !== undefined &&
           essayList
-            .filter((essay) => essay.late === false)
+            .filter(
+              (essay) =>
+                essay.late === false &&
+                essay.markingPeriod === markingPeriodToGrade
+            )
             .map((essay) => (
               <Link to={essay._id!} key={essay._id!}>
                 {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
@@ -117,7 +142,11 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
       <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
         {essayList !== undefined &&
           essayList
-            .filter((essay) => essay.late === true)
+            .filter(
+              (essay) =>
+                essay.late === true &&
+                essay.markingPeriod === markingPeriodToGrade
+            )
             .map((essay) => (
               <Link to={essay._id!} key={essay._id!}>
                 {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
@@ -126,13 +155,15 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
             ))}
       </div>
       <div>Resubmissions</div>
-      {resubmittedEssayList !== undefined &&
-        resubmittedEssayList.map((essay) => (
-          <Link to={essay._id!} key={essay._id!}>
-            {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-            {essay.readings.readingSections}
-          </Link>
-        ))}
+      <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
+        {resubmittedEssayList !== undefined &&
+          resubmittedEssayList.map((essay) => (
+            <Link to={essay._id!} key={essay._id!}>
+              {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
+              {essay.readings.readingSections}
+            </Link>
+          ))}
+      </div>
     </>
   )
 }
