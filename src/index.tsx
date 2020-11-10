@@ -26,8 +26,8 @@ const prodLink = new HttpLink({
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  // link: prodLink,
-  link: devLink,
+  link: prodLink,
+  // link: devLink,
   connectToDevTools: true,
 })
 
