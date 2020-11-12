@@ -48,9 +48,11 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
     onError: (error) => console.error(error),
   })
 
-  // const articleReviewsForMarkingPeriod = data?.findArticleReviewsByStudent.articleReviews.filter(
-  //   (articleReview) => articleReview.markingPeriod === currentMarkingPeriod
-  // )
+  const articleReviewsForMarkingPeriod = data?.findArticleReviewsByStudent.articleReviews.filter(
+    (articleReview) =>
+      articleReview.markingPeriod === state.context.selectedMarkingPeriod &&
+      !articleReview.submitted
+  )
 
   return (
     <>
@@ -59,10 +61,7 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
       </AssignmentTypeTitle>
       {loading ? null : (
         <>
-          {data?.findArticleReviewsByStudent.articleReviews &&
-          data?.findArticleReviewsByStudent.articleReviews.some(
-            (review) => review.submitted
-          ) ? (
+          {articleReviewsForMarkingPeriod!.length === 0 ? (
             <AssignmentTypeContentContainer>
               <CompletionMessage>
                 <ul>
@@ -73,22 +72,21 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
           ) : (
             <AssignmentTypeContentContainer>
               <ul>
-                {data?.findArticleReviewsByStudent.articleReviews &&
-                  data?.findArticleReviewsByStudent.articleReviews
-                    .filter((review) => !review.paperBased)
-                    .map((review) => (
-                      <li key={review._id!} style={{ fontSize: '2rem' }}>
-                        <AssignmentLink
-                          to={`articleReview/toComplete/${review._id!}`}
-                        >
-                          {review.assignedDate}
-                        </AssignmentLink>
-                      </li>
-                    ))}
+                {articleReviewsForMarkingPeriod!
+                  .filter((review) => !review.paperBased)
+                  .map((review) => (
+                    <li key={review._id!} style={{ fontSize: '2rem' }}>
+                      <AssignmentLink
+                        to={`articleReview/toComplete/${review._id!}`}
+                      >
+                        {review.assignedDate}
+                      </AssignmentLink>
+                    </li>
+                  ))}
               </ul>
             </AssignmentTypeContentContainer>
           )}
-          {data?.findArticleReviewsByStudent.articleReviews.length === 0 && (
+          {/* {data?.findArticleReviewsByStudent.articleReviews.length === 0 && (
             <AssignmentTypeContentContainer>
               <CompletionMessage>
                 <ul>
@@ -96,7 +94,7 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
                 </ul>
               </CompletionMessage>
             </AssignmentTypeContentContainer>
-          )}
+          )} */}
         </>
       )}
     </>
