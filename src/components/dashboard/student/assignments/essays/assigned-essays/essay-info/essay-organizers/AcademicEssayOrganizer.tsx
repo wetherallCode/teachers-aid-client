@@ -42,7 +42,6 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
                 style={{
                   borderTop: '1px solid var(--blue)',
                   borderRight: '1px solid var(--blue)',
-                  borderBottom: '1px solid var(--blue)',
                 }}
               >
                 <AcademicEssayOrganizerAnswerBlockHeader>
@@ -57,7 +56,6 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
                 style={{
                   borderTop: '1px solid var(--blue)',
                   borderRight: '1px solid var(--blue)',
-                  borderBottom: '1px solid var(--blue)',
                 }}
               >
                 <AcademicEssayOrganizerAnswerBlockHeader>
@@ -71,8 +69,6 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
               <AcademicEssayOrganizerAnswerBlock
                 style={{
                   borderTop: '1px solid var(--blue)',
-                  borderRight: '1px solid var(--blue)',
-                  borderBottom: '1px solid var(--blue)',
                 }}
               >
                 <AcademicEssayOrganizerAnswerBlockHeader>

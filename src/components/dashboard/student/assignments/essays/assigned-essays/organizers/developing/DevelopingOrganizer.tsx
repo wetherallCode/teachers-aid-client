@@ -79,7 +79,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
   useEffect(() => {
     updateDevelopingOrganizer()
   }, [state.context.developingOrganizer, updateDevelopingOrganizer])
-  console.log(state.value)
+
   return (
     <>
       <OrganizerTitleContainer>

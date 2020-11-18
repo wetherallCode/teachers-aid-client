@@ -16,6 +16,12 @@ import { AcademicConclusion } from './AcademicConclusion'
 
 import { UPDATE_ACADEMIC_ORGANIZER_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicOrganizer'
 import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
+import {
+  OrganizerTitleContainer,
+  OrganizerTitleStyle,
+  QuestionContainer,
+  QuestionStyle,
+} from '../../../assigned-essays/state-and-styles/assignedEssayStyles'
 
 type AcademicOrganizerProps = {
   question: string
@@ -107,21 +113,38 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
     onCompleted: (data) => {
       // console.log(data.updateAcademicOrganizer.essay)
       // event({type: 'SET_FULL_QUESTION_TYPE', payload: })
+      console.log(data)
     },
     onError: (err) => console.error(err),
-    refetchQueries: ['findEssayById'],
+    refetchQueries: [''],
   })
 
   return (
     <>
-      <div>AcademicOrganizer</div>
-      <div>{question}</div>
+      <OrganizerTitleContainer>
+        <OrganizerTitleStyle>Organize for this Question</OrganizerTitleStyle>
+      </OrganizerTitleContainer>
+      <QuestionContainer>
+        <QuestionStyle>{question}</QuestionStyle>
+      </QuestionContainer>
 
-      <AcademicRestatement updateAcademicOrganizer={updateAcademicOrganizer} />
+      {state.matches(
+        'reviewOrganizer.organizers.academicOrganizer.restatement'
+      ) && (
+        <AcademicRestatement
+          updateAcademicOrganizer={updateAcademicOrganizer}
+        />
+      )}
 
-      {loading && <AcademicAnswerTypes academicOrganizer={academicOrganizer} />}
+      {state.matches('reviewOrganizer.organizers.academicOrganizer.answer') && (
+        <AcademicAnswerTypes academicOrganizer={academicOrganizer} />
+      )}
 
-      <AcademicConclusion updateAcademicOrganizer={updateAcademicOrganizer} />
+      {state.matches(
+        'reviewOrganizer.organizers.academicOrganizer.conclusion'
+      ) && (
+        <AcademicConclusion updateAcademicOrganizer={updateAcademicOrganizer} />
+      )}
     </>
   )
 }

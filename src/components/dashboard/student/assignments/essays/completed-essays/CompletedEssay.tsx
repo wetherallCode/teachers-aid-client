@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC } from 'react'
 import { useParams, useNavigate } from 'react-router'
 
 import { useQuery, gql } from '@apollo/client'
@@ -8,7 +8,7 @@ import {
   SubmittedFinalDraftsInput,
 } from '../../../../../../schemaTypes'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
-import { EssayToRedo } from './EssayToRedo'
+
 import { MultipleDraftView } from './MultipleDraftView'
 import {
   EssayContainer,
@@ -18,6 +18,7 @@ import {
   SubmitEssayContainer,
   AssignmentDetailsReadingInfo,
   EssaySubmitButton,
+  OrganizerContainer,
 } from '../assigned-essays/state-and-styles/assignedEssayStyles'
 import {
   EssayViewContainer,
@@ -28,6 +29,8 @@ import {
 } from './state/completedEssayStyles'
 import { HowToImprove } from './HowToImprove'
 import { SubmitRedoneEssay } from './SubmitRedoneEssay'
+import { RedoEssayOrganizerHelp } from './RedoEssayOrganizerHelp'
+import { RedoEssayOrganizer } from './organizers/RedoEssayOrganizer'
 
 export const FIND_COMPLETED_ESSSAY_BY_ID_QUERY = gql`
   query findCompletedEssayById($input: FindEssayByIdInput!) {
@@ -167,7 +170,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
         payload: data.findEssayById.essay.workingDraft.draft,
       })
     },
-    // pollInterval: 10000,
+    pollInterval: 15000,
     onError: (error) => console.error(error),
   })
 
@@ -189,6 +192,10 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
   }
 
   if (loading) return <div>Loading </div>
+  const gradePercent =
+    data?.findEssayById.essay.score.earnedPoints! /
+    data?.findEssayById.essay.score.maxPoints!
+
   return (
     <EssayContainer>
       <CompletedEssayDetailsContainer>
@@ -201,7 +208,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
         <CompletedEssayDetailsPartContainers>
           <AssignmentDetailsReadingInfo>
             Overall Score: {data?.findEssayById.essay.score.earnedPoints} /{' '}
-            {data?.findEssayById.essay.score.maxPoints}
+            {data?.findEssayById.essay.score.maxPoints} ({gradePercent * 100}%)
           </AssignmentDetailsReadingInfo>
         </CompletedEssayDetailsPartContainers>
         <CompletedEssayDetailsPartContainers>
@@ -210,36 +217,50 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
           >
             Back to Assignments
           </AssignmentDetailsGoBackButton>
+          {state.matches('redoEssay') && (
+            <AssignmentDetailsGoBackButton
+              onClick={() => event({ type: 'ORGANIZER' })}
+            >
+              Change Organizer
+            </AssignmentDetailsGoBackButton>
+          )}
         </CompletedEssayDetailsPartContainers>
       </CompletedEssayDetailsContainer>
 
-      <EssayViewContainer>
-        <MultipleDraftView essay={data?.findEssayById.essay!} />
+      {(state.matches('reviewEssay') || state.matches('redoEssay')) && (
+        <EssayViewContainer>
+          <MultipleDraftView essay={data?.findEssayById.essay!} />
 
-        <EssayRedoButtonContainer>
-          {state.matches('reviewEssay') && (
-            <CompletedEssayControlButton
-              onClick={() => {
-                event({ type: 'NEXT' })
-              }}
-            >
-              Redo Essay
-            </CompletedEssayControlButton>
-          )}
-          {state.matches('redoEssay') && (
-            <SubmitRedoneEssay
-              _id={state.context.essayId}
-              submittedFinalDraft={submittedFinalDraft}
-            />
-          )}
-        </EssayRedoButtonContainer>
-      </EssayViewContainer>
+          <EssayRedoButtonContainer>
+            {state.matches('reviewEssay') && (
+              <CompletedEssayControlButton
+                onClick={() => {
+                  event({ type: 'NEXT' })
+                }}
+              >
+                Redo Essay
+              </CompletedEssayControlButton>
+            )}
+            {state.matches('redoEssay') && (
+              <SubmitRedoneEssay
+                _id={state.context.essayId}
+                submittedFinalDraft={submittedFinalDraft}
+              />
+            )}
+          </EssayRedoButtonContainer>
+        </EssayViewContainer>
+      )}
+
+      {state.matches('reviewOrganizer') && (
+        <OrganizerContainer>
+          <RedoEssayOrganizer essay={data?.findEssayById.essay!} />
+        </OrganizerContainer>
+      )}
       <EssayInfoContainer>
-        {
-          // state.matches('redoEssay') && (
-          <HowToImprove waysToImprove={waysToImprove} />
-          // )
-        }
+        {/* {state.matches('redoEssay') && ( */}
+        <HowToImprove waysToImprove={waysToImprove} />
+        {/* )} */}
+        {state.matches('reviewOrganizer') && <RedoEssayOrganizerHelp />}
       </EssayInfoContainer>
     </EssayContainer>
   )

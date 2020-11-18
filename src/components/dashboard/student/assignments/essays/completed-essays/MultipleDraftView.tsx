@@ -16,10 +16,10 @@ import {
   ScoreSheetRubricCommentsTitle,
   ScoreSheetAdditionalComments,
 } from './state/completedEssayStyles'
-import { EssayToRedo } from './EssayToRedo'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { RedoEssayEditor } from './RedoEssayEditor'
 import { EssaySheet } from '../assigned-essays/state-and-styles/assignedEssayStyles'
+import { EssayToGradeOrganizer } from '../../../../teacher/assignments/grade-assignments/essays/essay-grader/EssayToGradeOrganizer'
 
 export type MultipleDraftViewProps = {
   essay: findCompletedEssayById_findEssayById_essay
@@ -27,6 +27,7 @@ export type MultipleDraftViewProps = {
 
 export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
   const [state, event] = useCompletedEssayContextProvider()
+  const [organizerView, setOrganizerView] = useState(false)
   const [draftSelector, setDraftSelector] = useState(
     essay.finalDraft?.submittedFinalDraft.length! - 1
   )
@@ -41,20 +42,46 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
     score: 0,
     graded: false,
   }
-
+  console.log(state.value)
   return (
     <>
       <DraftSelectorContainer>
         <DraftSelectorBack>
-          <div
-            onClick={() => {
-              if (draftSelector > 0) {
-                setDraftSelector((c) => c - 1)
-              }
-            }}
-          >
-            &lt;
-          </div>
+          {draftSelector === 0 ? (
+            <>
+              {organizerView ? (
+                <div
+                  onClick={() => {
+                    if (draftSelector === 0) {
+                      setOrganizerView(false)
+                    }
+                  }}
+                >
+                  Click for Drafts
+                </div>
+              ) : (
+                <div
+                  onClick={() => {
+                    if (draftSelector === 0) {
+                      setOrganizerView(true)
+                    }
+                  }}
+                >
+                  Click for Organizer
+                </div>
+              )}
+            </>
+          ) : (
+            <div
+              onClick={() => {
+                if (draftSelector > 0) {
+                  setDraftSelector((c) => c - 1)
+                }
+              }}
+            >
+              &lt;
+            </div>
+          )}
         </DraftSelectorBack>
         <DraftSelectorDraftNumber>
           <div> Draft {draftSelector + 1}</div>
@@ -76,7 +103,24 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
       </DraftSelectorContainer>
 
       <CompletedEssayContainer>
-        <CompletedEssayViewer draft={currentDraft!.draft} />
+        {organizerView ? (
+          <div
+            style={{
+              border: '1px solid var(--blue)',
+              fontSize: '1.1vw',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(12, 1fr)',
+              gridTemplateRows: 'repeat(8, 1fr)',
+              height: '70vh',
+              margin: '1.5vh',
+              boxShadow: '2px 2px 2px 1px var(--grey)',
+            }}
+          >
+            <EssayToGradeOrganizer organizer={essay.workingDraft.organizer!} />
+          </div>
+        ) : (
+          <CompletedEssayViewer draft={currentDraft!.draft} />
+        )}
         {state.matches('redoEssay') ? (
           <EssaySheet>
             <RedoEssayEditor essay={essay} />

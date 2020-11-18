@@ -36,7 +36,7 @@ export const AssignmentDetailsGoBackButtonContainer = styled.div`
 `
 export const AssignmentDetailsGoBackButton = styled.button`
   width: 80%;
-  height: 40%;
+  height: 3vh;
   font-size: 2vh;
   border-radius: 5px;
   color: var(--blue);
@@ -233,8 +233,8 @@ export const RestatementInput = styled.input`
   grid-column: 2/-2;
   border: 1px solid var(--blue);
   width: 100%;
-  height: 20%;
-  font-size: 1.2rem;
+  height: 4vh;
+  font-size: 2vh;
   color: var(--blue);
   :enabled {
     border: 1px solid var(--white);
@@ -249,9 +249,9 @@ export const AcademicConclusionInput = styled(RestatementInput)`
 export const AcademicRestatementInput = styled.input`
   grid-row: 4/5;
   grid-column: 1/-1;
-  height: 100%;
+  height: 4vh;
   width: 100%;
-  font-size: 1.5vw;
+  font-size: 2vh;
   border: 1px solid var(--white);
   color: var(--blue);
   border-bottom: 1px solid var(--blue);
@@ -315,7 +315,8 @@ export const EssaySheet = styled.div`
   margin: 3%;
   border: 1px solid black;
   box-shadow: 2px 2px 2px 1px var(--grey);
-  height: 75vh;
+  height: 70vh;
+  margin: 1.5vh;
   user-select: none;
 `
 

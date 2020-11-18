@@ -2,6 +2,17 @@ import React, { FC, useEffect } from 'react'
 import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
 import { BasicQuestionEnum } from '../../../../../../../../schemaTypes'
 import { UpdateDevelopingOrganizerType } from './DevelopingOrganizer'
+import {
+  QuestionTypeContainer,
+  QuestionTypeQuestionStyle,
+  QuestionTypeAnswerSelectStyle,
+  PartsOfQuestionContainer,
+  PartsOfQuestionTitle,
+  PartContainer,
+  PartInput,
+  OrganizerControlButtonContainer,
+  OrganizerControlButton,
+} from '../../../assigned-essays/state-and-styles/assignedEssayStyles'
 
 export type DevelopingRestatementProps = {
   updateDevelopingOrganizer: UpdateDevelopingOrganizerType
@@ -16,69 +27,74 @@ export const DevelopingRestatement: FC<DevelopingRestatementProps> = ({
     updateDevelopingOrganizer()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    state.context.developingOrganizer.developingSentenceStructure,
-    state.context.developingOrganizer.restatement,
-    state.context.developingOrganizer.questionType,
+    state.context.developingOrganizer,
+    updateDevelopingOrganizer,
+    // state.context.developingOrganizer.developingSentenceStructure,
+    // state.context.developingOrganizer.restatement,
+    // state.context.developingOrganizer.questionType,
   ])
 
   return (
     <>
-      <span>What is the Question Type:</span>
-      <span>
-        <select
+      <QuestionTypeContainer>
+        <QuestionTypeQuestionStyle>
+          What is the Question Type:
+        </QuestionTypeQuestionStyle>
+        <QuestionTypeAnswerSelectStyle
+          autoFocus={true}
           value={state.context.developingOrganizer.questionType}
           onChange={(e: any) => {
-            if (e.target.value !== 'Pick a Question Type')
+            if (e.target.value !== 'none')
               event({
                 type: 'SET_BASIC_QUESTION_TYPE',
                 payload: e.target.value,
               })
           }}
         >
-          <option value={undefined}>Pick a Question Type</option>
+          <option value={'none'}>Pick a Question Type</option>
           <option value={BasicQuestionEnum.HOW}>How</option>
           <option value={BasicQuestionEnum.WHY}>Why</option>
-        </select>
-      </span>
-      <div>Set the Parts of the Question</div>
-      <span>What is the Subject of the question: </span>
-      <span>
-        <input
-          value={
-            state.context.developingOrganizer.developingSentenceStructure
-              .subject
-          }
-          onChange={(e: any) =>
-            event({
-              type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT',
-              payload: e.target.value,
-            })
-          }
-        />
-      </span>
-      <span>What is the Verb of the question: </span>
-      <span>
-        <input
-          value={
-            state.context.developingOrganizer.developingSentenceStructure.verb
-          }
-          onChange={(e: any) =>
-            event({
-              type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_VERB',
-              payload: e.target.value,
-            })
-          }
-        />
-      </span>
-      <>
-        <div>Restate the Question in the form of a statement</div>
-        <input
-          value={state.context.developingOrganizer.restatement}
-          onChange={(e: any) =>
-            event({ type: 'SET_RESTATEMENT', payload: e.target.value })
-          }
-        />
-      </>
+        </QuestionTypeAnswerSelectStyle>
+      </QuestionTypeContainer>
+      <PartsOfQuestionContainer>
+        <PartsOfQuestionTitle>
+          Identify the Parts of the Question:
+        </PartsOfQuestionTitle>
+        <PartContainer>
+          <div>What is the Subject of the question: </div>
+          <PartInput
+            value={
+              state.context.developingOrganizer.developingSentenceStructure
+                .subject
+            }
+            onChange={(e: any) =>
+              event({
+                type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT',
+                payload: e.target.value,
+              })
+            }
+          />
+        </PartContainer>
+        <PartContainer>
+          <div>What is the Verb of the question: </div>
+          <PartInput
+            value={
+              state.context.developingOrganizer.developingSentenceStructure.verb
+            }
+            onChange={(e: any) =>
+              event({
+                type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_VERB',
+                payload: e.target.value,
+              })
+            }
+          />
+        </PartContainer>
+      </PartsOfQuestionContainer>
+      <OrganizerControlButtonContainer>
+        <OrganizerControlButton onClick={() => event({ type: 'RESTATEMENT' })}>
+          Next
+        </OrganizerControlButton>
+      </OrganizerControlButtonContainer>
     </>
   )
 }

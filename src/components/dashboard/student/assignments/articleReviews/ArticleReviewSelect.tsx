@@ -86,7 +86,7 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
               </ul>
             </AssignmentTypeContentContainer>
           )}
-          {/* {data?.findArticleReviewsByStudent.articleReviews.length === 0 && (
+          {data?.findArticleReviewsByStudent.articleReviews.length === 0 && (
             <AssignmentTypeContentContainer>
               <CompletionMessage>
                 <ul>
@@ -94,7 +94,7 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
                 </ul>
               </CompletionMessage>
             </AssignmentTypeContentContainer>
-          )} */}
+          )}
         </>
       )}
     </>

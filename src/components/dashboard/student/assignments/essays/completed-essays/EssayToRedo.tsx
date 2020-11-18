@@ -8,12 +8,10 @@ import {
 } from '../../../../../../schemaTypes'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { RedoEssayEditor } from './RedoEssayEditor'
-import { RedoEssayOrganizer } from './organizers/RedoEssayOrganizer'
 import { SubmitRedoneEssay } from './SubmitRedoneEssay'
 
 export type EssayToRedoProps = {
   essay: findCompletedEssayById_findEssayById_essay
-  // waysToImprove: (string | null)[]
 }
 
 export const EssayToRedo: FC<EssayToRedoProps> = ({ essay }) => {

@@ -104,6 +104,7 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
               placeholder={`Your essay goes here; let's get started...`}
               onKeyDown={(e) => {
                 // e.preventDefault()
+                // if (e.key === 'Enter') return null
                 event({ type: 'SET_DRAFT', payload: content })
                 // updateWorkingDraft()
                 // if (!e.ctrlKey) {

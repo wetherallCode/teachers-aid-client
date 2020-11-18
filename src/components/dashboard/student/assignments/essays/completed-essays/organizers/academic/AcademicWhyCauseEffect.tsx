@@ -7,6 +7,14 @@ import {
 } from '../../../../../../../../schemaTypes'
 import { UPDATE_WHY_CAUSE_EFFECT_MUTATION } from '../../../assigned-essays/organizers/academic/AcademicWhyCauseEffect'
 import { useCompletedEssayContextProvider } from '../../state/CompletedEssayContext'
+import {
+  AcademicQuestionAnswerTypeContainer,
+  AcademicRestatementTitle,
+  AnswerTypeContainter,
+  PartInput,
+  OrganizerControlButtonContainer,
+  OrganizerControlButton,
+} from '../../../assigned-essays/state-and-styles/assignedEssayStyles'
 
 export type AcademicWhyCauseEffectProps = {}
 
@@ -46,36 +54,64 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
 
   return (
     <>
-      <div>Why: Cause and Effect</div>
-      <div>
-        Why did {subject} {verb}?
-      </div>
-      <input
-        type='text'
-        value={
-          state.context.academicOrganizer.answer.whyCauseEffect.proximateCause
-        }
-        onChange={(e: any) => {
-          event({
-            type: 'SET_WHY_CAUSE_EFFECT',
-            payload: { ...whyCauseEffect, proximateCause: e.target.value },
-          })
-        }}
-      />
-      <div>Why did that happen?</div>
-      <input
-        type='text'
-        value={
-          state.context.academicOrganizer.answer.whyCauseEffect.ultimateCause
-        }
-        onChange={(e: any) => {
-          event({
-            type: 'SET_WHY_CAUSE_EFFECT',
-            payload: { ...whyCauseEffect, ultimateCause: e.target.value },
-          })
-        }}
-      />
-      <button onClick={() => event({ type: 'NEXT' })}>Next</button>
+      <AcademicQuestionAnswerTypeContainer>
+        <AcademicRestatementTitle>
+          <div>Why Question: Cause and Effect</div>
+        </AcademicRestatementTitle>
+        <AnswerTypeContainter>
+          <div>
+            Why did {subject} {verb}?
+          </div>
+          <PartInput
+            type='text'
+            placeholder='Proximate Cause...'
+            value={
+              state.context.academicOrganizer.answer.whyCauseEffect
+                .proximateCause
+            }
+            onChange={(e: any) => {
+              event({
+                type: 'SET_WHY_CAUSE_EFFECT',
+                payload: { ...whyCauseEffect, proximateCause: e.target.value },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+        <AnswerTypeContainter>
+          <div>Why did your Proximate Cause happen?</div>
+          <PartInput
+            type='text'
+            placeholder='Ultimate Cause...'
+            value={
+              state.context.academicOrganizer.answer.whyCauseEffect
+                .ultimateCause
+            }
+            onChange={(e: any) => {
+              event({
+                type: 'SET_WHY_CAUSE_EFFECT',
+                payload: { ...whyCauseEffect, ultimateCause: e.target.value },
+              })
+            }}
+          />
+        </AnswerTypeContainter>
+      </AcademicQuestionAnswerTypeContainer>
+      <OrganizerControlButtonContainer>
+        <OrganizerControlButton
+          onClick={() => {
+            event({ type: 'QUESTION_TYPE' })
+            // event({ type: 'SET_PRE_LOADED', payload: false })
+          }}
+        >
+          Back
+        </OrganizerControlButton>
+        <OrganizerControlButton
+          onClick={() => {
+            event({ type: 'CONCLUSION' })
+          }}
+        >
+          Next
+        </OrganizerControlButton>
+      </OrganizerControlButtonContainer>
     </>
   )
 }
