@@ -5,6 +5,7 @@ import { VirtualProtocolResponse } from './protocol-response/VirtualProtocolResp
 import { useSchoolDayContextProvider } from '../../../school-day/state/SchoolDayContext'
 import { Attendance } from './attendance/Attendance'
 import { StudentQuestionViewer } from './student-questions/StudentQuestionViewer'
+import { ProtocolResponseClassList } from './protocol-response-classlist/ProtocolResponseClassList'
 
 export type MainScreenDisplayProps = {}
 
@@ -16,7 +17,10 @@ export const MainScreenDisplay: FC<MainScreenDisplayProps> = () => {
       {state.context.mainScreenSeatingChart && <SeatingChart />}
       {state.context.mainScreenVirtualAttendance && <Attendance />}
       {state.context.mainScreenVirtualProtocolResponses && (
-        <>{<VirtualProtocolResponse />}</>
+        <>
+          {/* {<VirtualProtocolResponse />} */}
+          {<ProtocolResponseClassList />}
+        </>
       )}
       {state.context.mainScreenVirtualQuestionViewer && (
         <StudentQuestionViewer />

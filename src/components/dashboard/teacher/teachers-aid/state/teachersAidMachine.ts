@@ -261,7 +261,6 @@ export const teachersAidMachine = Machine<
           on: {
             PREVIOUS: 'dynamicLesson',
             NEXT: 'mainScreenManager',
-
             LOAD_PROTOCOLS: {
               actions: assign((ctx, evt) => {
                 return {
@@ -281,6 +280,7 @@ export const teachersAidMachine = Machine<
             },
             CHANGE_MAIN_SCREEN_SEATING_CHART: {
               actions: assign((ctx, evt) => {
+                console.log('change')
                 return {
                   ...ctx,
                   mainScreenSeatingChart: true,

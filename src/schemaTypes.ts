@@ -3709,6 +3709,7 @@ export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_co
   __typename: "Student";
   _id: string | null;
   firstName: string;
+  schoolId: string | null;
   lastName: string;
   cohort: StudentCohortEnum;
   hasAbsences: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAbsences[];
@@ -4029,6 +4030,33 @@ export interface controlWarmUp {
 
 export interface controlWarmUpVariables {
   input: ControlWarmUpInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assessIndividualProtocols
+// ====================================================
+
+export interface assessIndividualProtocols_assessIndividualProtocols_protocol {
+  __typename: "Protocol";
+  _id: string | null;
+}
+
+export interface assessIndividualProtocols_assessIndividualProtocols {
+  __typename: "AssessIndividualProtocolsPayload";
+  protocol: assessIndividualProtocols_assessIndividualProtocols_protocol;
+}
+
+export interface assessIndividualProtocols {
+  assessIndividualProtocols: assessIndividualProtocols_assessIndividualProtocols;
+}
+
+export interface assessIndividualProtocolsVariables {
+  input: AssessIndividualProtocolsInput;
 }
 
 /* tslint:disable */
@@ -4974,6 +5002,43 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL query operation: findActiveProtocolsByCourse
+// ====================================================
+
+export interface findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols_student {
+  __typename: "Student";
+  _id: string | null;
+  schoolId: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols {
+  __typename: "Protocol";
+  _id: string | null;
+  student: findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols_student;
+  assessment: ProtocolAssessmentEnum | null;
+}
+
+export interface findActiveProtocolsByCourse_findActiveProtocolsByCourse {
+  __typename: "FindActiveProtocolsByCoursePayload";
+  protocols: findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols[];
+}
+
+export interface findActiveProtocolsByCourse {
+  findActiveProtocolsByCourse: findActiveProtocolsByCourse_findActiveProtocolsByCourse;
+}
+
+export interface findActiveProtocolsByCourseVariables {
+  input: FindActiveProtocolsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -5129,6 +5194,12 @@ export interface AdvancedSentenceStructureInput {
   object?: string | null;
   subject: string;
   verb: string;
+}
+
+export interface AssessIndividualProtocolsInput {
+  assessment?: ProtocolAssessmentEnum | null;
+  markingPeriod: MarkingPeriodEnum;
+  protocolId: string;
 }
 
 export interface AssessStudentProtocolInput {
@@ -5306,6 +5377,10 @@ export interface DevelopingSentenceStructureInput {
 
 export interface FindActiveProtocolByStudentInput {
   studentId: string;
+}
+
+export interface FindActiveProtocolsByCourseInput {
+  courseId: string;
 }
 
 export interface FindArticleReviewByIdInput {

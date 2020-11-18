@@ -8,7 +8,6 @@ import {
   MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import { ProtocolResponseAssessor } from './ProtocolResponseAssessor'
-import { respond } from 'xstate/lib/actions'
 import { VirtualProtocolContainer } from '../../styles/mainScreenStyles'
 
 export type VirtualProtocolResponseProps = {}

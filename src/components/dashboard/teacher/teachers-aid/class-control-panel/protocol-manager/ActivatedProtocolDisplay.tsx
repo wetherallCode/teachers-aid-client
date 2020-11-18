@@ -52,7 +52,10 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
         lessonId,
       },
     },
-    onCompleted: (data) => console.log(data),
+    onCompleted: (data) => {
+      console.log(data)
+      event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
+    },
     refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
   })
 

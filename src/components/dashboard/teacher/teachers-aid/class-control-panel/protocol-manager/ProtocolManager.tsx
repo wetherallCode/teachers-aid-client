@@ -28,14 +28,14 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
       payload:
         currentActiveProtocolIndex === -1 ? 0 : currentActiveProtocolIndex,
     })
-  }, [currentActiveProtocolIndex])
+  }, [currentActiveProtocolIndex, event])
 
   useEffect(() => {
     event({
       type: 'UPDATE_LESSON_PROTOCOL',
       payload: protocols[state.context.protocolSelect],
     })
-  }, [protocols, state.context.protocolSelect])
+  }, [event, protocols, state.context.protocolSelect])
 
   return (
     <>

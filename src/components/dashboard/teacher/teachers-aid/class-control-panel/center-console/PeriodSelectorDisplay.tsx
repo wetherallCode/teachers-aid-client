@@ -23,6 +23,7 @@ export const GET_COURSE_INFO_QUERY = gql`
           hasStudents {
             _id
             firstName
+            schoolId
             lastName
             cohort
             hasAbsences {

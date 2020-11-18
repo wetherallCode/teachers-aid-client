@@ -85,7 +85,11 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
       },
     },
     onCompleted: (data) => console.log(data),
-    refetchQueries: ['findStudentInfoByStudentId', 'findLessonByCourseAndDate'],
+    refetchQueries: [
+      'findStudentInfoByStudentId',
+      'findLessonByCourseAndDate',
+      'findActiveProtocolsByCourse',
+    ],
   })
 
   const [startProtocol] = useMutation<startProtocol, startProtocolVariables>(
