@@ -116,7 +116,10 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
   return (
     <>
       <div>Essays To Grade</div>
-      <select onChange={(e: any) => setMarkingPeriodToGrade(e.target.value)}>
+      <select
+        value={markingPeriodToGrade}
+        onChange={(e: any) => setMarkingPeriodToGrade(e.target.value)}
+      >
         {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
           <option key={mp} value={mp}>
             {mp}
@@ -157,12 +160,14 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
       <div>Resubmissions</div>
       <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
         {resubmittedEssayList !== undefined &&
-          resubmittedEssayList.map((essay) => (
-            <Link to={essay._id!} key={essay._id!}>
-              {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-              {essay.readings.readingSections}
-            </Link>
-          ))}
+          resubmittedEssayList
+            .filter((essay) => essay.markingPeriod === markingPeriodToGrade)
+            .map((essay) => (
+              <Link to={essay._id!} key={essay._id!}>
+                {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
+                {essay.readings.readingSections}
+              </Link>
+            ))}
       </div>
     </>
   )

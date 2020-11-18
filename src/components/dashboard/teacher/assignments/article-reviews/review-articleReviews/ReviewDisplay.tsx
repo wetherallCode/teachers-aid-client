@@ -1,10 +1,12 @@
 import { gql, useQuery } from '@apollo/client'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
+import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import {
   findArticleReviewsByCourse,
   findArticleReviewsByCourseVariables,
+  MarkingPeriodEnum,
   me_me_Teacher,
 } from '../../../../../../schemaTypes'
 import { useArticleReviewContextProvider } from '../state-styles/ArticleReviewContext'
@@ -35,7 +37,9 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
 export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
   const [state, event] = useArticleReviewContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
-
+  const { markingPeriodEnum } = useEnumContextProvider()
+  console.log(markingPeriodEnum)
+  const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
   const { loading, data } = useQuery<
     findArticleReviewsByCourse,
     findArticleReviewsByCourseVariables
@@ -43,7 +47,7 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
     variables: {
       input: {
         courseId: state.context.courseToReview,
-        markingPeriod: markingPeriodState.context.currentMarkingPeriod,
+        markingPeriod: mp,
       },
     },
     onCompleted: (data) => console.log(data),
@@ -65,6 +69,13 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
   return (
     <>
       <div>Find by Assigned Date</div>
+      <select onChange={(e: any) => setMp(e.target.value)}>
+        {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+          <option key={mp} value={mp}>
+            {mp}
+          </option>
+        ))}
+      </select>
       <select
         onChange={(e: any) => {
           if (e !== 'none') {
