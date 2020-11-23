@@ -258,7 +258,9 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
       )}
       <EssayInfoContainer>
         {/* {state.matches('redoEssay') && ( */}
-        <HowToImprove waysToImprove={waysToImprove} />
+        {!state.matches('reviewOrganizer') && (
+          <HowToImprove waysToImprove={waysToImprove} />
+        )}
         {/* )} */}
         {state.matches('reviewOrganizer') && <RedoEssayOrganizerHelp />}
       </EssayInfoContainer>
