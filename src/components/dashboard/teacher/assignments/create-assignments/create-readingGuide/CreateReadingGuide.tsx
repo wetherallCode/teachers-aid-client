@@ -36,13 +36,13 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   const { markingPeriodEnum, timeOfDayEnum } = useEnumContextProvider()
   const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
 
-  const [createReadingGuide] = useMutation<
+  const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
     createReadingGuideVariables
   >(CREATE_READING_GUIDE_MUTATION, {
     variables: {
       input: {
-        assignedCourseIds: assignedCourseIds,
+        assignedCourseIds: [state.context.courseId],
         assignedDate: state.context.readingGuide.assignedDate,
         associatedLessonId: state.context.readingGuide.lesson,
         dueDate: state.context.readingGuide.dueDate,
@@ -53,7 +53,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
         readings: state.context.readingGuide.readings,
       },
     },
-    onCompleted: (data) => console.log(data),
+    onCompleted: (data) => {},
     refetchQueries: [],
   })
 
@@ -156,20 +156,30 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
           <span>{course.name}</span>
         </div>
       ))}
-      <button
-        onClick={() => {
-          if (
-            assignedCourseIds.includes(state.context.courseId) &&
-            state.context.readingGuide.dueDate
-          )
-            createReadingGuide()
-        }}
-      >
-        {assignedCourseIds.includes(state.context.courseId) &&
-        state.context.readingGuide.dueDate
-          ? 'Create Reading Guides'
-          : 'Complete Form'}
-      </button>
+      {!data ? (
+        <button
+          style={
+            called
+              ? { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
+              : { backgroundColor: 'var(--blue)', color: 'var(--white)' }
+          }
+          onClick={() => {
+            if (
+              assignedCourseIds.includes(state.context.courseId) &&
+              state.context.readingGuide.dueDate &&
+              !called
+            )
+              createReadingGuide()
+          }}
+        >
+          {assignedCourseIds.includes(state.context.courseId) &&
+          state.context.readingGuide.dueDate
+            ? 'Create Reading Guides'
+            : 'Complete Form'}
+        </button>
+      ) : (
+        <div>Finished</div>
+      )}
     </>
   )
 }

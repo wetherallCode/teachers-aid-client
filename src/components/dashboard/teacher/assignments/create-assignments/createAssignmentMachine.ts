@@ -43,8 +43,10 @@ export type createAssignmentMachineEvent =
   | { type: 'READING_GUIDE' }
   | { type: 'READING_GUIDE_UNIT' }
   | { type: 'READING_GUIDE_LESSON' }
-  | { type: 'READING_GUIDE_INFO' }
   | { type: 'CREATE_READING_GUIDE' }
+  | { type: 'RETURN' }
+  | { type: 'BACK' }
+  | { type: 'READING_GUIDE_INFO' }
   | { type: 'SET_COURSE_ID'; payload: string }
   | {
       type: 'SET_COURSE_INFO'
@@ -129,7 +131,7 @@ export const createAssignmentMachine = Machine<
       assignedCourseId: [],
       questionList: [],
       dueDate: '',
-      dueTime: TimeOfDay.BEFORE_SCHOOL,
+      dueTime: TimeOfDay.BEFORE_CLASS,
       assignedDate: dateConverter(new Date().toISOString().substring(0, 10)),
       maxPoints: 5,
       markingPeriod: MarkingPeriodEnum.FIRST,
@@ -148,10 +150,10 @@ export const createAssignmentMachine = Machine<
         readingSections: '',
       },
       markingPeriod: MarkingPeriodEnum.FIRST,
-      maxPoints: 2,
+      maxPoints: 10,
       assignedDate: dateConverter(new Date().toISOString().substring(0, 10)),
       dueDate: '',
-      dueTime: TimeOfDay.BEFORE_SCHOOL,
+      dueTime: TimeOfDay.BEFORE_CLASS,
     },
   },
   states: {
@@ -190,6 +192,7 @@ export const createAssignmentMachine = Machine<
           on: {
             ESSAY_UNIT: 'unit',
             ESSAY_INFO: 'essayInfo',
+            BACK: '#createAssignment.idle',
             SET_LESSON: {
               actions: assign((ctx, evt) => {
                 return {
@@ -204,6 +207,8 @@ export const createAssignmentMachine = Machine<
           on: {
             ESSAY_LESSON: 'lesson',
             CREATE_ESSAY: 'createEssay',
+            // BACK: 'unit',
+            BACK: '#createAssignment.idle',
             SET_COURSE_INFO: {
               actions: assign((ctx, evt) => {
                 return {
@@ -328,6 +333,7 @@ export const createAssignmentMachine = Machine<
           on: {
             PREVIOUS: '#createAssignment.idle',
             READING_GUIDE_LESSON: 'lesson',
+            BACK: '#createAssignment.idle',
             SET_UNIT: {
               actions: assign((ctx, evt) => {
                 return {
@@ -342,6 +348,7 @@ export const createAssignmentMachine = Machine<
           on: {
             READING_GUIDE_UNIT: 'unit',
             READING_GUIDE_INFO: 'readingGuideInfo',
+            BACK: '#createAssignment.idle',
             SET_LESSON: {
               actions: assign((ctx, evt) => {
                 return {
@@ -356,6 +363,7 @@ export const createAssignmentMachine = Machine<
           on: {
             PREVIOUS: 'lesson',
             CREATE_READING_GUIDE: 'createReadingGuide',
+            BACK: '#createAssignment.idle',
             SET_COURSE_INFO: {
               actions: assign((ctx, evt) => {
                 return {

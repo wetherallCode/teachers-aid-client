@@ -86,7 +86,8 @@ export const EssayLessonInfo: FC<EssayLessonInfoProps> = ({ me }) => {
   )
   if (loading) return <div>Loading </div>
 
-  const courseIdList = data?.findLessonById.lesson.assignedCourses!
+  // const courseIdList = data?.findLessonById.lesson.assignedCourses!
+  const courseIdList = [state.context.courseId]
 
   return (
     <>
@@ -97,7 +98,8 @@ export const EssayLessonInfo: FC<EssayLessonInfoProps> = ({ me }) => {
         {state.matches('essay.essayInfo') && (
           <CreateEssay
             me={me}
-            courseIdList={courseIdList.map((course) => course._id!)}
+            // courseIdList={courseIdList.map((course) => course._id!)}
+            courseIdList={courseIdList}
           />
         )}
       </div>

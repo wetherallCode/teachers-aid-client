@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { TextSectionQuestionsInput } from '../../../../../schemaTypes'
 import {
@@ -19,7 +19,7 @@ export const EssentialQuestion: FC<EssentialQuestionProps> = ({
   questionsList,
 }) => {
   const [state, event] = useLessonPlannerContextProvider()
-
+  const [newEssentialQuestion, setNewEssentialQuestion] = useState('')
   return (
     <EssentialQuestionContainer>
       <EssentialQuestionTitle>Essential Question</EssentialQuestionTitle>
@@ -50,13 +50,18 @@ export const EssentialQuestion: FC<EssentialQuestionProps> = ({
           Use different Question:{' '}
         </EssentialQuestionAddTitle>
         <EssentialQuestionInput
-          onChange={(e: any) =>
+          onChange={(e: any) => setNewEssentialQuestion(e.target.value)}
+        />
+        <button
+          onClick={() =>
             event({
               type: 'SET_ESSENTIAL_QUESTION',
-              payload: e.target.value,
+              payload: newEssentialQuestion,
             })
           }
-        />
+        >
+          Use this Question
+        </button>
       </EssentialQuestionAddContainter>
     </EssentialQuestionContainer>
   )

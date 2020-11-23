@@ -21,7 +21,7 @@ export const ASSIGN_READING_GUIDE_MUTATION = gql`
 
 export const AssignReadingGuide: FC<AssignReadingGuideProps> = () => {
   const [state] = useAssignReadingGuideByCourseContextProvider()
-  const [assignReadingGuides] = useMutation<
+  const [assignReadingGuides, { data, called }] = useMutation<
     assignReadingGuides,
     assignReadingGuidesVariables
   >(ASSIGN_READING_GUIDE_MUTATION, {
@@ -38,7 +38,22 @@ export const AssignReadingGuide: FC<AssignReadingGuideProps> = () => {
   })
   return (
     <>
-      <button onClick={() => assignReadingGuides()}>Assign</button>
+      {data ? (
+        <div>Finished</div>
+      ) : (
+        <button
+          style={
+            !called
+              ? { backgroundColor: 'var(--blue)', color: 'var(--white)' }
+              : { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
+          }
+          onClick={() => {
+            if (!called) assignReadingGuides()
+          }}
+        >
+          Assign
+        </button>
+      )}
     </>
   )
 }

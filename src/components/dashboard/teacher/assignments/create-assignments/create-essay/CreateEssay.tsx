@@ -48,28 +48,28 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
   })
   const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
 
-  const [createEssay] = useMutation<createEssay, createEssayVariables>(
-    CREATE_ESSAY_MUTATION,
-    {
-      variables: {
-        input: {
-          topicList: state.context.essay.topicList,
-          assignedCourseId: assignedCourseIds,
-          assignedDate: state.context.essay.assignedDate,
-          dueDate: state.context.essay.dueDate,
-          dueTime: state.context.essay.dueTime,
-          associatedLessonId: state.context.essay.lesson,
-          hasAssignerId: state.context.hasAssignerId,
-          markingPeriod: state.context.essay.markingPeriod,
-          maxPoints: 5,
-          readings: state.context.essay.readings,
-        },
+  const [createEssay, { called, data }] = useMutation<
+    createEssay,
+    createEssayVariables
+  >(CREATE_ESSAY_MUTATION, {
+    variables: {
+      input: {
+        topicList: state.context.essay.topicList,
+        assignedCourseId: [state.context.courseId],
+        assignedDate: state.context.essay.assignedDate,
+        dueDate: state.context.essay.dueDate,
+        dueTime: state.context.essay.dueTime,
+        associatedLessonId: state.context.essay.lesson,
+        hasAssignerId: state.context.hasAssignerId,
+        markingPeriod: state.context.essay.markingPeriod,
+        maxPoints: 5,
+        readings: state.context.essay.readings,
       },
-      onCompleted: (data) => console.log(data),
-      onError: (error) => console.error(error),
-      refetchQueries: [],
-    }
-  )
+    },
+    onCompleted: (data) => {},
+    onError: (error) => console.error(error),
+    refetchQueries: [],
+  })
 
   return (
     <>
@@ -209,20 +209,30 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
           <span>{course.name}</span>
         </div>
       ))}
-      <button
-        onClick={() => {
-          if (
-            assignedCourseIds.includes(state.context.courseId) &&
-            state.context.essay.dueDate
-          )
-            createEssay()
-        }}
-      >
-        {assignedCourseIds.includes(state.context.courseId) &&
-        state.context.essay.dueDate
-          ? 'Create Essays'
-          : 'Complete Form'}
-      </button>
+      {!data ? (
+        <button
+          style={
+            called
+              ? { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
+              : { backgroundColor: 'var(--blue)', color: 'var(--white)' }
+          }
+          onClick={() => {
+            if (
+              assignedCourseIds.includes(state.context.courseId) &&
+              state.context.essay.dueDate &&
+              !called
+            )
+              createEssay()
+          }}
+        >
+          {assignedCourseIds.includes(state.context.courseId) &&
+          state.context.essay.dueDate
+            ? 'Create Essays'
+            : 'Complete Form'}
+        </button>
+      ) : (
+        data && <div>Finished</div>
+      )}
     </>
   )
 }

@@ -38,17 +38,35 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
       </select>
       {state.context.courseId && (
         <>
-          <div>Essay</div>
-          {state.matches('essay.unit') && <EssayUnitSelect />}
-          {state.matches('essay.lesson') && <EssayLessonSelect />}
-          {state.matches('essay.essayInfo') && <EssayLessonInfo me={me} />}
-
-          <div>Reading Guide</div>
-          {state.matches('readingGuide.unit') && <ReadingGuideUnitSelect />}
-          {state.matches('readingGuide.lesson') && <ReadingGuideLessonSelect />}
-          {state.matches('readingGuide.readingGuideInfo') && (
-            <ReadingGuideLessonInfo me={me} />
-          )}
+          <>
+            {/* {!state.matches('idle') && ( */}
+            <>
+              <div>Essay</div>
+              {state.matches('essay.unit') && <EssayUnitSelect />}
+              {state.matches('essay.lesson') && <EssayLessonSelect />}
+              {state.matches('essay.essayInfo') && <EssayLessonInfo me={me} />}
+              <div>Reading Guide</div>
+              {state.matches('readingGuide.unit') && <ReadingGuideUnitSelect />}
+              {state.matches('readingGuide.lesson') && (
+                <ReadingGuideLessonSelect />
+              )}
+              {state.matches('readingGuide.readingGuideInfo') && (
+                <ReadingGuideLessonInfo me={me} />
+              )}
+            </>
+            {/* )} */}
+          </>
+          {/* {!state.matches('idle') && ( */}
+          <div>
+            <button
+              onClick={() => {
+                event({ type: 'BACK' })
+              }}
+            >
+              Go Back
+            </button>
+          </div>
+          {/* )} */}
         </>
       )}
     </div>

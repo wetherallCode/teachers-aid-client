@@ -6,7 +6,10 @@ import {
   resubmitEssayFinalDraft,
   resubmitEssayFinalDraftVariables,
 } from '../../../../../../schemaTypes'
-import { EssaySubmitButton } from '../assigned-essays/state-and-styles/assignedEssayStyles'
+import {
+  EssaySubmitButton,
+  EssaySubmitCheck,
+} from '../assigned-essays/state-and-styles/assignedEssayStyles'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 
 export type SubmitEssayFinalDraftInput = {
@@ -32,7 +35,7 @@ export const SubmitRedoneEssay: FC<SubmitEssayFinalDraftInput> = ({
   const [submitToggle, setSubmitToggle] = useState(false)
   const navigate = useNavigate()
 
-  const [resubmitFinalDraft] = useMutation<
+  const [resubmitFinalDraft, { called }] = useMutation<
     resubmitEssayFinalDraft,
     resubmitEssayFinalDraftVariables
   >(RESUBMIT_ESSAY_FINAL_DRAFT_MUTATION, {
@@ -54,14 +57,24 @@ export const SubmitRedoneEssay: FC<SubmitEssayFinalDraftInput> = ({
     //   Resubmit
     // </button>
     <>
-      <EssaySubmitButton
-        color={'var(--blue)'}
-        onClick={() => {
-          event({ type: 'PREVIOUS' })
-        }}
-      >
-        Go Back
-      </EssaySubmitButton>
+      {!submitToggle ? (
+        <EssaySubmitButton
+          color={'var(--blue)'}
+          onClick={() => {
+            event({ type: 'PREVIOUS' })
+          }}
+        >
+          Go Back
+        </EssaySubmitButton>
+      ) : (
+        <EssaySubmitButton
+          color={'var(--red)'}
+          onClick={() => setSubmitToggle(false)}
+        >
+          No
+        </EssaySubmitButton>
+      )}
+      {submitToggle && <EssaySubmitCheck>Are you Sure?</EssaySubmitCheck>}
       {state.context.textToSubmit && (
         <>
           {!submitToggle ? (
@@ -74,13 +87,13 @@ export const SubmitRedoneEssay: FC<SubmitEssayFinalDraftInput> = ({
             </EssaySubmitButton>
           ) : (
             <EssaySubmitButton
-              color={'var(--red)'}
+              color={called ? 'var(--grey)' : 'var(--blue)'}
               submitFinal={submitToggle}
               onClick={() => {
                 resubmitFinalDraft()
               }}
             >
-              You Sure?
+              {called ? 'Submiting' : 'Yes'}
             </EssaySubmitButton>
           )}
         </>
