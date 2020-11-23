@@ -14,7 +14,6 @@ export type HowToImproveProps = {
 }
 
 export const HowToImprove: FC<HowToImproveProps> = ({ waysToImprove }) => {
-  console.log(waysToImprove)
   return (
     <>
       <HowToImproveTitle>How to Improve this Essay</HowToImproveTitle>
