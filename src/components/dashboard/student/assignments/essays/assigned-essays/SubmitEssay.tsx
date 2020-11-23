@@ -51,7 +51,7 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
   const navigate = useNavigate()
   const [, event] = useStudentEssayContextProvider()
   const [submitToggle, setSubmitToggle] = useState(false)
-  const [submitFinalDraft] = useMutation<
+  const [submitFinalDraft, { called }] = useMutation<
     submitEssayFinalDraft,
     submitEssayFinalDraftVariables
   >(SUBMIT_FINAL_DRAFT_MUTATION, {
@@ -101,11 +101,15 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
             </EssaySubmitButton>
           ) : (
             <EssaySubmitButton
-              color={'var(--blue)'}
+              color={called ? 'var(--grey)' : 'var(--blue)'}
               submitFinal={submitToggle}
-              onClick={() => submitFinalDraft()}
+              onClick={() => {
+                if (!called) {
+                  submitFinalDraft()
+                }
+              }}
             >
-              Yes
+              {called ? 'Submiting' : 'Yes'}
             </EssaySubmitButton>
           )}
         </>
