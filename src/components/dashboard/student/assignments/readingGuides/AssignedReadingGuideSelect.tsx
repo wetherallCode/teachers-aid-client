@@ -12,6 +12,7 @@ import {
   AssignmentTypeContentContainer,
   AssignmentLink,
   CompletionMessage,
+  AssignmentLinkLi,
 } from '../assignmentsStyles'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useStudentAssignmentContextProvider } from '../StudentAssignmentContext'
@@ -80,14 +81,14 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> = (
                   )
                   .map((readingGuide) => (
                     <ul key={readingGuide._id!}>
-                      <li>
+                      <AssignmentLinkLi>
                         <AssignmentLink
                           to={`reading-guide/toComplete/${readingGuide._id!}`}
                           key={readingGuide._id!}
                         >
                           {readingGuide.readings.readingSections}
                         </AssignmentLink>
-                      </li>
+                      </AssignmentLinkLi>
                     </ul>
                   ))}
             </AssignmentTypeContentContainer>

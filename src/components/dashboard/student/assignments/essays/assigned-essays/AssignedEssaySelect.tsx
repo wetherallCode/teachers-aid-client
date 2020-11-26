@@ -12,6 +12,7 @@ import {
   AssignmentTypeContentContainer,
   AssignmentLink,
   CompletionMessage,
+  AssignmentLinkLi,
 } from '../../assignmentsStyles'
 
 import { useStudentAssignmentContextProvider } from '../../StudentAssignmentContext'
@@ -75,21 +76,21 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
             <>
               {essaysForMarkingPeriod && (
                 <AssignmentTypeContentContainer>
-                  <ul>
-                    {essaysForMarkingPeriod &&
-                      essaysForMarkingPeriod
-                        .filter((essay) => !essay.paperBased)
-                        .map((essay) => (
-                          <li style={{ fontSize: '2rem' }} key={essay._id}>
+                  {essaysForMarkingPeriod &&
+                    essaysForMarkingPeriod
+                      .filter((essay) => !essay.paperBased)
+                      .map((essay) => (
+                        <ul key={essay._id}>
+                          <AssignmentLinkLi>
                             <AssignmentLink
                               to={`essay/toComplete/${essay._id!}`}
-                              key={essay._id!}
+                              // key={essay._id!}
                             >
                               {essay.readings.readingSections}
                             </AssignmentLink>
-                          </li>
-                        ))}
-                  </ul>
+                          </AssignmentLinkLi>
+                        </ul>
+                      ))}
                 </AssignmentTypeContentContainer>
               )}
               {essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0 && (

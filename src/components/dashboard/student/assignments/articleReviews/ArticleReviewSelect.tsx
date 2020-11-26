@@ -11,6 +11,7 @@ import {
   AssignmentTypeContentContainer,
   CompletionMessage,
   AssignmentLink,
+  AssignmentLinkLi,
 } from '../assignmentsStyles'
 import { useStudentAssignmentContextProvider } from '../StudentAssignmentContext'
 
@@ -71,19 +72,19 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
             </AssignmentTypeContentContainer>
           ) : (
             <AssignmentTypeContentContainer>
-              <ul>
-                {articleReviewsForMarkingPeriod!
-                  .filter((review) => !review.paperBased)
-                  .map((review) => (
-                    <li key={review._id!} style={{ fontSize: '2rem' }}>
+              {articleReviewsForMarkingPeriod!
+                .filter((review) => !review.paperBased)
+                .map((review) => (
+                  <ul key={review._id!}>
+                    <AssignmentLinkLi>
                       <AssignmentLink
                         to={`articleReview/toComplete/${review._id!}`}
                       >
                         {review.assignedDate}
                       </AssignmentLink>
-                    </li>
-                  ))}
-              </ul>
+                    </AssignmentLinkLi>
+                  </ul>
+                ))}
             </AssignmentTypeContentContainer>
           )}
           {data?.findArticleReviewsByStudent.articleReviews.length === 0 && (

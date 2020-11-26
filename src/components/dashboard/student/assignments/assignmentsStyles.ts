@@ -71,6 +71,7 @@ export const AssignmentTypeTitle = styled.div`
   justify-items: center;
   align-items: center;
   font-size: 3rem;
+  text-decoration: underline;
 `
 export const AssignmentTypeContentContainer = styled.div`
   display: grid;
@@ -80,7 +81,7 @@ export const AssignmentTypeContentContainer = styled.div`
   overflow: scroll;
 `
 export const AssignmentLink = styled(Link)`
-  font-size: 2rem;
+  /* font-size: 2rem; */
   text-decoration: none;
   color: var(--blue);
 `
@@ -88,5 +89,5 @@ export const CompletionMessage = styled.div`
   font-size: 2rem;
 `
 export const AssignmentLinkLi = styled.li`
-  font-size: 2rem;
+  font-size: 3vh;
 `
