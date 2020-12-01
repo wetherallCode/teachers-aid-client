@@ -40,7 +40,7 @@ export const OrganizerForEssayToGradeContainer = styled(Standard8x12Container)`
   grid-row: 2/-2;
   grid-column: 2/6;
   border: 1px solid var(--blue);
-  font-size: 1.1vw;
+  font-size: 1.5vh;
 `
 
 export const NameContainer = styled.div`
