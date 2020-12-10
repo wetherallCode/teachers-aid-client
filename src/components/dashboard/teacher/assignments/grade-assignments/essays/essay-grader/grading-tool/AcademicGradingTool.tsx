@@ -113,6 +113,9 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
               <div key={entry._id!}>
                 <RubricCheckBoxInput
                   type='checkbox'
+                  checked={state.context.draftToGrade.rubricEntries.some(
+                    (entries) => entries.entry === entry.entry
+                  )}
                   value={[
                     entry.entry,
                     entry.score.toString(),
