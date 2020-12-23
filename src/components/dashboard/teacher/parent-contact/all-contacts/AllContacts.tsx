@@ -6,7 +6,13 @@ import {
   findParentContactsByTeacherIdVariables,
   me_me_Teacher,
 } from '../../../../../schemaTypes'
+
+import {
+  ParentContactContainer,
+  ParentContactTitle,
+} from '../state-n-styles/parentContactStyles'
 import { Contact } from './Contact'
+import { DownloadContacts } from './DownloadContacts'
 
 export type AllContactsProps = {}
 
@@ -43,19 +49,27 @@ export const AllContacts: FC<AllContactsProps> = () => {
       console.log(data.findParentContactsByTeacherId.parentContacts),
     onError: (error) => console.error(error),
   })
+  const contacts = data?.findParentContactsByTeacherId.parentContacts!
 
   return (
-    <>
-      <div>Parent Contact List</div>
+    <ParentContactContainer>
+      <ParentContactTitle>
+        <div>Parent Contact List</div>
+        {data?.findParentContactsByTeacherId.parentContacts! && (
+          <DownloadContacts
+            contacts={data?.findParentContactsByTeacherId.parentContacts!}
+          />
+        )}
+      </ParentContactTitle>
       {loading ? (
         <div>Loading</div>
       ) : (
         <div style={{ borderBottom: '1px solid var(--blue)' }}>
-          {data?.findParentContactsByTeacherId.parentContacts.map((contact) => (
+          {contacts.map((contact) => (
             <Contact key={contact._id!} contact={contact} />
           ))}
         </div>
       )}
-    </>
+    </ParentContactContainer>
   )
 }
