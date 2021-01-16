@@ -107,7 +107,7 @@ export const ProtocolSelectorTaskContainer = styled.div`
   justify-items: center;
   align-items: center;
   overflow: scroll;
-  height: 10vh;
+  height: 12vh;
 `
 export const ProtocolSelectorTask = styled.div`
   font-size: 2vw;
