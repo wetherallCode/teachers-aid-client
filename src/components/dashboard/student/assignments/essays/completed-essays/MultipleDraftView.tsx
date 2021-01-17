@@ -119,7 +119,7 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
             <EssayToGradeOrganizer organizer={essay.workingDraft.organizer!} />
           </div>
         ) : (
-          <CompletedEssayViewer draft={currentDraft!.draft} />
+          <CompletedEssayViewer draft={currentDraft!.gradingDraft} />
         )}
         {state.matches('redoEssay') ? (
           <EssaySheet>
