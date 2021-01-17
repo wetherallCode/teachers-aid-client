@@ -141,7 +141,6 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
 export const GradeEssay: FC<GradeEssayProps> = () => {
   const { essayId } = useParams()
   const navigate = useNavigate()
-  console.log(essayId)
   const [state, event] = useGradeEssayContextProvider()
   const [loadingDraft, setloadingDraft] = useState(false)
   const { loading, data } = useQuery<
@@ -180,7 +179,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
           data.findEssayById.essay.finalDraft?.submittedFinalDraft[
             data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
           ]
-        console.log(previousDraft.draftNumber)
+
         event({
           type: 'SET_PREVIOUS_DRAFT',
           payload: {
@@ -194,7 +193,6 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
         })
       }
 
-      // console.log(state.context.previousDraft)
       event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
       if (
         data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! > 1
@@ -233,7 +231,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   })
 
   if (loading) return <div>Loading </div>
-  console.log(data?.findEssayById.essay.workingDraft.organizer)
+
   return (
     <EssayGraderContainer>
       {loadingDraft && (
