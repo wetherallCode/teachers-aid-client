@@ -28,6 +28,7 @@ export const UPDATE_GRADING_DRAFT_MUTATION = gql`
 
 export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
   const [state] = useGradeEssayContextProvider()
+  const [commentNumber, setCommentNumber] = useState([])
 
   const editor = useMemo(() => withReact(createEditor()), [])
   // const parsedGradingDraft = JSON.parse(
@@ -63,12 +64,12 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
           state.context.draftToGrade.draftNumber,
       },
     },
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) => console.log(data),
     refetchQueries: ['findEssayToGradeById'],
   })
 
   useEffect(() => {
-    // updateGradingDraft()
+    updateGradingDraft()
   }, [updateGradingDraft, content])
 
   const renderElement = useCallback((props) => {
@@ -81,7 +82,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
   }, [])
 
   const renderLeaf = useCallback((props) => {
-    return <Leaf {...props} />
+    return <Leaf {...props} setCommentNumber={setCommentNumber} />
   }, [])
 
   return (
@@ -100,7 +101,6 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
           onCopy={() => false}
           renderLeaf={renderLeaf}
           autoFocus
-          placeholder='Start by indenting the topic statement....'
           onKeyDown={(e) => {
             // updateWorkingDraft()
 
@@ -130,7 +130,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
                 CustomEditor.toggleStrikeThrough(editor)
                 break
               }
-              case 'u': {
+              case 'c': {
                 e.preventDefault()
                 CustomEditor.toggleUnderline(editor)
                 break
@@ -153,12 +153,17 @@ const DefaultElement = (props: any) => {
   return <p {...props.attributes}>{props.children}</p>
 }
 
-export const Leaf = (props: any) => {
+export const Leaf = ({ setCommentNumber, ...props }: any) => {
   return (
     <span
       {...props.attributes}
       style={{
         fontWeight: props.leaf.bold ? 'bold' : 'normal',
+        color: props.leaf.strikeThrough
+          ? 'var(--red)'
+          : props.leaf.underline
+          ? 'gray'
+          : 'var(--blue)',
         textDecoration: props.leaf.strikeThrough
           ? 'line-through'
           : props.leaf.underline
