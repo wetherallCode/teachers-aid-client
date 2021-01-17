@@ -30,7 +30,7 @@ export const DraftSelector: FC<DraftSelectorProps> = ({ essay }) => {
       },
     })
   }, [essay._id, essay.finalDraft, event, state.context.draftSelector])
-  console.log(state.context.draftSelector)
+
   return (
     <>
       <DraftSelectorLeft
