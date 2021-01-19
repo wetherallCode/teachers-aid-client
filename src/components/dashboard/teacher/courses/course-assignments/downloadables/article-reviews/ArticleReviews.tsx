@@ -67,6 +67,7 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
   )!
 
   if (loading) return <div>Loading </div>
+
   return (
     <>
       <div>Article Reviews</div>

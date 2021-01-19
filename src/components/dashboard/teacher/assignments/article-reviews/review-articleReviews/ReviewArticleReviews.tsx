@@ -24,7 +24,6 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
           <div
             key={course._id!}
             onClick={() => {
-              console.log(course._id!)
               event({ type: 'SET_COURSE_TO_REVIEW', payload: course._id! })
             }}
           >
