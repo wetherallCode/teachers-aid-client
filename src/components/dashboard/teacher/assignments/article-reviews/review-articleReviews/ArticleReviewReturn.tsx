@@ -38,7 +38,9 @@ export const ArticleReviewReturn: FC<ArticleReviewReturnProps> = ({
   })
   return (
     <ReturnReview>
-      <div onClick={() => returnArticleReview()}>Return</div>
+      <div style={{ cursor: 'pointer' }} onClick={() => returnArticleReview()}>
+        Return
+      </div>
     </ReturnReview>
   )
 }
