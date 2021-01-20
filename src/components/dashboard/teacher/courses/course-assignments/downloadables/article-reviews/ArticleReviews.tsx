@@ -72,6 +72,7 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
     <>
       <div>Article Reviews</div>
       <select
+        value={markingPeriod}
         onChange={(e: any) => {
           if (e.target.value !== 'none') setMarkingPeriod(e.target.value)
         }}
