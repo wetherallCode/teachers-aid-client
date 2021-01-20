@@ -99,7 +99,8 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
               renderLeaf={renderLeaf}
               style={{
                 height: '98%',
-                // userSelect: 'none',
+                marginLeft: '3%',
+                marginRight: '3%',
               }}
               placeholder={`Your essay goes here; let's get started...`}
               onKeyDown={(e) => {
