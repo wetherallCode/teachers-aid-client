@@ -166,9 +166,9 @@ export type EssaySubmitButtonProps = {
   color: string
 }
 
-export const EssaySubmitButton = styled(OrganizerControlButton)<
-  EssaySubmitButtonProps
->`
+export const EssaySubmitButton = styled(
+  OrganizerControlButton
+)<EssaySubmitButtonProps>`
   font-size: 3vh;
   width: 75%;
   height: 4vh;
