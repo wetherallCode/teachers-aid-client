@@ -182,3 +182,15 @@ export const AddCommentButton = styled.button`
 export const Comments = styled.div`
   font-size: 1.4vw;
 `
+
+export const EditorToolBar = styled.div`
+  display: grid;
+  grid-row: 8/-1;
+  grid-column: 1/-1;
+  margin: 1.4%;
+`
+
+export const EditorToolBarTitle = styled.div`
+  justify-self: center;
+  text-decoration: underline;
+`

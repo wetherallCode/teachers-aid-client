@@ -22,6 +22,13 @@ export const CustomEditor = {
     })
     return !!match
   },
+  isRedPenActive(editor: Editor) {
+    const [match] = Editor.nodes(editor, {
+      match: (n) => n.redPen === true,
+      universal: true,
+    })
+    return !!match
+  },
   toggleBoldMark(editor: Editor) {
     const isActive = CustomEditor.isBoldMarkActive(editor)
     Transforms.setNodes(
@@ -46,4 +53,8 @@ export const CustomEditor = {
       { match: (n) => Text.isText(n), split: true }
     )
   },
+  // toggleRedPen(editor: Editor, nodes: Node) {
+  //   const isActive = CustomEditor.isRedPenActive(editor)
+  //   Transforms.insertNodes(editor)
+  // },
 }

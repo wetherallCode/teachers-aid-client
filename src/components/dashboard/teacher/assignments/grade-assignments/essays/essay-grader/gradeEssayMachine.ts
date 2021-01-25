@@ -46,6 +46,7 @@ export type gradeEssayMachineEvent =
   | { type: 'SET_SCORE'; payload: number }
   | { type: 'SET_COMMENT'; payload: string }
   | { type: 'RESET_COMMENT' }
+  | { type: 'CHANGE_EDIT_COLOR'; payload: string }
   | { type: 'TOGGLE_ORGANIZER'; payload: boolean }
   | { type: 'ADD_ADDITIONAL_COMMENT'; payload: string }
   | { type: 'REMOVE_COMMENT'; payload: number }
@@ -55,6 +56,7 @@ export type gradeEssayMachineEvent =
     }
 
 export type gradeEssayMachineContext = {
+  editColor: string
   essayId: string
   currentRubricSection: RubricSectionEnum
   rubricEntry: RubricEntryInput
@@ -76,6 +78,7 @@ export const gradeEssayMachine = Machine<
   type: 'parallel',
   initial: 'loading',
   context: {
+    editColor: 'red',
     essayId: '',
     draftToGrade: {
       _id: '',
@@ -199,6 +202,14 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            CHANGE_EDIT_COLOR: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  editColor: evt.payload,
+                }
+              }),
+            },
             SET_PREVIOUS_RUBRIC_ENTRIES: {
               actions: assign((ctx, evt) => {
                 return {
@@ -293,6 +304,14 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            CHANGE_EDIT_COLOR: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  editColor: evt.payload,
+                }
+              }),
+            },
             SET_PREVIOUS_RUBRIC_ENTRIES: {
               actions: assign((ctx, evt) => {
                 return {
@@ -387,6 +406,14 @@ export const gradeEssayMachine = Machine<
           on: {
             PREVIOUS: '#gradeEssay.loading',
             NEXT: '#gradeEssay.returning',
+            CHANGE_EDIT_COLOR: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  editColor: evt.payload,
+                }
+              }),
+            },
             SET_PREVIOUS_RUBRIC_ENTRIES: {
               actions: assign((ctx, evt) => {
                 return {

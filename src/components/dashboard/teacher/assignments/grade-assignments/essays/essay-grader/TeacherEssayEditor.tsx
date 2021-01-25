@@ -1,6 +1,13 @@
 import React, { useMemo, useState, useCallback, FC, useEffect } from 'react'
 import { createEditor, Transforms, Editor, Node } from 'slate'
-import { Slate, Editable, withReact } from 'slate-react'
+import {
+  Slate,
+  Editable,
+  withReact,
+  useFocused,
+  useSelected,
+  useSlate,
+} from 'slate-react'
 import { CustomEditor } from '../../../../../../editor/CustomEditor'
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -101,6 +108,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
           onCopy={() => false}
           renderLeaf={renderLeaf}
           autoFocus
+          style={{ color: `var(--${state.context.editColor})` }}
           onKeyDown={(e) => {
             // updateWorkingDraft()
 
@@ -135,6 +143,11 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
                 CustomEditor.toggleUnderline(editor)
                 break
               }
+              // case 'r': {
+              //   e.preventDefault()
+              //   CustomEditor.toggleRedPen(editor)
+              //   break
+              // }
             }
           }}
         />
@@ -154,6 +167,8 @@ const DefaultElement = (props: any) => {
 }
 
 export const Leaf = ({ setCommentNumber, ...props }: any) => {
+  const [state] = useGradeEssayContextProvider()
+  // console.log(props)
   return (
     <span
       {...props.attributes}

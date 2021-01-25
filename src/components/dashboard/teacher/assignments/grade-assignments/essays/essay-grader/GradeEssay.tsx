@@ -11,6 +11,8 @@ import { GradingTool } from './grading-tool/GradingTool'
 import { ReturnEssay } from './ReturnEssay'
 import { DraftSelector } from './DraftSelector'
 import {
+  EditorToolBar,
+  EditorToolBarTitle,
   EssayGraderContainer,
   EssayScreen,
   GoBackButton,
@@ -232,6 +234,8 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
 
   if (loading) return <div>Loading </div>
 
+  console.log(state.context.editColor)
+
   return (
     <EssayGraderContainer>
       {loadingDraft && (
@@ -269,6 +273,16 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
               </OrganizerForEssayToGradeContainer>
             )}
             <TeacherEssayEditor />
+            <EditorToolBar>
+              <EditorToolBarTitle>Editor Tools</EditorToolBarTitle>
+              <button
+                onClick={() =>
+                  event({ type: 'CHANGE_EDIT_COLOR', payload: 'red' })
+                }
+              >
+                Edit
+              </button>
+            </EditorToolBar>
           </EssayScreen>
           <NameContainer>
             <NameAndAssignmentContainer>
