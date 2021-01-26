@@ -6,11 +6,10 @@ export const ArticleReviewManagerContainer = styled.div`
 export const ArticleReviewManagerMenu = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
-  border-top:3px solid var(--white);
-  
+  border-top: 3px solid var(--white);
 `
 export const ArticleReviewFunctionSelect = styled.div`
- height: 95vh;
+  height: 95vh;
   background: var(--blue);
   color: var(--white);
   display: grid;
@@ -25,17 +24,16 @@ export const ArticleReviewMainMenuDisplay = styled.div`
   justify-items: center;
   align-items: center;
   font-size: 6vh;
-
 `
 
 export const ReviewerContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
-  border-top:3px solid var(--white);
+  border-top: 3px solid var(--white);
   background: var(--white);
 `
 export const ReviewerCourseSelect = styled.div`
- height: 95vh;
+  height: 95vh;
   background: var(--blue);
   color: var(--white);
   display: grid;
@@ -49,15 +47,13 @@ export const ReviewMainDisplay = styled.div`
   height: 95vh;
   display: grid;
   grid-template-rows: 10% 5% 1fr;
-
 `
 
-export const TitleContainer= styled.div`
+export const TitleContainer = styled.div`
   display: grid;
-
 `
 
-export type ArticleReviewNeedsGrading ={
+export type ArticleReviewNeedsGrading = {
   needsGrading: boolean
 }
 
@@ -68,9 +64,8 @@ export const Title = styled.div<ArticleReviewNeedsGrading>`
   color: ${({ needsGrading }) => (needsGrading ? 'var(--red)' : 'var(--blue)')};
 `
 
-
 export const DatesToReviewContainer = styled.div`
-  display:grid;
+  display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   border-bottom: 3px solid var(--blue);
@@ -79,12 +74,12 @@ export const DatesToReviewContainer = styled.div`
 `
 
 export const DateToReview = styled.div`
- text-align: center;
- font-size: 3vh;
+  text-align: center;
+  font-size: 3vh;
 `
 export const ReviewListContainer = styled.div`
   margin-top: 5%;
-  border-top: 1px solid var(--blue);
+
   overflow: scroll;
 `
 
