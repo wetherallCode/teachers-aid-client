@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import React, { FC, Fragment, useState } from 'react'
+import React, { FC, Fragment, useEffect, useState } from 'react'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
@@ -11,10 +11,16 @@ import {
 } from '../../../../../../schemaTypes'
 import { useArticleReviewContextProvider } from '../state-styles/ArticleReviewContext'
 import {
+	DatesToReviewContainer,
+	DateToReview,
 	ReturnedStatus,
 	ReturnReview,
 	ReviewList,
+	ReviewListContainer,
+	ReviewMainDisplay,
 	ReviewName,
+	Title,
+	TitleContainer,
 } from '../state-styles/articleReviewStyles'
 import { ArticleReviewReturn } from './ArticleReviewReturn'
 
@@ -44,9 +50,12 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
 `
 export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
 	const [state, event] = useArticleReviewContextProvider()
+	const [gradingNeededIndicator, setGradingNeededIndicator] = useState(false)
 	const [markingPeriodState] = useMarkingPeriodContextProvider()
 	const { markingPeriodEnum } = useEnumContextProvider()
-	const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
+	const [mp, setMp] = useState(
+		markingPeriodState.context.currentMarkingPeriod || MarkingPeriodEnum.SECOND
+	)
 
 	const { loading, data } = useQuery<
 		findArticleReviewsByCourse,
@@ -59,9 +68,19 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
 			},
 		},
 		pollInterval: 10000,
-		onCompleted: (data) => console.log(data),
+		// onCompleted: (data) => console.log(data),
 		onError: (error) => console.error(error),
 	})
+
+	useEffect(() => {
+		if (
+			data?.findArticleReviewsByCourse.articleReviews
+				.filter((article) => article.completed)
+				.some((article) => !article.returned)
+		) {
+			setGradingNeededIndicator(true)
+		} else setGradingNeededIndicator(false)
+	}, [data?.findArticleReviewsByCourse.articleReviews])
 
 	const assignedDateList = data?.findArticleReviewsByCourse.articleReviews
 		.map((review) => review.assignedDate)
@@ -69,50 +88,42 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
 			(accum: string[], cValue) => (accum.includes(cValue) ? [...accum] : [...accum, cValue]),
 			[]
 		)
-	const dateToReview = data?.findArticleReviewsByCourse.articleReviews.filter(
-		(review) => review.assignedDate === state.context.selectedDate
-	)
+	const dateToReview = data?.findArticleReviewsByCourse.articleReviews.filter((review) => {
+		return review.assignedDate === state.context.selectedDate
+	})
 
-	if (loading) return <div>Loading </div>
 	return (
-		<>
-			<div>Find by Assigned Date</div>
-			<select value={mp} onChange={(e: any) => setMp(e.target.value)}>
-				{markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
-					<option key={mp} value={mp}>
-						{mp}
-					</option>
-				))}
-			</select>
-			<select
-				onChange={(e: any) => {
-					if (e !== 'none') {
-						event({ type: 'SET_SELECTED_DATE', payload: e.target.value })
-					}
-				}}>
-				<option value={'none'}>Select a Date</option>
+		<ReviewMainDisplay>
+			<TitleContainer>
+				<Title needsGrading={gradingNeededIndicator}>Article Reviews</Title>
+			</TitleContainer>
+			<DatesToReviewContainer>
 				{assignedDateList?.map((date) => (
-					<option key={date} value={date}>
+					<DateToReview
+						key={date}
+						onClick={(e: any) => event({ type: 'SET_SELECTED_DATE', payload: date })}>
 						{date}
-					</option>
+					</DateToReview>
 				))}
-			</select>
-			{dateToReview?.map((reviews, i: number) => (
-				<ReviewList
-					key={reviews._id!}
-					style={i % 2 ? { background: 'var(--grey' } : { background: 'var(--white)' }}>
-					<ReviewName
+			</DatesToReviewContainer>
+			<ReviewListContainer>
+				{dateToReview?.map((reviews, i: number) => (
+					<ReviewList
 						key={reviews._id!}
-						style={reviews.returned ? { color: 'var(--red)' } : { color: 'var(--blue)' }}>
-						{reviews.hasOwner.firstName}:{' '}
-						{Number(reviews.score.earnedPoints) > 0 ? reviews.score.earnedPoints : 'Missing'}
-						{reviews.late && Number(reviews.score.earnedPoints) > 0 && ' late'}
-					</ReviewName>
-					{!reviews.returned && reviews.completed && (
-						<ArticleReviewReturn reviewId={reviews._id!} />
-					)}
-				</ReviewList>
-			))}
-		</>
+						style={i % 2 ? { background: 'var(--grey' } : { background: 'var(--white)' }}>
+						<ReviewName
+							key={reviews._id!}
+							style={reviews.returned ? { color: 'var(--red)' } : { color: 'var(--blue)' }}>
+							{reviews.hasOwner.firstName}:{' '}
+							{Number(reviews.score.earnedPoints) > 0 ? reviews.score.earnedPoints : 'Missing'}
+							{reviews.late && Number(reviews.score.earnedPoints) > 0 && ' late'}
+						</ReviewName>
+						{!reviews.returned && reviews.completed && (
+							<ArticleReviewReturn reviewId={reviews._id!} />
+						)}
+					</ReviewList>
+				))}
+			</ReviewListContainer>
+		</ReviewMainDisplay>
 	)
 }

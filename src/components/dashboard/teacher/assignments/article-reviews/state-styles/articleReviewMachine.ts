@@ -51,6 +51,7 @@ export const articleReviewMachine = Machine<
     },
     courseToReview: '',
     selectedDate: '',
+    
   },
   states: {
     idle: { on: { CREATE: 'create', REVIEW: 'review' } },
