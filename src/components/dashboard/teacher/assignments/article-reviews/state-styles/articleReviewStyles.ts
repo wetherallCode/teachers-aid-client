@@ -25,22 +25,41 @@ export const ArticleReviewMainMenuDisplay = styled.div`
   align-items: center;
   font-size: 6vh;
 `
-
+export const NoCourseDisplay = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 6vh;
+`
 export const ReviewerContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
   border-top: 3px solid var(--white);
   background: var(--white);
 `
-export const ReviewerCourseSelect = styled.div`
+export const ReviewerCourseSelectContainer = styled.div`
   height: 95vh;
   background: var(--blue);
   color: var(--white);
+  /* display: grid;
+  grid-auto-rows: 10%;
+  justify-items: center;
+  align-items: center; */
+  font-size: 4vh;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 5fr 1fr;
+`
+export const ReviewerCourseSelect = styled.div`
   display: grid;
   grid-auto-rows: 10%;
   justify-items: center;
   align-items: center;
-  font-size: 4vh;
+`
+export const ReviewerCourseSelectBack = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
 `
 
 export const ReviewMainDisplay = styled.div`
@@ -73,9 +92,21 @@ export const DatesToReviewContainer = styled.div`
   margin-right: 5%;
 `
 
-export const DateToReview = styled.div`
+export type DateToReviewProps = {
+  selected: boolean
+  needsGradingIndicator: boolean
+}
+
+export const DateToReview = styled.div<DateToReviewProps>`
   text-align: center;
   font-size: 3vh;
+  cursor: pointer;
+  color: ${({ selected, needsGradingIndicator }) =>
+    selected
+      ? 'var(--grey)'
+      : needsGradingIndicator
+      ? 'var(--red)'
+      : 'var(--blue)'};
 `
 export const ReviewListContainer = styled.div`
   margin-top: 5%;
@@ -92,16 +123,21 @@ export const ReviewList = styled.div`
   border-right: 1px solid var(--blue);
   border-bottom: 1px solid var(--blue);
 `
-export const ReviewName = styled.div`
+export type ReturnNameProps = {
+  returned: boolean
+}
+export const ReviewName = styled.div<ReturnNameProps>`
   display: grid;
   justify-items: left;
   align-items: center;
+  color: ${({ returned }) => (returned ? 'var(--blue)' : 'var(--red)')};
 `
 
 export const ReturnReview = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  cursor: pointer;
 `
 export const ReturnedStatus = styled.div`
   color: var(--red);

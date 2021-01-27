@@ -18,6 +18,7 @@ export type articleReviewMachineEvent =
   | { type: 'PREVIOUS' }
   | { type: 'CREATE' }
   | { type: 'REVIEW' }
+  | { type: 'IDLE' }
   | { type: 'SET_ASSIGNED_DATE'; payload: string }
   | { type: 'SET_DUE_DATE'; payload: string }
   | { type: 'SET_DUE_TIME'; payload: TimeOfDay }
@@ -51,13 +52,13 @@ export const articleReviewMachine = Machine<
     },
     courseToReview: '',
     selectedDate: '',
-    
   },
   states: {
     idle: { on: { CREATE: 'create', REVIEW: 'review' } },
     create: {
       on: {
         REVIEW: 'review',
+        IDLE: 'idle',
         SET_ASSIGNED_DATE: {
           actions: assign((ctx, evt) => {
             return {
@@ -137,6 +138,7 @@ export const articleReviewMachine = Machine<
             }
           }),
         },
+        IDLE: 'idle',
         SET_SELECTED_DATE: {
           actions: assign((ctx, evt) => {
             return {
