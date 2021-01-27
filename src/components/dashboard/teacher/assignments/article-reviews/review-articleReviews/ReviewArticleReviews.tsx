@@ -1,6 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
+import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
+import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
-import { me_me_Teacher } from '../../../../../../schemaTypes'
+import { MarkingPeriodEnum, me_me_Teacher } from '../../../../../../schemaTypes'
 import { sortByLetter } from '../../../../../../utils'
 import { useArticleReviewContextProvider } from '../state-styles/ArticleReviewContext'
 import {
@@ -17,6 +19,9 @@ export type ReviewArticleReviewsProps = {}
 export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
   const [state, event] = useArticleReviewContextProvider()
+  const { markingPeriodEnum } = useEnumContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
   const courses = me.teachesCourses.filter(
     (course) => course.name !== 'Cohort Class'
   )
@@ -45,10 +50,22 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
         </ReviewerCourseSelect>
         <ReviewerCourseSelectBack>
           <div onClick={() => event({ type: 'IDLE' })}>Back</div>
+          <select
+            value={mp}
+            onChange={(e: any) => {
+              setMp(e.target.value)
+            }}
+          >
+            {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+              <option key={mp} value={mp}>
+                {mp}
+              </option>
+            ))}
+          </select>
         </ReviewerCourseSelectBack>
       </ReviewerCourseSelectContainer>
       {state.context.courseToReview ? (
-        <ReviewDisplay />
+        <ReviewDisplay mp={mp} />
       ) : (
         <NoCourseDisplay>
           <div>Select a Course to Review</div>

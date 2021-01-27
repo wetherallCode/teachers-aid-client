@@ -1,5 +1,12 @@
 import { gql, useQuery } from '@apollo/client'
-import React, { FC, Fragment, useEffect, useState } from 'react'
+import React, {
+  Dispatch,
+  FC,
+  Fragment,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
@@ -24,7 +31,11 @@ import {
 } from '../state-styles/articleReviewStyles'
 import { ArticleReviewReturn } from './ArticleReviewReturn'
 
-export type ReviewDisplayProps = {}
+export type ReviewDisplayProps = {
+  mp: MarkingPeriodEnum
+  // setMp: Dispatch<SetStateAction<MarkingPeriodEnum>>
+}
+
 export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
   query findArticleReviewsByCourse($input: FindArticleReviewsByCourseInput!) {
     findArticleReviewsByCourse(input: $input) {
@@ -48,15 +59,13 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
     }
   }
 `
-export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
+export const ReviewDisplay: FC<ReviewDisplayProps> = ({ mp }) => {
   const me: me_me_Teacher = useUserContextProvider()
   const [state, event] = useArticleReviewContextProvider()
   const [gradingNeededIndicator, setGradingNeededIndicator] = useState(false)
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  // const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
-  const [mp, setMp] = useState(
-    markingPeriodState.context.currentMarkingPeriod || MarkingPeriodEnum.SECOND
-  )
+  // const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
 
   const { loading, data } = useQuery<
     findArticleReviewsByCourse,
@@ -106,7 +115,7 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
   const [courseName] = me.teachesCourses
     .filter((courseName) => courseName._id === state.context.courseToReview)
     .map((course) => course.name)
-  console.log(state.context.courseToReview)
+
   return (
     <ReviewMainDisplay>
       <TitleContainer>

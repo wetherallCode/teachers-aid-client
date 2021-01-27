@@ -190,3 +190,9 @@ export const Leaf = ({ setCommentNumber, ...props }: any) => {
     </span>
   )
 }
+
+export function withMyPlugin(editor: Editor) {
+  const { insertNode } = editor
+
+  return editor
+}
