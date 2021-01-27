@@ -37,10 +37,8 @@ export const ArticleReviewReturn: FC<ArticleReviewReturnProps> = ({
     refetchQueries: ['findArticleReviewsByCourse'],
   })
   return (
-    <ReturnReview>
-      <div style={{ cursor: 'pointer' }} onClick={() => returnArticleReview()}>
-        Return
-      </div>
+    <ReturnReview onClick={() => returnArticleReview()}>
+      <div>Return</div>
     </ReturnReview>
   )
 }

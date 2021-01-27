@@ -49,6 +49,7 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
   }
 `
 export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
+  const me: me_me_Teacher = useUserContextProvider()
   const [state, event] = useArticleReviewContextProvider()
   const [gradingNeededIndicator, setGradingNeededIndicator] = useState(false)
   const [markingPeriodState] = useMarkingPeriodContextProvider()
@@ -94,25 +95,41 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
       return review.assignedDate === state.context.selectedDate
     }
   )
-
+  const reviewNeedsGrading = data?.findArticleReviewsByCourse.articleReviews
+    .filter((review) => review.completed && !review.returned)
+    .map((review) => review.assignedDate)
+    .reduce(
+      (accum: string[], cValue) =>
+        accum.includes(cValue) ? [...accum] : [...accum, cValue],
+      []
+    )
+  const [courseName] = me.teachesCourses
+    .filter((courseName) => courseName._id === state.context.courseToReview)
+    .map((course) => course.name)
+  console.log(state.context.courseToReview)
   return (
     <ReviewMainDisplay>
       <TitleContainer>
         <Title needsGrading={gradingNeededIndicator}>
-          {gradingNeededIndicator ? '*' : ' '}Article Reviews
+          {gradingNeededIndicator ? '*' : ' '}Article Reviews - {courseName}
         </Title>
       </TitleContainer>
       <DatesToReviewContainer>
-        {assignedDateList?.map((date) => (
-          <DateToReview
-            key={date}
-            onClick={(e: any) =>
-              event({ type: 'SET_SELECTED_DATE', payload: date })
-            }
-          >
-            {date}
-          </DateToReview>
-        ))}
+        {assignedDateList?.map((date) => {
+          console.log(reviewNeedsGrading?.includes(date))
+          return (
+            <DateToReview
+              key={date}
+              selected={state.context.selectedDate === date}
+              needsGradingIndicator={reviewNeedsGrading?.includes(date)!}
+              onClick={(e: any) =>
+                event({ type: 'SET_SELECTED_DATE', payload: date })
+              }
+            >
+              {date}
+            </DateToReview>
+          )
+        })}
       </DatesToReviewContainer>
       <ReviewListContainer
         style={
@@ -130,14 +147,7 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
                 : { background: 'var(--white)' }
             }
           >
-            <ReviewName
-              key={reviews._id!}
-              style={
-                reviews.returned
-                  ? { color: 'var(--red)' }
-                  : { color: 'var(--blue)' }
-              }
-            >
+            <ReviewName key={reviews._id!} returned={reviews.returned}>
               {reviews.hasOwner.firstName}:{' '}
               {Number(reviews.score.earnedPoints) > 0
                 ? reviews.score.earnedPoints
