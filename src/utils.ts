@@ -113,18 +113,19 @@ export const todaysLocaleDate: string = new Date()
   .toLocaleString()
   .substring(0, 9)
 
-// export const sortByLastName = (a: string, b: string) => {
-//   let lastNameA = a.lastName.toLowerCase()
-//   let lastNameB = b.lastName.toLowerCase()
+export const sortByLetter = (a: any, b: any) => {
+  var nameA = a.name.toUpperCase() // ignore upper and lowercase
+  var nameB = b.name.toUpperCase() // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1
+  }
+  if (nameA > nameB) {
+    return 1
+  }
 
-//   if (lastNameA < lastNameB) {
-//     return -1
-//   }
-//   if (lastNameA > lastNameB) {
-//     return 1
-//   }
-//   return 0
-// }
+  // names must be equal
+  return 0
+}
 
 export const twentyFourStudentClassSize = [
   1,
