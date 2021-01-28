@@ -65,13 +65,33 @@ export const ReviewerCourseSelectBack = styled.div`
 export const ReviewMainDisplay = styled.div`
   height: 95vh;
   display: grid;
-  grid-template-rows: 10% 5% 1fr;
+  grid-template-rows: 8% 7% 5% 1fr;
 `
 
 export const TitleContainer = styled.div`
   display: grid;
 `
-
+export const MarkingPeriodSelectorContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  font-size: 3vh;
+`
+export const CurrentMarkingPeriodContainer = styled.div`
+  grid-column: 5/8;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+export const MarkingPeriodSelectorBack = styled.div`
+  grid-column: 4/5;
+  justify-self: center;
+  align-self: center;
+`
+export const MarkingPeriodSelectorForward = styled.div`
+  grid-column: 8/9;
+  justify-self: center;
+  align-self: center;
+`
 export type ArticleReviewNeedsGrading = {
   needsGrading: boolean
 }
