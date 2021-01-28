@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
+import { useToggle } from '../../../../../../hooks'
 import { MarkingPeriodEnum, me_me_Teacher } from '../../../../../../schemaTypes'
 import { sortByLetter } from '../../../../../../utils'
 import { useArticleReviewContextProvider } from '../state-styles/ArticleReviewContext'
@@ -19,9 +20,10 @@ export type ReviewArticleReviewsProps = {}
 export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
   const [state, event] = useArticleReviewContextProvider()
-  const { markingPeriodEnum } = useEnumContextProvider()
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
-  const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
+  // const { markingPeriodEnum } = useEnumContextProvider()
+  // const [markingPeriodState] = useMarkingPeriodContextProvider()
+  // const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
+
   const courses = me.teachesCourses.filter(
     (course) => course.name !== 'Cohort Class'
   )
@@ -38,7 +40,11 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
             return (
               <div
                 key={course._id!}
-                style={{}}
+                style={
+                  course._id === state.context.courseToReview
+                    ? { textDecoration: 'underline' }
+                    : { textDecoration: 'none' }
+                }
                 onClick={() => {
                   event({ type: 'SET_COURSE_TO_REVIEW', payload: course._id! })
                 }}
@@ -50,22 +56,24 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
         </ReviewerCourseSelect>
         <ReviewerCourseSelectBack>
           <div onClick={() => event({ type: 'IDLE' })}>Back</div>
-          <select
-            value={mp}
-            onChange={(e: any) => {
-              setMp(e.target.value)
-            }}
-          >
-            {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
-              <option key={mp} value={mp}>
-                {mp}
-              </option>
-            ))}
-          </select>
+          <div>
+            {/* <select
+              value={mp}
+              onChange={(e: any) => {
+                setMp(e.target.value)
+              }}
+            >
+              {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+                <option key={mp} value={mp}>
+                  {mp}
+                </option>
+              ))}
+            </select> */}
+          </div>
         </ReviewerCourseSelectBack>
       </ReviewerCourseSelectContainer>
       {state.context.courseToReview ? (
-        <ReviewDisplay mp={mp} />
+        <ReviewDisplay />
       ) : (
         <NoCourseDisplay>
           <div>Select a Course to Review</div>

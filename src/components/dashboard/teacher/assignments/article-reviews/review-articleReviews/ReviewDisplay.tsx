@@ -18,8 +18,12 @@ import {
 } from '../../../../../../schemaTypes'
 import { useArticleReviewContextProvider } from '../state-styles/ArticleReviewContext'
 import {
+  CurrentMarkingPeriodContainer,
   DatesToReviewContainer,
   DateToReview,
+  MarkingPeriodSelectorBack,
+  MarkingPeriodSelectorContainer,
+  MarkingPeriodSelectorForward,
   ReturnedStatus,
   ReturnReview,
   ReviewList,
@@ -32,7 +36,7 @@ import {
 import { ArticleReviewReturn } from './ArticleReviewReturn'
 
 export type ReviewDisplayProps = {
-  mp: MarkingPeriodEnum
+  // mp: MarkingPeriodEnum
   // setMp: Dispatch<SetStateAction<MarkingPeriodEnum>>
 }
 
@@ -59,13 +63,13 @@ export const FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY = gql`
     }
   }
 `
-export const ReviewDisplay: FC<ReviewDisplayProps> = ({ mp }) => {
+export const ReviewDisplay: FC<ReviewDisplayProps> = ({}) => {
   const me: me_me_Teacher = useUserContextProvider()
   const [state, event] = useArticleReviewContextProvider()
   const [gradingNeededIndicator, setGradingNeededIndicator] = useState(false)
-  // const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
-  // const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
+  const [mp, setMp] = useState(markingPeriodState.context.currentMarkingPeriod)
 
   const { loading, data } = useQuery<
     findArticleReviewsByCourse,
@@ -92,6 +96,8 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = ({ mp }) => {
     } else setGradingNeededIndicator(false)
   }, [data?.findArticleReviewsByCourse.articleReviews])
 
+  // const markingPeriodIndex = markingPeriodEnum.findIndex(index=> )
+
   const assignedDateList = data?.findArticleReviewsByCourse.articleReviews
     .map((review) => review.assignedDate)
     .reduce(
@@ -116,13 +122,36 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = ({ mp }) => {
     .filter((courseName) => courseName._id === state.context.courseToReview)
     .map((course) => course.name)
 
+  const index = markingPeriodEnum.findIndex((c: MarkingPeriodEnum) => c === mp)
+
   return (
     <ReviewMainDisplay>
       <TitleContainer>
         <Title needsGrading={gradingNeededIndicator}>
-          {gradingNeededIndicator ? '*' : ' '}Article Reviews - {courseName}
+          {gradingNeededIndicator ? '*' : ' '}Article Reviews
         </Title>
       </TitleContainer>
+      <MarkingPeriodSelectorContainer>
+        {index > 0 && (
+          <MarkingPeriodSelectorBack
+            onClick={() => {
+              setMp(markingPeriodEnum[index - 1])
+            }}
+          >
+            &lt;
+          </MarkingPeriodSelectorBack>
+        )}
+        <CurrentMarkingPeriodContainer>
+          <div>{mp}</div>
+        </CurrentMarkingPeriodContainer>
+        {index < 3 && (
+          <MarkingPeriodSelectorForward
+            onClick={() => setMp(markingPeriodEnum[index + 1])}
+          >
+            &gt;
+          </MarkingPeriodSelectorForward>
+        )}
+      </MarkingPeriodSelectorContainer>
       <DatesToReviewContainer>
         {assignedDateList?.map((date) => {
           console.log(reviewNeedsGrading?.includes(date))
