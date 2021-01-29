@@ -41,10 +41,6 @@ export const ReviewerCourseSelectContainer = styled.div`
   height: 95vh;
   background: var(--blue);
   color: var(--white);
-  /* display: grid;
-  grid-auto-rows: 10%;
-  justify-items: center;
-  align-items: center; */
   font-size: 4vh;
   cursor: pointer;
   display: grid;

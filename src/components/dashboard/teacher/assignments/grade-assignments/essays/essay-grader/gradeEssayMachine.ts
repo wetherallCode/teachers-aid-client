@@ -271,7 +271,7 @@ export const gradeEssayMachine = Machine<
                   draftToGrade: {
                     ...ctx.draftToGrade,
                     additionalComments: [
-                      ...ctx.draftToGrade.additionalComments,
+                      ...ctx.draftToGrade.additionalComments!,
                       evt.payload,
                     ],
                   },
@@ -373,7 +373,7 @@ export const gradeEssayMachine = Machine<
                   draftToGrade: {
                     ...ctx.draftToGrade,
                     additionalComments: [
-                      ...ctx.draftToGrade.additionalComments,
+                      ...ctx.draftToGrade.additionalComments!,
                       evt.payload,
                     ],
                   },
@@ -475,7 +475,7 @@ export const gradeEssayMachine = Machine<
                   draftToGrade: {
                     ...ctx.draftToGrade,
                     additionalComments: [
-                      ...ctx.draftToGrade.additionalComments,
+                      ...ctx.draftToGrade.additionalComments!,
                       evt.payload,
                     ],
                   },

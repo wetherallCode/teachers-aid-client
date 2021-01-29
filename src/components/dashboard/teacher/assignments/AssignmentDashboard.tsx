@@ -13,8 +13,7 @@ import { PaperBasedContextProvider } from './grade-assignments/paper-based/state
 
 import { ArticleReviewManager } from './article-reviews/ArticleReviewManager'
 import { ArticleReviewContextProvider } from './article-reviews/state-styles/ArticleReviewContext'
-import { useMachine } from '@xstate/react'
-import { gradeEssayContainerMachine } from './grade-assignments/state-n-styles/gradeEssayContainerMachine'
+import { GradeEssayContainerContextProvider } from './grade-assignments/state-n-styles/GradeEssayContainerContext'
 
 export type AssignmentDashboardProps = {}
 
@@ -39,7 +38,14 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
       />
       <Route path='edit' element={<EditAssignments />} />
       {/* <GradeEssayContextProvider> */}
-      <Route path='grade/*' element={<AssignmentsToGrade />} />
+      <Route
+        path='grade/*'
+        element={
+          <GradeEssayContainerContextProvider>
+            <AssignmentsToGrade />
+          </GradeEssayContainerContextProvider>
+        }
+      />
       <Route
         path='grade/:essayId'
         element={

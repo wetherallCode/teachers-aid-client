@@ -5,6 +5,7 @@ import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { useToggle } from '../../../../../../hooks'
 import { MarkingPeriodEnum, me_me_Teacher } from '../../../../../../schemaTypes'
 import { sortByLetter } from '../../../../../../utils'
+import { CourseSelect } from '../../grade-assignments/state-n-styles/GradeEssayContainerStyles'
 import { useArticleReviewContextProvider } from '../state-styles/ArticleReviewContext'
 import {
   NoCourseDisplay,
@@ -34,7 +35,7 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
   return (
     <ReviewerContainer>
       <ReviewerCourseSelectContainer>
-        <ReviewerCourseSelect>
+        <CourseSelect>
           <div>Select Course</div>
           {courses.sort(sortByLetter).map((course) => {
             return (
@@ -53,7 +54,7 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
               </div>
             )
           })}
-        </ReviewerCourseSelect>
+        </CourseSelect>
         <ReviewerCourseSelectBack>
           <div onClick={() => event({ type: 'IDLE' })}>Back</div>
           <div>

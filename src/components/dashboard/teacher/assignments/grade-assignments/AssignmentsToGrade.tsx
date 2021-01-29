@@ -3,6 +3,12 @@ import { me_me_Teacher } from '../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import { EssaysToGrade } from './essays/essay-grader/EssaysToGrade'
 import { FindAssignmentByStudent } from './paper-based/FindAssignmentByStudent'
+import {
+  CourseSelect,
+  CourseSelectContainer,
+  EssaysToGradeContainer,
+} from './state-n-styles/GradeEssayContainerStyles'
+import { useGradeEssayContainerContextProvider } from './state-n-styles/GradeEssayContainerContext'
 
 export type AssignmentsToGradeProps = {}
 
@@ -12,40 +18,36 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
   const { teachesCourses } = me
 
   return (
-    <>
-      <div>Grade Essays</div>
-      {/* <select onChange={(e: any) => setCourseId(e.target.value)}>
-        <option value={'none'}>Pick a Course</option>
-        {teachesCourses.map((course) => (
-          <option key={course._id!} value={course._id!}>
-            {course.name}
-          </option>
-        ))}
-      </select> */}
-      <div>
-        <div
-          style={{
-            display: 'grid',
-            justifyItems: 'space-between',
-            gridAutoFlow: 'column',
-          }}
-        >
+    <EssaysToGradeContainer>
+      <CourseSelectContainer>
+        <CourseSelect>
+          <div>Select Course</div>
           {teachesCourses.slice(1).map((course) => (
-            <span key={course._id} onClick={() => setCourseId(course._id!)}>
+            <span
+              key={course._id}
+              onClick={() => setCourseId(course._id!)}
+              style={
+                course._id === courseId
+                  ? { textDecoration: 'underline' }
+                  : { textDecoration: 'none' }
+              }
+            >
               {course.name}
             </span>
           ))}
-        </div>
-      </div>
-      {courseId && (
-        <>
-          <EssaysToGrade courseId={courseId} />
+        </CourseSelect>
+      </CourseSelectContainer>
+      <div>
+        {courseId && (
           <>
-            <div>PaperBased Assignments</div>
-            {courseId && <FindAssignmentByStudent courseId={courseId} />}
+            <EssaysToGrade courseId={courseId} />
+            <>
+              <div>PaperBased Assignments</div>
+              {courseId && <FindAssignmentByStudent courseId={courseId} />}
+            </>
           </>
-        </>
-      )}
-    </>
+        )}
+      </div>
+    </EssaysToGradeContainer>
   )
 }
