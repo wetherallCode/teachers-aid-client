@@ -30,6 +30,7 @@ export const FIND_ESSAYS_TO_GRADE_BY_ID_QUERY = gql`
           readingSections
         }
         hasOwner {
+          _id
           firstName
           lastName
           inCourses {

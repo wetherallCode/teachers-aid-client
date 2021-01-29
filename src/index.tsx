@@ -25,7 +25,17 @@ const prodLink = new HttpLink({
 })
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Essay: {
+        fields: {
+          hasOwner: { merge: true },
+          readings: { merge: true },
+          finalDraft: { merge: true },
+        },
+      },
+    },
+  }),
   link: prodLink,
   // link: devLink,
   connectToDevTools: true,

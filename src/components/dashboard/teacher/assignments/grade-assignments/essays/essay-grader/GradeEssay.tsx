@@ -145,6 +145,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   const navigate = useNavigate()
   const [state, event] = useGradeEssayContextProvider()
   const [loadingDraft, setloadingDraft] = useState(false)
+
   const { loading, data } = useQuery<
     findEssayToGradeById,
     findEssayToGradeByIdVariables
@@ -152,6 +153,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
     variables: {
       input: { _id: essayId },
     },
+    // fetchPolicy: 'network-only',
     onCompleted: (data) => {
       const lastSubmittedDraft =
         data.findEssayById.essay.finalDraft?.submittedFinalDraft[
@@ -172,6 +174,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
           },
         },
       })
+
       if (
         data.findEssayById.essay.finalDraft?.submittedFinalDraft[
           data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
@@ -196,6 +199,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
       }
 
       event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
+
       if (
         data.findEssayById.essay.finalDraft?.submittedFinalDraft.length! > 1
       ) {
@@ -233,9 +237,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   })
 
   if (loading) return <div>Loading </div>
-
-  console.log(state.context.editColor)
-
+  // console.log(data?.findEssayById.essay)
   return (
     <EssayGraderContainer>
       {loadingDraft && (
@@ -246,6 +248,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
             >
               &larr; Back
             </GoBackButton>
+
             <DraftSelector essay={data?.findEssayById.essay!} />
 
             {data?.findEssayById.essay.finalDraft?.submittedFinalDraft[
