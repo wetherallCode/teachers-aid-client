@@ -153,7 +153,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
     variables: {
       input: { _id: essayId },
     },
-    // fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only',
     onCompleted: (data) => {
       const lastSubmittedDraft =
         data.findEssayById.essay.finalDraft?.submittedFinalDraft[
