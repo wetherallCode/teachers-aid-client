@@ -5,6 +5,7 @@ import {
 } from '../../../../../../schemaTypes'
 import { gql, useQuery } from '@apollo/client'
 import { useNavigate } from 'react-router-dom'
+import { PaperBasedContainer } from '../state-n-styles/GradeEssayContainerStyles'
 
 export type FindAssignmentByStudentProps = {
   courseId: string
@@ -66,24 +67,39 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
 
   const [student] = data?.findStudentsByCourse.students!.filter(
     (student) => student._id === studentId
+  )!
+  console.log(
+    student &&
+      student.hasAssignments.filter(
+        (assignment) => assignment.__typename === 'Essay'
+      ).length
   )
-
+  console.log(
+    student &&
+      student.hasAssignments.filter(
+        (assignment) =>
+          assignment.__typename === 'Essay' && !assignment.finalDraft?.submitted
+      ).length
+  )
   return (
-    <>
-      <select
-        onChange={(e: any) => {
-          if (e.target.value !== 'none') {
-            setStudentId(e.target.value)
-          }
-        }}
-      >
-        <option value={'none'}>Pick a Student</option>
-        {data?.findStudentsByCourse.students.map((student) => (
-          <option key={student._id!} value={student._id!}>
-            {student.lastName}, {student.firstName}
-          </option>
-        ))}
-      </select>
+    <PaperBasedContainer>
+      <div>
+        <div>SelectStudent</div>
+        <select
+          onChange={(e: any) => {
+            if (e.target.value !== 'none') {
+              setStudentId(e.target.value)
+            }
+          }}
+        >
+          <option value={'none'}>Pick a Student</option>
+          {data?.findStudentsByCourse.students.map((student) => (
+            <option key={student._id!} value={student._id!}>
+              {student.lastName}, {student.firstName}
+            </option>
+          ))}
+        </select>
+      </div>
       {student && (
         <>
           <div>
@@ -141,6 +157,6 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
           </div>
         </>
       )}
-    </>
+    </PaperBasedContainer>
   )
 }

@@ -7,8 +7,10 @@ import {
   CourseSelect,
   CourseSelectContainer,
   EssaysToGradeContainer,
+  PaperBasedToggleContainer,
 } from './state-n-styles/GradeEssayContainerStyles'
-import { useGradeEssayContainerContextProvider } from './state-n-styles/GradeEssayContainerContext'
+import { useToggle } from '../../../../../hooks'
+import { sortByLetter } from '../../../../../utils'
 
 export type AssignmentsToGradeProps = {}
 
@@ -16,38 +18,46 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
   const [courseId, setCourseId] = useState('')
   const me: me_me_Teacher = useUserContextProvider()
   const { teachesCourses } = me
+  const [paperBasedToggle, togglePaperBased] = useToggle(false)
 
   return (
     <EssaysToGradeContainer>
       <CourseSelectContainer>
         <CourseSelect>
           <div>Select Course</div>
-          {teachesCourses.slice(1).map((course) => (
-            <span
-              key={course._id}
-              onClick={() => setCourseId(course._id!)}
-              style={
-                course._id === courseId
-                  ? { textDecoration: 'underline' }
-                  : { textDecoration: 'none' }
-              }
-            >
-              {course.name}
-            </span>
-          ))}
+          {teachesCourses
+            .slice(1)
+            .sort(sortByLetter)
+            .map((course) => (
+              <span
+                key={course._id}
+                onClick={() => setCourseId(course._id!)}
+                style={
+                  course._id === courseId
+                    ? { textDecoration: 'underline' }
+                    : { textDecoration: 'none' }
+                }
+              >
+                {course.name}
+              </span>
+            ))}
         </CourseSelect>
+        <div>
+          {courseId && (
+            <PaperBasedToggleContainer>
+              {!paperBasedToggle ? (
+                <div onClick={() => togglePaperBased()}>Paper Based</div>
+              ) : (
+                <div onClick={() => togglePaperBased()}>Submitted </div>
+              )}
+            </PaperBasedToggleContainer>
+          )}
+        </div>
       </CourseSelectContainer>
-      <div>
-        {courseId && (
-          <>
-            <EssaysToGrade courseId={courseId} />
-            <>
-              <div>PaperBased Assignments</div>
-              {courseId && <FindAssignmentByStudent courseId={courseId} />}
-            </>
-          </>
-        )}
-      </div>
+      {courseId && !paperBasedToggle && <EssaysToGrade courseId={courseId} />}
+      {courseId && paperBasedToggle && (
+        <FindAssignmentByStudent courseId={courseId} />
+      )}
     </EssaysToGradeContainer>
   )
 }

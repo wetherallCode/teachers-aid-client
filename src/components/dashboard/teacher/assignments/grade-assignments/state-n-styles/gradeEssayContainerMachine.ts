@@ -1,4 +1,5 @@
 import { Machine, assign } from 'xstate'
+import { findStudentsByCourse_findStudentsByCourse_students } from '../../../../../../schemaTypes'
 
 export type gradeEssayContainerMachineSchema = {
   states: {
@@ -20,9 +21,18 @@ export type gradeEssayContainerMachineEvent =
   | { type: 'ONTIME' }
   | { type: 'LATE' }
   | { type: 'RESUBMITTED' }
+  | { type: 'SET_STUDENT_ID'; payload: string }
+  | { type: 'SET_ORDER_BY'; payload: 'LAST_NAME' | 'DATE' }
+  | {
+      type: 'SET_PAPER_BASED_STUDENT'
+      payload: findStudentsByCourse_findStudentsByCourse_students
+    }
 
 export type gradeEssayContainerMachineContext = {
   courseId: string
+  paperBasedStudentId: string | null
+  paperBasedStudent: findStudentsByCourse_findStudentsByCourse_students | null
+  orderBy: 'LAST_NAME' | 'DATE'
 }
 
 export const gradeEssayContainerMachine = Machine<
@@ -34,6 +44,9 @@ export const gradeEssayContainerMachine = Machine<
   initial: 'gradeEssayContainer',
   context: {
     courseId: '',
+    paperBasedStudentId: null,
+    paperBasedStudent: null,
+    orderBy: 'DATE',
   },
   type: 'parallel',
   states: {
@@ -44,6 +57,30 @@ export const gradeEssayContainerMachine = Machine<
             return {
               ...ctx,
               courseId: evt.payload,
+            }
+          }),
+        },
+        SET_STUDENT_ID: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              paperBasedStudentId: evt.payload,
+            }
+          }),
+        },
+        SET_PAPER_BASED_STUDENT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              paperBasedStudent: evt.payload,
+            }
+          }),
+        },
+        SET_ORDER_BY: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              orderBy: evt.payload,
             }
           }),
         },

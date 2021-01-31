@@ -11,8 +11,27 @@ import { useQuery, gql } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import { useMarkingPeriodContextProvider } from '../../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useEnumContextProvider } from '../../../../../../../contexts/EnumContext'
-import { TitleContainer } from '../../state-n-styles/GradeEssayContainerStyles'
+import {
+  CourseEssaysToGradeContainer,
+  EssayList,
+  EssayListContainer,
+  EssayListItem,
+  EssaySelect,
+  EssayStatusSelect,
+  EssayStatusSelector,
+  EssayTitle,
+  MarkingPeriodSelector,
+  OrderSwitchContainer,
+} from '../../state-n-styles/GradeEssayContainerStyles'
 import { useGradeEssayContainerContextProvider } from '../../state-n-styles/GradeEssayContainerContext'
+import { useToggle } from '../../../../../../../hooks'
+import {
+  CurrentMarkingPeriodContainer,
+  MarkingPeriodSelectorBack,
+  MarkingPeriodSelectorContainer,
+  MarkingPeriodSelectorForward,
+} from '../../../article-reviews/state-styles/articleReviewStyles'
+import { sortByLetter } from '../../../../../../../utils'
 
 export type EssaysToGradeProps = {
   courseId: string
@@ -51,15 +70,18 @@ export const FIND_ESSAYS_TO_GRADE_BY_ID_QUERY = gql`
 `
 
 export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
-  const [, event] = useGradeEssayContainerContextProvider()
+  const [state, event] = useGradeEssayContainerContextProvider()
+  const [orderBy, switchOrder] = useToggle(false)
   const [essayList, setEssayList] = useState<
     findEssaysToGradeById_findEssaysToGradeById_essays[]
   >([])
   const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
+
   const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
     markingPeriodState.context.currentMarkingPeriod
   )
+
   const [resubmittedEssayList, setResubmittedEssayList] = useState<
     findEssaysToGradeById_findEssaysToGradeById_essays[]
   >([])
@@ -73,7 +95,9 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
     variables: {
       input: { teacherId: me._id! },
     },
-    onCompleted: (data) => {},
+    onCompleted: (data) => {
+      console.log(data)
+    },
     pollInterval: 10000,
     onError: (error) => console.error(error),
   })
@@ -97,12 +121,24 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
 
   if (loading) return <div>Loading </div>
 
+  const sortingFn = () => {
+    if (state.context.orderBy === 'LAST_NAME') {
+      return sortByLetter
+    }
+  }
+
   const essaysSubmittedOnTime =
     essayList !== undefined &&
     essayList.filter(
       (essay) =>
         essay.late === false && essay.markingPeriod === markingPeriodToGrade
     )
+  const onTimeEssaysToGrade =
+    essayList !== undefined &&
+    essayList.some(
+      (essay) => !essay.late && essay.markingPeriod === markingPeriodToGrade
+    )
+
   const lateEssays =
     essayList !== undefined &&
     essayList.filter(
@@ -110,52 +146,123 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
         essay.late === true && essay.markingPeriod === markingPeriodToGrade
     )
 
+  const lateEssaysToGrade =
+    essayList !== undefined &&
+    essayList.some(
+      (essay) => essay.late && essay.markingPeriod === markingPeriodToGrade
+    )
+
+  const index = markingPeriodEnum.findIndex(
+    (c: MarkingPeriodEnum) => c === markingPeriodToGrade
+  )
+
   return (
-    <>
-      <TitleContainer>
+    <CourseEssaysToGradeContainer>
+      <EssayTitle>
         <div>Essays To Grade</div>
-      </TitleContainer>
-      <select
-        value={markingPeriodToGrade}
-        onChange={(e: any) => setMarkingPeriodToGrade(e.target.value)}
-      >
-        {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
-          <option key={mp} value={mp}>
-            {mp}
-          </option>
-        ))}
-      </select>
-      <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
-        {essaysSubmittedOnTime &&
-          essaysSubmittedOnTime.map((essay) => (
-            <Link to={essay._id!} key={essay._id!}>
-              {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-              {essay.readings.readingSections}
-            </Link>
-          ))}
-      </div>
-      <div>Late Essays</div>
-      <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
-        {lateEssays &&
-          lateEssays.map((essay) => (
-            <Link to={essay._id!} key={essay._id!}>
-              {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-              {essay.readings.readingSections}
-            </Link>
-          ))}
-      </div>
-      <div>Resubmissions</div>
-      <div style={{ display: 'grid', gridAutoFlow: 'row', gridRowGap: '10px' }}>
-        {resubmittedEssayList !== undefined &&
-          resubmittedEssayList
-            .filter((essay) => essay.markingPeriod === markingPeriodToGrade)
-            .map((essay) => (
-              <Link to={essay._id!} key={essay._id!}>
-                {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-                {essay.readings.readingSections}
-              </Link>
-            ))}
-      </div>
-    </>
+      </EssayTitle>
+      <MarkingPeriodSelector>
+        <MarkingPeriodSelectorContainer>
+          {index > 0 && (
+            <MarkingPeriodSelectorBack
+              onClick={() => {
+                setMarkingPeriodToGrade(markingPeriodEnum[index - 1])
+              }}
+            >
+              &lt;
+            </MarkingPeriodSelectorBack>
+          )}
+          <CurrentMarkingPeriodContainer>
+            <div>{markingPeriodToGrade}</div>
+          </CurrentMarkingPeriodContainer>
+          {index < 3 && (
+            <MarkingPeriodSelectorForward
+              onClick={() =>
+                setMarkingPeriodToGrade(markingPeriodEnum[index + 1])
+              }
+            >
+              &gt;
+            </MarkingPeriodSelectorForward>
+          )}
+        </MarkingPeriodSelectorContainer>
+      </MarkingPeriodSelector>
+      <EssayStatusSelector>
+        <EssayStatusSelect
+          toGradeIndicator={onTimeEssaysToGrade}
+          onClick={() => event({ type: 'ONTIME' })}
+        >
+          Current
+        </EssayStatusSelect>
+        <EssayStatusSelect
+          toGradeIndicator={lateEssaysToGrade}
+          onClick={() => event({ type: 'LATE' })}
+        >
+          Late
+        </EssayStatusSelect>
+        <EssayStatusSelect
+          toGradeIndicator={
+            resubmittedEssayList && resubmittedEssayList.length > 0
+          }
+          onClick={() => event({ type: 'RESUBMITTED' })}
+        >
+          Resubmitted
+        </EssayStatusSelect>
+      </EssayStatusSelector>
+      <EssayListContainer>
+        {state.matches('essayTypes.onTime') && (
+          <EssayList>
+            {essaysSubmittedOnTime &&
+              essaysSubmittedOnTime.map((essay) => (
+                <EssayListItem key={essay._id!}>
+                  <EssaySelect to={essay._id!} key={essay._id!}>
+                    {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
+                    {essay.readings.readingSections}
+                  </EssaySelect>
+                </EssayListItem>
+              ))}
+          </EssayList>
+        )}
+
+        {state.matches('essayTypes.late') && (
+          <EssayList>
+            {lateEssays &&
+              lateEssays.map((essay) => (
+                <EssayListItem key={essay._id!}>
+                  <EssaySelect to={essay._id!} key={essay._id!}>
+                    {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
+                    {essay.readings.readingSections}
+                  </EssaySelect>
+                </EssayListItem>
+              ))}
+          </EssayList>
+        )}
+
+        {state.matches('essayTypes.resubmitted') && (
+          <EssayList>
+            {resubmittedEssayList !== undefined &&
+              resubmittedEssayList
+                .filter((essay) => essay.markingPeriod === markingPeriodToGrade)
+                .map((essay) => (
+                  <EssayListItem key={essay._id!}>
+                    <EssaySelect to={essay._id!} key={essay._id!}>
+                      {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
+                      {essay.readings.readingSections}
+                    </EssaySelect>
+                  </EssayListItem>
+                ))}
+          </EssayList>
+        )}
+      </EssayListContainer>
+      <OrderSwitchContainer>
+        <div
+          onClick={() => event({ type: 'SET_ORDER_BY', payload: 'LAST_NAME' })}
+        >
+          Order By Student
+        </div>
+        <div onClick={() => event({ type: 'SET_ORDER_BY', payload: 'DATE' })}>
+          Order By Date
+        </div>
+      </OrderSwitchContainer>
+    </CourseEssaysToGradeContainer>
   )
 }
