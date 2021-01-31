@@ -3,6 +3,7 @@ import {
   AcademicOutcomeTypes,
   ProtocolActivityTypes,
   RubricEntryInput,
+  MarkingPeriodEnum,
 } from './schemaTypes'
 
 export const capitalizer = (word: string) => {
@@ -18,9 +19,16 @@ export const sortByRubricEntryScore = (
   } else return -1
 }
 
+export const markingPeriodFormatter = (markingPeriod: MarkingPeriodEnum) =>
+		markingPeriod === MarkingPeriodEnum.FIRST
+			? 'First'
+			: markingPeriod === MarkingPeriodEnum.SECOND
+			? 'Second'
+			: markingPeriod === MarkingPeriodEnum.THIRD
+			? 'Third'
+			: 'Fourth'
+
 export const dateConverter = (date: string) => {
-  console.log(date)
-  //  '2020-10-03'
   if (date.charAt(5) === '0' && date.charAt(8) === '0') {
     return (
       date.substring(6, 7) +
