@@ -25,11 +25,11 @@ export const CourseSelect = styled.div`
   align-items: center;
 `
 
-// export const CourseToSelect = styled.span`
-//   $hover:
-//     color: var(--grey);
-
-// `
+export const CourseToSelect = styled.span`
+  &:hover {
+    color: var(--grey);
+  }
+`
 
 export const CourseEssaysToGradeContainer = styled.div`
   display: grid;
@@ -42,7 +42,7 @@ export const EssayTitle = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  font-size: 3vh;
+  font-size: 4vh;
 `
 export const MarkingPeriodSelector = styled.div`
   display: grid;
