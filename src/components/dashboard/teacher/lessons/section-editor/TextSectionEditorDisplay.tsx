@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   FindTextSectionById,
@@ -86,34 +86,27 @@ export const TextSectionEditorDisplay = () => {
 
   const [state, event] = useSectionEditorContextProvider()
 
-  const [updateTextSection] = useMutation<
-    updateTextSection,
-    updateTextSectionVariables
-  >(TEXT_SECTION_UPDATER_MUTATION, {
-    variables: {
-      input: {
-        _id: state.context.sectionId,
-        header: state.context.header,
-        pageNumbers: {
-          startingPage: state.context.pageNumbers.startingPage,
-          endingPage: state.context.pageNumbers.endingPage,
-        },
-        fromChapterId: state.context.fromChapterId,
-        hasQuestions: state.context.hasQuestions,
-        hasProtocols: state.context.hasProtocols,
-        hasVocab: state.context.hasVocab,
-      },
-    },
-    refetchQueries: ['FindTextSectionById'],
+  console.log({
+    // _id: state.context.sectionId,
+    // header: state.context.header,
+    // pageNumbers: {
+    //   startingPage: state.context.pageNumbers.startingPage,
+    //   endingPage: state.context.pageNumbers.endingPage,
+    // },
+    // fromChapterId: state.context.fromChapterId,
+    // hasQuestions: state.context.hasQuestions,
+    // hasProtocols: state.context.hasProtocols,
+    // hasVocab: state.context.hasVocab,
   })
 
-  const { loading, error, data } = useQuery<
+  const { loading, data } = useQuery<
     FindTextSectionById,
     FindTextSectionByIdVariables
   >(FIND_TEXT_SECTION_BY_ID_QUERY, {
     variables: {
       input: { _id: state.context.sectionId },
     },
+    onError: (error) => console.error(error),
     onCompleted: (data) => {
       event({
         type: 'SET_HEADER',
@@ -158,8 +151,35 @@ export const TextSectionEditorDisplay = () => {
         })
     },
   })
+
+  const [updateTextSection, { data: updateData }] = useMutation<
+    updateTextSection,
+    updateTextSectionVariables
+  >(TEXT_SECTION_UPDATER_MUTATION, {
+    variables: {
+      input: {
+        _id: state.context.sectionId,
+        header: state.context.header,
+        pageNumbers: {
+          startingPage: state.context.pageNumbers.startingPage,
+          endingPage: state.context.pageNumbers.endingPage,
+        },
+        fromChapterId: state.context.fromChapterId,
+        hasQuestions: state.context.hasQuestions,
+        hasProtocols: state.context.hasProtocols,
+        hasVocab: state.context.hasVocab,
+      },
+    },
+    onCompleted: (updateData) => console.log(updateData),
+    refetchQueries: ['FindTextSectionById'],
+  })
+
+  useEffect(() => {
+    console.log(state.context.hasProtocols)
+    // updateTextSection()
+  }, [state.context.hasProtocols])
+
   if (loading) return <div>Loading </div>
-  if (error) console.error(error)
 
   return (
     <div>

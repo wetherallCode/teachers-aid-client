@@ -43,15 +43,16 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
   } = useEnumContextProvider()
 
   useEffect(() => {
+    // console.log(state.context.hasProtocols)
     updateTextSection()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.context.hasProtocols])
+  }, [state.context.hasProtocols, updateTextSection])
 
   const newList = [
     ...state.context.hasProtocols.slice(0, currentIndexForItem + 1),
     protocolItem,
     ...state.context.hasProtocols.slice(currentIndexForItem + 1),
   ]
+  console.log(newList)
   return (
     <>
       <form>
@@ -75,7 +76,7 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
           onChange={(e: any) =>
             setProtocolItem({
               ...protocolItem,
-              academicOutcomeTypes: e.target.value,
+              activityType: e.target.value,
             })
           }
         >
@@ -105,7 +106,7 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
             toggleProtocolItemInputs(false)
           }}
         >
-          Add Word
+          Add Protocol
         </button>
       </form>
     </>
