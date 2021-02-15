@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { FIND_UNITS_QUERY } from '../../../lessons/lesson-planner/UnitAssigner'
 import { findUnits } from '../../../../../../schemaTypes'
 import { useQuery } from '@apollo/client'
-import { useCreateAssignmentContextPovider } from '../CreateAssignmentContext'
+import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 
 export type EssayUnitSelectProps = {}
 

@@ -60,7 +60,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
   return (
     <>
       <AssignmentTypeTitle>
-        <div>Essays to complete</div>
+        <div>Essays to Complete</div>
       </AssignmentTypeTitle>
       {loading ? null : (
         <>

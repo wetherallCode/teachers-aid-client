@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Routes, Route } from 'react-router'
 import { CreateAssignment } from './create-assignments/CreateAssignment'
-import { CreateAssignmentContextProvider } from './create-assignments/CreateAssignmentContext'
+import { CreateAssignmentContextProvider } from './create-assignments/state-and-styles/CreateAssignmentContext'
 import { EditAssignments } from './edit-assignments/EditAssignments'
 
 import { AssignmentsToGrade } from './grade-assignments/AssignmentsToGrade'

@@ -34,6 +34,11 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
   const [sectionSelector, setSectionSelector] = useState(0)
   const [rubricList, handleChange] = useCheckBox([])
   const rubricEntriesList: ReturnedRubricEntryInput[] = []
+
+  const modifiedRubricSections = rubricSectionEnum
+    .slice(2)
+    .concat(rubricSectionEnum.slice(0, 2))
+
   rubricList.forEach((entry: string) => {
     const splitValues = entry.split(',')
 

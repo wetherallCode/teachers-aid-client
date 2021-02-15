@@ -4,9 +4,11 @@ import {
   findLessonsByUnit,
   findLessonsByUnitVariables,
 } from '../../../../../../schemaTypes'
-import { useCreateAssignmentContextPovider } from '../CreateAssignmentContext'
+import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 
-export type EssayLessonSelectProps = {}
+export type EssayLessonSelectProps = {
+  courseId: string
+}
 
 export const FIND_LESSONS_BY_UNIT_QUERY = gql`
   query findLessonsByUnit($input: FindLessonsByUnitInput!) {
@@ -19,7 +21,7 @@ export const FIND_LESSONS_BY_UNIT_QUERY = gql`
   }
 `
 
-export const EssayLessonSelect: FC<EssayLessonSelectProps> = () => {
+export const EssayLessonSelect: FC<EssayLessonSelectProps> = ({ courseId }) => {
   const [state, event] = useCreateAssignmentContextPovider()
 
   const { loading, data } = useQuery<
@@ -29,10 +31,10 @@ export const EssayLessonSelect: FC<EssayLessonSelectProps> = () => {
     variables: {
       input: {
         unitId: state.context.essay.unit,
-        courseId: state.context.courseId,
+        courseId,
       },
     },
-    onCompleted: (data) => console.log(data),
+    onCompleted: (data) => {},
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

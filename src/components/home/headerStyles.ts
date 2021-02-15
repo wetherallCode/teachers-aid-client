@@ -26,6 +26,7 @@ export const StyledLink = styled(Link)`
 
 export const HomeLink = styled(StyledLink)`
   padding-left: 2%;
+  color: var(--white);
 `
 export const DashboardLink = styled(StyledLink)`
   padding-right: 2%;
@@ -59,4 +60,5 @@ export const UserNameHeader = styled.div<LoginToggleProps>`
     font-size: 1rem;
   }
   margin-right: 2%;
+  color: var(--white);
 `

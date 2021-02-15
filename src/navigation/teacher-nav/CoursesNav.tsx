@@ -74,6 +74,11 @@ export const CoursesNav: FC<TeacherNavProps> = ({
               </Link>
             </motion.li>
             <motion.li variants={liVariants}>
+              <Link to={`dashboard/courses/${navState.context.course}/tasks`}>
+                Tasks
+              </Link>
+            </motion.li>
+            <motion.li variants={liVariants}>
               <Link to={`dashboard/courses/${navState.context.course}/roster`}>
                 Roster
               </Link>

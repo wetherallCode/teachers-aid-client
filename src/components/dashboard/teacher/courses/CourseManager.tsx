@@ -9,6 +9,8 @@ import { EditCourseContextProvider } from './edit-course/state/EditCourseContext
 import { EditCourse } from './edit-course/EditCourse'
 import { AssignmentManager } from './course-assignments/AssignmentManager'
 import { AssignmentManagerContextProvider } from './course-assignments/state-styles/AssignmentManagerContext'
+import { TemporaryTasks } from './temporary-tasks/TemporaryTasks'
+import { TemporaryTasksContextProvider } from './temporary-tasks/state-n-styles/TemporaryTasksContext'
 
 export type CourseManagerProps = {}
 
@@ -35,9 +37,17 @@ export const CourseManager: FC<CourseManagerProps> = () => {
             </AssignmentManagerContextProvider>
           }
         />
+        <Route
+          path='tasks/*'
+          element={
+            <TemporaryTasksContextProvider>
+              <TemporaryTasks />
+            </TemporaryTasksContextProvider>
+          }
+        />
+        <Route path='roster/*' element={<RosterDashboard />} />
         <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
 
-        <Route path='roster/*' element={<RosterDashboard />} />
         <Route
           path='edit-course'
           element={

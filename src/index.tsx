@@ -34,10 +34,17 @@ const client = new ApolloClient({
           finalDraft: { merge: true },
         },
       },
+      TextSectionProtocols: {
+        fields: {
+          activityType: { merge: true },
+          academicOutcomeTypes: { merge: true },
+          task: { merge: true },
+        },
+      },
     },
   }),
-  link: prodLink,
-  // link: devLink,
+  // link: prodLink,
+  link: devLink,
   connectToDevTools: true,
 })
 
