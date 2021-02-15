@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { useParams } from 'react-router'
 import { CreateTask } from './CreateTask'
+import { ReviewTasks } from './review-tasks/ReviewTasks'
 import { useTemporaryTasksContextProvider } from './state-n-styles/TemporaryTasksContext'
 import {
   MenuItems,
@@ -36,8 +37,8 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
             dateIssued={new Date().toLocaleDateString()}
           />
         )}
-        {state.matches('review') && <div>Review Task</div>}
       </>
+      {state.matches('review') && <ReviewTasks courseId={course} />}
     </TemporaryTasksContainer>
   )
 }

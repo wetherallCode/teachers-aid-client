@@ -40,8 +40,7 @@ export const CREATE_TEMPORARY_TASKS_MUTATION = gql`
 
 export const CreateTask: FC<CreateTaskProps> = ({ courseId, warmUp }) => {
   const [state, event] = useTemporaryTasksContextProvider()
-  console.log('taskNumber: ' + state.context.taskNumber)
-  console.log('taskToGradeNumber: ' + state.context.taskNumber)
+
   const [createTask] = useMutation<
     createTemporaryTasks,
     createTemporaryTasksVariables

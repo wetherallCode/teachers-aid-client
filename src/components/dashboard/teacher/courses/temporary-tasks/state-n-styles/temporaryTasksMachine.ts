@@ -15,10 +15,12 @@ export type temporaryTasksMachineEvent =
   | { type: 'REVIEW' }
   | { type: 'SET_TASK_NUMBER'; payload: number }
   | { type: 'SET_TASK_TO_GRADE_NUMBER'; payload: number }
+  | { type: 'SET_DATE_TO_REVIEW'; payload: string }
 
 export type temporaryTasksMachineContext = {
   taskNumber: number
   taskToGradeNumber: number
+  dateToReview: string
 }
 
 export const temporaryTasksMachine = Machine<
@@ -28,7 +30,7 @@ export const temporaryTasksMachine = Machine<
 >({
   id: 'temporaryTasks',
   initial: 'idle',
-  context: { taskNumber: 0, taskToGradeNumber: 0 },
+  context: { taskNumber: 0, taskToGradeNumber: 0, dateToReview: '' },
   states: {
     idle: {
       on: {
@@ -62,6 +64,14 @@ export const temporaryTasksMachine = Machine<
       on: {
         IDLE: 'idle',
         CREATE: 'create',
+        SET_DATE_TO_REVIEW: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              dateToReview: evt.payload,
+            }
+          }),
+        },
       },
     },
   },

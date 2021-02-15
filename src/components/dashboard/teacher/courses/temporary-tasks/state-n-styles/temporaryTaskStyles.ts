@@ -111,3 +111,8 @@ export const CreateTaskButton = styled.button`
   font-size: 3vh;
   box-shadow: 2px 2px 2px gray;
 `
+export const ReviewTasksContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+`
+export const TasksToSelectContainer = styled.div``

@@ -2920,6 +2920,45 @@ export interface createTemporaryTasksVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findTemporaryTasksToReview
+// ====================================================
+
+export interface findTemporaryTasksToReview_findTemporaryTasks_temporaryTasks_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findTemporaryTasksToReview_findTemporaryTasks_temporaryTasks {
+  __typename: "TemporaryTask";
+  _id: string | null;
+  dateIssued: string;
+  student: findTemporaryTasksToReview_findTemporaryTasks_temporaryTasks_student;
+  studentPresent: boolean;
+  taskNumber: number;
+  answered: boolean;
+}
+
+export interface findTemporaryTasksToReview_findTemporaryTasks {
+  __typename: "FindTemporaryTasksPayload";
+  temporaryTasks: findTemporaryTasksToReview_findTemporaryTasks_temporaryTasks[];
+}
+
+export interface findTemporaryTasksToReview {
+  findTemporaryTasks: findTemporaryTasksToReview_findTemporaryTasks;
+}
+
+export interface findTemporaryTasksToReviewVariables {
+  input: FindTemporaryTasksInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findTemporaryTasks
 // ====================================================
 
