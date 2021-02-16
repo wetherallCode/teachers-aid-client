@@ -24,7 +24,7 @@ export type ControlPanelDisplayProps = {}
 
 export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
   const [state, event] = useTeachersAidContextProvider()
-
+  // console.log(state.value)
   const { loading, data } = useQuery<
     findLessonByCourseAndDate,
     findLessonByCourseAndDateVariables
@@ -41,9 +41,15 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
           type: 'LOAD_PROTOCOLS',
           payload: data.findLessonByCourseAndDate.lesson.duringActivities,
         })
+      data.findLessonByCourseAndDate.lesson &&
+        event({
+          type: 'SET_LESSON_ID',
+          payload: data.findLessonByCourseAndDate.lesson._id!,
+        })
     },
     onError: (error) => console.error(error),
   })
+
   if (loading)
     return (
       <CenteredDiv>
