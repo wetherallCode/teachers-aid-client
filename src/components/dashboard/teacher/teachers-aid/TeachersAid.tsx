@@ -7,10 +7,7 @@ import {
   StudentNameContainer,
   StudentControlPanel,
 } from './styles/studentInfoStyles'
-import {
-  ClassControlPanelContainer,
-  PanelDisplay,
-} from './styles/classControlPanelStyles'
+import { ClassControlPanelContainer } from './styles/classControlPanelStyles'
 import {
   SeatingChartContainer,
   StartingDisplay,
@@ -95,11 +92,9 @@ export const TeachersAid: FC<TeachersAidProps> = () => {
           )}
         </StudentInfoContainer>
         <ClassControlPanelContainer>
-          <PanelDisplay>
-            <RandomStudentGenerator />
-            <ClassControlPanel />
-            <TimerPresets />
-          </PanelDisplay>
+          <RandomStudentGenerator />
+          <ClassControlPanel />
+          <TimerPresets />
         </ClassControlPanelContainer>
       </TeachersAidContainer>
     </>

@@ -2,19 +2,15 @@ import styled from 'styled-components'
 import { DynamicLessonButtonProps } from '../class-control-panel/DynamicLesson/DynamicLessonManager'
 
 export const ClassControlPanelContainer = styled.div`
-  background-color: 'green';
   grid-area: CommandPanel;
   background-color: var(--blue);
   color: var(--white);
   border-top: 3px solid var(--white);
-  height: 100%;
-`
-
-export const PanelDisplay = styled.div`
+  height: 32vh;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  height: 100%;
 `
+
 export const CenterPanelDisplay = styled.div`
   display: grid;
   grid-template-rows: 1fr 7fr;
@@ -107,10 +103,10 @@ export const ProtocolSelectorTaskContainer = styled.div`
   justify-items: center;
   align-items: center;
   overflow: scroll;
-  height: 12vh;
+  height: 10vh;
 `
 export const ProtocolSelectorTask = styled.div`
-  font-size: 2vw;
+  font-size: 2vh;
 `
 
 export const ProtocolSelectorNextContainer = styled.div`
