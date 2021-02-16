@@ -6,6 +6,7 @@ import { useSchoolDayContextProvider } from '../../../school-day/state/SchoolDay
 import { Attendance } from './attendance/Attendance'
 import { StudentQuestionViewer } from './student-questions/StudentQuestionViewer'
 import { ProtocolResponseClassList } from './protocol-response-classlist/ProtocolResponseClassList'
+import { HomeworkAssigner } from './homework-assigner/HomeworkAssigner'
 
 export type MainScreenDisplayProps = {}
 
@@ -25,6 +26,7 @@ export const MainScreenDisplay: FC<MainScreenDisplayProps> = () => {
       {state.context.mainScreenVirtualQuestionViewer && (
         <StudentQuestionViewer />
       )}
+      {state.context.mainScreenHomeworkAssigner && <HomeworkAssigner />}
     </>
   )
 }
