@@ -5,11 +5,13 @@ import {
   assignEssayInTeachersAidVariables,
 } from '../../../../../../../schemaTypes'
 import { useTeachersAidContextProvider } from '../../../state/TeachersAidContext'
+import { AssignButton, ResponseStyle } from '../../../styles/mainScreenStyles'
 
 export type AssignEssaysForTeachersAidProps = {
   dueDate: string
   studentIds: string[]
   finished: boolean
+  loading: boolean
 }
 export const ASSIGN_ESSAYS_MUTATION = gql`
   mutation assignEssayInTeachersAid($input: AssignEssaysInput!) {
@@ -24,6 +26,7 @@ export const AssignEssaysForTeachersAid: FC<AssignEssaysForTeachersAidProps> = (
   studentIds,
   dueDate,
   finished,
+  loading,
 }) => {
   const [state] = useTeachersAidContextProvider()
 
@@ -45,19 +48,18 @@ export const AssignEssaysForTeachersAid: FC<AssignEssaysForTeachersAidProps> = (
 
   return (
     <>
-      {data || finished ? (
-        <div>Finished</div>
+      {loading ? (
+        <div>Loading</div>
       ) : (
-        <button
-          style={
-            !called
-              ? { backgroundColor: 'var(--blue)', color: 'var(--white)' }
-              : { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
-          }
-          onClick={() => assignEssays()}
-        >
-          Assign
-        </button>
+        <div>
+          {data || finished ? (
+            <ResponseStyle>Finished</ResponseStyle>
+          ) : (
+            <AssignButton called={called} onClick={() => assignEssays()}>
+              Assign
+            </AssignButton>
+          )}
+        </div>
       )}
     </>
   )
