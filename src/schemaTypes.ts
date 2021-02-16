@@ -4253,12 +4253,19 @@ export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssoci
   _id: string | null;
 }
 
+export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
 export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays {
   __typename: "Essay";
   _id: string | null;
   hasOwner: findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays_hasOwner;
   dueDate: string;
   assigned: boolean;
+  readings: findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays_readings;
 }
 
 export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId {
@@ -4315,6 +4322,12 @@ export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByC
   _id: string | null;
 }
 
+export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides {
   __typename: "ReadingGuide";
   _id: string | null;
@@ -4322,6 +4335,7 @@ export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByC
   assigned: boolean;
   dueDate: string;
   associatedLessonId: string | null;
+  readings: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readings;
 }
 
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate {
