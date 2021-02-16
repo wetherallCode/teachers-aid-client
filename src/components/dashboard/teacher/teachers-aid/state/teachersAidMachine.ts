@@ -37,6 +37,7 @@ export type teachersAidMachineEvent =
       type: 'SET_COURSE'
       payload: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
     }
+  | { type: 'SET_LESSON_ID'; payload: string }
   | { type: 'SET_STUDENT_ID'; payload: string }
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
@@ -62,10 +63,12 @@ export type teachersAidMachineEvent =
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' }
+  | { type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
   courseInfo: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
+  associatedLessonId: string
   studentId: string
   courseSelectVisible: boolean
   protocols: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[]
@@ -79,11 +82,13 @@ export type teachersAidMachineContext = {
   mainScreenVirtualAttendance: boolean
   mainScreenVirtualProtocolResponses: boolean
   mainScreenVirtualQuestionViewer: boolean
+  mainScreenHomeworkAssigner: boolean
   currentMainScreenView:
     | 'SEATING_CHART'
     | 'QUESTIONS'
     | 'PROTOCOL_RESPONSES'
     | 'VIRTUAL_ATTENDANCE'
+    | 'HOMEWORK'
 }
 
 export const teachersAidMachine = Machine<
@@ -97,6 +102,7 @@ export const teachersAidMachine = Machine<
   context: {
     // courseSelectCurrentId: '',
     courseSelectVisible: true,
+    associatedLessonId: '',
     courseInfo: {
       __typename: 'CourseInfo',
       _id: '',
@@ -146,6 +152,7 @@ export const teachersAidMachine = Machine<
     mainScreenVirtualAttendance: false,
     mainScreenVirtualProtocolResponses: false,
     mainScreenVirtualQuestionViewer: false,
+    mainScreenHomeworkAssigner: false,
     currentMainScreenView: 'SEATING_CHART',
   },
   states: {
@@ -165,6 +172,14 @@ export const teachersAidMachine = Machine<
             return {
               ...ctx,
               studentId: evt.payload,
+            }
+          }),
+        },
+        SET_LESSON_ID: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              associatedLessonId: evt.payload,
             }
           }),
         },
@@ -201,6 +216,14 @@ export const teachersAidMachine = Machine<
           on: {
             PREVIOUS: 'protocolManager',
             NEXT: 'dynamicLesson',
+            SET_LESSON_ID: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  associatedLessonId: evt.payload,
+                }
+              }),
+            },
             CHANGE_MAIN_SCREEN_SEATING_CHART: {
               actions: assign((ctx) => {
                 return {
@@ -209,6 +232,7 @@ export const teachersAidMachine = Machine<
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: false,
+                  mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'SEATING_CHART',
                 }
               }),
@@ -221,6 +245,7 @@ export const teachersAidMachine = Machine<
                   mainScreenVirtualAttendance: true,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: false,
+                  mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'VIRTUAL_ATTENDANCE',
                 }
               }),
@@ -233,6 +258,7 @@ export const teachersAidMachine = Machine<
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: true,
                   mainScreenVirtualQuestionViewer: false,
+                  mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'PROTOCOL_RESPONSES',
                 }
               }),
@@ -245,7 +271,21 @@ export const teachersAidMachine = Machine<
                   mainScreenVirtualAttendance: false,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: true,
+                  mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'QUESTIONS',
+                }
+              }),
+            },
+            CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER: {
+              actions: assign((ctx) => {
+                return {
+                  ...ctx,
+                  mainScreenSeatingChart: false,
+                  mainScreenVirtualAttendance: false,
+                  mainScreenVirtualProtocolResponses: false,
+                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenHomeworkAssigner: true,
+                  currentMainScreenView: 'HOMEWORK',
                 }
               }),
             },
@@ -355,7 +395,7 @@ export const teachersAidMachine = Machine<
                   studentProtocolAssessment: {
                     ...ctx.studentProtocolAssessment,
                     partnerIds: [
-                      ...ctx.studentProtocolAssessment.partnerIds,
+                      ...ctx.studentProtocolAssessment.partnerIds!,
                       evt.payload,
                     ],
                   },
@@ -372,10 +412,10 @@ export const teachersAidMachine = Machine<
                       ...ctx.studentProtocolAssessment.partnerIds?.slice(
                         0,
                         evt.payload
-                      ),
+                      )!,
                       ...ctx.studentProtocolAssessment.partnerIds?.slice(
                         evt.payload + 1
-                      ),
+                      )!,
                     ],
                   },
                 }
