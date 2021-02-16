@@ -4,11 +4,13 @@ import {
   findTemporaryTasksToReview,
   findTemporaryTasksToReviewVariables,
 } from '../../../../../../schemaTypes'
+import { dateConverter } from '../../../../../../utils'
 import { useTemporaryTasksContextProvider } from '../state-n-styles/TemporaryTasksContext'
 import {
   ReviewTasksContainer,
   TasksToSelectContainer,
 } from '../state-n-styles/temporaryTaskStyles'
+import { TaskList } from '../TaskList'
 
 export type ReviewTasksProps = {
   courseId: string
@@ -41,7 +43,10 @@ export const ReviewTasks: FC<ReviewTasksProps> = ({ courseId }) => {
     findTemporaryTasksToReviewVariables
   >(FIND_TEMPORARY_TASKS_TO_REVIEW_QUERY, {
     variables: {
-      input: { courseId, dateIssued: state.context.dateToReview },
+      input: {
+        courseId,
+        dateIssued: dateConverter(state.context.dateToReview),
+      },
     },
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
@@ -58,6 +63,7 @@ export const ReviewTasks: FC<ReviewTasksProps> = ({ courseId }) => {
           }
         />
       </TasksToSelectContainer>
+      <TaskList taskList={data?.findTemporaryTasks.temporaryTasks!} />
     </ReviewTasksContainer>
   )
 }
