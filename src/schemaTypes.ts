@@ -4218,6 +4218,131 @@ export interface controlWarmUpVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: assignEssayInTeachersAid
+// ====================================================
+
+export interface assignEssayInTeachersAid_assignEssays_essays {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface assignEssayInTeachersAid_assignEssays {
+  __typename: "AssignEssaysPayload";
+  essays: assignEssayInTeachersAid_assignEssays_essays[];
+}
+
+export interface assignEssayInTeachersAid {
+  assignEssays: assignEssayInTeachersAid_assignEssays;
+}
+
+export interface assignEssayInTeachersAidVariables {
+  input: AssignEssaysInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssaysByAssociatedLessonIdForTodaysClass
+// ====================================================
+
+export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays {
+  __typename: "Essay";
+  _id: string | null;
+  hasOwner: findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays_hasOwner;
+  dueDate: string;
+  assigned: boolean;
+}
+
+export interface findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId {
+  __typename: "FindEssaysByAssociatedLessonIdPayload";
+  essays: findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId_essays[];
+}
+
+export interface findEssaysByAssociatedLessonIdForTodaysClass {
+  findEssaysByAssociatedLessonId: findEssaysByAssociatedLessonIdForTodaysClass_findEssaysByAssociatedLessonId;
+}
+
+export interface findEssaysByAssociatedLessonIdForTodaysClassVariables {
+  input: FindEssaysByAssociatedLessonIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assignReadingGuidesForTeachersAid
+// ====================================================
+
+export interface assignReadingGuidesForTeachersAid_assignReadingGuides_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface assignReadingGuidesForTeachersAid_assignReadingGuides {
+  __typename: "AssignReadingGuidesPayload";
+  readingGuides: assignReadingGuidesForTeachersAid_assignReadingGuides_readingGuides[];
+}
+
+export interface assignReadingGuidesForTeachersAid {
+  assignReadingGuides: assignReadingGuidesForTeachersAid_assignReadingGuides;
+}
+
+export interface assignReadingGuidesForTeachersAidVariables {
+  input: AssignReadingGuidesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findReadingGuidesByCourseIdAndAssignedDate
+// ====================================================
+
+export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+}
+
+export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  hasOwner: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_hasOwner;
+  assigned: boolean;
+  dueDate: string;
+  associatedLessonId: string | null;
+}
+
+export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate {
+  __typename: "FindReadingGuidesByCourseIdAndAssignedDatePayload";
+  readingGuides: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides[];
+}
+
+export interface findReadingGuidesByCourseIdAndAssignedDate {
+  findReadingGuidesByCourseIdAndAssignedDate: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate;
+}
+
+export interface findReadingGuidesByCourseIdAndAssignedDateVariables {
+  input: FindReadingGuidesByCourseIdAndAssignedDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findActiveProtocolsByCourse
 // ====================================================
 
@@ -5657,6 +5782,11 @@ export interface FindReadingGuideByIdInput {
 export interface FindReadingGuidesByAssociatedLessonAndCourseIdInput {
   courseId: string;
   lessonId: string;
+}
+
+export interface FindReadingGuidesByCourseIdAndAssignedDateInput {
+  assignedDate?: string | null;
+  courseId: string;
 }
 
 export interface FindReadingGuidesToCompleteByStudentIdInput {
