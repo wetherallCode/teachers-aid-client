@@ -25,6 +25,11 @@ export const MainScreenManager: FC<MainScreenManagerProps> = () => {
       >
         Questions
       </MainScreenControlButton>
+      <MainScreenControlButton
+        onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' })}
+      >
+        Homework
+      </MainScreenControlButton>
     </>
   )
 }
