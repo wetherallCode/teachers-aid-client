@@ -5,6 +5,10 @@ import {
   findReadingGuidesByCourseIdAndAssignedDateVariables,
 } from '../../../../../../../schemaTypes'
 import { useTeachersAidContextProvider } from '../../../state/TeachersAidContext'
+import {
+  AssignmentBlockContainer,
+  TextStyle,
+} from '../../../styles/mainScreenStyles'
 import { AssignReadingGuideForTeachersAid } from './AssignReadingGuideForTeachersAid'
 
 export type LoadReadingGuidesProps = {}
@@ -22,6 +26,10 @@ export const FIND_READING_GUIDES_BY_COURSE_ID_AND_ASSIGNED_DATE_QUERY = gql`
         assigned
         dueDate
         associatedLessonId
+        readings {
+          readingPages
+          readingSections
+        }
       }
     }
   }
@@ -55,16 +63,38 @@ export const LoadReadingGuides: FC<LoadReadingGuidesProps> = () => {
   const finished = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides
     .map((rg) => rg.assigned === true)
     .includes(true)!
-
+  const assignmentTitle = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
+    (rg) => rg.readings
+  )!
   return (
-    <>
-      <div>Assign Todays Reading Guide</div>
-      <AssignReadingGuideForTeachersAid
-        studentIds={studentIds}
-        dueDate={dueDate! && dueDate![0]}
-        lessonId={lessonId! && lessonId![0]}
-        finished={finished}
-      />
-    </>
+    <AssignmentBlockContainer>
+      {data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.length! >
+      0 ? (
+        <>
+          <TextStyle>Assign Todays Reading Guide</TextStyle>
+          <br />
+          <div>
+            {assignmentTitle[0].readingPages}:{' '}
+            {assignmentTitle[0].readingSections}
+          </div>
+          <br />
+          <AssignReadingGuideForTeachersAid
+            studentIds={studentIds}
+            dueDate={dueDate! && dueDate![0]}
+            lessonId={lessonId! && lessonId![0]}
+            finished={finished}
+            loading={loading}
+          />
+        </>
+      ) : (
+        <>
+          {loading ? (
+            <div>Loading</div>
+          ) : (
+            <TextStyle>No Reading Guide Assigned Today</TextStyle>
+          )}
+        </>
+      )}
+    </AssignmentBlockContainer>
   )
 }

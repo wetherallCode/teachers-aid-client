@@ -4,12 +4,14 @@ import {
   assignReadingGuidesForTeachersAid,
   assignReadingGuidesForTeachersAidVariables,
 } from '../../../../../../../schemaTypes'
+import { AssignButton } from '../../../styles/mainScreenStyles'
 
 export type AssignReadingGuideForTeachersAidProps = {
   lessonId: string
   dueDate: string
   studentIds: string[]
   finished: boolean
+  loading: boolean
 }
 
 export const ASSIGN_READING_GUIDE_FOR_TEACHERS_AID_MUTATION = gql`
@@ -29,6 +31,7 @@ export const AssignReadingGuideForTeachersAid: FC<AssignReadingGuideForTeachersA
   dueDate,
   studentIds,
   finished,
+  loading,
 }) => {
   const [assignReadingGuide, { called, data }] = useMutation<
     assignReadingGuidesForTeachersAid,
@@ -47,19 +50,18 @@ export const AssignReadingGuideForTeachersAid: FC<AssignReadingGuideForTeachersA
   })
   return (
     <>
-      {data || finished ? (
-        <div>Finished</div>
+      {loading ? (
+        <div>Loading</div>
       ) : (
-        <button
-          style={
-            !called
-              ? { backgroundColor: 'var(--blue)', color: 'var(--white)' }
-              : { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
-          }
-          onClick={() => assignReadingGuide()}
-        >
-          Assign
-        </button>
+        <>
+          {data || finished ? (
+            <div>Finished</div>
+          ) : (
+            <AssignButton called={called} onClick={() => assignReadingGuide()}>
+              Assign
+            </AssignButton>
+          )}
+        </>
       )}
     </>
   )
