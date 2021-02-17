@@ -55,6 +55,12 @@ export const TaskListHeaders = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 3fr;
 `
+
+export const TaskListTaskGraderContainer = styled.div`
+overflow: scroll; 
+height: 83vh
+`
+
 export const TaskCompleteHeader = styled.div`
   justify-self: end;
   margin-right: 15%;
