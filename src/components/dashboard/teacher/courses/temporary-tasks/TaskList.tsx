@@ -13,6 +13,22 @@ export type TaskListProps = {
 }
 
 export const TaskList: FC<TaskListProps> = ({ taskList }) => {
+  const sortByLastNameInObject = (
+    a: findTemporaryTasks_findTemporaryTasks_temporaryTasks,
+    b: findTemporaryTasks_findTemporaryTasks_temporaryTasks
+  ) => {
+    let aName = a.student.lastName.toUpperCase()
+    let bName = b.student.lastName.toUpperCase()
+    if (aName < bName) {
+      return -1
+    }
+    if (aName > bName) {
+      return 1
+    }
+
+    // names must be equal
+    return 0
+  }
   return (
     <TaskListContainer>
       <TaskListHeaders>
@@ -21,7 +37,7 @@ export const TaskList: FC<TaskListProps> = ({ taskList }) => {
         {/* <TaskCompleteHeader>Complete</TaskCompleteHeader> */}
       </TaskListHeaders>
       <TaskListTaskGraderContainer>
-        {taskList.map((task, i: number) => (
+        {taskList.sort(sortByLastNameInObject).map((task, i: number) => (
           <TaskGrader key={task._id} task={task} i={i} />
         ))}
       </TaskListTaskGraderContainer>
