@@ -4,11 +4,11 @@ import { CSVLink } from 'react-csv'
 import { useParams } from 'react-router'
 import { useUserContextProvider } from '../../../../../../../contexts/UserContext'
 import {
+  findEssaysByAssociatedLessonId,
+  findEssaysByAssociatedLessonIdVariables,
   findLessonsByUnit,
   findLessonsByUnitVariables,
   findUnits,
-  findEssaysByAssociatedLessonId,
-  findEssaysByAssociatedLessonIdVariables,
   me_me_Teacher,
 } from '../../../../../../../schemaTypes'
 import { FIND_LESSONS_BY_UNIT_QUERY } from '../../../../assignments/create-assignments/create-essay/EssayLessonSelect'
@@ -88,6 +88,7 @@ export const Essays: FC<EssaysProps> = () => {
     variables: {
       input: { associatedLessonId: state.context.lessonId },
     },
+    pollInterval: 1000,
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })

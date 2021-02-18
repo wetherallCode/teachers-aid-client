@@ -58,6 +58,7 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
     variables: {
       input: { courseId: course },
     },
+    pollInterval: 1000,
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })

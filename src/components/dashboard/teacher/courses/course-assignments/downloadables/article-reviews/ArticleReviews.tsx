@@ -49,6 +49,7 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
     variables: {
       input: { courseId: course, markingPeriod },
     },
+    pollInterval: 1000,
     onCompleted: (data) =>
       console.log(data.findArticleReviewsByCourse.articleReviews),
     onError: (error) => console.error(error),
