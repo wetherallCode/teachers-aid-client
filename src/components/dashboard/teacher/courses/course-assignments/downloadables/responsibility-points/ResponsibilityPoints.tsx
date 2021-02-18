@@ -79,7 +79,10 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
   return (
     <>
       <div>Responsibility Points</div>
-      <select onChange={(e: any) => setMarkingPeriodSelect(e.target.value)}>
+      <select
+        value={markingPeriodSelect}
+        onChange={(e: any) => setMarkingPeriodSelect(e.target.value)}
+      >
         {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
           <option key={mp} value={mp}>
             {mp}
