@@ -47,6 +47,10 @@ export const TaskToGradeSelectorContainer = styled.div`
   grid-template-columns: 1fr 2fr 1fr;
 `
 
+export const TaskToGradeTitle = styled.div`
+  font-size: 4vh;
+`
+
 export const TaskListContainer = styled.div`
   border-bottom: 1px solid var(--blue);
 `

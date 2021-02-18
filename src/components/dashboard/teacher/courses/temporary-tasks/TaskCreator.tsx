@@ -11,6 +11,7 @@ import { useTemporaryTasksContextProvider } from './state-n-styles/TemporaryTask
 import {
   TaskCreatorHeader,
   TaskToGradeSelectorContainer,
+  TaskToGradeTitle,
   TemporaryTaskDisplay,
 } from './state-n-styles/temporaryTaskStyles'
 import { TaskList } from './TaskList'
@@ -67,6 +68,7 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
             : 0,
       })
     },
+
     onError: (error) => console.error(error),
   })
 
@@ -111,13 +113,13 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
               >
                 &lt;
               </div>
-              <div>
+              <TaskToGradeTitle>
                 {loading
                   ? 'Loading'
                   : state.context.taskToGradeNumber === 0
                   ? 'Warm Up'
                   : 'Task ' + state.context.taskToGradeNumber}
-              </div>
+              </TaskToGradeTitle>
               <div
                 style={disablePlusSelectorSwitch}
                 onClick={() => {
