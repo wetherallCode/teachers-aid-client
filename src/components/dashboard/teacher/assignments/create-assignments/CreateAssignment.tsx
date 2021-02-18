@@ -44,7 +44,7 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
             <CourseToSelect
               key={course._id!}
               onClick={() => {
-                // event({ type: 'SET_COURSE_ID', payload: course._id! })
+                event({ type: 'SET_COURSE_ID', payload: course._id! })
                 setCourseId(course._id!)
                 event({ type: 'IDLE' })
               }}
