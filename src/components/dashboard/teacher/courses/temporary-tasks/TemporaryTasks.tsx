@@ -19,7 +19,7 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
   const [state, event] = useTemporaryTasksContextProvider()
   const { course } = useParams()
-  console.log(me.teachesCourses)
+
   const [courseName] = me.teachesCourses
     .filter((courseToFind) => courseToFind._id === course)
     .map((course) => course.name)
