@@ -20,13 +20,13 @@ export const sortByRubricEntryScore = (
 }
 
 export const markingPeriodFormatter = (markingPeriod: MarkingPeriodEnum) =>
-		markingPeriod === MarkingPeriodEnum.FIRST
-			? 'First'
-			: markingPeriod === MarkingPeriodEnum.SECOND
-			? 'Second'
-			: markingPeriod === MarkingPeriodEnum.THIRD
-			? 'Third'
-			: 'Fourth'
+  markingPeriod === MarkingPeriodEnum.FIRST
+    ? 'First'
+    : markingPeriod === MarkingPeriodEnum.SECOND
+    ? 'Second'
+    : markingPeriod === MarkingPeriodEnum.THIRD
+    ? 'Third'
+    : 'Fourth'
 
 export const dateConverter = (date: string) => {
   if (date.charAt(5) === '0' && date.charAt(8) === '0') {
@@ -122,8 +122,8 @@ export const todaysLocaleDate: string = new Date()
   .substring(0, 9)
 
 export const sortByLetter = (a: any, b: any) => {
-  var nameA = a.name.toUpperCase() // ignore upper and lowercase
-  var nameB = b.name.toUpperCase() // ignore upper and lowercase
+  let nameA = a.name.toUpperCase() // ignore upper and lowercase
+  let nameB = b.name.toUpperCase() // ignore upper and lowercase
   if (nameA < nameB) {
     return -1
   }
