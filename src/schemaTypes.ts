@@ -2219,62 +2219,6 @@ export interface findReadingGuideDataForCourseAndLessonVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findEssaysByAssociatedLessonId
-// ====================================================
-
-export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_readings {
-  __typename: "Readings";
-  readingSections: string;
-}
-
-export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_hasOwner {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  lastName: string;
-  schoolId: string | null;
-}
-
-export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_score {
-  __typename: "Score";
-  earnedPoints: number;
-}
-
-export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_finalDraft {
-  __typename: "FinalDraftContainer";
-  returned: boolean;
-  submitted: boolean;
-}
-
-export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays {
-  __typename: "Essay";
-  _id: string | null;
-  readings: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_readings;
-  hasOwner: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_hasOwner;
-  score: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_score;
-  finalDraft: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_finalDraft | null;
-  exempt: boolean;
-}
-
-export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId {
-  __typename: "FindEssaysByAssociatedLessonIdPayload";
-  essays: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays[];
-}
-
-export interface findEssaysByAssociatedLessonId {
-  findEssaysByAssociatedLessonId: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId;
-}
-
-export interface findEssaysByAssociatedLessonIdVariables {
-  input: FindEssaysByAssociatedLessonIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findResponsibilityPointsByCourse
 // ====================================================
 
@@ -2950,45 +2894,6 @@ export interface findTemporaryTasksToReview {
 }
 
 export interface findTemporaryTasksToReviewVariables {
-  input: FindTemporaryTasksInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findTemporaryTasks
-// ====================================================
-
-export interface findTemporaryTasks_findTemporaryTasks_temporaryTasks_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  lastName: string;
-}
-
-export interface findTemporaryTasks_findTemporaryTasks_temporaryTasks {
-  __typename: "TemporaryTask";
-  _id: string | null;
-  dateIssued: string;
-  student: findTemporaryTasks_findTemporaryTasks_temporaryTasks_student;
-  studentPresent: boolean;
-  taskNumber: number;
-  answered: boolean;
-}
-
-export interface findTemporaryTasks_findTemporaryTasks {
-  __typename: "FindTemporaryTasksPayload";
-  temporaryTasks: findTemporaryTasks_findTemporaryTasks_temporaryTasks[];
-}
-
-export interface findTemporaryTasks {
-  findTemporaryTasks: findTemporaryTasks_findTemporaryTasks;
-}
-
-export interface findTemporaryTasksVariables {
   input: FindTemporaryTasksInput;
 }
 
@@ -5351,6 +5256,101 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssaysByAssociatedLessonId
+// ====================================================
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  schoolId: string | null;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  returned: boolean;
+  submitted: boolean;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays {
+  __typename: "Essay";
+  _id: string | null;
+  readings: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_readings;
+  hasOwner: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_hasOwner;
+  score: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_score;
+  finalDraft: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays_finalDraft | null;
+  exempt: boolean;
+}
+
+export interface findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId {
+  __typename: "FindEssaysByAssociatedLessonIdPayload";
+  essays: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId_essays[];
+}
+
+export interface findEssaysByAssociatedLessonId {
+  findEssaysByAssociatedLessonId: findEssaysByAssociatedLessonId_findEssaysByAssociatedLessonId;
+}
+
+export interface findEssaysByAssociatedLessonIdVariables {
+  input: FindEssaysByAssociatedLessonIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findTemporaryTasks
+// ====================================================
+
+export interface findTemporaryTasks_findTemporaryTasks_temporaryTasks_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findTemporaryTasks_findTemporaryTasks_temporaryTasks {
+  __typename: "TemporaryTask";
+  _id: string | null;
+  dateIssued: string;
+  student: findTemporaryTasks_findTemporaryTasks_temporaryTasks_student;
+  studentPresent: boolean;
+  taskNumber: number;
+  answered: boolean;
+}
+
+export interface findTemporaryTasks_findTemporaryTasks {
+  __typename: "FindTemporaryTasksPayload";
+  temporaryTasks: findTemporaryTasks_findTemporaryTasks_temporaryTasks[];
+}
+
+export interface findTemporaryTasks {
+  findTemporaryTasks: findTemporaryTasks_findTemporaryTasks;
+}
+
+export interface findTemporaryTasksVariables {
+  input: FindTemporaryTasksInput;
 }
 
 /* tslint:disable */
