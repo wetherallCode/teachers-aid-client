@@ -2826,44 +2826,6 @@ export interface findRosterByCourseVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createTemporaryTasks
-// ====================================================
-
-export interface createTemporaryTasks_createTemporaryTasks_temporaryTasks_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  lastName: string;
-}
-
-export interface createTemporaryTasks_createTemporaryTasks_temporaryTasks {
-  __typename: "TemporaryTask";
-  _id: string | null;
-  dateIssued: string;
-  student: createTemporaryTasks_createTemporaryTasks_temporaryTasks_student;
-  studentPresent: boolean;
-  taskNumber: number;
-}
-
-export interface createTemporaryTasks_createTemporaryTasks {
-  __typename: "CreateTemporaryTasksPayload";
-  temporaryTasks: createTemporaryTasks_createTemporaryTasks_temporaryTasks[];
-}
-
-export interface createTemporaryTasks {
-  createTemporaryTasks: createTemporaryTasks_createTemporaryTasks;
-}
-
-export interface createTemporaryTasksVariables {
-  input: CreateTemporaryTasksInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findTemporaryTasksToReview
 // ====================================================
 
@@ -5351,6 +5313,44 @@ export interface findTemporaryTasks {
 
 export interface findTemporaryTasksVariables {
   input: FindTemporaryTasksInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createTemporaryTasks
+// ====================================================
+
+export interface createTemporaryTasks_createTemporaryTasks_temporaryTasks_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface createTemporaryTasks_createTemporaryTasks_temporaryTasks {
+  __typename: "TemporaryTask";
+  _id: string | null;
+  dateIssued: string;
+  student: createTemporaryTasks_createTemporaryTasks_temporaryTasks_student;
+  studentPresent: boolean;
+  taskNumber: number;
+}
+
+export interface createTemporaryTasks_createTemporaryTasks {
+  __typename: "CreateTemporaryTasksPayload";
+  temporaryTasks: createTemporaryTasks_createTemporaryTasks_temporaryTasks[];
+}
+
+export interface createTemporaryTasks {
+  createTemporaryTasks: createTemporaryTasks_createTemporaryTasks;
+}
+
+export interface createTemporaryTasksVariables {
+  input: CreateTemporaryTasksInput;
 }
 
 /* tslint:disable */
