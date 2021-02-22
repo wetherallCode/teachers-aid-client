@@ -43,7 +43,6 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
   } = useEnumContextProvider()
 
   useEffect(() => {
-    // console.log(state.context.hasProtocols)
     updateTextSection()
   }, [state.context.hasProtocols, updateTextSection])
 
@@ -52,7 +51,7 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
     protocolItem,
     ...state.context.hasProtocols.slice(currentIndexForItem + 1),
   ]
-  console.log(newList)
+
   return (
     <>
       <form>
