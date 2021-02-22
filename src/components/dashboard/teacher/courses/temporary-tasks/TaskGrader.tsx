@@ -54,19 +54,11 @@ export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
 
   useEffect(() => {
     const [absentList] = state.context.absentList.filter(
-      (i) => i.taskNumber === state.context.taskNumber - 2
+      (i) => i.taskNumber === state.context.taskNumber - 1
     )
 
     if (absentList && absentList.tasks.includes(task.student._id!)) {
       setStudentPresent(false)
-      !task.studentPresent &&
-        event({
-          type: 'ADD_TO_ABSENT_LIST',
-          payload: {
-            taskNumber: state.context.taskNumber - 1,
-            studentIdToAdd: task.student._id!,
-          },
-        })
     }
   }, [state.context.taskNumber])
 

@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import { me_me, me_me_Teacher } from '../../../../../schemaTypes'
 import { CreateTask } from './CreateTask'
+import { LoadTasks } from './LoadTasks'
 import { ReviewTasks } from './review-tasks/ReviewTasks'
 import { useTemporaryTasksContextProvider } from './state-n-styles/TemporaryTasksContext'
 import {
@@ -40,7 +41,7 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
           <TemporaryTaskDisplay>Tasks</TemporaryTaskDisplay>
         )}
         {state.matches('create') && (
-          <TaskCreator
+          <LoadTasks
             courseId={course}
             dateIssued={new Date().toLocaleDateString()}
           />

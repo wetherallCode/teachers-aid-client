@@ -1,8 +1,9 @@
 import { gql, useQuery } from '@apollo/client'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import {
   findTemporaryTasks,
   findTemporaryTasksVariables,
+  findTemporaryTasks_findTemporaryTasks_temporaryTasks,
 } from '../../../../../schemaTypes'
 import { CreateTask } from './CreateTask'
 import { useTemporaryTasksContextProvider } from './state-n-styles/TemporaryTasksContext'
@@ -17,6 +18,8 @@ import { TaskList } from './TaskList'
 export type TaskCreatorProps = {
   courseId: string
   dateIssued: string
+  data: findTemporaryTasks | undefined
+  loading: boolean
 }
 
 export const FIND_TEMPORARY_TASKS_QUERY = gql`
@@ -37,64 +40,69 @@ export const FIND_TEMPORARY_TASKS_QUERY = gql`
     }
   }
 `
-export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
+export const TaskCreator: FC<TaskCreatorProps> = ({
+  courseId,
+  dateIssued,
+  loading,
+  data,
+}) => {
   const [state, event] = useTemporaryTasksContextProvider()
 
-  const { loading, data } = useQuery<
-    findTemporaryTasks,
-    findTemporaryTasksVariables
-  >(FIND_TEMPORARY_TASKS_QUERY, {
-    variables: {
-      input: {
-        courseId,
-        dateIssued: dateIssued,
-      },
-    },
-    onCompleted: (data) => {
-      event({
-        type: 'SET_TASK_NUMBER',
-        payload:
-          taskNumberList![taskNumberList!.length] !== 0
-            ? taskNumberList.length
-            : 0,
-      })
+  // const { loading, data } = useQuery<
+  //   findTemporaryTasks,
+  //   findTemporaryTasksVariables
+  // >(FIND_TEMPORARY_TASKS_QUERY, {
+  //   variables: {
+  //     input: {
+  //       courseId,
+  //       dateIssued: dateIssued,
+  //     },
+  //   },
+  //   onCompleted: (data) => {
+  //     event({
+  //       type: 'SET_TASK_NUMBER',
+  //       payload:
+  //         taskNumberList![taskNumberList!.length] !== 0
+  //           ? taskNumberList.length
+  //           : 0,
+  //     })
 
-      event({
-        type: 'SET_TASK_TO_GRADE_NUMBER',
-        payload:
-          taskNumberList![taskNumberList!.length] !== 0
-            ? taskNumberList.length - 1
-            : 0,
-      })
+  //     event({
+  //       type: 'SET_TASK_TO_GRADE_NUMBER',
+  //       payload:
+  //         taskNumberList![taskNumberList!.length] !== 0
+  //           ? taskNumberList.length - 1
+  //           : 0,
+  //     })
 
-      const taskNumberListArr = data.findTemporaryTasks.temporaryTasks
-        .map((task) => task.taskNumber)
-        .reduce(
-          (acc: number[], i: number) =>
-            acc.includes(i) ? [...acc] : [...acc, i],
-          []
-        )
+  //     const taskNumberListArr = data.findTemporaryTasks.temporaryTasks
+  //       .map((task) => task.taskNumber)
+  //       .reduce(
+  //         (acc: number[], i: number) =>
+  //           acc.includes(i) ? [...acc] : [...acc, i],
+  //         []
+  //       )
 
-      for (const taskNumber of taskNumberListArr) {
-        taskNumber !== 0 &&
-          event({ type: 'ADD_NEW_ABSENT_LIST', payload: taskNumber })
-      }
+  //     for (const taskNumber of taskNumberListArr) {
+  //       taskNumber !== 0 &&
+  //         event({ type: 'ADD_NEW_ABSENT_LIST', payload: taskNumber })
+  //     }
 
-      for (const task of data.findTemporaryTasks.temporaryTasks) {
-        if (!task.studentPresent) {
-          event({
-            type: 'ADD_TO_ABSENT_LIST',
-            payload: {
-              taskNumber: task.taskNumber,
-              studentIdToAdd: task.student._id!,
-            },
-          })
-        }
-      }
-    },
+  //     for (const task of data.findTemporaryTasks.temporaryTasks) {
+  //       if (!task.studentPresent) {
+  //         event({
+  //           type: 'ADD_TO_ABSENT_LIST',
+  //           payload: {
+  //             taskNumber: task.taskNumber,
+  //             studentIdToAdd: task.student._id!,
+  //           },
+  //         })
+  //       }
+  //     }
+  //   },
 
-    onError: (error) => console.error(error),
-  })
+  //   onError: (error) => console.error(error),
+  // })
 
   const absentStudentList = data?.findTemporaryTasks.temporaryTasks.filter(
     (task) =>
@@ -123,6 +131,26 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
       ? { color: 'var(--blue)', cursor: 'pointer' }
       : { color: 'var(--grey)', cursor: 'pointer' }
 
+  console.log(state.context.absentList)
+
+  useEffect(() => {
+    const [absentList] = state.context.absentList.filter(
+      (i) => i.taskNumber === state.context.taskNumber - 2
+    )
+
+    for (const task of taskList)
+      if (absentList && absentList.tasks.includes(task.student._id!)) {
+        // setStudentPresent(false)
+        !task.studentPresent &&
+          event({
+            type: 'ADD_TO_ABSENT_LIST',
+            payload: {
+              taskNumber: state.context.taskNumber - 1,
+              studentIdToAdd: task.student._id!,
+            },
+          })
+      }
+  }, [state.context.taskNumber])
   return (
     <>
       {data?.findTemporaryTasks.temporaryTasks.length! > 0 ? (
