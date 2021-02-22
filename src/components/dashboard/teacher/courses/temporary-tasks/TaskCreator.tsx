@@ -1,8 +1,6 @@
-import { gql, useMutation, useQuery } from '@apollo/client'
-import React, { FC, useEffect, useState } from 'react'
+import { gql, useQuery } from '@apollo/client'
+import React, { FC } from 'react'
 import {
-  createTemporaryTasks,
-  createTemporaryTasksVariables,
   findTemporaryTasks,
   findTemporaryTasksVariables,
 } from '../../../../../schemaTypes'
@@ -52,7 +50,7 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
         dateIssued: dateIssued,
       },
     },
-    onCompleted: () => {
+    onCompleted: (data) => {
       event({
         type: 'SET_TASK_NUMBER',
         payload:
@@ -60,6 +58,7 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
             ? taskNumberList.length
             : 0,
       })
+
       event({
         type: 'SET_TASK_TO_GRADE_NUMBER',
         payload:
@@ -67,10 +66,40 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
             ? taskNumberList.length - 1
             : 0,
       })
+
+      const taskNumberListArr = data.findTemporaryTasks.temporaryTasks
+        .map((task) => task.taskNumber)
+        .reduce(
+          (acc: number[], i: number) =>
+            acc.includes(i) ? [...acc] : [...acc, i],
+          []
+        )
+
+      for (const taskNumber of taskNumberListArr) {
+        taskNumber !== 0 &&
+          event({ type: 'ADD_NEW_ABSENT_LIST', payload: taskNumber })
+      }
+
+      for (const task of data.findTemporaryTasks.temporaryTasks) {
+        if (!task.studentPresent) {
+          event({
+            type: 'ADD_TO_ABSENT_LIST',
+            payload: {
+              taskNumber: task.taskNumber,
+              studentIdToAdd: task.student._id!,
+            },
+          })
+        }
+      }
     },
 
     onError: (error) => console.error(error),
   })
+
+  const absentStudentList = data?.findTemporaryTasks.temporaryTasks.filter(
+    (task) =>
+      task.taskNumber === state.context.taskNumber - 1 && !task.studentPresent
+  )!
 
   const taskNumberList = data?.findTemporaryTasks
     .temporaryTasks!.map((task) => task.taskNumber)
@@ -136,7 +165,7 @@ export const TaskCreator: FC<TaskCreatorProps> = ({ courseId, dateIssued }) => {
             <CreateTask courseId={courseId} warmUp={false} />
           </TaskCreatorHeader>
 
-          <TaskList taskList={taskList} />
+          <TaskList taskList={taskList} absentStudentList={absentStudentList} />
         </div>
       ) : (
         <TemporaryTaskDisplay>

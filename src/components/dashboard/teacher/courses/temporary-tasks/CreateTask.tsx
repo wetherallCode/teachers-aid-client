@@ -53,6 +53,11 @@ export const CreateTask: FC<CreateTaskProps> = ({ courseId, warmUp }) => {
       },
     },
     onCompleted: (data) => {
+      state.context.taskNumber !== 0 &&
+        event({
+          type: 'ADD_NEW_ABSENT_LIST',
+          payload: state.context.taskNumber,
+        })
       event({
         type: 'SET_TASK_NUMBER',
         payload: state.context.taskNumber + 1,
