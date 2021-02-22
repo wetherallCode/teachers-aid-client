@@ -45,7 +45,6 @@ export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
     gradeTemporaryTaskVariables
   >(GRADE_TEMPORARY_TASK_MUTATION, {
     variables: { input: { _id: task._id!, answered, studentPresent } },
-    onCompleted: (data) => {},
     refetchQueries: [],
   })
 
