@@ -13,6 +13,7 @@ import {
   TemporaryTasksMenu,
 } from './state-n-styles/temporaryTaskStyles'
 import { TaskCreator } from './TaskCreator'
+import { TaskTimer } from './TaskTimer'
 
 export type TemporaryTasksProps = {}
 
@@ -35,6 +36,7 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
           <div onClick={() => event({ type: 'REVIEW' })}>Review</div>
         </MenuItems>
         <MenuItems>{courseName}</MenuItems>
+        <TaskTimer />
       </TemporaryTasksMenu>
       <>
         {state.matches('idle') && (

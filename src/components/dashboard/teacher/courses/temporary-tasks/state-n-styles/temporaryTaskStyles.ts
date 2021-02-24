@@ -127,3 +127,87 @@ export const ReviewTasksContainer = styled.div`
   grid-template-rows: 1fr 4fr;
 `
 export const TasksToSelectContainer = styled.div``
+
+export const TaskTimerContainer = styled.div`
+  display: grid;
+`
+
+export const TaskTimerControlsContainer = styled.div`
+  display: grid;
+  /* height: 100%; */
+  grid-template-rows: 1fr 2fr;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+`
+export const TaskTimerPresetContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  cursor: default;
+`
+
+export const ReduceTaskTimer = styled.div`
+  grid-row: 3/6;
+  grid-column: 1/4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 3rem;
+`
+
+export const TaskTimerPresetDisplay = styled.div`
+  grid-row: 2/7;
+  grid-column: 4/8;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 5rem;
+`
+
+export const IncreaseTaskTimer = styled.div`
+  grid-row: 3/6;
+  grid-column: -1/-4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 3rem;
+`
+
+export const StartTaskTimer = styled.button`
+  grid-row: -2/-3;
+  grid-column: 3/-3;
+  font-size: 1.2vw;
+  color: var(--blue);
+`
+
+export const TaskTimeDisplayFormat = styled.div`
+  font-size: 3rem;
+  width: 10vw;
+  display: grid;
+  /* border-bottom: 1px solid var(--white); */
+  font-family: free-monospace;
+  justify-items: center;
+  align-items: center;
+  height: 90%;
+`
+export const TaskTimerControlsDisplay = styled.div`
+  display: grid;
+  width: 100%;
+  height: 40%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 70%;
+`
+export const TaskTimerControl = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 1.2rem;
+`
+export const TaskTimerResetStyle = styled.div`
+  display: grid;
+  grid-column: span 3;
+  justify-items: center;
+  align-items: center;
+  font-size: 1.2rem;
+`
