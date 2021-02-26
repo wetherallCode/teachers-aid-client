@@ -76,7 +76,8 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
   updateLesson,
 }) => {
   const [state, event] = useLessonEditorContextProvider()
-  const { markingPeriod } = useEnumContextProvider()
+  const { markingPeriodEnum } = useEnumContextProvider()
+
   useEffect(() => {
     updateLesson()
   }, [state.context, updateLesson])
@@ -105,6 +106,7 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
         essentialQuestion,
         pageNumbers,
       } = data.findLessonById.lesson
+
       event({ type: 'SET_ASSIGNED_DATE', payload: assignedDate })
       event({ type: 'SET_LESSON_NAME', payload: lessonName })
       event({ type: 'SET_UNIT', payload: inUnit._id! })
@@ -175,7 +177,7 @@ export const LessonEditorInfo: FC<LessonEditorInfoProps> = ({
             unit={data?.findLessonById.lesson.inUnit!}
             updateLesson={updateLesson}
           />
-          <MarkingPeriod markingPeriodList={markingPeriod} />
+          <MarkingPeriod markingPeriodList={markingPeriodEnum} />
         </>
       )}
       <button onClick={() => event({ type: 'SECTION_SELECT' })}>

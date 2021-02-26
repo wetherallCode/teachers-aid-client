@@ -13,7 +13,7 @@ export type LessonSelectProps = {
 
 export const LessonSelect: FC<LessonSelectProps> = ({ unit }) => {
   const [state, event] = useLessonEditorContextProvider()
-  console.log(state.context.courseId)
+  console.log(state.context.courseId, unit)
   const { loading, error, data } = useQuery<
     findLessonsByUnit,
     findLessonsByUnitVariables
@@ -21,6 +21,7 @@ export const LessonSelect: FC<LessonSelectProps> = ({ unit }) => {
     variables: {
       input: { unitId: unit, courseId: state.context.courseId },
     },
+    onCompleted: (data) => console.log(data),
   })
   if (loading) return <div>Loading </div>
   if (error) console.error(error)

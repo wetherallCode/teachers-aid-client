@@ -3,14 +3,14 @@ import { MarkingPeriodEnum } from '../../../../../schemaTypes'
 import { useLessonEditorContextProvider } from './LessonEditorContext'
 
 export type MarkingPeriodProps = {
-  markingPeriodList: string[]
+  markingPeriodList: MarkingPeriodEnum[]
 }
 
 export const MarkingPeriod: FC<MarkingPeriodProps> = ({
   markingPeriodList,
 }) => {
   const [state, event] = useLessonEditorContextProvider()
-  const mpList = markingPeriodList as MarkingPeriodEnum[]
+  // const mpList = markingPeriodList as MarkingPeriodEnum[]
 
   return (
     <>
@@ -24,7 +24,7 @@ export const MarkingPeriod: FC<MarkingPeriodProps> = ({
           })
         }
       >
-        {mpList.map((mp) => (
+        {markingPeriodList.map((mp) => (
           <option key={mp} value={mp!}>
             {mp}
           </option>
