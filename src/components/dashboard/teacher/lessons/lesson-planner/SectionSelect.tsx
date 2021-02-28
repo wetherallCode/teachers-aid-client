@@ -82,7 +82,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
               </option>
             ))}
           </select> */}
-          <div style={{ overflow: 'scroll' }}>
+          <div style={{ overflow: 'scroll', height: '35vh' }}>
             {data?.findTextSectionsByChapter.textSections.map((section) =>
               loading ? (
                 'Loading Sections...'
@@ -93,19 +93,23 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
                   selected={state.context.textSectionList.includes(
                     section._id!
                   )}
-                  onClick={() =>
+                  onClick={() => {
+                    // event({
+                    //   type: 'SET_CURRENT_SECTION',
+                    //   payload: [section._id!, section.header],
+                    // })
                     event({
-                      type: 'SET_CURRENT_SECTION',
+                      type: 'ADD_SECTIONS',
                       payload: [section._id!, section.header],
                     })
-                  }
+                  }}
                 >
                   {section.header}
                 </SectionSelectorOption>
               )
             )}
           </div>
-          <SectionSelectorOptionAddButtonContainer>
+          {/* <SectionSelectorOptionAddButtonContainer>
             <SectionSelectorOptionAddButton
               type='reset'
               onClick={() => {
@@ -126,7 +130,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
             >
               Add Section
             </SectionSelectorOptionAddButton>
-          </SectionSelectorOptionAddButtonContainer>
+          </SectionSelectorOptionAddButtonContainer> */}
         </SectionPickerSelectOptionsForm>
         <div>
           <div>Starting Section: {state.context.startingSection}</div>
