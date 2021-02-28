@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import {
   LessonNameContainer,
@@ -9,17 +9,30 @@ import {
 export type LessonNameProps = {}
 
 export const LessonName: FC<LessonNameProps> = () => {
-  const [, event] = useLessonPlannerContextProvider()
+  const [state, event] = useLessonPlannerContextProvider()
+
+  useEffect(() => {
+    event({
+      type: 'SET_LESSON_NAME',
+      payload:
+        state.context.texSectionListHeaders[0] +
+        ' - ' +
+        state.context.texSectionListHeaders[
+          state.context.texSectionListHeaders.length - 1
+        ],
+    })
+  }, [])
+
   return (
     <LessonNameContainer>
-      <LessonNameTitle>Lesson Name</LessonNameTitle>
-      <LessonNameInput
+      <LessonNameTitle>Lesson Name: {state.context.lessonName}</LessonNameTitle>
+      {/* <LessonNameInput
         type='text'
         name='lessonName'
         onChange={(e: any) =>
           event({ type: 'SET_LESSON_NAME', payload: e.target.value })
         }
-      />
+      /> */}
     </LessonNameContainer>
   )
 }
