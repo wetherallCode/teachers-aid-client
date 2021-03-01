@@ -43,32 +43,14 @@ export const CreateLesson: FC<CreateLessonProps> = () => {
     endingPage,
     markingPeriod,
   } = state.context
-  console.log(
-    afterActivity,
-    beforeActivity,
-    courses,
-    date,
-    duringActivity,
-    endingSection,
-    textSectionList,
-    essentialQuestion,
-    questionList,
-    startingSection,
-    vocabList,
-    inUnit,
-    lessonName,
-    startingPage,
-    endingPage,
-    markingPeriod
-  )
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [createLesson] = useMutation<createLessonVariables>(
     CREATE_LESSON_MUTATION,
     {
       variables: {
         input: {
           assignedCourses: courses,
-          assignedDate: dateConverter(date),
+          assignedDate: date,
           assignedMarkingPeriod: markingPeriod,
           inUnit,
           assignedSections: {
@@ -89,10 +71,16 @@ export const CreateLesson: FC<CreateLessonProps> = () => {
           },
         },
       },
-      onCompleted: () => navigate('/dashboard'),
+      onCompleted: (data) => {
+        console.log(data)
+        navigate('/dashboard/lessons')
+      },
       onError: (error) => console.log(error),
 
-      refetchQueries: ['findLessonByCourseAndDate'],
+      refetchQueries: [
+        'findLessonByCourseAndDate',
+        'findLessonsByAssignedDate',
+      ],
     }
   )
   return (

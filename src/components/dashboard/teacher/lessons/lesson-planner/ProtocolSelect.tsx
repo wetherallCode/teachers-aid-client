@@ -18,10 +18,7 @@ export const ProtocolSelect: FC<ProtocolSelectProps> = ({
   protocolList,
   setProtocolSelectList,
   protocolSelectList,
-  selectAmount,
 }) => {
-  // const [selectCounter, setSelectCounter] = useState(0)
-  console.log(protocolSelectList)
   return (
     <DuringActivityContainer>
       <DuringActivityTitle>Select from these Protocols</DuringActivityTitle>
@@ -37,13 +34,6 @@ export const ProtocolSelect: FC<ProtocolSelectProps> = ({
               selected={selected}
               onClick={() => {
                 if (!selected) {
-                  // if (selectCounter < selectAmount) {
-                  //   setProtocolSelectList([...protocolSelectList, item])
-                  //   setSelectCounter(selectCounter + 1)
-                  // }
-                  // if (selectCounter === selectAmount && selectAmount === 1) {
-                  //   setProtocolSelectList([item])
-                  // }
                   setProtocolSelectList([...protocolSelectList, item])
                 }
                 if (selected) {

@@ -8,18 +8,28 @@ import { LessonPlanner } from './lesson-planner/LessonPlanner'
 import { SectionBuilderContextProvider } from './section-builder/state/SectionBuilderContext'
 import { LessonPlannerContextProvider } from './lesson-planner/state-and-styles/lessonPlannerContext'
 
+import { LessonFinder } from './lesson-finder/LessonFinder'
+import { LessonFinderContextProvider } from './lesson-finder/state-n-styles/LessonFinderContext'
+
 export const LessonsHome = () => {
   return (
     <Routes>
       <Route
-        path='lesson-planner'
+        path='lesson-planner/:date/*'
         element={
           <LessonPlannerContextProvider>
             <LessonPlanner />
           </LessonPlannerContextProvider>
         }
       />
-
+      <Route
+        path=''
+        element={
+          <LessonFinderContextProvider>
+            <LessonFinder />
+          </LessonFinderContextProvider>
+        }
+      />
       <Route
         path='section-builder'
         element={

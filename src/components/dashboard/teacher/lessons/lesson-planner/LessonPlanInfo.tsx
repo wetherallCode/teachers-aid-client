@@ -55,6 +55,7 @@ export const FIND_TEXT_SECTIONS_BY_ID_QUERY = gql`
   }
 `
 export type ActivitySelectorValues = 'BEFORE' | 'DURING' | 'AFTER'
+
 export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
   const [state, event] = useLessonPlannerContextProvider()
   const [activity, setActivity] = useState<ActivitySelectorValues>('BEFORE')
@@ -83,7 +84,6 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
     },
     onError: (error) => console.error(error),
   })
-  // if (loading) return <div>Loading </div>
 
   const protocolList: TextSectionProtocolsInput[] = []
 
@@ -112,28 +112,14 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
     })
   })
 
-  // const {
-  //   beforeActivity,
-  //   duringActivity,
-  //   afterActivity,
-  //   essentialQuestion,
-  // } = state.context
-
-  // const readyToSubmit =
-  //   beforeActivity.task !== '' &&
-  //   duringActivity.length > 0 &&
-  //   afterActivity.task !== '' &&
-  //   essentialQuestion.question !== ''
-  // console.log(readyToSubmit)
   return (
     <>
-      <LessonPlannerSectionHeader>
+      {/* <LessonPlannerSectionHeader>
         <div>Lesson Information</div>
-      </LessonPlannerSectionHeader>
+      </LessonPlannerSectionHeader> */}
       <LessonPlannerActivityBody>
-        <VocabList>
+        {/* <VocabList>
           <div>Vocab</div>
-          {/* <div>Add New Vocab Word</div> */}
           <div>
             {state.context.vocabList.map((word, i) => (
               <div key={i}>
@@ -141,8 +127,8 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
               </div>
             ))}
           </div>
-          <Pages data={data!} />
-        </VocabList>
+        </VocabList> */}
+        <Pages data={data!} />
         <LessonName />
         <ActivityContainer>
           <ActivitySelectorContainer>

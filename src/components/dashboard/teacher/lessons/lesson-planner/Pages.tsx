@@ -24,9 +24,10 @@ export const Pages: FC<PagesProps> = ({ data }) => {
   }, [startPage, endPage, event])
 
   return (
-    <>
-      <div>Starting Page: {state.context.startingPage}</div>
-      <div>Ending Page: {state.context.endingPage}</div>
-    </>
+    // <>
+    //   <div>Starting Page: {state.context.startingPage}</div>
+    //   <div>Ending Page: {state.context.endingPage}</div>
+    // </>
+    null
   )
 }

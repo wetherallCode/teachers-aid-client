@@ -13,11 +13,14 @@ import {
   LessonPlannerButton,
   SectionPickerButtonContainer,
   LessonPlanMarkingPeriodSelect,
+  GoBackToAssignmentsContainer,
+  BackToCalendarButton,
 } from './state-and-styles/lessonPlannerStyles'
 import { LessonPlannerOutput } from './LessonPlannerOutput'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { MarkingPeriodEnum } from '../../../../../schemaTypes'
+import { useNavigate, useParams } from 'react-router'
 
 export type LessonPlannerProps = {}
 
@@ -26,6 +29,12 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
   const { markingPeriodEnum } = useEnumContextProvider()
   const [mp] = useMarkingPeriodContextProvider()
   const { currentMarkingPeriod } = mp.context
+  const params = useParams()
+  const { date } = params
+
+  const lessonDate = new Date(Number(date)).toLocaleDateString()
+
+  const navigate = useNavigate()
 
   const {
     beforeActivity,
@@ -36,7 +45,7 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
   } = state.context
 
   const readyToSubmit =
-    beforeActivity.task !== '' &&
+    beforeActivity?.task !== '' &&
     duringActivity.length > 0 &&
     afterActivity.task !== '' &&
     essentialQuestion !== '' &&
@@ -45,6 +54,11 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
   useEffect(() => {
     event({ type: 'SET_MARKING_PERIOD', payload: currentMarkingPeriod })
   }, [currentMarkingPeriod])
+
+  useEffect(() => {
+    event({ type: 'SET_DATE', payload: lessonDate })
+    event({ type: 'NEXT' })
+  }, [])
 
   return (
     <LessonPlannerContainer>
@@ -55,19 +69,23 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
         {state.matches('date') && (
           <>
             <LessonPlanDateAssign>
-              <div>Assigned Date: </div>
-              <LessonPlanDateInput
-                type='date'
-                name='assignedDate'
-                onChange={(e: any) => {
-                  event({
-                    type: 'SET_DATE',
-                    payload: e.target.value,
-                  })
-                }}
-              />
-              <div>Assigned Marking Period:</div>
-              <LessonPlanMarkingPeriodSelect
+              {/* {
+                <>
+                  <div>Assigned Date: </div>
+                  <LessonPlanDateInput
+                    type='date'
+                    name='assignedDate'
+                    onChange={(e: any) => {
+                      event({
+                        type: 'SET_DATE',
+                        payload: e.target.value,
+                      })
+                    }}
+                  />
+                </>
+              } */}
+              {/*<div>Assigned Marking Period:</div>
+               <LessonPlanMarkingPeriodSelect
                 value={state.context.markingPeriod}
                 onChange={(e: any) =>
                   event({ type: 'SET_MARKING_PERIOD', payload: e.target.value })
@@ -78,7 +96,7 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
                     {mp}
                   </option>
                 ))}
-              </LessonPlanMarkingPeriodSelect>
+              </LessonPlanMarkingPeriodSelect> */}
             </LessonPlanDateAssign>
             <SectionPickerButtonContainer>
               <LessonPlannerButton onClick={() => event({ type: 'NEXT' })}>
@@ -111,10 +129,54 @@ export const LessonPlanner: FC<LessonPlannerProps> = () => {
             </SectionPickerButtonContainer>
           </>
         )}
+        {state.matches('markingPeriod') && (
+          <>
+            <LessonPlanDateAssign>
+              <div>Assigned Marking Period:</div>
+              <LessonPlanMarkingPeriodSelect
+                value={state.context.markingPeriod}
+                onChange={(e: any) =>
+                  event({
+                    type: 'SET_MARKING_PERIOD',
+                    payload: e.target.value,
+                  })
+                }
+              >
+                {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+                  <option key={mp} value={mp}>
+                    {mp}
+                  </option>
+                ))}
+              </LessonPlanMarkingPeriodSelect>
+            </LessonPlanDateAssign>
+            <SectionPickerButtonContainer>
+              <LessonPlannerButton
+                onClick={() => {
+                  event({ type: 'PREVIOUS' })
+                }}
+              >
+                Back
+              </LessonPlannerButton>
+
+              <LessonPlannerButton
+                onClick={() => {
+                  event({ type: 'NEXT' })
+                }}
+              >
+                Next
+              </LessonPlannerButton>
+            </SectionPickerButtonContainer>
+          </>
+        )}
         {state.matches('courses') && <CourseAssigner />}
       </LessonPlannerDesignContainer>
       <LessonPlanOutput>
         <LessonPlannerOutput />
+        <GoBackToAssignmentsContainer>
+          <BackToCalendarButton onClick={() => navigate('/dashboard/lessons')}>
+            Go Back to Calendar
+          </BackToCalendarButton>
+        </GoBackToAssignmentsContainer>
       </LessonPlanOutput>
     </LessonPlannerContainer>
   )

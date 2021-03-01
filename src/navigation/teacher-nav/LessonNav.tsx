@@ -13,7 +13,12 @@ export const LessonNav: FC<TeacherNavProps> = ({
     <>
       <motion.ul variants={ulVariants}>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/lessons/lesson-planner'>Lesson Planner</Link>
+          <Link to={`dashboard/lessons/lesson-planner/${new Date()}`}>
+            Lesson Planner
+          </Link>
+        </motion.li>
+        <motion.li variants={liVariants}>
+          <Link to='dashboard/lessons/lesson-finder'>Lesson Finder</Link>
         </motion.li>
         <motion.li variants={liVariants}>
           <Link to='dashboard/lessons/section-builder'>Section Builder</Link>

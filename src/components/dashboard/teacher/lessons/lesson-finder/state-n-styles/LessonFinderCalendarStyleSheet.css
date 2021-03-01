@@ -1,0 +1,55 @@
+/* import 'react-calendar/dist/Calendar.css'  */
+
+.tiles {
+  width: 10vh;
+  height: 12vh;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.react-calendar button {
+  margin: 0;
+  outline: none;
+  border: 1px solid var(--blue);
+  background-color: var(--white);
+  color: var(--blue);
+}
+
+.react-calendar button:enabled:hover {
+  background-color: var(--blue);
+  color: var(--white);
+  border: 1px solid var(--white);
+}
+
+.react-calendar__navigation button {
+  min-width: 5vh;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 3vh;
+  /* text-decoration: underline; */
+  border-top: 3px solid var(--white);
+  border-left: 1px solid var(--white);
+  border-right: 1px solid var(--white);
+  /* border-bottom: 1px solid var(--white); */
+}
+.react-calendar__navigation button:enabled:hover {
+  min-width: 5vh;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 3vh;
+  text-decoration: underline;
+  border-top: 3px solid var(--white);
+  border-left: 1px solid var(--white);
+  border-right: 1px solid var(--white);
+  border-bottom: 1px solid var(--white);
+}
+.react-calendar__navigation_next-button {
+  text-decoration: none;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  background-color: var(--red);
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: var(--grey);
+}

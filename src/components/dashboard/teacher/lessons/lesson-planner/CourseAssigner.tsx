@@ -18,6 +18,7 @@ import {
   SectionPickerButtonContainer,
 } from './state-and-styles/lessonPlannerStyles'
 import { CreateLesson } from './CreateLesson'
+import { sortByLetter } from '../../../../../utils'
 
 export type CourseAssignerProps = {}
 
@@ -41,7 +42,7 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
   const [, event] = useLessonPlannerContextProvider()
   const [coursesList, handleChange] = useCheckBox([])
-  console.log(me._id)
+
   useEffect(() => {
     event({ type: 'ASSIGN_TO_COURSES', payload: coursesList })
   }, [coursesList, event])
@@ -56,16 +57,14 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
 
     onError: (error) => console.error(error),
   })
-  console.log(me)
-  // const user = data?.findUserData
-  //   .user as getCoursesForUser_findUserData_user_Teacher
 
   const courseList = me.teachesCourses
-  console.log(courseList)
+  const realCourseList = courseList.slice(1)
+
   return (
     <>
       <AssignCourseContainer>
-        {courseList.map((course) => (
+        {realCourseList.sort(sortByLetter).map((course) => (
           <CourseToAssignContainer key={course._id!}>
             <AssignCourseCheckBox
               type='checkbox'

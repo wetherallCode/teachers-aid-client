@@ -20,13 +20,14 @@ export type lessonPlannerMachineSchema = {
       }
     }
     lessonInfo: {}
+    markingPeriod: {}
     courses: {}
   }
 }
 export type lessonPlannerMachineEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
-  | { type: 'SET_DATE'; payload: any }
+  | { type: 'SET_DATE'; payload: string }
   | { type: 'SET_TEXT_TITLE'; payload: string }
   | { type: 'SET_CHAPTER_ID'; payload: string }
   | { type: 'SET_CHAPTER_TITLE'; payload: string }
@@ -49,7 +50,7 @@ export type lessonPlannerMachineEvent =
   | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
 
 export type lessonPlannerMachineContext = {
-  date: any
+  date: string
   fromText: string
   fromChapterTitle: string
   fromChapterId: string
@@ -62,7 +63,7 @@ export type lessonPlannerMachineContext = {
   startingPage: number
   endingPage: number
   vocabList: TextSectionVocabInput[]
-  beforeActivity: TextSectionProtocolsInput
+  beforeActivity: TextSectionProtocolsInput | null
   duringActivity: TextSectionProtocolsInput[]
   afterActivity: TextSectionProtocolsInput
   questionList: TextSectionQuestionsInput[]
@@ -94,7 +95,7 @@ export const lessonPlannerMachine = Machine<
     endingPage: 0,
     vocabList: [],
     beforeActivity: {
-      academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
+      academicOutcomeTypes: AcademicOutcomeTypes.SCHEMA_BUIDING,
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
       isActive: false,
@@ -219,7 +220,7 @@ export const lessonPlannerMachine = Machine<
     lessonInfo: {
       on: {
         PREVIOUS: 'sections',
-        NEXT: 'courses',
+        NEXT: 'markingPeriod',
         SET_STARTING_PAGE: {
           actions: assign((ctx, evt) => {
             return {
@@ -288,6 +289,20 @@ export const lessonPlannerMachine = Machine<
             return {
               ...ctx,
               lessonName: evt.payload,
+            }
+          }),
+        },
+      },
+    },
+    markingPeriod: {
+      on: {
+        PREVIOUS: 'lessonInfo',
+        NEXT: 'courses',
+        SET_MARKING_PERIOD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              markingPeriod: evt.payload,
             }
           }),
         },

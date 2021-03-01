@@ -3186,6 +3186,104 @@ export interface findLessonByIdForLessonEditorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findLessonsByAssignedDate
+// ====================================================
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_inUnit {
+  __typename: "Unit";
+  _id: string | null;
+  unitName: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_assignedCourses {
+  __typename: "Course";
+  _id: string | null;
+  name: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_assignedSections {
+  __typename: "LessonTextSections";
+  startingSection: string;
+  endingSection: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_pageNumbers {
+  __typename: "PageNumbers";
+  startingPage: number;
+  endingPage: number;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_vocabList {
+  __typename: "TextSectionVocab";
+  word: string;
+  definition: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_beforeActivity {
+  __typename: "TextSectionProtocols";
+  academicOutcomeTypes: AcademicOutcomeTypes;
+  activityType: ProtocolActivityTypes;
+  task: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_duringActivities {
+  __typename: "TextSectionProtocols";
+  academicOutcomeTypes: AcademicOutcomeTypes;
+  activityType: ProtocolActivityTypes;
+  task: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_afterActivity {
+  __typename: "TextSectionProtocols";
+  academicOutcomeTypes: AcademicOutcomeTypes;
+  activityType: ProtocolActivityTypes;
+  task: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_questionList {
+  __typename: "TextSectionQuestions";
+  question: string;
+  questionType: QuestionTypeEnum;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons {
+  __typename: "Lesson";
+  _id: string | null;
+  lessonName: string;
+  assignedDate: any;
+  inUnit: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_inUnit;
+  assignedMarkingPeriod: MarkingPeriodEnum;
+  assignedCourses: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_assignedCourses[];
+  assignedSections: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_assignedSections;
+  pageNumbers: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_pageNumbers;
+  assignedSectionIdList: string[];
+  vocabList: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_vocabList[];
+  beforeActivity: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_beforeActivity;
+  duringActivities: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_duringActivities[];
+  afterActivity: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_afterActivity;
+  questionList: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_questionList[];
+  essentialQuestion: string;
+}
+
+export interface findLessonsByAssignedDate_findLessonsByAssignedDate {
+  __typename: "FindLessonsByAssignedDatePayload";
+  lessons: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons[];
+}
+
+export interface findLessonsByAssignedDate {
+  findLessonsByAssignedDate: findLessonsByAssignedDate_findLessonsByAssignedDate;
+}
+
+export interface findLessonsByAssignedDateVariables {
+  input: FindLessonsByAssignedDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: getCoursesForUser
 // ====================================================
 
@@ -5778,6 +5876,10 @@ export interface FindLessonByCourseInput {
 
 export interface FindLessonByIdInput {
   _id: string;
+}
+
+export interface FindLessonsByAssignedDateInput {
+  assignedDate: string;
 }
 
 export interface FindLessonsByUnitInput {

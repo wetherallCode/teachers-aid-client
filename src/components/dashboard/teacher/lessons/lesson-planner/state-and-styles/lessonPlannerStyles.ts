@@ -17,6 +17,13 @@ export const LessonPlanOutput = styled.div`
   color: var(--white);
   font-size: 1.2rem;
 `
+
+export const GoBackToAssignmentsContainer = styled.div`
+  grid-row: -2/-1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
 export const LessonPlanOutputHeader = styled.div`
   font-size: 2rem;
   text-decoration: underline;
@@ -130,9 +137,9 @@ export const SectionPickerSelectOptionsForm = styled.form`
 export type SectionSelectorOptionProps = {
   selected: boolean
 }
-export const SectionSelectorOption = styled(LessonPlannerListSelectorOption)<
-  SectionSelectorOptionProps
->`
+export const SectionSelectorOption = styled(
+  LessonPlannerListSelectorOption
+)<SectionSelectorOptionProps>`
   color: ${({ selected }) => (selected ? 'var(--grey)' : 'var(--blue)')};
 `
 export const SectionSelectorOptionAddButtonContainer = styled.div`
@@ -157,9 +164,9 @@ export const UnitSectionBody = styled(LessonPlannerSectionBody)`
 export type UnitSelectorOptionsProps = {
   selected: boolean
 }
-export const UnitSelectorOption = styled(LessonPlannerListSelectorOption)<
-  UnitSelectorOptionsProps
->`
+export const UnitSelectorOption = styled(
+  LessonPlannerListSelectorOption
+)<UnitSelectorOptionsProps>`
   color: ${({ selected }) => (selected ? 'var(--grey)' : 'var(--blue)')};
 `
 
@@ -190,7 +197,7 @@ export const LessonInfoTitleContainer = styled.div`
 `
 
 export const LessonPlannerActivityBody = styled(Standard8x12Container)`
-  grid-row: 3/-2;
+  grid-row: 2/-2;
   grid-column: 1/-1;
   grid-auto-flow: column;
 `
@@ -205,12 +212,15 @@ export const LessonNameContainer = styled.div`
   grid-row: 1/2;
   grid-column: 1/-1;
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  /* grid-template-columns: 1fr 2fr; */
   align-items: center;
+  justify-items: center;
 `
 export const LessonNameTitle = styled.div`
-  justify-self: right;
-  padding-right: 10%;
+  /* justify-self: right;
+  padding-right: 10%; */
+  text-decoration: underline;
+  font-size: 2.5vh;
 `
 
 export const LessonNameInput = styled.input`
@@ -225,7 +235,7 @@ export const LessonNameInput = styled.input`
 
 export const ActivityContainer = styled.div`
   grid-row: 2/5;
-  grid-column: 4/-1;
+  grid-column: 2/-2;
   overflow: scroll;
 `
 
@@ -271,6 +281,7 @@ export const DuringActivitySelection = styled.div<DuringActivitySelectionProps>`
   :hover {
     text-decoration: underline;
   }
+  cursor: pointer;
   color: ${({ selected }) => (selected ? 'var(--grey)' : 'var(--blue)')};
 `
 
@@ -292,10 +303,9 @@ export const EssentialQuestionOptionsContainer = styled.div`
 export type EssentialQuestionOptionSelectProps = {
   selected: boolean
 }
-export const EssentialQuestionOptionSelect = styled.div<
-  EssentialQuestionOptionSelectProps
->`
+export const EssentialQuestionOptionSelect = styled.div<EssentialQuestionOptionSelectProps>`
   color: ${({ selected }) => (selected ? 'var(--grey)' : 'var(--blue)')};
+  cursor: pointer;
 `
 
 export const EssentialQuestionAddContainter = styled.div`
@@ -338,4 +348,10 @@ export const AssignCourseCheckBox = styled.input`
 export const AssignCourseName = styled.div`
   justify-self: left;
   font-size: 2rem;
+`
+
+export const BackToCalendarButton = styled.button`
+  height: 3vh;
+  font-size: 2vh;
+  color: var(--blue);
 `

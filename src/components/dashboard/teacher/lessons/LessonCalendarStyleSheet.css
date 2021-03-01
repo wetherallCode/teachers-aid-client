@@ -1,6 +1,0 @@
-.tiles {
-  width: 10vh;
-  height: 12vh;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-}
