@@ -40,6 +40,7 @@ export const AssignmentDetailsGoBackButton = styled.button`
   font-size: 2vh;
   border-radius: 5px;
   color: var(--blue);
+  background-color: var(--white);
   text-shadow: 1px 1px var(--grey);
 `
 
@@ -97,6 +98,7 @@ export const QuestionTypeAnswerSelectStyle = styled.select`
   font-size: 72%;
   height: 37%;
   color: var(--blue);
+  background-color: var(--white);
 `
 
 export const PartsOfQuestionContainer = styled.div`
@@ -133,6 +135,7 @@ export const PartInput = styled.input`
   justify-self: left;
   border: 1px solid var(--white);
   font-size: 1.3rem;
+  background-color: var(--white);
   color: var(--blue);
   border-bottom: 1px solid var(--blue);
   width: 100%;
@@ -209,6 +212,7 @@ export const AcademicQuestionTypeSelect = styled.select`
   grid-column: 1/-1;
   font-size: 1.5vw;
   color: var(--blue);
+  background-color: var(--white);
   padding: 1%;
 `
 export const AcademicQuestionAnswerTypeContainer = styled(
@@ -236,6 +240,7 @@ export const RestatementInput = styled.input`
   height: 4vh;
   font-size: 2vh;
   color: var(--blue);
+  background-color: var(--white);
   :enabled {
     border: 1px solid var(--white);
     border-bottom: 1px solid var(--blue);
@@ -244,6 +249,7 @@ export const RestatementInput = styled.input`
 
 export const AcademicConclusionInput = styled(RestatementInput)`
   grid-column: 3/-3;
+  background-color: var(--white);
 `
 
 export const AcademicRestatementInput = styled.input`
@@ -254,6 +260,7 @@ export const AcademicRestatementInput = styled.input`
   font-size: 2vh;
   border: 1px solid var(--white);
   color: var(--blue);
+  background-color: var(--white);
   border-bottom: 1px solid var(--blue);
 `
 
@@ -282,6 +289,7 @@ export const AnswerInput = styled.textarea`
   height: 100%;
   font-size: 1.2rem;
   color: var(--blue);
+  background-color: var(--white);
   font-family: inherit;
   /* :enabled {
     border: 1px solid var(--white);
