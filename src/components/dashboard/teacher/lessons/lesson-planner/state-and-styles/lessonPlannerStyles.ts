@@ -67,6 +67,7 @@ export const LessonPlanMarkingPeriodSelect = styled.select`
   height: 32%;
   font-size: 1.5rem;
   color: var(--blue);
+  background-color: var(--white);
 `
 
 export const LessonPlannerHeader = styled.div`
@@ -181,6 +182,7 @@ export const CreateUnitInput = styled.input`
   width: 100%;
   font-size: inherit;
   color: inherit;
+  background-color: var(--white);
 `
 export const CreateUnitButton = styled(SectionSelectorOptionAddButton)`
   height: 75%;
@@ -256,6 +258,7 @@ export const ActivityCategorySelect = styled.select`
   width: 60%;
   font-size: 1.3rem;
   color: inherit;
+  background-color: var(--white);
 `
 
 export const ActivityCategoryInput = styled.input`
@@ -344,6 +347,7 @@ export const AssignCourseCheckBox = styled.input`
   justify-self: right;
   height: 3rem;
   width: 4rem;
+  background-color: var(--white);
 `
 export const AssignCourseName = styled.div`
   justify-self: left;
@@ -354,4 +358,5 @@ export const BackToCalendarButton = styled.button`
   height: 3vh;
   font-size: 2vh;
   color: var(--blue);
+  background-color: var(--white);
 `
