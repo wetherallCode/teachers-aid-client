@@ -6,6 +6,7 @@ import {
 } from '@apollo/client'
 import React, { FC } from 'react'
 import { useParams } from 'react-router'
+import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import {
   createTemporaryTasks,
   createTemporaryTasksVariables,
@@ -40,6 +41,7 @@ export const CREATE_TEMPORARY_TASKS_MUTATION = gql`
 
 export const CreateTask: FC<CreateTaskProps> = ({ courseId, warmUp }) => {
   const [state, event] = useTemporaryTasksContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
 
   const [createTask] = useMutation<
     createTemporaryTasks,
@@ -50,9 +52,10 @@ export const CreateTask: FC<CreateTaskProps> = ({ courseId, warmUp }) => {
         taskNumber: state.context.taskNumber,
         courseId,
         dateIssued: new Date().toLocaleDateString(),
+        markingPeriod: markingPeriodState.context.currentMarkingPeriod,
       },
     },
-    onCompleted: (data) => {
+    onCompleted: () => {
       state.context.taskNumber !== 0 &&
         event({
           type: 'ADD_NEW_ABSENT_LIST',
