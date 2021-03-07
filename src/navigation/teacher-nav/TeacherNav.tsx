@@ -58,6 +58,12 @@ export const TeacherNav: FC<TeacherNavProps> = ({
             </motion.li>
             <motion.li
               variants={liVariants}
+              onClick={() => event({ type: 'STUDENT_INFORMATION' })}
+            >
+              <Link to='dashboard/studentInformation'>Student Information</Link>
+            </motion.li>
+            <motion.li
+              variants={liVariants}
               onClick={() => event({ type: 'PARENT_CONTACTS' })}
             >
               <Link to='dashboard/parentContacts'>Parent Contacts</Link>

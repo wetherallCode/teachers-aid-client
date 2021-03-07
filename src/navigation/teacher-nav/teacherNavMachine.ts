@@ -6,6 +6,7 @@ export type teacherNavMachineSchema = {
     lessons: {}
     assignments: {}
     rubrics: {}
+    studentInformation: {}
     parentContacts: {}
     courses: {
       states: {
@@ -27,6 +28,7 @@ export type teacherNavMachineEvent =
   | { type: 'COURSES' }
   | { type: 'COURSE_SELECT' }
   | { type: 'LESSON_EDITOR' }
+  | { type: 'STUDENT_INFORMATION' }
   | { type: 'PARENT_CONTACTS' }
   | { type: 'SET_COURSE'; payload: string }
 
@@ -51,6 +53,7 @@ export const teacherNavMachine = Machine<
         COURSES: 'courses',
         ASSIGNMENTS: 'assignments',
         RUBRICS: 'rubrics',
+        STUDENT_INFORMATION: 'studentInformation',
         PARENT_CONTACTS: 'parentContacts',
       },
     },
@@ -66,6 +69,11 @@ export const teacherNavMachine = Machine<
       },
     },
     rubrics: {
+      on: {
+        DASHBOARD: 'dashboard',
+      },
+    },
+    studentInformation: {
       on: {
         DASHBOARD: 'dashboard',
       },
