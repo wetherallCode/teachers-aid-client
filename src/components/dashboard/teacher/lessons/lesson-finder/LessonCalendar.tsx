@@ -30,6 +30,7 @@ export const LessonCalendar: FC<LessonCalendarProps> = () => {
     }
     return 'Sunday'
   }
+
   return (
     <div>
       {state.matches('idle') && (
@@ -52,4 +53,5 @@ const StyledCalendar = styled(Calendar)`
   width: 100vw;
   height: 100%;
   border: 1px solid var(--blue);
+  background-color: var(--white);
 `
