@@ -11,6 +11,8 @@ import { TeachersAidContextProvider } from './teachers-aid/state/TeachersAidCont
 import { SchoolDay } from '../school-day/SchoolDay'
 import { SchoolDayContextProvider } from '../school-day/state/SchoolDayContext'
 import { ParentContacts } from './parent-contact/ParentContacts'
+import { StudentInformation } from './student-information/StudentInformation'
+import { StudentInformationContextProvider } from './student-information/state-n-styles/StudentInformationContext'
 
 export const TeacherDashboardHome = () => {
   // const me = useUserContextProvider() as me_me_Teacher
@@ -42,6 +44,16 @@ export const TeacherDashboardHome = () => {
         />
       </Routes>
       {pathname === '/dashboard' && <SchoolDay />}
+      <Routes>
+        <Route
+          path='studentInformation/*'
+          element={
+            <StudentInformationContextProvider>
+              <StudentInformation />
+            </StudentInformationContextProvider>
+          }
+        />
+      </Routes>
       <Routes>
         <Route path='parentContacts/*' element={<ParentContacts />} />
       </Routes>
