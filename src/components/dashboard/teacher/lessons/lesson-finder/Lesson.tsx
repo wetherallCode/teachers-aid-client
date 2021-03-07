@@ -91,7 +91,7 @@ export const Lesson: FC<LessonProps> = ({ date }) => {
 
   return (
     <div>
-      {data?.findLessonsByAssignedDate.lessons.length !== 0 ? (
+      {data?.findLessonsByAssignedDate.lessons?.length !== 0 ? (
         <div>
           {courseLessons.map((lesson, i: number) => (
             <div
