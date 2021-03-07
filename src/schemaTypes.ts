@@ -3267,7 +3267,7 @@ export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons {
 
 export interface findLessonsByAssignedDate_findLessonsByAssignedDate {
   __typename: "FindLessonsByAssignedDatePayload";
-  lessons: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons[];
+  lessons: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons[] | null;
 }
 
 export interface findLessonsByAssignedDate {
@@ -3952,6 +3952,181 @@ export interface findRubricEntries_findRubricEntries {
 
 export interface findRubricEntries {
   findRubricEntries: findRubricEntries_findRubricEntries;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAssignmentByStudentId
+// ====================================================
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide {
+  __typename: "ReadingGuide" | "Test";
+  _id: string | null;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  returned: boolean;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay {
+  __typename: "Essay";
+  _id: string | null;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_score;
+  markingPeriod: MarkingPeriodEnum;
+  finalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft | null;
+}
+
+export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay;
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_articleReviews {
+  __typename: "ArticleReview";
+  _id: string | null;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score;
+  exempt: boolean;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId {
+  __typename: "FindAssignmentByStudentIdPayload";
+  assignments: findAssignmentByStudentId_findAssignmentByStudentId_assignments[];
+  articleReviews: findAssignmentByStudentId_findAssignmentByStudentId_articleReviews[];
+}
+
+export interface findAssignmentByStudentId {
+  findAssignmentByStudentId: findAssignmentByStudentId_findAssignmentByStudentId;
+}
+
+export interface findAssignmentByStudentIdVariables {
+  input: FindAssignmentByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findContactsByStudentId
+// ====================================================
+
+export interface findContactsByStudentId_findContactsByStudentId_parentContacts {
+  __typename: "ParentContact";
+  _id: string | null;
+  date: string;
+  contentOfContact: string;
+  contactType: ContactTypeEnum;
+}
+
+export interface findContactsByStudentId_findContactsByStudentId {
+  __typename: "FindContactsByStudentIdPayload";
+  parentContacts: findContactsByStudentId_findContactsByStudentId_parentContacts[];
+}
+
+export interface findContactsByStudentId {
+  findContactsByStudentId: findContactsByStudentId_findContactsByStudentId;
+}
+
+export interface findContactsByStudentIdVariables {
+  input: FindContactsByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAllStudentsForStudentInformation
+// ====================================================
+
+export interface findAllStudentsForStudentInformation_findAllStudents_students_inCourses {
+  __typename: "Course";
+  name: string;
+}
+
+export interface findAllStudentsForStudentInformation_findAllStudents_students {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  inCourses: findAllStudentsForStudentInformation_findAllStudents_students_inCourses[];
+}
+
+export interface findAllStudentsForStudentInformation_findAllStudents {
+  __typename: "FindAllStudentsPayload";
+  students: findAllStudentsForStudentInformation_findAllStudents_students[];
+}
+
+export interface findAllStudentsForStudentInformation {
+  findAllStudents: findAllStudentsForStudentInformation_findAllStudents;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findTemporaryTasksByStudentId
+// ====================================================
+
+export interface findTemporaryTasksByStudentId_findTemporaryTasksByStudentId_temporaryTasks {
+  __typename: "TemporaryTask";
+  _id: string | null;
+  dateIssued: string;
+  answered: boolean;
+  studentPresent: boolean;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findTemporaryTasksByStudentId_findTemporaryTasksByStudentId {
+  __typename: "FindTemporaryTasksByStudentIdPayload";
+  temporaryTasks: findTemporaryTasksByStudentId_findTemporaryTasksByStudentId_temporaryTasks[];
+}
+
+export interface findTemporaryTasksByStudentId {
+  findTemporaryTasksByStudentId: findTemporaryTasksByStudentId_findTemporaryTasksByStudentId;
+}
+
+export interface findTemporaryTasksByStudentIdVariables {
+  input: FindTemporaryTasksByStudentIdInput;
 }
 
 /* tslint:disable */
@@ -5777,6 +5952,7 @@ export interface CreateStudentQuestionInput {
 export interface CreateTemporaryTasksInput {
   courseId: string;
   dateIssued: string;
+  markingPeriod: MarkingPeriodEnum;
   taskNumber: number;
 }
 
@@ -5824,11 +6000,19 @@ export interface FindAssignmentByIdInput {
   assignmentId: string;
 }
 
+export interface FindAssignmentByStudentIdInput {
+  studentId: string;
+}
+
 export interface FindChaptersInTextInput {
   textTitle: string;
 }
 
 export interface FindCompletedEssaysByStudentIdInput {
+  studentId: string;
+}
+
+export interface FindContactsByStudentIdInput {
   studentId: string;
 }
 
@@ -5928,6 +6112,10 @@ export interface FindStudentQuestionsInput {
 
 export interface FindStudentsByCourseInput {
   courseId: string;
+}
+
+export interface FindTemporaryTasksByStudentIdInput {
+  studentId: string;
 }
 
 export interface FindTemporaryTasksInput {
