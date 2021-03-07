@@ -24,7 +24,7 @@ import { useNavigate, useParams } from 'react-router'
 
 export type LessonPlannerProps = {}
 
-export const LessonPlanner: FC<LessonPlannerProps> = () => {
+export const LessonPlanner = () => {
   const [state, event] = useLessonPlannerContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
   const [mp] = useMarkingPeriodContextProvider()
