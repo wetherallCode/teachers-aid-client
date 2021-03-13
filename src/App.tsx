@@ -110,11 +110,11 @@ function App() {
             }
           />
         )}
+        <Route
+          path='/problem-solution-guide/*'
+          element={<ProblemAndSolutionGuide />}
+        />
       </Routes>
-      <Route
-        path='/problem-solution-guide'
-        element={<ProblemAndSolutionGuide />}
-      />
     </AppContainer>
   )
 }
