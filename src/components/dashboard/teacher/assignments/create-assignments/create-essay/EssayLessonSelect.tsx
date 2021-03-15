@@ -5,6 +5,15 @@ import {
   findLessonsByUnitVariables,
 } from '../../../../../../schemaTypes'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
+import {
+  ItemSelectorContainer,
+  LessonInformationSelectContainer,
+  SelectableItem,
+  SelectButton,
+  SelectButtonContainer,
+  SelectorContainer,
+  SelectorTitle,
+} from '../state-and-styles/createAssignmentsStyles'
 
 export type EssayLessonSelectProps = {
   courseId: string
@@ -16,6 +25,7 @@ export const FIND_LESSONS_BY_UNIT_QUERY = gql`
       lessons {
         _id
         lessonName
+        assignedDate
       }
     }
   }
@@ -40,21 +50,32 @@ export const EssayLessonSelect: FC<EssayLessonSelectProps> = ({ courseId }) => {
   if (loading) return <div>Loading </div>
 
   return (
-    <>
-      <div>Select Lesson</div>
-      <select
-        onChange={(e: any) =>
-          event({ type: 'SET_LESSON', payload: e.target.value })
-        }
-      >
-        <option value={undefined}>Pick a Lesson</option>
-        {data?.findLessonsByUnit.lessons.map((lesson) => (
-          <option key={lesson._id!} value={lesson._id!}>
-            {lesson.lessonName}
-          </option>
-        ))}
-      </select>
-      <button onClick={() => event({ type: 'ESSAY_INFO' })}>Next</button>
-    </>
+    <LessonInformationSelectContainer>
+      <SelectorContainer>
+        <SelectorTitle>Select Lesson</SelectorTitle>
+        <ItemSelectorContainer>
+          {data?.findLessonsByUnit.lessons.map((lesson) => (
+            <SelectableItem
+              key={lesson._id!}
+              onClick={() => {
+                event({ type: 'SET_LESSON', payload: lesson._id! })
+                event({
+                  type: 'SET_ASSIGNED_DATE',
+                  payload: lesson.assignedDate!,
+                })
+                event({ type: 'ESSAY_INFO' })
+              }}
+            >
+              {lesson.lessonName}
+            </SelectableItem>
+          ))}
+        </ItemSelectorContainer>
+      </SelectorContainer>
+      <SelectButtonContainer>
+        <SelectButton onClick={() => event({ type: 'ESSAY_UNIT' })}>
+          Choose Different Unit
+        </SelectButton>
+      </SelectButtonContainer>
+    </LessonInformationSelectContainer>
   )
 }

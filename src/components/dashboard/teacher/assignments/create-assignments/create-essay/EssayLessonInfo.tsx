@@ -8,6 +8,12 @@ import {
 } from '../../../../../../schemaTypes'
 import { CreateEssay } from './CreateEssay'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import {
+  LessonInformationSelectContainer,
+  SelectButtonContainer,
+  SelectorContainer,
+  SelectorTitle,
+} from '../state-and-styles/createAssignmentsStyles'
 
 export type EssayLessonInfoProps = {
   me: me_me_Teacher
@@ -47,14 +53,13 @@ export const EssayLessonInfo: FC<EssayLessonInfoProps> = ({ me }) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  const { loading, data } = useQuery<findLessonById, findLessonByIdVariables>(
+  const { loading } = useQuery<findLessonById, findLessonByIdVariables>(
     FIND_LESSON_BY_ID_QUERY,
     {
       variables: {
         input: { _id: state.context.essay.lesson },
       },
       onCompleted: (data) => {
-        // event({ type: 'SET_COURSE_INFO', payload: courseInfo })
         event({
           type: 'SET_QUESTION_LIST',
           payload: data?.findLessonById.lesson.questionList,
@@ -86,23 +91,13 @@ export const EssayLessonInfo: FC<EssayLessonInfoProps> = ({ me }) => {
   )
   if (loading) return <div>Loading </div>
 
-  // const courseIdList = data?.findLessonById.lesson.assignedCourses!
   const courseIdList = [state.context.courseId]
 
   return (
     <>
-      <div>
-        <button onClick={() => event({ type: 'PREVIOUS' })}>
-          Pick Different Lesson
-        </button>
-        {state.matches('essay.essayInfo') && (
-          <CreateEssay
-            me={me}
-            // courseIdList={courseIdList.map((course) => course._id!)}
-            courseIdList={courseIdList}
-          />
-        )}
-      </div>
+      {state.matches('essay.essayInfo') && (
+        <CreateEssay me={me} courseIdList={courseIdList} />
+      )}
     </>
   )
 }

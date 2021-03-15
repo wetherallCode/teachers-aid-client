@@ -55,6 +55,7 @@ export type createAssignmentMachineEvent =
   | { type: 'SET_LINKED_COURSES_IDS'; payload: string[] }
   | { type: 'SET_UNIT'; payload: string }
   | { type: 'SET_LESSON'; payload: string }
+  | { type: 'SET_LESSON_DATE'; payload: string }
   | {
       type: 'SET_QUESTION_LIST'
       payload: TextSectionQuestionsInput[]
@@ -86,6 +87,7 @@ export type createAssignmentMachineContext = {
   essay: {
     unit: string
     lesson: string
+    lessonDate: string
     assignedCourseId: string[]
     questionList: TextSectionQuestionsInput[]
     dueDate: any
@@ -129,11 +131,13 @@ export const createAssignmentMachine = Machine<
     essay: {
       unit: '',
       lesson: '',
+      lessonDate: '',
       assignedCourseId: [],
       questionList: [],
       dueDate: '',
       dueTime: TimeOfDay.BEFORE_CLASS,
-      assignedDate: dateConverter(new Date().toISOString().substring(0, 10)),
+      // assignedDate: dateConverter(new Date().toISOString().substring(0, 10)),
+      assignedDate: '',
       maxPoints: 5,
       markingPeriod: MarkingPeriodEnum.FIRST,
       readings: {
@@ -201,6 +205,15 @@ export const createAssignmentMachine = Machine<
                 return {
                   ...ctx,
                   essay: { ...ctx.essay, lesson: evt.payload },
+                }
+              }),
+            },
+            SET_ASSIGNED_DATE: {
+              actions: assign((ctx, evt) => {
+                console.log(evt.payload)
+                return {
+                  ...ctx,
+                  essay: { ...ctx.essay, assignedDate: evt.payload },
                 }
               }),
             },

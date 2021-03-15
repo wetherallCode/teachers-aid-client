@@ -3,11 +3,20 @@ import { FIND_UNITS_QUERY } from '../../../lessons/lesson-planner/UnitAssigner'
 import { findUnits } from '../../../../../../schemaTypes'
 import { useQuery } from '@apollo/client'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
+import {
+  ItemSelectorContainer,
+  LessonInformationSelectContainer,
+  SelectableItem,
+  SelectButton,
+  SelectButtonContainer,
+  SelectorContainer,
+  SelectorTitle,
+} from '../state-and-styles/createAssignmentsStyles'
 
 export type EssayUnitSelectProps = {}
 
 export const EssayUnitSelect: FC<EssayUnitSelectProps> = () => {
-  const [, event] = useCreateAssignmentContextPovider()
+  const [state, event] = useCreateAssignmentContextPovider()
 
   const { loading, data } = useQuery<findUnits>(FIND_UNITS_QUERY, {
     // onCompleted: (data) => console.log(data.findUnits.units),
@@ -16,24 +25,24 @@ export const EssayUnitSelect: FC<EssayUnitSelectProps> = () => {
   if (loading) return <div>Loading </div>
 
   return (
-    <>
-      <div>Select Lesson</div>
-      <>
-        <div>From Unit: </div>
-        <select
-          onChange={(e: any) =>
-            event({ type: 'SET_UNIT', payload: e.target.value })
-          }
-        >
-          <option value={undefined}>Select a Unit</option>
+    <LessonInformationSelectContainer>
+      <SelectorContainer>
+        <SelectorTitle>Select Unit </SelectorTitle>
+        <ItemSelectorContainer>
           {data?.findUnits.units.map((unit) => (
-            <option key={unit._id!} value={unit._id!}>
+            <SelectableItem
+              key={unit._id}
+              onClick={() => {
+                event({ type: 'SET_UNIT', payload: unit._id! })
+                event({ type: 'ESSAY_LESSON' })
+              }}
+            >
               {unit.unitName}
-            </option>
+            </SelectableItem>
           ))}
-        </select>
-        <button onClick={() => event({ type: 'ESSAY_LESSON' })}>Next</button>
-      </>
-    </>
+        </ItemSelectorContainer>
+      </SelectorContainer>
+      <SelectButtonContainer></SelectButtonContainer>
+    </LessonInformationSelectContainer>
   )
 }
