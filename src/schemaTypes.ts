@@ -1533,68 +1533,6 @@ export interface createEssayVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findLessonById
-// ====================================================
-
-export interface findLessonById_findLessonById_lesson_questionList {
-  __typename: "TextSectionQuestions";
-  question: string;
-  questionType: QuestionTypeEnum;
-}
-
-export interface findLessonById_findLessonById_lesson_pageNumbers {
-  __typename: "PageNumbers";
-  startingPage: number;
-  endingPage: number;
-}
-
-export interface findLessonById_findLessonById_lesson_assignedSections {
-  __typename: "LessonTextSections";
-  startingSection: string;
-  endingSection: string;
-}
-
-export interface findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo {
-  __typename: "CourseInfo";
-  startsAt: string;
-  endsAt: string;
-  schoolDayType: SchoolDayType;
-}
-
-export interface findLessonById_findLessonById_lesson_assignedCourses {
-  __typename: "Course";
-  hasCourseInfo: findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo | null;
-  _id: string | null;
-}
-
-export interface findLessonById_findLessonById_lesson {
-  __typename: "Lesson";
-  _id: string | null;
-  questionList: findLessonById_findLessonById_lesson_questionList[];
-  pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
-  assignedSections: findLessonById_findLessonById_lesson_assignedSections;
-  assignedCourses: findLessonById_findLessonById_lesson_assignedCourses[];
-}
-
-export interface findLessonById_findLessonById {
-  __typename: "FindLessonByIdPayload";
-  lesson: findLessonById_findLessonById_lesson;
-}
-
-export interface findLessonById {
-  findLessonById: findLessonById_findLessonById;
-}
-
-export interface findLessonByIdVariables {
-  input: FindLessonByIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findLessonsByUnit
 // ====================================================
 
@@ -1602,6 +1540,7 @@ export interface findLessonsByUnit_findLessonsByUnit_lessons {
   __typename: "Lesson";
   _id: string | null;
   lessonName: string;
+  assignedDate: any;
 }
 
 export interface findLessonsByUnit_findLessonsByUnit {
@@ -5624,6 +5563,68 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findLessonById
+// ====================================================
+
+export interface findLessonById_findLessonById_lesson_questionList {
+  __typename: "TextSectionQuestions";
+  question: string;
+  questionType: QuestionTypeEnum;
+}
+
+export interface findLessonById_findLessonById_lesson_pageNumbers {
+  __typename: "PageNumbers";
+  startingPage: number;
+  endingPage: number;
+}
+
+export interface findLessonById_findLessonById_lesson_assignedSections {
+  __typename: "LessonTextSections";
+  startingSection: string;
+  endingSection: string;
+}
+
+export interface findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo {
+  __typename: "CourseInfo";
+  startsAt: string;
+  endsAt: string;
+  schoolDayType: SchoolDayType;
+}
+
+export interface findLessonById_findLessonById_lesson_assignedCourses {
+  __typename: "Course";
+  hasCourseInfo: findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo | null;
+  _id: string | null;
+}
+
+export interface findLessonById_findLessonById_lesson {
+  __typename: "Lesson";
+  _id: string | null;
+  questionList: findLessonById_findLessonById_lesson_questionList[];
+  pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
+  assignedSections: findLessonById_findLessonById_lesson_assignedSections;
+  assignedCourses: findLessonById_findLessonById_lesson_assignedCourses[];
+}
+
+export interface findLessonById_findLessonById {
+  __typename: "FindLessonByIdPayload";
+  lesson: findLessonById_findLessonById_lesson;
+}
+
+export interface findLessonById {
+  findLessonById: findLessonById_findLessonById;
+}
+
+export interface findLessonByIdVariables {
+  input: FindLessonByIdInput;
 }
 
 /* tslint:disable */
