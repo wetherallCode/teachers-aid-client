@@ -78,6 +78,7 @@ export const Lesson: FC<LessonProps> = ({ date }) => {
       input: { assignedDate: new Date(date.date).toLocaleDateString() },
     },
     // onCompleted: (data) => console.log(data),
+    pollInterval: 1000,
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

@@ -12,6 +12,7 @@ export const LessonDetails: FC<LessonDetailsProps> = () => {
     beforeActivity,
     pageNumbers,
     assignedSections,
+    afterActivity,
     duringActivities,
     questionList,
   } = state.context.lesson!
@@ -73,13 +74,12 @@ export const LessonDetails: FC<LessonDetailsProps> = () => {
         <LessonPlanSectionTitles>
           Summarization Strategy
         </LessonPlanSectionTitles>
-        <div>
-          Exit ticket question that they will organize into a paragraph.
-        </div>
+        <div>Exit ticket</div>
         <ul>
-          {questionList.map((question, i: number) => (
+          {/* {questionList.map((question, i: number) => (
             <li key={i}>{question.question}</li>
-          ))}
+          ))} */}
+          <li>{afterActivity.task}</li>
         </ul>
         <br />
         <LessonPlanSectionTitles>Modifications</LessonPlanSectionTitles>
