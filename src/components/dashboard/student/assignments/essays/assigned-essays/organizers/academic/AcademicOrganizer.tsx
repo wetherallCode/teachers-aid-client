@@ -78,7 +78,10 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
         />
       )}
       {state.matches('organizers.academicOrganizer.answer') && (
-        <AcademicAnswerTypes organizer={organizer} />
+        <AcademicAnswerTypes
+          organizer={organizer}
+          updateAcademicOrganizer={updateAcademicOrganizer}
+        />
       )}
       {state.matches('organizers.academicOrganizer.conclusion') && (
         <AcademicConclusion updateAcademicOrganizer={updateAcademicOrganizer} />

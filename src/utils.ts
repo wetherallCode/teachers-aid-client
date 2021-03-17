@@ -135,6 +135,18 @@ export const sortByLetter = (a: any, b: any) => {
   return 0
 }
 
+export const irregularPastTenseVerbList = (verb: string) => {
+  const lowerCaseVerb = verb.toLowerCase()
+
+  if (lowerCaseVerb === 'run') {
+    return 'ran'
+  }
+  if (lowerCaseVerb === 'fight') {
+    return 'fought'
+  }
+  return verb
+}
+
 export const twentyFourStudentClassSize = [
   1,
   2,

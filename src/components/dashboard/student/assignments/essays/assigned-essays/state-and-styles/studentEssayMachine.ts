@@ -142,7 +142,7 @@ export type studentEssayMachineContext = {
     conclusion: string
   }
   academicOrganizer: {
-    questionType: QuestionTypeEnum
+    questionType: QuestionTypeEnum | null
     academicSentenceStructure: {
       subject: string
       verb: string
@@ -225,7 +225,7 @@ export const studentEssayMachine = Machine<
       conclusion: '',
     },
     academicOrganizer: {
-      questionType: QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
+      questionType: null,
       academicSentenceStructure: {
         subject: '',
         verb: '',

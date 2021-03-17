@@ -24,6 +24,10 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
 }) => {
   const essayOrganizer =
     organizer.__typename === 'AcademicOrganizer' ? organizer : null
+
+  const { verb, subject, object } = essayOrganizer?.academicSentenceStructure!
+  const linkingVerbCheck =
+    verb.toLowerCase() === 'was' || verb.toLowerCase() === 'were'
   return (
     <>
       <EssayOrganizerRestatement>
@@ -171,10 +175,16 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
                 <AcademicEssayOrganizerAnswerBlockHeader>
                   What was the Final Effect?
                 </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.academicSentenceStructure.subject}{' '}
-                  {essayOrganizer.academicSentenceStructure.verb}ed
-                </AcademicEssayOrganizerAnswerBlockBody>
+                {!linkingVerbCheck ? (
+                  <AcademicEssayOrganizerAnswerBlockBody>
+                    {essayOrganizer.academicSentenceStructure.subject}{' '}
+                    {essayOrganizer.academicSentenceStructure.verb}ed
+                  </AcademicEssayOrganizerAnswerBlockBody>
+                ) : (
+                  <AcademicEssayOrganizerAnswerBlockBody>
+                    {subject} {verb} {object}
+                  </AcademicEssayOrganizerAnswerBlockBody>
+                )}
               </AcademicEssayOrganizerAnswerBlock>
             </WhyCauseEffectOrganizerAnswer>
           )}

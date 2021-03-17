@@ -15,6 +15,7 @@ import {
   AcademicRestatementTitle,
   PartInput,
 } from '../../state-and-styles/assignedEssayStyles'
+import { irregularPastTenseVerbList } from '../../../../../../../../utils'
 
 export type AcademicProblemSolutionProps = {}
 
@@ -30,7 +31,13 @@ export const UPDATE_PROBLEM_SOLUTION_MUTATION = gql`
 
 export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
   const [state, event] = useStudentEssayContextProvider()
-  const { subject } = state.context.academicOrganizer.academicSentenceStructure
+
+  const {
+    subject,
+    verb,
+    object,
+  } = state.context.academicOrganizer.academicSentenceStructure
+  const irregularVerbCheck = irregularPastTenseVerbList(verb)
 
   const { problemSolution } = state.context.academicOrganizer.answer
 
@@ -63,6 +70,14 @@ export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
     // state.context.academicOrganizer.answer.problemSolution,
   ])
 
+  const congugatedVerb =
+    verb === irregularVerbCheck
+      ? irregularVerbCheck
+          .charAt(irregularVerbCheck.length - 1)
+          .toLowerCase() === 'e'
+        ? verb + 'd'
+        : verb + 'ed'
+      : irregularVerbCheck
   return (
     <>
       <AcademicQuestionAnswerTypeContainer>

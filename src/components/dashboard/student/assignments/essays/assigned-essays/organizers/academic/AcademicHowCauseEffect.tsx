@@ -14,6 +14,7 @@ import {
   OrganizerControlButtonContainer,
   OrganizerControlButton,
 } from '../../state-and-styles/assignedEssayStyles'
+import { irregularPastTenseVerbList } from '../../../../../../../../utils'
 
 export type AcademicHowCauseEffectProps = {}
 
@@ -59,6 +60,18 @@ export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
     state.context.academicOrganizer.answer.howCauseEffect.after,
     updateHowCauseEffect,
   ])
+
+  const irregularVerbCheck = irregularPastTenseVerbList(verb)
+
+  const congugatedVerb =
+    verb === irregularVerbCheck
+      ? irregularVerbCheck
+          .charAt(irregularVerbCheck.length - 1)
+          .toLowerCase() === 'e'
+        ? verb + 'd'
+        : verb + 'ed'
+      : irregularVerbCheck
+
   return (
     <>
       <AcademicQuestionAnswerTypeContainer>
@@ -67,7 +80,7 @@ export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
           <div>
-            What was {object} like before {subject} {verb}ed
+            What was {object} like before {subject} {congugatedVerb} it?
           </div>
           <PartInput
             value={state.context.academicOrganizer.answer.howCauseEffect.before}

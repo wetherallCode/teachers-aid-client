@@ -35,6 +35,7 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
   const {
     subject,
     verb,
+    object,
   } = state.context.academicOrganizer.academicSentenceStructure
 
   const [updateWhyCauseEffect] = useMutation<
@@ -65,9 +66,16 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
           <div>Why Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>
-            Why did {subject} {verb}?
-          </div>
+          {verb !== 'was' ? (
+            <div>
+              Why did {subject} {verb}
+              {object ? ' ' + object : null}?
+            </div>
+          ) : (
+            <div>
+              Why {verb} {subject} {object}?
+            </div>
+          )}
           <PartInput
             type='text'
             placeholder='Proximate Cause...'
