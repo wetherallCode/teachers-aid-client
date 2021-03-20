@@ -79,7 +79,10 @@ export const AcademicRestatement: FC<AcademicRestatementProps> = ({
           {!linkingVerbCheck ? (
             <div>What is the Object of the question? </div>
           ) : (
-            <div>What is the word or phrase describing {subject}?</div>
+            <div>
+              What is the word or phrase describing {subject} or showing an
+              action (include a direct object if there is one)?
+            </div>
           )}
 
           <PartInput
