@@ -144,6 +144,7 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'fight') {
     return 'fought'
   }
+
   return verb
 }
 
