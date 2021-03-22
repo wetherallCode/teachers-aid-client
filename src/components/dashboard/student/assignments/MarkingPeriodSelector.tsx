@@ -5,7 +5,7 @@ import { MarkingPeriodEnum } from '../../../../schemaTypes'
 import {
   MarkingPeriodSelectedSwitchArrow,
   MarkingPeriodSelectorContainer,
-  MarkingPeriodSelectorSwitch,
+  MarkingPeriodSelectorSwitchContainer,
   MarkingPeriodSelectorTitle,
 } from './assignmentsStyles'
 import { useStudentAssignmentContextProvider } from './StudentAssignmentContext'
@@ -33,7 +33,7 @@ export const MarkingPeriodSelector: FC<MarkingPeriodSelectorProps> = () => {
       <MarkingPeriodSelectorTitle>
         Select Marking Period
       </MarkingPeriodSelectorTitle>
-      <MarkingPeriodSelectorSwitch>
+      <MarkingPeriodSelectorSwitchContainer>
         <MarkingPeriodSelectedSwitchArrow
           onClick={() => {
             if (index > 0) {
@@ -53,7 +53,7 @@ export const MarkingPeriodSelector: FC<MarkingPeriodSelectorProps> = () => {
         >
           &gt;
         </MarkingPeriodSelectedSwitchArrow>
-      </MarkingPeriodSelectorSwitch>
+      </MarkingPeriodSelectorSwitchContainer>
     </MarkingPeriodSelectorContainer>
   )
 }

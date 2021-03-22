@@ -36,7 +36,7 @@ export const MarkingPeriodSelectorContainer = styled.div`
   grid-row: -2/-1;
   grid-column: 1/-1;
   display: grid;
-
+  width: 100%;
   font-size: 2vw;
   grid-template-columns: 1fr 1fr;
 `
@@ -47,7 +47,7 @@ export const MarkingPeriodSelectorTitle = styled.div`
   margin-right: 10%;
 `
 
-export const MarkingPeriodSelectorSwitch = styled.div`
+export const MarkingPeriodSelectorSwitchContainer = styled.div`
   justify-self: left;
   align-self: center;
   /* margin-left: 10%; */
