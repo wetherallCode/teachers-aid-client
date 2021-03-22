@@ -3964,22 +3964,23 @@ export interface findRubricEntries {
 // GraphQL query operation: findAssignmentByStudentId
 // ====================================================
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings {
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_readings {
   __typename: "Readings";
   readingSections: string;
 }
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score {
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_score {
   __typename: "Score";
   earnedPoints: number;
   maxPoints: number;
 }
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide {
-  __typename: "ReadingGuide" | "Test";
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test {
+  __typename: "Test";
   _id: string | null;
-  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings;
-  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_score;
+  exempt: boolean;
   markingPeriod: MarkingPeriodEnum;
 }
 
@@ -4004,11 +4005,38 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   _id: string | null;
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_score;
+  exempt: boolean;
   markingPeriod: MarkingPeriodEnum;
   finalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft | null;
 }
 
-export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay;
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  submitted: boolean;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score;
+  exempt: boolean;
+  markingPeriod: MarkingPeriodEnum;
+  readingGuideFinal: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal | null;
+}
+
+export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide;
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score {
   __typename: "Score";
@@ -4020,7 +4048,9 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_articleRevi
   __typename: "ArticleReview";
   _id: string | null;
   score: findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score;
+  assignedDate: string;
   exempt: boolean;
+  submitted: boolean;
   markingPeriod: MarkingPeriodEnum;
 }
 
@@ -4066,6 +4096,73 @@ export interface findContactsByStudentId {
 
 export interface findContactsByStudentIdVariables {
   input: FindContactsByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findResponsibilityPointsByStudentId
+// ====================================================
+
+export interface findResponsibilityPointsByStudentId_findResponsibilityPointsByStudentId_responsibilityPoints {
+  __typename: "ResponsibilityPoints";
+  responsibilityPoints: number;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findResponsibilityPointsByStudentId_findResponsibilityPointsByStudentId {
+  __typename: "FindResponsibilityPointsByStudentIdPayload";
+  responsibilityPoints: findResponsibilityPointsByStudentId_findResponsibilityPointsByStudentId_responsibilityPoints[];
+}
+
+export interface findResponsibilityPointsByStudentId {
+  findResponsibilityPointsByStudentId: findResponsibilityPointsByStudentId_findResponsibilityPointsByStudentId;
+}
+
+export interface findResponsibilityPointsByStudentIdVariables {
+  input: FindResponsibilityPointsByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findWritingMetrics
+// ====================================================
+
+export interface findWritingMetrics_findWritingMetrics_writingMetrics_student {
+  __typename: "Student";
+  firstName: string;
+}
+
+export interface findWritingMetrics_findWritingMetrics_writingMetrics_overallWritingMetric {
+  __typename: "OverallWritingMetric";
+  overallWritingLevel: WritingLevelEnum;
+  levelPoints: number;
+}
+
+export interface findWritingMetrics_findWritingMetrics_writingMetrics {
+  __typename: "WritingMetrics";
+  student: findWritingMetrics_findWritingMetrics_writingMetrics_student;
+  overallWritingMetric: findWritingMetrics_findWritingMetrics_writingMetrics_overallWritingMetric;
+}
+
+export interface findWritingMetrics_findWritingMetrics {
+  __typename: "FindWritingMetricsPayload";
+  writingMetrics: findWritingMetrics_findWritingMetrics_writingMetrics;
+}
+
+export interface findWritingMetrics {
+  findWritingMetrics: findWritingMetrics_findWritingMetrics;
+}
+
+export interface findWritingMetricsVariables {
+  input: FindWritingMetricsInput;
 }
 
 /* tslint:disable */
@@ -6098,6 +6195,10 @@ export interface FindResponsibilityPointsByCourseInput {
   courseId: string;
 }
 
+export interface FindResponsibilityPointsByStudentIdInput {
+  studentId: string;
+}
+
 export interface FindSchoolDayByDateInput {
   date: any;
 }
@@ -6138,6 +6239,10 @@ export interface FindTextSectionsByIdInput {
 
 export interface FindUserDataInput {
   _id: string;
+}
+
+export interface FindWritingMetricsInput {
+  studentId: string;
 }
 
 export interface FinishProtocolInput {
