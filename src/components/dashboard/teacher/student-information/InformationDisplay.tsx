@@ -1,20 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { MarkingPeriodEnum } from '../../../../schemaTypes'
+import { MarkingPeriodSelectorSwitch } from '../../../reusable-components/MarkingPeriodSelectorSwitch'
 import { TemporaryTaskDisplay } from '../courses/temporary-tasks/state-n-styles/temporaryTaskStyles'
 import { AssignmentInformation } from './AssignmentInformation'
-import { ParentContacts } from './ParentContacts'
+import { ParentContacts } from './contact-info/ParentContacts'
 import { useStudentInformationContextProvider } from './state-n-styles/StudentInformationContext'
 import {
   InformationContainer,
   InformationTypeSelectorContainer,
   InformationTypeTab,
+  MarkingPeriodSelectorSwitchContainer,
   StudentNameHeader,
 } from './state-n-styles/studentInformationStyles'
+import { StudentInformationDisplay } from './general-student-information/StudentInformationDisplay'
 import { TemporaryTasksInformation } from './TemporaryTasksInformation'
 
 export type InformationDisplayProps = {}
 
 export const InformationDisplay = ({}: InformationDisplayProps) => {
   const [state, event] = useStudentInformationContextProvider()
+  const [selectedMarkingPeriod, setSelectedMarkingPeriod] = useState(
+    MarkingPeriodEnum.FIRST
+  )
   const { student } = state.context
   return (
     <InformationContainer>
@@ -28,7 +35,7 @@ export const InformationDisplay = ({}: InformationDisplayProps) => {
           onClick={() => event({ type: 'STUDENT_INFO' })}
           selected={state.matches('information.studentInfo')}
         >
-          <div>Student Info</div>
+          <div>Student Data</div>
         </InformationTypeTab>
         <InformationTypeTab
           onClick={() => event({ type: 'ASSIGNMENTS' })}
@@ -49,12 +56,29 @@ export const InformationDisplay = ({}: InformationDisplayProps) => {
           <div>Contacts</div>
         </InformationTypeTab>
       </InformationTypeSelectorContainer>
-      {state.matches('information.studentInfo') && <div>Student Info</div>}
+      {state.matches('information.studentInfo') && (
+        <StudentInformationDisplay
+          student={student!}
+          selectedMarkingPeriod={selectedMarkingPeriod}
+          setSelectedMarkingPeriod={setSelectedMarkingPeriod}
+        />
+      )}
       {state.matches('information.assignments') && (
-        <AssignmentInformation studentId={student?._id!} />
+        <AssignmentInformation
+          studentId={student?._id!}
+          selectedMarkingPeriod={selectedMarkingPeriod}
+        />
       )}
       {state.matches('information.protocols') && <TemporaryTasksInformation />}
-      {state.matches('information.contacts') && <ParentContacts />}
+      {state.matches('information.contacts') && (
+        <ParentContacts studentId={student?._id!} />
+      )}
+      <MarkingPeriodSelectorSwitchContainer>
+        <MarkingPeriodSelectorSwitch
+          selectedMarkingPeriod={selectedMarkingPeriod}
+          setSelectedMarkingPeriod={setSelectedMarkingPeriod}
+        />
+      </MarkingPeriodSelectorSwitchContainer>
     </InformationContainer>
   )
 }

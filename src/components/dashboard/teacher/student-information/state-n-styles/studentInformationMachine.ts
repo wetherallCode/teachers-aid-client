@@ -7,7 +7,13 @@ export type studentInformationMachineSchema = {
     information: {
       states: {
         studentInfo: {}
-        assignments: {}
+        assignments: {
+          states: {
+            essays: {}
+            readingGuides: {}
+            articleReviews: {}
+          }
+        }
         protocols: {}
         contacts: {}
       }
@@ -19,6 +25,9 @@ export type studentInformationMachineEvent =
   | { type: 'ASSIGNMENTS' }
   | { type: 'PROTOCOLS' }
   | { type: 'CONTACTS' }
+  | { type: 'READING_GUIDES' }
+  | { type: 'ESSAYS' }
+  | { type: 'ARTICLE_REVIEWS' }
   | {
       type: 'SET_STUDENT'
       payload: findAllStudentsForStudentInformation_findAllStudents_students
@@ -63,10 +72,35 @@ export const studentInformationMachine = Machine<
           },
         },
         assignments: {
-          on: {
-            STUDENT_INFO: 'studentInfo',
-            CONTACTS: 'contacts',
-            PROTOCOLS: 'protocols',
+          initial: 'essays',
+          states: {
+            essays: {
+              on: {
+                STUDENT_INFO: '#studentInformation.information.studentInfo',
+                CONTACTS: '#studentInformation.information.contacts',
+                PROTOCOLS: '#studentInformation.information.protocols',
+                READING_GUIDES: 'readingGuides',
+                ARTICLE_REVIEWS: 'articleReviews',
+              },
+            },
+            readingGuides: {
+              on: {
+                STUDENT_INFO: '#studentInformation.information.studentInfo',
+                CONTACTS: '#studentInformation.information.contacts',
+                PROTOCOLS: '#studentInformation.information.protocols',
+                ESSAYS: 'essays',
+                ARTICLE_REVIEWS: 'articleReviews',
+              },
+            },
+            articleReviews: {
+              on: {
+                STUDENT_INFO: '#studentInformation.information.studentInfo',
+                CONTACTS: '#studentInformation.information.contacts',
+                PROTOCOLS: '#studentInformation.information.protocols',
+                READING_GUIDES: 'readingGuides',
+                ESSAYS: 'essays',
+              },
+            },
           },
         },
         protocols: {

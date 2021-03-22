@@ -73,7 +73,6 @@ export const CreateContact: FC<CreateContactProps> = () => {
           <input
             type='date'
             onChange={(e: any) => {
-              console.log(dateConverter(e.target.value))
               event({
                 type: 'SET_DATE',
                 payload: dateConverter(e.target.value),

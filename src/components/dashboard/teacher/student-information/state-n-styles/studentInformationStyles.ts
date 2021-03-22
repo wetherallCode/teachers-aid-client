@@ -56,7 +56,7 @@ export const StudentNameListContainer = styled.div`
 
 export const InformationContainer = styled.div`
   display: grid;
-  grid-template-rows: 2fr 5% 8fr;
+  grid-template-rows: 2fr 5% 7fr 1fr;
 `
 
 export const StudentNameHeader = styled.div`
@@ -96,7 +96,65 @@ export const InformationTypeTab = styled.div<InformationTypeTabProps>`
 export const InformationPageOutline = styled.div`
   border-right: 1px solid var(--blue);
   border-left: 1px solid var(--blue);
-  border-bottom: 1px solid var(--blue);
 `
 
 export const ProtocolInformationContainer = styled(InformationPageOutline)``
+export const StudentInformationDisplayContainer = styled(
+  InformationPageOutline
+)``
+export const ContactInformationContainer = styled(InformationPageOutline)``
+export const AssignmentInformationContainer = styled(InformationPageOutline)`
+  display: grid;
+  grid-template-rows: 1fr 8fr;
+`
+export const MarkingPeriodSelectorSwitchContainer = styled(
+  InformationPageOutline
+)`
+  border-bottom: 1px solid var(--blue);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+
+export const AssignmentInformationAssignmentSwitchContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`
+
+export type AssignmentSwitchProps = {
+  selected: boolean
+}
+
+export const AssignmentSwitch = styled.div<AssignmentSwitchProps>`
+  justify-self: center;
+  align-self: center;
+  font-size: 2vh;
+  cursor: pointer;
+  text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')};
+`
+
+export const AssignmentInformationDisplayContainer = styled.div`
+  height: 50vh;
+  display: grid;
+  grid-template-rows: 1fr 15fr;
+
+  margin: 1%;
+  border: 1px solid var(--grey);
+`
+
+export const AssignmentInformationContainerHeader = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--grey);
+`
+
+export const AssignmentInformationStyle = styled.div`
+  overflow: scroll;
+  height: 100%;
+`
+export const IndividualAssignmentDisplay = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  align-items: center;
+`

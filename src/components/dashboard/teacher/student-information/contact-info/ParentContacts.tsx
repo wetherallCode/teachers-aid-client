@@ -3,10 +3,12 @@ import React from 'react'
 import {
   findContactsByStudentId,
   findContactsByStudentIdVariables,
-} from '../../../../schemaTypes'
-import { useStudentInformationContextProvider } from './state-n-styles/StudentInformationContext'
+} from '../../../../../schemaTypes'
+import { useStudentInformationContextProvider } from '../state-n-styles/StudentInformationContext'
+import { ContactInformationContainer } from '../state-n-styles/studentInformationStyles'
+import { CreateContactForm } from './CreateContactForm'
 
-export type ParentContactsProps = {}
+export type ParentContactsProps = { studentId: string }
 
 export const FIND_PARENT_CONTACTS_BY_STUDENT_ID_QUERY = gql`
   query findContactsByStudentId($input: FindContactsByStudentIdInput!) {
@@ -21,8 +23,9 @@ export const FIND_PARENT_CONTACTS_BY_STUDENT_ID_QUERY = gql`
   }
 `
 
-export const ParentContacts = ({}: ParentContactsProps) => {
+export const ParentContacts = ({ studentId }: ParentContactsProps) => {
   const [state, event] = useStudentInformationContextProvider()
+
   const { loading, data } = useQuery<
     findContactsByStudentId,
     findContactsByStudentIdVariables
@@ -36,8 +39,15 @@ export const ParentContacts = ({}: ParentContactsProps) => {
   if (loading) return <div>Loading </div>
 
   return (
-    <>
-      <div></div>
-    </>
+    <ContactInformationContainer>
+      {data?.findContactsByStudentId.parentContacts.map((contact) => (
+        <div key={contact._id}>
+          {contact.date}: {contact.contactType} - {contact.contentOfContact}
+        </div>
+      ))}
+      <div>
+        <CreateContactForm studentId={studentId} />
+      </div>
+    </ContactInformationContainer>
   )
 }
