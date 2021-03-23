@@ -3978,6 +3978,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test {
   __typename: "Test";
   _id: string | null;
+  assigned: boolean;
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_score;
   exempt: boolean;
@@ -3995,14 +3996,21 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   maxPoints: number;
 }
 
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  graded: boolean;
+}
+
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft {
   __typename: "FinalDraftContainer";
   returned: boolean;
+  submittedFinalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft[];
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay {
   __typename: "Essay";
   _id: string | null;
+  assigned: boolean;
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_score;
   exempt: boolean;
@@ -4029,6 +4037,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide {
   __typename: "ReadingGuide";
   _id: string | null;
+  assigned: boolean;
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score;
   exempt: boolean;
