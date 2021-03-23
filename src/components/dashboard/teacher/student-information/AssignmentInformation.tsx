@@ -31,6 +31,7 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
     findAssignmentByStudentId(input: $input) {
       assignments {
         _id
+        assigned
         readings {
           readingSections
         }
@@ -43,6 +44,9 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
         ... on Essay {
           finalDraft {
             returned
+            submittedFinalDraft {
+              graded
+            }
           }
         }
         ... on ReadingGuide {
@@ -131,12 +135,27 @@ export const AssignmentInformation = ({
             {essays.map((essay) => (
               <IndividualAssignmentDisplay key={essay._id}>
                 <div>{essay.readings.readingSections}</div>
-                {essay.__typename === 'Essay' && essay.finalDraft ? (
+                {essay.__typename === 'Essay' &&
+                essay.finalDraft &&
+                essay.finalDraft.returned ? (
                   <div>
                     {essay.score.earnedPoints}/{essay.score.maxPoints}
                   </div>
+                ) : essay.__typename === 'Essay' &&
+                  essay.finalDraft &&
+                  !essay.finalDraft.returned &&
+                  essay.finalDraft.submittedFinalDraft.length > 1 ? (
+                  <div>
+                    {essay.score.earnedPoints}/{essay.score.maxPoints}
+                  </div>
+                ) : essay.__typename === 'Essay' &&
+                  essay.finalDraft &&
+                  !essay.finalDraft.returned ? (
+                  <div>Pending</div>
                 ) : essay.exempt ? (
                   <div>Exempt</div>
+                ) : !essay.assigned ? (
+                  <div>Unassigned</div>
                 ) : (
                   <div>Missing</div>
                 )}
