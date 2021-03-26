@@ -141,6 +141,9 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'run') {
     return 'ran'
   }
+  if(lowerCaseVerb === 'get'){
+    return 'got'
+  }
   if (lowerCaseVerb === 'fight') {
     return 'fought'
   }
