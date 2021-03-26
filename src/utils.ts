@@ -135,6 +135,15 @@ export const sortByLetter = (a: any, b: any) => {
   return 0
 }
 
+export const phraseCapitalizer = (phrase: string) => {
+  let capitalizedPhrase = phrase
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase())
+    .join(' ')
+
+  return capitalizedPhrase
+}
+
 export const irregularPastTenseVerbList = (verb: string) => {
   const lowerCaseVerb = verb.toLowerCase()
 
