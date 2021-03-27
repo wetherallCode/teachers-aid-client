@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import { useToggle } from '../../../../../hooks'
-import { me_me, me_me_Teacher } from '../../../../../schemaTypes'
+import { me_me_Teacher } from '../../../../../schemaTypes'
 import { sortByLetter } from '../../../../../utils'
-import { CreateTask } from './CreateTask'
+
 import { LoadTasks } from './LoadTasks'
 import { ReviewTasks } from './review-tasks/ReviewTasks'
 import { useTemporaryTasksContextProvider } from './state-n-styles/TemporaryTasksContext'
@@ -15,14 +15,12 @@ import {
   TemporaryTasksMenu,
   TemporaryTasksMenuContainer,
 } from './state-n-styles/temporaryTaskStyles'
-import { TaskCreator } from './TaskCreator'
 import { TaskTimer } from './TaskTimer'
 
 export type TemporaryTasksProps = {}
 
 export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
   const navigate = useNavigate()
-  const [courseToNavigateTo, setcourseToNavigateTo] = useState('')
   const me: me_me_Teacher = useUserContextProvider()
   const [courseSelectorSwitch, toggleCourseSelectorSwitch] = useToggle(false)
   const [state, event] = useTemporaryTasksContextProvider()
