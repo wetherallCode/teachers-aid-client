@@ -7,11 +7,16 @@ export const TemporaryTasksContainer = styled.div`
   background-color: var(--white);
   color: var(--blue);
 `
+export const TemporaryTasksMenuContainer = styled.div`
+  display: grid;
+  height: 100%;
+  grid-template-rows: 3fr 1fr;
+  background-color: var(--blue);
+  color: var(--white);
+`
 
 export const TemporaryTasksMenu = styled.div`
   border-top: 3px solid var(--white);
-  background-color: var(--blue);
-  color: var(--white);
   display: grid;
   grid-auto-rows: 10%;
 `
@@ -22,6 +27,7 @@ export const MenuItems = styled.div`
   align-items: center;
   font-size: 3vh;
   color: var(--white);
+  cursor: pointer;
 `
 export const TemporaryTaskDisplay = styled.div`
   display: grid;
