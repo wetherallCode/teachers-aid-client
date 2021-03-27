@@ -3,6 +3,7 @@ import { Dispatch } from 'react'
 import { useEnumContextProvider } from '../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../contexts/markingPeriod/MarkingPeriodContext'
 import { MarkingPeriodEnum } from '../../schemaTypes'
+import { phraseCapitalizer } from '../../utils'
 import {
   MarkingPeriodSelectorContainer,
   MarkingPeriodSelectorTitle,
@@ -50,7 +51,7 @@ export const MarkingPeriodSelectorSwitch = ({
         >
           &lt;
         </MarkingPeriodSelectedSwitchArrow>
-        <div> {selectedMarkingPeriod} </div>
+        <div> {phraseCapitalizer(selectedMarkingPeriod)} </div>
         <MarkingPeriodSelectedSwitchArrow
           onClick={() => {
             if (markingPeriodIndex < markingPeriodEnum.length - 1) {
