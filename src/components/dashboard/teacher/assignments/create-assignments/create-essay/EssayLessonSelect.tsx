@@ -44,7 +44,6 @@ export const EssayLessonSelect: FC<EssayLessonSelectProps> = ({ courseId }) => {
         courseId,
       },
     },
-    onCompleted: (data) => {},
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

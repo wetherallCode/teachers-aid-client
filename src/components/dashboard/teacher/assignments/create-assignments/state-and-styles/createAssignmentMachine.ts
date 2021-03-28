@@ -210,7 +210,6 @@ export const createAssignmentMachine = Machine<
             },
             SET_ASSIGNED_DATE: {
               actions: assign((ctx, evt) => {
-                console.log(evt.payload)
                 return {
                   ...ctx,
                   essay: { ...ctx.essay, assignedDate: evt.payload },

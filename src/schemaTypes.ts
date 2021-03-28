@@ -1415,6 +1415,7 @@ export interface findLessonsByCourse_findLessonByCourse_lessons {
   __typename: "Lesson";
   _id: string | null;
   lessonName: string;
+  assignedDate: any;
 }
 
 export interface findLessonsByCourse_findLessonByCourse {
@@ -1570,6 +1571,7 @@ export interface findLessonById_findLessonById_lesson_assignedCourses {
 export interface findLessonById_findLessonById_lesson {
   __typename: "Lesson";
   _id: string | null;
+  assignedDate: any;
   questionList: findLessonById_findLessonById_lesson_questionList[];
   pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
   assignedSections: findLessonById_findLessonById_lesson_assignedSections;

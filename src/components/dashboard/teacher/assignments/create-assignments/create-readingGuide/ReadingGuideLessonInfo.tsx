@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 import { useQuery } from '@apollo/client'
 import {
@@ -12,11 +12,13 @@ import { useMarkingPeriodContextProvider } from '../../../../../../contexts/mark
 
 export type ReadingGuideLessonInfoProps = {
   me: me_me_Teacher
+  courseId: string
 }
 
-export const ReadingGuideLessonInfo: FC<ReadingGuideLessonInfoProps> = ({
+export const ReadingGuideLessonInfo = ({
   me,
-}) => {
+  courseId,
+}: ReadingGuideLessonInfoProps) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
@@ -52,27 +54,33 @@ export const ReadingGuideLessonInfo: FC<ReadingGuideLessonInfoProps> = ({
           type: 'SET_READING_GUIDE_MARKING_PERIOD',
           payload: markingPeriodState.context.currentMarkingPeriod,
         })
+        event({
+          type: 'SET_READING_GUIDE_DUE_DATE',
+          payload: data.findLessonById.lesson.assignedDate,
+        })
       },
       onError: (error) => console.error(error),
     }
   )
-  if (loading) return <div>Loading </div>
-
   const courseIdList = data?.findLessonById.lesson.assignedCourses!
+  const lesson = data?.findLessonById.lesson!
+  // useEffect(() => {
+
+  //   // event({ type: 'SET_READING_GUIDE_DUE_DATE', payload: lesson.assignedDate })
+  // }, [])
+
+  if (loading) return <div>Loading </div>
 
   return (
     <>
-      <div>
-        <button onClick={() => event({ type: 'PREVIOUS' })}>
-          Pick Different Lesson
-        </button>
-        {state.matches('readingGuide.readingGuideInfo') && (
-          <CreateReadingGuide
-            me={me}
-            courseIdList={courseIdList.map((course) => course._id!)}
-          />
-        )}
-      </div>
+      {state.matches('readingGuide.readingGuideInfo') && (
+        <CreateReadingGuide
+          me={me}
+          courseIdList={courseIdList.map((course) => course._id!)}
+          courseId={courseId}
+          lesson={lesson}
+        />
+      )}
     </>
   )
 }

@@ -3,6 +3,14 @@ import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAss
 import { useQuery } from '@apollo/client'
 import { findUnits } from '../../../../../../schemaTypes'
 import { FIND_UNITS_QUERY } from '../../../lessons/lesson-planner/UnitAssigner'
+import {
+  ItemSelectorContainer,
+  LessonInformationSelectContainer,
+  SelectableItem,
+  SelectButtonContainer,
+  SelectorContainer,
+  SelectorTitle,
+} from '../state-and-styles/createAssignmentsStyles'
 
 export type ReadingGuideUnitSelectProps = {}
 
@@ -16,26 +24,24 @@ export const ReadingGuideUnitSelect: FC<ReadingGuideUnitSelectProps> = () => {
   if (loading) return <div>Loading </div>
 
   return (
-    <>
-      <div>Select Lesson</div>
-      <>
-        <div>From Unit: </div>
-        <select
-          onChange={(e: any) =>
-            event({ type: 'SET_UNIT', payload: e.target.value })
-          }
-        >
-          <option value={undefined}>Select a Unit</option>
+    <LessonInformationSelectContainer>
+      <SelectorContainer>
+        <SelectorTitle>Select Unit </SelectorTitle>
+        <ItemSelectorContainer>
           {data?.findUnits.units.map((unit) => (
-            <option key={unit._id!} value={unit._id!}>
+            <SelectableItem
+              key={unit._id}
+              onClick={() => {
+                event({ type: 'SET_UNIT', payload: unit._id! })
+                event({ type: 'READING_GUIDE_LESSON' })
+              }}
+            >
               {unit.unitName}
-            </option>
+            </SelectableItem>
           ))}
-        </select>
-        <button onClick={() => event({ type: 'READING_GUIDE_LESSON' })}>
-          Next
-        </button>
-      </>
-    </>
+        </ItemSelectorContainer>
+      </SelectorContainer>
+      <SelectButtonContainer></SelectButtonContainer>
+    </LessonInformationSelectContainer>
   )
 }

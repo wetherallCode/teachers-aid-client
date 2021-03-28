@@ -6,16 +6,42 @@ import {
   createReadingGuide,
   TimeOfDay,
   MarkingPeriodEnum,
+  findLessonById_findLessonById_lesson,
 } from '../../../../../../schemaTypes'
 import { gql, useMutation } from '@apollo/client'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
-import { dateConverter } from '../../../../../../utils'
+import { dateConverter, sortByLetter } from '../../../../../../utils'
+import {
+  CoursesCheckBoxContainer,
+  DateAssignContainer,
+  DateAssignInput,
+  DateAssignItemContainer,
+  DateAssignSelect,
+  EssayInformationSelectContainer,
+  GeneralInput,
+  LessonInformationSelectContainer,
+  LinkCoursesContainer,
+  LinkCoursesHeader,
+  MaxPointSelectorContainer,
+  MaxPointsForReadingGuideContainer,
+  QuestionSelectContainer,
+  QuestionSelector,
+  ReadingGuideInformationSelectContainer,
+  SelectButton,
+  SelectButtonContainer,
+  SelectorTitle,
+} from '../state-and-styles/createAssignmentsStyles'
+import { useNavigate } from 'react-router'
+import CheckBox from '../../../../../reusable-components/CheckBox'
+import { AssignedDateCheck } from './AssignedDateCheck'
 
 export type CreateReadingGuideProps = {
   me: me_me_Teacher
   courseIdList: string[]
+  courseId: string
+  lesson: findLessonById_findLessonById_lesson
 }
 
 export const CREATE_READING_GUIDE_MUTATION = gql`
@@ -31,18 +57,25 @@ export const CREATE_READING_GUIDE_MUTATION = gql`
 export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   me,
   courseIdList,
+  courseId,
+  lesson,
 }) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const { markingPeriodEnum, timeOfDayEnum } = useEnumContextProvider()
   const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
 
+  const courses = me.teachesCourses.slice(1).sort(sortByLetter)
+  console.log(
+    state.context.readingGuide.assignedDate,
+    state.context.readingGuide.dueDate
+  )
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
     createReadingGuideVariables
   >(CREATE_READING_GUIDE_MUTATION, {
     variables: {
       input: {
-        assignedCourseIds: [state.context.courseId],
+        assignedCourseIds: [courseId],
         assignedDate: state.context.readingGuide.assignedDate,
         associatedLessonId: state.context.readingGuide.lesson,
         dueDate: state.context.readingGuide.dueDate,
@@ -53,133 +86,162 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
         readings: state.context.readingGuide.readings,
       },
     },
-    onCompleted: (data) => {},
+    onCompleted: (data) => event({ type: 'IDLE' }),
     refetchQueries: [],
   })
 
   return (
-    <>
-      <div>Create Reading Guide</div>
-      <span>Assigned Date: </span>
-      <span>
-        <input
-          type='date'
-          onChange={(e: any) => {
-            event({
-              type: 'SET_READING_GUIDE_ASSIGNED_DATE',
-              payload: dateConverter(e.target.value),
-            })
-          }}
-        />
-      </span>
-      <span>Due Date: </span>
-      <span>
-        <input
-          type='date'
-          onChange={(e: any) => {
-            console.log(e.target.value)
-            event({
-              type: 'SET_READING_GUIDE_DUE_DATE',
-              payload: dateConverter(e.target.value),
-            })
-          }}
-        />
-      </span>
-      <span>Time: </span>
-      <select
-        value={state.context.readingGuide.dueTime}
-        onChange={(e: any) => {
-          event({
-            type: 'SET_READING_GUIDE_DUE_TIME',
-            payload: e.target.value,
-          })
-        }}
-      >
-        {timeOfDayEnum.map((time: TimeOfDay) => {
-          return (
-            <option key={time!} value={time!}>
-              {time === 'BEFORE_SCHOOL'
-                ? 'Before School'
-                : time === 'BEFORE_CLASS'
-                ? 'Before Class'
-                : time === 'AFTER_CLASS'
-                ? 'After Class'
-                : 'After School'}
-            </option>
-          )
-        })}
-      </select>
-      <div>Marking Period</div>
-      <select
-        value={state.context.readingGuide.markingPeriod}
-        onChange={(e: any) =>
-          event({
-            type: 'SET_READING_GUIDE_MARKING_PERIOD',
-            payload: e.target.value,
-          })
-        }
-      >
-        {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
-          <option key={mp} value={mp}>
-            {mp === 'FIRST'
-              ? 'First'
-              : mp === 'SECOND'
-              ? 'Second'
-              : mp === 'THIRD'
-              ? 'Third'
-              : 'Fourth'}
-          </option>
-        ))}
-      </select>
-      <span>Max Points</span>
-      <span>
-        <input
-          type='text'
-          value={state.context.readingGuide.maxPoints}
-          onChange={(e: any) =>
-            event({
-              type: 'SET_READING_GUIDE_MAX_POINTS',
-              payload: Number(e.target.value),
-            })
-          }
-        />
-      </span>
-      <div>Add or Delete Linked Courses</div>
-      {me.teachesCourses.map((course) => (
-        <div key={course._id!}>
-          <input
-            type='checkbox'
-            checked={assignedCourseIds.includes(course._id)}
-            onChange={handleChange}
-            value={course._id!}
-          />
-          <span>{course.name}</span>
-        </div>
-      ))}
+    <LessonInformationSelectContainer>
+      <AssignedDateCheck courseId={courseId} lessonId={lesson._id!} />
+      <ReadingGuideInformationSelectContainer>
+        <SelectorTitle>Create Reading Guide</SelectorTitle>
+        <DateAssignContainer>
+          <DateAssignItemContainer>
+            <div>Assigned Date: </div>
+            <DateAssignInput
+              type='date'
+              onChange={(e: any) => {
+                event({
+                  type: 'SET_READING_GUIDE_ASSIGNED_DATE',
+                  payload: dateConverter(e.target.value),
+                })
+              }}
+            />
+          </DateAssignItemContainer>
+
+          <DateAssignItemContainer>
+            <div>Due Date: </div>
+            <DateAssignInput
+              type='date'
+              onChange={(e: any) => {
+                console.log(e.target.value)
+                event({
+                  type: 'SET_READING_GUIDE_DUE_DATE',
+                  payload: dateConverter(e.target.value),
+                })
+              }}
+            />
+          </DateAssignItemContainer>
+          <DateAssignItemContainer>
+            <div>Time: </div>
+            <DateAssignSelect
+              value={state.context.readingGuide.dueTime}
+              onChange={(e: any) => {
+                event({
+                  type: 'SET_READING_GUIDE_DUE_TIME',
+                  payload: e.target.value,
+                })
+              }}
+            >
+              {timeOfDayEnum.map((time: TimeOfDay) => {
+                return (
+                  <option key={time!} value={time!}>
+                    {time === 'BEFORE_SCHOOL'
+                      ? 'Before School'
+                      : time === 'BEFORE_CLASS'
+                      ? 'Before Class'
+                      : time === 'AFTER_CLASS'
+                      ? 'After Class'
+                      : 'After School'}
+                  </option>
+                )
+              })}
+            </DateAssignSelect>
+          </DateAssignItemContainer>
+          <DateAssignItemContainer>
+            <div>Marking Period</div>
+            <DateAssignSelect
+              value={state.context.readingGuide.markingPeriod}
+              onChange={(e: any) =>
+                event({
+                  type: 'SET_READING_GUIDE_MARKING_PERIOD',
+                  payload: e.target.value,
+                })
+              }
+            >
+              {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+                <option key={mp} value={mp}>
+                  {mp === 'FIRST'
+                    ? 'First'
+                    : mp === 'SECOND'
+                    ? 'Second'
+                    : mp === 'THIRD'
+                    ? 'Third'
+                    : 'Fourth'}
+                </option>
+              ))}
+            </DateAssignSelect>
+          </DateAssignItemContainer>
+        </DateAssignContainer>
+        <MaxPointsForReadingGuideContainer>
+          <QuestionSelector>
+            <MaxPointSelectorContainer>
+              <div>Max Points</div>
+              <GeneralInput
+                type='text'
+                value={state.context.readingGuide.maxPoints}
+                onChange={(e: any) =>
+                  event({
+                    type: 'SET_READING_GUIDE_MAX_POINTS',
+                    payload: Number(e.target.value),
+                  })
+                }
+              />
+            </MaxPointSelectorContainer>
+          </QuestionSelector>
+        </MaxPointsForReadingGuideContainer>
+        <LinkCoursesContainer>
+          <LinkCoursesHeader>Add or Delete Linked Courses</LinkCoursesHeader>
+          <CoursesCheckBoxContainer>
+            {courses.map((course) => (
+              // <label key={course._id!} style={{ width: '40%' }}>
+              //   <CheckBox
+              //     checked={assignedCourseIds.includes(course._id)}
+              //     onChange={handleChange}
+              //     value={course._id!}
+              //   />
+              //   <span style={{ marginLeft: '1%' }}>{course.name}</span>
+              // </label>
+              <CheckBox
+                key={course._id}
+                checked={assignedCourseIds.includes(course._id)}
+                onChange={handleChange}
+                value={course._id!}
+                label={course.name}
+              />
+            ))}
+          </CoursesCheckBoxContainer>
+        </LinkCoursesContainer>
+      </ReadingGuideInformationSelectContainer>
       {!data ? (
-        <button
-          style={
-            called
-              ? { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
-              : { backgroundColor: 'var(--blue)', color: 'var(--white)' }
-          }
-          onClick={() => {
-            if (
-              assignedCourseIds.includes(state.context.courseId) &&
-              state.context.readingGuide.dueDate &&
-              !called
-            )
-              createReadingGuide()
-          }}
-        >
-          {assignedCourseIds.includes(state.context.courseId) &&
-          state.context.readingGuide.dueDate
-            ? 'Create Reading Guides'
-            : 'Complete Form'}
-        </button>
+        <SelectButtonContainer>
+          <SelectButton onClick={() => event({ type: 'PREVIOUS' })}>
+            Pick Different Lesson
+          </SelectButton>
+          <SelectButton
+            style={
+              called
+                ? { backgroundColor: 'var(--grey)', color: 'var(--blue)' }
+                : { backgroundColor: 'var(--blue)', color: 'var(--white)' }
+            }
+            onClick={() => {
+              if (
+                assignedCourseIds.includes(state.context.courseId) &&
+                state.context.essay.dueDate &&
+                !called
+              )
+                createReadingGuide()
+            }}
+          >
+            {assignedCourseIds.includes(state.context.courseId) &&
+            state.context.essay.dueDate
+              ? 'Create Reading Guide'
+              : 'Complete Form'}
+          </SelectButton>
+        </SelectButtonContainer>
       ) : (
-        <div>Finished</div>
+        data && <div>Finished</div>
       )}
-    </>
+    </LessonInformationSelectContainer>
   )
 }

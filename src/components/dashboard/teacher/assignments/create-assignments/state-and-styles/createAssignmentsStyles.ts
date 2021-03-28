@@ -110,11 +110,29 @@ export const DateAssignItemContainer = styled.div`
   grid-auto-flow: column;
 `
 
-export const LinkCoursesContainer = styled.div``
+export const LinkCoursesContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+`
+export const LinkCoursesHeader = styled.div`
+  justify-self: center;
+  align-self: center;
+  font-size: 2vh;
+  text-decoration: underline;
+`
+export const LinkCoursesCheckbox = styled.input`
+  /* visibility: hidden; */
+  &:checked {
+    background-color: var(--blue);
+  }
+`
 
 export const CoursesCheckBoxContainer = styled.div`
   display: grid;
   grid-auto-flow: column;
+  align-self: center;
+  justify-items: center;
+  width: 100%;
 `
 export const DateAssignInput = styled.input`
   background-color: var(--white);
@@ -215,4 +233,13 @@ export const DisplayedQuestions = styled.div<DisplayedQuestionsProps>`
 `
 export const Question = styled.div`
   padding-left: 1%;
+`
+
+export const ReadingGuideInformationSelectContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr 0fr 1fr;
+`
+
+export const MaxPointsForReadingGuideContainer = styled.div`
+  height: 10vh;
 `

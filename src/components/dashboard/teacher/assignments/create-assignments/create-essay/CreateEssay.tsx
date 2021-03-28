@@ -13,6 +13,7 @@ import {
   me_me_Teacher,
   TimeOfDay,
   MarkingPeriodEnum,
+  findLessonById_findLessonById_lesson,
 } from '../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
 import { dateConverter, sortByLetter } from '../../../../../../utils'
@@ -31,6 +32,7 @@ import {
   GeneralInput,
   LessonInformationSelectContainer,
   LinkCoursesContainer,
+  LinkCoursesHeader,
   MaxPointSelectorContainer,
   Question,
   QuestionSelectContainer,
@@ -43,10 +45,14 @@ import {
   SelectorTitle,
   WritingLevelTitleContainer,
 } from '../state-and-styles/createAssignmentsStyles'
+import CheckBox from '../../../../../reusable-components/CheckBox'
+import { DueDateCheck } from './DueDateCheck'
 
 export type CreateEssayProps = {
   me: me_me_Teacher
   courseIdList: string[]
+  courseId: string
+  lesson: findLessonById_findLessonById_lesson
 }
 
 export const CREATE_ESSAY_MUTATION = gql`
@@ -59,7 +65,12 @@ export const CREATE_ESSAY_MUTATION = gql`
   }
 `
 
-export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
+export const CreateEssay = ({
+  me,
+  courseIdList,
+  courseId,
+  lesson,
+}: CreateEssayProps) => {
   const [state, event] = useCreateAssignmentContextPovider()
 
   const {
@@ -82,7 +93,7 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
     variables: {
       input: {
         topicList: state.context.essay.topicList,
-        assignedCourseId: [state.context.courseId],
+        assignedCourseId: [courseId],
         assignedDate: state.context.essay.assignedDate,
         dueDate: state.context.essay.dueDate,
         dueTime: state.context.essay.dueTime,
@@ -108,9 +119,10 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
   const selectedAdvancedEssays = state.context.essay.topicList.filter(
     (essay) => essay.writingLevel === 'ADVANCED'
   )
-
+  console.log(state.context.essay.assignedDate, state.context.essay.dueDate)
   return (
     <LessonInformationSelectContainer>
+      {courseId && <DueDateCheck lessonId={lesson._id!} courseId={courseId} />}
       <EssayInformationSelectContainer>
         <SelectorTitle>Create Essay</SelectorTitle>
         <DateAssignContainer>
@@ -300,18 +312,25 @@ export const CreateEssay: FC<CreateEssayProps> = ({ me, courseIdList }) => {
           </SelectedQuestionContainer>
         </QuestionSelectContainer>
         <LinkCoursesContainer>
-          <div>Add or Delete Linked Courses</div>
+          <LinkCoursesHeader>Add or Delete Linked Courses</LinkCoursesHeader>
           <CoursesCheckBoxContainer>
             {courses.map((course) => (
-              <div key={course._id!}>
-                <input
-                  type='checkbox'
-                  checked={assignedCourseIds.includes(course._id)}
-                  onChange={handleChange}
-                  value={course._id!}
-                />
-                <span>{course.name}</span>
-              </div>
+              // <div key={course._id!}>
+              //   <input
+              //     type='checkbox'
+              //     checked={assignedCourseIds.includes(course._id)}
+              //     onChange={handleChange}
+              //     value={course._id!}
+              //   />
+              //   <span>{course.name}</span>
+              // </div>
+              <CheckBox
+                checked={assignedCourseIds.includes(course._id)}
+                onChange={handleChange}
+                value={course._id}
+                label={course.name}
+                key={course._id}
+              />
             ))}
           </CoursesCheckBoxContainer>
         </LinkCoursesContainer>

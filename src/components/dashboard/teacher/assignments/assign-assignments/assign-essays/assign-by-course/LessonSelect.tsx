@@ -16,6 +16,7 @@ export const FIND_LESSONS_BY_COURSE_QUERY = gql`
       lessons {
         _id
         lessonName
+        assignedDate
       }
     }
   }

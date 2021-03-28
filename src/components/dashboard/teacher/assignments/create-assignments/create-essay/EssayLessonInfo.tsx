@@ -17,6 +17,7 @@ import {
 
 export type EssayLessonInfoProps = {
   me: me_me_Teacher
+  courseId: string
 }
 
 export const FIND_LESSON_BY_ID_QUERY = gql`
@@ -24,6 +25,7 @@ export const FIND_LESSON_BY_ID_QUERY = gql`
     findLessonById(input: $input) {
       lesson {
         _id
+        assignedDate
         questionList {
           question
           questionType
@@ -49,11 +51,11 @@ export const FIND_LESSON_BY_ID_QUERY = gql`
   }
 `
 
-export const EssayLessonInfo: FC<EssayLessonInfoProps> = ({ me }) => {
+export const EssayLessonInfo = ({ me, courseId }: EssayLessonInfoProps) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  const { loading } = useQuery<findLessonById, findLessonByIdVariables>(
+  const { loading, data } = useQuery<findLessonById, findLessonByIdVariables>(
     FIND_LESSON_BY_ID_QUERY,
     {
       variables: {
@@ -92,11 +94,16 @@ export const EssayLessonInfo: FC<EssayLessonInfoProps> = ({ me }) => {
   if (loading) return <div>Loading </div>
 
   const courseIdList = [state.context.courseId]
-
+  const lesson = data?.findLessonById.lesson!
   return (
     <>
       {state.matches('essay.essayInfo') && (
-        <CreateEssay me={me} courseIdList={courseIdList} />
+        <CreateEssay
+          me={me}
+          courseIdList={courseIdList}
+          courseId={courseId}
+          lesson={lesson}
+        />
       )}
     </>
   )

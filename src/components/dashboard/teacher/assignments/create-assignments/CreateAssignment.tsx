@@ -32,7 +32,7 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
   const [state, event] = useCreateAssignmentContextPovider()
   const me: me_me_Teacher = useUserContextProvider()
   const { teachesCourses } = me
-  console.log(state.value)
+  console.log(courseId)
   return (
     <CreateAssignmentsContainer>
       <CourseSelectContainer>
@@ -94,22 +94,22 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
                     <EssayLessonSelect courseId={courseId} />
                   )}
                   {state.matches('essay.essayInfo') && (
-                    <EssayLessonInfo me={me} />
+                    <EssayLessonInfo me={me} courseId={courseId} />
                   )}
                 </>
               )}
               {state.matches('readingGuide') && (
-                <div>
+                <>
                   {state.matches('readingGuide.unit') && (
                     <ReadingGuideUnitSelect />
                   )}
                   {state.matches('readingGuide.lesson') && (
-                    <ReadingGuideLessonSelect />
+                    <ReadingGuideLessonSelect courseId={courseId} />
                   )}
                   {state.matches('readingGuide.readingGuideInfo') && (
-                    <ReadingGuideLessonInfo me={me} />
+                    <ReadingGuideLessonInfo me={me} courseId={courseId} />
                   )}
-                </div>
+                </>
               )}
             </>
           )}
