@@ -71,6 +71,7 @@ export const readingGuideToCompleteMachine = Machine<
     submitReadingGuideInputs: {
       readingGuideId: '',
       late: true,
+      submitTime: new Date().toLocaleString(),
       paperBased: false,
     },
     help: 'general',

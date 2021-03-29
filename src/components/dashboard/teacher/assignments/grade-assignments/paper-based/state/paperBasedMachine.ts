@@ -116,6 +116,7 @@ export const paperBasedMachine = Machine<
     readingGuide: {
       late: true,
       paperBased: true,
+      submitTime: new Date().toLocaleString(),
       readingGuideId: '',
       completeReadingGuide: true,
     },

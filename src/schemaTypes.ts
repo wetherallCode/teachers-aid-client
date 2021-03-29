@@ -6427,6 +6427,7 @@ export interface SubmitReadingGuideInput {
   late: boolean;
   paperBased: boolean;
   readingGuideId: string;
+  submitTime: string;
 }
 
 export interface SubmittedFinalDraftsInput {
