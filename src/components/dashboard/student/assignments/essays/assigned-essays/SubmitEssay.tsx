@@ -59,6 +59,7 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
       input: {
         _id,
         submittedFinalDraft,
+        submitTime: new Date().toLocaleString(),
         late: true, //server will change based on time submitted
         paperBased: false,
       },
