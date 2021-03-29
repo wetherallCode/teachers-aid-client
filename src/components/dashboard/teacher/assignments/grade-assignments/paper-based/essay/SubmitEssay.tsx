@@ -62,6 +62,7 @@ export const SubmitEssay: FC<SubmitEssayProps> = ({ essay }) => {
       input: {
         _id: essay._id!,
         late: state.context.isLate,
+        submitTime: new Date().toLocaleString(),
         submittedFinalDraft: submittedFinalDraft,
         paperBased: true,
       },
