@@ -6419,6 +6419,7 @@ export interface SubmitEssayFinalDraftInput {
   late: boolean;
   paperBased: boolean;
   submittedFinalDraft: SubmittedFinalDraftsInput;
+  submitTime: string;
 }
 
 export interface SubmitReadingGuideInput {
