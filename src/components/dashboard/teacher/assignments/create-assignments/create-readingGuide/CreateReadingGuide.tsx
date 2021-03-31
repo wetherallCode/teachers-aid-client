@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { Dispatch, FC, SetStateAction } from 'react'
 import {
   me_me_Teacher,
   createReadingGuideVariables,
@@ -36,11 +36,13 @@ import {
 import { useNavigate } from 'react-router'
 import CheckBox from '../../../../../reusable-components/CheckBox'
 import { AssignedDateCheck } from './AssignedDateCheck'
+import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 
 export type CreateReadingGuideProps = {
   me: me_me_Teacher
   courseIdList: string[]
   courseId: string
+  setCourseId: Dispatch<SetStateAction<string>>
   lesson: findLessonById_findLessonById_lesson
 }
 
@@ -59,6 +61,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   courseIdList,
   courseId,
   lesson,
+  setCourseId,
 }) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const { markingPeriodEnum, timeOfDayEnum } = useEnumContextProvider()
@@ -68,6 +71,23 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   console.log(
     state.context.readingGuide.assignedDate,
     state.context.readingGuide.dueDate
+  )
+  const [currentCourseInfo] = me.teachesCourses.filter(
+    (course) => course._id === courseId
+  )
+  const sortedCourses = me.teachesCourses
+    .slice(1)
+    .sort(sortByLetter)
+    .filter(
+      (course) => course.name.charAt(0) === currentCourseInfo.name.charAt(0)
+    )
+  const currentCourseIndex = sortedCourses.findIndex(
+    (course) => course._id === courseId
+  )
+  console.log(
+    sortedCourses[currentCourseIndex + 1]
+      ? sortedCourses[currentCourseIndex + 1].name
+      : 'end'
   )
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
@@ -86,9 +106,17 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
         readings: state.context.readingGuide.readings,
       },
     },
-    onCompleted: (data) => event({ type: 'IDLE' }),
+    onCompleted: (data) => {
+      if (sortedCourses[currentCourseIndex + 1]) {
+        setCourseId(sortedCourses[currentCourseIndex + 1]._id!)
+        event({ type: 'ESSAY' })
+      }
+    },
     refetchQueries: [],
   })
+  // console.log(
+  //   new Date(state.context.readingGuide.dueDate).toISOString().slice(0, 10)
+  // )
 
   return (
     <LessonInformationSelectContainer>
@@ -100,6 +128,9 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             <div>Assigned Date: </div>
             <DateAssignInput
               type='date'
+              // value={new Date(state.context.readingGuide.assignedDate)
+              //   .toISOString()
+              //   .slice(0, 10)}
               onChange={(e: any) => {
                 event({
                   type: 'SET_READING_GUIDE_ASSIGNED_DATE',
@@ -113,8 +144,10 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             <div>Due Date: </div>
             <DateAssignInput
               type='date'
+              // value={new Date(state.context.readingGuide.dueDate)
+              //   .toISOString()
+              //   .slice(0, 10)}
               onChange={(e: any) => {
-                console.log(e.target.value)
                 event({
                   type: 'SET_READING_GUIDE_DUE_DATE',
                   payload: dateConverter(e.target.value),

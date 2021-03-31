@@ -107,7 +107,11 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
                     <ReadingGuideLessonSelect courseId={courseId} />
                   )}
                   {state.matches('readingGuide.readingGuideInfo') && (
-                    <ReadingGuideLessonInfo me={me} courseId={courseId} />
+                    <ReadingGuideLessonInfo
+                      me={me}
+                      courseId={courseId}
+                      setCourseId={setCourseId}
+                    />
                   )}
                 </>
               )}

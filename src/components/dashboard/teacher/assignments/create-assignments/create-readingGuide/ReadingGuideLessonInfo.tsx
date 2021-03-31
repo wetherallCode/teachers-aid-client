@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { Dispatch, FC, SetStateAction, useEffect } from 'react'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 import { useQuery } from '@apollo/client'
 import {
@@ -13,11 +13,13 @@ import { useMarkingPeriodContextProvider } from '../../../../../../contexts/mark
 export type ReadingGuideLessonInfoProps = {
   me: me_me_Teacher
   courseId: string
+  setCourseId: Dispatch<SetStateAction<string>>
 }
 
 export const ReadingGuideLessonInfo = ({
   me,
   courseId,
+  setCourseId,
 }: ReadingGuideLessonInfoProps) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
@@ -79,6 +81,7 @@ export const ReadingGuideLessonInfo = ({
           courseIdList={courseIdList.map((course) => course._id!)}
           courseId={courseId}
           lesson={lesson}
+          setCourseId={setCourseId}
         />
       )}
     </>
