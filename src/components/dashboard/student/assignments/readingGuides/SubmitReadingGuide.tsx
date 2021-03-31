@@ -29,7 +29,12 @@ export const SubmitReadingGuide: FC<SubmitReadingGuideProps> = () => {
     submitReadingGuide,
     submitReadingGuideVariables
   >(SUBMIT_READING_GUIDE_MUTATION, {
-    variables: { input: state.context.submitReadingGuideInputs },
+    variables: {
+      input: {
+        ...state.context.submitReadingGuideInputs,
+        submitTime: new Date().toLocaleString(),
+      },
+    },
     onCompleted: () => navigate('/dashboard/assignments'),
     refetchQueries: ['findReadingGuidesToComplete', 'findReadingGuideById'],
   })
