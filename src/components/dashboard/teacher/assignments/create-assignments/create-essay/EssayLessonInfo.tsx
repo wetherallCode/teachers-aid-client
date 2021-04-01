@@ -19,6 +19,7 @@ export const FIND_LESSON_BY_ID_QUERY = gql`
     findLessonById(input: $input) {
       lesson {
         _id
+        assignedMarkingPeriod
         assignedDate
         questionList {
           question
@@ -79,7 +80,7 @@ export const EssayLessonInfo = ({ me, courseId }: EssayLessonInfoProps) => {
         event({ type: 'SET_ASSIGNER_ID', payload: me._id! })
         event({
           type: 'SET_MARKING_PERIOD',
-          payload: markingPeriodState.context.currentMarkingPeriod,
+          payload: data.findLessonById.lesson.assignedMarkingPeriod,
         })
       },
       onError: (error) => console.error(error),

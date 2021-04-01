@@ -54,7 +54,7 @@ export const ReadingGuideLessonInfo = ({
         event({ type: 'SET_ASSIGNER_ID', payload: me._id! })
         event({
           type: 'SET_READING_GUIDE_MARKING_PERIOD',
-          payload: markingPeriodState.context.currentMarkingPeriod,
+          payload: data.findLessonById.lesson.assignedMarkingPeriod,
         })
         event({
           type: 'SET_READING_GUIDE_DUE_DATE',

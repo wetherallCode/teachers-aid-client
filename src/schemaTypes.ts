@@ -1571,6 +1571,7 @@ export interface findLessonById_findLessonById_lesson_assignedCourses {
 export interface findLessonById_findLessonById_lesson {
   __typename: "Lesson";
   _id: string | null;
+  assignedMarkingPeriod: MarkingPeriodEnum;
   assignedDate: any;
   questionList: findLessonById_findLessonById_lesson_questionList[];
   pageNumbers: findLessonById_findLessonById_lesson_pageNumbers;
