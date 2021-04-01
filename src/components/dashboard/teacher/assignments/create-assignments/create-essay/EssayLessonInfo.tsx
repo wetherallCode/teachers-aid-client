@@ -8,12 +8,6 @@ import {
 } from '../../../../../../schemaTypes'
 import { CreateEssay } from './CreateEssay'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
-import {
-  LessonInformationSelectContainer,
-  SelectButtonContainer,
-  SelectorContainer,
-  SelectorTitle,
-} from '../state-and-styles/createAssignmentsStyles'
 
 export type EssayLessonInfoProps = {
   me: me_me_Teacher
@@ -93,7 +87,7 @@ export const EssayLessonInfo = ({ me, courseId }: EssayLessonInfoProps) => {
   )
   if (loading) return <div>Loading </div>
 
-  const courseIdList = [state.context.courseId]
+  const courseIdList = [courseId]
   const lesson = data?.findLessonById.lesson!
   return (
     <>

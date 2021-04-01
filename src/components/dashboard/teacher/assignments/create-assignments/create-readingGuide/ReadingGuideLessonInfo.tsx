@@ -66,10 +66,6 @@ export const ReadingGuideLessonInfo = ({
   )
   const courseIdList = data?.findLessonById.lesson.assignedCourses!
   const lesson = data?.findLessonById.lesson!
-  // useEffect(() => {
-
-  //   // event({ type: 'SET_READING_GUIDE_DUE_DATE', payload: lesson.assignedDate })
-  // }, [])
 
   if (loading) return <div>Loading </div>
 

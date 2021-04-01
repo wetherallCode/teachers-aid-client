@@ -186,6 +186,10 @@ export const AddQuestionSelect = styled.select`
   color: var(--blue);
   font-size: 1.4vh;
   border: 1px solid var(--blue);
+  width: 35vw;
+`
+export const AddQuestionLevelSelect = styled(AddQuestionSelect)`
+  width: 15vw;
 `
 export const SelectedQuestionContainer = styled.div`
   grid-template-rows: 1fr 5fr;

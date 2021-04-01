@@ -32,7 +32,7 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
   const [state, event] = useCreateAssignmentContextPovider()
   const me: me_me_Teacher = useUserContextProvider()
   const { teachesCourses } = me
-  console.log(courseId)
+
   return (
     <CreateAssignmentsContainer>
       <CourseSelectContainer>

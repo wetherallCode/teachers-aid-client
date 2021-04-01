@@ -16,9 +16,15 @@ import {
   findLessonById_findLessonById_lesson,
 } from '../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
-import { dateConverter, sortByLetter } from '../../../../../../utils'
+import {
+  dateConverter,
+  dateInputConverter,
+  phraseCapitalizer,
+  sortByLetter,
+} from '../../../../../../utils'
 import {
   AddQuestionForm,
+  AddQuestionLevelSelect,
   AddQuestionSelect,
   AddQuestionTitle,
   CoursesCheckBoxContainer,
@@ -104,7 +110,7 @@ export const CreateEssay = ({
         readings: state.context.essay.readings,
       },
     },
-    onCompleted: (data) => event({ type: 'READING_GUIDE' }),
+    onCompleted: () => event({ type: 'READING_GUIDE' }),
     onError: (error) => console.error(error),
     refetchQueries: [],
   })
@@ -119,7 +125,7 @@ export const CreateEssay = ({
   const selectedAdvancedEssays = state.context.essay.topicList.filter(
     (essay) => essay.writingLevel === 'ADVANCED'
   )
-  console.log(state.context.essay.assignedDate, state.context.essay.dueDate)
+
   return (
     <LessonInformationSelectContainer>
       {courseId && <DueDateCheck lessonId={lesson._id!} courseId={courseId} />}
@@ -130,6 +136,7 @@ export const CreateEssay = ({
             <div>Assigned Date: </div>
             <DateAssignInput
               type='date'
+              value={dateInputConverter(state.context.essay.assignedDate)}
               onChange={(e: any) =>
                 event({
                   type: 'SET_ASSIGNED_DATE',
@@ -142,6 +149,11 @@ export const CreateEssay = ({
             <div>Due Date: </div>
             <DateAssignInput
               type='date'
+              value={
+                state.context.essay.dueDate
+                  ? dateInputConverter(state.context.essay.dueDate)
+                  : ''
+              }
               onChange={(e: any) =>
                 event({
                   type: 'SET_DUE_DATE',
@@ -184,13 +196,7 @@ export const CreateEssay = ({
             >
               {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
                 <option key={mp} value={mp}>
-                  {mp === 'FIRST'
-                    ? 'First'
-                    : mp === 'SECOND'
-                    ? 'Second'
-                    : mp === 'THIRD'
-                    ? 'Third'
-                    : 'Fourth'}
+                  {phraseCapitalizer(mp)}
                 </option>
               ))}
             </DateAssignSelect>
@@ -237,8 +243,7 @@ export const CreateEssay = ({
                   </option>
                 ))}
               </AddQuestionSelect>
-              <AddQuestionSelect
-                name=''
+              <AddQuestionLevelSelect
                 onChange={(e: any) =>
                   setTopicQuestion({
                     ...topicQuestion,
@@ -249,10 +254,10 @@ export const CreateEssay = ({
                 <option value={undefined}>Pick a Level</option>
                 {writingLevelEnum.map((type: string) => (
                   <option key={type!} value={type}>
-                    {type}
+                    {phraseCapitalizer(type)}
                   </option>
                 ))}
-              </AddQuestionSelect>
+              </AddQuestionLevelSelect>
               <SelectButton
                 style={{ fontSize: '2vh', height: '65%' }}
                 type='reset'
@@ -278,7 +283,19 @@ export const CreateEssay = ({
                 </WritingLevelTitleContainer>
                 <DisplayedQuestions bottom={false}>
                   {selectedDevelopingEssays.map((question, i: number) => (
-                    <Question key={i} onClick={() => console.log('delete')}>
+                    <Question
+                      key={i}
+                      onClick={() => {
+                        const topicIndex = state.context.essay.topicList.findIndex(
+                          (topic) => topic.question === question.question
+                        )
+
+                        event({
+                          type: 'DELETE_TOPIC_QUESTION',
+                          payload: topicIndex,
+                        })
+                      }}
+                    >
                       {question.question}
                     </Question>
                   ))}
@@ -290,7 +307,19 @@ export const CreateEssay = ({
                 </WritingLevelTitleContainer>
                 <DisplayedQuestions bottom={false}>
                   {selectedAcademicEssays.map((question, i: number) => (
-                    <Question key={i} onClick={() => console.log('delete')}>
+                    <Question
+                      key={i}
+                      onClick={() => {
+                        const topicIndex = state.context.essay.topicList.findIndex(
+                          (topic) => topic.question === question.question
+                        )
+
+                        event({
+                          type: 'DELETE_TOPIC_QUESTION',
+                          payload: topicIndex,
+                        })
+                      }}
+                    >
                       {question.question}
                     </Question>
                   ))}
@@ -302,7 +331,19 @@ export const CreateEssay = ({
                 </WritingLevelTitleContainer>
                 <DisplayedQuestions bottom={true}>
                   {selectedAdvancedEssays.map((question, i: number) => (
-                    <Question key={i} onClick={() => console.log('delete')}>
+                    <Question
+                      key={i}
+                      onClick={() => {
+                        const topicIndex = state.context.essay.topicList.findIndex(
+                          (topic) => topic.question === question.question
+                        )
+
+                        event({
+                          type: 'DELETE_TOPIC_QUESTION',
+                          payload: topicIndex,
+                        })
+                      }}
+                    >
                       {question.question}
                     </Question>
                   ))}
@@ -315,15 +356,6 @@ export const CreateEssay = ({
           <LinkCoursesHeader>Add or Delete Linked Courses</LinkCoursesHeader>
           <CoursesCheckBoxContainer>
             {courses.map((course) => (
-              // <div key={course._id!}>
-              //   <input
-              //     type='checkbox'
-              //     checked={assignedCourseIds.includes(course._id)}
-              //     onChange={handleChange}
-              //     value={course._id!}
-              //   />
-              //   <span>{course.name}</span>
-              // </div>
               <CheckBox
                 checked={assignedCourseIds.includes(course._id)}
                 onChange={handleChange}
@@ -348,15 +380,14 @@ export const CreateEssay = ({
             }
             onClick={() => {
               if (
-                assignedCourseIds.includes(state.context.courseId) &&
+                assignedCourseIds.includes(courseId) &&
                 state.context.essay.dueDate &&
                 !called
               )
                 createEssay()
             }}
           >
-            {assignedCourseIds.includes(state.context.courseId) &&
-            state.context.essay.dueDate
+            {assignedCourseIds.includes(courseId) && state.context.essay.dueDate
               ? 'Create Essays'
               : 'Complete Form'}
           </SelectButton>

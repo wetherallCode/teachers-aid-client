@@ -76,6 +76,7 @@ export type createAssignmentMachineEvent =
   | { type: 'SET_READINGS_READING_SECTIONS'; payload: string }
   | { type: 'SET_READING_GUIDE_READINGS_READING_SECTIONS'; payload: string }
   | { type: 'SET_TOPIC_QUESTION_LIST'; payload: TopicInput }
+  | { type: 'DELETE_TOPIC_QUESTION'; payload: number }
   | { type: 'SET_MAX_POINTS'; payload: number }
   | { type: 'SET_READING_GUIDE_MAX_POINTS'; payload: number }
   | { type: 'IDLE' }
@@ -332,6 +333,20 @@ export const createAssignmentMachine = Machine<
                   essay: {
                     ...ctx.essay,
                     topicList: [...ctx.essay.topicList, evt.payload],
+                  },
+                }
+              }),
+            },
+            DELETE_TOPIC_QUESTION: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  essay: {
+                    ...ctx.essay,
+                    topicList: [
+                      ...ctx.essay.topicList.slice(0, evt.payload),
+                      ...ctx.essay.topicList.slice(evt.payload + 1),
+                    ],
                   },
                 }
               }),

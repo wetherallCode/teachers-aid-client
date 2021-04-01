@@ -12,21 +12,24 @@ import { gql, useMutation } from '@apollo/client'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
-import { dateConverter, sortByLetter } from '../../../../../../utils'
+import {
+  dateConverter,
+  dateInputConverter,
+  phraseCapitalizer,
+  sortByLetter,
+} from '../../../../../../utils'
 import {
   CoursesCheckBoxContainer,
   DateAssignContainer,
   DateAssignInput,
   DateAssignItemContainer,
   DateAssignSelect,
-  EssayInformationSelectContainer,
   GeneralInput,
   LessonInformationSelectContainer,
   LinkCoursesContainer,
   LinkCoursesHeader,
   MaxPointSelectorContainer,
   MaxPointsForReadingGuideContainer,
-  QuestionSelectContainer,
   QuestionSelector,
   ReadingGuideInformationSelectContainer,
   SelectButton,
@@ -36,7 +39,6 @@ import {
 import { useNavigate } from 'react-router'
 import CheckBox from '../../../../../reusable-components/CheckBox'
 import { AssignedDateCheck } from './AssignedDateCheck'
-import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 
 export type CreateReadingGuideProps = {
   me: me_me_Teacher
@@ -65,13 +67,11 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
 }) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const { markingPeriodEnum, timeOfDayEnum } = useEnumContextProvider()
-  const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
+  const [assignedCourseIds, handleChange] = useCheckBox([courseId])
+  const navigate = useNavigate()
 
   const courses = me.teachesCourses.slice(1).sort(sortByLetter)
-  console.log(
-    state.context.readingGuide.assignedDate,
-    state.context.readingGuide.dueDate
-  )
+
   const [currentCourseInfo] = me.teachesCourses.filter(
     (course) => course._id === courseId
   )
@@ -84,11 +84,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
-  console.log(
-    sortedCourses[currentCourseIndex + 1]
-      ? sortedCourses[currentCourseIndex + 1].name
-      : 'end'
-  )
+
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
     createReadingGuideVariables
@@ -110,13 +106,10 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
       if (sortedCourses[currentCourseIndex + 1]) {
         setCourseId(sortedCourses[currentCourseIndex + 1]._id!)
         event({ type: 'ESSAY' })
-      }
+      } else navigate('/dashboard/assignments')
     },
     refetchQueries: [],
   })
-  // console.log(
-  //   new Date(state.context.readingGuide.dueDate).toISOString().slice(0, 10)
-  // )
 
   return (
     <LessonInformationSelectContainer>
@@ -128,9 +121,9 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             <div>Assigned Date: </div>
             <DateAssignInput
               type='date'
-              // value={new Date(state.context.readingGuide.assignedDate)
-              //   .toISOString()
-              //   .slice(0, 10)}
+              value={dateInputConverter(
+                state.context.readingGuide.assignedDate
+              )}
               onChange={(e: any) => {
                 event({
                   type: 'SET_READING_GUIDE_ASSIGNED_DATE',
@@ -144,9 +137,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             <div>Due Date: </div>
             <DateAssignInput
               type='date'
-              // value={new Date(state.context.readingGuide.dueDate)
-              //   .toISOString()
-              //   .slice(0, 10)}
+              value={dateInputConverter(state.context.readingGuide.dueDate)}
               onChange={(e: any) => {
                 event({
                   type: 'SET_READING_GUIDE_DUE_DATE',
@@ -194,13 +185,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             >
               {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
                 <option key={mp} value={mp}>
-                  {mp === 'FIRST'
-                    ? 'First'
-                    : mp === 'SECOND'
-                    ? 'Second'
-                    : mp === 'THIRD'
-                    ? 'Third'
-                    : 'Fourth'}
+                  {phraseCapitalizer(mp)}
                 </option>
               ))}
             </DateAssignSelect>
@@ -227,14 +212,6 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
           <LinkCoursesHeader>Add or Delete Linked Courses</LinkCoursesHeader>
           <CoursesCheckBoxContainer>
             {courses.map((course) => (
-              // <label key={course._id!} style={{ width: '40%' }}>
-              //   <CheckBox
-              //     checked={assignedCourseIds.includes(course._id)}
-              //     onChange={handleChange}
-              //     value={course._id!}
-              //   />
-              //   <span style={{ marginLeft: '1%' }}>{course.name}</span>
-              // </label>
               <CheckBox
                 key={course._id}
                 checked={assignedCourseIds.includes(course._id)}
@@ -259,15 +236,14 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             }
             onClick={() => {
               if (
-                assignedCourseIds.includes(state.context.courseId) &&
+                assignedCourseIds.includes(courseId) &&
                 state.context.essay.dueDate &&
                 !called
               )
                 createReadingGuide()
             }}
           >
-            {assignedCourseIds.includes(state.context.courseId) &&
-            state.context.essay.dueDate
+            {assignedCourseIds.includes(courseId) && state.context.essay.dueDate
               ? 'Create Reading Guide'
               : 'Complete Form'}
           </SelectButton>
