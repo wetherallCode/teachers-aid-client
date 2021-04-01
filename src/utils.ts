@@ -19,6 +19,19 @@ export const sortByRubricEntryScore = (
   } else return -1
 }
 
+export const dateInputConverter = (date: string) => {
+  const year = new Date(date).getFullYear()
+  const day =
+    Number(new Date(date).getDate()) < 10
+      ? '0' + new Date(date).getDate()
+      : new Date(date).getDate()
+  const month =
+    Number(new Date(date).getMonth() + 1) < 10
+      ? '0' + Number(new Date(date).getMonth() + 1).toString()
+      : new Date(date).getMonth() + 1
+  return year + '-' + month + '-' + day
+}
+
 export const markingPeriodFormatter = (markingPeriod: MarkingPeriodEnum) =>
   markingPeriod === MarkingPeriodEnum.FIRST
     ? 'First'
@@ -150,7 +163,7 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'run') {
     return 'ran'
   }
-  if(lowerCaseVerb === 'get'){
+  if (lowerCaseVerb === 'get') {
     return 'got'
   }
   if (lowerCaseVerb === 'fight') {
