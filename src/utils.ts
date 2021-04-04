@@ -6,6 +6,50 @@ import {
   MarkingPeriodEnum,
 } from './schemaTypes'
 
+export const primaryGradeCalculator = (
+  earnedPoints: number,
+  maxPoints: number
+) => {
+  console.log((Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 50)
+  return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 50
+}
+
+export const secondaryGradeCalculator = (
+  earnedPoints: number,
+  maxPoints: number
+) => {
+  return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 35
+}
+
+export const supportiveGradeCalculator = (points: number) => {
+  return (Math.round(1000 * points) / 1000) * 0.15
+}
+export const totalGrade = (
+  primaryGrade: number,
+  secondaryGrade: number,
+  supportiveGrade: number
+) => {
+  const number = Number(
+    Number(primaryGrade) + Number(secondaryGrade) + Number(supportiveGrade)
+  ).toFixed(2)
+
+  return Math.round(Number(number) * 10) / 10
+}
+
+export const letterGrade = (percentageGrade: number) => {
+  if (percentageGrade > 89) {
+    return 'A'
+  }
+  if (percentageGrade > 79 && percentageGrade < 90) {
+    return 'B'
+  }
+  if (percentageGrade > 69 && percentageGrade < 80) {
+    return 'C'
+  }
+  if (percentageGrade > 59 && percentageGrade < 70) {
+    return 'D'
+  } else return 'F'
+}
 export const capitalizer = (word: string) => {
   return word.substring(0, 1) + word.substring(1).toLowerCase()
 }
