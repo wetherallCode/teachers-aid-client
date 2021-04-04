@@ -237,7 +237,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   })
 
   if (loading) return <div>Loading </div>
-  console.log(data?.findEssayById.essay)
+  console.log(state.value)
   return (
     <EssayGraderContainer>
       {loadingDraft && (
