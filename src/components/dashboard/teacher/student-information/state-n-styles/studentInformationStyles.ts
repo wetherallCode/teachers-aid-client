@@ -19,6 +19,7 @@ export const StudentNameSelectContainer = styled.div`
   color: var(--white);
   display: grid;
   grid-template-rows: 1fr 4fr;
+  border-top: 3px solid var(--white);
 `
 
 export const StudentNameSelectorContainer = styled.div`
