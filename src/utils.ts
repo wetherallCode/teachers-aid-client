@@ -157,18 +157,6 @@ export const informationStructure = (item: InformationStructureEnum) => {
     : 'Compare and Contrast'
 }
 
-export const academicOutcomeTypes = (outcomes: AcademicOutcomeTypes) =>
-  outcomes === AcademicOutcomeTypes.SCHEMA_BUIDING
-    ? 'Schema Building'
-    : outcomes === AcademicOutcomeTypes.LOGIC_BUILDING
-    ? 'Logic Building'
-    : 'Socratic Question'
-
-export const protocolActivityTypes = (activities: ProtocolActivityTypes) =>
-  activities === ProtocolActivityTypes.INDIVIDUAL
-    ? 'Individual'
-    : 'Think Pair Share'
-
 export const macBookPro = window.screen.width === 1792
 export const macBook = window.screen.width === 1280
 export const ipad = window.screen.width === 1024
@@ -193,12 +181,10 @@ export const sortByLetter = (a: any, b: any) => {
 }
 
 export const phraseCapitalizer = (phrase: string) => {
-  let capitalizedPhrase = phrase
+  return phrase
     .split(' ')
     .map((word) => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase())
     .join(' ')
-
-  return capitalizedPhrase
 }
 
 export const underscoreEliminator = (string: string) => {
