@@ -201,6 +201,10 @@ export const phraseCapitalizer = (phrase: string) => {
   return capitalizedPhrase
 }
 
+export const underscoreEliminator = (string: string) => {
+  return string.split('_').join(' ')
+}
+
 export const irregularPastTenseVerbList = (verb: string) => {
   const lowerCaseVerb = verb.toLowerCase()
 
