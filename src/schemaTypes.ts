@@ -5810,6 +5810,7 @@ export enum MarkingPeriodEnum {
 
 export enum ProtocolActivityTypes {
   INDIVIDUAL = "INDIVIDUAL",
+  SMALL_GROUP = "SMALL_GROUP",
   THINK_PAIR_SHARE = "THINK_PAIR_SHARE",
 }
 
