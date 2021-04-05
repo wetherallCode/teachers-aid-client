@@ -12,8 +12,10 @@ import {
 import { UPDATE_LESSON_PROTOCOL_MUTATION } from './SelectProtocol'
 import {
   date,
-  academicOutcomeTypes,
-  protocolActivityTypes,
+  phraseCapitalizer,
+  underscoreEliminator,
+  // academicOutcomeTypes,
+  // protocolActivityTypes,
 } from '../../../../../../utils'
 import { DeleteProtocols } from './DeleteProtocols'
 import {
@@ -78,10 +80,10 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
     refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
   })
 
-  const outcomeType = academicOutcomeTypes(
+  const outcomeType = underscoreEliminator(
     state.context.selectedProtocol.academicOutcomeTypes
   )
-  const activityTypes = protocolActivityTypes(
+  const activityTypes = underscoreEliminator(
     state.context.selectedProtocol.activityType
   )
 
@@ -93,8 +95,12 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
   return (
     <ProtocolManagerContainer>
       <ProtocolInfoContainer>
-        <ProtocolInfo>Outcome Type: {outcomeType}</ProtocolInfo>
-        <ProtocolInfo>Activity: {activityTypes}</ProtocolInfo>
+        <ProtocolInfo>
+          Outcome Type: {phraseCapitalizer(outcomeType)}
+        </ProtocolInfo>
+        <ProtocolInfo>
+          Activity: {phraseCapitalizer(activityTypes)}
+        </ProtocolInfo>
         <ProtocolInfo>Task: {state.context.selectedProtocol.task}</ProtocolInfo>
       </ProtocolInfoContainer>
       <ProtocolControllerContainer>

@@ -12,6 +12,7 @@ import {
   ActivityCategorySelect,
   ActivityCategoryInput,
 } from './state-and-styles/lessonPlannerStyles'
+import { phraseCapitalizer, underscoreEliminator } from '../../../../../utils'
 
 export type BeforeActivitySelectProps = {
   protocolList: TextSectionProtocolsInput[]
@@ -51,9 +52,12 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
         }}
       >
         <option value={'none'}>Select Outcome Type</option>
-        {academicOutcomeTypes.map((type: AcademicOutcomeTypes) => (
-          <option key={type!}>{type}</option>
-        ))}
+        {academicOutcomeTypes.map((type: AcademicOutcomeTypes) => {
+          const normalizedType = underscoreEliminator(type)
+          return (
+            <option key={type!}>{phraseCapitalizer(normalizedType)}</option>
+          )
+        })}
       </ActivityCategorySelect>
 
       <div>Activity Type</div>
@@ -66,9 +70,12 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
         }}
       >
         <option value='none'>Select Activity Type</option>
-        {protocolActivityTypes.map((type: ProtocolActivityTypes) => (
-          <option key={type!}>{type}</option>
-        ))}
+        {protocolActivityTypes.map((type: ProtocolActivityTypes) => {
+          const normalizedType = underscoreEliminator(type)
+          return (
+            <option key={type!}>{phraseCapitalizer(normalizedType)}</option>
+          )
+        })}
       </ActivityCategorySelect>
 
       <div>Task</div>

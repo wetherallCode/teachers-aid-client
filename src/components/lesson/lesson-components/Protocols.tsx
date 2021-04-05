@@ -11,7 +11,7 @@ import {
   ProtocolTask,
   ProtocolTaskContainer,
 } from '../state/lessonStyles'
-import { academicOutcomeTypes } from '../../../utils'
+import { phraseCapitalizer, underscoreEliminator } from '../../../utils'
 
 export type ProtocolsProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -23,10 +23,11 @@ export const Protocols: FC<ProtocolsProps> = ({ lesson }) => {
     (protocol) => protocol.isActive
   )
 
+  const protocols = underscoreEliminator(protocol.academicOutcomeTypes)
   return (
     <>
       <ProtocolTypeContainer>
-        <div>{academicOutcomeTypes(protocol.academicOutcomeTypes)}</div>
+        <div>{phraseCapitalizer(protocols)}</div>
       </ProtocolTypeContainer>
 
       <ProtocolTaskContainer>
