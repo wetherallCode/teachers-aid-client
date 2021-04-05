@@ -1,7 +1,5 @@
 import {
   InformationStructureEnum,
-  AcademicOutcomeTypes,
-  ProtocolActivityTypes,
   RubricEntryInput,
   MarkingPeriodEnum,
 } from './schemaTypes'
