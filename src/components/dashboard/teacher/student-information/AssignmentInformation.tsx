@@ -185,9 +185,16 @@ export const AssignmentInformation = ({
         {state.matches('information.assignments.articleReviews') && (
           <AssignmentInformationStyle>
             {articleReviews.map((review) => (
-              <div key={review._id}>
+              <IndividualAssignmentDisplay key={review._id}>
                 <div>{review.assignedDate}</div>
-              </div>
+                {review.submitted ? (
+                  <div>
+                    {review.score.earnedPoints}/{review.score.maxPoints}
+                  </div>
+                ) : (
+                  <div>Missing</div>
+                )}
+              </IndividualAssignmentDisplay>
             ))}
           </AssignmentInformationStyle>
         )}

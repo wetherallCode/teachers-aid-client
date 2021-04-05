@@ -31,7 +31,7 @@ export const WritingMetrics = ({ studentId }: WritingMetricsProps) => {
     variables: {
       input: { studentId },
     },
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

@@ -1,11 +1,18 @@
+import { useQuery } from '@apollo/client'
 import React, { Dispatch, SetStateAction } from 'react'
 import {
   findAllStudentsForStudentInformation_findAllStudents_students,
+  findResponsibilityPointsByStudentId,
+  findResponsibilityPointsByStudentIdVariables,
   MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 
 import { StudentInformationDisplayContainer } from '../state-n-styles/studentInformationStyles'
-import { ResponsibilityPointsDisplay } from './ResponsibilityPointsDisplay'
+import {
+  ResponsibilityPointsDisplay,
+  RESPONSIBILITY_POINTS_QUERY,
+} from './ResponsibilityPointsDisplay'
+import { StudentGradeInformation } from './StudentGradeInformation'
 import { WritingMetrics } from './WritingMetrics'
 
 export type StudentInformationDisplayProps = {
@@ -17,18 +24,41 @@ export type StudentInformationDisplayProps = {
 export const StudentInformationDisplay = ({
   student,
   selectedMarkingPeriod,
-  setSelectedMarkingPeriod,
 }: StudentInformationDisplayProps) => {
+  const { loading, data } = useQuery<
+    findResponsibilityPointsByStudentId,
+    findResponsibilityPointsByStudentIdVariables
+  >(RESPONSIBILITY_POINTS_QUERY, {
+    variables: {
+      input: { studentId: student._id! },
+    },
+    // onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+  if (loading) return <div>Loading </div>
+
+  const [
+    currentMarkingPeriodResponsiblityPoints,
+  ] = data?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+    (points) => points.markingPeriod === selectedMarkingPeriod
+  )!
   return (
     <StudentInformationDisplayContainer>
       {student && (
         <>
           <ResponsibilityPointsDisplay
-            studentId={student._id!}
-            selectedMarkingPeriod={selectedMarkingPeriod}
-            setSelectedMarkingPeriod={setSelectedMarkingPeriod}
+            currentMarkingPeriodResponsiblityPoints={
+              currentMarkingPeriodResponsiblityPoints
+            }
           />
           <WritingMetrics studentId={student._id!} />
+          <StudentGradeInformation
+            student={student}
+            selectedMarkingPeriod={selectedMarkingPeriod}
+            currentMarkingPeriodResponsiblityPoints={
+              currentMarkingPeriodResponsiblityPoints
+            }
+          />
         </>
       )}
     </StudentInformationDisplayContainer>

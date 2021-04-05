@@ -38,7 +38,7 @@ export const StudentInformation = ({}: StudentInformationProps) => {
   const { loading, data } = useQuery<findAllStudentsForStudentInformation>(
     FIND_ALL_STUDENTS_QUERY,
     {
-      onCompleted: (data) => console.log(data.findAllStudents.students),
+      onCompleted: (data) => {},
       onError: (error) => console.error(error),
     }
   )
@@ -50,6 +50,7 @@ export const StudentInformation = ({}: StudentInformationProps) => {
   )
 
   if (loading) return <div>Loading </div>
+
   return (
     <StudentInformationContainer>
       <StudentNameSelectContainer>

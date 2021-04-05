@@ -3,14 +3,13 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import {
   findResponsibilityPointsByStudentId,
   findResponsibilityPointsByStudentIdVariables,
+  findResponsibilityPointsByStudentId_findResponsibilityPointsByStudentId_responsibilityPoints,
   MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { MarkingPeriodSelectorSwitch } from '../../../../reusable-components/MarkingPeriodSelectorSwitch'
 
 export type ResponsibilityPointsDisplayProps = {
-  studentId: string
-  selectedMarkingPeriod: MarkingPeriodEnum
-  setSelectedMarkingPeriod: Dispatch<SetStateAction<MarkingPeriodEnum>>
+  currentMarkingPeriodResponsiblityPoints: findResponsibilityPointsByStudentId_findResponsibilityPointsByStudentId_responsibilityPoints
 }
 
 export const RESPONSIBILITY_POINTS_QUERY = gql`
@@ -27,27 +26,8 @@ export const RESPONSIBILITY_POINTS_QUERY = gql`
 `
 
 export const ResponsibilityPointsDisplay = ({
-  studentId,
-  selectedMarkingPeriod,
-  setSelectedMarkingPeriod,
+  currentMarkingPeriodResponsiblityPoints,
 }: ResponsibilityPointsDisplayProps) => {
-  const { loading, data } = useQuery<
-    findResponsibilityPointsByStudentId,
-    findResponsibilityPointsByStudentIdVariables
-  >(RESPONSIBILITY_POINTS_QUERY, {
-    variables: {
-      input: { studentId },
-    },
-    onCompleted: (data) => console.log(data),
-    onError: (error) => console.error(error),
-  })
-  if (loading) return <div>Loading </div>
-  const [
-    currentMarkingPeriodResponsiblityPoints,
-  ] = data?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-    (points) => points.markingPeriod === selectedMarkingPeriod
-  )!
-
   return (
     <div>
       <div>Responsibility Points</div>
