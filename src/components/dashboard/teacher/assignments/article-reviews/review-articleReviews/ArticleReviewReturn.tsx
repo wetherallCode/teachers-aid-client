@@ -27,8 +27,8 @@ export const RETURN_ARTICLE_REVIEW_MUTATION = gql`
 export const ArticleReviewReturn: FC<ArticleReviewReturnProps> = ({
   reviewId,
 }) => {
-  const [state, event] = useArticleReviewContextProvider()
-  const [returnArticleReview] = useMutation<
+  // const [state, event] = useArticleReviewContextProvider()
+  const [returnArticleReview, { called }] = useMutation<
     returnArticleReview,
     returnArticleReviewVariables
   >(RETURN_ARTICLE_REVIEW_MUTATION, {
@@ -36,9 +36,10 @@ export const ArticleReviewReturn: FC<ArticleReviewReturnProps> = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findArticleReviewsByCourse'],
   })
+
   return (
     <ReturnReview onClick={() => returnArticleReview()}>
-      <div>Return</div>
+      {called ? <div>...</div> : <div>Return</div>}
     </ReturnReview>
   )
 }
