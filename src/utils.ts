@@ -74,15 +74,6 @@ export const dateInputConverter = (date: string) => {
   return year + '-' + month + '-' + day
 }
 
-// export const markingPeriodFormatter = (markingPeriod: MarkingPeriodEnum) =>
-//   markingPeriod === MarkingPeriodEnum.FIRST
-//     ? 'First'
-//     : markingPeriod === MarkingPeriodEnum.SECOND
-//     ? 'Second'
-//     : markingPeriod === MarkingPeriodEnum.THIRD
-//     ? 'Third'
-//     : 'Fourth'
-
 export const dateConverter = (date: string) => {
   if (date.charAt(5) === '0' && date.charAt(8) === '0') {
     return (

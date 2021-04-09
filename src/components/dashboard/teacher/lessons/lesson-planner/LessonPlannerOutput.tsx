@@ -6,7 +6,7 @@ import { LessonPlanOutputHeader } from './state-and-styles/lessonPlannerStyles'
 export type LessonPlannerOutputProps = {}
 
 export const LessonPlannerOutput: FC<LessonPlannerOutputProps> = () => {
-  const [state, event] = useLessonPlannerContextProvider()
+  const [state] = useLessonPlannerContextProvider()
   const {
     date,
     fromText,
