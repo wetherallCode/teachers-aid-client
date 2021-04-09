@@ -84,7 +84,7 @@ export const DynamicLesson = ({
           {me.__typename === 'Student' ? (
             <StudentQuestionPrompt
               courseToLoad={courseToLoad!}
-              fakeCourse={fakeCourse!}
+              // fakeCourse={fakeCourse!}
             />
           ) : (
             'Class is Live'

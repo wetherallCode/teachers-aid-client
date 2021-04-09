@@ -19,7 +19,7 @@ import { useUserContextProvider } from '../../../contexts/UserContext'
 
 export type StudentQuestionPromptProps = {
   courseToLoad?: me_me_Teacher_teachesCourses
-  fakeCourse: me_me_Teacher_teachesCourses
+  fakeCourse?: me_me_Teacher_teachesCourses
 }
 
 export const CREATE_STUDENT_QUESTION_MUTATION = gql`
@@ -52,7 +52,8 @@ export const StudentQuestionPrompt: FC<StudentQuestionPromptProps> = ({
   >(CREATE_STUDENT_QUESTION_MUTATION, {
     variables: {
       input: {
-        courseId: fakeCourse ? fakeCourse._id! : courseToLoad?._id!,
+        // courseId: fakeCourse ? fakeCourse._id! : courseToLoad?._id!,
+        courseId: courseToLoad?._id!,
         question,
         studentId: me._id!,
       },

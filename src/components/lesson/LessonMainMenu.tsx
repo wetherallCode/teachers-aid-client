@@ -150,11 +150,11 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
         )
 
-  const [fakeCourse] =
-    me.__typename === 'Teacher'
-      ? me.teachesCourses.filter((course) => course.name === 'Cohort Class')
-      : me.__typename === 'Student' &&
-        me.inCourses.filter((course) => course.name === 'Cohort Class')
+  // const [fakeCourse] =
+  //   me.__typename === 'Teacher'
+  //     ? me.teachesCourses.filter((course) => course.name === 'Cohort Class')
+  //     : me.__typename === 'Student' &&
+  //       me.inCourses.filter((course) => course.name === 'Cohort Class')
 
   const [
     loadLesson,
@@ -207,11 +207,11 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
   )
   const useFake = false
   useEffect(() => {
-    if (useFake) {
-      loadLesson({
-        variables: { input: { courseId: fakeCourse._id!, lessonDate: date } },
-      })
-    }
+    // if (useFake) {
+    //   loadLesson({
+    //     variables: { input: { courseId: fakeCourse._id!, lessonDate: date } },
+    //   })
+    // }
     if (courseToLoad) {
       loadLesson({
         variables: { input: { courseId: courseToLoad._id!, lessonDate: date } },
@@ -244,19 +244,20 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
                     </CurrentLesson>
 
                     <LessonNameStyle>
-                      {!useFake
+                      {/* {!useFake
                         ? me.__typename === 'Teacher' &&
                           `${courseToLoad.name}: `
-                        : me.__typename === 'Teacher' && `${fakeCourse.name}: `}
+                        : me.__typename === 'Teacher' && `${fakeCourse.name}: `} */}
+                      {courseToLoad.name}:
                       {data.findLessonByCourseAndDate.lesson?.lessonName}
                     </LessonNameStyle>
                     <GoToLessonButton
                       onClick={() => {
-                        if (fakeCourse) {
-                          event({ type: 'TODAYS_LESSON' })
-                          startPolling!(100)
-                          event({ type: 'POLLING' })
-                        }
+                        // if (fakeCourse) {
+                        //   event({ type: 'TODAYS_LESSON' })
+                        //   startPolling!(100)
+                        //   event({ type: 'POLLING' })
+                        // }
                         if (courseToLoad) {
                           if (
                             me.__typename === 'Student' &&
@@ -298,7 +299,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
                 lesson={data?.findLessonByCourseAndDate.lesson!}
                 stopPolling={stopPolling!}
                 courseToLoad={courseToLoad}
-                fakeCourse={fakeCourse}
+                // fakeCourse={fakeCourse}
               />
             </>
           ) : (
