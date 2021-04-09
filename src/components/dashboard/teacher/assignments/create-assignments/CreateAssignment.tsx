@@ -49,11 +49,7 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
                   setCourseId(course._id!)
                   event({ type: 'ESSAY' })
                 }}
-                style={
-                  course._id === courseId
-                    ? { textDecoration: 'underline' }
-                    : { textDecoration: 'none' }
-                }
+                selected={course._id === courseId}
               >
                 {course.name}
               </CourseToSelect>

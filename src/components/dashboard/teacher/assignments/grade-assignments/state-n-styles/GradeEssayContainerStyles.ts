@@ -24,9 +24,10 @@ export const CourseSelect = styled.div`
   justify-items: center;
   align-items: center;
 `
-
-export const CourseToSelect = styled.span`
-  &:hover {
+export type CourseToSelectProps = { selected: boolean }
+export const CourseToSelect = styled.span<CourseToSelectProps>`
+text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')}  
+&:hover {
     color: var(--grey);
   }
 `

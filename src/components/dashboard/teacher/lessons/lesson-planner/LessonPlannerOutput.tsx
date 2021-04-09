@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { markingPeriodFormatter } from '../../../../../utils'
+import { phraseCapitalizer } from '../../../../../utils'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import { LessonPlanOutputHeader } from './state-and-styles/lessonPlannerStyles'
 
@@ -24,7 +24,7 @@ export const LessonPlannerOutput: FC<LessonPlannerOutputProps> = () => {
       <LessonPlanOutputHeader>What's the Plan</LessonPlanOutputHeader>
       {date && <div>Date: {date}</div>}
       {markingPeriod && (
-        <div>{markingPeriodFormatter(markingPeriod)} Marking Period</div>
+        <div>{phraseCapitalizer(markingPeriod)} Marking Period</div>
       )}
       {fromText && <div>From Text: {fromText}</div>}
       {fromChapterTitle && <div>From Chapter: {fromChapterTitle}</div>}
