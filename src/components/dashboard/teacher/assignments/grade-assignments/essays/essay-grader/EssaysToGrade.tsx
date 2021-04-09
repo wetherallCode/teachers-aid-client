@@ -8,7 +8,6 @@ import {
 } from '../../../../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../../../../contexts/UserContext'
 import { useQuery, gql } from '@apollo/client'
-import { Link } from 'react-router-dom'
 import { useMarkingPeriodContextProvider } from '../../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useEnumContextProvider } from '../../../../../../../contexts/EnumContext'
 import {
@@ -31,10 +30,7 @@ import {
   MarkingPeriodSelectorContainer,
   MarkingPeriodSelectorForward,
 } from '../../../article-reviews/state-styles/articleReviewStyles'
-import {
-  markingPeriodFormatter,
-  sortByLetter,
-} from '../../../../../../../utils'
+import { phraseCapitalizer, sortByLetter } from '../../../../../../../utils'
 
 export type EssaysToGradeProps = {
   courseId: string
@@ -174,9 +170,7 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
             </MarkingPeriodSelectorBack>
           )}
           <CurrentMarkingPeriodContainer>
-            <div>
-              {markingPeriodFormatter(markingPeriodToGrade)} Marking Period
-            </div>
+            <div>{phraseCapitalizer(markingPeriodToGrade)} Marking Period</div>
           </CurrentMarkingPeriodContainer>
           {index < 3 && (
             <MarkingPeriodSelectorForward

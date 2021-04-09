@@ -397,6 +397,8 @@ export const AcademicEssayOrganizerAnswerBlockHeader = styled.div`
 export const AcademicEssayOrganizerAnswerBlockBody = styled.div`
   justify-self: center;
   align-self: start;
+  height: 15vh;
+  overflow: scroll;
 `
 
 export const HowProblemSolutionOrganizerAnswer = styled.div`
