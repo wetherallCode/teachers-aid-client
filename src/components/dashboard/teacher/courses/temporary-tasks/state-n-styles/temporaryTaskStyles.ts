@@ -10,7 +10,7 @@ export const TemporaryTasksContainer = styled.div`
 export const TemporaryTasksMenuContainer = styled.div`
   display: grid;
   height: 100%;
-  grid-template-rows: 3fr 1fr;
+  grid-template-rows: 2fr;
   background-color: var(--blue);
   color: var(--white);
 `
