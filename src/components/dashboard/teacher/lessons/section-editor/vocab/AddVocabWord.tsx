@@ -3,11 +3,11 @@ import {
   TextSectionVocabInput,
   updateTextSectionVariables,
   updateTextSection,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 import {
   sectionEditorMachineEvent,
   sectionEditorMachineContext,
-} from './sectionEditorMachine'
+} from '../state-n-styles/sectionEditorMachine'
 import { State } from 'xstate'
 import { MutationFunctionOptions } from '@apollo/client'
 

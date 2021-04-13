@@ -1,21 +1,21 @@
-import React, { useState, SetStateAction, Dispatch, FC, useEffect } from 'react'
-import { useSectionEditorContextProvider } from './sectionEditorContext'
+import React, { FC, useState, Dispatch, SetStateAction, useEffect } from 'react'
 import {
   Boxes,
   BoxTitle,
   ListItem,
   AddRemoveButtons,
   ListItemContainer,
-} from './sectionEditorStyles'
+} from '../state-n-styles/sectionEditorStyles'
+import { useSectionEditorContextProvider } from '../state-n-styles/sectionEditorContext'
 import { MutationFunctionOptions } from '@apollo/client'
 import {
   updateTextSection,
   updateTextSectionVariables,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 
-type VocabBoxProps = {
-  toggleVocabItemInputs: Dispatch<SetStateAction<boolean>>
+export type QuestionsBoxProps = {
   setCurrentIndexForItem: Dispatch<SetStateAction<number>>
+  toggleQuestionsItemInputs: Dispatch<SetStateAction<boolean>>
   updateTextSection: (
     options?:
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
@@ -23,9 +23,9 @@ type VocabBoxProps = {
   ) => void
 }
 
-export const VocabBox: FC<VocabBoxProps> = ({
-  toggleVocabItemInputs,
+export const QuestionsBox: FC<QuestionsBoxProps> = ({
   setCurrentIndexForItem,
+  toggleQuestionsItemInputs,
   updateTextSection,
 }) => {
   const [state, event] = useSectionEditorContextProvider()
@@ -33,7 +33,7 @@ export const VocabBox: FC<VocabBoxProps> = ({
   useEffect(() => {
     updateTextSection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.context.hasVocab])
+  }, [state.context.hasQuestions])
 
   const [index, setIndex] = useState(-1)
 
@@ -43,10 +43,10 @@ export const VocabBox: FC<VocabBoxProps> = ({
 
   function handleRemove(index: number) {
     event({
-      type: 'SET_VOCAB_LIST',
+      type: 'SET_QUESTIONS_LIST',
       payload: [
-        ...state.context.hasVocab.slice(0, index),
-        ...state.context.hasVocab.slice(index + 1),
+        ...state.context.hasQuestions.slice(0, index),
+        ...state.context.hasQuestions.slice(index + 1),
       ],
     })
   }
@@ -54,20 +54,33 @@ export const VocabBox: FC<VocabBoxProps> = ({
   return (
     <>
       <Boxes onMouseOut={() => setIndex(-1)}>
-        <BoxTitle>Vocab</BoxTitle>
-        {state.context.hasVocab.length > 0 ? (
+        <BoxTitle>Questions</BoxTitle>
+        {state.context.hasQuestions.length > 0 ? (
           <div>
-            {state.context.hasVocab.map((word, i) => (
-              <ListItemContainer key={i} onMouseOver={() => setIndex(i)}>
-                <ListItem>
-                  {word.word}: {word.definition}
+            {state.context.hasQuestions.map((q, i) => (
+              <ListItemContainer
+                key={q.question}
+                onMouseOver={() => setIndex(i)}
+              >
+                <ListItem
+                  onClick={() => {
+                    const questionIndex = state.context.hasQuestions.findIndex(
+                      (question) => question.question === q.question
+                    )
+                    event({
+                      type: 'SET_QUESTION_TO_EDIT',
+                      payload: q,
+                      index: questionIndex,
+                    })
+                  }}
+                >
+                  {q.question}
                 </ListItem>
-                {/* {!state.context.isHidden && state.context.currentIndex === i && ( */}
                 <AddRemoveButtons>
                   <div
                     hidden={i !== index || undefined}
                     onClick={() => {
-                      toggleVocabItemInputs(true)
+                      toggleQuestionsItemInputs(true)
                       handleAdd(i)
                     }}
                   >
@@ -86,11 +99,11 @@ export const VocabBox: FC<VocabBoxProps> = ({
         ) : (
           <div
             onClick={() => {
-              toggleVocabItemInputs(true)
+              toggleQuestionsItemInputs(true)
               handleAdd(0)
             }}
           >
-            Add a Vocab Word
+            Add a Question
           </div>
         )}
       </Boxes>

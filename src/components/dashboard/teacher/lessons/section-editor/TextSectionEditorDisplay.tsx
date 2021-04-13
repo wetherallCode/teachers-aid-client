@@ -13,17 +13,25 @@ import {
   TextSectionQuestionsInput,
   QuestionTypeEnum,
 } from '../../../../../schemaTypes'
-import { useSectionEditorContextProvider } from './sectionEditorContext'
-
-import { gql, useQuery, useMutation } from '@apollo/client'
-import { AddVocabWord } from './AddVocabWord'
-import { AddQuestion } from './AddQuestion'
-import { VocabBox } from './VocabBox'
-import { QuestionsBox } from './QuestionsBox'
-import { AddProtocols } from './AddProtocols'
-import { ProtocolsBox } from './ProtocolsBox'
+import { useSectionEditorContextProvider } from './state-n-styles/sectionEditorContext'
+import {
+  gql,
+  useQuery,
+  useMutation,
+  MutationFunctionOptions,
+} from '@apollo/client'
+import { AddVocabWord } from './vocab/AddVocabWord'
+import { AddQuestion } from './questions/AddQuestion'
+import { VocabBox } from './vocab/VocabBox'
+import { QuestionsBox } from './questions/QuestionsBox'
+import { AddProtocols } from './protocols/AddProtocols'
+import { ProtocolsBox } from './protocols/ProtocolsBox'
 import { Modal } from '../../../../../animations'
-import { ListBoxes } from './sectionEditorStyles'
+import { ListBoxes } from './state-n-styles/sectionEditorStyles'
+import { EditSectionInfo } from './edit-section-info/EditSectionInfo'
+import { EditProtocol } from './protocols/EditProtocol'
+import { EditQuestion } from './questions/EditQuestion'
+import { EditVocabWord } from './vocab/EditVocabWord'
 
 export const FIND_TEXT_SECTION_BY_ID_QUERY = gql`
   query FindTextSectionById($input: FindTextSectionByIdInput!) {
@@ -63,6 +71,12 @@ export const TEXT_SECTION_UPDATER_MUTATION = gql`
   }
 `
 
+export type UpdateTextSectionMutationProps = (
+  options?:
+    | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
+    | undefined
+) => void
+
 export const TextSectionEditorDisplay = () => {
   const [vocabWord, setVocabWord] = useState<TextSectionVocabInput>({
     word: '',
@@ -85,19 +99,6 @@ export const TextSectionEditorDisplay = () => {
   const [currentIndexForItem, setCurrentIndexForItem] = useState<number>(0)
 
   const [state, event] = useSectionEditorContextProvider()
-
-  console.log({
-    // _id: state.context.sectionId,
-    // header: state.context.header,
-    // pageNumbers: {
-    //   startingPage: state.context.pageNumbers.startingPage,
-    //   endingPage: state.context.pageNumbers.endingPage,
-    // },
-    // fromChapterId: state.context.fromChapterId,
-    // hasQuestions: state.context.hasQuestions,
-    // hasProtocols: state.context.hasProtocols,
-    // hasVocab: state.context.hasVocab,
-  })
 
   const { loading, data } = useQuery<
     FindTextSectionById,
@@ -152,7 +153,7 @@ export const TextSectionEditorDisplay = () => {
     },
   })
 
-  const [updateTextSection, { data: updateData }] = useMutation<
+  const [updateTextSection] = useMutation<
     updateTextSection,
     updateTextSectionVariables
   >(TEXT_SECTION_UPDATER_MUTATION, {
@@ -170,55 +171,18 @@ export const TextSectionEditorDisplay = () => {
         hasVocab: state.context.hasVocab,
       },
     },
-    onCompleted: (updateData) => console.log(updateData),
+    // onCompleted: (updateData) => console.log(updateData),
     refetchQueries: ['FindTextSectionById'],
   })
 
   useEffect(() => {
-    console.log(state.context.hasProtocols)
-    // updateTextSection()
-  }, [state.context.hasProtocols])
-
+    updateTextSection()
+  }, [state.context])
+  console.log(state.value)
   if (loading) return <div>Loading </div>
-
   return (
     <div>
-      <div>{data?.findTextSectionById.textSection.header}</div>
-      <div>Header</div>
-      <input
-        type='text'
-        onChange={(e: any) =>
-          event({ type: 'SET_HEADER', header: e.target.value })
-        }
-      />
-      <button onClick={() => updateTextSection()}>Change</button>
-      <div>Pages: </div>
-      <div>Starting Page:</div>
-      <input
-        type='text'
-        onChange={(e: any) =>
-          event({
-            type: 'SET_PAGE_NUMBERS',
-            payload: {
-              ...state.context.pageNumbers,
-              startingPage: Number(e.target.value),
-            },
-          })
-        }
-      />
-      <div>Ending Page: </div>
-      <input
-        type='text'
-        onChange={(e: any) =>
-          event({
-            type: 'SET_PAGE_NUMBERS',
-            payload: {
-              ...state.context.pageNumbers,
-              endingPage: Number(e.target.value),
-            },
-          })
-        }
-      />
+      <EditSectionInfo textSection={data?.findTextSectionById.textSection!} />
       <ListBoxes>
         <VocabBox
           setCurrentIndexForItem={setCurrentIndexForItem}
@@ -286,6 +250,9 @@ export const TextSectionEditorDisplay = () => {
           />
         </Modal>
       )}
+      {state.context.protocolToEdit && <EditProtocol />}
+      {state.context.questionToEdit && <EditQuestion />}
+      {state.context.vocabWordToEdit && <EditVocabWord />}
     </div>
   )
 }

@@ -5,22 +5,14 @@ import {
   ListItem,
   AddRemoveButtons,
   ListItemContainer,
-} from './sectionEditorStyles'
-import { useSectionEditorContextProvider } from './sectionEditorContext'
-import { MutationFunctionOptions } from '@apollo/client'
-import {
-  updateTextSection,
-  updateTextSectionVariables,
-} from '../../../../../schemaTypes'
+} from '../state-n-styles/sectionEditorStyles'
+import { useSectionEditorContextProvider } from '../state-n-styles/sectionEditorContext'
+import { UpdateTextSectionMutationProps } from '../TextSectionEditorDisplay'
 
 export type ProtocolsBoxProps = {
   setCurrentIndexForItem: Dispatch<SetStateAction<number>>
   toggleProtocolItemInputs: Dispatch<SetStateAction<boolean>>
-  updateTextSection: (
-    options?:
-      | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-      | undefined
-  ) => void
+  updateTextSection: UpdateTextSectionMutationProps
 }
 
 export const ProtocolsBox: FC<ProtocolsBoxProps> = ({
@@ -59,7 +51,20 @@ export const ProtocolsBox: FC<ProtocolsBoxProps> = ({
           <div>
             {state.context.hasProtocols.map((p, i) => (
               <ListItemContainer key={p.task} onMouseOver={() => setIndex(i)}>
-                <ListItem>{p.task}</ListItem>
+                <ListItem
+                  onClick={() => {
+                    const protocolIndex = state.context.hasProtocols.findIndex(
+                      (protocol) => protocol.task === p.task
+                    )
+                    event({
+                      type: 'SET_PROTOCOL_TO_EDIT',
+                      payload: p,
+                      index: protocolIndex,
+                    })
+                  }}
+                >
+                  {p.task}
+                </ListItem>
                 <AddRemoveButtons>
                   <div
                     hidden={i !== index || undefined}

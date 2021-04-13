@@ -4,7 +4,7 @@ import {
   findTextSectionsByChapter,
   findTextSectionsByChapterVariables,
 } from '../../../../../schemaTypes'
-import { useSectionEditorContextProvider } from './sectionEditorContext'
+import { useSectionEditorContextProvider } from './state-n-styles/sectionEditorContext'
 
 export const FIND_TEXT_SECTIONS_BY_CHAPTER_QUERY = gql`
   query findTextSectionsByChapter($input: FindTextSectionsByChapterInput!) {

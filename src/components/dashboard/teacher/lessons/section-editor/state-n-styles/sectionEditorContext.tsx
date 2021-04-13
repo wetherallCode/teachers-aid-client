@@ -1,11 +1,12 @@
 import React, { FC, createContext, ReactNode, useContext } from 'react'
 import { useMachine } from '@xstate/react'
+
+import { State } from 'xstate'
 import {
   sectionEditorMachine,
-  sectionEditorMachineEvent,
   sectionEditorMachineContext,
+  sectionEditorMachineEvent,
 } from './sectionEditorMachine'
-import { State } from 'xstate'
 
 const SectionEditorContext = createContext<any>(undefined)
 

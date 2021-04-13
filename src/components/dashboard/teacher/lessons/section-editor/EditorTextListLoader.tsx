@@ -1,13 +1,14 @@
 import React, { FC } from 'react'
 import { gql, useQuery } from '@apollo/client'
-import { findTextsForTextSectionEditor } from '../../../../../schemaTypes'
-import { sectionEditorMachineEvent } from './sectionEditorMachine'
+import {
+  findTextsForTextSectionEditor,
+  me_me_Teacher,
+} from '../../../../../schemaTypes'
+import { sectionEditorMachineEvent } from './state-n-styles/sectionEditorMachine'
 import { EditorTextSelectionDisplay } from './EditorTextSelectionDisplay'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 
-export type TextListLoaderProps = {
-  event: (event: sectionEditorMachineEvent) => void
-}
+export type TextListLoaderProps = {}
 
 export const FIND_TEXTS_FOR_TEXT_SECTION_EDITOR_QUERY = gql`
   query findTextsForTextSectionEditor {
@@ -21,13 +22,18 @@ export const FIND_TEXTS_FOR_TEXT_SECTION_EDITOR_QUERY = gql`
   }
 `
 
-export const EditorTextListLoader: FC<TextListLoaderProps> = ({ event }) => {
-  const me = useUserContextProvider()
-  const { loading, error, data } = useQuery<findTextsForTextSectionEditor>(
-    FIND_TEXTS_FOR_TEXT_SECTION_EDITOR_QUERY
+export const EditorTextListLoader: FC<TextListLoaderProps> = ({}: TextListLoaderProps) => {
+  const me: me_me_Teacher = useUserContextProvider()
+
+  const { loading, data } = useQuery<findTextsForTextSectionEditor>(
+    FIND_TEXTS_FOR_TEXT_SECTION_EDITOR_QUERY,
+    {
+      onCompleted: () => console.log(data),
+      onError: (err) => console.error(err),
+    }
   )
-  if (loading) return <div>Loading </div>
-  if (error) console.error(error)
+
   const texts = data?.findTexts.texts.filter((text) => text.ownerId === me._id)
-  return <EditorTextSelectionDisplay event={event} textList={texts!} />
+  if (loading) return null
+  return <EditorTextSelectionDisplay textList={texts!} />
 }

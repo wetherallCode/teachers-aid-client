@@ -2,7 +2,7 @@ import React, { FC, Dispatch, SetStateAction, useEffect } from 'react'
 import {
   sectionEditorMachineEvent,
   sectionEditorMachineContext,
-} from './sectionEditorMachine'
+} from '../state-n-styles/sectionEditorMachine'
 import { State } from 'xstate'
 import { MutationFunctionOptions } from '@apollo/client'
 import {
@@ -11,8 +11,8 @@ import {
   TextSectionProtocolsInput,
   AcademicOutcomeTypes,
   ProtocolActivityTypes,
-} from '../../../../../schemaTypes'
-import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
+} from '../../../../../../schemaTypes'
+import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 
 export type AddProtocolsProps = {
   protocolItem: TextSectionProtocolsInput

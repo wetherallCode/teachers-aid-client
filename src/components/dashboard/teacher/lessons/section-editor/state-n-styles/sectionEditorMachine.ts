@@ -3,13 +3,23 @@ import {
   TextSectionQuestionsInput,
   TextSectionVocabInput,
   PageNumbersInput,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 import { Machine, assign } from 'xstate'
 
 export type sectionEditorMachineSchema = {
   states: {
     textSectionValues: {}
-    update: {}
+    update: {
+      states: {
+        idle: {}
+        editProtocol: {}
+        editQuestion: {}
+        editVocabWord: {}
+        addProtocol: {}
+        addQuestion: {}
+        addVocabWord: {}
+      }
+    }
   }
 }
 
@@ -24,8 +34,29 @@ export type sectionEditorMachineEvent =
   | { type: 'SET_HEADER'; header: string }
   | { type: 'SET_PAGE_NUMBERS'; payload: PageNumbersInput }
   | { type: 'SET_VOCAB_LIST'; payload: TextSectionVocabInput[] }
+  | {
+      type: 'SET_VOCAB_WORD_TO_EDIT'
+      payload: TextSectionVocabInput | null
+      index: number | null
+    }
+  | {
+      type: 'EDIT_VOCAB_WORD'
+      payload: TextSectionVocabInput
+    }
   | { type: 'SET_QUESTIONS_LIST'; payload: TextSectionQuestionsInput[] }
+  | {
+      type: 'SET_QUESTION_TO_EDIT'
+      payload: TextSectionQuestionsInput | null
+      index: number | null
+    }
+  | { type: 'EDIT_QUESTION'; payload: TextSectionQuestionsInput }
   | { type: 'SET_PROTOCOLS_LIST'; payload: TextSectionProtocolsInput[] }
+  | {
+      type: 'SET_PROTOCOL_TO_EDIT'
+      payload: TextSectionProtocolsInput | null
+      index: number | null
+    }
+  | { type: 'EDIT_PROTOCOL'; payload: TextSectionProtocolsInput }
 
 export type sectionEditorMachineContext = {
   fromText: string
@@ -33,8 +64,14 @@ export type sectionEditorMachineContext = {
   fromChapterId: string
   sectionId: string
   hasProtocols: TextSectionProtocolsInput[]
+  protocolToEdit: TextSectionProtocolsInput | null
+  protocolToEditIndex: number | null
   hasQuestions: TextSectionQuestionsInput[]
+  questionToEdit: TextSectionQuestionsInput | null
+  questionToEditIndex: number | null
   hasVocab: TextSectionVocabInput[]
+  vocabWordToEdit: TextSectionVocabInput | null
+  vocabWordToEditIndex: number | null
   header: string
   pageNumbers: PageNumbersInput
   isHidden: boolean
@@ -49,6 +86,7 @@ export const sectionEditorMachine = Machine<
 >({
   id: 'sectionEditor',
   initial: 'textSectionValues',
+  type: 'parallel',
   context: {
     fromText: '',
     fromChapterId: '',
@@ -60,8 +98,14 @@ export const sectionEditorMachine = Machine<
       endingPage: 0,
     },
     hasProtocols: [],
+    protocolToEdit: null,
+    protocolToEditIndex: null,
     hasQuestions: [],
+    questionToEdit: null,
+    questionToEditIndex: null,
     hasVocab: [],
+    vocabWordToEdit: null,
+    vocabWordToEditIndex: null,
     isHidden: true,
     currentIndex: -1,
     addItem: false,
@@ -106,26 +150,84 @@ export const sectionEditorMachine = Machine<
           }),
         },
         SET_VOCAB_LIST: {
-          actions: assign((context, event) => {
-            return { ...context, hasVocab: event.payload }
+          actions: assign((ctx, evt) => {
+            return { ...ctx, hasVocab: evt.payload }
           }),
         },
-
+        SET_VOCAB_WORD_TO_EDIT: {
+          actions: assign((ctx, evt) => {
+            // console.log(evt.index)
+            return {
+              ...ctx,
+              vocabWordToEdit: evt.payload,
+              vocabWordToEditIndex: evt.index,
+            }
+          }),
+        },
+        EDIT_VOCAB_WORD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              vocabWordToEdit: evt.payload,
+            }
+          }),
+        },
         SET_QUESTIONS_LIST: {
-          actions: assign({
-            hasQuestions: (context, event) => event.payload,
+          actions: assign((ctx, evt) => {
+            return { ...ctx, hasQuestions: evt.payload }
+          }),
+        },
+        SET_QUESTION_TO_EDIT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              questionToEdit: evt.payload,
+              questionToEditIndex: evt.index,
+            }
+          }),
+        },
+        EDIT_QUESTION: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              questionToEdit: evt.payload,
+            }
           }),
         },
         SET_PROTOCOLS_LIST: {
-          actions: assign({
-            hasProtocols: (context, event) => event.payload,
+          actions: assign((ctx, evt) => {
+            return { ...ctx, hasProtocols: evt.payload }
+          }),
+        },
+        SET_PROTOCOL_TO_EDIT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              protocolToEdit: evt.payload,
+              protocolToEditIndex: evt.index,
+            }
+          }),
+        },
+        EDIT_PROTOCOL: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              protocolToEdit: evt.payload,
+            }
           }),
         },
       },
     },
     update: {
-      on: {
-        PREVIOUS: 'textSectionValues',
+      initial: 'idle',
+      states: {
+        idle: {},
+        editProtocol: {},
+        editQuestion: {},
+        editVocabWord: {},
+        addProtocol: {},
+        addQuestion: {},
+        addVocabWord: {},
       },
     },
   },

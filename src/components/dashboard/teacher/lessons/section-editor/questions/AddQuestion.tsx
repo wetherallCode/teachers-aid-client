@@ -4,14 +4,14 @@ import {
   updateTextSection,
   TextSectionQuestionsInput,
   questionTypeEnum,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 import {
   sectionEditorMachineEvent,
   sectionEditorMachineContext,
-} from './sectionEditorMachine'
+} from '../state-n-styles/sectionEditorMachine'
 import { State } from 'xstate'
 import { MutationFunctionOptions, useQuery } from '@apollo/client'
-import { QUESTION_TYPE_ENUM_QUERY } from '../section-builder/QuestionsInfo'
+import { QUESTION_TYPE_ENUM_QUERY } from '../../section-builder/QuestionsInfo'
 
 type AddVocabWordProps = {
   setQuestionsItem: Dispatch<SetStateAction<TextSectionQuestionsInput>>
