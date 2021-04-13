@@ -1,8 +1,4 @@
-import {
-  InformationStructureEnum,
-  RubricEntryInput,
-  MarkingPeriodEnum,
-} from './schemaTypes'
+import { InformationStructureEnum, RubricEntryInput } from './schemaTypes'
 
 export const primaryGradeCalculator = (
   earnedPoints: number,
