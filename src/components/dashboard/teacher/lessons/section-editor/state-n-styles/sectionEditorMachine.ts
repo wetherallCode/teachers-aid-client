@@ -26,6 +26,12 @@ export type sectionEditorMachineSchema = {
 export type sectionEditorMachineEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
+  | { type: 'PROTOCOL_EDITOR' }
+  | { type: 'QUESTION_EDITOR' }
+  | { type: 'VOCAB_WORD_EDITOR' }
+  | { type: 'PROTOCOL_ADDER' }
+  | { type: 'QUESTION_ADDER' }
+  | { type: 'VOCAB_WORD_ADDER' }
   | { type: 'SHOW'; payload: boolean }
   | { type: 'SET_CURRENT_INDEX'; payload: number }
   | { type: 'SET_SECTION_ID'; payload: string }
@@ -221,7 +227,12 @@ export const sectionEditorMachine = Machine<
     update: {
       initial: 'idle',
       states: {
-        idle: {},
+        idle: {
+          on: {
+          PROTOCOL_EDITOR: 'editProtocol',
+          QUESTION_EDITOR: 'editQuestion',
+          VOCAB_WORD_EDITOR: 'editVocabWord'
+        }},
         editProtocol: {},
         editQuestion: {},
         editVocabWord: {},
