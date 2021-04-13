@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router'
 import { SectionBuilder } from './section-builder/SectionBuilder'
 import { SectionEditor } from './section-editor/SectionEditor'
-import { SectionEditorContextProvider } from './section-editor/sectionEditorContext'
+import { SectionEditorContextProvider } from './section-editor/state-n-styles/sectionEditorContext'
 import { LessonPlanner } from './lesson-planner/LessonPlanner'
 
 import { SectionBuilderContextProvider } from './section-builder/state/SectionBuilderContext'
