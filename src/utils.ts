@@ -8,7 +8,6 @@ export const primaryGradeCalculator = (
   earnedPoints: number,
   maxPoints: number
 ) => {
-  console.log((Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 50)
   return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 50
 }
 
