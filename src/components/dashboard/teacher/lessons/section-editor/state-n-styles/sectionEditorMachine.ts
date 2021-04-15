@@ -26,6 +26,7 @@ export type sectionEditorMachineSchema = {
 export type sectionEditorMachineEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
+  | { type: 'IDLE' }
   | { type: 'PROTOCOL_EDITOR' }
   | { type: 'QUESTION_EDITOR' }
   | { type: 'VOCAB_WORD_EDITOR' }
@@ -119,7 +120,13 @@ export const sectionEditorMachine = Machine<
   states: {
     textSectionValues: {
       on: {
-        NEXT: 'update',
+        IDLE: '#sectionEditor.update.idle',
+        PROTOCOL_EDITOR: '#sectionEditor.update.editProtocol',
+        QUESTION_EDITOR: '#sectionEditor.update.editQuestion',
+        VOCAB_WORD_EDITOR: '#sectionEditor.update.editVocabWord',
+        PROTOCOL_ADDER: '#sectionEditor.update.addProtocol',
+        QUESTION_ADDER: '#sectionEditor.update.addQuestion',
+        VOCAB_WORD_ADDER: '#sectionEditor.update.addVocabWord',
         SET_TEXT_TITLE: {
           actions: assign((context, event) => {
             return { ...context, fromText: event.textTitle }
@@ -229,11 +236,17 @@ export const sectionEditorMachine = Machine<
       states: {
         idle: {
           on: {
-          PROTOCOL_EDITOR: 'editProtocol',
-          QUESTION_EDITOR: 'editQuestion',
-          VOCAB_WORD_EDITOR: 'editVocabWord'
-        }},
-        editProtocol: {},
+            PROTOCOL_EDITOR: 'editProtocol',
+            QUESTION_EDITOR: 'editQuestion',
+            VOCAB_WORD_EDITOR: 'editVocabWord',
+            PROTOCOL_ADDER: 'addProtocol',
+            QUESTION_ADDER: 'addQuestion',
+            VOCAB_WORD_ADDER: 'addVocabWord',
+          },
+        },
+        editProtocol: {
+          on: {},
+        },
         editQuestion: {},
         editVocabWord: {},
         addProtocol: {},

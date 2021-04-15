@@ -22,18 +22,16 @@ type AddVocabWordProps = {
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
       | undefined
   ) => void
-  toggleVocabItemInputs: Dispatch<SetStateAction<boolean>>
 }
 
-export const AddVocabWord: FC<AddVocabWordProps> = ({
+export const AddVocabWord = ({
   setVocabWord,
   vocabWord,
   event,
   state,
   currentIndexForItem,
   updateTextSection,
-  toggleVocabItemInputs,
-}) => {
+}: AddVocabWordProps) => {
   useEffect(() => {
     updateTextSection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,7 +43,6 @@ export const AddVocabWord: FC<AddVocabWordProps> = ({
     ...state.context.hasVocab.slice(currentIndexForItem + 1),
   ]
 
-  //   console.log(currentIndexForItem + 1)
   return (
     <form>
       <div>Word</div>
@@ -66,18 +63,21 @@ export const AddVocabWord: FC<AddVocabWordProps> = ({
           })
         }
       />
-      <button
-        type='reset'
-        onClick={() => {
-          event({
-            type: 'SET_VOCAB_LIST',
-            payload: newList,
-          })
-          toggleVocabItemInputs(false)
-        }}
-      >
-        Add Word
-      </button>
+      <>
+        <button onClick={() => event({ type: 'IDLE' })}>Cancel</button>
+        <button
+          type='reset'
+          onClick={() => {
+            event({
+              type: 'SET_VOCAB_LIST',
+              payload: newList,
+            })
+            event({ type: 'IDLE' })
+          }}
+        >
+          Add Word
+        </button>
+      </>
     </form>
   )
 }

@@ -178,7 +178,7 @@ export const TextSectionEditorDisplay = () => {
   useEffect(() => {
     updateTextSection()
   }, [state.context])
-  console.log(state.value)
+
   if (loading) return <div>Loading </div>
   return (
     <div>
@@ -202,57 +202,60 @@ export const TextSectionEditorDisplay = () => {
           updateTextSection={updateTextSection}
         />
       </ListBoxes>
-      {showVocabItemInputs && (
+      {/* {showVocabItemInputs && (
         <Modal
           isToggled={showVocabItemInputs}
           setIsToggled={toggleVocabItemInputs}
-        >
-          <AddVocabWord
-            state={state}
-            event={event}
-            vocabWord={vocabWord}
-            setVocabWord={setVocabWord}
-            currentIndexForItem={currentIndexForItem}
-            updateTextSection={updateTextSection}
-            toggleVocabItemInputs={toggleVocabItemInputs}
-          />
-        </Modal>
+        > */}
+      {state.matches('update.addVocabWord') && (
+        <AddVocabWord
+          state={state}
+          event={event}
+          vocabWord={vocabWord}
+          setVocabWord={setVocabWord}
+          currentIndexForItem={currentIndexForItem}
+          updateTextSection={updateTextSection}
+        />
       )}
-      {showQuestionsItemInputs && (
+      {/* </Modal>
+      )} */}
+      {/* {showQuestionsItemInputs && (
         <Modal
           isToggled={showQuestionsItemInputs}
           setIsToggled={toggleQuestionsItemInputs}
-        >
-          <AddQuestion
-            state={state}
-            event={event}
-            questionsItem={questionsItem}
-            setQuestionsItem={setQuestionsItem}
-            currentIndexForItem={currentIndexForItem}
-            updateTextSection={updateTextSection}
-            toggleQuestionsItemInputs={toggleQuestionsItemInputs}
-          />
-        </Modal>
+        > */}
+      {state.matches('update.addQuestion') && (
+        <AddQuestion
+          state={state}
+          event={event}
+          questionsItem={questionsItem}
+          setQuestionsItem={setQuestionsItem}
+          currentIndexForItem={currentIndexForItem}
+          updateTextSection={updateTextSection}
+        />
       )}
-      {showProtocolItemInputs && (
+      {/* </Modal>
+      )} */}
+      {/* {showProtocolItemInputs && (
         <Modal
           isToggled={showProtocolItemInputs}
           setIsToggled={toggleProtocolItemInputs}
-        >
-          <AddProtocols
-            currentIndexForItem={currentIndexForItem}
-            event={event}
-            protocolItem={protocolItem}
-            setProtocolItem={setProtocolItem}
-            state={state}
-            updateTextSection={updateTextSection}
-            toggleProtocolItemInputs={toggleProtocolItemInputs}
-          />
-        </Modal>
+        > */}
+      {state.matches('update.addProtocol') && (
+        <AddProtocols
+          currentIndexForItem={currentIndexForItem}
+          event={event}
+          protocolItem={protocolItem}
+          setProtocolItem={setProtocolItem}
+          state={state}
+          updateTextSection={updateTextSection}
+        />
       )}
-      {state.context.protocolToEdit && <EditProtocol />}
-      {state.context.questionToEdit && <EditQuestion />}
-      {state.context.vocabWordToEdit && <EditVocabWord />}
+      {/* </Modal>
+      )} */}
+      {state.matches('update.editProtocol') && <EditProtocol />}
+      {state.matches('update.editQuestion') && <EditQuestion />}
+      {state.matches('update.editVocabWord') && <EditVocabWord />}
     </div>
   )
 }

@@ -61,6 +61,7 @@ export const ProtocolsBox: FC<ProtocolsBoxProps> = ({
                       payload: p,
                       index: protocolIndex,
                     })
+                    event({ type: 'PROTOCOL_EDITOR' })
                   }}
                 >
                   {p.task}
@@ -69,8 +70,10 @@ export const ProtocolsBox: FC<ProtocolsBoxProps> = ({
                   <div
                     hidden={i !== index || undefined}
                     onClick={() => {
-                      toggleProtocolItemInputs(true)
+                      // toggleProtocolItemInputs(true)
+
                       handleAdd(i)
+                      event({ type: 'PROTOCOL_ADDER' })
                     }}
                   >
                     +

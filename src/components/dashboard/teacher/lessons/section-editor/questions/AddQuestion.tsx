@@ -18,7 +18,6 @@ type AddVocabWordProps = {
   questionsItem: TextSectionQuestionsInput
   event: (event: sectionEditorMachineEvent) => void
   state: State<sectionEditorMachineContext, sectionEditorMachineEvent, any, any>
-  toggleQuestionsItemInputs: Dispatch<SetStateAction<boolean>>
   currentIndexForItem: number
   updateTextSection: (
     options?:
@@ -27,15 +26,14 @@ type AddVocabWordProps = {
   ) => void
 }
 
-export const AddQuestion: FC<AddVocabWordProps> = ({
+export const AddQuestion = ({
   questionsItem,
   setQuestionsItem,
   event,
   state,
   currentIndexForItem,
   updateTextSection,
-  toggleQuestionsItemInputs,
-}) => {
+}: AddVocabWordProps) => {
   useEffect(() => {
     updateTextSection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,18 +77,22 @@ export const AddQuestion: FC<AddVocabWordProps> = ({
           })
         }
       />
-      <button
-        type='reset'
-        onClick={() => {
-          event({
-            type: 'SET_QUESTIONS_LIST',
-            payload: newList,
-          })
-          toggleQuestionsItemInputs(false)
-        }}
-      >
-        Add Word
-      </button>
+      <>
+        <button onClick={() => event({ type: 'IDLE' })}>Cancel</button>
+        <button
+          type='reset'
+          onClick={() => {
+            event({
+              type: 'SET_QUESTIONS_LIST',
+              payload: newList,
+            })
+            event({ type: 'IDLE' })
+            // toggleQuestionsItemInputs(false)
+          }}
+        >
+          Add Word
+        </button>
+      </>
     </form>
   )
 }

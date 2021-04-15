@@ -19,7 +19,6 @@ export type AddProtocolsProps = {
   setProtocolItem: Dispatch<SetStateAction<TextSectionProtocolsInput>>
   event: (event: sectionEditorMachineEvent) => void
   state: State<sectionEditorMachineContext, sectionEditorMachineEvent, any, any>
-  toggleProtocolItemInputs: Dispatch<SetStateAction<boolean>>
   currentIndexForItem: number
   updateTextSection: (
     options?:
@@ -28,15 +27,14 @@ export type AddProtocolsProps = {
   ) => void
 }
 
-export const AddProtocols: FC<AddProtocolsProps> = ({
+export const AddProtocols = ({
   protocolItem,
   setProtocolItem,
   event,
   state,
   currentIndexForItem,
   updateTextSection,
-  toggleProtocolItemInputs,
-}) => {
+}: AddProtocolsProps) => {
   const {
     academicOutcomeTypes,
     protocolActivityTypes,
@@ -95,18 +93,22 @@ export const AddProtocols: FC<AddProtocolsProps> = ({
             })
           }
         />
-        <button
-          type='reset'
-          onClick={() => {
-            event({
-              type: 'SET_PROTOCOLS_LIST',
-              payload: newList,
-            })
-            toggleProtocolItemInputs(false)
-          }}
-        >
-          Add Protocol
-        </button>
+        <>
+          <button onClick={() => event({ type: 'IDLE' })}>Cancel</button>
+          <button
+            type='reset'
+            onClick={() => {
+              event({
+                type: 'SET_PROTOCOLS_LIST',
+                payload: newList,
+              })
+              event({ type: 'IDLE' })
+              // toggleProtocolItemInputs(false)
+            }}
+          >
+            Add Protocol
+          </button>
+        </>
       </form>
     </>
   )

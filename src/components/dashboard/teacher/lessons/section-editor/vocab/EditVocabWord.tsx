@@ -10,7 +10,7 @@ export const EditVocabWord = ({}: EditVocabWordProps) => {
     state.context.vocabWordToEdit!,
     ...state.context.hasVocab.slice(state.context.vocabWordToEditIndex! + 1),
   ]
-  console.log(state.context.vocabWordToEditIndex)
+  console.log(state.context.vocabWordToEdit)
   return (
     <form>
       <div>Word</div>
@@ -48,6 +48,8 @@ export const EditVocabWord = ({}: EditVocabWordProps) => {
             type: 'SET_VOCAB_LIST',
             payload: vocabWordToReplace,
           })
+          event({ type: 'SET_VOCAB_WORD_TO_EDIT', payload: null, index: null })
+          event({ type: 'IDLE' })
         }}
       >
         Edit Word

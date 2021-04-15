@@ -66,6 +66,7 @@ export const EditQuestion = ({}: EditQuestionProps) => {
               payload: questionToReplace,
             })
             event({ type: 'SET_QUESTION_TO_EDIT', payload: null, index: null })
+            event({ type: 'IDLE' })
           }}
         >
           Edit Question

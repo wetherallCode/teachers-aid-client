@@ -84,6 +84,7 @@ export const EditProtocol = ({}: EditProtocolProps) => {
               payload: protocolToReplace,
             })
             event({ type: 'SET_PROTOCOL_TO_EDIT', payload: null, index: null })
+            event({ type: 'IDLE' })
           }}
         >
           Edit Protocol

@@ -72,6 +72,7 @@ export const QuestionsBox: FC<QuestionsBoxProps> = ({
                       payload: q,
                       index: questionIndex,
                     })
+                    event({ type: 'QUESTION_EDITOR' })
                   }}
                 >
                   {q.question}
@@ -80,8 +81,9 @@ export const QuestionsBox: FC<QuestionsBoxProps> = ({
                   <div
                     hidden={i !== index || undefined}
                     onClick={() => {
-                      toggleQuestionsItemInputs(true)
+                      // toggleQuestionsItemInputs(true)
                       handleAdd(i)
+                      event({ type: 'QUESTION_ADDER' })
                     }}
                   >
                     +

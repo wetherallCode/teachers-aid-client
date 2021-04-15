@@ -69,6 +69,7 @@ export const VocabBox: FC<VocabBoxProps> = ({
                       payload: word,
                       index: vocabWordIndex,
                     })
+                    event({ type: 'VOCAB_WORD_EDITOR' })
                   }}
                 >
                   {word.word}: {word.definition}
@@ -78,8 +79,9 @@ export const VocabBox: FC<VocabBoxProps> = ({
                   <div
                     hidden={i !== index || undefined}
                     onClick={() => {
-                      toggleVocabItemInputs(true)
+                      // toggleVocabItemInputs(true)
                       handleAdd(i)
+                      event({ type: 'VOCAB_WORD_ADDER' })
                     }}
                   >
                     +
