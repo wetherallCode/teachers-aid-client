@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client'
 import React, { useState } from 'react'
 import { useToggle } from '../../../../hooks'
 import { findAllStudentsForStudentInformation } from '../../../../schemaTypes'
+import { apostopheRemover } from '../../../../utils'
 import { InformationDisplay } from './InformationDisplay'
 import { useStudentInformationContextProvider } from './state-n-styles/StudentInformationContext'
 import {
@@ -42,12 +43,15 @@ export const StudentInformation = ({}: StudentInformationProps) => {
       onError: (error) => console.error(error),
     }
   )
-  const studentSearchList = data?.findAllStudents.students.filter(
-    (student) =>
+  const studentSearchList = data?.findAllStudents.students.filter((student) => {
+    return (
       student.inCourses.some((course) => course.name !== 'Cohort Class') &&
-      student.firstName.substr(0, studentName.length).toLowerCase() ===
-        studentName.substr(0, studentName.length).toLowerCase()
-  )
+      apostopheRemover(student.firstName.trim())
+        .substr(0, studentName.length)
+        .toLowerCase() ===
+        studentName.trim().substr(0, studentName.length).toLowerCase()
+    )
+  })!
 
   if (loading) return <div>Loading </div>
 
@@ -58,6 +62,7 @@ export const StudentInformation = ({}: StudentInformationProps) => {
           <SelectStudentTitle>Select Student</SelectStudentTitle>
           <StudentSelectInput
             value={studentName}
+            autoFocus
             onFocus={() => toggleStudentList()}
             onBlur={(e: any) => (e.target.value = '')}
             onChange={(e: any) => {
