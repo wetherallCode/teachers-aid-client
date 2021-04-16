@@ -234,6 +234,8 @@ export type DisplayedQuestionsProps = {
 export const DisplayedQuestions = styled.div<DisplayedQuestionsProps>`
   border: 1px solid var(--grey);
   border-bottom: ${({ bottom }) => (bottom ? '1px solid var(--grey)' : 'none')};
+  overflow: scroll;
+  height: 9vh;
 `
 export const Question = styled.div`
   padding-left: 1%;
