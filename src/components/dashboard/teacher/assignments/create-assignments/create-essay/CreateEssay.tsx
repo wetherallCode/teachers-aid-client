@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
@@ -14,6 +14,8 @@ import {
   TimeOfDay,
   MarkingPeriodEnum,
   findLessonById_findLessonById_lesson,
+  findWritingLevelsForCourseVariables,
+  findWritingLevelsForCourse,
 } from '../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
 import {
@@ -71,6 +73,20 @@ export const CREATE_ESSAY_MUTATION = gql`
   }
 `
 
+export const FIND_WRITING_LEVELS_QUERY = gql`
+  query findWritingLevelsForCourse($input: FindStudentsByCourseInput!) {
+    findStudentsByCourse(input: $input) {
+      students {
+        hasWritingMetrics {
+          overallWritingMetric {
+            overallWritingLevel
+          }
+        }
+      }
+    }
+  }
+`
+
 export const CreateEssay = ({
   me,
   courseIdList,
@@ -91,6 +107,27 @@ export const CreateEssay = ({
     writingLevel: WritingLevelEnum.DEVELOPING,
   })
   const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
+
+  const { loading, data: writingLevelData } = useQuery<
+    findWritingLevelsForCourse,
+    findWritingLevelsForCourseVariables
+  >(FIND_WRITING_LEVELS_QUERY, {
+    variables: {
+      input: { courseId },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+  const writingLevels = writingLevelData?.findStudentsByCourse.students
+    .map(
+      (student) =>
+        student.hasWritingMetrics.overallWritingMetric.overallWritingLevel
+    )
+    .reduce(
+      (accum: string[], cValue) =>
+        accum.includes(cValue) ? [...accum] : [...accum, cValue],
+      []
+    )
 
   const [createEssay, { called, data }] = useMutation<
     createEssay,
@@ -124,6 +161,12 @@ export const CreateEssay = ({
   )
   const selectedAdvancedEssays = state.context.essay.topicList.filter(
     (essay) => essay.writingLevel === 'ADVANCED'
+  )
+  console.log(writingLevels)
+  console.log(
+    writingLevels && writingLevels?.includes('DEVELOPING')
+    // &&
+    //   selectedDevelopingEssays.length === 0
   )
 
   return (
@@ -279,7 +322,12 @@ export const CreateEssay = ({
             <SelectedQuestionsDisplay>
               <DisplayedQuestionWritingLevelContainer>
                 <WritingLevelTitleContainer bottom={false}>
-                  Developing
+                  {writingLevels?.includes('DEVELOPING') &&
+                  selectedDevelopingEssays.length === 0 ? (
+                    <div style={{ color: 'var(--red)' }}>*Developing</div>
+                  ) : (
+                    <div>Developing</div>
+                  )}
                 </WritingLevelTitleContainer>
                 <DisplayedQuestions bottom={false}>
                   {selectedDevelopingEssays.map((question, i: number) => (
@@ -303,7 +351,12 @@ export const CreateEssay = ({
               </DisplayedQuestionWritingLevelContainer>
               <DisplayedQuestionWritingLevelContainer>
                 <WritingLevelTitleContainer bottom={false}>
-                  Academic
+                  {writingLevels?.includes('ACADEMIC') &&
+                  selectedAcademicEssays.length === 0 ? (
+                    <div style={{ color: 'var(--red)' }}>*Academic</div>
+                  ) : (
+                    <div>Academic</div>
+                  )}
                 </WritingLevelTitleContainer>
                 <DisplayedQuestions bottom={false}>
                   {selectedAcademicEssays.map((question, i: number) => (
@@ -327,7 +380,12 @@ export const CreateEssay = ({
               </DisplayedQuestionWritingLevelContainer>
               <DisplayedQuestionWritingLevelContainer>
                 <WritingLevelTitleContainer bottom={true}>
-                  Advanced
+                  {writingLevels?.includes('ADVANCED') &&
+                  selectedAdvancedEssays.length === 0 ? (
+                    <div style={{ color: 'var(--red)' }}>*Advanced</div>
+                  ) : (
+                    <div>Advanced</div>
+                  )}
                 </WritingLevelTitleContainer>
                 <DisplayedQuestions bottom={true}>
                   {selectedAdvancedEssays.map((question, i: number) => (

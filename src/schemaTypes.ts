@@ -1534,6 +1534,43 @@ export interface createEssayVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findWritingLevelsForCourse
+// ====================================================
+
+export interface findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics_overallWritingMetric {
+  __typename: "OverallWritingMetric";
+  overallWritingLevel: WritingLevelEnum;
+}
+
+export interface findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics {
+  __typename: "WritingMetrics";
+  overallWritingMetric: findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics_overallWritingMetric;
+}
+
+export interface findWritingLevelsForCourse_findStudentsByCourse_students {
+  __typename: "Student";
+  hasWritingMetrics: findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics;
+}
+
+export interface findWritingLevelsForCourse_findStudentsByCourse {
+  __typename: "FindStudentsByCoursePayload";
+  students: findWritingLevelsForCourse_findStudentsByCourse_students[];
+}
+
+export interface findWritingLevelsForCourse {
+  findStudentsByCourse: findWritingLevelsForCourse_findStudentsByCourse;
+}
+
+export interface findWritingLevelsForCourseVariables {
+  input: FindStudentsByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findLessonById
 // ====================================================
 
