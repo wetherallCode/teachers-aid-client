@@ -164,6 +164,10 @@ export const sortByLetter = (a: any, b: any) => {
   return 0
 }
 
+export const apostopheRemover = (word: string) => {
+  return word.split("'").join('')
+}
+
 export const phraseCapitalizer = (phrase: string) => {
   return phrase
     .split(' ')
