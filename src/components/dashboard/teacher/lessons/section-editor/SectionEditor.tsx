@@ -7,7 +7,7 @@ import { TextSectionEditorDisplay } from './TextSectionEditorDisplay'
 import { EditorTextListLoader } from './EditorTextListLoader'
 
 export const SectionEditor = () => {
-  const [state, event] = useSectionEditorContextProvider()
+  const [state] = useSectionEditorContextProvider()
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 5fr' }}>
