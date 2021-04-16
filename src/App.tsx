@@ -7,7 +7,6 @@ import { Home } from './components/home/Home'
 import { Login } from './components/home/Login'
 import { Nav } from './navigation/Nav'
 import { useToggle } from './hooks'
-
 import {
   Header,
   HomeLink,
@@ -16,17 +15,17 @@ import {
 import { LoginContainer, LoginToggle } from './components/home/homeStyles'
 import { capitalizer, date } from './utils'
 import styled from 'styled-components'
-import {
-  me_me,
-  findCurrentSchoolDay,
-  findCurrentSchoolDayVariables,
-} from './schemaTypes'
 import { DailyAgendaContextProvider } from './components/lesson/state/DailyAgendaContext'
 import { LessonMainMenu } from './components/lesson/LessonMainMenu'
 import { useQuery } from '@apollo/client'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from './components/dashboard/school-day/SchoolDay'
 import { useSchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
 import { ProblemAndSolutionGuide } from './components/resources/ProblemAndSolutionGuide'
+import {
+  findCurrentSchoolDay,
+  findCurrentSchoolDayVariables,
+  me_me,
+} from './schemaTypes'
 
 export type LoginToggleProps = {
   onClick: () => void
