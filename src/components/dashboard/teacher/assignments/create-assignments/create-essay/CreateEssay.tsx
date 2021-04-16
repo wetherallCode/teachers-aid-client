@@ -162,12 +162,6 @@ export const CreateEssay = ({
   const selectedAdvancedEssays = state.context.essay.topicList.filter(
     (essay) => essay.writingLevel === 'ADVANCED'
   )
-  console.log(writingLevels)
-  console.log(
-    writingLevels && writingLevels?.includes('DEVELOPING')
-    // &&
-    //   selectedDevelopingEssays.length === 0
-  )
 
   return (
     <LessonInformationSelectContainer>
