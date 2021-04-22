@@ -1,10 +1,12 @@
 import { gql, useMutation } from '@apollo/client'
 import React, { FC, useEffect, useState } from 'react'
 import { useToggle } from '../../../../../hooks'
+import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 import {
   findTemporaryTasks_findTemporaryTasks_temporaryTasks,
   gradeTemporaryTask,
   gradeTemporaryTaskVariables,
+  MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { MarkAbsent } from './MarkAbsent'
 import { MarkComplete } from './MarkComplete'
@@ -36,7 +38,8 @@ export const GRADE_TEMPORARY_TASK_MUTATION = gql`
 `
 
 export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
-  const [state, event] = useTemporaryTasksContextProvider()
+  const [state] = useTemporaryTasksContextProvider()
+
   const [studentPresent, setStudentPresent] = useState(task.studentPresent)
   const [answered, setAnswered] = useToggle(task.answered)
 

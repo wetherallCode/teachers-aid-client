@@ -40,10 +40,13 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
           maxPoints
         }
         exempt
+        dueDate
+        dueTime
         markingPeriod
         ... on Essay {
           finalDraft {
             returned
+            submitted
             submittedFinalDraft {
               graded
             }
@@ -65,6 +68,8 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
         exempt
         submitted
         markingPeriod
+        dueDate
+        dueTime
       }
     }
   }

@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import React from 'react'
+import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 import {
   findAllStudentsForStudentInformation_findAllStudents_students,
   findAssignmentByStudentId,
@@ -27,62 +28,72 @@ export const StudentGradeInformation = ({
   selectedMarkingPeriod,
   currentMarkingPeriodResponsiblityPoints,
 }: StudentGradeInformationProps) => {
-  const { loading, data } = useQuery<
-    findAssignmentByStudentId,
-    findAssignmentByStudentIdVariables
-  >(FIND_ASSINGMENT_INFORMATION_QUERY, {
-    variables: {
-      input: { studentId: student._id! },
-    },
-    onCompleted: (data) => {},
-    onError: (error) => console.error(error),
-  })
-
-  const essays = data?.findAssignmentByStudentId.assignments.filter(
-    (assignment) =>
-      !assignment.exempt &&
-      assignment.markingPeriod === selectedMarkingPeriod &&
-      assignment.__typename === 'Essay'
+  const { grade: calculatedGrade, loading } = useGradeCalculator(
+    student._id!,
+    selectedMarkingPeriod
   )
+  // const { loading, data } = useQuery<
+  //   findAssignmentByStudentId,
+  //   findAssignmentByStudentIdVariables
+  // >(FIND_ASSINGMENT_INFORMATION_QUERY, {
+  //   variables: {
+  //     input: { studentId: student._id! },
+  //   },
+  //   onCompleted: (data) => {},
+  //   onError: (error) => console.error(error),
+  // })
 
-  const essayEarnedPoints = essays
-    ?.map((essay) => essay.score.earnedPoints)
-    .reduce((acc: number, i: number) => acc + i)!
+  // const essays = data?.findAssignmentByStudentId.assignments.filter(
+  //   (assignment) =>
+  //     !assignment.exempt &&
+  //     assignment.markingPeriod === selectedMarkingPeriod &&
+  //     assignment.__typename === 'Essay'
+  // )
 
-  const essayMaxPoints = essays
-    ?.map((essay) => essay.score.maxPoints)
-    .reduce((acc: number, i: number) => acc + i)!
+  // const essayEarnedPoints = essays
+  //   ?.map((essay) => essay.score.earnedPoints)
+  //   .reduce((acc: number, i: number) => acc + i)!
 
-  const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
+  // const essayMaxPoints = essays
+  //   ?.map((essay) => essay.score.maxPoints)
+  //   .reduce((acc: number, i: number) => acc + i)!
 
-  const articleReviews = data?.findAssignmentByStudentId.articleReviews.filter(
-    (assignment) => assignment.markingPeriod === selectedMarkingPeriod
-  )
+  // const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
 
-  const articleReviewEarnedPoints = articleReviews
-    ?.map((review) => review.score.earnedPoints)
-    .reduce((acc: number, i: number) => acc + i)!
+  // const articleReviews =
+  //   data?.findAssignmentByStudentId.articleReviews ??
+  //   data?.findAssignmentByStudentId.articleReviews.filter(
+  //     (assignment) => assignment.markingPeriod === selectedMarkingPeriod
+  //   )
 
-  const articleReviewMaxPoints = articleReviews
-    ?.map((review) => review.score.maxPoints)
-    .reduce((acc: number, i: number) => acc + i)!
-  const articleReviewGrade = secondaryGradeCalculator(
-    articleReviewEarnedPoints,
-    articleReviewMaxPoints
-  )
-  const responsibilityPointGrade = supportiveGradeCalculator(
-    currentMarkingPeriodResponsiblityPoints.responsibilityPoints
-  )
-  const grade = totalGrade(
-    essayGrade,
-    articleReviewGrade,
-    responsibilityPointGrade
-  )
+  // const articleReviewEarnedPoints = articleReviews
+  //   ?.map((review) => review.score.earnedPoints)
+  //   .reduce((acc: number, i: number) => acc + i)!
 
+  // const articleReviewMaxPoints = articleReviews
+  //   ?.map((review) => review.score.maxPoints)
+  //   .reduce((acc: number, i: number) => acc + i)!
+  // const articleReviewGrade = secondaryGradeCalculator(
+  //   articleReviewEarnedPoints,
+  //   articleReviewMaxPoints
+  // )
+  // const responsibilityPointGrade = supportiveGradeCalculator(
+  //   currentMarkingPeriodResponsiblityPoints.responsibilityPoints
+  // )
+  // const grade = totalGrade(
+  //   essayGrade,
+  //   articleReviewGrade,
+  //   responsibilityPointGrade
+  // )
+
+  // console.log(
+  //   calculatedGrade !== undefined && `${student.firstName} ${calculatedGrade}`
+  // )
   return (
     <>
       <div>
-        Grade: {!loading && grade}% {letterGrade(grade)}
+        Grade: {loading ? 'loading' : calculatedGrade + '%'}{' '}
+        {!loading && letterGrade(calculatedGrade)}
       </div>
     </>
   )

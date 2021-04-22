@@ -4022,6 +4022,8 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_score;
   exempt: boolean;
+  dueDate: string;
+  dueTime: string;
   markingPeriod: MarkingPeriodEnum;
 }
 
@@ -4044,6 +4046,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft {
   __typename: "FinalDraftContainer";
   returned: boolean;
+  submitted: boolean;
   submittedFinalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft[];
 }
 
@@ -4054,6 +4057,8 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_score;
   exempt: boolean;
+  dueDate: string;
+  dueTime: string;
   markingPeriod: MarkingPeriodEnum;
   finalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft | null;
 }
@@ -4081,6 +4086,8 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readings;
   score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_score;
   exempt: boolean;
+  dueDate: string;
+  dueTime: string;
   markingPeriod: MarkingPeriodEnum;
   readingGuideFinal: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal | null;
 }
@@ -4101,6 +4108,8 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_articleRevi
   exempt: boolean;
   submitted: boolean;
   markingPeriod: MarkingPeriodEnum;
+  dueDate: string;
+  dueTime: string;
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId {
