@@ -55,33 +55,36 @@ export const useGradeCalculator = (
   //   }
   const essays = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
-      assignment.__typename === 'Essay' &&
-      //   !assignment.finalDraft?.submitted &&
+    (assignment.__typename === 'Essay' &&
+       assignment.finalDraft?.returned &&
+       assignment.markingPeriod === mp ) ||
+      (assignment.__typename === 'Essay' &&
       !assignment.exempt &&
+      !assignment.finalDraft &&
       assignment.markingPeriod === mp &&
       Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
   )
-  console.log(essays)
   const essayEarnedPoints = essays
-    ?.map((essay) => essay.score.earnedPoints)
-    .reduce((acc: number, i: number) => acc + i)!
-
+  ?.map((essay) => essay.score.earnedPoints)
+  .reduce((acc: number, i: number) => acc + i)!
+  
   const essayMaxPoints = essays
     ?.map((essay) => essay.score.maxPoints)
     .reduce((acc: number, i: number) => acc + i)!
+    
+    const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
 
-  const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
-
-  const articleReviews =
+    const articleReviews =
     data?.findAssignmentByStudentId.articleReviews &&
     data?.findAssignmentByStudentId.articleReviews.filter(
       (assignment) =>
-        assignment.markingPeriod === mp &&
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) >
-          Date.parse(new Date().toLocaleString())
-    )
+      assignment.markingPeriod === mp &&
+      Date.parse(new Date().toLocaleString())> 
+           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) 
+      )
 
+      
   const articleReviewEarnedPoints = articleReviews
     ?.map((review) => review.score.earnedPoints)
     .reduce((acc: number, i: number) => acc + i)!
@@ -94,7 +97,7 @@ export const useGradeCalculator = (
     articleReviewEarnedPoints,
     articleReviewMaxPoints
   )
-  //   console.log(articleReviewGrade ?? articleReviewGrade)
+
   const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
     (points) => points.markingPeriod === mp
   )!
@@ -104,8 +107,7 @@ export const useGradeCalculator = (
     supportiveGradeCalculator(
       currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
     )
-  console.log(articleReviewGrade)
-  console.log(responsibilityPointGrade)
+    
   const grade = totalGrade(
     essayGrade,
     articleReviewGrade,
