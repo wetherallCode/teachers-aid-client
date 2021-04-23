@@ -18,6 +18,11 @@ export const supportiveGradeCalculator = (points: number) => {
   return (Math.round(1000 * points) / 1000) * 0.15
 }
 
+export const responsibilityPointConverter = (
+  grade: number,
+  pointTotal: number
+) => {}
+
 export const totalGrade = (
   primaryGrade: number,
   secondaryGrade: number,

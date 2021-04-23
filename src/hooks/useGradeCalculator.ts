@@ -55,36 +55,35 @@ export const useGradeCalculator = (
   //   }
   const essays = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
-    (assignment.__typename === 'Essay' &&
-       assignment.finalDraft?.returned &&
-       assignment.markingPeriod === mp ) ||
       (assignment.__typename === 'Essay' &&
-      !assignment.exempt &&
-      !assignment.finalDraft &&
-      assignment.markingPeriod === mp &&
-      Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+        assignment.finalDraft?.returned &&
+        assignment.markingPeriod === mp) ||
+      (assignment.__typename === 'Essay' &&
+        !assignment.exempt &&
+        !assignment.finalDraft &&
+        assignment.markingPeriod === mp &&
+        Date.parse(new Date().toLocaleString()) >
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
   )
   const essayEarnedPoints = essays
-  ?.map((essay) => essay.score.earnedPoints)
-  .reduce((acc: number, i: number) => acc + i)!
-  
+    ?.map((essay) => essay.score.earnedPoints)
+    .reduce((acc: number, i: number) => acc + i)!
+
   const essayMaxPoints = essays
     ?.map((essay) => essay.score.maxPoints)
     .reduce((acc: number, i: number) => acc + i)!
-    
-    const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
 
-    const articleReviews =
+  const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
+
+  const articleReviews =
     data?.findAssignmentByStudentId.articleReviews &&
     data?.findAssignmentByStudentId.articleReviews.filter(
       (assignment) =>
-      assignment.markingPeriod === mp &&
-      Date.parse(new Date().toLocaleString())> 
-           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) 
-      )
+        assignment.markingPeriod === mp &&
+        Date.parse(new Date().toLocaleString()) >
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+    )
 
-      
   const articleReviewEarnedPoints = articleReviews
     ?.map((review) => review.score.earnedPoints)
     .reduce((acc: number, i: number) => acc + i)!
@@ -107,7 +106,7 @@ export const useGradeCalculator = (
     supportiveGradeCalculator(
       currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
     )
-    
+
   const grade = totalGrade(
     essayGrade,
     articleReviewGrade,
