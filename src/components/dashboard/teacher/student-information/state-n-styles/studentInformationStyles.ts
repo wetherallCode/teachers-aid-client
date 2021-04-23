@@ -154,8 +154,16 @@ export const AssignmentInformationStyle = styled.div`
   overflow: scroll;
   height: 100%;
 `
-export const IndividualAssignmentDisplay = styled.div`
+export type IndividualAssignmentDisplayProps = {
+  everyOtherLine: boolean
+  lastLine: boolean
+}
+export const IndividualAssignmentDisplay = styled.div<IndividualAssignmentDisplayProps>`
   display: grid;
   grid-template-columns: 4fr 1fr;
   align-items: center;
+  border-bottom: ${({ lastLine }) =>
+    lastLine ? '1px solid var(--grey)' : 'none'};
+  background-color: ${({ everyOtherLine }) =>
+    everyOtherLine ? 'var(--grey)' : 'var(--white)'};
 `
