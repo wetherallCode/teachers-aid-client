@@ -66,7 +66,10 @@ export const TaskListHeaders = styled.div`
   grid-template-columns: 1fr 2fr 3fr;
   border-bottom: 1px solid var(--grey);
 `
-
+export const EndOfContainer = styled.div`
+  justify-self: end;
+  margin-right: 5%;
+`
 export const TaskListTaskGraderContainer = styled.div`
   overflow: scroll;
   height: 83vh;
