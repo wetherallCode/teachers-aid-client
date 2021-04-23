@@ -45,14 +45,6 @@ export const useGradeCalculator = (
     onError: (error) => console.error(error),
   })
 
-  //   function handleLateness() {
-  //     const submittedDateTime: string = submitTime
-  //     const dueDateTime: string = `${readingGuideValidation.dueDate}, ${readingGuideValidation.dueTime}`
-
-  //     if (Date.parse(submittedDateTime) > Date.parse(dueDateTime)) {
-  //       return true
-  //     } else return false
-  //   }
   const essays = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
       (assignment.__typename === 'Essay' &&
