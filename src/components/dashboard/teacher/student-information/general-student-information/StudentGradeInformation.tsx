@@ -11,6 +11,7 @@ import {
 import {
 	letterGrade,
 	primaryGradeCalculator,
+	responsibilityPointConverter,
 	secondaryGradeCalculator,
 	supportiveGradeCalculator,
 	totalGrade,
@@ -33,6 +34,8 @@ export const StudentGradeInformation = ({
 		selectedMarkingPeriod
 	)
 
+	const pointConversion = responsibilityPointConverter(calculatedGrade, 2)
+	console.log(pointConversion)
 	return (
 		<>
 			<div>
