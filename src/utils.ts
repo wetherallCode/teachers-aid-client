@@ -24,13 +24,13 @@ export const responsibilityPointConverter = (
 ) => {
   if (grade < 60) {
     return pointTotal * 1.5
-  } else if (grade > 60 && grade < 70) {
+  } else if (grade >= 60 && grade < 70) {
     return pointTotal * 0.8
-  } else if (grade > 70 && grade < 80) {
+  } else if (grade >= 70 && grade < 80) {
     return pointTotal * 0.75
-  } else if (grade > 80 && grade < 90) {
+  } else if (grade >= 80 && grade < 90) {
     return pointTotal * 0.5
-  } else if (grade > 90 && grade < 100) {
+  } else if (grade >= 90 && grade < 100) {
     return pointTotal * 0.25
   } else return pointTotal * 0.1
 }

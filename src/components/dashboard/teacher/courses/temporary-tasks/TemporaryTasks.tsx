@@ -34,7 +34,7 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
     .slice(1)
     .sort(sortByLetter)
     .filter((courseToFind) => courseToFind._id !== course)
-
+  const fakeCourse = me.teachesCourses
   return (
     <TemporaryTasksContainer>
       <TemporaryTasksMenuContainer>
@@ -50,7 +50,7 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
           </MenuItems>
           {courseSelectorSwitch && (
             <div>
-              {coursesToChoose.map((course) => (
+              {fakeCourse.map((course) => (
                 <MenuItems
                   onClick={() => {
                     navigate(`/dashboard/courses/${course._id}/tasks`)

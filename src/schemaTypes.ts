@@ -3018,6 +3018,8 @@ export interface findTemporaryTasks_findTemporaryTasks_temporaryTasks {
   studentPresent: boolean;
   taskNumber: number;
   answered: boolean;
+  lastGrade: number;
+  markingPeriod: MarkingPeriodEnum;
 }
 
 export interface findTemporaryTasks_findTemporaryTasks {
@@ -5792,6 +5794,7 @@ export interface me {
 //==============================================================
 
 export enum AcademicOutcomeTypes {
+  CAUSE_AND_EFFECT_RECOGNITION = "CAUSE_AND_EFFECT_RECOGNITION",
   LOGIC_BUILDING = "LOGIC_BUILDING",
   SCHEMA_BUIDING = "SCHEMA_BUIDING",
   SOCRATIC_QUESTIONS = "SOCRATIC_QUESTIONS",
@@ -6314,6 +6317,8 @@ export interface FinishProtocolInput {
 export interface GradeTemporaryTaskInput {
   _id: string;
   answered: boolean;
+  lastGrade: number;
+  responsibilityPoints: number;
   studentPresent: boolean;
 }
 
