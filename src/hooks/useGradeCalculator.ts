@@ -45,7 +45,40 @@ export const useGradeCalculator = (
     onError: (error) => console.error(error),
   })
 
-  const essays = data?.findAssignmentByStudentId.assignments.filter(
+  const essays = data?.findAssignmentByStudentId.assignments.some(
+    (assignment) =>
+      (assignment.__typename === 'Essay'&& assignment.markingPeriod === mp))!
+  const applicableArticleReviews = 
+  data?.findAssignmentByStudentId.articleReviews &&
+  data?.findAssignmentByStudentId.articleReviews.some(
+    (assignment) =>
+      assignment.markingPeriod === mp)
+      const applicableCurrentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
+        (points) => points.markingPeriod === mp
+      )!
+
+      if(!applicableCurrentMarkingPeriodResponsiblityPoints) {
+        // Grade Category Weights:// Grade Category Weights: Primary = .588 Secondary = .412
+        console.log("Only Primary and Secondary")
+        return {grade:0, loading: assignmentLoading || responsibilityPointsLoading,}
+      }
+if(!essays && !applicableArticleReviews) {
+  // Grade Category Weights: Supportive = 1
+  console.log("Only ResponsibilityPoints")
+  return {grade:0, loading: assignmentLoading || responsibilityPointsLoading,}
+}
+if(!essays){
+  // Grade Category Weights: Supportive = .3  Primary = .7
+  console.log("ResponsiblityPoints and Secondary Only")
+  return {grade:0, loading: assignmentLoading || responsibilityPointsLoading,}
+}
+if (!applicableArticleReviews){
+  // Grade Category Weights: Supportive = .23068182   Primary = .76931818
+  console.log("Only Essays and ResponsibilityPoints")
+return {grade:0, loading: assignmentLoading || responsibilityPointsLoading,}
+}
+
+  const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
       (assignment.__typename === 'Essay' &&
         assignment.finalDraft?.returned &&
@@ -57,11 +90,11 @@ export const useGradeCalculator = (
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
   )
-  const essayEarnedPoints = essays
+  const essayEarnedPoints = applicableEssays
     ?.map((essay) => essay.score.earnedPoints)
     .reduce((acc: number, i: number) => acc + i)!
 
-  const essayMaxPoints = essays
+  const essayMaxPoints = applicableEssays
     ?.map((essay) => essay.score.maxPoints)
     .reduce((acc: number, i: number) => acc + i)!
 
@@ -109,4 +142,5 @@ export const useGradeCalculator = (
     grade: grade,
     loading: assignmentLoading || responsibilityPointsLoading,
   }
+
 }
