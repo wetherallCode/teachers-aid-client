@@ -61,15 +61,8 @@ export const useGradeCalculator = (
   const applicableCurrentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
     (points) => points.markingPeriod === mp
   )!
-
-  if (
-    !applicableCurrentMarkingPeriodResponsiblityPoints &&
-    !essays &&
-    !applicableArticleReviews
-  ) {
-    return { grade: 0, loading: false }
-  }
-  if (!applicableCurrentMarkingPeriodResponsiblityPoints) {
+  
+  if (!applicableCurrentMarkingPeriodResponsiblityPoints && essays && applicableArticleReviews) {
     // Grade Category Weights:// Grade Category Weights: Primary = .588 Secondary = .412
     console.log('Only Primary and Secondary')
     const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
@@ -114,6 +107,7 @@ export const useGradeCalculator = (
       return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 58.8
     }
     const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
+
     const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
       return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 41.2
     }
@@ -134,10 +128,11 @@ export const useGradeCalculator = (
     return {
       grade: gradeTotal(primary, secondary),
       loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false
     }
   }
 
-  if (!essays && !applicableArticleReviews) {
+  if (!essays && !applicableArticleReviews && applicableCurrentMarkingPeriodResponsiblityPoints) {
     // Grade Category Weights: Supportive = 1
     console.log('Only ResponsibilityPoints')
     const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
@@ -150,10 +145,42 @@ export const useGradeCalculator = (
     return {
       grade: (Math.round(1000 * points) / 1000) * 1,
       loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false
     }
   }
+  
+  if (!applicableCurrentMarkingPeriodResponsiblityPoints && !essays && applicableArticleReviews){
 
-  if (!essays) {
+console.log('Only Secondary') 
+const articleReviews =
+      data?.findAssignmentByStudentId.articleReviews &&
+      data?.findAssignmentByStudentId.articleReviews.filter(
+        (assignment) =>
+          assignment.markingPeriod === mp &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+      )
+
+    const articleReviewEarnedPoints = articleReviews
+      ?.map((review) => review.score.earnedPoints)
+      .reduce((acc: number, i: number) => acc + i)!
+
+    const articleReviewMaxPoints = articleReviews
+      ?.map((review) => review.score.maxPoints)
+      .reduce((acc: number, i: number) => acc + i)!
+
+      const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
+        return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 100
+      }
+
+return {
+    grade: +secondaryGrade(articleReviewEarnedPoints,articleReviewMaxPoints).toFixed(2),
+    loading: assignmentLoading || responsibilityPointsLoading,
+    noGrade: false
+  }
+  }
+
+  if (!essays && applicableArticleReviews && applicableCurrentMarkingPeriodResponsiblityPoints) {
     // Grade Category Weights: Supportive = .3  Secondary = .7
     console.log('ResponsiblityPoints and Secondary Only')
 
@@ -200,10 +227,11 @@ export const useGradeCalculator = (
     return {
       grade: gradeTotal(supportive, secondary),
       loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false
     }
   }
 
-  if (!applicableArticleReviews) {
+  if (!applicableArticleReviews && essays && applicableCurrentMarkingPeriodResponsiblityPoints) {
     // Grade Category Weights: Supportive = .23068182   Primary = .76931818
     console.log('Only Essays and ResponsibilityPoints')
 
@@ -254,9 +282,16 @@ export const useGradeCalculator = (
     return {
       grade: gradeTotal(primary, supportive),
       loading: assignmentLoading || responsibilityPointsLoading,
+       noGrade: false
     }
   }
-
+  if (
+    !applicableCurrentMarkingPeriodResponsiblityPoints &&
+    !essays &&
+    !applicableArticleReviews
+  ) {
+    return { grade: 0, loading: false , noGrade: true}
+  }
   const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
       (assignment.__typename === 'Essay' &&
@@ -320,5 +355,6 @@ export const useGradeCalculator = (
   return {
     grade: grade,
     loading: assignmentLoading || responsibilityPointsLoading,
+    noGrade: false
   }
 }
