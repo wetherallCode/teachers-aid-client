@@ -9,7 +9,7 @@ const CheckboxContainer = styled.div`
 const Icon = styled.svg`
   fill: none;
   stroke: var(--white);
-  stroke-width: 2px;
+  stroke-width: 3.5px;
 `
 // Hide checkbox visually but remain accessible to screen readers.
 // Source: https://polished.js.org/docs/#hidevisually
@@ -27,11 +27,13 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `
 export type StyledCheckboxProps = {
   checked: boolean
+  boxHeight: number
+  boxWidth: number
 }
 const StyledCheckbox = styled.div<StyledCheckboxProps>`
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: ${({ boxWidth }) => boxWidth}px;
+  height: ${({ boxHeight }) => boxHeight}px;
   background: ${({ checked }) => (checked ? 'var(--blue)' : 'var(--white)')};
   border-radius: 3px;
   border: 1px solid var(--blue);
@@ -51,14 +53,36 @@ export type CheckBoxProps = {
   onChange: (e: any) => void
   value: any
   label: string
+  leftMargin?: number
+  labelWidth: number
+  boxHeight: number
+  boxWidth: number
 }
 
-const CheckBox = ({ checked, onChange, label, ...props }: CheckBoxProps) => (
+const CheckBox = ({
+  checked,
+  onChange,
+  label,
+  leftMargin,
+  labelWidth,
+  boxHeight,
+  boxWidth,
+  ...props
+}: CheckBoxProps) => (
   <>
-    <label style={{ width: '40%' }}>
+    <label
+      style={{
+        width: labelWidth + '%',
+        marginLeft: leftMargin ? leftMargin + '%' : 'none',
+      }}
+    >
       <CheckboxContainer>
         <HiddenCheckbox checked={checked} {...props} onChange={onChange} />
-        <StyledCheckbox checked={checked}>
+        <StyledCheckbox
+          checked={checked}
+          boxHeight={boxHeight}
+          boxWidth={boxWidth}
+        >
           <Icon viewBox='0 3 24 24'>
             <polyline points='20 6 9 17 4 12' />
           </Icon>

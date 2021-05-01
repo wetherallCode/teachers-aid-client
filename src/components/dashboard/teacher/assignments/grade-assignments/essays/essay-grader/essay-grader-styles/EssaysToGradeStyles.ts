@@ -81,12 +81,24 @@ export const ReturnEssayButton = styled.button`
   border-radius: 5px;
 `
 
-export const ScoreContainer = styled.div`
-  justify-self: right;
-  align-self: center;
-  padding-right: 30%;
-  font-size: 1.2vw;
+export const GradeDetailsContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 5fr;
 `
+export const GradeDetailsSelectorContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`
+
+export type GradeDetailsSelectorProps = {
+  selected: boolean
+}
+export const GradeDetailsSelector = styled.div<GradeDetailsSelectorProps>`
+  text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')};
+`
+
 export const DraftSelectorLeft = styled.span`
   grid-row: 4/6;
   grid-column: 1/2;
@@ -113,6 +125,8 @@ export const GradingToolContainer = styled(Standard8x12Container)`
 export const RubricContainer = styled(Standard8x12Container)`
   grid-row: 1/6;
   grid-column: 1/-1;
+  border-left: 1px solid var(--blue);
+  border-right: 1px solid var(--blue);
 `
 export const RubricTypeTitle = styled.div`
   grid-row: 1/2;
@@ -137,8 +151,11 @@ export const RubricSectionEnumContainer = styled.div`
 export const RubricCheckBoxContainer = styled.div`
   grid-row: 3/-1;
   grid-column: 1/-1;
-  overflow: scroll;
+  overflow-y: scroll;
   font-size: 1.5vw;
+  display: grid;
+  align-items: center;
+  justify-items: start;
 `
 
 export const RubricCheckBoxInput = styled.input`
@@ -154,7 +171,12 @@ export const AdditionalCommentsContainer = styled.div`
   grid-row: 6/-1;
   grid-column: 1/-1;
   display: grid;
+  height: 100%;
+  overflow: scroll;
   grid-template-rows: 1fr 1fr 5fr;
+  border-top: 1px solid var(--blue);
+  border-left: 1px solid var(--blue);
+  border-right: 1px solid var(--blue);
 `
 export const AdditionalCommentTitle = styled.div`
   text-align: center;
@@ -164,6 +186,8 @@ export const AddCommentContainer = styled.form`
   display: grid;
   justify-items: center;
   align-items: center;
+  grid-gap: 10%;
+  margin-bottom: 2%;
 `
 
 export const AddCommentInput = styled.input`
@@ -181,6 +205,8 @@ export const AddCommentButton = styled.button`
 `
 export const Comments = styled.div`
   font-size: 1.4vw;
+  margin-bottom: 1%;
+  margin-left: 1%;
 `
 
 export const EditorToolBar = styled.div`
