@@ -20,6 +20,7 @@ import {
   RubricTypeTitle,
 } from '../essay-grader-styles/EssaysToGradeStyles'
 import { sortByRubricEntryScore } from '../../../../../../../../utils'
+import CheckBox from '../../../../../../../reusable-components/CheckBox'
 
 export type DevelopingGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
@@ -122,27 +123,23 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
             .sort(sortByRubricEntryScore)
             .map((entry) => {
               return (
-                <div key={entry._id!}>
-                  <RubricCheckBoxInput
-                    style={{
-                      alignSelf: 'center',
-                      height: '1.5vw',
-                      width: '1.5vw',
-                    }}
-                    type='checkbox'
-                    checked={state.context.draftToGrade.rubricEntries.some(
-                      (entries) => entries.entry === entry.entry
-                    )}
-                    value={[
-                      entry.entry,
-                      entry.score.toString(),
-                      entry.howToImprove!,
-                      entry.rubricSection,
-                    ]}
-                    onChange={handleChange}
-                  />
-                  <span>{entry.entry}</span>
-                </div>
+                <CheckBox
+                  key={entry._id}
+                  checked={state.context.draftToGrade.rubricEntries.some(
+                    (entries) => entries.entry === entry.entry
+                  )}
+                  onChange={handleChange}
+                  label={entry.entry}
+                  labelWidth={100}
+                  leftMargin={1}
+                  boxHeight={22}
+                  boxWidth={22}
+                  value={[
+                    entry.entry,
+                    entry.score.toString(),
+                    entry.howToImprove!,
+                  ]}
+                />
               )
             })}
         </RubricCheckBoxContainer>

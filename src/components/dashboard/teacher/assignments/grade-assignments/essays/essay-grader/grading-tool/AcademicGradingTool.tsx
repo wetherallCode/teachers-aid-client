@@ -17,6 +17,7 @@ import {
   RubricTypeTitle,
 } from '../essay-grader-styles/EssaysToGradeStyles'
 import { sortByRubricEntryScore } from '../../../../../../../../utils'
+import CheckBox from '../../../../../../../reusable-components/CheckBox'
 
 export type AcademicGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
@@ -56,7 +57,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
       payload: Number(averageScore.toFixed(2)),
     })
   }, [rubricList, averageScore])
-  console.log(state.context.draftToGrade.score)
+
   useEffect(() => {
     event({
       type: 'SET_CURRENT_RUBRIC_SECTION',
@@ -72,7 +73,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
           <div>Academic Rubric</div>
         </RubricTypeTitle>
         <RubricSectionEnumContainer>
-          <button
+          <div
             onClick={(e: any) => {
               if (
                 rubricSectionEnum.indexOf(state.context.currentRubricSection) >
@@ -83,9 +84,9 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
             }}
           >
             &lt;
-          </button>
+          </div>
           <span>{state.context.currentRubricSection}</span>
-          <button
+          <div
             onClick={(e: any) => {
               if (
                 rubricSectionEnum.indexOf(state.context.currentRubricSection) <
@@ -96,7 +97,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
             }}
           >
             &gt;
-          </button>
+          </div>
         </RubricSectionEnumContainer>
 
         <RubricCheckBoxContainer>
@@ -108,21 +109,38 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
             )
             .sort(sortByRubricEntryScore)
             .map((entry) => (
-              <div key={entry._id!}>
-                <RubricCheckBoxInput
-                  type='checkbox'
-                  checked={state.context.draftToGrade.rubricEntries.some(
-                    (entries) => entries.entry === entry.entry
-                  )}
-                  value={[
-                    entry.entry,
-                    entry.score.toString(),
-                    entry.howToImprove!,
-                  ]}
-                  onChange={handleChange}
-                />
-                <span>{entry.entry}</span>
-              </div>
+              // <div key={entry._id!}>
+              // <RubricCheckBoxInput
+              //   type='checkbox'
+              //   checked={state.context.draftToGrade.rubricEntries.some(
+              //     (entries) => entries.entry === entry.entry
+              //   )}
+              //   value={[
+              //     entry.entry,
+              //     entry.score.toString(),
+              //     entry.howToImprove!,
+              //   ]}
+              //   onChange={handleChange}
+              // />
+              // <span>{entry.entry}</span>
+              // </div>
+              <CheckBox
+                key={entry._id}
+                checked={state.context.draftToGrade.rubricEntries.some(
+                  (entries) => entries.entry === entry.entry
+                )}
+                onChange={handleChange}
+                label={entry.entry}
+                labelWidth={100}
+                leftMargin={5}
+                boxHeight={22}
+                boxWidth={22}
+                value={[
+                  entry.entry,
+                  entry.score.toString(),
+                  entry.howToImprove!,
+                ]}
+              />
             ))}
         </RubricCheckBoxContainer>
       </RubricContainer>
