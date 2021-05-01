@@ -46,19 +46,17 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
   const totalScore = rubricEntriesList
     .map((entry) => entry.score)
     .reduce((a, b) => a + b, 0)
-  const averageScore = totalScore / rubricEntriesList.length
+  const averageScore =
+    rubricEntriesList.length > 0 ? totalScore / rubricEntriesList.length : 0
 
   useEffect(() => {
     event({ type: 'SET_RUBRIC_ENTRIES', payload: rubricEntriesList })
-    if (averageScore) {
-      event({
-        type: 'SET_SCORE',
-        payload: Number(averageScore.toFixed(2)),
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rubricList])
-
+    event({
+      type: 'SET_SCORE',
+      payload: Number(averageScore.toFixed(2)),
+    })
+  }, [rubricList, averageScore])
+  console.log(state.context.draftToGrade.score)
   useEffect(() => {
     event({
       type: 'SET_CURRENT_RUBRIC_SECTION',
