@@ -332,7 +332,7 @@ export const EssayOrganizerSheet = styled(EssaySheet)`
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   grid-template-columns: repeat(12, 1fr);
-  font-size: 2vh;
+  font-size: 1.5vh;
 `
 
 export const EssayOrganizerTitle = styled.div`
@@ -397,7 +397,7 @@ export const AcademicEssayOrganizerAnswerBlockHeader = styled.div`
 export const AcademicEssayOrganizerAnswerBlockBody = styled.div`
   justify-self: center;
   align-self: start;
-  height: 15vh;
+  height: 11vh;
   overflow: scroll;
 `
 
