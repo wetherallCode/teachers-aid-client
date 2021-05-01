@@ -20,7 +20,9 @@ import {
   NameContainer,
   OrganizerForEssayToGradeContainer,
   ReturnEssayContainer,
-  ScoreContainer,
+  GradeDetailsContainer,
+  GradeDetailsSelectorContainer,
+  GradeDetailsSelector,
 } from './essay-grader-styles/EssaysToGradeStyles'
 import { OrganizerContainer } from '../../../../../student/assignments/essays/assigned-essays/state-and-styles/assignedEssayStyles'
 import { PreviousEssayViewer } from './PreviousEssayViewer'
@@ -145,6 +147,9 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   const navigate = useNavigate()
   const [state, event] = useGradeEssayContextProvider()
   const [loadingDraft, setloadingDraft] = useState(false)
+  const [gradeDetailState, setGradeDetailState] = useState<
+    'score' | 'rubric' | 'comments'
+  >('score')
 
   const { loading, data } = useQuery<
     findEssayToGradeById,
@@ -306,15 +311,49 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
             <ReturnEssayContainer>
               <ReturnEssay essay={data?.findEssayById.essay!} />
             </ReturnEssayContainer>
-            <ScoreContainer>
-              <span>Score: </span>
-              <span>{state.context.draftToGrade.score}</span>
-              <div>
-                {state.context.previousRubricEntries.map((entry, i: number) => (
-                  <div key={i}>{entry.entry}</div>
-                ))}
-              </div>
-            </ScoreContainer>
+            <GradeDetailsContainer>
+              <GradeDetailsSelectorContainer>
+                <GradeDetailsSelector
+                  selected={gradeDetailState === 'score'}
+                  onClick={() => setGradeDetailState('score')}
+                >
+                  Score
+                </GradeDetailsSelector>
+                <GradeDetailsSelector
+                  selected={gradeDetailState === 'rubric'}
+                  onClick={() => setGradeDetailState('rubric')}
+                >
+                  Rubric
+                </GradeDetailsSelector>
+                <GradeDetailsSelector
+                  selected={gradeDetailState === 'comments'}
+                  onClick={() => setGradeDetailState('comments')}
+                >
+                  Comments
+                </GradeDetailsSelector>
+              </GradeDetailsSelectorContainer>
+              {gradeDetailState === 'score' && (
+                <div>{state.context.draftToGrade.score}</div>
+              )}
+              {gradeDetailState === 'rubric' && (
+                <div>
+                  {state.context.previousRubricEntries.map(
+                    (entry, i: number) => (
+                      <div key={i}>{entry.entry}</div>
+                    )
+                  )}
+                </div>
+              )}
+              {gradeDetailState === 'comments' && (
+                <div>
+                  {state.context.draftToGrade.additionalComments?.map(
+                    (comment, i: number) => (
+                      <span key={i}>{comment}</span>
+                    )
+                  )}
+                </div>
+              )}
+            </GradeDetailsContainer>
           </NameContainer>
           <GradingTool
             organizer={data?.findEssayById.essay.workingDraft.organizer!}
