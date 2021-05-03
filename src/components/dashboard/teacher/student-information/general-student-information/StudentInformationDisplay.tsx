@@ -53,9 +53,11 @@ export const StudentInformationDisplay = ({
 					<ResponsibilityPointsDisplay
 						currentMarkingPeriodResponsiblityPoints={
 							responsibilityPointsCheck
-								? data?.findResponsibilityPointsByStudentId.responsibilityPoints!.filter(
-										(points) => points.markingPeriod === selectedMarkingPeriod
-								  )[0].responsibilityPoints!
+								? +data?.findResponsibilityPointsByStudentId
+										.responsibilityPoints!.filter(
+											(points) => points.markingPeriod === selectedMarkingPeriod
+										)[0]
+										.responsibilityPoints.toFixed(1)!
 								: 0
 						}
 						available={responsibilityPointsCheck}
