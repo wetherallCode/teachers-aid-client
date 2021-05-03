@@ -218,6 +218,9 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
                 onChange={handleChange}
                 value={course._id!}
                 label={course.name}
+                labelWidth={40}
+                boxHeight={10}
+                boxWidth={10}
               />
             ))}
           </CoursesCheckBoxContainer>

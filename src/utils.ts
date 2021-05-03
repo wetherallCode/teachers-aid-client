@@ -42,8 +42,8 @@ export const totalGrade = (
 ) => {
   const number = Number(
     Number(primaryGrade) + Number(secondaryGrade) + Number(supportiveGrade)
-  ).toFixed(2)
-
+  ).toFixed(3)
+  console.log(number, Math.round(Number(number) * 10) / 10)
   return Math.round(Number(number) * 10) / 10
 }
 

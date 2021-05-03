@@ -414,6 +414,9 @@ export const CreateEssay = ({
                 value={course._id}
                 label={course.name}
                 key={course._id}
+                labelWidth={40}
+                boxHeight={20}
+                boxWidth={20}
               />
             ))}
           </CoursesCheckBoxContainer>
