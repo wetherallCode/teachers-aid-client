@@ -28,7 +28,7 @@ export const MarkAbsent: FC<MarkAbsentProps> = ({
   gradeTask,
 }) => {
   const [, event] = useTemporaryTasksContextProvider()
-  const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
+  // const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
   return (
     <MarkAbsentContainer>
       <input
@@ -46,7 +46,8 @@ export const MarkAbsent: FC<MarkAbsentProps> = ({
                 studentPresent,
                 lastGrade: task.lastGrade,
                 // responsibilityPoints: responsibilityPointConverter(60, 2),
-                responsibilityPoints: responsibilityPointConverter(grade, 2),
+                // responsibilityPoints: responsibilityPointConverter(grade, 2),
+                responsibilityPoints: 2,
               },
             },
           })

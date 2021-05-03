@@ -42,6 +42,7 @@ export const FIND_TEMPORARY_TASKS_QUERY = gql`
     }
   }
 `
+
 export const TaskCreator: FC<TaskCreatorProps> = ({
   courseId,
   dateIssued,

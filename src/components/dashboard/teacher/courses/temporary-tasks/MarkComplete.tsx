@@ -31,7 +31,7 @@ export const MarkComplete: FC<MarkCompleteProps> = ({
   gradeTask,
   task,
 }) => {
-  const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
+  // const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
   return (
     <MarkCompleteContainer>
       <MarkCompleteButton
@@ -48,7 +48,7 @@ export const MarkComplete: FC<MarkCompleteProps> = ({
                   studentPresent,
                   lastGrade: task.lastGrade,
                   // responsibilityPoints: responsibilityPointConverter(100, 2),
-                  responsibilityPoints: responsibilityPointConverter(grade, 2),
+                  responsibilityPoints: 2,
                 },
                 // },
               },
