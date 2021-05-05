@@ -1,14 +1,16 @@
 import { gql, useMutation } from '@apollo/client'
 import React, { FC, useEffect, useState } from 'react'
-import { useToggle } from '../../../../../hooks'
+
 import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 import {
 	findTemporaryTasks_findTemporaryTasks_temporaryTasks,
 	gradeTemporaryTask,
 	gradeTemporaryTaskVariables,
+	markTemporaryTaskAbsentVariables,
+	markTemporaryTaskAbsent,
 } from '../../../../../schemaTypes'
 import { responsibilityPointConverter } from '../../../../../utils'
-import { MarkAbsent } from './MarkAbsent'
+import { MarkAbsent, MARK_TEMPORARY_TASK_ABSENT_MUTATION } from './MarkAbsent'
 import { MarkComplete } from './MarkComplete'
 import { useTemporaryTasksContextProvider } from './state-n-styles/TemporaryTasksContext'
 import { TaskListData, TaskNameContainer } from './state-n-styles/temporaryTaskStyles'
@@ -46,8 +48,17 @@ export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
 		}
 	)
 
+	const [markTemporaryTaskAbsent] = useMutation<
+		markTemporaryTaskAbsent,
+		markTemporaryTaskAbsentVariables
+	>(MARK_TEMPORARY_TASK_ABSENT_MUTATION, {
+		variables: { input: { taskId: task._id!, studentPresent } },
+		onCompleted: (data) => console.log(data),
+		refetchQueries: ['findTemporaryTasks'],
+	})
+
 	useEffect(() => {
-		// markTemporaryTaskAbsent()
+		markTemporaryTaskAbsent()
 	}, [studentPresent])
 
 	useEffect(() => {
@@ -66,7 +77,6 @@ export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
 				setStudentPresent={setStudentPresent}
 				studentPresent={studentPresent}
 				task={task}
-				// gradeTask={gradeTask}
 			/>
 			<TaskNameContainer studentPresent={studentPresent}>
 				{task.student.lastName}, {task.student.firstName} {studentPresent ? '' : '(Absent)'}
