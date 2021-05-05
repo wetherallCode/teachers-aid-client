@@ -3068,40 +3068,6 @@ export interface findTemporaryTasksVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: gradeTemporaryTask
-// ====================================================
-
-export interface gradeTemporaryTask_gradeTemporaryTask_temporaryTask_student {
-  __typename: "Student";
-  firstName: string;
-}
-
-export interface gradeTemporaryTask_gradeTemporaryTask_temporaryTask {
-  __typename: "TemporaryTask";
-  _id: string | null;
-  student: gradeTemporaryTask_gradeTemporaryTask_temporaryTask_student;
-  answered: boolean;
-}
-
-export interface gradeTemporaryTask_gradeTemporaryTask {
-  __typename: "GradeTemporaryTaskPayload";
-  temporaryTask: gradeTemporaryTask_gradeTemporaryTask_temporaryTask;
-}
-
-export interface gradeTemporaryTask {
-  gradeTemporaryTask: gradeTemporaryTask_gradeTemporaryTask;
-}
-
-export interface gradeTemporaryTaskVariables {
-  input: GradeTemporaryTaskInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findCoursesById
 // ====================================================
 
@@ -5808,6 +5774,40 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: gradeTemporaryTask
+// ====================================================
+
+export interface gradeTemporaryTask_gradeTemporaryTask_temporaryTask_student {
+  __typename: "Student";
+  firstName: string;
+}
+
+export interface gradeTemporaryTask_gradeTemporaryTask_temporaryTask {
+  __typename: "TemporaryTask";
+  _id: string | null;
+  student: gradeTemporaryTask_gradeTemporaryTask_temporaryTask_student;
+  answered: boolean;
+}
+
+export interface gradeTemporaryTask_gradeTemporaryTask {
+  __typename: "GradeTemporaryTaskPayload";
+  temporaryTask: gradeTemporaryTask_gradeTemporaryTask_temporaryTask;
+}
+
+export interface gradeTemporaryTask {
+  gradeTemporaryTask: gradeTemporaryTask_gradeTemporaryTask;
+}
+
+export interface gradeTemporaryTaskVariables {
+  input: GradeTemporaryTaskInput;
 }
 
 /* tslint:disable */
