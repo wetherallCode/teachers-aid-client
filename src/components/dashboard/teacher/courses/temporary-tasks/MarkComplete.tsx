@@ -1,4 +1,4 @@
-import { MutationFunctionOptions } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import React, { FC } from 'react'
 import {
 	findTemporaryTasks_findTemporaryTasks_temporaryTasks,
@@ -12,20 +12,37 @@ export type MarkCompleteProps = {
 	answered: boolean
 	task: findTemporaryTasks_findTemporaryTasks_temporaryTasks
 	studentPresent: boolean
-	gradeTask: (
-		options?: MutationFunctionOptions<gradeTemporaryTask, gradeTemporaryTaskVariables> | undefined
-	) => void
 	grade: number
 }
+
+export const GRADE_TEMPORARY_TASK_MUTATION = gql`
+	mutation gradeTemporaryTask($input: GradeTemporaryTaskInput!) {
+		gradeTemporaryTask(input: $input) {
+			temporaryTask {
+				_id
+				student {
+					firstName
+				}
+				answered
+			}
+		}
+	}
+`
 
 export const MarkComplete: FC<MarkCompleteProps> = ({
 	answered,
 	studentPresent,
-	gradeTask,
+	// gradeTask,
 	task,
 	grade,
 }) => {
 	// const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
+	const [gradeTask, { called, data }] = useMutation<
+		gradeTemporaryTask,
+		gradeTemporaryTaskVariables
+	>(GRADE_TEMPORARY_TASK_MUTATION, {
+		refetchQueries: ['findTemporaryTasks'],
+	})
 	return (
 		<MarkCompleteContainer>
 			<MarkCompleteButton
@@ -33,21 +50,22 @@ export const MarkComplete: FC<MarkCompleteProps> = ({
 				disabled={!studentPresent}
 				studentPresent={studentPresent}
 				onClick={() => {
-					// studentPresent && setAnswered()
-					console.log(grade)
-					console.log(responsibilityPointConverter(grade, 2))
+					console.log(
+						task.student.firstName,
+						grade,
+						responsibilityPointConverter(grade, 2),
+						new Date().toLocaleTimeString()
+					)
+
 					studentPresent &&
 						gradeTask({
 							variables: {
 								input: {
 									_id: task._id!,
 									answered: !answered,
-									// studentPresent,
 									lastGrade: task.lastGrade,
 									responsibilityPoints: responsibilityPointConverter(grade, 2),
-									// responsibilityPoints: 2,
 								},
-								// },
 							},
 						})
 				}}>

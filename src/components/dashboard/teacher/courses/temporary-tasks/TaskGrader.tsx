@@ -21,32 +21,18 @@ export type TaskGraderProps = {
 	absentStudentList?: findTemporaryTasks_findTemporaryTasks_temporaryTasks[]
 }
 
-export const GRADE_TEMPORARY_TASK_MUTATION = gql`
-	mutation gradeTemporaryTask($input: GradeTemporaryTaskInput!) {
-		gradeTemporaryTask(input: $input) {
-			temporaryTask {
-				_id
-				student {
-					firstName
-				}
-				answered
-			}
-		}
-	}
-`
-
 export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
 	const [state] = useTemporaryTasksContextProvider()
 	const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
 
 	const [studentPresent, setStudentPresent] = useState(task.studentPresent)
 
-	const [gradeTask] = useMutation<gradeTemporaryTask, gradeTemporaryTaskVariables>(
-		GRADE_TEMPORARY_TASK_MUTATION,
-		{
-			refetchQueries: ['findTemporaryTasks'],
-		}
-	)
+	// const [gradeTask] = useMutation<gradeTemporaryTask, gradeTemporaryTaskVariables>(
+	// 	GRADE_TEMPORARY_TASK_MUTATION,
+	// 	{
+	// 		refetchQueries: ['findTemporaryTasks'],
+	// 	}
+	// )
 
 	const [markTemporaryTaskAbsent] = useMutation<
 		markTemporaryTaskAbsent,
@@ -84,7 +70,7 @@ export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
 			<MarkComplete
 				answered={task.answered}
 				studentPresent={studentPresent}
-				gradeTask={gradeTask}
+				// gradeTask={gradeTask}
 				task={task!}
 				grade={grade}
 			/>
