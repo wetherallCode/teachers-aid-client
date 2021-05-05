@@ -1,6 +1,9 @@
+import { gql, useMutation } from '@apollo/client'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import {
   findTemporaryTasks_findTemporaryTasks_temporaryTasks,
+  markTemporaryTaskAbsentVariables,
+  markTemporaryTaskAbsent,
   // gradeTemporaryTask,
   // gradeTemporaryTaskVariables,
 } from '../../../../../schemaTypes'
@@ -19,14 +22,33 @@ export type MarkAbsentProps = {
   // ) => void
 }
 
+export const MARK_TEMPORARY_TASK_ABSENT_MUTATION = gql`
+  mutation markTemporaryTaskAbsent($input: MarkTemporaryTaskAbsentInput!) {
+    markTemporaryTaskAbsent(input: $input) {
+      temporaryTask {
+        _id
+      }
+    }
+  }
+`
+
 export const MarkAbsent: FC<MarkAbsentProps> = ({
   setStudentPresent,
   studentPresent,
   task,
   // gradeTask,
 }) => {
-  const [, event] = useTemporaryTasksContextProvider()
+  const [state, event] = useTemporaryTasksContextProvider()
   // const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
+  const [markTemporaryTaskAbsent] = useMutation<
+    markTemporaryTaskAbsent,
+    markTemporaryTaskAbsentVariables
+  >(MARK_TEMPORARY_TASK_ABSENT_MUTATION, {
+    variables: { input: { taskId: task._id!, studentPresent } },
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['findTemporaryTasks'],
+  })
+
   return (
     <MarkAbsentContainer>
       <input
@@ -35,7 +57,7 @@ export const MarkAbsent: FC<MarkAbsentProps> = ({
         checked={!studentPresent}
         onChange={() => {
           setStudentPresent((studentPresent) => !studentPresent)
-
+          markTemporaryTaskAbsent()
           // gradeTask({
           //   variables: {
           //     input: {

@@ -2961,6 +2961,33 @@ export interface createTemporaryTasksVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: markTemporaryTaskAbsent
+// ====================================================
+
+export interface markTemporaryTaskAbsent_markTemporaryTaskAbsent_temporaryTask {
+  __typename: "TemporaryTask";
+  _id: string | null;
+}
+
+export interface markTemporaryTaskAbsent_markTemporaryTaskAbsent {
+  __typename: "MarkTemporaryTaskAbsentPayload";
+  temporaryTask: markTemporaryTaskAbsent_markTemporaryTaskAbsent_temporaryTask;
+}
+
+export interface markTemporaryTaskAbsent {
+  markTemporaryTaskAbsent: markTemporaryTaskAbsent_markTemporaryTaskAbsent;
+}
+
+export interface markTemporaryTaskAbsentVariables {
+  input: MarkTemporaryTaskAbsentInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findTemporaryTasksToReview
 // ====================================================
 
@@ -6333,6 +6360,11 @@ export interface LessonTextSectionsInput {
 export interface LoginInput {
   password: string;
   userName: string;
+}
+
+export interface MarkTemporaryTaskAbsentInput {
+  studentPresent?: boolean | null;
+  taskId: string;
 }
 
 export interface PageNumbersInput {
