@@ -14,56 +14,58 @@ import { PaperBasedContextProvider } from './grade-assignments/paper-based/state
 import { ArticleReviewManager } from './article-reviews/ArticleReviewManager'
 import { ArticleReviewContextProvider } from './article-reviews/state-styles/ArticleReviewContext'
 import { GradeEssayContainerContextProvider } from './grade-assignments/state-n-styles/GradeEssayContainerContext'
+import { GrammarPractice } from './grammar/GrammarPractice'
 
 export type AssignmentDashboardProps = {}
 
 export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
-  return (
-    <Routes>
-      <Route
-        path='create'
-        element={
-          <CreateAssignmentContextProvider>
-            <CreateAssignment />
-          </CreateAssignmentContextProvider>
-        }
-      />
-      <Route
-        path='article-reviews'
-        element={
-          <ArticleReviewContextProvider>
-            <ArticleReviewManager />
-          </ArticleReviewContextProvider>
-        }
-      />
-      <Route path='edit' element={<EditAssignments />} />
-      {/* <GradeEssayContextProvider> */}
-      <Route
-        path='grade/*'
-        element={
-          <GradeEssayContainerContextProvider>
-            <AssignmentsToGrade />
-          </GradeEssayContainerContextProvider>
-        }
-      />
-      <Route
-        path='grade/:essayId'
-        element={
-          <GradeEssayContextProvider>
-            <GradeEssay />
-          </GradeEssayContextProvider>
-        }
-      />
-      {/* </GradeEssayContextProvider> */}
-      <Route
-        path='grade/paper-based/:assignmentId'
-        element={
-          <PaperBasedContextProvider>
-            <GradePaperBasedAssignment />
-          </PaperBasedContextProvider>
-        }
-      />
-      <Route path='assign/*' element={<AssignAssignments />} />
-    </Routes>
-  )
+	return (
+		<Routes>
+			<Route
+				path='create'
+				element={
+					<CreateAssignmentContextProvider>
+						<CreateAssignment />
+					</CreateAssignmentContextProvider>
+				}
+			/>
+			<Route
+				path='article-reviews'
+				element={
+					<ArticleReviewContextProvider>
+						<ArticleReviewManager />
+					</ArticleReviewContextProvider>
+				}
+			/>
+			<Route path='edit' element={<EditAssignments />} />
+			{/* <GradeEssayContextProvider> */}
+			<Route
+				path='grade/*'
+				element={
+					<GradeEssayContainerContextProvider>
+						<AssignmentsToGrade />
+					</GradeEssayContainerContextProvider>
+				}
+			/>
+			<Route
+				path='grade/:essayId'
+				element={
+					<GradeEssayContextProvider>
+						<GradeEssay />
+					</GradeEssayContextProvider>
+				}
+			/>
+			{/* </GradeEssayContextProvider> */}
+			<Route
+				path='grade/paper-based/:assignmentId'
+				element={
+					<PaperBasedContextProvider>
+						<GradePaperBasedAssignment />
+					</PaperBasedContextProvider>
+				}
+			/>
+			<Route path='assign/*' element={<AssignAssignments />} />
+			<Route path='grammar' element={<GrammarPractice />} />
+		</Routes>
+	)
 }
