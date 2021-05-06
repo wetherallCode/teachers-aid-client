@@ -123,6 +123,7 @@ export const MarkCompleteButton = styled.button<MarkCompleteButtonProps>`
       ? 'var(--white)'
       : 'var(--blue)'};
   font-size: 1.6vh;
+  width: 12vh;
 `
 
 export const CreateTaskButton = styled.button`
