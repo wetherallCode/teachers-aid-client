@@ -1,81 +1,50 @@
 import React, { useState } from 'react'
-import { useSelectedText } from '../../../../../hooks/useSelectedText'
+import { SimpleSubjectPredicate } from './SimpleSubjectPredicate'
+
+import { SubjectPredicate } from './SubjectPredicate'
 
 export type GrammarPracticeProps = {}
 
 export const GrammarPractice = ({}: GrammarPracticeProps) => {
-  const [select, text, reset] = useSelectedText()
-  const [state, setState] = useState<'subject' | 'predicate' | 'final'>(
-    'subject'
-  )
-  const [subject, setSubject] = useState('')
-  const [predicate, setPredicate] = useState('')
-  let sentence = 'A good player respects their team.'
-  let newSentence = [sentence]
-  let partialSentence =
-    subject && sentence.indexOf(subject) + ', ' + subject.length
+	const [state, setState] = useState<'idle' | 'subjectPredicate' | 'simpleSubjectPredicate'>(
+		'simpleSubjectPredicate'
+	)
+	const sentence = 'A good player respects their team.'
 
-  return (
-    <>
-      <div onMouseUp={select}>
-        {newSentence.map((part) => (
-          <span
-            style={
-              subject
-                ? { textDecoration: 'underline' }
-                : predicate
-                ? { textDecoration: 'underline', textDecorationStyle: 'double' }
-                : {}
-            }
-            key={part}
-          >
-            {part}
-          </span>
-        ))}
-      </div>
-      {state === 'subject' && (
-        <div>
-          <div>Subject: {subject ? subject : text}</div>
-          <button
-            onClick={() => {
-              setSubject(text)
-
-              //   newSentence(subject)
-              reset()
-              setState('predicate')
-            }}
-          >
-            Set
-          </button>
-        </div>
-      )}
-      {state === 'predicate' && (
-        <div>
-          <div>Predicate: {predicate ? predicate : text}</div>
-          <button
-            onClick={() => {
-              setPredicate(text)
-              reset()
-              setState('final')
-            }}
-          >
-            Set
-          </button>
-        </div>
-      )}
-      {state === 'final' && (
-        <div>
-          <span style={{ textDecoration: 'underline' }}>{subject}</span> |{' '}
-          <span
-            style={{
-              textDecoration: 'underline',
-              textDecorationStyle: 'double',
-            }}
-          >
-            {predicate}
-          </span>
-        </div>
-      )}
-    </>
-  )
+	return (
+		<div style={{ height: '95vh', display: 'grid', gridTemplateRows: '1fr 5fr' }}>
+			<nav
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-around',
+					alignItems: 'center',
+					fontSize: '2vh',
+					textDecoration: 'underline',
+					cursor: 'pointer',
+				}}>
+				<div onClick={() => setState('idle')}>Grammar Home</div>
+				<div onClick={() => setState('subjectPredicate')}>Subject and Predicate</div>
+				<div onClick={() => setState('simpleSubjectPredicate')}>Simple Subject and Predicate</div>
+			</nav>
+			<>
+				{state === 'idle' && (
+					<div
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							fontSize: '5vh',
+						}}>
+						Welcome to Grammar Practice R&D
+					</div>
+				)}
+				{state === 'subjectPredicate' && <SubjectPredicate sentence={sentence} />}
+				{state === 'simpleSubjectPredicate' && (
+					<SimpleSubjectPredicate sentence={sentence}></SimpleSubjectPredicate>
+				)}
+				{<div></div>}
+			</>
+		</div>
+	)
 }
