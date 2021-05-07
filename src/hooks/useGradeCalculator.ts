@@ -3,326 +3,390 @@ import React from 'react'
 import { FIND_ASSINGMENT_INFORMATION_QUERY } from '../components/dashboard/teacher/student-information/AssignmentInformation'
 import { RESPONSIBILITY_POINTS_QUERY } from '../components/dashboard/teacher/student-information/general-student-information/ResponsibilityPointsDisplay'
 import {
-	findAssignmentByStudentId,
-	findAssignmentByStudentIdVariables,
-	findResponsibilityPointsByStudentId,
-	findResponsibilityPointsByStudentIdVariables,
-	MarkingPeriodEnum,
+  findAssignmentByStudentId,
+  findAssignmentByStudentIdVariables,
+  findResponsibilityPointsByStudentId,
+  findResponsibilityPointsByStudentIdVariables,
+  MarkingPeriodEnum,
 } from '../schemaTypes'
 import {
-	primaryGradeCalculator,
-	secondaryGradeCalculator,
-	supportiveGradeCalculator,
-	totalGrade,
+  primaryGradeCalculator,
+  secondaryGradeCalculator,
+  supportiveGradeCalculator,
+  totalGrade,
 } from '../utils'
 
-export const useGradeCalculator = (studentId: string, mp: MarkingPeriodEnum) => {
-	const { loading: assignmentLoading, data } = useQuery<
-		findAssignmentByStudentId,
-		findAssignmentByStudentIdVariables
-	>(FIND_ASSINGMENT_INFORMATION_QUERY, {
-		variables: {
-			input: { studentId },
-		},
-		onCompleted: (data) => {},
-		pollInterval: 1000,
-		onError: (error) => console.error(error),
-	})
+type GradeCalculatorProps = {
+  studentId: string
+  markingPeriod: MarkingPeriodEnum
+  polling: boolean
+  pollInterval?: number
+}
 
-	const { loading: responsibilityPointsLoading, data: responsibilityPointsData } = useQuery<
-		findResponsibilityPointsByStudentId,
-		findResponsibilityPointsByStudentIdVariables
-	>(RESPONSIBILITY_POINTS_QUERY, {
-		variables: {
-			input: { studentId },
-		},
-		pollInterval: 1000,
-		// onCompleted: (data) => console.log(data),
-		onError: (error) => console.error(error),
-	})
+export const useGradeCalculator = ({
+  studentId,
+  markingPeriod,
+  polling,
+  pollInterval,
+}: GradeCalculatorProps) => {
+  const { loading: assignmentLoading, data } = useQuery<
+    findAssignmentByStudentId,
+    findAssignmentByStudentIdVariables
+  >(FIND_ASSINGMENT_INFORMATION_QUERY, {
+    variables: {
+      input: { studentId },
+    },
+    onCompleted: (data) => {},
+    pollInterval: polling ? pollInterval : 0,
+    onError: (error) => console.error(error),
+  })
 
-	const essays = data?.findAssignmentByStudentId.assignments.some(
-		(assignment) => assignment.__typename === 'Essay' && assignment.markingPeriod === mp
-	)!
+  const {
+    loading: responsibilityPointsLoading,
+    data: responsibilityPointsData,
+  } = useQuery<
+    findResponsibilityPointsByStudentId,
+    findResponsibilityPointsByStudentIdVariables
+  >(RESPONSIBILITY_POINTS_QUERY, {
+    variables: {
+      input: { studentId },
+    },
+    pollInterval: 1000,
+    // onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
 
-	const applicableArticleReviews =
-		data?.findAssignmentByStudentId.articleReviews &&
-		data?.findAssignmentByStudentId.articleReviews.some(
-			(assignment) => assignment.markingPeriod === mp
-		)
+  const essays = data?.findAssignmentByStudentId.assignments.some(
+    (assignment) =>
+      assignment.__typename === 'Essay' &&
+      assignment.markingPeriod === markingPeriod
+  )!
 
-	const applicableCurrentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
-		(points) => points.markingPeriod === mp
-	)!
+  const applicableArticleReviews =
+    data?.findAssignmentByStudentId.articleReviews &&
+    data?.findAssignmentByStudentId.articleReviews.some(
+      (assignment) => assignment.markingPeriod === markingPeriod
+    )
 
-	if (!applicableCurrentMarkingPeriodResponsiblityPoints && essays && applicableArticleReviews) {
-		// Grade Category Weights:// Grade Category Weights: Primary = .588 Secondary = .412
-		// console.log('Only Primary and Secondary')
-		const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
-			(assignment) =>
-				(assignment.__typename === 'Essay' &&
-					assignment.finalDraft?.returned &&
-					assignment.markingPeriod === mp) ||
-				(assignment.__typename === 'Essay' &&
-					!assignment.exempt &&
-					!assignment.finalDraft &&
-					assignment.markingPeriod === mp &&
-					Date.parse(new Date().toLocaleString()) >
-						Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
-		)
+  const applicableCurrentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
+    (points) => points.markingPeriod === markingPeriod
+  )!
 
-		const essayEarnedPoints = applicableEssays
-			?.map((essay) => essay.score.earnedPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+  if (
+    !applicableCurrentMarkingPeriodResponsiblityPoints &&
+    essays &&
+    applicableArticleReviews
+  ) {
+    // Grade Category Weights:// Grade Category Weights: Primary = .588 Secondary = .412
+    // console.log('Only Primary and Secondary')
+    const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
+      (assignment) =>
+        (assignment.__typename === 'Essay' &&
+          assignment.finalDraft?.returned &&
+          assignment.markingPeriod === markingPeriod) ||
+        (assignment.__typename === 'Essay' &&
+          !assignment.exempt &&
+          !assignment.finalDraft &&
+          assignment.markingPeriod === markingPeriod &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+    )
 
-		const essayMaxPoints = applicableEssays
-			?.map((essay) => essay.score.maxPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const essayEarnedPoints = applicableEssays
+      ?.map((essay) => essay.score.earnedPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const articleReviews =
-			data?.findAssignmentByStudentId.articleReviews &&
-			data?.findAssignmentByStudentId.articleReviews.filter(
-				(assignment) =>
-					assignment.markingPeriod === mp &&
-					Date.parse(new Date().toLocaleString()) >
-						Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
-			)
+    const essayMaxPoints = applicableEssays
+      ?.map((essay) => essay.score.maxPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const articleReviewEarnedPoints = articleReviews
-			?.map((review) => review.score.earnedPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const articleReviews =
+      data?.findAssignmentByStudentId.articleReviews &&
+      data?.findAssignmentByStudentId.articleReviews.filter(
+        (assignment) =>
+          assignment.markingPeriod === markingPeriod &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+      )
 
-		const articleReviewMaxPoints = articleReviews
-			?.map((review) => review.score.maxPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const articleReviewEarnedPoints = articleReviews
+      ?.map((review) => review.score.earnedPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const primaryGrade = (earnedPoints: number, maxPoints: number) => {
-			return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 58.8
-		}
-		const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
+    const articleReviewMaxPoints = articleReviews
+      ?.map((review) => review.score.maxPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
-			return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 41.2
-		}
+    const primaryGrade = (earnedPoints: number, maxPoints: number) => {
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 58.8
+    }
+    const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
 
-		const secondary = secondaryGrade(articleReviewEarnedPoints, articleReviewMaxPoints)
+    const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 41.2
+    }
 
-		const gradeTotal = (primaryGrade: number, secondaryGrade: number) => {
-			const number = Number(Number(primaryGrade) + Number(secondaryGrade)).toFixed(2)
+    const secondary = secondaryGrade(
+      articleReviewEarnedPoints,
+      articleReviewMaxPoints
+    )
 
-			return Math.round(Number(number) * 10) / 10
-		}
+    const gradeTotal = (primaryGrade: number, secondaryGrade: number) => {
+      const number = Number(
+        Number(primaryGrade) + Number(secondaryGrade)
+      ).toFixed(2)
 
-		return {
-			grade: gradeTotal(primary, secondary),
-			loading: assignmentLoading || responsibilityPointsLoading,
-			noGrade: false,
-		}
-	}
+      return Math.round(Number(number) * 10) / 10
+    }
 
-	if (!essays && !applicableArticleReviews && applicableCurrentMarkingPeriodResponsiblityPoints) {
-		// Grade Category Weights: Supportive = 1
-		// console.log('Only ResponsibilityPoints')
-		const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-			(points) => points.markingPeriod === mp
-		)!
+    return {
+      grade: gradeTotal(primary, secondary),
+      loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false,
+    }
+  }
 
-		const points = currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
+  if (
+    !essays &&
+    !applicableArticleReviews &&
+    applicableCurrentMarkingPeriodResponsiblityPoints
+  ) {
+    // Grade Category Weights: Supportive = 1
+    // console.log('Only ResponsibilityPoints')
+    const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+      (points) => points.markingPeriod === markingPeriod
+    )!
 
-		return {
-			grade: (Math.round(1000 * points) / 1000) * 1,
-			loading: assignmentLoading || responsibilityPointsLoading,
-			noGrade: false,
-		}
-	}
+    const points =
+      currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
 
-	if (!applicableCurrentMarkingPeriodResponsiblityPoints && !essays && applicableArticleReviews) {
-		// console.log('Only Secondary')
-		const articleReviews =
-			data?.findAssignmentByStudentId.articleReviews &&
-			data?.findAssignmentByStudentId.articleReviews.filter(
-				(assignment) =>
-					assignment.markingPeriod === mp &&
-					Date.parse(new Date().toLocaleString()) >
-						Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
-			)
+    return {
+      grade: (Math.round(1000 * points) / 1000) * 1,
+      loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false,
+    }
+  }
 
-		const articleReviewEarnedPoints = articleReviews
-			?.map((review) => review.score.earnedPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+  if (
+    !applicableCurrentMarkingPeriodResponsiblityPoints &&
+    !essays &&
+    applicableArticleReviews
+  ) {
+    // console.log('Only Secondary')
+    const articleReviews =
+      data?.findAssignmentByStudentId.articleReviews &&
+      data?.findAssignmentByStudentId.articleReviews.filter(
+        (assignment) =>
+          assignment.markingPeriod === markingPeriod &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+      )
 
-		const articleReviewMaxPoints = articleReviews
-			?.map((review) => review.score.maxPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const articleReviewEarnedPoints = articleReviews
+      ?.map((review) => review.score.earnedPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
-			return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 100
-		}
+    const articleReviewMaxPoints = articleReviews
+      ?.map((review) => review.score.maxPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		return {
-			grade: +secondaryGrade(articleReviewEarnedPoints, articleReviewMaxPoints).toFixed(2),
-			loading: assignmentLoading || responsibilityPointsLoading,
-			noGrade: false,
-		}
-	}
+    const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 100
+    }
 
-	if (!essays && applicableArticleReviews && applicableCurrentMarkingPeriodResponsiblityPoints) {
-		// Grade Category Weights: Supportive = .3  Secondary = .7
-		// console.log('ResponsiblityPoints and Secondary Only')
+    return {
+      grade: +secondaryGrade(
+        articleReviewEarnedPoints,
+        articleReviewMaxPoints
+      ).toFixed(2),
+      loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false,
+    }
+  }
 
-		const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-			(points) => points.markingPeriod === mp
-		)!
+  if (
+    !essays &&
+    applicableArticleReviews &&
+    applicableCurrentMarkingPeriodResponsiblityPoints
+  ) {
+    // Grade Category Weights: Supportive = .3  Secondary = .7
+    // console.log('ResponsiblityPoints and Secondary Only')
 
-		const { responsibilityPoints } = currentMarkingPeriodResponsiblityPoints[0]
+    const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+      (points) => points.markingPeriod === markingPeriod
+    )!
 
-		const supportive = (Math.round(1000 * responsibilityPoints) / 1000) * 0.3
+    const { responsibilityPoints } = currentMarkingPeriodResponsiblityPoints[0]
 
-		const articleReviews =
-			data?.findAssignmentByStudentId.articleReviews &&
-			data?.findAssignmentByStudentId.articleReviews.filter(
-				(assignment) =>
-					assignment.markingPeriod === mp &&
-					Date.parse(new Date().toLocaleString()) >
-						Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
-			)
+    const supportive = (Math.round(1000 * responsibilityPoints) / 1000) * 0.3
 
-		const articleReviewEarnedPoints = articleReviews
-			?.map((review) => review.score.earnedPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const articleReviews =
+      data?.findAssignmentByStudentId.articleReviews &&
+      data?.findAssignmentByStudentId.articleReviews.filter(
+        (assignment) =>
+          assignment.markingPeriod === markingPeriod &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+      )
 
-		const articleReviewMaxPoints = articleReviews
-			?.map((review) => review.score.maxPoints)
-			.reduce((acc: number, i: number) => acc + i)!
-		const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
-			return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 70
-		}
+    const articleReviewEarnedPoints = articleReviews
+      ?.map((review) => review.score.earnedPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const secondary = secondaryGrade(articleReviewEarnedPoints, articleReviewMaxPoints)
+    const articleReviewMaxPoints = articleReviews
+      ?.map((review) => review.score.maxPoints)
+      .reduce((acc: number, i: number) => acc + i)!
+    const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 70
+    }
 
-		const gradeTotal = (supportive: number, secondaryGrade: number) => {
-			const number = Number(Number(supportive) + Number(secondaryGrade)).toFixed(2)
+    const secondary = secondaryGrade(
+      articleReviewEarnedPoints,
+      articleReviewMaxPoints
+    )
 
-			return Math.round(Number(number) * 10) / 10
-		}
-		return {
-			grade: gradeTotal(supportive, secondary),
-			loading: assignmentLoading || responsibilityPointsLoading,
-			noGrade: false,
-		}
-	}
+    const gradeTotal = (supportive: number, secondaryGrade: number) => {
+      const number = Number(
+        Number(supportive) + Number(secondaryGrade)
+      ).toFixed(2)
 
-	if (!applicableArticleReviews && essays && applicableCurrentMarkingPeriodResponsiblityPoints) {
-		// Grade Category Weights: Supportive = .23068182   Primary = .76931818
-		// console.log('Only Essays and ResponsibilityPoints')
+      return Math.round(Number(number) * 10) / 10
+    }
+    return {
+      grade: gradeTotal(supportive, secondary),
+      loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false,
+    }
+  }
 
-		const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
-			(assignment) =>
-				(assignment.__typename === 'Essay' &&
-					assignment.finalDraft?.returned &&
-					assignment.markingPeriod === mp) ||
-				(assignment.__typename === 'Essay' &&
-					!assignment.exempt &&
-					!assignment.finalDraft &&
-					assignment.markingPeriod === mp &&
-					Date.parse(new Date().toLocaleString()) >
-						Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
-		)
+  if (
+    !applicableArticleReviews &&
+    essays &&
+    applicableCurrentMarkingPeriodResponsiblityPoints
+  ) {
+    // Grade Category Weights: Supportive = .23068182   Primary = .76931818
+    // console.log('Only Essays and ResponsibilityPoints')
 
-		const essayEarnedPoints = applicableEssays
-			?.map((essay) => essay.score.earnedPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
+      (assignment) =>
+        (assignment.__typename === 'Essay' &&
+          assignment.finalDraft?.returned &&
+          assignment.markingPeriod === markingPeriod) ||
+        (assignment.__typename === 'Essay' &&
+          !assignment.exempt &&
+          !assignment.finalDraft &&
+          assignment.markingPeriod === markingPeriod &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+    )
 
-		const essayMaxPoints = applicableEssays
-			?.map((essay) => essay.score.maxPoints)
-			.reduce((acc: number, i: number) => acc + i)!
+    const essayEarnedPoints = applicableEssays
+      ?.map((essay) => essay.score.earnedPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const primaryGrade = (earnedPoints: number, maxPoints: number) => {
-			return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 76.931818
-		}
+    const essayMaxPoints = applicableEssays
+      ?.map((essay) => essay.score.maxPoints)
+      .reduce((acc: number, i: number) => acc + i)!
 
-		const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
+    const primaryGrade = (earnedPoints: number, maxPoints: number) => {
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 76.931818
+    }
 
-		const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-			(points) => points.markingPeriod === mp
-		)!
+    const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
 
-		const { responsibilityPoints } = currentMarkingPeriodResponsiblityPoints[0]
+    const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+      (points) => points.markingPeriod === markingPeriod
+    )!
 
-		const supportive = (Math.round(1000 * responsibilityPoints) / 1000) * 0.23068182
+    const { responsibilityPoints } = currentMarkingPeriodResponsiblityPoints[0]
 
-		const gradeTotal = (primaryGrade: number, supportiveGrade: number) => {
-			const number = Number(Number(primaryGrade) + Number(supportiveGrade)).toFixed(2)
+    const supportive =
+      (Math.round(1000 * responsibilityPoints) / 1000) * 0.23068182
 
-			return Math.round(Number(number) * 10) / 10
-		}
+    const gradeTotal = (primaryGrade: number, supportiveGrade: number) => {
+      const number = Number(
+        Number(primaryGrade) + Number(supportiveGrade)
+      ).toFixed(2)
 
-		return {
-			grade: gradeTotal(primary, supportive),
-			loading: assignmentLoading || responsibilityPointsLoading,
-			noGrade: false,
-		}
-	}
-	if (!applicableCurrentMarkingPeriodResponsiblityPoints && !essays && !applicableArticleReviews) {
-		return { grade: 0, loading: false, noGrade: true }
-	}
-	const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
-		(assignment) =>
-			(assignment.__typename === 'Essay' &&
-				assignment.finalDraft?.returned &&
-				assignment.markingPeriod === mp) ||
-			(assignment.__typename === 'Essay' &&
-				!assignment.exempt &&
-				!assignment.finalDraft &&
-				assignment.markingPeriod === mp &&
-				Date.parse(new Date().toLocaleString()) >
-					Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
-	)
-	const essayEarnedPoints = applicableEssays
-		?.map((essay) => essay.score.earnedPoints)
-		.reduce((acc: number, i: number) => acc + i)!
+      return Math.round(Number(number) * 10) / 10
+    }
 
-	const essayMaxPoints = applicableEssays
-		?.map((essay) => essay.score.maxPoints)
-		.reduce((acc: number, i: number) => acc + i)!
+    return {
+      grade: gradeTotal(primary, supportive),
+      loading: assignmentLoading || responsibilityPointsLoading,
+      noGrade: false,
+    }
+  }
+  if (
+    !applicableCurrentMarkingPeriodResponsiblityPoints &&
+    !essays &&
+    !applicableArticleReviews
+  ) {
+    return { grade: 0, loading: false, noGrade: true }
+  }
+  const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
+    (assignment) =>
+      (assignment.__typename === 'Essay' &&
+        assignment.finalDraft?.returned &&
+        assignment.markingPeriod === markingPeriod) ||
+      (assignment.__typename === 'Essay' &&
+        !assignment.exempt &&
+        !assignment.finalDraft &&
+        assignment.markingPeriod === markingPeriod &&
+        Date.parse(new Date().toLocaleString()) >
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+  )
+  const essayEarnedPoints = applicableEssays
+    ?.map((essay) => essay.score.earnedPoints)
+    .reduce((acc: number, i: number) => acc + i)!
 
-	const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
+  const essayMaxPoints = applicableEssays
+    ?.map((essay) => essay.score.maxPoints)
+    .reduce((acc: number, i: number) => acc + i)!
 
-	const articleReviews =
-		data?.findAssignmentByStudentId.articleReviews &&
-		data?.findAssignmentByStudentId.articleReviews.filter(
-			(assignment) =>
-				assignment.markingPeriod === mp &&
-				Date.parse(new Date().toLocaleString()) >
-					Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
-		)
+  const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
 
-	const articleReviewEarnedPoints = articleReviews
-		?.map((review) => review.score.earnedPoints)
-		.reduce((acc: number, i: number) => acc + i)!
+  const articleReviews =
+    data?.findAssignmentByStudentId.articleReviews &&
+    data?.findAssignmentByStudentId.articleReviews.filter(
+      (assignment) =>
+        assignment.markingPeriod === markingPeriod &&
+        Date.parse(new Date().toLocaleString()) >
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+    )
 
-	const articleReviewMaxPoints = articleReviews
-		?.map((review) => review.score.maxPoints)
-		.reduce((acc: number, i: number) => acc + i)!
+  const articleReviewEarnedPoints = articleReviews
+    ?.map((review) => review.score.earnedPoints)
+    .reduce((acc: number, i: number) => acc + i)!
 
-	const articleReviewGrade = secondaryGradeCalculator(
-		articleReviewEarnedPoints,
-		articleReviewMaxPoints
-	)
+  const articleReviewMaxPoints = articleReviews
+    ?.map((review) => review.score.maxPoints)
+    .reduce((acc: number, i: number) => acc + i)!
 
-	const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-		(points) => points.markingPeriod === mp
-	)!
+  const articleReviewGrade = secondaryGradeCalculator(
+    articleReviewEarnedPoints,
+    articleReviewMaxPoints
+  )
 
-	const responsibilityPointGrade =
-		currentMarkingPeriodResponsiblityPoints &&
-		supportiveGradeCalculator(currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints)
-	// console.log(essayGrade, articleReviewGrade, responsibilityPointGrade)
-	const grade = totalGrade(essayGrade, articleReviewGrade, responsibilityPointGrade)
+  const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+    (points) => points.markingPeriod === markingPeriod
+  )!
 
-	return {
-		grade: grade,
-		loading: assignmentLoading || responsibilityPointsLoading,
-		noGrade: false,
-	}
+  const responsibilityPointGrade =
+    currentMarkingPeriodResponsiblityPoints &&
+    supportiveGradeCalculator(
+      currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
+    )
+  // console.log(essayGrade, articleReviewGrade, responsibilityPointGrade)
+  const grade = totalGrade(
+    essayGrade,
+    articleReviewGrade,
+    responsibilityPointGrade
+  )
+
+  return {
+    grade: grade,
+    loading: assignmentLoading || responsibilityPointsLoading,
+    noGrade: false,
+  }
 }

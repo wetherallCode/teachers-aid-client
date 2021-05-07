@@ -26,7 +26,11 @@ export type TaskGraderProps = {
 
 export const TaskGrader: FC<TaskGraderProps> = ({ task, i }) => {
   const [state] = useTemporaryTasksContextProvider()
-  const { grade } = useGradeCalculator(task.student._id!, task.markingPeriod)
+  const { grade } = useGradeCalculator({
+    studentId: task.student._id!,
+    markingPeriod: task.markingPeriod,
+    polling: false,
+  })
 
   const [studentPresent, setStudentPresent] = useState(task.studentPresent)
 
