@@ -8,6 +8,7 @@ export type teacherNavMachineSchema = {
     rubrics: {}
     studentInformation: {}
     parentContacts: {}
+    development: {}
     courses: {
       states: {
         home: {
@@ -30,6 +31,7 @@ export type teacherNavMachineEvent =
   | { type: 'LESSON_EDITOR' }
   | { type: 'STUDENT_INFORMATION' }
   | { type: 'PARENT_CONTACTS' }
+  | { type: 'DEVELOPMENT' }
   | { type: 'SET_COURSE'; payload: string }
 
 export type teacherNavMachineContext = {
@@ -55,6 +57,7 @@ export const teacherNavMachine = Machine<
         RUBRICS: 'rubrics',
         STUDENT_INFORMATION: 'studentInformation',
         PARENT_CONTACTS: 'parentContacts',
+        DEVELOPMENT: 'development',
       },
     },
     lessons: {
@@ -79,6 +82,11 @@ export const teacherNavMachine = Machine<
       },
     },
     parentContacts: {
+      on: {
+        DASHBOARD: 'dashboard',
+      },
+    },
+    development: {
       on: {
         DASHBOARD: 'dashboard',
       },

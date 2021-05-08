@@ -13,10 +13,9 @@ import { SchoolDayContextProvider } from '../school-day/state/SchoolDayContext'
 import { ParentContacts } from './parent-contact/ParentContacts'
 import { StudentInformation } from './student-information/StudentInformation'
 import { StudentInformationContextProvider } from './student-information/state-n-styles/StudentInformationContext'
+import { DevelopmentHome } from './development/DevelopmentHome'
 
 export const TeacherDashboardHome = () => {
-  // const me = useUserContextProvider() as me_me_Teacher
-  const navigate = useNavigate()
   const { pathname } = useLocation()
 
   return (
@@ -56,6 +55,9 @@ export const TeacherDashboardHome = () => {
       </Routes>
       <Routes>
         <Route path='parentContacts/*' element={<ParentContacts />} />
+      </Routes>
+      <Routes>
+        <Route path='development/*' element={<DevelopmentHome />} />
       </Routes>
     </TeacherDashboardContainer>
   )

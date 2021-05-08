@@ -68,6 +68,12 @@ export const TeacherNav: FC<TeacherNavProps> = ({
             >
               <Link to='dashboard/parentContacts'>Parent Contacts</Link>
             </motion.li>
+            <motion.li
+              variants={liVariants}
+              onClick={() => event({ type: 'DEVELOPMENT' })}
+            >
+              <Link to='dashboard/development'>Development</Link>
+            </motion.li>
             <motion.li variants={liVariants}>
               <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
             </motion.li>
