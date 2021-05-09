@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { SimpleSubjectPredicate } from './SimpleSubjectPredicate'
 
 import { SubjectPredicate } from './SubjectPredicate'
+import { SubjectPredicate2 } from './SubjectPredicate2'
 
 export type GrammarPracticeProps = {}
 
 export const GrammarPractice = ({}: GrammarPracticeProps) => {
   const [state, setState] = useState<
     'idle' | 'subjectPredicate' | 'simpleSubjectPredicate'
-  >('simpleSubjectPredicate')
+  >('idle')
   const sentence = 'A good player respects their team.'
 
   return (
@@ -48,7 +49,8 @@ export const GrammarPractice = ({}: GrammarPracticeProps) => {
           </div>
         )}
         {state === 'subjectPredicate' && (
-          <SubjectPredicate sentence={sentence} />
+          // <SubjectPredicate sentence={sentence} />
+          <SubjectPredicate2 sentence={sentence} />
         )}
         {state === 'simpleSubjectPredicate' && (
           <SimpleSubjectPredicate sentence={sentence} />

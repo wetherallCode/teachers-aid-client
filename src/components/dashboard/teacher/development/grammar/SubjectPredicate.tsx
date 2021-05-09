@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelectedText } from '../../../../../hooks/useSelectedText'
 
 export type SubjectPredicateProps = {
@@ -12,49 +12,71 @@ export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
   )
   const [subject, setSubject] = useState('')
   const [predicate, setPredicate] = useState('')
+  const endOfSubject = subject.length + sentence.indexOf(subject)
 
-  let subjectOfSentence = sentence
-    .slice(sentence.indexOf(subject), subject.length)
-    .trim()
+  let subjectOfSentence = sentence.slice(
+    sentence.indexOf(subject),
+    subject.length + sentence.indexOf(subject)
+  )
+
   let predicateOfSentence = sentence
     .slice(sentence.indexOf(predicate), sentence.length + 1)
     .trim()
 
   let newSentence =
     subject && !predicate
-      ? [subjectOfSentence, ' ', sentence.slice(subject.length)]
+      ? [
+          sentence.slice(0, sentence.indexOf(subject)),
+          subjectOfSentence,
+          ' ',
+          sentence.slice(endOfSubject),
+        ]
       : subject && predicate
-      ? [subjectOfSentence, ' | ', predicateOfSentence]
+      ? [
+          sentence.slice(0, sentence.indexOf(subject)),
+          subjectOfSentence,
+          ' | ',
+          predicateOfSentence,
+        ]
       : [sentence]
 
   const correctSubject = 'A good player'
   const correctPredicate = 'respects their team.'
-  const correct = subject === correctSubject && correctPredicate
+  const correct = subject === correctSubject && predicate === correctPredicate
+
+  useEffect(() => {
+    if (correct) {
+      setState('final')
+    }
+    if (subject && predicate && !correct) {
+      setSubject('')
+      setPredicate('')
+      setState('subject')
+    }
+  }, [correct])
 
   return (
     <div>
       <div onMouseUp={select}>
-        <div>
-          {newSentence.map((part, i) => {
-            return (
-              <span
-                style={
-                  part === subjectOfSentence
-                    ? { textDecoration: 'underline' }
-                    : part === predicateOfSentence && predicate !== ''
-                    ? {
-                        textDecoration: 'underline',
-                        textDecorationStyle: 'double',
-                      }
-                    : {}
-                }
-                key={part}
-              >
-                {part}
-              </span>
-            )
-          })}
-        </div>
+        {newSentence.map((part, i) => {
+          return (
+            <span
+              style={
+                part === subjectOfSentence
+                  ? { textDecoration: 'underline' }
+                  : part === predicateOfSentence && predicate !== ''
+                  ? {
+                      textDecoration: 'underline',
+                      textDecorationStyle: 'double',
+                    }
+                  : {}
+              }
+              key={part}
+            >
+              {part}
+            </span>
+          )
+        })}
       </div>
       {state === 'subject' && (
         <div>
@@ -77,13 +99,13 @@ export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
             onClick={() => {
               setPredicate(text)
               reset()
-              if (correct) {
-                setState('final')
-              } else {
-                setSubject('')
-                setPredicate('')
-                setState('subject')
-              }
+              // if (correct) {
+              //   setState('final')
+              // } else {
+              //   setSubject('')
+              //   setPredicate('')
+              //   setState('subject')
+              // }
             }}
           >
             Set
