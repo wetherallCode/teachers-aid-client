@@ -14,7 +14,7 @@ export const GrammarPractice = ({}: GrammarPracticeProps) => {
 
   return (
     <div
-      style={{ height: '95vh', display: 'grid', gridTemplateRows: '1fr 5fr' }}
+      style={{ height: '90vh', display: 'grid', gridTemplateRows: '1fr 5fr' }}
     >
       <nav
         style={{

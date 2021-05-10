@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import {
+  DirectionsContainer,
+  MessageContainer,
+  SentenceContainer,
+  SubjectPredicateContainer,
+} from './subjectPredicateStyles'
 import { subjectPredicateGrader } from './subPredGrading'
 
 export type SubjectPredicate2Props = {
@@ -17,58 +23,56 @@ export const SubjectPredicate2 = ({ sentence }: SubjectPredicate2Props) => {
   const correctSubject = 'A good player'
   const correctPredicate = 'respects their team.'
 
-  const correct =
-    newSentence[0] === correctSubject && newSentence[2] === correctPredicate
+  const nounType = 'person'
 
-  useEffect(() => {
-    if (point) {
-      console.log(
-        subjectPredicateGrader({
-          correctSubject,
-          correctPredicate,
-          givenSubject: newSentence[0],
-          givenPredicate: newSentence[2],
-          noun: 'player',
-          verb: 'respects',
-          prepositionalPhrases: [],
-        })
-      )
-    }
-  }, [point])
-
+  const { message, correct, whatWentWrong, howToFix } = subjectPredicateGrader({
+    correctSubject,
+    givenSubject: newSentence[0],
+    sentence,
+    noun: 'player',
+    nounType,
+    verb: 'respects',
+    verbType: 'action',
+  })
   return (
-    <div>
+    <SubjectPredicateContainer>
+      <DirectionsContainer>
+        Click on the sentence below to separate it into the subject and
+        predicate.
+      </DirectionsContainer>
       {point ? (
-        <div>
-          <div>
-            {newSentence.map((part, i) => (
-              <span
-                key={i}
-                style={
-                  i === 0
-                    ? { cursor: 'pointer', textDecoration: 'underline' }
-                    : i === 2
-                    ? {
-                        cursor: 'pointer',
-                        textDecoration: 'underline',
-                        textDecorationStyle: 'double',
-                      }
-                    : { cursor: 'pointer' }
+        <SentenceContainer>
+          {newSentence.map((part, i) => (
+            <span
+              key={i}
+              style={
+                i === 0
+                  ? {
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      textUnderlinePosition: 'under',
+                    }
+                  : i === 2
+                  ? {
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      textDecorationStyle: 'double',
+                      textUnderlinePosition: 'under',
+                    }
+                  : { cursor: 'pointer' }
+              }
+              onClick={() => {
+                if (part === separator) {
+                  setPoint(null)
                 }
-                onClick={() => {
-                  if (part === separator) {
-                    setPoint(null)
-                  }
-                }}
-              >
-                {part}
-              </span>
-            ))}
-          </div>
-          {/* <button onClick={() => setPoint(null)}>reset</button> */}
-        </div>
+              }}
+            >
+              {part}
+            </span>
+          ))}
+        </SentenceContainer>
       ) : (
-        <div>
+        <SentenceContainer>
           {sentence.split('').map((letter, i) => (
             <span
               key={i}
@@ -78,9 +82,39 @@ export const SubjectPredicate2 = ({ sentence }: SubjectPredicate2Props) => {
               {letter}
             </span>
           ))}
-        </div>
+        </SentenceContainer>
       )}
-      <div>{correct && <div>Correct</div>}</div>
-    </div>
+      {point ? (
+        <MessageContainer correct={correct}>
+          {!correct ? (
+            <div>
+              <div style={{ textAlign: 'center' }}>Not Quite</div>
+              <br></br>
+              <div>What went wrong? {whatWentWrong}</div>
+              <div>How to fix it: {howToFix}</div>
+            </div>
+          ) : (
+            <div>
+              <div style={{ textAlign: 'center' }}>{message}</div>
+              <br />
+              <div>
+                "{newSentence[0]}" is the complete subject of the sentence
+                because it is {nounType === 'person' ? 'who' : 'what'} the
+                sentence is about.
+              </div>
+              <div>
+                "
+                {newSentence[2].split('')[0].toString().toUpperCase() +
+                  newSentence[2].slice(1, newSentence[2].length - 1)}
+                " is the complete predicate of the sentence because it is what
+                the {nounType === 'person' ? 'person' : 'thing'} is doing.
+              </div>
+            </div>
+          )}
+        </MessageContainer>
+      ) : (
+        <div></div>
+      )}
+    </SubjectPredicateContainer>
   )
 }
