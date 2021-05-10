@@ -1,98 +1,76 @@
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useSelectedText } from '../../../../../hooks/useSelectedText'
+import { simpleSubjectGrader } from './simpleSubGrader'
 
-export type SimpleSubjectPredicateProps = { sentence: string }
+export type SimpleSubjectPredicateProps = {
+	sentence: string
+	setSentence: Dispatch<SetStateAction<string>>
+}
 
-export const SimpleSubjectPredicate = ({
-  sentence,
-}: SimpleSubjectPredicateProps) => {
-  const [select, text, reset] = useSelectedText()
-  const [state, setState] = useState<'subject' | 'predicate' | 'final'>(
-    'subject'
-  )
+export const SimpleSubjectPredicate = ({ sentence, setSentence }: SimpleSubjectPredicateProps) => {
+	const [select, text, reset] = useSelectedText()
+	const [state, setState] = useState<'subject' | 'predicate' | 'final'>('subject')
 
-  const [simpleSubject, setSimpleSubject] = useState('')
-  const [simplePredicate, setSimplePredicate] = useState('')
+	const [simpleSubject, setSimpleSubject] = useState('')
+	const [simplePredicate, setSimplePredicate] = useState('')
+	const testSentence = 'A good player | respects their team'
+	const newSentence = testSentence.split(' ')
+	const dividedSentence = testSentence.split('|')
 
-  const newSentence = sentence.split(' ')
+	const { whatWentWrong, howToFix, correctSimpleSubject } = simpleSubjectGrader({
+		correctSimpleSubject: 'player',
+		givenSimpleSubject: simpleSubject,
+		completeSubject: dividedSentence[0],
+	})
+	// correctSimplePredicate: 'respects',
+	// givenPredicate: simplePredicate,
+	// completePredicate: dividedSentence[1],
 
-  const correctSubject = 'player'
-  const correctPredicate = 'respects'
-  const correct =
-    simpleSubject === correctSubject.trim() &&
-    simplePredicate.trim() === correctPredicate
-
-  useEffect(() => {
-    if (correct) {
-      setState('final')
-    }
-  }, [correct])
-  return (
-    <div>
-      {state === 'subject' && (
-        <>
-          <span>Find the simple subject of the sentence: {text} </span>
-          {text && (
-            <span>
-              <button
-                onClick={() => {
-                  setSimpleSubject(text)
-                  reset()
-                  setState('predicate')
-                }}
-              >
-                Set
-              </button>
-            </span>
-          )}
-          <div>(Double click the word to highlight)</div>
-          <div></div>
-        </>
-      )}
-      {state === 'predicate' && (
-        <>
-          <span>Find the simple predicate of the sentence: {text} </span>
-
-          <button
-            onClick={() => {
-              setSimplePredicate(text)
-              reset()
-
-              // else {
-              //   setSimplePredicate('')
-              //   setSimpleSubject('')
-              //   setState('subject')
-              // }
-            }}
-          >
-            Set
-          </button>
-
-          <div>(Double click the word to highlight)</div>
-          <div></div>
-        </>
-      )}
-      <br />
-      <div onMouseUp={select}>
-        {newSentence.map((word, i: number) => (
-          <span
-            key={i}
-            style={
-              word === simpleSubject
-                ? { textDecoration: 'underline' }
-                : word === simplePredicate
-                ? {
-                    textDecoration: 'underline',
-                    textDecorationStyle: 'double',
-                  }
-                : {}
-            }
-          >
-            {word}{' '}
-          </span>
-        ))}
-      </div>
-      {state === 'final' && <div>Correct</div>}
-    </div>
-  )
+	return (
+		<div>
+			{state === 'subject' && (
+				<div>Find the simple subject of the sentence. Double Click to select the word.</div>
+			)}
+			{state === 'predicate' && (
+				<div>Find the simple predicate of the sentence. Double Click to select the word.</div>
+			)}
+			<br />
+			<div onMouseUp={select}>
+				{newSentence.map((word, i: number) => (
+					<span key={i}>
+						<span
+							onDoubleClick={
+								state === 'subject'
+									? () => {
+											setSimpleSubject(text)
+											reset()
+											setState('predicate')
+									  }
+									: () => {
+											setSimplePredicate(text)
+											reset()
+									  }
+							}
+							style={
+								word === simpleSubject
+									? { textDecoration: 'underline' }
+									: word === simplePredicate
+									? {
+											textDecoration: 'underline',
+											textDecorationStyle: 'double',
+									  }
+									: {}
+							}>
+							{word}
+						</span>
+						<span> </span>
+					</span>
+				))}
+				{/* <div> */}
+				{/* <div>Incorrect</div> */}
+				{/* <div>What went wrong? {whatWentWrong}</div> */}
+				{/* </div> */}
+			</div>
+		</div>
+	)
 }
