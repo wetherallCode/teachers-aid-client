@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useSelectedText } from '../../../../../hooks/useSelectedText'
+import { simplePredicateGrader } from './simplePredicateGrader'
 import { simpleSubjectGrader } from './simpleSubGrader'
 
 export type SimpleSubjectPredicateProps = {
@@ -17,14 +18,21 @@ export const SimpleSubjectPredicate = ({ sentence, setSentence }: SimpleSubjectP
 	const newSentence = testSentence.split(' ')
 	const dividedSentence = testSentence.split('|')
 
-	const { whatWentWrong, howToFix, correctSimpleSubject } = simpleSubjectGrader({
+	const subjectGrader = simpleSubjectGrader({
 		correctSimpleSubject: 'player',
 		givenSimpleSubject: simpleSubject,
 		completeSubject: dividedSentence[0],
 	})
-	// correctSimplePredicate: 'respects',
-	// givenPredicate: simplePredicate,
-	// completePredicate: dividedSentence[1],
+
+	const predicateGrader = simplePredicateGrader({
+		correctSimplePredicate: 'respects',
+		givenSimplePredicate: simplePredicate,
+		completePredicate: dividedSentence[1],
+	})
+
+	// useEffect(() => {
+	// 	subjectGrader.correctSimpleSubject && setState('predicate')
+	// }, [subjectGrader])
 
 	return (
 		<div>
@@ -40,11 +48,15 @@ export const SimpleSubjectPredicate = ({ sentence, setSentence }: SimpleSubjectP
 					<span key={i}>
 						<span
 							onDoubleClick={
-								state === 'subject'
+								state === 'subject' && !simpleSubject
 									? () => {
 											setSimpleSubject(text)
 											reset()
-											setState('predicate')
+									  }
+									: state === 'subject' && simpleSubject
+									? () => {
+											setSimpleSubject('')
+											reset()
 									  }
 									: () => {
 											setSimplePredicate(text)
@@ -66,10 +78,23 @@ export const SimpleSubjectPredicate = ({ sentence, setSentence }: SimpleSubjectP
 						<span> </span>
 					</span>
 				))}
-				{/* <div> */}
-				{/* <div>Incorrect</div> */}
-				{/* <div>What went wrong? {whatWentWrong}</div> */}
-				{/* </div> */}
+				{state === 'subject' && simpleSubject && (
+					<>
+						{!subjectGrader.correctSimpleSubject ? (
+							<div>
+								<div>Incorrect</div>
+								<div>What went wrong? {subjectGrader.whatWentWrong}</div>
+								<div>How to fix? {subjectGrader.howToFix}</div>
+							</div>
+						) : (
+							<div>
+								<div>Correct</div>
+								<div>{subjectGrader.message}</div>
+								<button onClick={() => setState('predicate')}>Next</button>
+							</div>
+						)}
+					</>
+				)}
 			</div>
 		</div>
 	)

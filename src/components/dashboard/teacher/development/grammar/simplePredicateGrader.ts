@@ -26,12 +26,12 @@ export const simplePredicateGrader = ({
 			correctSimplePredicate: false,
 		}
 	}
-	if (givenSimplePredicate === correctSimplePredicate) {
-		return {
-			correctSimplePredicate: true,
-			message: "That's right - Great job!",
-		}
+	// if (givenSimplePredicate === correctSimplePredicate) {
+	return {
+		correctSimplePredicate: true,
+		message: 'Right again!',
 	}
+	// }
 
-	return { message: `Everything is good` }
+	// return { message: `Everything is good` }
 }

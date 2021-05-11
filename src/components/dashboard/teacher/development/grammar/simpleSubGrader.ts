@@ -25,12 +25,12 @@ export const simpleSubjectGrader = ({
 			correctSimpleSubject: false,
 		}
 	}
-	if (givenSimpleSubject === correctSimpleSubject) {
-		return {
-			correctSimpleSubject: true,
-			message: "That's right - Great job!",
-		}
+	// if (givenSimpleSubject === correctSimpleSubject) {
+	return {
+		correctSimpleSubject: true,
+		message: "That's right - Great job!",
 	}
+	// }
 
-	return { message: `Everything is good` }
+	// return { message: `Everything is good` }
 }
