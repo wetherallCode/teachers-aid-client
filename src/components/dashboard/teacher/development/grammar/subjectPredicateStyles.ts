@@ -4,9 +4,12 @@ export const SubjectPredicateContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 2fr 3fr;
   justify-items: center;
+  align-items: center;
 `
 export const DirectionsContainer = styled.div`
-  align-self: center;
+  display: grid;
+  justify-items: center;
+
   font-size: 3.2vh;
 `
 
