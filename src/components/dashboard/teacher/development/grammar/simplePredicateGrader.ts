@@ -2,12 +2,14 @@ export type SimplePredicateGraderProps = {
   correctSimplePredicate: string
   givenSimplePredicate: string
   completePredicate: string
+  verbType: string
 }
 
 export const simplePredicateGrader = ({
   correctSimplePredicate,
   givenSimplePredicate,
   completePredicate,
+  verbType,
 }: SimplePredicateGraderProps) => {
   if (!completePredicate.includes(givenSimplePredicate)) {
     return {

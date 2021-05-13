@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useSelectedText } from '../../../../../hooks/useSelectedText'
 import { simplePredicateGrader } from './simplePredicateGrader'
-import { simpleSubjectGrader } from './simpleSubGrader'
+import { simpleSubjectGrader } from './simpleSubjectGrader'
 
 export type SimpleSubjectPredicateProps = {
   sentence: string
@@ -19,7 +19,8 @@ export const SimpleSubjectPredicate = ({
 
   const [simpleSubject, setSimpleSubject] = useState('')
   const [simplePredicate, setSimplePredicate] = useState('')
-  const testSentence = 'A good player | respects their team.'
+  const testSentence =
+    'A good player with high reputation | respects their team.'
   const newSentence = testSentence
     .split(' ')
     .slice(0, testSentence.split(' ').length)
@@ -50,6 +51,7 @@ export const SimpleSubjectPredicate = ({
     correctSimplePredicate: 'respects',
     givenSimplePredicate: simplePredicate,
     completePredicate: dividedSentence[1],
+    verbType: 'action',
   })
 
   // useEffect(() => {
@@ -71,6 +73,7 @@ export const SimpleSubjectPredicate = ({
           setSimplePredicate(text)
           reset()
         }
+
   return (
     <div>
       {state === 'subject' && (
