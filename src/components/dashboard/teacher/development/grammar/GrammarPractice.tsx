@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { SimpleSubjectPredicate } from './SimpleSubjectPredicate'
+import { AdjectivesAndPrepositonalPhrases } from './adjectives-prepositions/AdjectivesAndPrepositonalPhrases'
+import { SimpleSubjectPredicate } from './simple-subject-predicate/SimpleSubjectPredicate'
 
-import { SubjectPredicate } from './SubjectPredicate'
-import { SubjectPredicate2 } from './SubjectPredicate2'
+import { SubjectPredicate } from './complete-subject-predicate/SubjectPredicate'
+import { SubjectPredicate2 } from './complete-subject-predicate/SubjectPredicate2'
 
 export type GrammarPracticeProps = {}
 
@@ -10,9 +11,13 @@ export const GrammarPractice = ({}: GrammarPracticeProps) => {
   const [sentence, setSentence] = useState(
     'A good player with high reputation respects their team.'
   )
-  const [state, setState] = useState<
-    'idle' | 'subjectPredicate' | 'simpleSubjectPredicate'
-  >('idle')
+  const [state, setState] =
+    useState<
+      | 'idle'
+      | 'subjectPredicate'
+      | 'simpleSubjectPredicate'
+      | 'adjectivesAndPrepositions'
+    >('idle')
 
   return (
     <div
@@ -35,6 +40,9 @@ export const GrammarPractice = ({}: GrammarPracticeProps) => {
         </div>
         <div onClick={() => setState('simpleSubjectPredicate')}>
           Simple Subject and Predicate
+        </div>
+        <div onClick={() => setState('adjectivesAndPrepositions')}>
+          Adjectives and Prepositions
         </div>
       </nav>
       <>
@@ -60,7 +68,9 @@ export const GrammarPractice = ({}: GrammarPracticeProps) => {
             setSentence={setSentence}
           />
         )}
-        {<div></div>}
+        {state === 'adjectivesAndPrepositions' && (
+          <AdjectivesAndPrepositonalPhrases />
+        )}
       </>
     </div>
   )
