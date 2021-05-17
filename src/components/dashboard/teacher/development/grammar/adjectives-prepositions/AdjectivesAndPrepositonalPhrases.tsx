@@ -17,8 +17,10 @@ export const AdjectivesAndPrepositonalPhrases =
       'A good player with high reputation | respects their team.'
     const testCompleteSubject = testSentence.split('|')[0]
     const testCompletePredicate = testSentence.split('|')[1]
+
     const adjectiveList: string[] = ['good']
     const prepostionalPhrasesList: string[] = ['with high reputation']
+
     return (
       <div>
         <div>
