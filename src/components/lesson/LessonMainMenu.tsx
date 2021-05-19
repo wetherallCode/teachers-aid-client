@@ -117,9 +117,9 @@ export const STUDENT_SIGN_IN_MUTATION = gql`
 export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
 	const me: me_me = useUserContextProvider()
 	const [state, event] = useDailyAgendaContextProvider()
-	const [time] = useTime()
+	const { dateTime } = useTime()
 	const navigate = useNavigate()
-	// console.log(time)
+
 	const { data: schoolDayData } = useQuery<findCurrentSchoolDay, findCurrentSchoolDayVariables>(
 		FIND_CURRENT_SCHOOL_DAY_QUERY,
 		{
@@ -137,16 +137,16 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
 		me.__typename === 'Teacher'
 			? me.teachesCourses.filter(
 					(course) =>
-						Date.parse(time) > Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
-						Date.parse(time) < Date.parse(timeFinder(course.hasCourseInfo?.endsAt!)) &&
+						Date.parse(dateTime) > Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
+						Date.parse(dateTime) < Date.parse(timeFinder(course.hasCourseInfo?.endsAt!)) &&
 						course.hasCourseInfo?.schoolDayType === schoolDayType
 			  )
 			: me.inCourses.filter(
 					(course) =>
-						Date.parse(time) > Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
-						Date.parse(time) < Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
+						Date.parse(dateTime) > Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
+						Date.parse(dateTime) < Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
 			  )
-
+	console.dir(courseToLoad)
 	// const [fakeCourse] =
 	//   me.__typename === 'Teacher'
 	//     ? me.teachesCourses.filter((course) => course.name === 'Cohort Class')
@@ -212,7 +212,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
 				variables: { input: { courseId: courseToLoad._id!, lessonDate: date } },
 			})
 		}
-	}, [courseToLoad, loadLesson, useFake, time])
+	}, [courseToLoad, loadLesson, useFake, dateTime])
 
 	if (loading) return <div>Loading </div>
 	if (!me) return <Navigate to='/' />
@@ -232,7 +232,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
 					<LessonSelectorContainer>
 						<CurrentLessonContainer>
 							<>
-								{data?.findLessonByCourseAndDate.lesson ? (
+								{data?.findLessonByCourseAndDate.lesson && courseToLoad ? (
 									<>
 										<CurrentLesson>{useFake ? 'Fake Lesson' : 'Current Lesson'}</CurrentLesson>
 
