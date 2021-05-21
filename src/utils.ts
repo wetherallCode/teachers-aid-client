@@ -122,6 +122,26 @@ export const informationStructure = (item: InformationStructureEnum) => {
 		: 'Compare and Contrast'
 }
 
+export const splitSentenceByWord = (originalSentence: string) => {
+	const splitOriginalSentence = originalSentence.split(' ')
+
+	const endingPunctuation =
+		originalSentence[originalSentence.length - 1].split('')[
+			originalSentence[originalSentence.length - 1].split('').length - 1
+		]
+
+	const lastWord = splitOriginalSentence[splitOriginalSentence.length - 1]
+		.split('')
+		.slice(0, splitOriginalSentence[splitOriginalSentence.length - 1].split('').length - 1)
+		.join('')
+
+	return [
+		...splitOriginalSentence.slice(0, splitOriginalSentence.length - 1),
+		lastWord,
+		endingPunctuation,
+	]
+}
+
 export const macBookPro = window.screen.width === 1792
 export const macBook = window.screen.width === 1280
 export const ipad = window.screen.width === 1024
@@ -175,30 +195,7 @@ export const irregularPastTenseVerbList = (verb: string) => {
 }
 
 export const twentyFourStudentClassSize = [
-	1,
-	2,
-	3,
-	4,
-	5,
-	6,
-	7,
-	8,
-	9,
-	10,
-	11,
-	12,
-	13,
-	14,
-	15,
-	16,
-	17,
-	18,
-	19,
-	20,
-	21,
-	22,
-	23,
-	24,
+	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
 ]
 
 export const twelveStudentClassSize = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
