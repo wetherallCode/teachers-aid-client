@@ -20,7 +20,7 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 		>('question-word-removal')
 
 	const question: QuestionProps = {
-		original: `Why did John Brown's raid divide the Nation?`,
+		original: `Why did John Brown's raid divide the nation?`,
 		questionWords: ['why', 'did'],
 	}
 
