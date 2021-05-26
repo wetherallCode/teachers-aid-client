@@ -53,7 +53,7 @@ export const letterGrade = (percentageGrade: number) => {
 	} else return 'F'
 }
 export const capitalizer = (word: string) => {
-	return word.substring(0, 1) + word.substring(1).toLowerCase()
+	return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase()
 }
 
 export const sortByRubricEntryScore = (a: RubricEntryInput, b: RubricEntryInput) => {
