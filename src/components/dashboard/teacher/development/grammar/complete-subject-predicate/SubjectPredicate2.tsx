@@ -34,8 +34,9 @@ export const SubjectPredicate2 = ({
     givenSubject: newSentence[0],
     givenPredicate: newSentence[2],
     sentence,
-    noun: 'player',
+    noun: ['player'],
     nounType,
+    compoundNoun: false,
     verb: 'respects',
     verbType: 'action',
   })

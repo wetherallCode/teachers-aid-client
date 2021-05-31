@@ -2,8 +2,9 @@ export type SubjectPredicateGraderProps = {
   givenSubject: string
   correctSubject: string
   sentence: string
-  noun: string
+  noun: string[]
   nounType: string
+  compoundNoun: boolean
   verb: string
   verbType: string
   givenPredicate: string
@@ -30,7 +31,9 @@ export const subjectPredicateGrader = ({
   correctSubject,
   givenPredicate,
   sentence,
+
   noun,
+  compoundNoun,
   nounType,
   verb,
   verbType,
@@ -41,7 +44,7 @@ SubjectPredicateGraderProps) => {
   const subjectCheck = givenSubject.split(' ')
   const predicateCheck = givenPredicate.split(' ')
 
-  if (givenPredicate === '.') {
+  if (givenPredicate === '.' || givenPredicate === '?') {
     return {
       whatWentWrong: `Your subject can't be the whole sentence.`,
       howToFix: `Your subject needs to include the person, place, thing, or idea that the sentence is about, but not include an action, being, or feeling word.`,
@@ -59,9 +62,10 @@ SubjectPredicateGraderProps) => {
     }
   }
 
-  if (!subjectCheck.includes(noun)) {
+  if (!subjectCheck.includes(noun[noun.length - 1])) {
     return {
-      whatWentWrong: `"` + givenSubject + `" doesn't contain a noun. `,
+      whatWentWrong:
+        `"` + givenSubject + `" doesn't contain a noun or the complete noun.`,
       howToFix:
         'Your subject needs to include the person, place, thing, or idea that the sentence is about.',
       correct: false,
@@ -87,8 +91,8 @@ SubjectPredicateGraderProps) => {
       correct: false,
     }
   }
-  if (givenSubject !== correctSubject) {
-    return { whatWentWrong: `Your subject isn't correct`, correct: false }
-  }
+  // if (givenSubject !== correctSubject) {
+  //   return { whatWentWrong: `Your subject isn't correct`, correct: false }
+  // }
   return { message: 'Correct - Good job!', correct: true }
 }

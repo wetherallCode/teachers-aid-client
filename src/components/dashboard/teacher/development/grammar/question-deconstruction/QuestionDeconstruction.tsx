@@ -1,48 +1,95 @@
 import React, { useState } from 'react'
 import { splitSentenceByWord } from '../../../../../../utils'
+import { HelpingVerbIdentification } from './HelpingVerbIdentification'
 import { QuestionWordRemoval } from './QuestionWordRemoval'
+import { SubjectPredicateSplit } from './SubjectPredicateSplit'
 
 export type QuestionDeconstructionProps = {}
 
 export type QuestionProps = {
-	original: string
-	modifiedQuestion: string
-	questionWord: string
+  original: string
+  modifiedQuestion: string
+  questionWord: string
+  helpingVerb: string
+  completeSubject: string
+  simpleSubject: string
+  nounType: 'PERSON' | 'PLACE' | 'THING' | 'IDEA'
+  compoundNoun: boolean
+  completePredicate: string
+  simplePredicate: string
 }
 
 export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
-	const question: QuestionProps = {
-		original: `Why did John Brown's raid divide the nation?`,
-		modifiedQuestion: `Why did John Brown's raid divide the nation?`,
-		questionWord: 'why',
-	}
+  const whyWasQuestion: QuestionProps = {
+    original: `Why was John Brown executed for treason?`,
+    modifiedQuestion: `Why was John Brown executed for treason?`,
+    questionWord: 'why',
+    helpingVerb: 'was',
+    completeSubject: 'John Brown',
+    simpleSubject: 'John Brown',
+    nounType: 'PERSON',
+    compoundNoun: true,
+    completePredicate: 'executed for treason?',
+    simplePredicate: 'executed',
+  }
 
-	const [questionToModify, setQuestionToModify] = useState(splitSentenceByWord(question.original))
+  const howDidQuestion: QuestionProps = {
+    original: `How did John Brown affect the nation?`,
+    modifiedQuestion: `How did John Brown affect the nation?`,
+    questionWord: 'how',
+    helpingVerb: 'did',
+    completeSubject: 'John Brown',
+    simpleSubject: 'John Brown',
+    nounType: 'PERSON',
+    compoundNoun: true,
+    completePredicate: 'affect the nation',
+    simplePredicate: 'affect',
+  }
 
-	const [state, setState] =
-		useState<
-			// | 'init'
-			| 'question-word-removal'
-			| 'helping-verb-id'
-			| 'subject-predicate-split'
-			| 'subject-identification'
-			| 'verb-identification'
-			| 'object-identification'
-		>('question-word-removal')
+  // const question = howDidQuestion
+  const question = whyWasQuestion
+  const [questionToModify, setQuestionToModify] = useState(
+    splitSentenceByWord(question.original)
+  )
 
-	return (
-		<div>
-			<div>Deconstruct the Question</div>
+  const [state, setState] = useState<
+    // | 'init'
+    | 'question-word-removal'
+    | 'subject-predicate-split'
+    | 'subject-identification'
+    | 'helping-verb-id'
+    | 'verb-identification'
+    | 'object-identification'
+  >('question-word-removal')
 
-			{state === 'question-word-removal' && (
-				<QuestionWordRemoval
-					question={question}
-					questionToModify={questionToModify}
-					setQuestionToModify={setQuestionToModify}
-					setState={setState}
-				/>
-			)}
-			{state === 'helping-verb-id' && <div>Helping Verb Idendification</div>}
-		</div>
-	)
+  return (
+    <div>
+      <div>Deconstruct the Question</div>
+
+      {state === 'question-word-removal' && (
+        <QuestionWordRemoval
+          question={question}
+          questionToModify={questionToModify}
+          setQuestionToModify={setQuestionToModify}
+          setState={setState}
+        />
+      )}
+      {state === 'subject-predicate-split' && (
+        <SubjectPredicateSplit
+          questionToModify={questionToModify}
+          setQuestionToModify={setQuestionToModify}
+          setState={setState}
+          question={question}
+        />
+      )}
+      {state === 'helping-verb-id' && (
+        <HelpingVerbIdentification
+          questionToModify={questionToModify}
+          setQuestionToModify={setQuestionToModify}
+          setState={setState}
+          question={question}
+        />
+      )}
+    </div>
+  )
 }
