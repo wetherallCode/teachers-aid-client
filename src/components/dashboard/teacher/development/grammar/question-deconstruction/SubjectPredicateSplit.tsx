@@ -57,7 +57,7 @@ export const SubjectPredicateSplit = ({
     verb: question.simplePredicate,
     verbType: 'action',
   })
-  // console.log(newSentence.join(' ').split(' '))
+
   useEffect(() => {
     if (point && correct) {
       setTimeout(() => {
