@@ -27,7 +27,12 @@ export const SubjectIdentification = ({
 }: SubjectIdentificationProps) => {
 	return (
 		<>
-			Select the Complete Subject of the question
+			<div>Select the Simple Subject of the question</div>
+			<div>
+				Simple subjects are the noun in the complete subect. There may be adjectives that modify the
+				noun or prepositional phrases that add specificity to the noun.
+			</div>
+
 			<div>{questionToModify.join(' ')}</div>
 		</>
 	)
