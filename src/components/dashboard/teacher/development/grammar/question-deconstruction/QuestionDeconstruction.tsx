@@ -63,7 +63,7 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 			| 'verb-identification'
 			| 'object-identification'
 		>('question-word-removal')
-	// console.log(state)
+	console.log(state)
 	return (
 		<div>
 			<div>Deconstruct the Question</div>
