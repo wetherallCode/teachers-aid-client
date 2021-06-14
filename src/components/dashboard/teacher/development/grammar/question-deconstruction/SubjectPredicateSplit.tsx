@@ -7,22 +7,16 @@ import {
   SentenceContainer,
   MessageContainer,
 } from '../complete-subject-predicate/subjectPredicateStyles'
-import { QuestionProps } from './QuestionDeconstruction'
+import {
+  QuestionProps,
+  QuestionDeconstructProps,
+} from './QuestionDeconstruction'
 
 export type SubjectPredicateSplitProps = {
   questionToModify: string[]
   question: QuestionProps
   setQuestionToModify: Dispatch<SetStateAction<string[]>>
-  setState: React.Dispatch<
-    React.SetStateAction<
-      | 'question-word-removal'
-      | 'helping-verb-id'
-      | 'subject-predicate-split'
-      | 'subject-identification'
-      | 'verb-identification'
-      | 'object-identification'
-    >
-  >
+  setState: Dispatch<SetStateAction<QuestionDeconstructProps>>
 }
 
 export const SubjectPredicateSplit = ({

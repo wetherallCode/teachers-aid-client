@@ -1,22 +1,17 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useSelectedText } from '../../../../../../hooks/useSelectedText'
 import { capitalizer, splitSentenceByWord } from '../../../../../../utils'
-import { QuestionProps } from './QuestionDeconstruction'
+import {
+  QuestionProps,
+  QuestionDeconstructProps,
+} from './QuestionDeconstruction'
+import { LineToManipulate } from './VerbIdentification'
 
 export type QuestionWordRemovalProps = {
   question: QuestionProps
   questionToModify: string[]
   setQuestionToModify: Dispatch<SetStateAction<string[]>>
-  setState: React.Dispatch<
-    React.SetStateAction<
-      | 'question-word-removal'
-      | 'helping-verb-id'
-      | 'subject-predicate-split'
-      | 'subject-identification'
-      | 'verb-identification'
-      | 'object-identification'
-    >
-  >
+  setState: Dispatch<SetStateAction<QuestionDeconstructProps>>
 }
 
 export const QuestionWordRemoval = ({
@@ -50,7 +45,7 @@ export const QuestionWordRemoval = ({
 
   return (
     <div>
-      <div onMouseUp={select}>
+      <LineToManipulate onMouseUp={select}>
         {questionToModify.map((word, i: number) => (
           <span key={i}>
             <span
@@ -74,7 +69,7 @@ export const QuestionWordRemoval = ({
             )}
           </span>
         ))}
-      </div>
+      </LineToManipulate>
 
       <br />
       {questionWordCheck && (

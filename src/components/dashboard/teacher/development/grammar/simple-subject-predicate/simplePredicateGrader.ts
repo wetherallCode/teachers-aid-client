@@ -1,6 +1,6 @@
 export type SimplePredicateGraderProps = {
   correctSimplePredicate: string
-  givenSimplePredicate: string
+  givenSimplePredicate: string | null
   completePredicate: string
   verbType: string
 }
@@ -11,7 +11,9 @@ export const simplePredicateGrader = ({
   completePredicate,
   verbType,
 }: SimplePredicateGraderProps) => {
-  if (!completePredicate.includes(givenSimplePredicate)) {
+  console.log(givenSimplePredicate)
+  // console.log(correctSimplePredicate)
+  if (!completePredicate.includes(givenSimplePredicate!)) {
     return {
       whatWentWrong: 'Your simple predicate is in the subject.',
       howToFix:
