@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { useSelectedText } from '../../../../../../hooks/useSelectedText'
+import { objectGrader } from '../objects/ObjectGrader'
 import { QuestionDeconstructProps, QuestionProps } from './QuestionDeconstruction'
 import { LineToManipulate } from './VerbIdentification'
 
@@ -19,6 +20,13 @@ export const ObjectIdentification = ({
 	setObject,
 }: ObjectIdentificationProps) => {
 	const [select, text, reset] = useSelectedText()
+	const { correctObject } = objectGrader({
+		completePredicate: question.completePredicate,
+		completeSubject: question.completeSubject,
+		correctObject: question.object!,
+		givenObject: text,
+		simplePredicate: question.simplePredicate,
+	})
 	return (
 		<div>
 			<div>
