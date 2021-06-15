@@ -1,12 +1,14 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelectedText } from '../../../../../../hooks/useSelectedText'
+import { irregularPastTenseVerbList } from '../../../../../../utils'
 import { simplePredicateGrader } from '../simple-subject-predicate/simplePredicateGrader'
 import { QuestionProps, QuestionDeconstructProps } from './QuestionDeconstruction'
 
 export type VerbIdentificationProps = {
 	setState: Dispatch<SetStateAction<QuestionDeconstructProps>>
 	questionToModify: string[]
+	setQuestionToModify: Dispatch<SetStateAction<string[]>>
 	question: QuestionProps
 	verb: string | null
 	setVerb: Dispatch<SetStateAction<string | null>>
@@ -14,6 +16,7 @@ export type VerbIdentificationProps = {
 
 export const VerbIdentification = ({
 	questionToModify,
+	setQuestionToModify,
 	setState,
 	question,
 	verb,
@@ -38,7 +41,20 @@ export const VerbIdentification = ({
 		if (correctSimplePredicate) {
 			setVerb(text)
 			setTimeout(() => {
-				setState('object-identification')
+				if (question.helpingVerb === 'did') {
+					setQuestionToModify(
+						questionToModify
+							.join(' ')
+							.replace(
+								question.simplePredicate,
+								irregularPastTenseVerbList(question.simplePredicate) === question.simplePredicate
+									? question.simplePredicate + 'ed'
+									: irregularPastTenseVerbList(question.simplePredicate)
+							)
+							.split(' ')
+					)
+					setState('object-identification')
+				} else setState('ending-phrase')
 			}, 3000)
 		}
 	}, [correctSimplePredicate])

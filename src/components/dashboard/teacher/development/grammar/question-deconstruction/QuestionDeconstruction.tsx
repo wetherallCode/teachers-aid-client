@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { splitSentenceByWord } from '../../../../../../utils'
+import { EndingPhrase } from './EndingPhrase'
 import { HelpingVerbIdentification } from './HelpingVerbIdentification'
 import { ObjectIdentification } from './ObjectIdentification'
 import { QuestionWordRemoval } from './QuestionWordRemoval'
@@ -31,6 +32,7 @@ export type QuestionDeconstructProps =
 	| 'subject-identification'
 	| 'verb-identification'
 	| 'object-identification'
+	| 'ending-phrase'
 
 export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 	const whyWasQuestion: QuestionProps = {
@@ -63,8 +65,8 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 		object: 'the nation',
 	}
 
-	// const question = howDidQuestion
-	const question = whyWasQuestion
+	const question = howDidQuestion
+	// const question = whyWasQuestion
 	const [questionToModify, setQuestionToModify] = useState(splitSentenceByWord(question.original))
 	const [subject, setSubject] = useState<string | null>(null)
 	const [verb, setVerb] = useState<string | null>(null)
@@ -113,6 +115,7 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 				<VerbIdentification
 					setState={setState}
 					questionToModify={questionToModify}
+					setQuestionToModify={setQuestionToModify}
 					question={question}
 					verb={verb}
 					setVerb={setVerb}
@@ -126,6 +129,9 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 					object={object}
 					setObject={setVerb}
 				/>
+			)}
+			{state === 'ending-phrase' && (
+				<EndingPhrase setState={setState} questionToModify={questionToModify} question={question} />
 			)}
 		</div>
 	)
