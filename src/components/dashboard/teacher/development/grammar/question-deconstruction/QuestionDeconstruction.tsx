@@ -65,7 +65,23 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
 		object: 'the nation',
 	}
 
-	const question = howDidQuestion
+	const howDidPrepositionQuestion: QuestionProps = {
+		original: 'How did John Brown kill five men in Kansas?',
+		modifiedQuestion: 'How did John Brown kill five men in Kansas?',
+		questionWord: 'how',
+		helpingVerb: 'did',
+		completeSubject: 'John Brown',
+		simpleSubject: 'John Brown',
+		nounType: 'PERSON',
+		verbType: 'ACTION',
+		compoundNoun: false,
+		completePredicate: 'kill five men in Kansas?',
+		simplePredicate: 'kill',
+		object: 'five men',
+	}
+
+	// const question = howDidQuestion
+	const question = howDidPrepositionQuestion
 	// const question = whyWasQuestion
 	const [questionToModify, setQuestionToModify] = useState(splitSentenceByWord(question.original))
 	const [subject, setSubject] = useState<string | null>(null)

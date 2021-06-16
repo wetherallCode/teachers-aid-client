@@ -1,3 +1,6 @@
+import { irregularPastTenseVerbList } from '../../../../../../utils'
+import { findPreposition } from '../simple-subject-predicate/findPreposition'
+
 type ObjectGraderProps = {
 	givenObject: string
 	correctObject: string
@@ -13,7 +16,13 @@ export function objectGrader({
 	completeSubject,
 	simplePredicate,
 }: ObjectGraderProps) {
-	if (!completePredicate.includes(givenObject)) {
+	const conjugatedVerb =
+		irregularPastTenseVerbList(simplePredicate) === simplePredicate
+			? simplePredicate + 'ed'
+			: irregularPastTenseVerbList(simplePredicate)
+	const nonContextSentence = completeSubject + ' ' + conjugatedVerb + ' ' + correctObject
+
+	if (givenObject !== '' && completeSubject.includes(givenObject)) {
 		return {
 			correctObject: false,
 			message: 'Your object must be in the predicate.',
@@ -21,15 +30,15 @@ export function objectGrader({
       ${simplePredicate} something?`,
 		}
 	}
-	if (givenObject.includes(simplePredicate)) {
+	if (givenObject !== '' && givenObject.includes(simplePredicate)) {
 		return {
 			correctObject: false,
-			message: 'Your object must come after the verb.',
+			message: `Your object must come after the verb: ${simplePredicate}`,
 			howToFix: `Ask yourself: Did ${completeSubject}
       ${simplePredicate} something?`,
 		}
 	}
-	if (givenObject !== correctObject) {
+	if (givenObject !== '' && findPreposition(givenObject)) {
 		return {
 			correctObject: false,
 			message: 'Your object cannot include a preposition.',
@@ -37,5 +46,23 @@ export function objectGrader({
       ${simplePredicate} something?`,
 		}
 	}
-	return { correctObject: true.valueOf, correctMessage: 'Good Job' }
+	if (givenObject !== '' && !nonContextSentence.includes(givenObject)) {
+		return {
+			correctObject: false,
+			message: 'Your selection is not the word that comes right after the verb.',
+			howToFix: `The Object of the verb is going to come directly after the verb.`,
+		}
+	}
+	if (givenObject !== '' && !findPreposition(givenObject) && givenObject !== correctObject) {
+		// if the given is one word but the correct is more than one word
+		// if the given is more than one word, but the correct is one word
+
+		return {
+			correctObject: false,
+			message: 'Your selection is not the object. Please try again.',
+			howToFix: `Ask yourself: Did ${completeSubject}
+      ${simplePredicate} something?`,
+		}
+	}
+	return { correctObject: true, correctMessage: 'Good Job' }
 }
