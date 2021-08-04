@@ -12,8 +12,8 @@ import {
   CompletionMessage,
   AssignmentLink,
   AssignmentLinkLi,
-} from '../assignmentsStyles'
-import { useStudentAssignmentContextProvider } from '../StudentAssignmentContext'
+} from '../state-n-styles/assignmentsStyles'
+import { useStudentAssignmentContextProvider } from '../state-n-styles/StudentAssignmentContext'
 
 export type ArticleReviewSelectProps = {}
 export const ARTICE_REVIEWS_TO_COMPLETE_QUERY = gql`
@@ -49,11 +49,12 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
     onError: (error) => console.error(error),
   })
 
-  const articleReviewsForMarkingPeriod = data?.findArticleReviewsByStudent.articleReviews.filter(
-    (articleReview) =>
-      articleReview.markingPeriod === state.context.selectedMarkingPeriod &&
-      !articleReview.submitted
-  )
+  const articleReviewsForMarkingPeriod =
+    data?.findArticleReviewsByStudent.articleReviews.filter(
+      (articleReview) =>
+        articleReview.markingPeriod === state.context.selectedMarkingPeriod &&
+        !articleReview.submitted
+    )
 
   return (
     <>

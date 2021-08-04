@@ -1,5 +1,5 @@
 import { Machine, assign } from 'xstate'
-import { MarkingPeriodEnum } from '../../../../schemaTypes'
+import { MarkingPeriodEnum } from '../../../../../schemaTypes'
 
 export type studentAssignmentMachineSchema = {
   states: {

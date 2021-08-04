@@ -8,8 +8,8 @@ import {
   AssignmentsTypeStyle,
   AssignmentsTypeSelectorHeader,
   AssignmentTypeContainer,
-} from './assignmentsStyles'
-import { useStudentAssignmentContextProvider } from './StudentAssignmentContext'
+} from './state-n-styles/assignmentsStyles'
+import { useStudentAssignmentContextProvider } from './state-n-styles/StudentAssignmentContext'
 import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
 import { MarkingPeriodSelector } from './MarkingPeriodSelector'
 import { useMarkingPeriodContextProvider } from '../../../../contexts/markingPeriod/MarkingPeriodContext'
@@ -44,11 +44,11 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
         <AssignmentsTypeStyle onClick={() => event({ type: 'READING_GUIDES' })}>
           Reading Guides to Complete
         </AssignmentsTypeStyle>
-        <AssignmentsTypeStyle
+        {/* <AssignmentsTypeStyle
           onClick={() => event({ type: 'ARTICLE_REVIEWS' })}
         >
           Article Reviews to Complete
-        </AssignmentsTypeStyle>
+        </AssignmentsTypeStyle> */}
       </AssignmentsTypeSelectorPanel>
       <AssignmentTypeContainer>
         {state.matches('essaysToComplete') && <AssignedEssaySelect />}

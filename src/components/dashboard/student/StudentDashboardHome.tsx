@@ -9,7 +9,7 @@ import { ReadingGuideToComplete } from './assignments/readingGuides/ReadingGuide
 import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { LessonMainMenu } from '../../lesson/LessonMainMenu'
 import { DailyAgendaContextProvider } from '../../lesson/state/DailyAgendaContext'
-import { StudentAssignmentContextProvider } from './assignments/StudentAssignmentContext'
+import { StudentAssignmentContextProvider } from './assignments/state-n-styles/StudentAssignmentContext'
 import { StudentGrades } from './grades/StudentGrades'
 import { ArticleReviewToComplete } from './assignments/articleReviews/ArticleReviewToComplete'
 import { ArticleReviewToCompleteContextProvider } from './assignments/articleReviews/state-styles/ArticleReviewToCompleteContext'

@@ -12,8 +12,8 @@ import {
   AssignmentLink,
   AssignmentLinkLi,
   CompletionMessage,
-} from '../../assignmentsStyles'
-import { useStudentAssignmentContextProvider } from '../../StudentAssignmentContext'
+} from '../../state-n-styles/assignmentsStyles'
+import { useStudentAssignmentContextProvider } from '../../state-n-styles/StudentAssignmentContext'
 
 export type CompletedEssaySelectProps = {}
 export const FIND_COMPLETED_ESSAYS_QUERY = gql`
@@ -51,9 +51,10 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
     onError: (error) => console.error(error),
   })
 
-  const essaysForMarkingPeriod = data?.findCompletedEssaysByStudentId.essays.filter(
-    (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
-  )
+  const essaysForMarkingPeriod =
+    data?.findCompletedEssaysByStudentId.essays.filter(
+      (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
+    )
 
   if (loading)
     return (

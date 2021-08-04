@@ -7,8 +7,8 @@ import {
   MarkingPeriodSelectorContainer,
   MarkingPeriodSelectorSwitchContainer,
   MarkingPeriodSelectorTitle,
-} from './assignmentsStyles'
-import { useStudentAssignmentContextProvider } from './StudentAssignmentContext'
+} from './state-n-styles/assignmentsStyles'
+import { useStudentAssignmentContextProvider } from './state-n-styles/StudentAssignmentContext'
 
 export type MarkingPeriodSelectorProps = {}
 

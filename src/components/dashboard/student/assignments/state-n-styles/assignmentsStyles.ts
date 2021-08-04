@@ -1,4 +1,4 @@
-import { Standard8x12Container } from '../../../../appStyles'
+import { Standard8x12Container } from '../../../../../appStyles'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
