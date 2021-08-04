@@ -17,7 +17,6 @@ import {
   removeCourseVariables,
 } from '../../../../../schemaTypes'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
-import { TimeSelector } from '../../../../home/TimeSelector'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import { Modal } from '../../../../../animations'
 import { NextStepsModal } from './NextStepsModal'
@@ -55,11 +54,9 @@ export const CreateCourseInfo: FC<CreateCourseInfoProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
   const [isToggled, setIsToggled] = useState(false)
 
-  const {
-    courseMaxSizeEnum,
-    courseTypeEnum,
-    schoolDayType,
-  } = useEnumContextProvider()
+  const { courseMaxSizeEnum, courseTypeEnum, schoolDayType } =
+    useEnumContextProvider()
+
   const [addToTeachersRoster] = useMutation<
     addCourseToTeacher,
     addCourseToTeacherVariables
