@@ -36,9 +36,13 @@ export const AssignedDateCheck = ({
 
         const previousLesson = sortedLessons[lessonIndex - 1]!
 
+        const previousLessonDate = previousLesson
+          ? previousLesson.assignedDate
+          : new Date().toLocaleDateString()
+
         event({
           type: 'SET_READING_GUIDE_ASSIGNED_DATE',
-          payload: previousLesson.assignedDate,
+          payload: previousLessonDate,
         })
       },
       onError: (error) => console.error(error),
