@@ -11,8 +11,8 @@ export type RandomStudentGeneratorProps = {}
 export const RandomStudentGenerator: FC<RandomStudentGeneratorProps> = () => {
   const [state, event] = useTeachersAidContextProvider()
 
-  const eligibleStudentList = state.context.courseInfo.assignedSeats
-    .filter(
+  const eligibleStudentList = state.context
+    .courseInfo!.assignedSeats.filter(
       (seat) =>
         seat.student &&
         !seat.student.hasAbsences

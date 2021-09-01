@@ -18,7 +18,7 @@ import {
   ProtocolResponseArea,
   ProtocolResponseHeader,
   ProtocolResponse,
-} from '../state/lessonStyles'
+} from '../state-n-styles/lessonStyles'
 
 export type StudentProtocolResponseProps = {
   me: me_me
@@ -70,18 +70,17 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
   me,
 }) => {
   const [response, setResponse] = useState('')
-  const [protocol, setProtocol] = useState<
-    findStudentProtocol_findStudentById_student_hasProtocols
-  >({
-    __typename: 'Protocol',
-    _id: '',
-    academicOutcomeType: AcademicOutcomeTypes.LOGIC_BUILDING,
-    assignedDate: '',
-    completed: false,
-    isActive: false,
-    task: '',
-    response: null,
-  })
+  const [protocol, setProtocol] =
+    useState<findStudentProtocol_findStudentById_student_hasProtocols>({
+      __typename: 'Protocol',
+      _id: '',
+      academicOutcomeType: AcademicOutcomeTypes.LOGIC_BUILDING,
+      assignedDate: '',
+      completed: false,
+      isActive: false,
+      task: '',
+      response: null,
+    })
   const { data: activeProtocol } = useQuery<
     findActiveProtocolByStudent,
     findActiveProtocolByStudentVariables

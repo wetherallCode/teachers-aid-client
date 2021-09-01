@@ -27,6 +27,9 @@ export const LessonNav: FC<TeacherNavProps> = ({
           <Link to='dashboard/lessons/section-editor'>Section Editor</Link>
         </motion.li>
         <motion.li variants={liVariants}>
+          <Link to='dashboard/lessons/essay-question'>Essay Questions</Link>
+        </motion.li>
+        <motion.li variants={liVariants}>
           <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />
         </motion.li>
       </motion.ul>

@@ -11,6 +11,10 @@ import { LessonPlannerContextProvider } from './lesson-planner/state-and-styles/
 import { LessonFinder } from './lesson-finder/LessonFinder'
 import { LessonFinderContextProvider } from './lesson-finder/state-n-styles/LessonFinderContext'
 
+import { BuildEssayQuestionContextProvider } from './essay-question/build-essay-questions/state-n-styles/BuildEssayQuestionContext'
+import { EssayQuestionBuilder } from './essay-question/build-essay-questions/EssayQuestionBuilder'
+import { Questions } from './essay-question/Questions'
+
 export const LessonsHome = () => {
   return (
     <Routes>
@@ -44,6 +48,14 @@ export const LessonsHome = () => {
           <SectionEditorContextProvider>
             <SectionEditor />
           </SectionEditorContextProvider>
+        }
+      />
+      <Route
+        path='essay-question'
+        element={
+          <BuildEssayQuestionContextProvider>
+            <Questions />
+          </BuildEssayQuestionContextProvider>
         }
       />
       {/* <Route path='' element={<LessonCalendar />} /> */}

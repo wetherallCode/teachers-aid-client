@@ -1,19 +1,23 @@
 import React, { FC, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../state-and-styles/StudentEssayContext'
 import { DevelopingOrganizer } from './developing/DevelopingOrganizer'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setOrganizer,
   setOrganizerVariables,
   findEssayById_findEssayById_essay_workingDraft_organizer,
+  findEssayQuestionById,
+  findEssayQuestionByIdVariables,
+  findEssayById_findEssayById_essay_topic,
+  WritingLevelEnum,
 } from '../../../../../../../schemaTypes'
 import { AcademicOrganizer } from './academic/AcademicOrganizer'
 import { AdvancedOrganizer } from './advanced/AdvancedOrganizer'
 
 export type OrganizerInfoProps = {
   organizer: findEssayById_findEssayById_essay_workingDraft_organizer
-  question: string
+  topic: findEssayById_findEssayById_essay_topic
 }
 
 export const SET_ORGANIZER_LEVEL_MUTATION = gql`
@@ -26,6 +30,8 @@ export const SET_ORGANIZER_LEVEL_MUTATION = gql`
               developingSentenceStructure {
                 subject
                 verb
+                subjectCompliment
+                object
               }
               restatement
               conclusion
@@ -55,11 +61,45 @@ export const SET_ORGANIZER_LEVEL_MUTATION = gql`
   }
 `
 
-export const OrganizerInfo: FC<OrganizerInfoProps> = ({
-  organizer,
-  question,
-}) => {
+export const FIND_ESSAY_QUESTION_BY_ID_QUERY = gql`
+  query findEssayQuestionById($input: FindEssayQuestionByIdInput!) {
+    findEssayQuestionById(input: $input) {
+      essayQuestion {
+        questionParts {
+          originalQuestion
+          modifiedQuestion
+          questionWord
+          helpingVerb
+          completeSubject
+          completePredicate
+          simpleSubject
+          simplePredicate
+          nounType
+          verbType
+          compoundNoun
+          object
+          subjectCompliment
+          questionType
+        }
+      }
+    }
+  }
+`
+
+export const OrganizerInfo: FC<OrganizerInfoProps> = ({ organizer, topic }) => {
   const [state] = useStudentEssayContextProvider()
+
+  const { loading, data } = useQuery<
+    findEssayQuestionById,
+    findEssayQuestionByIdVariables
+  >(FIND_ESSAY_QUESTION_BY_ID_QUERY, {
+    variables: {
+      input: { essayQuestionId: topic.essayQuestionId },
+    },
+    // onCompleted: (data) =>
+    //   console.log(data.findEssayQuestionById.essayQuestion.questionParts),
+    onError: (error) => console.error(error),
+  })
 
   const [setOrganizer] = useMutation<setOrganizer, setOrganizerVariables>(
     SET_ORGANIZER_LEVEL_MUTATION,
@@ -71,7 +111,7 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
         },
       },
       onCompleted: (data) => {
-        // console.log(data.setOrganizer.essay.workingDraft.organizer)
+        console.log(data.setOrganizer.essay.workingDraft.organizer)
       },
       onError: (error) => console.error(error),
       refetchQueries: ['findEssayById'],
@@ -84,18 +124,31 @@ export const OrganizerInfo: FC<OrganizerInfoProps> = ({
     }
   }, [organizer, setOrganizer])
 
+  if (loading) return <div>Loading </div>
   return (
     <>
       {organizer && (
         <>
           {state.matches('organizers.developingOrganizer') && (
-            <DevelopingOrganizer question={question} />
+            <DevelopingOrganizer
+              topic={topic}
+              organizer={organizer}
+              questionParts={
+                data?.findEssayQuestionById.essayQuestion.questionParts!
+              }
+            />
           )}
           {state.matches('organizers.academicOrganizer') && (
-            <AcademicOrganizer question={question} organizer={organizer} />
+            <AcademicOrganizer
+              topic={topic}
+              organizer={organizer}
+              questionParts={
+                data?.findEssayQuestionById.essayQuestion.questionParts!
+              }
+            />
           )}
           {state.matches('organizers.advancedOrganizer') && (
-            <AdvancedOrganizer question={question} organizer={organizer} />
+            <AdvancedOrganizer topic={topic} organizer={organizer} />
           )}
         </>
       )}

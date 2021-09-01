@@ -10,10 +10,10 @@ export const Attendance: FC<AttendanceProps> = () => {
   const [schoolDayInfo] = useSchoolDayContextProvider()
 
   const course = schoolDayInfo.context.currentSchoolDay.signInSheets?.filter(
-    (signIn) => signIn.course._id === state.context.courseInfo.course._id!
+    (signIn) => signIn.course._id === state.context.courseInfo!.course._id!
   )
 
-  const studentList = state.context.courseInfo.course.hasStudents.map(
+  const studentList = state.context.courseInfo!.course.hasStudents.map(
     (student) => student._id
   )
 

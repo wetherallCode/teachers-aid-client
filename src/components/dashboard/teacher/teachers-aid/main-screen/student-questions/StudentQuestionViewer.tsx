@@ -36,7 +36,7 @@ export const StudentQuestionViewer: FC<StudentQuestionViewerProps> = () => {
     findStudentQuestionsVariables
   >(FIND_STUDENT_QUESTIONS_QUERY, {
     variables: {
-      input: { courseId: state.context.courseInfo.course._id!, date },
+      input: { courseId: state.context.courseInfo!.course._id!, date },
     },
     pollInterval: 1000,
     onCompleted: (data) =>

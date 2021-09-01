@@ -4,6 +4,7 @@ import {
   findActiveProtocolsByCourse,
   findActiveProtocolsByCourseVariables,
 } from '../../../../../../schemaTypes'
+
 import { todaysLocaleDate } from '../../../../../../utils'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import {
@@ -31,30 +32,31 @@ export const FIND_ACTIVE_PROTOCOL_BY_COURSE_QUERY = gql`
   }
 `
 
-export const ProtocolResponseClassList: FC<ProtocolResponseClassListProps> = () => {
-  const [state, event] = useTeachersAidContextProvider()
+export const ProtocolResponseClassList: FC<ProtocolResponseClassListProps> =
+  () => {
+    const [state, event] = useTeachersAidContextProvider()
 
-  const { loading, data } = useQuery<
-    findActiveProtocolsByCourse,
-    findActiveProtocolsByCourseVariables
-  >(FIND_ACTIVE_PROTOCOL_BY_COURSE_QUERY, {
-    variables: {
-      input: { courseId: state.context.courseInfo.course._id! },
-    },
-    onCompleted: (data) => console.log(data),
-    onError: (error) => console.error(error),
-  })
-  if (loading) return <div>Loading </div>
+    const { loading, data } = useQuery<
+      findActiveProtocolsByCourse,
+      findActiveProtocolsByCourseVariables
+    >(FIND_ACTIVE_PROTOCOL_BY_COURSE_QUERY, {
+      variables: {
+        input: { courseId: state.context.courseInfo!.course._id! },
+      },
+      onCompleted: (data) => console.log(data),
+      onError: (error) => console.error(error),
+    })
+    if (loading) return <div>Loading </div>
 
-  return (
-    <>
-      <ResponseTitle>Responses</ResponseTitle>
+    return (
+      <>
+        <ResponseTitle>Responses</ResponseTitle>
 
-      <ResponseContainer>
-        {data?.findActiveProtocolsByCourse.protocols!.map((protocol) => (
-          <ResponseAssessor key={protocol._id} protocol={protocol} />
-        ))}
-      </ResponseContainer>
-    </>
-  )
-}
+        <ResponseContainer>
+          {data?.findActiveProtocolsByCourse.protocols!.map((protocol) => (
+            <ResponseAssessor key={protocol._id} protocol={protocol} />
+          ))}
+        </ResponseContainer>
+      </>
+    )
+  }

@@ -266,3 +266,37 @@ export const CancelQuestion = styled.button`
   border-radius: 5px;
   font-size: 1.3rem;
 `
+export const AssignedSeatsContainer = styled.div`
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  font-size: 2vh;
+`
+
+export const AssignedSeatsTitleContainer = styled.div`
+  justify-self: center;
+  align-self: center;
+  font-size: 5vh;
+  text-decoration: underline;
+`
+export const AssignedSeatsStudentListContainer = styled.div`
+  border-bottom: 1px solid var(--blue);
+`
+
+export type AssignedSeatsStudentListItemProps = {
+  indexNumber: number
+}
+
+export const AssignedSeatsStudentListItemHeaders = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 5fr;
+`
+
+export const AssignedSeatsStudentListItem = styled(
+  AssignedSeatsStudentListItemHeaders
+)<AssignedSeatsStudentListItemProps>`
+  border-top: 1px solid var(--blue);
+  grid-auto-flow: column;
+  background-color: ${({ indexNumber }) =>
+    indexNumber % 2 ? 'var(--white)' : 'var(--grey)'};
+`

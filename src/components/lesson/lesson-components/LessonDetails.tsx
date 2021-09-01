@@ -6,7 +6,8 @@ import {
   LessonDetailsContainer,
   LessonDetailCenter,
   LessonDetailLeft,
-} from '../state/lessonStyles'
+  LessonMainScreen,
+} from '../state-n-styles/lessonStyles'
 
 export type LessonDetailsProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson

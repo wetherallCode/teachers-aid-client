@@ -104,7 +104,7 @@ export const LessonPlannerListSelectorOption = styled.div`
   }
 `
 export const LessonPlannerButtonContainer = styled.div`
-  grid-row: 7/9;
+  grid-row: -2/-1;
   grid-column: 1/-1;
   display: grid;
   justify-items: center;
@@ -113,7 +113,7 @@ export const LessonPlannerButtonContainer = styled.div`
 
 export const LessonPlannerButton = styled.button`
   width: 80%;
-  height: 20%;
+  height: 40%;
   font-size: larger;
   background-color: var(--blue);
   color: var(--white);
@@ -204,6 +204,15 @@ export const LessonPlannerActivityBody = styled(Standard8x12Container)`
   grid-auto-flow: column;
 `
 
+export const LessonBuilderContainer = styled.div`
+  grid-row: 2/-2;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  padding-left: 2%;
+  padding-right: 2%;
+`
+
 export const VocabList = styled.div`
   grid-row: 2/-1;
   grid-column: 1/4;
@@ -247,6 +256,7 @@ export const ActivitySelectorContainer = styled.div`
   justify-items: center;
   align-items: center;
   cursor: default;
+  font-size: 3vh;
 `
 export const ActivityCreatorStyle = styled.div`
   display: grid;
@@ -261,6 +271,10 @@ export const ActivityCategorySelect = styled.select`
   background-color: var(--white);
 `
 
+export const ActivitySelectContainer = styled.div`
+  height: 50%;
+`
+
 export const ActivityCategoryInput = styled.input`
   width: 80%;
   font-size: inherit;
@@ -271,12 +285,71 @@ export const DuringActivityContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 5fr;
 `
+
+export const DuringActivityBuilderContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 5fr 5fr;
+`
+export const DuringActivityTitleContainer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+`
+
 export const DuringActivityTitle = styled.div`
   justify-self: center;
+  align-self: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 `
 export const DuringActivityBody = styled.div`
   overflow: scroll;
 `
+export const DuringActivityConstructorContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 3fr 1fr 1fr;
+`
+export const ProtocolConstructorTitle = styled.div`
+  justify-self: center;
+  align-self: center;
+`
+
+export const ProtocolConstructorInfoContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  align-items: center;
+  justify-items: center;
+`
+
+export const ProtocolActivitySelect = styled.input`
+  /* width: 60%; */
+  font-size: 1.3rem;
+  color: inherit;
+  background-color: var(--white);
+`
+export const SelectedProtocolContainer = styled.div`
+  display: grid;
+  grid-template-rows: 4fr 1fr;
+  overflow: scroll;
+`
+
+export const SelectedProtocolItem = styled.div`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+export const AddProtocolButton = styled.button`
+  height: 4vh;
+  font-size: 3vh;
+  width: 50%;
+  text-align: center;
+  justify-self: center;
+  color: var(--white);
+  background-color: var(--blue);
+`
+
 export type DuringActivitySelectionProps = {
   selected: boolean
 }

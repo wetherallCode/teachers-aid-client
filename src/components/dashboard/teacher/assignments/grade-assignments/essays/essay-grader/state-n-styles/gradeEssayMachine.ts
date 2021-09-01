@@ -6,7 +6,7 @@ import {
   ReturnedRubricEntryInput,
   ReturnGradedEssayInput,
   findEssayToGradeById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries,
-} from '../../../../../../../schemaTypes'
+} from '../../../../../../../../schemaTypes'
 
 export type gradeEssayMachineSchema = {
   states: {

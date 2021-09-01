@@ -4,7 +4,8 @@ import {
   LessonComponentTitleContainer,
   LessonComponentDetailsContainer,
   LessonComponentDetailsStyle,
-} from '../state/lessonStyles'
+  LessonMainScreen,
+} from '../state-n-styles/lessonStyles'
 
 export type ExitActivityProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -12,13 +13,13 @@ export type ExitActivityProps = {
 
 export const ExitActivity: FC<ExitActivityProps> = ({ lesson }) => {
   return (
-    <>
+    <LessonMainScreen>
       <LessonComponentTitleContainer>Cool Down</LessonComponentTitleContainer>
       <LessonComponentDetailsContainer>
         <LessonComponentDetailsStyle>
           {lesson.afterActivity.task}
         </LessonComponentDetailsStyle>
       </LessonComponentDetailsContainer>
-    </>
+    </LessonMainScreen>
   )
 }

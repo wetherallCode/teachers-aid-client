@@ -8,6 +8,7 @@ import {
 } from '../../../../../../schemaTypes'
 import { CreateEssay } from './CreateEssay'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { EssayTopicLoader } from './EssayTopicLoader'
 
 export type EssayLessonInfoProps = {
   me: me_me_Teacher
@@ -33,6 +34,7 @@ export const FIND_LESSON_BY_ID_QUERY = gql`
           startingSection
           endingSection
         }
+        assignedSectionIdList
         assignedCourses {
           hasCourseInfo {
             startsAt
@@ -57,10 +59,11 @@ export const EssayLessonInfo = ({ me, courseId }: EssayLessonInfoProps) => {
         input: { _id: state.context.essay.lesson },
       },
       onCompleted: (data) => {
-        event({
-          type: 'SET_QUESTION_LIST',
-          payload: data?.findLessonById.lesson.questionList,
-        })
+        // event({
+        //   type: 'SET_QUESTION_LIST',
+        //   payload: data?.findLessonById.lesson.questionList,
+        // })
+        console.log(data.findLessonById.lesson.questionList)
         event({
           type: 'SET_READINGS_READING_PAGES',
           payload:
@@ -93,12 +96,17 @@ export const EssayLessonInfo = ({ me, courseId }: EssayLessonInfoProps) => {
   return (
     <>
       {state.matches('essay.essayInfo') && (
-        <CreateEssay
-          me={me}
-          courseIdList={courseIdList}
-          courseId={courseId}
-          lesson={lesson}
-        />
+        <>
+          <EssayTopicLoader
+            ids={data?.findLessonById.lesson.assignedSectionIdList!}
+          />
+          <CreateEssay
+            me={me}
+            courseIdList={courseIdList}
+            courseId={courseId}
+            lesson={lesson}
+          />
+        </>
       )}
     </>
   )

@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
+  findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateHowCauseEffect,
   updateHowCauseEffectVariables,
@@ -13,10 +14,16 @@ import {
   PartInput,
   OrganizerControlButtonContainer,
   OrganizerControlButton,
+  OrganizerTitleStyle,
+  OrganizerTitleContainer,
+  RestatementDirectionsContainer,
 } from '../../state-and-styles/assignedEssayStyles'
 import { irregularPastTenseVerbList } from '../../../../../../../../utils'
+import { UnderlinedText } from '../../../../../../../../appStyles'
 
-export type AcademicHowCauseEffectProps = {}
+export type AcademicHowCauseEffectProps = {
+  questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
+}
 
 export const UPDATE_HOW_CAUSE_EFFECT_MUTATION = gql`
   mutation updateHowCauseEffect($input: UpdateHowCauseEffectInput!) {
@@ -28,7 +35,9 @@ export const UPDATE_HOW_CAUSE_EFFECT_MUTATION = gql`
   }
 `
 
-export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
+export const AcademicHowCauseEffect = ({
+  questionParts,
+}: AcademicHowCauseEffectProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
   const [updateHowCauseEffect] = useMutation<
@@ -46,11 +55,8 @@ export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findEssayById'],
   })
-  const {
-    subject,
-    verb,
-    object,
-  } = state.context.academicOrganizer.academicSentenceStructure
+  const { subject, verb, object } =
+    state.context.academicOrganizer.academicSentenceStructure
   const { howCauseEffect } = state.context.academicOrganizer.answer
 
   useEffect(() => {
@@ -74,13 +80,22 @@ export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
 
   return (
     <>
+      <OrganizerTitleContainer>
+        <OrganizerTitleStyle>Answer the Question</OrganizerTitleStyle>
+      </OrganizerTitleContainer>
+      <RestatementDirectionsContainer>
+        <UnderlinedText>Directions</UnderlinedText>
+        <div>
+          Answer the following questions to help you construct your answer.
+        </div>
+      </RestatementDirectionsContainer>
       <AcademicQuestionAnswerTypeContainer>
         <AcademicRestatementTitle>
           <div>How Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
           <div>
-            What was {object} like before {subject} {congugatedVerb} it?
+            What was {object} like before {subject} {verb} it?
           </div>
           <PartInput
             value={state.context.academicOrganizer.answer.howCauseEffect.before}

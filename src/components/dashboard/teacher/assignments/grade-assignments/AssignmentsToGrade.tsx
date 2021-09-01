@@ -27,7 +27,7 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
         <CourseSelect>
           <div>Select Course</div>
           {teachesCourses
-            .slice(1)
+            .slice(0)
             .sort(sortByLetter)
             .map((course) => (
               <CourseToSelect

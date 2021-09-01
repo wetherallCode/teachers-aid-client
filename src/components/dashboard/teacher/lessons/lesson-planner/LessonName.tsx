@@ -24,15 +24,9 @@ export const LessonName: FC<LessonNameProps> = () => {
   }, [])
 
   return (
-    <LessonNameContainer>
-      <LessonNameTitle>Lesson Name: {state.context.lessonName}</LessonNameTitle>
-      {/* <LessonNameInput
-        type='text'
-        name='lessonName'
-        onChange={(e: any) =>
-          event({ type: 'SET_LESSON_NAME', payload: e.target.value })
-        }
-      /> */}
-    </LessonNameContainer>
+    // <LessonNameContainer>
+    //   <LessonNameTitle>Lesson Name: {state.context.lessonName}</LessonNameTitle>
+    // </LessonNameContainer>
+    null
   )
 }

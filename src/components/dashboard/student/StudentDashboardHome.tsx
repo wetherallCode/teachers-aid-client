@@ -8,7 +8,7 @@ import { CompletedEssayContextProvider } from './assignments/essays/completed-es
 import { ReadingGuideToComplete } from './assignments/readingGuides/ReadingGuideToComplete'
 import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { LessonMainMenu } from '../../lesson/LessonMainMenu'
-import { DailyAgendaContextProvider } from '../../lesson/state/DailyAgendaContext'
+import { DailyAgendaContextProvider } from '../../lesson/state-n-styles/DailyAgendaContext'
 import { StudentAssignmentContextProvider } from './assignments/state-n-styles/StudentAssignmentContext'
 import { StudentGrades } from './grades/StudentGrades'
 import { ArticleReviewToComplete } from './assignments/articleReviews/ArticleReviewToComplete'

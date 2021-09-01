@@ -11,16 +11,15 @@ export type EditProtocolProps = {}
 export const EditProtocol = ({}: EditProtocolProps) => {
   const [state, event] = useSectionEditorContextProvider()
 
-  const {
-    academicOutcomeTypes,
-    protocolActivityTypes,
-  } = useEnumContextProvider()
+  const { academicOutcomeTypes, protocolActivityTypes } =
+    useEnumContextProvider()
 
   const protocolToReplace = [
     ...state.context.hasProtocols.slice(0, state.context.protocolToEditIndex!),
     state.context.protocolToEdit!,
     ...state.context.hasProtocols.slice(state.context.protocolToEditIndex! + 1),
   ]
+
   return (
     <>
       <form>

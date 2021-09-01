@@ -26,6 +26,7 @@ export type studentEssayMachineSchema = {
         academicOrganizer: {
           states: {
             loading: {}
+            identifications: {}
             restatement: {}
             answer: {
               states: {
@@ -64,6 +65,8 @@ export type studentEssayMachineEvent =
   | { type: 'NEXT' }
   | { type: 'PREVIOUS' }
   | { type: 'ORGANIZER' }
+  | { type: 'ANSWER' }
+  | { type: 'RESTATEMENT' }
   | { type: 'SET_ESSAY_ID'; payload: string }
   | { type: 'SET_WRITING_LEVEL'; payload: WritingLevelEnum }
   | { type: 'SET_RESTATEMENT'; payload: string }
@@ -76,6 +79,14 @@ export type studentEssayMachineEvent =
     }
   | { type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT'; payload: string }
   | { type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_VERB'; payload: string }
+  | {
+      type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_OBJECT'
+      payload: string | null | null
+    }
+  | {
+      type: 'SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT_COMPLIMENT'
+      payload: string
+    }
   | { type: 'SET_ANSWER'; payload: string }
   | {
       type: 'SET_ACADEMIC_SENTENCE_STRUCTURE'
@@ -87,10 +98,18 @@ export type studentEssayMachineEvent =
     }
   | { type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT'; payload: string }
   | { type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_VERB'; payload: string }
-  | { type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT'; payload: string }
+  | { type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_OBJECT'; payload: string | null }
+  | {
+      type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_SUBJECT_COMPLIMENT'
+      payload: string | null
+    }
   | { type: 'SET_ADVANCED_SENTENCE_STRUCTURE_SUBJECT'; payload: string }
   | { type: 'SET_ADVANCED_SENTENCE_STRUCTURE_VERB'; payload: string }
-  | { type: 'SET_ADVANCED_SENTENCE_STRUCTURE_OBJECT'; payload: string }
+  | { type: 'SET_ADVANCED_SENTENCE_STRUCTURE_OBJECT'; payload: string | null }
+  | {
+      type: 'SET_ADVANCED_SENTENCE_STRUCTURE_SUBJECT_COMPLIMENT'
+      payload: string | null
+    }
   | {
       type: 'SET_PROBLEM_SOLUTION'
       payload: {
@@ -136,7 +155,12 @@ export type studentEssayMachineContext = {
   writingLevel: WritingLevelEnum
   developingOrganizer: {
     questionType: BasicQuestionEnum
-    developingSentenceStructure: { subject: string; verb: string }
+    developingSentenceStructure: {
+      subject: string
+      verb: string
+      object?: string | null
+      subjectCompliment?: string | null
+    }
     restatement: string
     answer: string
     conclusion: string
@@ -146,7 +170,8 @@ export type studentEssayMachineContext = {
     academicSentenceStructure: {
       subject: string
       verb: string
-      object: string | null
+      object?: string | null
+      subjectCompliment?: string | null
     }
     restatement: string
     answer: {
@@ -174,7 +199,8 @@ export type studentEssayMachineContext = {
     advancedSentenceStructure: {
       subject: string
       verb: string
-      object: string | null
+      object?: string | null
+      subjectCompliment?: string | null
     }
     restatement: string
     answer: {
@@ -219,6 +245,8 @@ export const studentEssayMachine = Machine<
       developingSentenceStructure: {
         subject: '',
         verb: '',
+        object: null,
+        subjectCompliment: null,
       },
       restatement: '',
       answer: '',
@@ -229,7 +257,8 @@ export const studentEssayMachine = Machine<
       academicSentenceStructure: {
         subject: '',
         verb: '',
-        object: '',
+        object: null,
+        subjectCompliment: null,
       },
       restatement: '',
       answer: {
@@ -257,7 +286,8 @@ export const studentEssayMachine = Machine<
       advancedSentenceStructure: {
         subject: '',
         verb: '',
-        object: '',
+        object: null,
+        subjectCompliment: null,
       },
       restatement: '',
       answer: {
@@ -320,22 +350,20 @@ export const studentEssayMachine = Machine<
       initial: 'transition',
       states: {
         transition: {
-          on: {
-            '': [
-              {
-                target: 'developingOrganizer',
-                cond: (ctx) => ctx.writingLevel === 'DEVELOPING',
-              },
-              {
-                target: 'academicOrganizer',
-                cond: (ctx) => ctx.writingLevel === 'ACADEMIC',
-              },
-              {
-                target: 'advancedOrganizer',
-                cond: (ctx) => ctx.writingLevel === 'ADVANCED',
-              },
-            ],
-          },
+          always: [
+            {
+              target: 'developingOrganizer',
+              cond: (ctx) => ctx.writingLevel === 'DEVELOPING',
+            },
+            {
+              target: 'academicOrganizer',
+              cond: (ctx) => ctx.writingLevel === 'ACADEMIC',
+            },
+            {
+              target: 'advancedOrganizer',
+              cond: (ctx) => ctx.writingLevel === 'ADVANCED',
+            },
+          ],
         },
         developingOrganizer: {
           initial: 'loading',
@@ -361,7 +389,7 @@ export const studentEssayMachine = Machine<
                       ...ctx,
                       developingOrganizer: {
                         ...ctx.developingOrganizer,
-                        developingSentenceStructure: evt.payload,
+                        developingSentenceStructure: evt.payload!,
                       },
                     }
                   }),
@@ -421,7 +449,8 @@ export const studentEssayMachine = Machine<
             },
             identifications: {
               on: {
-                NEXT: 'restatement',
+                RESTATEMENT: 'restatement',
+                ANSWER: 'answer',
                 SET_BASIC_QUESTION_TYPE: {
                   actions: assign((ctx, evt) => {
                     return {
@@ -474,6 +503,37 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_DEVELOPING_SENTENCE_STRUCTURE_OBJECT: {
+                  actions: assign((ctx, evt) => {
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        developingSentenceStructure: {
+                          ...ctx.developingOrganizer
+                            .developingSentenceStructure,
+                          object: evt.payload,
+                        },
+                      },
+                    }
+                  }),
+                },
+                SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT_COMPLIMENT: {
+                  actions: assign((ctx, evt) => {
+                    console.log(evt.payload)
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        developingSentenceStructure: {
+                          ...ctx.developingOrganizer
+                            .developingSentenceStructure,
+                          subjectCompliment: evt.payload,
+                        },
+                      },
+                    }
+                  }),
+                },
                 SET_HELP_DISPLAY: {
                   actions: assign((ctx) => {
                     return {
@@ -498,8 +558,81 @@ export const studentEssayMachine = Machine<
               on: {
                 PREVIOUS: 'identifications',
                 NEXT: 'answer',
+                SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT: {
+                  actions: assign((ctx, evt) => {
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        developingSentenceStructure: {
+                          ...ctx.developingOrganizer
+                            .developingSentenceStructure,
+                          subject: evt.payload,
+                        },
+                      },
+                    }
+                  }),
+                },
+                SET_DEVELOPING_SENTENCE_STRUCTURE_VERB: {
+                  actions: assign((ctx, evt) => {
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        developingSentenceStructure: {
+                          ...ctx.developingOrganizer
+                            .developingSentenceStructure,
+                          verb: evt.payload,
+                        },
+                      },
+                    }
+                  }),
+                },
+                SET_DEVELOPING_SENTENCE_STRUCTURE_OBJECT: {
+                  actions: assign((ctx, evt) => {
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        developingSentenceStructure: {
+                          ...ctx.developingOrganizer
+                            .developingSentenceStructure,
+                          object: evt.payload,
+                        },
+                      },
+                    }
+                  }),
+                },
+                SET_DEVELOPING_SENTENCE_STRUCTURE_SUBJECT_COMPLIMENT: {
+                  actions: assign((ctx, evt) => {
+                    console.log(evt.payload)
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        developingSentenceStructure: {
+                          ...ctx.developingOrganizer
+                            .developingSentenceStructure,
+                          subjectCompliment: evt.payload,
+                        },
+                      },
+                    }
+                  }),
+                },
+                SET_BASIC_QUESTION_TYPE: {
+                  actions: assign((ctx, evt) => {
+                    return {
+                      ...ctx,
+                      developingOrganizer: {
+                        ...ctx.developingOrganizer,
+                        questionType: evt.payload,
+                      },
+                    }
+                  }),
+                },
                 SET_RESTATEMENT: {
                   actions: assign((ctx, evt) => {
+                    console.log(evt.payload)
                     return {
                       ...ctx,
                       developingOrganizer: {
@@ -606,7 +739,9 @@ export const studentEssayMachine = Machine<
           states: {
             loading: {
               on: {
-                NEXT: 'restatement',
+                NEXT: 'identifications',
+                // RESTATEMENT: 'restatement',
+                // ANSWER: 'answer',
                 SET_ACADEMIC_SENTENCE_STRUCTURE: {
                   actions: assign((ctx, evt) => {
                     return {
@@ -615,7 +750,6 @@ export const studentEssayMachine = Machine<
                         ...ctx.academicOrganizer,
                         academicSentenceStructure: {
                           ...evt.payload,
-                          object: evt.payload.object!,
                         },
                       },
                     }
@@ -731,6 +865,30 @@ export const studentEssayMachine = Machine<
                 },
               },
             },
+            identifications: {
+              on: {
+                RESTATEMENT: 'restatement',
+                ANSWER: 'answer',
+                SET_HELP_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: true,
+                      vocabDisplay: false,
+                    }
+                  }),
+                },
+                SET_VOCAB_DISPLAY: {
+                  actions: assign((ctx) => {
+                    return {
+                      ...ctx,
+                      helpDisplay: false,
+                      vocabDisplay: true,
+                    }
+                  }),
+                },
+              },
+            },
             restatement: {
               on: {
                 NEXT: 'answer',
@@ -776,6 +934,17 @@ export const studentEssayMachine = Machine<
                     }
                   }),
                 },
+                SET_FULL_QUESTION_TYPE: {
+                  actions: assign((ctx, evt) => {
+                    return {
+                      ...ctx,
+                      academicOrganizer: {
+                        ...ctx.academicOrganizer,
+                        questionType: evt.payload,
+                      },
+                    }
+                  }),
+                },
                 SET_RESTATEMENT: {
                   actions: assign((ctx, evt) => {
                     return {
@@ -808,7 +977,7 @@ export const studentEssayMachine = Machine<
               },
             },
             answer: {
-              initial: 'questionType',
+              initial: 'transition',
               states: {
                 questionType: {
                   on: {
@@ -872,35 +1041,32 @@ export const studentEssayMachine = Machine<
                   },
                 },
                 transition: {
-                  on: {
-                    '': [
-                      {
-                        target: 'problemSolution',
-                        cond: (ctx) =>
-                          ctx.academicOrganizer.questionType ===
-                          'HOW_PROBLEM_SOLUTION',
-                      },
-                      {
-                        target: 'howCauseEffect',
-                        cond: (ctx) =>
-                          ctx.academicOrganizer.questionType ===
-                          'HOW_CAUSE_EFFECT',
-                      },
-                      {
-                        target: 'whyCauseEffect',
-                        cond: (ctx) =>
-                          ctx.academicOrganizer.questionType ===
-                          'WHY_CAUSE_EFFECT',
-                      },
-                    ],
-                  },
+                  always: [
+                    {
+                      target: 'problemSolution',
+                      cond: (ctx) =>
+                        ctx.academicOrganizer.questionType ===
+                        'HOW_PROBLEM_SOLUTION',
+                    },
+                    {
+                      target: 'howCauseEffect',
+                      cond: (ctx) =>
+                        ctx.academicOrganizer.questionType ===
+                        'HOW_CAUSE_EFFECT',
+                    },
+                    {
+                      target: 'whyCauseEffect',
+                      cond: (ctx) =>
+                        ctx.academicOrganizer.questionType ===
+                        'WHY_CAUSE_EFFECT',
+                    },
+                  ],
                 },
                 problemSolution: {
                   on: {
                     PREVIOUS:
                       '#studentEssay.organizers.academicOrganizer.answer.questionType',
-                    NEXT:
-                      '#studentEssay.organizers.academicOrganizer.conclusion',
+                    NEXT: '#studentEssay.organizers.academicOrganizer.conclusion',
                     SET_PROBLEM_SOLUTION: {
                       actions: assign((ctx, evt) => {
                         return {
@@ -939,8 +1105,7 @@ export const studentEssayMachine = Machine<
                   on: {
                     PREVIOUS:
                       '#studentEssay.organizers.academicOrganizer.answer.questionType',
-                    NEXT:
-                      '#studentEssay.organizers.academicOrganizer.conclusion',
+                    NEXT: '#studentEssay.organizers.academicOrganizer.conclusion',
                     SET_WHY_CAUSE_EFFECT: {
                       actions: assign((ctx, evt) => {
                         console.log(ctx.academicOrganizer.answer.whyCauseEffect)
@@ -980,8 +1145,7 @@ export const studentEssayMachine = Machine<
                   on: {
                     PREVIOUS:
                       '#studentEssay.organizers.academicOrganizer.answer.questionType',
-                    NEXT:
-                      '#studentEssay.organizers.academicOrganizer.conclusion',
+                    NEXT: '#studentEssay.organizers.academicOrganizer.conclusion',
                     SET_HOW_CAUSE_EFFECT: {
                       actions: assign((ctx, evt) => {
                         return {
@@ -1338,35 +1502,32 @@ export const studentEssayMachine = Machine<
                   },
                 },
                 transition: {
-                  on: {
-                    '': [
-                      {
-                        target: 'problemSolution',
-                        cond: (ctx) =>
-                          ctx.advancedOrganizer.questionType ===
-                          'HOW_PROBLEM_SOLUTION',
-                      },
-                      {
-                        target: 'howCauseEffect',
-                        cond: (ctx) =>
-                          ctx.advancedOrganizer.questionType ===
-                          'HOW_CAUSE_EFFECT',
-                      },
-                      {
-                        target: 'whyCauseEffect',
-                        cond: (ctx) =>
-                          ctx.advancedOrganizer.questionType ===
-                          'WHY_CAUSE_EFFECT',
-                      },
-                    ],
-                  },
+                  always: [
+                    {
+                      target: 'problemSolution',
+                      cond: (ctx) =>
+                        ctx.advancedOrganizer.questionType ===
+                        'HOW_PROBLEM_SOLUTION',
+                    },
+                    {
+                      target: 'howCauseEffect',
+                      cond: (ctx) =>
+                        ctx.advancedOrganizer.questionType ===
+                        'HOW_CAUSE_EFFECT',
+                    },
+                    {
+                      target: 'whyCauseEffect',
+                      cond: (ctx) =>
+                        ctx.advancedOrganizer.questionType ===
+                        'WHY_CAUSE_EFFECT',
+                    },
+                  ],
                 },
                 problemSolution: {
                   on: {
                     PREVIOUS:
                       '#studentEssay.organizers.advancedOrganizer.answer.questionType',
-                    NEXT:
-                      '#studentEssay.organizers.advancedOrganizer.conclusion',
+                    NEXT: '#studentEssay.organizers.advancedOrganizer.conclusion',
                     SET_PROBLEM_SOLUTION: {
                       actions: assign((ctx, evt) => {
                         return {
@@ -1405,8 +1566,7 @@ export const studentEssayMachine = Machine<
                   on: {
                     PREVIOUS:
                       '#studentEssay.organizers.advancedOrganizer.answer.questionType',
-                    NEXT:
-                      '#studentEssay.organizers.advancedOrganizer.conclusion',
+                    NEXT: '#studentEssay.organizers.advancedOrganizer.conclusion',
                     SET_WHY_CAUSE_EFFECT: {
                       actions: assign((ctx, evt) => {
                         return {
@@ -1445,8 +1605,7 @@ export const studentEssayMachine = Machine<
                   on: {
                     PREVIOUS:
                       '#studentEssay.organizers.advancedOrganizer.answer.questionType',
-                    NEXT:
-                      '#studentEssay.organizers.advancedOrganizer.conclusion',
+                    NEXT: '#studentEssay.organizers.advancedOrganizer.conclusion',
                     SET_HOW_CAUSE_EFFECT: {
                       actions: assign((ctx, evt) => {
                         return {

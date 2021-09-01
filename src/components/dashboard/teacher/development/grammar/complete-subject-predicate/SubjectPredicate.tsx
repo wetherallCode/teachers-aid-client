@@ -7,8 +7,9 @@ export type SubjectPredicateProps = {
 
 export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
   const [select, text, reset] = useSelectedText()
-  const [state, setState] =
-    useState<'subject' | 'predicate' | 'final'>('subject')
+  const [state, setState] = useState<'subject' | 'predicate' | 'final'>(
+    'subject'
+  )
   const [subject, setSubject] = useState('')
   const [predicate, setPredicate] = useState('')
   const endOfSubject = subject.length + sentence.indexOf(subject)

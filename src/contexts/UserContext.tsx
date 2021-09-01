@@ -35,6 +35,11 @@ export const ME_QUERY = gql`
             schoolDayType
           }
         }
+        hasWritingMetrics {
+          overallWritingMetric {
+            levelPoints
+          }
+        }
       }
     }
   }

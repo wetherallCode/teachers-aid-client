@@ -63,8 +63,8 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
       input: {
         cohortWeek: state.context.createSchoolDay.cohortWeek,
         schoolDayCount: state.context.createSchoolDay.schoolDayCount + 1,
-        currentSchoolDayType:
-          state.context.createSchoolDay.currentSchoolDayType,
+        currentSchoolDayType: SchoolDayType.AB,
+        // state.context.createSchoolDay.currentSchoolDayType,
         // state.context.createSchoolDay.currentSchoolDayType === SchoolDayType.A
         //   ? SchoolDayType.B
         //   : SchoolDayType.A,
@@ -97,7 +97,7 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
   return (
     <>
       <div>Create School Day</div>
-      <>
+      {/* <>
         <div>Cohort Week</div>
         <div
           style={
@@ -129,7 +129,7 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
         >
           White Week
         </div>
-      </>
+      </> */}
       <>
         <div>What type of School Day?</div>
         {

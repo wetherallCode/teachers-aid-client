@@ -7,6 +7,7 @@ import {
   findLessonById_findLessonById_lesson_assignedCourses_hasCourseInfo,
   SchoolDayType,
   TimeOfDay,
+  findTextSectionsByIdForEssayQuestionLoader_findTextSectionsById_textSections_hasEssayQuestions_questionParts,
 } from '../../../../../../schemaTypes'
 import { dateConverter } from '../../../../../../utils'
 
@@ -58,7 +59,7 @@ export type createAssignmentMachineEvent =
   | { type: 'SET_LESSON_DATE'; payload: string }
   | {
       type: 'SET_QUESTION_LIST'
-      payload: TextSectionQuestionsInput[]
+      payload: findTextSectionsByIdForEssayQuestionLoader_findTextSectionsById_textSections_hasEssayQuestions_questionParts[]
     }
   | { type: 'SET_DUE_DATE'; payload: any }
   | { type: 'SET_READING_GUIDE_DUE_DATE'; payload: any }
@@ -90,7 +91,7 @@ export type createAssignmentMachineContext = {
     lesson: string
     lessonDate: string
     assignedCourseId: string[]
-    questionList: TextSectionQuestionsInput[]
+    questionList: findTextSectionsByIdForEssayQuestionLoader_findTextSectionsById_textSections_hasEssayQuestions_questionParts[]
     dueDate: any
     dueTime: TimeOfDay
     assignedDate: any

@@ -12,6 +12,11 @@ import {
   AssignmentLink,
   AssignmentLinkLi,
   CompletionMessage,
+  PendingAssignmentLinkLi,
+  CompletedAssignmentTypeContentContainer,
+  CompletedAssignmentAssignmentAndScoreContainer,
+  AssignmentScore,
+  PendingAssignmentScore,
 } from '../../state-n-styles/assignmentsStyles'
 import { useStudentAssignmentContextProvider } from '../../state-n-styles/StudentAssignmentContext'
 
@@ -30,6 +35,14 @@ export const FIND_COMPLETED_ESSAYS_QUERY = gql`
           writingLevel
         }
         markingPeriod
+        finalDraft {
+          submitted
+          returned
+        }
+        score {
+          earnedPoints
+          maxPoints
+        }
       }
     }
   }
@@ -68,16 +81,31 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
         <div>Completed Essays</div>
       </AssignmentTypeTitle>
       {loading ? null : (
-        <AssignmentTypeContentContainer>
+        <CompletedAssignmentTypeContentContainer>
           {essaysForMarkingPeriod?.map((essay) => (
             <ul key={essay._id!}>
-              <AssignmentLinkLi>
-                <AssignmentLink to={`essay/completed/${essay._id!}`}>
-                  {essay.readings.readingSections}
-                </AssignmentLink>
-              </AssignmentLinkLi>
+              {essay.finalDraft?.returned ? (
+                <AssignmentLinkLi>
+                  <AssignmentLink to={`essay/completed/${essay._id!}`}>
+                    <CompletedAssignmentAssignmentAndScoreContainer>
+                      <div>{essay.readings.readingSections}</div>
+                      <AssignmentScore>
+                        {essay.score.earnedPoints} / {essay.score.maxPoints}
+                      </AssignmentScore>
+                    </CompletedAssignmentAssignmentAndScoreContainer>
+                  </AssignmentLink>
+                </AssignmentLinkLi>
+              ) : (
+                <PendingAssignmentLinkLi>
+                  <CompletedAssignmentAssignmentAndScoreContainer>
+                    <div> {essay.readings.readingSections}</div>
+                    <PendingAssignmentScore>Pending</PendingAssignmentScore>
+                  </CompletedAssignmentAssignmentAndScoreContainer>
+                </PendingAssignmentLinkLi>
+              )}
             </ul>
           ))}
+
           {essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0 && (
             <AssignmentTypeContentContainer>
               <CompletionMessage>
@@ -87,7 +115,7 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
               </CompletionMessage>
             </AssignmentTypeContentContainer>
           )}
-        </AssignmentTypeContentContainer>
+        </CompletedAssignmentTypeContentContainer>
       )}
     </>
   )

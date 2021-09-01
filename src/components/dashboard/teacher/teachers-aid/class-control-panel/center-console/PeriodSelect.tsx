@@ -10,6 +10,7 @@ export type PeriodSelectProps = {}
 
 export const PeriodSelect: FC<PeriodSelectProps> = () => {
   const [state, event] = useTeachersAidContextProvider()
+
   return (
     <>
       <PeriodSelectDisplay>
@@ -19,18 +20,18 @@ export const PeriodSelect: FC<PeriodSelectProps> = () => {
           }}
         >
           {!state.context.courseSelectVisible &&
-            state.context.courseInfo._id && <>&lt;</>}
+            state.context.courseInfo!._id && <>&lt;</>}
         </div>
         <PeriodDisplay onClick={() => event({ type: 'COURSE_SELECT' })}>
           {state.context.courseSelectVisible
             ? 'Select A Class'
-            : !state.context.courseInfo.course.name
+            : !state.context.courseInfo!.course.name
             ? 'Select A Class'
-            : state.context.courseInfo.course.name}
+            : state.context.courseInfo!.course.name}
         </PeriodDisplay>
         <div onClick={() => event({ type: 'NEXT' })}>
           {!state.context.courseSelectVisible &&
-            state.context.courseInfo._id && <>&gt;</>}
+            state.context.courseInfo!._id && <>&gt;</>}
         </div>
       </PeriodSelectDisplay>
     </>

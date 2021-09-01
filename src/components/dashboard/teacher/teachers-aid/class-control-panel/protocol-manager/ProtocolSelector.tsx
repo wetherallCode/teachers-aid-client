@@ -16,8 +16,12 @@ import {
 
 export type ProtocolSelectorProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
+  presentStudentList: string[]
 }
-export const ProtocolSelector: FC<ProtocolSelectorProps> = ({ lesson }) => {
+export const ProtocolSelector: FC<ProtocolSelectorProps> = ({
+  lesson,
+  presentStudentList,
+}) => {
   const [state, event] = useTeachersAidContextProvider()
 
   return (
@@ -28,7 +32,6 @@ export const ProtocolSelector: FC<ProtocolSelectorProps> = ({ lesson }) => {
       <ProtocolSelectorBackContainer>
         <ProtocolSelectorBack
           onClick={() => {
-            console.log('<')
             if (state.context.protocolSelect > 0)
               event({
                 type: 'SELECT_PROTOCOL',
@@ -60,7 +63,11 @@ export const ProtocolSelector: FC<ProtocolSelectorProps> = ({ lesson }) => {
           &gt;
         </ProtocolSelectorNext>
       </ProtocolSelectorNextContainer>
-      <SelectProtocol lessonId={lesson._id!} lesson={lesson} />
+      <SelectProtocol
+        lessonId={lesson._id!}
+        lesson={lesson}
+        presentStudentList={presentStudentList}
+      />
     </ProtocolManagerContainer>
   )
 }

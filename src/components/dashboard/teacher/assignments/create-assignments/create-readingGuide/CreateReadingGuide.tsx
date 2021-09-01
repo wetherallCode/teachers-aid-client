@@ -70,7 +70,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   const [assignedCourseIds, handleChange] = useCheckBox([courseId])
   const navigate = useNavigate()
 
-  const courses = me.teachesCourses.slice(1).sort(sortByLetter)
+  const courses = me.teachesCourses.slice(0).sort(sortByLetter)
 
   const [currentCourseInfo] = me.teachesCourses.filter(
     (course) => course._id === courseId
@@ -84,7 +84,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
-
+  console.log(state.context.essay.dueDate)
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
     createReadingGuideVariables
@@ -240,13 +240,14 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
             onClick={() => {
               if (
                 assignedCourseIds.includes(courseId) &&
-                state.context.essay.dueDate &&
+                state.context.readingGuide.dueDate &&
                 !called
               )
                 createReadingGuide()
             }}
           >
-            {assignedCourseIds.includes(courseId) && state.context.essay.dueDate
+            {assignedCourseIds.includes(courseId) &&
+            state.context.readingGuide.dueDate
               ? 'Create Reading Guide'
               : 'Complete Form'}
           </SelectButton>

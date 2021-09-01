@@ -43,7 +43,7 @@ export const LoadReadingGuides: FC<LoadReadingGuidesProps> = () => {
   >(FIND_READING_GUIDES_BY_COURSE_ID_AND_ASSIGNED_DATE_QUERY, {
     variables: {
       input: {
-        courseId: state.context.courseInfo.course._id!,
+        courseId: state.context.courseInfo!.course._id!,
         assignedDate: new Date().toLocaleDateString(),
       },
     },
@@ -51,21 +51,26 @@ export const LoadReadingGuides: FC<LoadReadingGuidesProps> = () => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  const dueDate = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides!.map(
-    (rg) => rg.dueDate
-  )
-  const lessonId = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides!.map(
-    (rg) => rg.associatedLessonId
-  ) as string[]
-  const studentIds = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
-    (rg) => rg.hasOwner._id
-  ) as string[]
-  const finished = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides
-    .map((rg) => rg.assigned === true)
-    .includes(true)!
-  const assignmentTitle = data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
-    (rg) => rg.readings
-  )!
+  const dueDate =
+    data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides!.map(
+      (rg) => rg.dueDate
+    )
+  const lessonId =
+    data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides!.map(
+      (rg) => rg.associatedLessonId
+    ) as string[]
+  const studentIds =
+    data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
+      (rg) => rg.hasOwner._id
+    ) as string[]
+  const finished =
+    data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides
+      .map((rg) => rg.assigned === true)
+      .includes(true)!
+  const assignmentTitle =
+    data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
+      (rg) => rg.readings
+    )!
   return (
     <AssignmentBlockContainer>
       {data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.length! >

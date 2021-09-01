@@ -12,7 +12,7 @@ import { AssignCohortBasedSeating } from './AssignCohortBasedSeating'
 
 export type AssignSeatsProps = {}
 
-export const AssignSeats: FC<AssignSeatsProps> = () => {
+export const AssignSeats = ({}: AssignSeatsProps) => {
   const { course } = useParams()
 
   const { loading, data } = useQuery<
@@ -23,7 +23,7 @@ export const AssignSeats: FC<AssignSeatsProps> = () => {
       input: { courseId: course },
     },
     onCompleted: (data) => {
-      console.log(data.findCourseById.course.hasCourseInfo?.cohortBasedSeating)
+      console.log(data.findCourseById.course)
     },
     onError: (error) => console.error(error),
   })

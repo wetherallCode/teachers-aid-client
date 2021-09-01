@@ -6,6 +6,7 @@ import {
   setAnswerTypeVariables,
   QuestionTypeEnum,
   findEssayById_findEssayById_essay_workingDraft_organizer,
+  findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
 } from '../../../../../../../../schemaTypes'
 import { gql, useMutation } from '@apollo/client'
 import { AcademicProblemSolution } from './AcademicProblemSolution'
@@ -29,6 +30,8 @@ import { UpdateAcademicOrganizerType } from './AcademicOrganizer'
 export type AcademicAnswerTypesProps = {
   organizer: findEssayById_findEssayById_essay_workingDraft_organizer
   updateAcademicOrganizer: UpdateAcademicOrganizerType
+  questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
+  auxilaryVerbCheck: boolean
 }
 
 export const SET_ANSWER_TYPE_MUTATION = gql`
@@ -51,6 +54,7 @@ export const SET_ANSWER_TYPE_MUTATION = gql`
 export const AcademicAnswerTypes = ({
   organizer,
   updateAcademicOrganizer,
+  questionParts,
 }: AcademicAnswerTypesProps) => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
@@ -93,7 +97,7 @@ export const AcademicAnswerTypes = ({
     // state.context.academicOrganizer.academicSentenceStructure,
     updateAcademicOrganizer,
   ])
-
+  console.log(state.value)
   return (
     <>
       {state.matches('organizers.academicOrganizer.answer.questionType') && (
@@ -178,13 +182,19 @@ export const AcademicAnswerTypes = ({
 
       {state.matches('organizers.academicOrganizer.answer.problemSolution') &&
         state.context.academicOrganizer.questionType ===
-          QuestionTypeEnum.HOW_PROBLEM_SOLUTION && <AcademicProblemSolution />}
+          QuestionTypeEnum.HOW_PROBLEM_SOLUTION && (
+          <AcademicProblemSolution questionParts={questionParts} />
+        )}
       {state.matches('organizers.academicOrganizer.answer.howCauseEffect') &&
         state.context.academicOrganizer.questionType ===
-          QuestionTypeEnum.HOW_CAUSE_EFFECT && <AcademicHowCauseEffect />}
+          QuestionTypeEnum.HOW_CAUSE_EFFECT && (
+          <AcademicHowCauseEffect questionParts={questionParts} />
+        )}
       {state.matches('organizers.academicOrganizer.answer.whyCauseEffect') &&
         state.context.academicOrganizer.questionType ===
-          QuestionTypeEnum.WHY_CAUSE_EFFECT && <AcademicWhyCauseEffect />}
+          QuestionTypeEnum.WHY_CAUSE_EFFECT && (
+          <AcademicWhyCauseEffect questionParts={questionParts} />
+        )}
     </>
   )
 }

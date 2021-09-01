@@ -112,7 +112,7 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
               onPaste={(e: SyntheticEvent) => {
                 e.preventDefault()
               }}
-              placeholder={`Your essay goes here; let's get started...`}
+              placeholder={`Your essay goes here; your first sentence is the restatement.`}
               onKeyDown={(e) => {
                 // e.preventDefault()
                 // if (e.key === 'Enter') return null

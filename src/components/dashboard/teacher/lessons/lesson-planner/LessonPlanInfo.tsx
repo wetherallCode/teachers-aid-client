@@ -111,23 +111,13 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
       questionsList.push(questionItem)
     })
   })
-
+  console.log(state.value)
   return (
     <>
       {/* <LessonPlannerSectionHeader>
         <div>Lesson Information</div>
       </LessonPlannerSectionHeader> */}
       <LessonPlannerActivityBody>
-        {/* <VocabList>
-          <div>Vocab</div>
-          <div>
-            {state.context.vocabList.map((word, i) => (
-              <div key={i}>
-                {word.word}: {word.definition}
-              </div>
-            ))}
-          </div>
-        </VocabList> */}
         <Pages data={data!} />
         <LessonName />
         <ActivityContainer>

@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useMutation, MutationFunctionOptions } from '@apollo/client'
 import {
+  findEssayById_findEssayById_essay_topic,
   findEssayById_findEssayById_essay_workingDraft_organizer,
   updateAdvancedOrganizer,
   updateAdvancedOrganizerVariables,
@@ -19,7 +20,7 @@ import {
 } from '../../state-and-styles/assignedEssayStyles'
 
 export type AdvancedOrganizerProps = {
-  question: string
+  topic: findEssayById_findEssayById_essay_topic
   organizer: findEssayById_findEssayById_essay_workingDraft_organizer
 }
 
@@ -42,7 +43,7 @@ export type UpdateAdvancedOrganizerType = (
 ) => void
 
 export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({
-  question,
+  topic,
   organizer,
 }) => {
   const [state] = useStudentEssayContextProvider()
@@ -70,7 +71,7 @@ export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({
         <OrganizerTitleStyle>Organize for this Question</OrganizerTitleStyle>
       </OrganizerTitleContainer>
       <QuestionContainer>
-        <QuestionStyle>{question}</QuestionStyle>
+        <QuestionStyle>{topic.question}</QuestionStyle>
       </QuestionContainer>
       {state.matches('organizers.advancedOrganizer.restatement') && (
         <AdvancedRestatement

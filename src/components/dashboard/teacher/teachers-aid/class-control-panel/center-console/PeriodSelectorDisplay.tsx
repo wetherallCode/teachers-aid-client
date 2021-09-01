@@ -81,7 +81,8 @@ export const GET_COURSE_INFO_QUERY = gql`
 export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
   const [, event] = useTeachersAidContextProvider()
-  const [loadCourse] = useLazyQuery<
+
+  const [loadCourse, { data }] = useLazyQuery<
     findCourseInfoByCourseId,
     findCourseInfoByCourseIdVariables
   >(GET_COURSE_INFO_QUERY, {

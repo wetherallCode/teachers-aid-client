@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { useMutation, gql } from '@apollo/client'
 import {
+  findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateWhyCauseEffect,
   updateWhyCauseEffectVariables,
@@ -14,8 +15,11 @@ import {
   OrganizerControlButtonContainer,
   OrganizerControlButton,
 } from '../../state-and-styles/assignedEssayStyles'
+import { irregularPastTenseVerbList } from '../../../../../../../../utils'
 
-export type AcademicWhyCauseEffectProps = {}
+export type AcademicWhyCauseEffectProps = {
+  questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
+}
 
 export const UPDATE_WHY_CAUSE_EFFECT_MUTATION = gql`
   mutation updateWhyCauseEffect($input: UpdateWhyCauseEffectInput!) {
@@ -27,16 +31,20 @@ export const UPDATE_WHY_CAUSE_EFFECT_MUTATION = gql`
   }
 `
 
-export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
+export const AcademicWhyCauseEffect = ({
+  questionParts,
+}: AcademicWhyCauseEffectProps) => {
   const [state, event] = useStudentEssayContextProvider()
+
+  const auxilaryVerbCheck =
+    questionParts.helpingVerb !== 'did' &&
+    questionParts.simplePredicate.split(' ').length > 1 &&
+    questionParts.simplePredicate.split(' ').includes(questionParts.helpingVerb)
 
   const { whyCauseEffect } = state.context.academicOrganizer.answer
 
-  const {
-    subject,
-    verb,
-    object,
-  } = state.context.academicOrganizer.academicSentenceStructure
+  const { verb, object } =
+    state.context.academicOrganizer.academicSentenceStructure
 
   const [updateWhyCauseEffect] = useMutation<
     updateWhyCauseEffect,
@@ -59,6 +67,20 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
     updateWhyCauseEffect()
   }, [whyCauseEffect, updateWhyCauseEffect])
 
+  const verbPhraseCheck = verb.split(' ').length > 1
+  const verbPhraseSplitter = verb.split(' ')
+  console.log(verb)
+  // const irregularVerbCheck = irregularPastTenseVerbList(verbPhraseSplitter[0])
+
+  // const congugatedVerb =
+  //   verbPhraseSplitter[0] === irregularVerbCheck
+  //     ? irregularVerbCheck
+  //         .charAt(irregularVerbCheck.length - 1)
+  //         .toLowerCase() === 'e'
+  //       ? verb + 'd'
+  //       : verb + 'ed'
+  //     : irregularVerbCheck
+  // console.log(verb !== 'was')
   return (
     <>
       <AcademicQuestionAnswerTypeContainer>
@@ -66,14 +88,19 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
           <div>Why Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          {verb !== 'was' ? (
+          {verb === 'did' ? (
             <div>
-              Why did {subject} {verb}
+              Why did {questionParts.simpleSubject} {verb}
               {object ? ' ' + object : null}?
+            </div>
+          ) : auxilaryVerbCheck ? (
+            <div>
+              Why {verbPhraseSplitter[0]} {questionParts.simpleSubject}{' '}
+              {verbPhraseSplitter[1]}?
             </div>
           ) : (
             <div>
-              Why {verb} {subject} {object}?
+              Why {verb} {questionParts.simpleSubject} {object}?
             </div>
           )}
           <PartInput

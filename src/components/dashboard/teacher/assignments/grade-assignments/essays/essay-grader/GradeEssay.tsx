@@ -5,7 +5,7 @@ import {
   findEssayToGradeByIdVariables,
   findEssayToGradeById,
 } from '../../../../../../../schemaTypes'
-import { useGradeEssayContextProvider } from './GradeEssayContext'
+import { useGradeEssayContextProvider } from './state-n-styles/GradeEssayContext'
 import { TeacherEssayEditor } from './TeacherEssayEditor'
 import { GradingTool } from './grading-tool/GradingTool'
 import { ReturnEssay } from './ReturnEssay'
@@ -23,7 +23,7 @@ import {
   GradeDetailsContainer,
   GradeDetailsSelectorContainer,
   GradeDetailsSelector,
-} from './essay-grader-styles/EssaysToGradeStyles'
+} from './state-n-styles/EssaysToGradeStyles'
 import { OrganizerContainer } from '../../../../../student/assignments/essays/assigned-essays/state-and-styles/assignedEssayStyles'
 import { PreviousEssayViewer } from './PreviousEssayViewer'
 import { EssayToGradeOrganizer } from './EssayToGradeOrganizer'
@@ -227,14 +227,16 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
         data.findEssayById.essay.finalDraft?.submittedFinalDraft.length > 1 &&
         event({
           type: 'SET_PREVIOUS_RUBRIC_ENTRIES',
-          payload: data.findEssayById.essay.finalDraft?.submittedFinalDraft[
-            data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
-          ].rubricEntries!,
+          payload:
+            data.findEssayById.essay.finalDraft?.submittedFinalDraft[
+              data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 2
+            ].rubricEntries!,
         })
 
-      const previousComments = data.findEssayById.essay.finalDraft?.submittedFinalDraft.map(
-        (draft) => draft.additionalComments
-      )
+      const previousComments =
+        data.findEssayById.essay.finalDraft?.submittedFinalDraft.map(
+          (draft) => draft.additionalComments
+        )
 
       setloadingDraft(true)
     },

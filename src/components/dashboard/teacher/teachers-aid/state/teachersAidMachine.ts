@@ -64,10 +64,14 @@ export type teachersAidMachineEvent =
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' }
   | { type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' }
+  | {
+      type: 'UPDATE_COURSE_INFO'
+      payload: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
+    }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
-  courseInfo: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
+  courseInfo: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo | null
   associatedLessonId: string
   studentId: string
   courseSelectVisible: boolean
@@ -140,7 +144,7 @@ export const teachersAidMachine = Machine<
     },
     studentProtocolAssessment: {
       studentId: '',
-      assessment: ProtocolAssessmentEnum.REFUSED_TO_WORK,
+      assessment: ProtocolAssessmentEnum.WORKED_VERY_WELL,
       task: '',
       assignedDate: '',
       discussionLevel: DiscussionTypesEnum.NOT_REQUIRED,
@@ -160,6 +164,7 @@ export const teachersAidMachine = Machine<
       on: {
         SET_COURSE: {
           actions: assign((ctx, evt) => {
+            console.log('courseSet')
             return {
               ...ctx,
               courseInfo: evt.payload,
@@ -375,6 +380,14 @@ export const teachersAidMachine = Machine<
         studentAttendance: {
           on: {
             ASSESS_PROTOCOL_DISPLAY: 'studentProtocol',
+            UPDATE_COURSE_INFO: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  courseInfo: evt.payload,
+                }
+              }),
+            },
           },
         },
         studentProtocol: {

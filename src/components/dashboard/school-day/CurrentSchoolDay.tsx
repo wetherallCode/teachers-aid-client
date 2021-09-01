@@ -6,15 +6,21 @@ export type CurrentSchoolDayProps = {
 }
 
 export const CurrentSchoolDay: FC<CurrentSchoolDayProps> = ({ schoolDay }) => {
+  console.log(schoolDay.todaysDate)
   return (
     <>
       <div>Current School Day</div>
       <div>Current Day of School: {schoolDay.schoolDayCount}</div>
       <div>
+        Day's of School left until Summer Break :{' '}
+        {180 - schoolDay.schoolDayCount}
+      </div>
+      <div>Today's Date: {schoolDay.todaysDate}</div>
+      {/* <div>
         Current Cohort Week:{' '}
         {schoolDay.cohortWeek === 'RED' ? 'Red Week' : 'White Week'}
       </div>
-      <div>{schoolDay.currentSchoolDayType} Day</div>
+      <div>{schoolDay.currentSchoolDayType} Day</div> */}
     </>
   )
 }

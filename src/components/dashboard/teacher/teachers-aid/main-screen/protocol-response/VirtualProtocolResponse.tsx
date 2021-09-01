@@ -61,7 +61,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
     findVirtualResponsesVariables
   >(VIRTUAL_RESPONSE_QUERY, {
     variables: {
-      input: { courseId: state.context.courseInfo.course._id! },
+      input: { courseId: state.context.courseInfo!.course._id! },
     },
     onCompleted: (data) => {
       // const students = data.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
@@ -126,11 +126,12 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
   })
 
   useEffect(() => {
-    const students = data?.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
-      (student) => student.hasProtocols
-      // .filter((protocol) => protocol.isActive)
-      // .filter((protocol) => protocol.response)
-    )
+    const students =
+      data?.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
+        (student) => student.hasProtocols
+        // .filter((protocol) => protocol.isActive)
+        // .filter((protocol) => protocol.response)
+      )
     if (students) {
       for (const student of students!) {
         if (

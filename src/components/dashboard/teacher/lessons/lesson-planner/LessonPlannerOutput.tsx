@@ -17,6 +17,7 @@ export const LessonPlannerOutput: FC<LessonPlannerOutputProps> = () => {
     endingPage,
     essentialQuestion,
     markingPeriod,
+    lessonName,
   } = state.context
 
   return (
@@ -46,6 +47,7 @@ export const LessonPlannerOutput: FC<LessonPlannerOutputProps> = () => {
           <div>Essential Question: {essentialQuestion}</div>
         </>
       )}
+      {lessonName && <div>Lesson Name: {state.context.lessonName}</div>}
     </>
   )
 }

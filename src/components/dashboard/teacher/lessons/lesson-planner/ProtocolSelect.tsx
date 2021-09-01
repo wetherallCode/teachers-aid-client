@@ -40,7 +40,6 @@ export const ProtocolSelect: FC<ProtocolSelectProps> = ({
                   const index = protocolSelectList.findIndex(
                     (items) => items.task === item.task
                   )
-                  console.log(index)
                   setProtocolSelectList([
                     ...protocolSelectList.slice(0, index),
                     ...protocolSelectList.slice(index + 1),

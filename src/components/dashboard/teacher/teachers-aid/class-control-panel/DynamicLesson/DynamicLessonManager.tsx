@@ -32,19 +32,18 @@ export const UPDATE_DYNAMIC_LESSON_MUTATION = gql`
     UpdateDynamicLesson(input: $input) {
       lesson {
         _id
+        dynamicLesson
       }
     }
   }
 `
 
-export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
-  lesson,
-}) => {
+export const DynamicLessonManager = ({ lesson }: DynamicLessonManagerProps) => {
   const [updateDynamicLeson] = useMutation<
     updateDynamicLesson,
     updateDynamicLessonVariables
   >(UPDATE_DYNAMIC_LESSON_MUTATION, {
-    // onCompleted: (data) => console.log(data),
+    onCompleted: (data) => console.log(data.UpdateDynamicLesson),
     refetchQueries: ['findLessonByCourseAndDate'],
   })
 
@@ -110,7 +109,10 @@ export const DynamicLessonManager: FC<DynamicLessonManagerProps> = ({
           <DynamicLessonOffButtonContainer>
             <DynamicLessonOffButton
               // currentLessonSetting={}
-              onClick={() => handleClick(DynamicLessonEnums.OFF)}
+              onClick={() => {
+                handleClick(DynamicLessonEnums.OFF)
+                console.log('click')
+              }}
             >
               End Lesson
             </DynamicLessonOffButton>

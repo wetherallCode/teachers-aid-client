@@ -19,19 +19,22 @@ import { date } from '../../../../../../utils'
 import { useQuery } from '@apollo/client'
 import { FIND_LESSON_QUERY } from '../../../../../lesson/LessonMainMenu'
 import { MainScreenManager } from './MainScreenManager'
+import { Protocols } from '../protocols/Protocols'
 
-export type ControlPanelDisplayProps = {}
+export type ControlPanelDisplayProps = { presentStudentList: string[] }
 
-export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
+export const ControlPanelDisplay = ({
+  presentStudentList,
+}: ControlPanelDisplayProps) => {
   const [state, event] = useTeachersAidContextProvider()
-  // console.log(state.value)
+
   const { loading, data } = useQuery<
     findLessonByCourseAndDate,
     findLessonByCourseAndDateVariables
   >(FIND_LESSON_QUERY, {
     variables: {
       input: {
-        courseId: state.context.courseInfo.course._id!,
+        courseId: state.context.courseInfo!.course._id!,
         lessonDate: date,
       },
     },
@@ -47,6 +50,7 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
           payload: data.findLessonByCourseAndDate.lesson._id!,
         })
     },
+    pollInterval: 100,
     onError: (error) => console.error(error),
   })
 
@@ -85,7 +89,14 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
                     data?.findLessonByCourseAndDate.lesson.duringActivities!
                   }
                   lesson={data?.findLessonByCourseAndDate.lesson!}
+                  presentStudentList={presentStudentList}
                 />
+                {/* <Protocols
+                  protocols={
+                    data?.findLessonByCourseAndDate.lesson.duringActivities!
+                  }
+                  lesson={data?.findLessonByCourseAndDate.lesson!}
+                /> */}
               </>
             ) : (
               <CenteredDiv>
@@ -97,17 +108,11 @@ export const ControlPanelDisplay: FC<ControlPanelDisplayProps> = () => {
       {state.matches('controlPanelActions.mainScreenManager')! &&
         state.context.courseInfo._id &&
         !state.context.courseSelectVisible && (
-          <>
-            {/* {data?.findLessonByCourseAndDate.lesson ? ( */}
-            <MainScreenManagerContainer>
-              <MainScreenManager />
-            </MainScreenManagerContainer>
-            {/* ) : (
-              <CenteredDiv>
-                <div>No Lesson Scheduled for Today</div>
-              </CenteredDiv>
-            )} */}
-          </>
+          <MainScreenManagerContainer>
+            <MainScreenManager
+              lesson={data?.findLessonByCourseAndDate.lesson!}
+            />
+          </MainScreenManagerContainer>
         )}
 
       {state.context.courseSelectVisible && (

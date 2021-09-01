@@ -39,7 +39,7 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
         <CourseSelect>
           <div>Select Course</div>
           {teachesCourses
-            .slice(1)
+            .slice(0)
             .sort(sortByLetter)
             .map((course) => (
               <CourseToSelect

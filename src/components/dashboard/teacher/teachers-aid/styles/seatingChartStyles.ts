@@ -22,6 +22,13 @@ export const ThirtySeatFloorPlan = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(5, 1fr);
 `
+export const ThirtySixSeatFloorPlan = styled.div`
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 5%;
+`
 
 export const TwentyFourSeatFloorPlan = styled.div`
   display: grid;
@@ -39,6 +46,12 @@ export const TwelveSeatFloorPlan = styled.div`
 export const PairSeatingGroup = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 100%;
+  grid-column-gap: 2px;
+`
+export const TripleSeatingGroup = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   height: 100%;
   grid-column-gap: 2px;
 `
@@ -66,6 +79,9 @@ export const DeskContainer = styled.div`
   height: 65%;
   border-radius: 5px;
   box-shadow: 2px 2px 2px var(--grey);
+`
+export const TripleSeatDeskContainer = styled(DeskContainer)`
+  width: 100%;
 `
 export const IndividualDeskContainer = styled.div`
   width: 40%;

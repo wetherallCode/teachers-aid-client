@@ -15,7 +15,7 @@ import {
 import { phraseCapitalizer, underscoreEliminator } from '../../../../../utils'
 
 export type BeforeActivitySelectProps = {
-  protocolList: TextSectionProtocolsInput[]
+  protocolList?: TextSectionProtocolsInput[]
 }
 
 export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
@@ -23,10 +23,8 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
 }) => {
   const [state, event] = useLessonPlannerContextProvider()
 
-  const {
-    academicOutcomeTypes,
-    protocolActivityTypes,
-  } = useEnumContextProvider()
+  const { academicOutcomeTypes, protocolActivityTypes } =
+    useEnumContextProvider()
 
   const [warmUp, setWarmUp] = useState<TextSectionProtocolsInput>({
     academicOutcomeTypes: state.context.beforeActivity?.academicOutcomeTypes!,

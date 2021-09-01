@@ -80,14 +80,49 @@ export const AssignmentTypeContentContainer = styled.div`
   grid-auto-rows: 10%;
   overflow: scroll;
 `
+
+export const CompletedAssignmentTypeContentContainer = styled.div`
+  grid-row: 2/-2;
+  grid-column: 2/-2;
+  grid-auto-rows: 10%;
+  overflow: scroll;
+`
+export const CompletedAssignmentAssignmentAndScoreContainer = styled.div`
+  display: grid;
+  font-size: 3vh;
+  grid-template-columns: 5fr 1fr;
+`
 export const AssignmentLink = styled(Link)`
   /* font-size: 2rem; */
   text-decoration: none;
   color: var(--blue);
+`
+export const PendingAssignmentLink = styled(Link)`
+  /* font-size: 2rem; */
+  text-decoration: none;
+  color: var(--grey);
+`
+export const AssignmentScore = styled.div`
+  font-size: 3vh;
+  align-self: center;
+  justify-self: center;
+`
+export const PendingAssignmentScore = styled.div`
+  font-size: 3vh;
+  align-self: center;
+  justify-self: center;
+  color: var(--grey);
 `
 export const CompletionMessage = styled.div`
   font-size: 2rem;
 `
 export const AssignmentLinkLi = styled.li`
   font-size: 3vh;
+  align-self: center;
+`
+export const PendingAssignmentLinkLi = styled.li`
+  font-size: 3vh;
+  align-self: center;
+
+  color: var(--grey);
 `

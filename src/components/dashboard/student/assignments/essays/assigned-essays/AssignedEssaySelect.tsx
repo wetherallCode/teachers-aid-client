@@ -25,6 +25,8 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
       essays {
         _id
         paperBased
+        assigned
+        missing
         readings {
           readingSections
         }
@@ -56,7 +58,18 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
   const essaysForMarkingPeriod =
     data?.findEssaysToCompleteByStudentId.essays.filter(
       (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
-    )
+    )!
+  const allEssaysComplete =
+    essaysForMarkingPeriod &&
+    essaysForMarkingPeriod.length > 0 &&
+    essaysForMarkingPeriod.every((essay) => !essay.missing && !essay.assigned)
+
+  const noEssaysHaveBeenAssigned =
+    (essaysForMarkingPeriod &&
+      essaysForMarkingPeriod.every(
+        (essay) => essay.missing && !essay.assigned
+      )) ||
+    (essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0)
 
   return (
     <>
@@ -65,11 +78,19 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
       </AssignmentTypeTitle>
       {loading ? null : (
         <>
-          {data?.findEssaysToCompleteByStudentId.essays.length! === 0 ? (
+          {allEssaysComplete ? (
             <AssignmentTypeContentContainer>
               <CompletionMessage>
                 <ul>
                   <li>All Essays for Marking Period Complete</li>
+                </ul>
+              </CompletionMessage>
+            </AssignmentTypeContentContainer>
+          ) : noEssaysHaveBeenAssigned ? (
+            <AssignmentTypeContentContainer>
+              <CompletionMessage>
+                <ul>
+                  <li>No Essays Assigned</li>
                 </ul>
               </CompletionMessage>
             </AssignmentTypeContentContainer>
@@ -94,7 +115,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
                       ))}
                 </AssignmentTypeContentContainer>
               )}
-              {essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0 && (
+              {/* {essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0 && (
                 <AssignmentTypeContentContainer>
                   <CompletionMessage>
                     <ul>
@@ -102,7 +123,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
                     </ul>
                   </CompletionMessage>
                 </AssignmentTypeContentContainer>
-              )}
+              )} */}
             </>
           )}
         </>

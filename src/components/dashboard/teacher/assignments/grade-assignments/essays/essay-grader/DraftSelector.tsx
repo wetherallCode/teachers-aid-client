@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react'
-import { useGradeEssayContextProvider } from './GradeEssayContext'
+import { useGradeEssayContextProvider } from './state-n-styles/GradeEssayContext'
 import { findEssayToGradeById_findEssayById_essay } from '../../../../../../../schemaTypes'
 import {
   DraftSelectorLeft,
   DraftSelectorRight,
-} from './essay-grader-styles/EssaysToGradeStyles'
+} from './state-n-styles/EssaysToGradeStyles'
 
 export type DraftSelectorProps = {
   essay: findEssayToGradeById_findEssayById_essay

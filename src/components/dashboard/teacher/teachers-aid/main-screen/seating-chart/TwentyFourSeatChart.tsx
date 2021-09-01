@@ -10,7 +10,7 @@ import { Desk } from './Desk'
 
 export type TwentyFourSeatChartProps = {}
 
-export const TwentyFourSeatChart: FC<TwentyFourSeatChartProps> = () => {
+export const TwentyFourSeatChart = ({}: TwentyFourSeatChartProps) => {
   return (
     <TwentyFourSeatFloorPlan>
       <PairSeatingGroup>

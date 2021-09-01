@@ -25,6 +25,7 @@ export const FIND_CURRENT_SCHOOL_DAY_QUERY = gql`
         _id
         cohortWeek
         schoolDayCount
+        todaysDate
         currentSchoolDayType
         signInSheets {
           course {
@@ -88,15 +89,17 @@ export const SchoolDay: FC<SchoolDayProps> = () => {
           <>
             {data?.findSchoolDayByDate.schoolDay ? (
               <>
-                <CurrentSchoolDay schoolDay={state.context.currentSchoolDay} />
-                {!hasSignInSheets && (
+                <CurrentSchoolDay
+                  schoolDay={data.findSchoolDayByDate.schoolDay}
+                />
+                {/* {!hasSignInSheets && (
                   <CreateSignInSheets
                     todaysCourses={todaysCourses}
                     signInSheets={
                       data.findSchoolDayByDate.schoolDay.signInSheets!
                     }
                   />
-                )}
+                )} */}
                 <button>Edit School Day</button>
               </>
             ) : (

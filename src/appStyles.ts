@@ -20,3 +20,13 @@ export const LineInput = styled.input`
   border: 1px solid var(--white);
   border-bottom: 1px solid var(--blue);
 `
+
+export const UnderlinedText = styled.div`
+  text-decoration: underline;
+`
+export const UnderlinedCenteredText = styled(UnderlinedText)`
+  text-align: center;
+`
+export const UnderlinedSegment = styled.span`
+  text-decoration: underline;
+`

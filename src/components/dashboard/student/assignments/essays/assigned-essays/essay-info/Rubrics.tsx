@@ -24,10 +24,19 @@ export const Rubrics: FC<RubricsProps> = () => {
                     answer, conclusion.
                   </EssaySectionOrganizationBodyEntry>
                   <EssaySectionOrganizationBodyEntry>
+                    Response should only be one paragraph. No more.
+                  </EssaySectionOrganizationBodyEntry>
+                  <EssaySectionOrganizationBodyEntry>
                     Answer must be on topic with the question asked.
                   </EssaySectionOrganizationBodyEntry>
                   <EssaySectionOrganizationBodyEntry>
-                    Conclusion must be a consequence of the subject's actions.
+                    Ideas in the answer must be logical (make sense) as a whole,
+                    not just ideas listed side by side. Use transitions to
+                    accomplish this.
+                  </EssaySectionOrganizationBodyEntry>
+                  <EssaySectionOrganizationBodyEntry>
+                    Conclusion must be a consequence of the subject's actions
+                    and be set up according to the directions in the organizer.
                   </EssaySectionOrganizationBodyEntry>
                   <EssaySectionOrganizationBodyEntry>
                     Use only material from the assigned text.
@@ -37,7 +46,22 @@ export const Rubrics: FC<RubricsProps> = () => {
             )}
             {state.context.writingLevel === 'ACADEMIC' && (
               <EssaySectionOrganizationBodyEntry>
-                Academic Rubric
+                <EssaySectionOrganizationBodyEntry>
+                  Must have all three parts of the essay: A restatement, answer,
+                  conclusion.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Response should only be one paragraph. No more.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Answer must be on topic with the question asked.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Conclusion must be a consequence of the subject's actions.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Use only material from the assigned text.
+                </EssaySectionOrganizationBodyEntry>
               </EssaySectionOrganizationBodyEntry>
             )}
             {state.context.writingLevel === 'ADVANCED' && (

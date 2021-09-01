@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import { useGradeEssayContextProvider } from '../GradeEssayContext'
+import { useGradeEssayContextProvider } from '../state-n-styles/GradeEssayContext'
 import {
   findRubricEntries_findRubricEntries_rubricEntries,
   WritingLevelEnum,
@@ -15,7 +15,7 @@ import {
   RubricCheckBoxInput,
   RubricSectionEnumContainer,
   RubricTypeTitle,
-} from '../essay-grader-styles/EssaysToGradeStyles'
+} from '../state-n-styles/EssaysToGradeStyles'
 import { sortByRubricEntryScore } from '../../../../../../../../utils'
 import CheckBox from '../../../../../../../reusable-components/CheckBox'
 

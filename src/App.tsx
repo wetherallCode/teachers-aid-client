@@ -15,7 +15,7 @@ import {
 import { LoginContainer, LoginToggle } from './components/home/homeStyles'
 import { capitalizer, date } from './utils'
 import styled from 'styled-components'
-import { DailyAgendaContextProvider } from './components/lesson/state/DailyAgendaContext'
+import { DailyAgendaContextProvider } from './components/lesson/state-n-styles/DailyAgendaContext'
 import { LessonMainMenu } from './components/lesson/LessonMainMenu'
 import { useQuery } from '@apollo/client'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from './components/dashboard/school-day/SchoolDay'

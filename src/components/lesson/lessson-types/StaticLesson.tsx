@@ -13,9 +13,9 @@ import {
   StopLessonContainer,
   StopLessonButton,
   LessonMainScreen,
-} from '../state/lessonStyles'
+} from '../state-n-styles/lessonStyles'
 import { date } from '../../../utils'
-import { useDailyAgendaContextProvider } from '../state/DailyAgendaContext'
+import { useDailyAgendaContextProvider } from '../state-n-styles/DailyAgendaContext'
 import { WarmUp } from '../lesson-components/WarmUp'
 import { LessonDetails } from '../lesson-components/LessonDetails'
 import { Vocab } from '../lesson-components/Vocab'

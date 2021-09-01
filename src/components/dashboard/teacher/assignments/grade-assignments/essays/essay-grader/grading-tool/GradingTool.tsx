@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { useGradeEssayContextProvider } from '../GradeEssayContext'
+import { useGradeEssayContextProvider } from '../state-n-styles/GradeEssayContext'
 import { DevelopingGradingTool } from './DevelopingGradingTool'
 import { AcademicGradingTool } from './AcademicGradingTool'
 import { AdvancedGradingTool } from './AdvancedGradingTool'
@@ -11,7 +11,7 @@ import {
   findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
   findRubricEntries,
 } from '../../../../../../../../schemaTypes'
-import { GradingToolContainer } from '../essay-grader-styles/EssaysToGradeStyles'
+import { GradingToolContainer } from '../state-n-styles/EssaysToGradeStyles'
 
 export type GradingToolProps = {
   organizer:

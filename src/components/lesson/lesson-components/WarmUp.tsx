@@ -10,7 +10,7 @@ import {
   LessonComponentTitleContainer,
   LessonComponentDetailsContainer,
   LessonComponentDetailsStyle,
-} from '../state/lessonStyles'
+} from '../state-n-styles/lessonStyles'
 import { useMutation } from '@apollo/client'
 import { RESPOND_TO_PROTOCOL_MUTATION } from './StudentProtocolResponse'
 

@@ -8,12 +8,12 @@ import {
   updateGradingDraftVariables,
 } from '../../../../../../../schemaTypes'
 import { gql, useMutation } from '@apollo/client'
-import { useGradeEssayContextProvider } from './GradeEssayContext'
+import { useGradeEssayContextProvider } from './state-n-styles/GradeEssayContext'
 import {
   DraftName,
   EssayToGradeContainer,
   PreviousEssayContainer,
-} from './essay-grader-styles/EssaysToGradeStyles'
+} from './state-n-styles/EssaysToGradeStyles'
 
 export type PreviousEssayViewerProps = {}
 

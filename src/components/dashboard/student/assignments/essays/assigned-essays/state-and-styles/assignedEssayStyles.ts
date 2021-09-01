@@ -19,14 +19,19 @@ export const AssignmentDetailsPartContainers = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  padding-top: 5%;
 `
 
 export const AssignmentDetailsReadingInfo = styled.div`
-  font-size: 1.4rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  font-size: 2.5vh;
 `
 
 export const AssignmentDetailsDueDate = styled.div`
-  font-size: 1.4rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  font-size: 2.5vh;
 `
 
 export const AssignmentDetailsGoBackButtonContainer = styled.div`
@@ -75,11 +80,11 @@ export const QuestionContainer = styled.div`
   grid-column: 1/-1;
   display: grid;
   justify-items: center;
-  align-items: top;
+  align-items: center;
 `
 
 export const QuestionStyle = styled.div`
-  font-size: 2rem;
+  font-size: 3.5vh;
 `
 
 export const QuestionTypeContainer = styled.div`
@@ -154,6 +159,21 @@ export const OrganizerControlButtonContainer = styled.div`
   grid-auto-flow: column;
 `
 
+export const OrganizerControlButtonContainerIdentifications = styled(
+  OrganizerControlButtonContainer
+)`
+  grid-row: 4/5;
+`
+export const OrganizerControlButtonMessageContainer = styled.div`
+  grid-row: 3/4;
+  grid-column: 1/-1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-auto-flow: column;
+  font-size: 2.5vh;
+`
+
 export const OrganizerControlButton = styled.button`
   background-color: var(--blue);
   color: var(--white);
@@ -183,6 +203,23 @@ export const EssaySubmitCheck = styled.div`
   font-size: 3vh;
 `
 
+export type SentenceToManipulateProps = {
+  cursorFormat: 'POINTER' | 'TEXT' | 'NONE'
+}
+export const SentenceToManipulate = styled.div<SentenceToManipulateProps>`
+  & ::selection {
+    background-color: var(--blue);
+    color: var(--white);
+  }
+  padding-left: 2%;
+  padding-right: 2%;
+  cursor: ${({ cursorFormat }) =>
+    cursorFormat === 'TEXT'
+      ? 'text'
+      : cursorFormat === 'POINTER'
+      ? 'pointer'
+      : 'not-allowed'};
+`
 export const RestatementContainer = styled.div`
   display: grid;
 `
@@ -193,6 +230,116 @@ export const RestatementTitle = styled.div`
   justify-items: center;
   align-items: center;
   font-size: 2rem;
+`
+export const OrganizerSectionDirectionsContainer = styled.div`
+  grid-row: 3/4;
+  grid-column: 3/-3;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 2vh;
+`
+export const RestatementQuestionToRestateContainer = styled.div`
+  grid-row: 3/4;
+  grid-column: 1/-1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 2.5vh;
+`
+
+export const EndingPhraseOptionsContainer = styled(
+  RestatementQuestionToRestateContainer
+)`
+  grid-auto-flow: column;
+`
+export const RestatementQuestionToRestateSelection = styled.div`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+export const RestatementDirectionsContainer = styled.div`
+  grid-row: 2/3;
+  grid-column: 2/-2;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 2vh;
+`
+
+export const RestatementDirectionsContainerObjectDirections = styled(
+  RestatementDirectionsContainer
+)`
+  grid-row: 2/4;
+`
+
+export const RestatementDirectionsContainerObjectDirectionsButtonContainer = styled.div`
+  grid-row: 4/5;
+  grid-column: 2/-2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`
+
+export const RestatementDirectionsContainerObjectDirectionsButton = styled(
+  OrganizerControlButton
+)`
+  font-size: 2vh;
+`
+
+export type RestatementFeedbackContainerProps = {
+  correct?: boolean
+}
+
+export const RestatementFeedbackContainer = styled.div<RestatementFeedbackContainerProps>`
+  grid-row: 4/-2;
+  grid-column: 2/-2;
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  justify-items: center;
+  align-items: top;
+  font-size: 2;
+  color: ${({ correct }) => (correct ? 'var(--blue)' : 'var(--red)')};
+`
+
+export const FinalRestatementMessageContainer = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+`
+export const FinalRestatementMessage = styled.div`
+  justify-self: center;
+`
+export const FinalRestatementStyles = styled.div`
+  font-size: 3vh;
+`
+export const RestatementFeedbackContainerObjectIndentification = styled(
+  RestatementFeedbackContainer
+)`
+  grid-row: 5/-2;
+`
+export const RestatementFeedBackContainerMessageContainer = styled.div`
+  /* display: grid; */
+  justify-self: center;
+  /* align-self: center; */
+`
+export type RestatementSplitterProps = {
+  cursorFormat: 'POINTER' | 'TEXT' | 'NONE'
+}
+export const RestatementSplitter = styled.div<RestatementSplitterProps>`
+  grid-row: 3/4;
+  grid-column: 1/-1;
+  justify-self: center;
+  align-self: center;
+  font-size: 2.5vh;
+  cursor: ${({ cursorFormat }) =>
+    cursorFormat === 'TEXT'
+      ? 'text'
+      : cursorFormat === 'POINTER'
+      ? 'pointer'
+      : 'not-allowed'};
 `
 
 export const AcademicRestatementContainer = styled(Standard8x12Container)`
@@ -282,15 +429,16 @@ export const AcademicConclusionOutput = styled(RestatementOutput)`
 `
 
 export const AnswerInput = styled.textarea`
-  grid-row: 5/6;
+  grid-row: 4/7;
   grid-column: 3/-3;
   border: 1px solid var(--blue);
   /* width: 100%;*/
   height: 100%;
-  font-size: 1.2rem;
+  font-size: 2vh;
   color: var(--blue);
   background-color: var(--white);
   font-family: inherit;
+  padding: 2%;
   /* :enabled {
     border: 1px solid var(--white);
     border-bottom: 1px solid var(--blue);

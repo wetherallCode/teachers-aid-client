@@ -6,8 +6,8 @@ import {
   AdditionalCommentsContainer,
   AdditionalCommentTitle,
   Comments,
-} from '../essay-grader-styles/EssaysToGradeStyles'
-import { useGradeEssayContextProvider } from '../GradeEssayContext'
+} from '../state-n-styles/EssaysToGradeStyles'
+import { useGradeEssayContextProvider } from '../state-n-styles/GradeEssayContext'
 
 export type AdditionalCommentsProps = {}
 

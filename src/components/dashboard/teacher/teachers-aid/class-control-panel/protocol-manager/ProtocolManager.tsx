@@ -10,11 +10,13 @@ import { ProtocolSelector } from './ProtocolSelector'
 export type ProtocolManagerProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
   protocols: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[]
+  presentStudentList: string[]
 }
 
 export const ProtocolManager: FC<ProtocolManagerProps> = ({
   lesson,
   protocols,
+  presentStudentList,
 }) => {
   const [state, event] = useTeachersAidContextProvider()
 
@@ -42,7 +44,10 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
       {lesson && protocols ? (
         <>
           {!protocols.some((protocol) => protocol.isActive) ? (
-            <ProtocolSelector lesson={lesson} />
+            <ProtocolSelector
+              lesson={lesson}
+              presentStudentList={presentStudentList}
+            />
           ) : (
             <ActivatedProtocolDisplay lessonId={lesson._id!} />
           )}

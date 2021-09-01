@@ -1,8 +1,15 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { DeskDisplay } from '../../styles/seatingChartStyles'
-import { StudentCohortEnum } from '../../../../../../schemaTypes'
+import {
+  findStudentInfoByStudentIdForDesk,
+  findStudentInfoByStudentIdForDeskVariables,
+  StudentCohortEnum,
+} from '../../../../../../schemaTypes'
 import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
+import { gql, useQuery } from '@apollo/client'
+import { FIND_STUDENT_INFORMATION_QUERY } from '../../student-info/StudentInfo'
+import { todaysLocaleDate } from '../../../../../../utils'
 
 export type DeskProps = { deskNumber: number }
 
@@ -11,24 +18,51 @@ export type DeskDisplayProps = {
   assigned: boolean
 }
 
+export const FIND_STUDENT_INFO_FOR_DESK_QUERY = gql`
+  query findStudentInfoByStudentIdForDesk($input: FindStudentByIdInput!) {
+    findStudentById(input: $input) {
+      student {
+        _id
+        hasAbsences {
+          _id
+          dayAbsent
+        }
+      }
+    }
+  }
+`
+
 export const Desk: FC<DeskProps> = ({ deskNumber }) => {
   const [state, event] = useTeachersAidContextProvider()
   const [schoolDayState] = useSchoolDayContextProvider()
   const todaysDate = new Date().toLocaleDateString()
   const [cohortSwitch, setcohortSwitch] = useState(false)
 
-  const [desk] = state.context.courseInfo.assignedSeats.filter(
+  const [desk] = state.context.courseInfo!.assignedSeats.filter(
     (seat) => seat.deskNumber === deskNumber
   )
 
-  const isAbsent = desk.student?.hasAbsences.some((absence) =>
-    absence.dayAbsent.includes(todaysDate)
+  const { loading, data } = useQuery<
+    findStudentInfoByStudentIdForDesk,
+    findStudentInfoByStudentIdForDeskVariables
+  >(FIND_STUDENT_INFO_FOR_DESK_QUERY, {
+    variables: {
+      input: { studentId: desk.student?._id! },
+    },
+    // onCompleted: (data) =>
+    // console.log(data.findStudentById.student.hasAbsences),
+    onError: (error) => console.error(error + 'desk'),
+  })
+
+  const isAbsent = data?.findStudentById.student.hasAbsences.some(
+    (absence) => absence.dayAbsent === todaysLocaleDate
   )
+
   const redWeek = schoolDayState.context.currentSchoolDay.cohortWeek === 'RED'
 
   return (
     <>
-      {!state.context.courseInfo.cohortBasedSeating && (
+      {!state.context.courseInfo!.cohortBasedSeating && (
         <DeskDisplay
           absent={isAbsent!}
           assigned={desk.student !== null}
@@ -41,7 +75,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
           <div>{desk.student?.firstName ? desk.student.firstName : null}</div>
         </DeskDisplay>
       )}
-      {state.context.courseInfo.cohortBasedSeating && redWeek && (
+      {state.context.courseInfo!.cohortBasedSeating && redWeek && (
         <DeskDisplay
           absent={isAbsent!}
           assigned={desk.redCohortStudent !== null}
@@ -62,7 +96,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
           </div>
         </DeskDisplay>
       )}
-      {state.context.courseInfo.cohortBasedSeating && !redWeek && (
+      {state.context.courseInfo!.cohortBasedSeating && !redWeek && (
         <DeskDisplay
           absent={isAbsent!}
           assigned={desk.whiteCohortStudent !== null}

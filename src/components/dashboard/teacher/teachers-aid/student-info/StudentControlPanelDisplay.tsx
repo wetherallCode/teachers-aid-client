@@ -1,43 +1,65 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import {
   findStudentInfoByStudentId_findStudentById_student,
   findStudentInfoByStudentIdVariables,
 } from '../../../../../schemaTypes'
-import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import { AssessProtocol } from './protocols/AssessProtocol'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
 import { QueryLazyOptions } from '@apollo/client'
+import { DailyAttendance } from './attendance/DailyAttendance'
+import {
+  StudentControlPanelContainer,
+  StudentControlButtonContainer,
+  ControlButtons,
+} from '../styles/studentInfoStyles'
 
 export type StudentControlPanelDisplayProps = {
   student: findStudentInfoByStudentId_findStudentById_student
   loadStudentInfo: (
     options?: QueryLazyOptions<findStudentInfoByStudentIdVariables> | undefined
   ) => void
+  absenceCheck: boolean
 }
 
-export const StudentControlPanelDisplay: FC<StudentControlPanelDisplayProps> = ({
-  student,
-  loadStudentInfo,
-}) => {
-  const [state, event] = useTeachersAidContextProvider()
-  useEffect(() => {
-    if (student?.hasProtocols.some((protocol) => protocol.isActive)) {
-      event({ type: 'ASSESS_PROTOCOL_DISPLAY' })
-    }
-  }, [student])
-  const protocols = student?.hasProtocols
-  console.log(protocols)
+export const StudentControlPanelDisplay: FC<StudentControlPanelDisplayProps> =
+  ({ student, loadStudentInfo, absenceCheck }) => {
+    const [state, event] = useTeachersAidContextProvider()
+    const [controllerState, setControllerState] = useState<
+      'ATTENDANCE' | 'BEHAVIOR'
+    >('ATTENDANCE')
 
-  return (
-    <>
-      <div>Control</div>
-      {student?.hasProtocols.some((protocol) => protocol.isActive) && (
-        <AssessProtocol
-          loadStudentInfo={loadStudentInfo}
-          protocols={protocols}
-          student={student}
-        />
-      )}
-    </>
-  )
-}
+    useEffect(() => {
+      if (student?.hasProtocols.some((protocol) => protocol.isActive)) {
+        event({ type: 'ASSESS_PROTOCOL_DISPLAY' })
+      }
+    }, [student])
+
+    const protocols = student?.hasProtocols
+
+    return (
+      <>
+        {student?.hasProtocols.some((protocol) => protocol.isActive) ? (
+          <AssessProtocol
+            loadStudentInfo={loadStudentInfo}
+            protocols={protocols}
+            student={student}
+          />
+        ) : (
+          <StudentControlPanelContainer>
+            <StudentControlButtonContainer>
+              <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
+                Attendance
+              </ControlButtons>
+              <ControlButtons onClick={() => setControllerState('BEHAVIOR')}>
+                Behavior
+              </ControlButtons>
+            </StudentControlButtonContainer>
+            {student && controllerState === 'ATTENDANCE' && (
+              <DailyAttendance student={student} absenceCheck={absenceCheck} />
+            )}
+            {student && controllerState === 'BEHAVIOR' && <div>Behavior</div>}
+          </StudentControlPanelContainer>
+        )}
+      </>
+    )
+  }

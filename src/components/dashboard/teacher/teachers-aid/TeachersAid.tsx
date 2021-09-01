@@ -1,23 +1,27 @@
 import React, { FC, useEffect } from 'react'
-import { capitalizer, date } from '../../../../utils'
+import { capitalizer, date, todaysLocaleDate } from '../../../../utils'
 import { TeachersAidContainer } from './styles/teachersAidContainerStyles'
 import {
+  StudentControlPanelContainer,
   StudentInfoContainer,
   StudentInfoDisplay,
   StudentNameContainer,
-  StudentControlPanel,
 } from './styles/studentInfoStyles'
 import { ClassControlPanelContainer } from './styles/classControlPanelStyles'
 import {
   SeatingChartContainer,
   StartingDisplay,
 } from './styles/seatingChartStyles'
-import { gql } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { StudentInfo } from './student-info/StudentInfo'
 import { ClassControlPanel } from './class-control-panel/center-console/ClassControlPanel'
 import { RandomStudentGenerator } from './class-control-panel/random-student-generator/RandomStudentGenerator'
 import { useTeachersAidContextProvider } from './state/TeachersAidContext'
-import { me_me_Teacher } from '../../../../schemaTypes'
+import {
+  findCourseByIdForTeachersAid,
+  findCourseByIdForTeachersAidVariables,
+  me_me_Teacher,
+} from '../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { TimerPresets } from './class-control-panel/timer/TimerPresets'
 import { Greetings } from '../../../home/Greetings'
@@ -26,52 +30,96 @@ import { MainScreenDisplay } from './main-screen/MainScreenDisplay'
 export type TeachersAidProps = {}
 
 export const COURSE_QUERY = gql`
-  query findCourseById($input: FindCourseByIdInput!) {
+  query findCourseByIdForTeachersAid($input: FindCourseByIdInput!) {
     findCourseById(input: $input) {
       course {
+        name
         hasStudents {
+          _id
           firstName
+          hasAbsences {
+            dayAbsent
+          }
         }
       }
     }
   }
 `
 
-export const TeachersAid: FC<TeachersAidProps> = () => {
+export const TeachersAid = ({}: TeachersAidProps) => {
   const [state, event] = useTeachersAidContextProvider()
 
   const me: me_me_Teacher = useUserContextProvider()
   const title = capitalizer(me.title)
-  // const [courseToLoad] =
-  //   me.__typename === 'Teacher' &&
-  //   me.teachesCourses.filter(
-  //     (course) =>
-  //       Date.parse(time) >
-  //         Date.parse(timeFinder(course.hasCourseInfo.startsAt)) &&
-  //       Date.parse(time) < Date.parse(timeFinder(course.hasCourseInfo.endsAt))
-  //   )
 
-  useEffect(() => {
-    const presentStudents = state.context.courseInfo.course.hasStudents
-      // .filter((desk) => desk.student !== null)
-      .filter((student) => {
-        return !student?.hasAbsences.some((day) => day.dayAbsent === date)
+  const { loading, data } = useQuery<
+    findCourseByIdForTeachersAid,
+    findCourseByIdForTeachersAidVariables
+  >(COURSE_QUERY, {
+    variables: {
+      input: { courseId: state.context.courseInfo?.course._id! },
+    },
+    onCompleted: (data) => {
+      const presentStudentList = data
+        .findCourseById!.course!.hasStudents!.filter(
+          (student) =>
+            (student._id && student.hasAbsences.length === 0) ||
+            student.hasAbsences.some(
+              (absence) => absence.dayAbsent !== todaysLocaleDate
+            )
+        )
+        .map((student) => student._id) as string[]
+      event({
+        type: 'SET_PRESENT_STUDENTS',
+        payload: presentStudentList,
       })
-      .map((student) => student?._id) as string[]
+    },
+    onError: (error) => console.error(error),
+  })
+  const presentStudentList = data
+    ?.findCourseById!.course!.hasStudents!.filter(
+      (student) =>
+        (student && student.hasAbsences.length === 0) ||
+        student.hasAbsences.some(
+          (absence) => absence.dayAbsent !== todaysLocaleDate
+        )
+    )
+    .map((student) => student._id)! as string[]
 
-    event({
-      type: 'SET_PRESENT_STUDENTS',
-      payload: presentStudents,
-    })
-  }, [state.context.courseInfo.assignedSeats])
+  // useEffect(() => {
+  //   console.log('change')
+  //   if (state.context.courseInfo) {
+  //     const presentStudents = state.context
+  //       .courseInfo!.course.hasStudents // .filter((desk) => desk.student !== null)
+  //       .filter((student) => {
+  //         return !student?.hasAbsences.some((day) => day.dayAbsent === date)
+  //       })
+  //       .map((student) => student?._id) as string[]
 
+  //     event({
+  //       type: 'SET_PRESENT_STUDENTS',
+  //       payload: presentStudents,
+  //     })
+  //   }
+  // }, [
+  //   event,
+  //   state.context.courseInfo,
+  //   state.context.courseInfo!.course.hasStudents,
+  // ])
+
+  // useEffect(() => {
+  //   event({
+  //     type: 'SET_PRESENT_STUDENTS',
+  //     payload: presentStudentList,
+  //   })
+  // }, [event, presentStudentList])
+
+  if (loading) return <div>Loading </div>
   return (
     <>
-      {/* {macBookPro && ( */}
-
       <TeachersAidContainer>
         <SeatingChartContainer>
-          {!state.context.courseInfo._id ? (
+          {!state.context.courseInfo!._id ? (
             <StartingDisplay>
               <Greetings phrase={`${title}. ${me.lastName}!`} />
             </StartingDisplay>
@@ -87,13 +135,13 @@ export const TeachersAid: FC<TeachersAidProps> = () => {
               <StudentInfoDisplay>
                 <StudentNameContainer />
               </StudentInfoDisplay>
-              <StudentControlPanel></StudentControlPanel>
+              <StudentControlPanelContainer></StudentControlPanelContainer>
             </>
           )}
         </StudentInfoContainer>
         <ClassControlPanelContainer>
           <RandomStudentGenerator />
-          <ClassControlPanel />
+          <ClassControlPanel presentStudentList={presentStudentList} />
           <TimerPresets />
         </ClassControlPanelContainer>
       </TeachersAidContainer>

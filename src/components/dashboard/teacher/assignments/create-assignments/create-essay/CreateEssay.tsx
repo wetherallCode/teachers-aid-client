@@ -13,9 +13,15 @@ import {
   me_me_Teacher,
   TimeOfDay,
   MarkingPeriodEnum,
-  findLessonById_findLessonById_lesson,
+  NounTypeEnum,
+  VerbTypeEnum,
+  QuestionWordEnum,
   findWritingLevelsForCourseVariables,
   findWritingLevelsForCourse,
+  findLessonById_findLessonById_lesson,
+  // NounTypeEnum,
+  // QuestionWordEnum,
+  // VerbTypeEnum,
 } from '../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
 import {
@@ -95,17 +101,16 @@ export const CreateEssay = ({
 }: CreateEssayProps) => {
   const [state, event] = useCreateAssignmentContextPovider()
 
-  const {
-    writingLevelEnum,
-    markingPeriodEnum,
-    timeOfDayEnum,
-  } = useEnumContextProvider()
+  const { writingLevelEnum, markingPeriodEnum, timeOfDayEnum } =
+    useEnumContextProvider()
 
   const [topicQuestion, setTopicQuestion] = useState<TopicInput>({
     question: '',
     questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT,
     writingLevel: WritingLevelEnum.DEVELOPING,
+    essayQuestionId: '',
   })
+
   const [assignedCourseIds, handleChange] = useCheckBox(courseIdList)
 
   const { loading, data: writingLevelData } = useQuery<
@@ -118,6 +123,7 @@ export const CreateEssay = ({
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+  console.log(state.context.essay.questionList)
   const writingLevels = writingLevelData?.findStudentsByCourse.students
     .map(
       (student) =>
@@ -147,7 +153,10 @@ export const CreateEssay = ({
         readings: state.context.essay.readings,
       },
     },
-    onCompleted: () => event({ type: 'READING_GUIDE' }),
+    onCompleted: () => {
+      console.log(data)
+      event({ type: 'READING_GUIDE' })
+    },
     onError: (error) => console.error(error),
     refetchQueries: [],
   })
@@ -267,18 +276,27 @@ export const CreateEssay = ({
                     ...topicQuestion,
                     question: arr[0],
                     questionType: arr[1],
+                    essayQuestionId: arr[2],
                   })
                 }}
               >
                 <option value={undefined}>Pick a Question</option>
-                {state.context.essay.questionList.map((question) => (
-                  <option
-                    key={question.question!}
-                    value={[question.question, question.questionType]}
-                  >
-                    {question.question}
-                  </option>
-                ))}
+                {state.context.essay.questionList.map((question: any) => {
+                  return (
+                    // <option
+                    //   key={question.originalQuestion!}
+                    //   value={[question.originalQuestion, question.questionType, question.essayQuestionId]}
+                    // >
+                    //   {question.originalQuestion}
+                    // </option>
+                    <option
+                      key={question[0]}
+                      value={[question[0], question[1], question[2]]}
+                    >
+                      {question[0]}
+                    </option>
+                  )
+                })}
               </AddQuestionSelect>
               <AddQuestionLevelSelect
                 onChange={(e: any) =>
@@ -328,9 +346,10 @@ export const CreateEssay = ({
                     <Question
                       key={i}
                       onClick={() => {
-                        const topicIndex = state.context.essay.topicList.findIndex(
-                          (topic) => topic.question === question.question
-                        )
+                        const topicIndex =
+                          state.context.essay.topicList.findIndex(
+                            (topic) => topic.question === question.question
+                          )
 
                         event({
                           type: 'DELETE_TOPIC_QUESTION',
@@ -357,9 +376,10 @@ export const CreateEssay = ({
                     <Question
                       key={i}
                       onClick={() => {
-                        const topicIndex = state.context.essay.topicList.findIndex(
-                          (topic) => topic.question === question.question
-                        )
+                        const topicIndex =
+                          state.context.essay.topicList.findIndex(
+                            (topic) => topic.question === question.question
+                          )
 
                         event({
                           type: 'DELETE_TOPIC_QUESTION',
@@ -386,9 +406,10 @@ export const CreateEssay = ({
                     <Question
                       key={i}
                       onClick={() => {
-                        const topicIndex = state.context.essay.topicList.findIndex(
-                          (topic) => topic.question === question.question
-                        )
+                        const topicIndex =
+                          state.context.essay.topicList.findIndex(
+                            (topic) => topic.question === question.question
+                          )
 
                         event({
                           type: 'DELETE_TOPIC_QUESTION',

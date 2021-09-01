@@ -24,7 +24,7 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
 }) => {
   const essayOrganizer =
     organizer.__typename === 'AcademicOrganizer' ? organizer : null
-
+  console.log(essayOrganizer)
   const { verb, subject, object } = essayOrganizer?.academicSentenceStructure!
   const linkingVerbCheck =
     verb.toLowerCase() === 'was' || verb.toLowerCase() === 'were'

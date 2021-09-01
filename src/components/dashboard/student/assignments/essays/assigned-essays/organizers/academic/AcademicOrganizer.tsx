@@ -2,14 +2,19 @@ import React, { FC } from 'react'
 import { gql, useMutation, MutationFunctionOptions } from '@apollo/client'
 import {
   findEssayById_findEssayById_essay_workingDraft_organizer,
+  findEssayById_findEssayById_essay_topic,
   updateAcademicOrganizer,
   updateAcademicOrganizerVariables,
+  findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
 } from '../../../../../../../../schemaTypes'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { AcademicAnswerTypes } from './AcademicAnswerTypes'
 import { AcademicRestatement } from './AcademicRestatement'
 import { AcademicConclusion } from './AcademicConclusion'
 import {
+  OrganizerControlButton,
+  OrganizerControlButtonContainerIdentifications,
+  OrganizerControlButtonMessageContainer,
   OrganizerTitleContainer,
   OrganizerTitleStyle,
   QuestionContainer,
@@ -17,7 +22,8 @@ import {
 } from '../../state-and-styles/assignedEssayStyles'
 
 export type AcademicOrganizerProps = {
-  question: string
+  topic: findEssayById_findEssayById_essay_topic
+  questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
   organizer: findEssayById_findEssayById_essay_workingDraft_organizer
 }
 
@@ -41,10 +47,16 @@ export type UpdateAcademicOrganizerType = (
 ) => void
 
 export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
-  question,
+  topic,
+  questionParts,
   organizer,
 }) => {
-  const [state] = useStudentEssayContextProvider()
+  const [state, event] = useStudentEssayContextProvider()
+
+  const auxilaryVerbCheck =
+    questionParts.helpingVerb !== 'did' &&
+    questionParts.simplePredicate.split(' ').length > 1 &&
+    questionParts.simplePredicate.split(' ').includes(questionParts.helpingVerb)
 
   const [updateAcademicOrganizer] = useMutation<
     updateAcademicOrganizer,
@@ -66,25 +78,69 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
 
   return (
     <>
-      <OrganizerTitleContainer>
-        <OrganizerTitleStyle>Organize for this Question</OrganizerTitleStyle>
-      </OrganizerTitleContainer>
-      <QuestionContainer>
-        <QuestionStyle>{question}</QuestionStyle>
-      </QuestionContainer>
+      {state.matches('organizers.academicOrganizer.identifications') && (
+        <>
+          <OrganizerTitleContainer>
+            <OrganizerTitleStyle>
+              Organize your essay for this Question
+            </OrganizerTitleStyle>
+          </OrganizerTitleContainer>
+          <QuestionContainer>
+            <QuestionStyle>{topic.question}</QuestionStyle>
+          </QuestionContainer>
+          {!organizer.restatement ? (
+            <>
+              <OrganizerControlButtonMessageContainer>
+                The first step is to restate the question so click Start when
+                ready!
+              </OrganizerControlButtonMessageContainer>
+              <OrganizerControlButtonContainerIdentifications>
+                <OrganizerControlButton
+                  onClick={() => event({ type: 'RESTATEMENT' })}
+                >
+                  Start
+                </OrganizerControlButton>
+              </OrganizerControlButtonContainerIdentifications>
+            </>
+          ) : (
+            <>
+              <OrganizerControlButtonMessageContainer>
+                Since you've already completed the restatement, we're going to
+                go right to the answer section of the organizer
+              </OrganizerControlButtonMessageContainer>
+              <OrganizerControlButtonContainerIdentifications>
+                <OrganizerControlButton
+                  onClick={() => event({ type: 'ANSWER' })}
+                >
+                  Start
+                </OrganizerControlButton>
+              </OrganizerControlButtonContainerIdentifications>
+            </>
+          )}
+        </>
+      )}
       {state.matches('organizers.academicOrganizer.restatement') && (
         <AcademicRestatement
           updateAcademicOrganizer={updateAcademicOrganizer}
+          topic={topic}
+          questionParts={questionParts}
+          // organizer={organizer!}
         />
       )}
       {state.matches('organizers.academicOrganizer.answer') && (
         <AcademicAnswerTypes
           organizer={organizer}
           updateAcademicOrganizer={updateAcademicOrganizer}
+          questionParts={questionParts}
+          auxilaryVerbCheck={auxilaryVerbCheck}
         />
       )}
       {state.matches('organizers.academicOrganizer.conclusion') && (
-        <AcademicConclusion updateAcademicOrganizer={updateAcademicOrganizer} />
+        <AcademicConclusion
+          updateAcademicOrganizer={updateAcademicOrganizer}
+          questionParts={questionParts}
+          auxilaryVerbCheck={auxilaryVerbCheck}
+        />
       )}
     </>
   )

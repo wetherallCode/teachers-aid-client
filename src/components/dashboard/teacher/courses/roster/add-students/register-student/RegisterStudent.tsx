@@ -78,7 +78,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
       event({ type: 'ADD_COHORT', payload: StudentCohortEnum.RED })
     } else event({ type: 'ADD_COHORT', payload: StudentCohortEnum.WHITE })
   }, [state.context.studentToRegister.lastName])
-  console.log(state.context.studentToRegister.cohort)
+
   if (loading) return <div>Loading </div>
   return (
     <>
@@ -88,31 +88,31 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
         <div>First Name: </div>
         <input
           onChange={(e: any) =>
-            event({ type: 'ADD_FIRST_NAME', payload: e.target.value })
+            event({ type: 'ADD_FIRST_NAME', payload: e.target.value.trim() })
           }
         />
         <div>Middle Name: </div>
         <input
           onChange={(e: any) =>
-            event({ type: 'ADD_MIDDLE_NAME', payload: e.target.value })
+            event({ type: 'ADD_MIDDLE_NAME', payload: e.target.value.trim() })
           }
         />
         <div>Last Name: </div>
         <input
           onChange={(e: any) =>
-            event({ type: 'ADD_LAST_NAME', payload: e.target.value })
+            event({ type: 'ADD_LAST_NAME', payload: e.target.value.trim() })
           }
         />
         <div>Email:</div>
         <input
           onChange={(e: any) =>
-            event({ type: 'ADD_EMAIL', payload: e.target.value })
+            event({ type: 'ADD_EMAIL', payload: e.target.value.trim() })
           }
         />
         <div>School Id:</div>
         <input
           onChange={(e: any) =>
-            event({ type: 'ADD_SCHOOL_ID', payload: e.target.value })
+            event({ type: 'ADD_SCHOOL_ID', payload: e.target.value.trim() })
           }
         />
         <div>Change Cohort:</div>
@@ -125,7 +125,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
           <option value={StudentCohortEnum.RED}>Red</option>
           <option value={StudentCohortEnum.WHITE}>White</option>
         </select>
-        {/* <RegisterUserNameAndPassword userNamesInUse={userNamesInUse!} /> */}
+        <RegisterUserNameAndPassword userNamesInUse={userNamesInUse!} />
         {!addToCourseToggle &&
           userNamesInUse?.includes(
             state.context.studentToRegister.userName
@@ -135,7 +135,10 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
               <div>UserName:</div>
               <input
                 onChange={(e: any) =>
-                  event({ type: 'ADD_USERNAME', payload: e.target.value })
+                  event({
+                    type: 'ADD_USERNAME',
+                    payload: e.target.value.trim(),
+                  })
                 }
               />
             </>

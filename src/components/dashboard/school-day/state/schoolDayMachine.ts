@@ -50,6 +50,7 @@ export const schoolDayMachine = Machine<
       currentSchoolDayType: SchoolDayType.A,
       schoolDayCount: 0,
       signInSheets: [],
+      todaysDate: '',
     },
   },
   states: {

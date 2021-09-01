@@ -10,7 +10,7 @@ export type EssayHelpProps = {}
 
 export const EssayHelp: FC<EssayHelpProps> = () => {
   const [state] = useStudentEssayContextProvider()
-  console.log()
+  console.log(state.context.academicOrganizer.restatement)
   return (
     <>
       <EssayInfoTitle>Help with Your Essay</EssayInfoTitle>
@@ -18,11 +18,12 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('organizers.developingOrganizer.identifications') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Why Questions: Why is the reason something happened.
-              {/* ; Ending: For a
-              certain reason. */}
+              Writing the answer to this question is a process, and I want to
+              help you by walking you through each step. Take your time and read
+              the directions and the feedback to get better. The more you try
+              the faster this gets.
             </EssaySectionOrganizationBodyEntry>
-            <EssaySectionOrganizationBodyEntry>
+            {/* <EssaySectionOrganizationBodyEntry>
               How Questions: How is the way something changed something or the
               way a problem was solved.
             </EssaySectionOrganizationBodyEntry>
@@ -34,12 +35,12 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
             <EssaySectionOrganizationBodyEntry>
               The verb is the thing the subject is doing or being. In the
               example, threw is the verb (the ball is the object of the verb).
-            </EssaySectionOrganizationBodyEntry>
+            </EssaySectionOrganizationBodyEntry> */}
           </ul>
         )}
         {state.matches('organizers.developingOrganizer.restatement') && (
           <ul>
-            <EssaySectionOrganizationBodyEntry>
+            {/* <EssaySectionOrganizationBodyEntry>
               To restate a question take off the question word (How or Why) and
               the word ‘did’ if it is in the question.
             </EssaySectionOrganizationBodyEntry>
@@ -54,6 +55,14 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
                 <li>Why questions will end 'for a certain reason.'</li>
                 <li>How questions will end 'in a certain way.'</li>
               </ul>
+            </EssaySectionOrganizationBodyEntry> */}
+            <EssaySectionOrganizationBodyEntry>
+              Follow the directions for each step to complete the restatement
+              for your essay.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              If you get the answer wrong, please read the feedback section that
+              pops up to help guide you to the correct answer.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -78,12 +87,28 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('organizers.developingOrganizer.conclusion') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Think of a consequence of the restatement. What was a consequence
-              of the subject’s actions, or the way that subject was being.
+              Keep your conclusion to one sentence.
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              Sometimes the conclusion to the question you were asked is
+              explained in the assigned section. However, sometimes you have to
+              guess. If you guess, please explain that your guess could have
+              happened.
             </EssaySectionOrganizationBodyEntry>
             <EssaySectionOrganizationBodyEntry>
               Do not use “That is how the subject did what they did…” as a
               conclusion because that just restates the restatement.
+            </EssaySectionOrganizationBodyEntry>
+          </ul>
+        )}
+        {state.matches('organizers.academicOrganizer.identifications') && (
+          <ul>
+            <EssaySectionOrganizationBodyEntry>
+              Now that you have advanced to the Academic level, things will
+              change slightly. You will still restate the question, but there
+              are some additional pieces of information you need to think about
+              to better answer the questions. As always, read the directions and
+              the feedback to improve.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -164,14 +189,7 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              If you didn't fill in the subject, verb, and object, go back or
-              else this section won't make sense.
-            </EssaySectionOrganizationBodyEntry>
-            <EssaySectionOrganizationBodyEntry>
-              All How: Problem and Solution Questions need to give a complete
-              explanation of the problem and then a complete explanation of the
-              solution. To do this, answer each of these questions with
-              paraphrased answers found in the text.
+              Since the verb of the question
             </EssaySectionOrganizationBodyEntry>
             <EssaySectionOrganizationBodyEntry>
               Some of the answers may actually come from earlier parts of the
@@ -191,20 +209,20 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              If you didn't fill in the subject, verb, and object, go back or
-              else this section won't make sense.
+              The proximate cause is the direct reason something happened. The
+              answer to this will always be explained in the assigned sections
+              of the text.
             </EssaySectionOrganizationBodyEntry>
             <EssaySectionOrganizationBodyEntry>
-              The proximate cause is the direct reason something happened. So
-              think of the thing that happened to make the (subject) (verb)
-            </EssaySectionOrganizationBodyEntry>
+              The ultimate cause is a little different than the proximate cause.
+              To find the ultimate cause, figure out the reason your proximate
+              cause happened. Think of it as links on a chain; events in the
+              word are linked the same way.
+            </EssaySectionOrganizationBodyEntry>{' '}
             <EssaySectionOrganizationBodyEntry>
-              The ultimate cause is the reason the proximate cause happened. Its
-              the big picture reason. For example: "Why did you make a
-              sandwich?" The proximate cause is: I was hungry. To find the
-              ultimate cause ask "Why was I hungry?". The answer is I haven't
-              eaten in 6 hours. That's how I want you to think about why
-              questions.
+              The ultimate cause may come from the assigned text, but it is also
+              possible that it came before the assigned text, so its ok to read
+              past sections we've already covered.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -213,13 +231,16 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              If you didn't fill in the subject, verb, and object, go back or
-              else this section won't make sense.
-            </EssaySectionOrganizationBodyEntry>
-            <EssaySectionOrganizationBodyEntry>
               All How: Cause and Effect questions are basically asking you about
               how things/people affect or change other things or people.
             </EssaySectionOrganizationBodyEntry>
+
+            <EssaySectionOrganizationBodyEntry>
+              You don't need to write in complete sentences. Keep it as simple
+              as possible because these are just ideas to help you write the
+              final answer.
+            </EssaySectionOrganizationBodyEntry>
+
             <EssaySectionOrganizationBodyEntry>
               To answer completely you need to explain what the object of the
               verb was like before the subject of the question. This should only
@@ -228,7 +249,7 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
             <EssaySectionOrganizationBodyEntry>
               The second part of the answer needs to explain the way the object
               of the question was different because of subject of the question.
-              This can be two sentences at the most.
+              This can be two to three sentences at the most.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -240,14 +261,11 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
               way.
             </EssaySectionOrganizationBodyEntry>
             <EssaySectionOrganizationBodyEntry>
-              First, start the conclusion this way "As a result of (subject)
-              (verb+ing) (object if one exists), " then you write the
-              consequence. Be careful to add an ing ending to the verb and if no
-              object of verb exists, then just put a comma after the verb.
-            </EssaySectionOrganizationBodyEntry>
-            <EssaySectionOrganizationBodyEntry>
               For example: "As a result of Robert throwing the ball, a glass
               window was broken."
+            </EssaySectionOrganizationBodyEntry>
+            <EssaySectionOrganizationBodyEntry>
+              The Conclusion should only be one sentence.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
@@ -315,14 +333,21 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
               </>
             )}
             {state.context.writingLevel === 'ACADEMIC' && (
-              <EssaySectionOrganizationBodyEntry>
-                As always, start the essay with the restatement as your topic
-                sentence, and end it with the conclusion, but the answer is
-                going need more structure. Use the organizer as a guide to
-                putting the answer together. Use transitions to connect your
-                ideas and keep it as simple as you can while fully explaining
-                the topic sentence.
-              </EssaySectionOrganizationBodyEntry>
+              <>
+                <EssaySectionOrganizationBodyEntry>
+                  As always, start the essay with the restatement as your topic
+                  sentence, and end it with the conclusion, but the answer is
+                  going need more structure.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Use the organizer as a guide to putting the answer together.
+                  Use transitions to connect your ideas and keep it as simple as
+                  you can while fully explaining the topic sentence.
+                </EssaySectionOrganizationBodyEntry>
+                <EssaySectionOrganizationBodyEntry>
+                  Keep your essay to five to six sentences max.
+                </EssaySectionOrganizationBodyEntry>
+              </>
             )}
             {state.context.writingLevel === 'ADVANCED' && (
               <EssaySectionOrganizationBodyEntry>

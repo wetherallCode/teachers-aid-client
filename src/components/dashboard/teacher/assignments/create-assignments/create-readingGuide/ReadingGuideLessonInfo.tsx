@@ -31,10 +31,10 @@ export const ReadingGuideLessonInfo = ({
         input: { _id: state.context.readingGuide.lesson },
       },
       onCompleted: (data) => {
-        event({
-          type: 'SET_QUESTION_LIST',
-          payload: data?.findLessonById.lesson.questionList,
-        })
+        // event({
+        //   type: 'SET_QUESTION_LIST',
+        //   payload: data?.findLessonById.lesson.questionList,
+        // })
         event({
           type: 'SET_READING_GUIDE_READINGS_READING_PAGES',
           payload:

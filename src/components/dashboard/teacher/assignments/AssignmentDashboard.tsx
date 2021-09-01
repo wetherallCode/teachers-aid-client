@@ -6,7 +6,7 @@ import { EditAssignments } from './edit-assignments/EditAssignments'
 
 import { AssignmentsToGrade } from './grade-assignments/AssignmentsToGrade'
 import { GradeEssay } from './grade-assignments/essays/essay-grader/GradeEssay'
-import { GradeEssayContextProvider } from './grade-assignments/essays/essay-grader/GradeEssayContext'
+import { GradeEssayContextProvider } from './grade-assignments/essays/essay-grader/state-n-styles/GradeEssayContext'
 import { AssignAssignments } from './assign-assignments/AssignAssignments'
 import { GradePaperBasedAssignment } from './grade-assignments/paper-based/GradePaperBasedAssignment'
 import { PaperBasedContextProvider } from './grade-assignments/paper-based/state/PaperBasedContext'

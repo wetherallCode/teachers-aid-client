@@ -74,6 +74,21 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    NounTypeEnum: __type(name: "NounTypeEnum") {
+      enumValues {
+        name
+      }
+    }
+    VerbTypeEnum: __type(name: "VerbTypeEnum") {
+      enumValues {
+        name
+      }
+    }
+    QuestionWordEnum: __type(name: "QuestionWordEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -120,9 +135,10 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         timeOfDayEnum: data?.TimeOfDay?.enumValues?.map((value) => value.name),
-        informationStructureEnum: data?.InformationStructureEnum?.enumValues?.map(
-          (value) => value.name
-        ),
+        informationStructureEnum:
+          data?.InformationStructureEnum?.enumValues?.map(
+            (value) => value.name
+          ),
         discussionTypesEnum: data?.DiscussionTypesEnum?.enumValues?.map(
           (value) => value.name
         ),
@@ -145,6 +161,15 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         contactTypeEnum: data?.ContactTypeEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        nounTypeEnum: data?.NounTypeEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        verbTypeEnum: data?.VerbTypeEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        questionWordEnum: data?.QuestionWordEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}

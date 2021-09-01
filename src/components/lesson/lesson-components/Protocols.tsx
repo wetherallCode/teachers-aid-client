@@ -10,7 +10,7 @@ import {
   ProtocolTypeContainer,
   ProtocolTask,
   ProtocolTaskContainer,
-} from '../state/lessonStyles'
+} from '../state-n-styles/lessonStyles'
 import { phraseCapitalizer, underscoreEliminator } from '../../../utils'
 
 export type ProtocolsProps = {

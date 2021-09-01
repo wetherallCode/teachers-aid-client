@@ -7,14 +7,16 @@ import {
   DiscussionTypesEnum,
 } from '../../../../../schemaTypes'
 import {
+  StudentControlPanelContainer,
   StudentInfoDisplay,
-  StudentControlPanel,
   StudentNameContainer,
 } from '../styles/studentInfoStyles'
 import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { todaysLocaleDate } from '../../../../../utils'
 
 export type StudentInfoProps = {}
+
 export const FIND_STUDENT_INFORMATION_QUERY = gql`
   query findStudentInfoByStudentId($input: FindStudentByIdInput!) {
     findStudentById(input: $input) {
@@ -23,25 +25,34 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
         firstName
         lastName
         hasAbsences {
+          _id
           dayAbsent
+        }
+        hasUnExcusedLatenesses {
+          _id
+          dayLate
+        }
+        hasExcusedLatenesses {
+          _id
+          dayLateExcused
         }
         hasResponsibilityPoints {
           _id
           markingPeriod
         }
-        hasAssignments {
-          ... on ReadingGuide {
-            _id
-            dueDate
-            readingGuideFinal {
-              clarifyingQuestions
-              howIsSectionOrganized
-              majorIssue
-              majorIssueSolved
-              majorSolution
-            }
-          }
-        }
+        # hasAssignments {
+        #   ... on ReadingGuide {
+        #     _id
+        #     dueDate
+        #     readingGuideFinal {
+        #       clarifyingQuestions
+        #       howIsSectionOrganized
+        #       majorIssue
+        #       majorIssueSolved
+        #       majorSolution
+        #     }
+        #   }
+        # }
         hasResponsibilityPoints {
           markingPeriod
           responsibilityPoints
@@ -71,7 +82,7 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
   }
 `
 
-export const StudentInfo: FC<StudentInfoProps> = () => {
+export const StudentInfo = ({}: StudentInfoProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
@@ -82,9 +93,9 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
     variables: {
       input: { studentId: state.context.studentId },
     },
+    // pollInterval: 1000,
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
-      console.log('loaded')
       if (
         data?.findStudentById.student.hasProtocols.some(
           (protocol) => protocol.isActive
@@ -123,9 +134,15 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
     }
   }, [loadStudentInfo, state.context.studentId])
 
-  const currentResponsibilityPoints = data?.findStudentById.student.hasResponsibilityPoints.filter(
-    (rp) => rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
-  )
+  const currentResponsibilityPoints =
+    data?.findStudentById.student.hasResponsibilityPoints.filter(
+      (rp) =>
+        rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
+    )
+
+  const absenceCheck = data?.findStudentById.student.hasAbsences.some(
+    (absence) => absence.dayAbsent === todaysLocaleDate
+  )!
 
   if (loading)
     return (
@@ -133,25 +150,25 @@ export const StudentInfo: FC<StudentInfoProps> = () => {
         <StudentInfoDisplay>
           <StudentNameContainer></StudentNameContainer>
         </StudentInfoDisplay>
-        <StudentControlPanel></StudentControlPanel>
+        <StudentControlPanelContainer></StudentControlPanelContainer>
       </>
     )
 
   return (
     <>
-      <StudentInfoDisplay>
+      <StudentInfoDisplay absent={absenceCheck}>
         <StudentNameContainer>
           {data?.findStudentById.student.firstName}{' '}
           {data?.findStudentById.student.lastName}
         </StudentNameContainer>
         {/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
       </StudentInfoDisplay>
-      <StudentControlPanel>
-        <StudentControlPanelDisplay
-          loadStudentInfo={loadStudentInfo}
-          student={data?.findStudentById.student!}
-        />
-      </StudentControlPanel>
+
+      <StudentControlPanelDisplay
+        loadStudentInfo={loadStudentInfo}
+        student={data?.findStudentById.student!}
+        absenceCheck={absenceCheck}
+      />
     </>
   )
 }

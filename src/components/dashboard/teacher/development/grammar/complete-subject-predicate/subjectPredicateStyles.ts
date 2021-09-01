@@ -19,7 +19,7 @@ export const SentenceContainer = styled.div`
 `
 
 type MessageContainerProps = {
-  correct: boolean
+  correct?: boolean
 }
 
 export const MessageContainer = styled.div<MessageContainerProps>`

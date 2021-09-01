@@ -5,7 +5,7 @@ import {
   QuestionInput,
   QuestionSubmitButton,
   CancelQuestion,
-} from '../state/lessonStyles'
+} from '../state-n-styles/lessonStyles'
 import { useToggle } from '../../../hooks'
 import { gql, useMutation } from '@apollo/client'
 import {

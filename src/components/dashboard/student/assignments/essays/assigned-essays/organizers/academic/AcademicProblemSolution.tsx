@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { useMutation, gql } from '@apollo/client'
 import {
+  findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateProblemSolution,
   updateProblemSolutionVariables,
@@ -14,10 +15,19 @@ import {
   OrganizerControlButton,
   AcademicRestatementTitle,
   PartInput,
+  OrganizerTitleContainer,
+  OrganizerTitleStyle,
+  RestatementDirectionsContainer,
 } from '../../state-and-styles/assignedEssayStyles'
-import { irregularPastTenseVerbList } from '../../../../../../../../utils'
+import {
+  irregularPastTenseVerbList,
+  isLetterUpperCase,
+} from '../../../../../../../../utils'
+import { UnderlinedText } from '../../../../../../../../appStyles'
 
-export type AcademicProblemSolutionProps = {}
+export type AcademicProblemSolutionProps = {
+  questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
+}
 
 export const UPDATE_PROBLEM_SOLUTION_MUTATION = gql`
   mutation updateProblemSolution($input: UpdateProblemSolutionInput!) {
@@ -29,14 +39,13 @@ export const UPDATE_PROBLEM_SOLUTION_MUTATION = gql`
   }
 `
 
-export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
+export const AcademicProblemSolution = ({
+  questionParts,
+}: AcademicProblemSolutionProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
-  const {
-    subject,
-    verb,
-    object,
-  } = state.context.academicOrganizer.academicSentenceStructure
+  const { subject, verb, object } =
+    state.context.academicOrganizer.academicSentenceStructure
   const irregularVerbCheck = irregularPastTenseVerbList(verb)
 
   const { problemSolution } = state.context.academicOrganizer.answer
@@ -78,14 +87,40 @@ export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
         ? verb + 'd'
         : verb + 'ed'
       : irregularVerbCheck
+
+  const properNounCheck = (word: string) => {
+    const firstLetter = word.charAt(0)
+
+    if (isLetterUpperCase(firstLetter)) return true
+    else return false
+  }
+  const noun =
+    questionParts.simpleSubject.split(' ')[
+      questionParts.simpleSubject.split(' ').length - 1
+    ]
+  const properNoun = properNounCheck(noun)
+  console.log(properNoun)
   return (
     <>
+      <OrganizerTitleContainer>
+        <OrganizerTitleStyle>Answer the Question</OrganizerTitleStyle>
+      </OrganizerTitleContainer>
+      <RestatementDirectionsContainer>
+        <UnderlinedText>Directions</UnderlinedText>
+        <div>
+          Problem and Solution Questions need to give a complete explanation of
+          the problem and then a complete explanation of the solution. To do
+          this, answer each of these questions with paraphrased answers that you
+          found in the text in the assigned sections or sections that came
+          before the assigned sections.
+        </div>
+      </RestatementDirectionsContainer>
       <AcademicQuestionAnswerTypeContainer>
         <AcademicRestatementTitle>
           <div>How Question: Problem and Solution</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>What is the problem for {subject}?</div>
+          <div>What is the problem for {questionParts.simpleSubject}?</div>
           <PartInput
             value={
               state.context.academicOrganizer.answer.problemSolution.problem
@@ -99,7 +134,10 @@ export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
           />
         </AnswerTypeContainter>
         <AnswerTypeContainter>
-          <div>Why is this {subject}'s problem?</div>
+          <div>
+            Why is this {questionParts.simpleSubject}
+            {properNoun ? `'` : `'s`} problem?
+          </div>
           <PartInput
             value={
               state.context.academicOrganizer.answer.problemSolution
@@ -117,7 +155,7 @@ export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
           />
         </AnswerTypeContainter>
         <AnswerTypeContainter>
-          <div>How did {subject} solve the problem?</div>
+          <div>How did {questionParts.simpleSubject} solve the problem?</div>
           <PartInput
             value={
               state.context.academicOrganizer.answer.problemSolution.solvedBy
@@ -131,7 +169,10 @@ export const AcademicProblemSolution: FC<AcademicProblemSolutionProps> = () => {
           />
         </AnswerTypeContainter>
         <AnswerTypeContainter>
-          <div>Why did the solution solve {subject}'s problem?</div>
+          <div>
+            Why did the solution solve {questionParts.simpleSubject}
+            {properNoun ? `'` : `'s`} problem?
+          </div>
           <PartInput
             value={
               state.context.academicOrganizer.answer.problemSolution

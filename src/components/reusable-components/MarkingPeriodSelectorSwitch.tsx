@@ -9,7 +9,7 @@ import {
   MarkingPeriodSelectorTitle,
   MarkingPeriodSelectedSwitchArrow,
   MarkingPeriodSelectorSwitchContainer,
-} from '../dashboard/student/assignments/assignmentsStyles'
+} from '../dashboard/student/assignments/state-n-styles/assignmentsStyles'
 
 export type MarkingPeriodSelectorProps = {
   selectedMarkingPeriod: MarkingPeriodEnum
@@ -28,9 +28,8 @@ export const MarkingPeriodSelectorSwitch = ({
     (element: MarkingPeriodEnum) => element === currentMarkingPeriod
   )
 
-  const [markingPeriodIndex, setMarkingPeriodIndex] = useState(
-    markingPeriodNumber
-  )
+  const [markingPeriodIndex, setMarkingPeriodIndex] =
+    useState(markingPeriodNumber)
 
   useEffect(() => {
     setSelectedMarkingPeriod(markingPeriodEnum[markingPeriodIndex])

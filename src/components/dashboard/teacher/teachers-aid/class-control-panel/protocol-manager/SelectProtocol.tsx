@@ -23,7 +23,9 @@ import {
 export type SelectProtocolProps = {
   lessonId: string
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
+  presentStudentList: string[]
 }
+
 export const UPDATE_LESSON_PROTOCOL_MUTATION = gql`
   mutation updateLessonProtocol($input: UpdateLessonProtocolInput!) {
     updateLessonProtocol(input: $input) {
@@ -67,6 +69,7 @@ export const CREATE__PROTOCOL_MUTATION = gql`
 export const SelectProtocol: FC<SelectProtocolProps> = ({
   lessonId,
   lesson,
+  presentStudentList,
 }) => {
   const [state, event] = useTeachersAidContextProvider()
 
@@ -78,7 +81,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
       input: {
         academicOutcomeType:
           state.context.selectedProtocol.academicOutcomeTypes,
-        studentIds: state.context.presentStudentsIds,
+        studentIds: presentStudentList,
         markingPeriod: lesson.assignedMarkingPeriod,
         protocolActivityType: state.context.selectedProtocol.activityType,
         task: state.context.selectedProtocol.task,
@@ -109,6 +112,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
       ],
     }
   )
+
   const [reactivateProtocol] = useMutation<
     updateLessonProtocol,
     updateLessonProtocolVariables
@@ -125,12 +129,16 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
     onCompleted: (data) => {
       console.log(data)
     },
-    refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
+    refetchQueries: [
+      'findLessonByCourseAndDate',
+      'findStudentInfoByStudentId',
+      'findActiveProtocolsByCourseForProtocolRemoval',
+    ],
   })
 
   return (
     <ProtocolSelectorContainer>
-      {!state.context.selectedProtocol.completed && (
+      {!state.context.selectedProtocol.completed ? (
         <ProtocolSelectorButton
           onClick={() => {
             startProtocol()
@@ -138,8 +146,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
         >
           Start Protocol
         </ProtocolSelectorButton>
-      )}
-      {state.context.selectedProtocol.completed && (
+      ) : (
         <ProtocolSelectorButton onClick={() => reactivateProtocol()}>
           Reactivate
         </ProtocolSelectorButton>
