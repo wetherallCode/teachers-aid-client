@@ -79,6 +79,7 @@ export const ControlPanelDisplay = ({
           </>
         )}
       {state.matches('controlPanelActions.protocolManager')! &&
+        state &&
         state.context.courseInfo._id &&
         !state.context.courseSelectVisible && (
           <>
