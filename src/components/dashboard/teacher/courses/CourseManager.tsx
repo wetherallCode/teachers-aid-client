@@ -11,12 +11,15 @@ import { AssignmentManager } from './course-assignments/AssignmentManager'
 import { AssignmentManagerContextProvider } from './course-assignments/state-styles/AssignmentManagerContext'
 import { TemporaryTasks } from './temporary-tasks/TemporaryTasks'
 import { TemporaryTasksContextProvider } from './temporary-tasks/state-n-styles/TemporaryTasksContext'
+import { useUserContextProvider } from '../../../../contexts/UserContext'
+import { me_me_Teacher } from '../../../../schemaTypes'
 
 export type CourseManagerProps = {}
 
 export const CourseManager: FC<CourseManagerProps> = () => {
+  const me: me_me_Teacher = useUserContextProvider()
   const { course } = useParams()
-
+  const [name] = me.teachesCourses.filter((courses) => courses._id === course)
   return (
     <>
       <Routes>
@@ -45,7 +48,10 @@ export const CourseManager: FC<CourseManagerProps> = () => {
             </TemporaryTasksContextProvider>
           }
         />
-        <Route path='roster/*' element={<RosterDashboard />} />
+        <Route
+          path='roster/*'
+          element={<RosterDashboard courseName={name.name} />}
+        />
         <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
 
         <Route
