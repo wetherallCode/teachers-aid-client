@@ -2562,6 +2562,30 @@ export interface createCourseVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findAllCourseTitles
+// ====================================================
+
+export interface findAllCourseTitles_findAllCourseTitles_courses {
+  __typename: "Course";
+  _id: string | null;
+  name: string;
+}
+
+export interface findAllCourseTitles_findAllCourseTitles {
+  __typename: "FindAllCourseTitlesPayload";
+  courses: findAllCourseTitles_findAllCourseTitles_courses[];
+}
+
+export interface findAllCourseTitles {
+  findAllCourseTitles: findAllCourseTitles_findAllCourseTitles;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: updateCourseInfo
 // ====================================================
 
@@ -2810,67 +2834,6 @@ export interface findCourseByIdForStudentRegistration {
 
 export interface findCourseByIdForStudentRegistrationVariables {
   input: FindCourseByIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: registerStudent
-// ====================================================
-
-export interface registerStudent_registerStudent_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  email: string | null;
-}
-
-export interface registerStudent_registerStudent {
-  __typename: "RegisterStudentPayload";
-  student: registerStudent_registerStudent_student;
-}
-
-export interface registerStudent {
-  registerStudent: registerStudent_registerStudent;
-}
-
-export interface registerStudentVariables {
-  input: RegisterStudentInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findAllUsers
-// ====================================================
-
-export interface findAllUsers_findAllUsers_users_Student {
-  __typename: "Student";
-  userName: string;
-}
-
-export interface findAllUsers_findAllUsers_users_Teacher {
-  __typename: "Teacher";
-  userName: string;
-}
-
-export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
-
-export interface findAllUsers_findAllUsers {
-  __typename: "FindAllUsersPayload";
-  users: findAllUsers_findAllUsers_users[];
-}
-
-export interface findAllUsers {
-  findAllUsers: findAllUsers_findAllUsers;
 }
 
 /* tslint:disable */
@@ -6485,6 +6448,67 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: registerStudent
+// ====================================================
+
+export interface registerStudent_registerStudent_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string | null;
+}
+
+export interface registerStudent_registerStudent {
+  __typename: "RegisterStudentPayload";
+  student: registerStudent_registerStudent_student;
+}
+
+export interface registerStudent {
+  registerStudent: registerStudent_registerStudent;
+}
+
+export interface registerStudentVariables {
+  input: RegisterStudentInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAllUsers
+// ====================================================
+
+export interface findAllUsers_findAllUsers_users_Student {
+  __typename: "Student";
+  userName: string;
+}
+
+export interface findAllUsers_findAllUsers_users_Teacher {
+  __typename: "Teacher";
+  userName: string;
+}
+
+export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
+
+export interface findAllUsers_findAllUsers {
+  __typename: "FindAllUsersPayload";
+  users: findAllUsers_findAllUsers_users[];
+}
+
+export interface findAllUsers {
+  findAllUsers: findAllUsers_findAllUsers;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -6512,6 +6536,7 @@ export enum CourseMaxSizeEnum {
   THIRTY_SIX = "THIRTY_SIX",
   TWELVE = "TWELVE",
   TWENTY_FOUR = "TWENTY_FOUR",
+  TWENTY_SIX = "TWENTY_SIX",
 }
 
 export enum CourseTypeEnum {
