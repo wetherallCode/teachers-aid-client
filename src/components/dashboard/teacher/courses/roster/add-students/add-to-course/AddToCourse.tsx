@@ -10,7 +10,17 @@ import {
   initializeStudent,
   initializeStudentVariables,
 } from '../../../../../../../schemaTypes'
-import { useAddStudentsContextProvider } from '../state/AddStudentsContext'
+import { useAddStudentsContextProvider } from '../state-n-styles/AddStudentsContext'
+import {
+  AdditionalStudentSelect,
+  AddStudentContainer,
+  BottomButton,
+  BottomButtonContainer,
+  InformationDetailInputContainer,
+  PageTitle,
+  RegisterStudentContainer,
+} from '../state-n-styles/addStudentsStyles'
+import { useNavigate } from 'react-router'
 
 export type AddToCourseProps = {
   course: findCourseByIdForStudentRegistration_findCourseById_course
@@ -60,8 +70,9 @@ export const INITIALIZE_STUDENT_MUTATION = gql`
   }
 `
 
-export const AddToCourse: FC<AddToCourseProps> = ({ course }) => {
+export const AddToCourse = ({ course }: AddToCourseProps) => {
   const [state, event] = useAddStudentsContextProvider()
+  const navigate = useNavigate()
 
   useEffect(() => {
     event({ type: 'SET_COURSE_ID', payload: course._id! })
@@ -77,17 +88,31 @@ export const AddToCourse: FC<AddToCourseProps> = ({ course }) => {
         studentIds: state.context.addStudentToCourse.studentIds,
       },
     },
-    onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    onCompleted: (data) => {
+      console.log(data.initializeStudents.students.length)
+      navigate(`/dashboard/courses/${course._id}/roster/add-students`)
+      for (const student of state.context.addStudentToCourse.studentIds) {
+        const studentIndex =
+          state.context.addStudentToCourse.studentIds.findIndex(
+            (i) => i === student
+          )
+        console.log(studentIndex)
+        event({ type: 'REMOVE_STUDENT_IDS', payload: studentIndex })
+      }
+      event({ type: 'IDLE' })
+    },
+    refetchQueries: ['findAllStudents'],
   })
-
+  console.log(state.context.addStudentToCourse.studentIds)
   const [addStudentsToCourse] = useMutation<
     addStudentsToCourse,
     addStudentsToCourseVariables
   >(ADD_STUDENTS_TO_COURSE_MUTATION, {
     variables: { input: state.context.addStudentToCourse },
-    onCompleted: (data) => initializeStudent(),
-    refetchQueries: [],
+    onCompleted: () => {
+      initializeStudent()
+    },
+    refetchQueries: ['findAllUsers'],
   })
 
   const { loading, data } = useQuery<findAllStudents>(FIND_ALL_STUDENTS_QUERY, {
@@ -96,54 +121,60 @@ export const AddToCourse: FC<AddToCourseProps> = ({ course }) => {
   if (loading) return <div>Loading </div>
 
   const studentsNotInCourse = data?.findAllStudents.students.filter(
-    (student) =>
-      // student.inCourses.some((courses) => courses._id! !== course._id) ||
-      student.inCourses.length === 0 ||
-      student.inCourses.some((thisCourse) => thisCourse._id === course._id)
-    // &&
-    // student.inCourses.some(
-    //   (studentdsCourses) =>s
-    //     !studentdsCourses.hasCourseInfo.courseType.includes(
-    //       course.hasCourseInfo.courseType
-    //     )
-    // )
-  )
+    (student) => student.inCourses.length === 0
+  )!
+
   const studentsToAdd = data?.findAllStudents.students.filter((student) =>
     state.context.addStudentToCourse.studentIds.includes(student._id!)
   )
 
+  // console.log(studentsToAdd)
   return (
-    <>
-      <div onClick={() => event({ type: 'IDLE' })}>Back</div>
-      <div>Add To Course</div>
+    <AddStudentContainer>
+      <PageTitle>Add To Course</PageTitle>
       <div>
-        {studentsToAdd?.map((student, i: number) => (
-          <div key={i}>
-            <div>
-              {i}: {student.lastName}, {student.firstName}
-            </div>
-            <div
-              onClick={() => event({ type: 'REMOVE_STUDENT_IDS', payload: i })}
-            >
-              -
-            </div>
-          </div>
-        ))}
+        <div>
+          {studentsToAdd?.map((student, i: number) => (
+            <InformationDetailInputContainer key={i}>
+              <div>
+                {i + 1}. {student.lastName}, {student.firstName}
+              </div>
+              <div
+                onClick={() =>
+                  event({ type: 'REMOVE_STUDENT_IDS', payload: i })
+                }
+              >
+                Delete
+              </div>
+            </InformationDetailInputContainer>
+          ))}
+        </div>
       </div>
-      <div>Add Addtional Students</div>
-      <select
-        onChange={(e: any) =>
-          event({ type: 'ADD_STUDENT_IDS', payload: e.target.value })
-        }
-      >
-        <option value='none'>Select a Student</option>
-        {studentsNotInCourse?.map((student) => (
-          <option key={student._id!} value={student._id!}>
-            {student.lastName}, {student.firstName}
-          </option>
-        ))}
-      </select>
-      <button onClick={() => addStudentsToCourse()}>Add to Course</button>
-    </>
+      <div>
+        <PageTitle>Add Additional Students</PageTitle>
+        <br />
+        <AdditionalStudentSelect
+          onChange={(e: any) =>
+            event({ type: 'ADD_STUDENT_IDS', payload: e.target.value })
+          }
+        >
+          <option value='none'>Select a Student</option>
+          {studentsNotInCourse?.map((student) => (
+            <option key={student._id!} value={student._id!}>
+              {student.lastName}, {student.firstName}
+            </option>
+          ))}
+        </AdditionalStudentSelect>
+      </div>
+
+      <BottomButtonContainer>
+        <BottomButton onClick={() => event({ type: 'IDLE' })}>
+          Back
+        </BottomButton>
+        <BottomButton onClick={() => addStudentsToCourse()}>
+          Add to Course
+        </BottomButton>
+      </BottomButtonContainer>
+    </AddStudentContainer>
   )
 }

@@ -1,11 +1,12 @@
 import React, { FC, Dispatch, SetStateAction, useEffect } from 'react'
-import { useAddStudentsContextProvider } from '../state/AddStudentsContext'
+import { useAddStudentsContextProvider } from '../state-n-styles/AddStudentsContext'
 import { MutationFunctionOptions } from '@apollo/client'
 import {
+  StudentCohortEnum,
   registerStudent,
   registerStudentVariables,
-  StudentCohortEnum,
 } from '../../../../../../../schemaTypes'
+import { BottomButton } from '../state-n-styles/addStudentsStyles'
 
 export type AddToCourseModalProps = {
   addToCourseToggle: boolean
@@ -24,21 +25,36 @@ export const AddToCourseModal: FC<AddToCourseModalProps> = ({
   registerStudent,
   addIdFinished,
 }) => {
-  const [, event] = useAddStudentsContextProvider()
+  const [state, event] = useAddStudentsContextProvider()
   useEffect(() => {
     registerStudent()
   }, [registerStudent])
+
+  const handleAddToCourse = () => {
+    event({
+      type: 'RESET_REGISTER_INPUTS',
+      payload: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        middleName: '',
+        schoolId: '',
+        cohort: StudentCohortEnum.RED,
+        virtual: false,
+        password: 'password',
+        userName: '',
+      },
+    })
+    event({ type: 'ADD_TO_COURSE' })
+    setAddToCourseToggle(false)
+  }
   return (
     <>
-      <button
-        onClick={() => {
-          event({ type: 'ADD_TO_COURSE' })
-          setAddToCourseToggle(false)
-        }}
-      >
+      <BottomButton type='button' onClick={handleAddToCourse}>
         Add to Course?
-      </button>
-      <button
+      </BottomButton>
+      <BottomButton
+        type='reset'
         onClick={() => {
           event({
             type: 'RESET_REGISTER_INPUTS',
@@ -58,7 +74,7 @@ export const AddToCourseModal: FC<AddToCourseModalProps> = ({
         }}
       >
         Add Another Student
-      </button>
+      </BottomButton>
     </>
   )
 }

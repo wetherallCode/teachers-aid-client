@@ -74,12 +74,12 @@ export const AssignSeats = ({}: AssignSeatsProps) => {
   // }
 
   return (
-    <>
+    <div>
       {data?.findCourseById.course.hasCourseInfo?.cohortBasedSeating ? (
         <AssignCohortBasedSeating course={data.findCourseById.course} />
       ) : (
         <RegularSeating />
       )}
-    </>
+    </div>
   )
 }

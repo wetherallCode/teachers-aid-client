@@ -14,6 +14,7 @@ import {
 
 import { FIND_COURSE_BY_ID_QUERY } from '../add-students/AddStudents'
 import { ThirtySixSeatingChart } from './ThirtySixSeatingChart'
+import { TwentySixIndividualSeatingChart } from './TwentySixIndividualSeatingChart'
 
 export type RegularSeatingProps = {}
 
@@ -114,11 +115,17 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
   }
   const courseSize =
     data?.findCourseById.course.hasCourseInfo?.assignedSeats.length
-  console.log(data?.findCourseById.course.hasCourseInfo?.assignedSeats)
+
   return (
     <>
       <div>Assign Seats</div>
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 10fr' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '2fr 10fr',
+          height: '100%',
+        }}
+      >
         <div>
           {data?.findCourseById.course.hasStudents.map((student) => {
             return (
@@ -145,6 +152,15 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
         </div>
         {courseSize === 36 ? (
           <ThirtySixSeatingChart
+            assignedSeats={
+              data?.findCourseById.course.hasCourseInfo?.assignedSeats!
+            }
+            course={course}
+            assignSeats={assignSeats}
+            studentsInCourse={data?.findCourseById.course.hasStudents!}
+          />
+        ) : courseSize === 26 ? (
+          <TwentySixIndividualSeatingChart
             assignedSeats={
               data?.findCourseById.course.hasCourseInfo?.assignedSeats!
             }

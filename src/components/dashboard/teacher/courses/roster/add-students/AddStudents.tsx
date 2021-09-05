@@ -1,13 +1,17 @@
 import React, { FC } from 'react'
 import { RegisterStudent } from './register-student/RegisterStudent'
 import { useParams } from 'react-router'
-import { useAddStudentsContextProvider } from './state/AddStudentsContext'
+import { useAddStudentsContextProvider } from './state-n-styles/AddStudentsContext'
 import { AddToCourse } from './add-to-course/AddToCourse'
 import {
   findCourseByIdForStudentRegistration,
   findCourseByIdForStudentRegistrationVariables,
 } from '../../../../../../schemaTypes'
 import { useQuery, gql } from '@apollo/client'
+import {
+  BottomButton,
+  FullScreenButtonContainer,
+} from './state-n-styles/addStudentsStyles'
 
 export type AddStudentsProps = {}
 
@@ -68,19 +72,21 @@ export const AddStudents: FC<AddStudentsProps> = () => {
   if (loading) return <div>Loading </div>
 
   return (
-    <>
+    <div>
       {state.matches('idle') && (
-        <div onClick={() => event({ type: 'REGISTER' })}>Register First</div>
-      )}
-      {state.matches('idle') && (
-        <div onClick={() => event({ type: 'ADD_TO_COURSE' })}>
-          Add Students To Course
-        </div>
+        <FullScreenButtonContainer>
+          <BottomButton onClick={() => event({ type: 'REGISTER' })}>
+            Register First
+          </BottomButton>
+          <BottomButton onClick={() => event({ type: 'ADD_TO_COURSE' })}>
+            Add Students To Course
+          </BottomButton>
+        </FullScreenButtonContainer>
       )}
       {state.matches('register') && <RegisterStudent />}
       {state.matches('addToCourse') && (
         <AddToCourse course={data?.findCourseById.course!} />
       )}
-    </>
+    </div>
   )
 }

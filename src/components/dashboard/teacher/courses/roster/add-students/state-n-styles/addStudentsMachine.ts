@@ -157,6 +157,7 @@ export const addStudentsMachine = Machine<
         },
         ADD_STUDENT_IDS: {
           actions: assign((ctx, evt) => {
+            console.log('adding Id')
             return {
               ...ctx,
               addStudentToCourse: {
@@ -169,6 +170,7 @@ export const addStudentsMachine = Machine<
 
         RESET_REGISTER_INPUTS: {
           actions: assign((ctx, evt) => {
+            console.log(evt.payload)
             return {
               ...ctx,
               studentToRegister: evt.payload,
