@@ -253,6 +253,15 @@ export const underscoreEliminator = (string: string) => {
   return string.split('_').join(' ')
 }
 
+export const timeChanger = (value: string) => {
+  const hour = value.slice(0, 2)
+  const minute = value.slice(2, 6)
+  const regHour = +hour > 12 ? +hour - 12 : +hour
+  const ampm = +hour > 11 ? ' PM' : ' AM'
+  const time = regHour + minute + ':00' + ampm
+  return time
+}
+
 export const irregularPastTenseVerbList = (verb: string) => {
   const lowerCaseVerb = verb.toLowerCase()
 
