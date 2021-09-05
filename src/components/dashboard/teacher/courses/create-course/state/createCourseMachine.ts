@@ -11,6 +11,7 @@ export type createCourseMachineSchema = {
   states: {
     createCourseTitle: {}
     createCourseInfo: {}
+    nextSteps: {}
   }
 }
 export type createCourseMachineEvent =
@@ -29,6 +30,7 @@ export type createCourseMachineEvent =
   | { type: 'ADD_COURSE_TYPE'; payload: CourseTypeEnum }
   | { type: 'ADD_SCHOOL_DAY_TYPE'; payload: SchoolDayType }
   | { type: 'COHORT_BASED'; payload: boolean }
+  | { type: 'NEXT_STEP' }
 
 export type createCourseMachineContext = {
   courseTitle: CreateCourseInput
@@ -50,14 +52,14 @@ export const createCourseMachine = Machine<
     courseId: '',
     courseInfo: {
       courseId: '',
-      courseMaxSize: CourseMaxSizeEnum.TWENTY_FOUR,
+      courseMaxSize: CourseMaxSizeEnum.TWENTY_SIX,
       courseType: CourseTypeEnum.SOCIAL_STUDIES,
       startsAt: '',
       endsAt: '',
       halfDayStartsAt: '',
       cohortBasedSeating: false,
       halfDayEndsAt: '',
-      schoolDayType: SchoolDayType.A,
+      schoolDayType: SchoolDayType.AB,
     },
   },
   states: {
@@ -72,13 +74,23 @@ export const createCourseMachine = Machine<
             }
           }),
         },
+        ADD_COURSE_ID: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              courseInfo: { ...ctx.courseInfo, courseId: evt.payload },
+            }
+          }),
+        },
       },
     },
     createCourseInfo: {
       on: {
+        NEXT_STEP: 'nextSteps',
         ADD_ANOTHER_COURSE: 'createCourseTitle',
         ADD_COURSE_ID: {
           actions: assign((ctx, evt) => {
+            console.log(evt)
             return {
               ...ctx,
               courseInfo: { ...ctx.courseInfo, courseId: evt.payload },
@@ -174,6 +186,11 @@ export const createCourseMachine = Machine<
             }
           }),
         },
+      },
+    },
+    nextSteps: {
+      on: {
+        ADD_ANOTHER_COURSE: 'createCourseTitle',
       },
     },
   },

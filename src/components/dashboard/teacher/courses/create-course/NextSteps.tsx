@@ -1,34 +1,34 @@
 import React, { FC } from 'react'
 import { useCreateCourseContextProvider } from './state/CreateCourseContext'
 import { useNavigate } from 'react-router'
+import {
+  CourseTitleButton,
+  CourseTitleButtonContainer,
+} from './state/createCourseStyles'
 
-export type NextStepsModalProps = {
-  setIsToggled: any
-}
+export type NextStepsProps = {}
 
-export const NextStepsModal: FC<NextStepsModalProps> = ({ setIsToggled }) => {
+export const NextSteps = ({}: NextStepsProps) => {
   const [state, event] = useCreateCourseContextProvider()
   const navigate = useNavigate()
   return (
-    <>
-      <button
+    <CourseTitleButtonContainer style={{ height: '95vh' }}>
+      <CourseTitleButton
         onClick={() => {
           event({ type: 'ADD_ANOTHER_COURSE' })
-          setIsToggled(false)
         }}
       >
         Add Another Course
-      </button>
-      <button
+      </CourseTitleButton>
+      <CourseTitleButton
         onClick={() => {
           navigate(
             `/dashboard/courses/${state.context.courseInfo.courseId}/roster`
           )
-          setIsToggled(false)
         }}
       >
         Add Students
-      </button>
-    </>
+      </CourseTitleButton>
+    </CourseTitleButtonContainer>
   )
 }
