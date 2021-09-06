@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import {
   me_me_Teacher,
   createReadingGuideVariables,
@@ -58,13 +58,13 @@ export const CREATE_READING_GUIDE_MUTATION = gql`
   }
 `
 
-export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
+export const CreateReadingGuide = ({
   me,
   courseIdList,
   courseId,
   lesson,
   setCourseId,
-}) => {
+}: CreateReadingGuideProps) => {
   const [state, event] = useCreateAssignmentContextPovider()
   const { markingPeriodEnum, timeOfDayEnum } = useEnumContextProvider()
   const [assignedCourseIds, handleChange] = useCheckBox([courseId])
@@ -84,7 +84,7 @@ export const CreateReadingGuide: FC<CreateReadingGuideProps> = ({
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
-  console.log(state.context.essay.dueDate)
+
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
     createReadingGuideVariables
