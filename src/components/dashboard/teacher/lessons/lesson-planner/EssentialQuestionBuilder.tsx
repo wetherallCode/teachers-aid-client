@@ -85,7 +85,7 @@ export const EssentialQuestionBuilder = ({}: EssentialQuestionBuilderProps) => {
   if (loading) return <div>Loading </div>
 
   return (
-    <>
+    <div>
       <div>Essential Question</div>
       <div>
         {essentialQuestionList?.map((q) => (
@@ -107,6 +107,6 @@ export const EssentialQuestionBuilder = ({}: EssentialQuestionBuilderProps) => {
       <button onClick={() => createEssentialQuestion()}>
         Use this Question Instead
       </button>
-    </>
+    </div>
   )
 }

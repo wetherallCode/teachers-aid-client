@@ -6,6 +6,7 @@ import {
   TextSectionQuestionsInput,
   MarkingPeriodEnum,
   AcademicOutcomeTypes,
+  LessonTypeEnum,
 } from '../../../../../../schemaTypes'
 
 export type lessonPlannerMachineSchema = {
@@ -48,6 +49,7 @@ export type lessonPlannerMachineEvent =
   | { type: 'ASSIGN_TO_COURSES'; payload: string[] }
   | { type: 'SET_LESSON_NAME'; payload: string }
   | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
+  | { type: 'SET_LESSON_TYPE'; payload: LessonTypeEnum }
 
 export type lessonPlannerMachineContext = {
   date: string
@@ -71,6 +73,7 @@ export type lessonPlannerMachineContext = {
   courses: string[]
   lessonName: string
   markingPeriod: MarkingPeriodEnum
+  lessonType: LessonTypeEnum
 }
 
 export const lessonPlannerMachine = Machine<
@@ -114,6 +117,7 @@ export const lessonPlannerMachine = Machine<
     courses: [],
     lessonName: '',
     markingPeriod: MarkingPeriodEnum.FIRST,
+    lessonType: LessonTypeEnum.REINFORCEMENT,
   },
 
   states: {
@@ -226,6 +230,14 @@ export const lessonPlannerMachine = Machine<
             return {
               ...ctx,
               startingPage: evt.payload,
+            }
+          }),
+        },
+        SET_LESSON_TYPE: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              lessonType: evt.payload,
             }
           }),
         },

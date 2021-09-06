@@ -19,7 +19,7 @@ import {
 import { LessonPlannerOutput } from './LessonPlannerOutput'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
-import { MarkingPeriodEnum } from '../../../../../schemaTypes'
+import { LessonTypeEnum, MarkingPeriodEnum } from '../../../../../schemaTypes'
 import { useNavigate, useParams } from 'react-router'
 import { LessonBuilder } from './LessonBuilder'
 
@@ -45,9 +45,14 @@ export const LessonPlanner = () => {
     lessonName,
   } = state.context
 
+  const duringActivityReady =
+    state.context.lessonType === LessonTypeEnum.INTRODUCTORY
+      ? duringActivity.length === 0
+      : duringActivity.length > 0
+
   const readyToSubmit =
     beforeActivity?.task !== '' &&
-    duringActivity.length > 0 &&
+    duringActivityReady &&
     afterActivity.task !== '' &&
     essentialQuestion !== '' &&
     lessonName !== ''

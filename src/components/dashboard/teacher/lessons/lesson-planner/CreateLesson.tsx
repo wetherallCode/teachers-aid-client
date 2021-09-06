@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
   createLessonVariables,
+  LessonTypeEnum,
   MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
@@ -63,12 +64,16 @@ export const CreateLesson: FC<CreateLessonProps> = () => {
           beforeActivity,
           afterActivity,
           questionList,
-          duringActivities: duringActivity,
+          duringActivities:
+            state.context.lessonType === LessonTypeEnum.INTRODUCTORY
+              ? []
+              : duringActivity,
           essentialQuestion: essentialQuestion,
           pageNumbers: {
             startingPage,
             endingPage,
           },
+          lessonType: 'INTRODUCTORY',
         },
       },
       onCompleted: (data) => {
@@ -83,6 +88,7 @@ export const CreateLesson: FC<CreateLessonProps> = () => {
       ],
     }
   )
+
   return (
     <>
       <LessonPlannerButton onClick={() => createLesson()}>

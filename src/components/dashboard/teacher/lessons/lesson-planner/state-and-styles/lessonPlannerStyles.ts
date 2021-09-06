@@ -433,3 +433,34 @@ export const BackToCalendarButton = styled.button`
   color: var(--blue);
   background-color: var(--white);
 `
+
+export const LessonTypeSelectorContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+`
+
+export const TitleContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 3.5vh;
+`
+
+export const LessonTypeContianer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  align-items: top;
+  font-size: 3vh;
+`
+export type LessonTypesProps = {
+  selected: boolean
+}
+
+export const LessonTypes = styled.div<LessonTypesProps>`
+  text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')};
+  &:hover {
+    color: var(--grey);
+  }
+  cursor: pointer;
+`

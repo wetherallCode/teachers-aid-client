@@ -111,7 +111,7 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
       questionsList.push(questionItem)
     })
   })
-  console.log(state.value)
+  console.log(state.context.lessonType)
   return (
     <>
       {/* <LessonPlannerSectionHeader>

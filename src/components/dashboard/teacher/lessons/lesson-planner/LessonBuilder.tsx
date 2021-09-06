@@ -5,6 +5,7 @@ import {
   findTextSectionsByIdVariables,
   TextSectionProtocolsInput,
 } from '../../../../../schemaTypes'
+import { phraseCapitalizer, underscoreEliminator } from '../../../../../utils'
 import { AfterActivity } from './AfterActivity'
 import { BeforeActivitySelect } from './BeforeActivitySelect'
 import { DuringActivityBuilder } from './DuringActivityBuilder'
@@ -14,6 +15,7 @@ import {
   ActivitySelectorValues,
   FIND_TEXT_SECTIONS_BY_ID_QUERY,
 } from './LessonPlanInfo'
+import { LessonTypeSelector } from './LessonTypeSelector'
 import { Pages } from './Pages'
 import { useLessonPlannerContextProvider } from './state-and-styles/lessonPlannerContext'
 import {
@@ -27,6 +29,7 @@ import {
 export type LessonBuilderProps = {}
 
 export type LessonBuilderStagesTypes =
+  | 'LESSON_TYPE'
   | 'ESSENTIAL_QUESTION'
   | 'BEFORE_ACTIVITY'
   | 'DURING_ACTIVITY'
@@ -35,7 +38,7 @@ export type LessonBuilderStagesTypes =
 export const LessonBuilder = ({}: LessonBuilderProps) => {
   const [state, event] = useLessonPlannerContextProvider()
   const [activity, setActivity] =
-    useState<LessonBuilderStagesTypes>('ESSENTIAL_QUESTION')
+    useState<LessonBuilderStagesTypes>('LESSON_TYPE')
 
   const { data } = useQuery<
     findTextSectionsById,
@@ -75,6 +78,7 @@ export const LessonBuilder = ({}: LessonBuilderProps) => {
       protocolList.push(protocolItem)
     })
   )
+
   return (
     <>
       <LessonBuilderContainer>
@@ -83,26 +87,20 @@ export const LessonBuilder = ({}: LessonBuilderProps) => {
         <ActivitySelectorContainer>
           <div
             onClick={() =>
-              activity === 'ESSENTIAL_QUESTION'
+              activity === 'LESSON_TYPE'
                 ? setActivity('AFTER_ACTIVITY')
                 : activity === 'AFTER_ACTIVITY'
                 ? setActivity('DURING_ACTIVITY')
                 : activity === 'DURING_ACTIVITY'
                 ? setActivity('BEFORE_ACTIVITY')
-                : setActivity('ESSENTIAL_QUESTION')
+                : activity === 'BEFORE_ACTIVITY'
+                ? setActivity('ESSENTIAL_QUESTION')
+                : setActivity('LESSON_TYPE')
             }
           >
             &lt;
           </div>
-          <div>
-            {activity === 'ESSENTIAL_QUESTION'
-              ? 'Essential Question'
-              : activity === 'BEFORE_ACTIVITY'
-              ? 'Before Activity'
-              : activity === 'DURING_ACTIVITY'
-              ? 'During Activity'
-              : 'After Activity'}
-          </div>
+          <div>{phraseCapitalizer(underscoreEliminator(activity))}</div>
           <div
             onClick={() =>
               activity === 'ESSENTIAL_QUESTION'
@@ -111,12 +109,15 @@ export const LessonBuilder = ({}: LessonBuilderProps) => {
                 ? setActivity('DURING_ACTIVITY')
                 : activity === 'DURING_ACTIVITY'
                 ? setActivity('AFTER_ACTIVITY')
+                : activity === 'AFTER_ACTIVITY'
+                ? setActivity('LESSON_TYPE')
                 : setActivity('ESSENTIAL_QUESTION')
             }
           >
             &gt;
           </div>
         </ActivitySelectorContainer>
+        {activity === 'LESSON_TYPE' && <LessonTypeSelector />}
         {activity === 'ESSENTIAL_QUESTION' && <EssentialQuestionBuilder />}
         {activity === 'BEFORE_ACTIVITY' && (
           <ActivitySelectContainer>
