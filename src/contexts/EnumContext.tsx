@@ -89,6 +89,11 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    LessonTypeEnum: __type(name: "LessonTypeEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -170,6 +175,9 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         questionWordEnum: data?.QuestionWordEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        lessonTypeEnum: data?.LessonTypeEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}

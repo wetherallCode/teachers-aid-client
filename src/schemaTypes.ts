@@ -2842,6 +2842,67 @@ export interface findCourseByIdForStudentRegistrationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: registerStudent
+// ====================================================
+
+export interface registerStudent_registerStudent_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string | null;
+}
+
+export interface registerStudent_registerStudent {
+  __typename: "RegisterStudentPayload";
+  student: registerStudent_registerStudent_student;
+}
+
+export interface registerStudent {
+  registerStudent: registerStudent_registerStudent;
+}
+
+export interface registerStudentVariables {
+  input: RegisterStudentInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAllUsers
+// ====================================================
+
+export interface findAllUsers_findAllUsers_users_Student {
+  __typename: "Student";
+  userName: string;
+}
+
+export interface findAllUsers_findAllUsers_users_Teacher {
+  __typename: "Teacher";
+  userName: string;
+}
+
+export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
+
+export interface findAllUsers_findAllUsers {
+  __typename: "FindAllUsersPayload";
+  users: findAllUsers_findAllUsers_users[];
+}
+
+export interface findAllUsers {
+  findAllUsers: findAllUsers_findAllUsers;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assignCohortBasedSeats
 // ====================================================
 
@@ -6297,6 +6358,16 @@ export interface enumValues_QuestionWordEnum {
   enumValues: enumValues_QuestionWordEnum_enumValues[] | null;
 }
 
+export interface enumValues_LessonTypeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_LessonTypeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_LessonTypeEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -6315,6 +6386,7 @@ export interface enumValues {
   NounTypeEnum: enumValues_NounTypeEnum | null;
   VerbTypeEnum: enumValues_VerbTypeEnum | null;
   QuestionWordEnum: enumValues_QuestionWordEnum | null;
+  LessonTypeEnum: enumValues_LessonTypeEnum | null;
 }
 
 /* tslint:disable */
@@ -6448,67 +6520,6 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL mutation operation: registerStudent
-// ====================================================
-
-export interface registerStudent_registerStudent_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  email: string | null;
-}
-
-export interface registerStudent_registerStudent {
-  __typename: "RegisterStudentPayload";
-  student: registerStudent_registerStudent_student;
-}
-
-export interface registerStudent {
-  registerStudent: registerStudent_registerStudent;
-}
-
-export interface registerStudentVariables {
-  input: RegisterStudentInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findAllUsers
-// ====================================================
-
-export interface findAllUsers_findAllUsers_users_Student {
-  __typename: "Student";
-  userName: string;
-}
-
-export interface findAllUsers_findAllUsers_users_Teacher {
-  __typename: "Teacher";
-  userName: string;
-}
-
-export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
-
-export interface findAllUsers_findAllUsers {
-  __typename: "FindAllUsersPayload";
-  users: findAllUsers_findAllUsers_users[];
-}
-
-export interface findAllUsers {
-  findAllUsers: findAllUsers_findAllUsers;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -6571,6 +6582,11 @@ export enum InformationStructureEnum {
   COMPARE_CONTRAST = "COMPARE_CONTRAST",
   PROBLEM_SOLUTION = "PROBLEM_SOLUTION",
   SEQUENCE = "SEQUENCE",
+}
+
+export enum LessonTypeEnum {
+  INTRODUCTORY = "INTRODUCTORY",
+  REINFORCEMENT = "REINFORCEMENT",
 }
 
 export enum MarkingPeriodEnum {
@@ -6830,6 +6846,7 @@ export interface CreateLessonInput {
   essentialQuestion: string;
   inUnit: string;
   lessonName: string;
+  lessonType: LessonTypeEnum;
   pageNumbers: PageNumbersInput;
   questionList: TextSectionQuestionsInput[];
   vocabList: TextSectionVocabInput[];

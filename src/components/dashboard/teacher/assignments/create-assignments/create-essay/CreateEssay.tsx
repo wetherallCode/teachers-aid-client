@@ -123,7 +123,7 @@ export const CreateEssay = ({
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
-  console.log(state.context.essay.questionList)
+
   const writingLevels = writingLevelData?.findStudentsByCourse.students
     .map(
       (student) =>

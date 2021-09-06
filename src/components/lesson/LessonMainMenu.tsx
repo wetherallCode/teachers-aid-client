@@ -143,7 +143,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
 
   const schoolDayType =
     schoolDayData?.findSchoolDayByDate.schoolDay?.currentSchoolDayType!
-
+  console.log(schoolDayType)
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
@@ -161,7 +161,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
             Date.parse(dateTime) <
               Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
         )
-
+  console.log(courseToLoad)
   // console.dir(courseToLoad)
   // const [fakeCourse] =
   //   me.__typename === 'Teacher'
@@ -218,7 +218,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
       refetchQueries: ['studentSignedInCheck', 'me'],
     }
   )
-  const useFake = true
+  const useFake = false
   useEffect(() => {
     if (useFake) {
       loadLesson({
