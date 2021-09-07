@@ -26,12 +26,15 @@ import { VocabBox } from './vocab/VocabBox'
 import { QuestionsBox } from './questions/QuestionsBox'
 import { AddProtocols } from './protocols/AddProtocols'
 import { ProtocolsBox } from './protocols/ProtocolsBox'
-import { Modal } from '../../../../../animations'
+// import { Modal } from '../../../../../animations'
 import { ListBoxes } from './state-n-styles/sectionEditorStyles'
 import { EditSectionInfo } from './edit-section-info/EditSectionInfo'
 import { EditProtocol } from './protocols/EditProtocol'
 import { EditQuestion } from './questions/EditQuestion'
 import { EditVocabWord } from './vocab/EditVocabWord'
+import { QuizQuestions } from './quiz-questions/QuizQuestions'
+
+export type TextSectionEditorDisplayProps = {}
 
 export const FIND_TEXT_SECTION_BY_ID_QUERY = gql`
   query FindTextSectionById($input: FindTextSectionByIdInput!) {
@@ -77,7 +80,14 @@ export type UpdateTextSectionMutationProps = (
     | undefined
 ) => void
 
-export const TextSectionEditorDisplay = () => {
+export type EditorTabsProps =
+  | 'PROTOCOLS'
+  | 'QUESTIONS'
+  | 'VOCAB'
+  | 'QUIZ_QUESTIONS'
+
+export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
+  const [editorState, setEditorState] = useState<EditorTabsProps>('VOCAB')
   const [vocabWord, setVocabWord] = useState<TextSectionVocabInput>({
     word: '',
     definition: '',
@@ -183,24 +193,39 @@ export const TextSectionEditorDisplay = () => {
   return (
     <div>
       <EditSectionInfo textSection={data?.findTextSectionById.textSection!} />
+      <div style={{ display: 'grid', gridAutoFlow: 'column' }}>
+        <div onClick={() => setEditorState('VOCAB')}>Vocab</div>
+        <div onClick={() => setEditorState('QUESTIONS')}>Questions</div>
+        <div onClick={() => setEditorState('PROTOCOLS')}>Protocols</div>
+        <div onClick={() => setEditorState('QUIZ_QUESTIONS')}>
+          Quiz Questions
+        </div>
+      </div>
       <ListBoxes>
-        <VocabBox
-          setCurrentIndexForItem={setCurrentIndexForItem}
-          toggleVocabItemInputs={toggleVocabItemInputs}
-          updateTextSection={updateTextSection}
-        />
+        {editorState === 'VOCAB' && (
+          <VocabBox
+            setCurrentIndexForItem={setCurrentIndexForItem}
+            toggleVocabItemInputs={toggleVocabItemInputs}
+            updateTextSection={updateTextSection}
+          />
+        )}
 
-        <QuestionsBox
-          setCurrentIndexForItem={setCurrentIndexForItem}
-          toggleQuestionsItemInputs={toggleQuestionsItemInputs}
-          updateTextSection={updateTextSection}
-        />
+        {editorState === 'QUESTIONS' && (
+          <QuestionsBox
+            setCurrentIndexForItem={setCurrentIndexForItem}
+            toggleQuestionsItemInputs={toggleQuestionsItemInputs}
+            updateTextSection={updateTextSection}
+          />
+        )}
 
-        <ProtocolsBox
-          setCurrentIndexForItem={setCurrentIndexForItem}
-          toggleProtocolItemInputs={toggleProtocolItemInputs}
-          updateTextSection={updateTextSection}
-        />
+        {editorState === 'PROTOCOLS' && (
+          <ProtocolsBox
+            setCurrentIndexForItem={setCurrentIndexForItem}
+            toggleProtocolItemInputs={toggleProtocolItemInputs}
+            updateTextSection={updateTextSection}
+          />
+        )}
+        {editorState === 'QUIZ_QUESTIONS' && <QuizQuestions />}
       </ListBoxes>
       {/* {showVocabItemInputs && (
         <Modal
