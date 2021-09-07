@@ -18,6 +18,7 @@ export type sectionEditorMachineSchema = {
         addProtocol: {}
         addQuestion: {}
         addVocabWord: {}
+        addQuizQuestion: {}
       }
     }
   }
@@ -33,6 +34,7 @@ export type sectionEditorMachineEvent =
   | { type: 'PROTOCOL_ADDER' }
   | { type: 'QUESTION_ADDER' }
   | { type: 'VOCAB_WORD_ADDER' }
+  | { type: 'CREATE_QUIZ_QUESTION' }
   | { type: 'SHOW'; payload: boolean }
   | { type: 'SET_CURRENT_INDEX'; payload: number }
   | { type: 'SET_SECTION_ID'; payload: string }
@@ -84,6 +86,7 @@ export type sectionEditorMachineContext = {
   isHidden: boolean
   currentIndex: number
   addItem: boolean
+  // quizQuestion:
 }
 
 export const sectionEditorMachine = Machine<
@@ -252,6 +255,7 @@ export const sectionEditorMachine = Machine<
         addProtocol: {},
         addQuestion: {},
         addVocabWord: {},
+        addQuizQuestion: {},
       },
     },
   },

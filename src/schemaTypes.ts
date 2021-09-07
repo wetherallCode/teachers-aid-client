@@ -4003,6 +4003,70 @@ export interface findTextsForTextSectionEditor {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createQuizQuestion
+// ====================================================
+
+export interface createQuizQuestion_createQuizQuestion_quizQuestion {
+  __typename: "QuizQuestion";
+  _id: string | null;
+}
+
+export interface createQuizQuestion_createQuizQuestion {
+  __typename: "CreateQuizQuestionPayload";
+  quizQuestion: createQuizQuestion_createQuizQuestion_quizQuestion;
+}
+
+export interface createQuizQuestion {
+  createQuizQuestion: createQuizQuestion_createQuizQuestion;
+}
+
+export interface createQuizQuestionVariables {
+  input: CreateQuizQuestionInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findQuizQuestionsByTextSectionId
+// ====================================================
+
+export interface findQuizQuestionsByTextSectionId_findQuizQuestionsByTextSectionId_quizQuestions_answerList {
+  __typename: "AnswerList";
+  correct: boolean;
+  partiallyCorrect: boolean;
+}
+
+export interface findQuizQuestionsByTextSectionId_findQuizQuestionsByTextSectionId_quizQuestions {
+  __typename: "QuizQuestion";
+  _id: string | null;
+  question: string;
+  answerList: findQuizQuestionsByTextSectionId_findQuizQuestionsByTextSectionId_quizQuestions_answerList[];
+  questionType: QuizQuestionTypeEnum;
+  difficultyLevel: QuizQuestionDifficultyLevelEnum;
+}
+
+export interface findQuizQuestionsByTextSectionId_findQuizQuestionsByTextSectionId {
+  __typename: "FindQuizQuestionsByTextSectionIdPayload";
+  quizQuestions: findQuizQuestionsByTextSectionId_findQuizQuestionsByTextSectionId_quizQuestions[];
+}
+
+export interface findQuizQuestionsByTextSectionId {
+  findQuizQuestionsByTextSectionId: findQuizQuestionsByTextSectionId_findQuizQuestionsByTextSectionId;
+}
+
+export interface findQuizQuestionsByTextSectionIdVariables {
+  input: FindQuizQuestionsByTextSectionIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: FindTextSectionById
 // ====================================================
 
@@ -6632,6 +6696,17 @@ export enum QuestionWordEnum {
   WHY = "WHY",
 }
 
+export enum QuizQuestionDifficultyLevelEnum {
+  CHALLENGING = "CHALLENGING",
+  DIFFICULT = "DIFFICULT",
+  EASY = "EASY",
+}
+
+export enum QuizQuestionTypeEnum {
+  MULTIPLE_CHOICE = "MULTIPLE_CHOICE",
+  TRUE_FALSE = "TRUE_FALSE",
+}
+
 export enum RubricSectionEnum {
   ANSWER = "ANSWER",
   CONCLUSION = "CONCLUSION",
@@ -6711,6 +6786,12 @@ export interface AdvancedSentenceStructureInput {
   subject: string;
   subjectCompliment?: string | null;
   verb: string;
+}
+
+export interface AnswerListInput {
+  answer: string;
+  correct: boolean;
+  partiallyCorrect: boolean;
 }
 
 export interface AssessIndividualProtocolsInput {
@@ -6866,6 +6947,14 @@ export interface CreateProtocolInput {
   protocolActivityType: ProtocolActivityTypes;
   studentIds: string[];
   task: string;
+}
+
+export interface CreateQuizQuestionInput {
+  answerList: AnswerListInput[];
+  associatedTextSectionId: string;
+  difficultyLevel: QuizQuestionDifficultyLevelEnum;
+  question: string;
+  questionType: QuizQuestionTypeEnum;
 }
 
 export interface CreateReadingGuideInput {
@@ -7045,6 +7134,10 @@ export interface FindLessonsByUnitInput {
 
 export interface FindParentContactsByTeacherIdInput {
   teacherId: string;
+}
+
+export interface FindQuizQuestionsByTextSectionIdInput {
+  associatedTextSectionId: string;
 }
 
 export interface FindReadingGuideByIdInput {
