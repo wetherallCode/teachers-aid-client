@@ -14,7 +14,11 @@ export const TwentySixIndividualSeatChart = ({}: TwentySixIndividualSeatChartPro
 		<TwentySixIndividualSeatFloorPlan>
 			<FiveRowColumn>
 				<div></div>
-				<div></div>
+				<IndividualDeskContainer>
+					<DeskContainer>
+						<Desk deskNumber={29} />
+					</DeskContainer>
+				</IndividualDeskContainer>
 
 				<IndividualDeskContainer>
 					<DeskContainer>
@@ -165,8 +169,16 @@ export const TwentySixIndividualSeatChart = ({}: TwentySixIndividualSeatChartPro
 						<Desk deskNumber={22} />
 					</DeskContainer>
 				</IndividualDeskContainer>
-				<div></div>
-				<div></div>
+				<IndividualDeskContainer>
+					<DeskContainer>
+						<Desk deskNumber={27} />
+					</DeskContainer>
+				</IndividualDeskContainer>
+				<IndividualDeskContainer>
+					<DeskContainer>
+						<Desk deskNumber={28} />
+					</DeskContainer>
+				</IndividualDeskContainer>
 			</FiveRowColumn>
 		</TwentySixIndividualSeatFloorPlan>
 	)
