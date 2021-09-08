@@ -2,14 +2,14 @@ import React, { FC, useEffect } from 'react'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
 import { gql, useLazyQuery } from '@apollo/client'
 import {
-  findStudentInfoByStudentId,
-  findStudentInfoByStudentIdVariables,
-  DiscussionTypesEnum,
+	findStudentInfoByStudentId,
+	findStudentInfoByStudentIdVariables,
+	DiscussionTypesEnum,
 } from '../../../../../schemaTypes'
 import {
-  StudentControlPanelContainer,
-  StudentInfoDisplay,
-  StudentNameContainer,
+	StudentControlPanelContainer,
+	StudentInfoDisplay,
+	StudentNameContainer,
 } from '../styles/studentInfoStyles'
 import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
@@ -18,157 +18,148 @@ import { todaysLocaleDate } from '../../../../../utils'
 export type StudentInfoProps = {}
 
 export const FIND_STUDENT_INFORMATION_QUERY = gql`
-  query findStudentInfoByStudentId($input: FindStudentByIdInput!) {
-    findStudentById(input: $input) {
-      student {
-        _id
-        firstName
-        lastName
-        hasAbsences {
-          _id
-          dayAbsent
-        }
-        hasUnExcusedLatenesses {
-          _id
-          dayLate
-        }
-        hasExcusedLatenesses {
-          _id
-          dayLateExcused
-        }
-        hasResponsibilityPoints {
-          _id
-          markingPeriod
-        }
-        # hasAssignments {
-        #   ... on ReadingGuide {
-        #     _id
-        #     dueDate
-        #     readingGuideFinal {
-        #       clarifyingQuestions
-        #       howIsSectionOrganized
-        #       majorIssue
-        #       majorIssueSolved
-        #       majorSolution
-        #     }
-        #   }
-        # }
-        hasResponsibilityPoints {
-          markingPeriod
-          responsibilityPoints
-        }
-        hasProtocols {
-          _id
-          completed
-          assignedDate
-          academicOutcomeType
-          student {
-            _id
-            firstName
-          }
-          isActive
-          task
-          partners {
-            _id
-          }
-          discussionLevel
-          completed
-          assessment
-          protocolActivityType
-          markingPeriod
-        }
-      }
-    }
-  }
+	query findStudentInfoByStudentId($input: FindStudentByIdInput!) {
+		findStudentById(input: $input) {
+			student {
+				_id
+				firstName
+				lastName
+				hasAbsences {
+					_id
+					dayAbsent
+				}
+				hasUnExcusedLatenesses {
+					_id
+					dayLate
+				}
+				hasExcusedLatenesses {
+					_id
+					dayLateExcused
+				}
+				hasResponsibilityPoints {
+					_id
+					markingPeriod
+				}
+				# hasAssignments {
+				#   ... on ReadingGuide {
+				#     _id
+				#     dueDate
+				#     readingGuideFinal {
+				#       clarifyingQuestions
+				#       howIsSectionOrganized
+				#       majorIssue
+				#       majorIssueSolved
+				#       majorSolution
+				#     }
+				#   }
+				# }
+				hasResponsibilityPoints {
+					markingPeriod
+					responsibilityPoints
+				}
+				hasProtocols {
+					_id
+					completed
+					assignedDate
+					academicOutcomeType
+					student {
+						_id
+						firstName
+					}
+					isActive
+					task
+					partners {
+						_id
+					}
+					discussionLevel
+					completed
+					assessment
+					protocolActivityType
+					markingPeriod
+				}
+			}
+		}
+	}
 `
 
 export const StudentInfo = ({}: StudentInfoProps) => {
-  const [state, event] = useTeachersAidContextProvider()
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
+	const [state, event] = useTeachersAidContextProvider()
+	const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  const [loadStudentInfo, { loading, data }] = useLazyQuery<
-    findStudentInfoByStudentId,
-    findStudentInfoByStudentIdVariables
-  >(FIND_STUDENT_INFORMATION_QUERY, {
-    variables: {
-      input: { studentId: state.context.studentId },
-    },
-    // pollInterval: 1000,
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      if (
-        data?.findStudentById.student.hasProtocols.some(
-          (protocol) => protocol.isActive
-        )
-      ) {
-        const [protocol] = data?.findStudentById.student.hasProtocols.filter(
-          (protocol) => protocol.isActive
-        )
-        const partnerList = protocol.partners?.map(
-          (partner) => partner._id
-        ) as string[]
-        event({
-          type: 'UPDATE_STUDENT_PROTOCOL',
-          payload: {
-            assessment: protocol!.assessment!,
-            protocolActivityType: protocol.protocolActivityType,
-            task: protocol.task,
-            assignedDate: protocol.assignedDate,
-            discussionLevel:
-              protocol.protocolActivityType === 'INDIVIDUAL'
-                ? DiscussionTypesEnum.NOT_REQUIRED
-                : protocol.discussionLevel,
-            studentId: data.findStudentById.student._id!,
-            partnerIds: protocol.partners ? partnerList! : [],
-            markingPeriod: protocol.markingPeriod,
-          },
-        })
-      }
-    },
-    onError: (error) => console.error(error),
-  })
+	const [loadStudentInfo, { loading, data }] = useLazyQuery<
+		findStudentInfoByStudentId,
+		findStudentInfoByStudentIdVariables
+	>(FIND_STUDENT_INFORMATION_QUERY, {
+		variables: {
+			input: { studentId: state.context.studentId },
+		},
+		// pollInterval: 1000,
+		fetchPolicy: 'network-only',
+		onCompleted: (data) => {
+			if (data?.findStudentById.student.hasProtocols.some((protocol) => protocol.isActive)) {
+				const [protocol] = data?.findStudentById.student.hasProtocols.filter(
+					(protocol) => protocol.isActive
+				)
+				const partnerList = protocol.partners?.map((partner) => partner._id) as string[]
+				event({
+					type: 'UPDATE_STUDENT_PROTOCOL',
+					payload: {
+						assessment: protocol!.assessment!,
+						protocolActivityType: protocol.protocolActivityType,
+						task: protocol.task,
+						assignedDate: protocol.assignedDate,
+						discussionLevel:
+							protocol.protocolActivityType === 'INDIVIDUAL'
+								? DiscussionTypesEnum.NOT_REQUIRED
+								: protocol.discussionLevel,
+						studentId: data.findStudentById.student._id!,
+						partnerIds: protocol.partners ? partnerList! : [],
+						markingPeriod: protocol.markingPeriod,
+					},
+				})
+			}
+		},
+		onError: (error) => console.error(error),
+	})
 
-  useEffect(() => {
-    if (state.context.studentId) {
-      loadStudentInfo()
-    }
-  }, [loadStudentInfo, state.context.studentId])
+	useEffect(() => {
+		if (state.context.studentId) {
+			loadStudentInfo()
+		}
+	}, [loadStudentInfo, state.context.studentId])
 
-  const currentResponsibilityPoints =
-    data?.findStudentById.student.hasResponsibilityPoints.filter(
-      (rp) =>
-        rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
-    )
+	const currentResponsibilityPoints = data?.findStudentById.student.hasResponsibilityPoints.filter(
+		(rp) => rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
+	)
 
-  const absenceCheck = data?.findStudentById.student.hasAbsences.some(
-    (absence) => absence.dayAbsent === todaysLocaleDate
-  )!
+	const absenceCheck = data?.findStudentById.student.hasAbsences.some(
+		(absence) => absence.dayAbsent === new Date().toLocaleDateString()
+	)!
+	console.log(new Date().toLocaleDateString())
+	if (loading)
+		return (
+			<>
+				<StudentInfoDisplay>
+					<StudentNameContainer></StudentNameContainer>
+				</StudentInfoDisplay>
+				<StudentControlPanelContainer></StudentControlPanelContainer>
+			</>
+		)
 
-  if (loading)
-    return (
-      <>
-        <StudentInfoDisplay>
-          <StudentNameContainer></StudentNameContainer>
-        </StudentInfoDisplay>
-        <StudentControlPanelContainer></StudentControlPanelContainer>
-      </>
-    )
+	return (
+		<>
+			<StudentInfoDisplay absent={absenceCheck}>
+				<StudentNameContainer>
+					{data?.findStudentById.student.firstName} {data?.findStudentById.student.lastName}
+				</StudentNameContainer>
+				{/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
+			</StudentInfoDisplay>
 
-  return (
-    <>
-      <StudentInfoDisplay absent={absenceCheck}>
-        <StudentNameContainer>
-          {data?.findStudentById.student.firstName}{' '}
-          {data?.findStudentById.student.lastName}
-        </StudentNameContainer>
-        {/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
-      </StudentInfoDisplay>
-
-      <StudentControlPanelDisplay
-        loadStudentInfo={loadStudentInfo}
-        student={data?.findStudentById.student!}
-        absenceCheck={absenceCheck}
-      />
-    </>
-  )
+			<StudentControlPanelDisplay
+				loadStudentInfo={loadStudentInfo}
+				student={data?.findStudentById.student!}
+				absenceCheck={absenceCheck}
+			/>
+		</>
+	)
 }

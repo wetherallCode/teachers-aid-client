@@ -4,6 +4,7 @@ import {
 	findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
 } from '../../../../../../schemaTypes'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
+import { ProtocolSelectorNoProtocolsDisplay } from '../../styles/classControlPanelStyles'
 import { ActivatedProtocolDisplay } from './ActivatedProtocolDisplay'
 import { ProtocolSelector } from './ProtocolSelector'
 
@@ -35,10 +36,10 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
 			payload: protocols[state.context.protocolSelect],
 		})
 	}, [event, protocols, state.context.protocolSelect])
-	console.log(protocols)
+	console.log(lesson && protocols.length > 0)
 	return (
 		<>
-			{lesson && protocols ? (
+			{lesson && protocols.length > 0 ? (
 				<>
 					{!protocols.some((protocol) => protocol.isActive) ? (
 						<ProtocolSelector lesson={lesson} presentStudentList={presentStudentList} />
@@ -47,7 +48,9 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
 					)}
 				</>
 			) : (
-				<div>No Lesson Scheduled for Today</div>
+				<ProtocolSelectorNoProtocolsDisplay>
+					<div>No Protocols Today</div>
+				</ProtocolSelectorNoProtocolsDisplay>
 			)}
 		</>
 	)
