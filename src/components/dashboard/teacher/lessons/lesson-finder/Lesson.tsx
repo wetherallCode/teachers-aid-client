@@ -93,7 +93,7 @@ export const Lesson: FC<LessonProps> = ({ date }) => {
 		<div>
 			{/* {data?.findLessonsByAssignedDate.lessons?.length !== 0 ? ( */}
 			<>
-				<div>
+				<div style={{ height: '5vh', overflow: 'scroll' }}>
 					{courseLessons.map((lesson, i: number) => (
 						<div
 							key={i}
@@ -107,7 +107,11 @@ export const Lesson: FC<LessonProps> = ({ date }) => {
 				</div>
 				{/* <br /> */}
 				<Link
-					style={{ color: 'var(--white)', textDecoration: 'none' }}
+					style={{
+						color: 'var(--white)',
+						textDecoration: 'none',
+						borderTop: '1px solid var(--white)',
+					}}
 					to={`lesson-planner/${dateValue}`}>
 					Create Lesson
 				</Link>
