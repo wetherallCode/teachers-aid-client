@@ -29,3 +29,33 @@ export const CourseName = styled.div`
   text-decoration: none;
   font-size: 2.5vh;
 `
+
+export const ViewRosterContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+`
+export const ViewRosterTitle = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 3vh;
+`
+
+export const RosterItemsContainer = styled.div`
+  font-size: 2vh;
+  height: 85vh;
+  overflow: scroll;
+`
+
+export type RosterItemsProps = {
+  highlighted: boolean
+}
+
+export const RosterItems = styled.div<RosterItemsProps>`
+  background-color: ${({ highlighted }) =>
+    highlighted ? 'var(--grey)' : 'var(--white)'};
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  padding-left: 5%;
+  padding-right: 5%;
+`

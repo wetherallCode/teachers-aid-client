@@ -9,22 +9,22 @@ import { TwentySixIndividualSeatChart } from './TwentySixIndividualSeatChart'
 export type SeatingChartProps = {}
 
 export const SeatingChart: FC<SeatingChartProps> = () => {
-	const [state] = useTeachersAidContextProvider()
-	const courseMaxSize = state.context.courseInfo!.assignedSeats.length
-	console.log(courseMaxSize === 27)
-	return (
-		<>
-			{courseMaxSize === 12 ? (
-				<TwelveSeatChart />
-			) : courseMaxSize === 24 ? (
-				<TwentyFourSeatChart />
-			) : courseMaxSize === 30 ? (
-				<ThirtySeatChart />
-			) : courseMaxSize === 36 ? (
-				<ThirtySixSeatChart />
-			) : courseMaxSize === 26 ? (
-				<TwentySixIndividualSeatChart />
-			) : null}
-		</>
-	)
+  const [state] = useTeachersAidContextProvider()
+  const courseMaxSize = state.context.courseInfo!.assignedSeats.length
+  console.log(courseMaxSize === 27)
+  return (
+    <>
+      {courseMaxSize === 12 ? (
+        <TwelveSeatChart />
+      ) : courseMaxSize === 24 ? (
+        <TwentyFourSeatChart />
+      ) : courseMaxSize === 30 ? (
+        <ThirtySeatChart />
+      ) : courseMaxSize === 36 ? (
+        <ThirtySixSeatChart />
+      ) : courseMaxSize > 25 && courseMaxSize < 30 ? (
+        <TwentySixIndividualSeatChart />
+      ) : null}
+    </>
+  )
 }

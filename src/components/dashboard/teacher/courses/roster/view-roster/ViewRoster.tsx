@@ -4,7 +4,14 @@ import { gql, useQuery } from '@apollo/client'
 import {
   findRosterByCourse,
   findRosterByCourseVariables,
+  findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats,
 } from '../../../../../../schemaTypes'
+import {
+  RosterItems,
+  RosterItemsContainer,
+  ViewRosterContainer,
+  ViewRosterTitle,
+} from '../RosterDashboardStyles'
 
 export type ViewRosterProps = {}
 
@@ -81,22 +88,41 @@ export const ViewRoster: FC<ViewRosterProps> = () => {
   })
   if (loading) return <div>Loading </div>
 
-  const students = data?.findCourseById.course.hasCourseInfo?.assignedSeats.filter(
-    (seat) => seat.student!
-  )
+  const students =
+    data?.findCourseById.course.hasCourseInfo?.assignedSeats.filter(
+      (seat) => seat.student!
+    )
+
+  const sortByLetter = (
+    a: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats,
+    b: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats
+  ) => {
+    let nameA = a.student?.lastName.toUpperCase()
+    let nameB = b.student?.lastName.toUpperCase()
+    if (nameA! < nameB!) {
+      return -1
+    }
+    if (nameA! > nameB!) {
+      return 1
+    }
+
+    // names must be equal
+    return 0
+  }
+  console.log(students?.sort(sortByLetter))
   return (
-    <>
-      <div>Roster</div>
-      <div>
-        {students?.map((student) => (
-          <div key={student.student?._id!}>
+    <ViewRosterContainer>
+      <ViewRosterTitle>Assigned Seats</ViewRosterTitle>
+      <RosterItemsContainer>
+        {students?.sort(sortByLetter).map((student, i: number) => (
+          <RosterItems highlighted={i % 2 === 0} key={student.student?._id!}>
             <div>
-              {student.student?.lastName}, {student.student?.firstName}:{' '}
-              {student.student?.userName}
+              {student.student?.lastName}, {student.student?.firstName}
             </div>
-          </div>
+            <div>{student.deskNumber}</div>
+          </RosterItems>
         ))}
-      </div>
-    </>
+      </RosterItemsContainer>
+    </ViewRosterContainer>
   )
 }
