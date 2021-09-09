@@ -1,10 +1,11 @@
-import React, { FC } from 'react'
+import React from 'react'
+import { LessonTypeEnum } from '../../../../../schemaTypes'
 import { useLessonFinderContextProvider } from './state-n-styles/LessonFinderContext'
 import { LessonPlanSectionTitles } from './state-n-styles/lessonFinderStyles'
 
 export type LessonDetailsProps = {}
 
-export const LessonDetails: FC<LessonDetailsProps> = () => {
+export const LessonDetails = ({}: LessonDetailsProps) => {
   const [state, event] = useLessonFinderContextProvider()
   const {
     lessonName,
@@ -15,6 +16,7 @@ export const LessonDetails: FC<LessonDetailsProps> = () => {
     afterActivity,
     duringActivities,
     questionList,
+    // lessonType,
   } = state.context.lesson!
 
   const readings =
@@ -62,14 +64,20 @@ export const LessonDetails: FC<LessonDetailsProps> = () => {
           a brief class dicussion for most paragraphs in the reading.
         </div>
         <br />
-        <LessonPlanSectionTitles>
-          Deep Thinking Questions
-        </LessonPlanSectionTitles>
-        <ul>
-          {duringActivities.map((question, i: number) => (
-            <li key={i}>{question.task}</li>
-          ))}
-        </ul>
+        {duringActivities.length === 0 ? (
+          <>
+            <LessonPlanSectionTitles>
+              Deep Thinking Questions
+            </LessonPlanSectionTitles>
+            <ul>
+              {duringActivities.map((question, i: number) => (
+                <li key={i}>{question.task}</li>
+              ))}
+            </ul>
+          </>
+        ) : (
+          <LessonPlanSectionTitles></LessonPlanSectionTitles>
+        )}
         <br />
         <LessonPlanSectionTitles>
           Summarization Strategy
