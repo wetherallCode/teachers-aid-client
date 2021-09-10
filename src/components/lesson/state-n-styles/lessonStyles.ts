@@ -226,7 +226,7 @@ export const VocabWordContainer = styled.ul`
   grid-row: 2/-1;
   grid-column: 1/-1;
   margin-left: 3%;
-  font-size: 2vw;
+  font-size: 3vh;
   overflow: scroll;
 `
 export const VocabWordStyle = styled.li`
