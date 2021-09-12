@@ -1212,12 +1212,12 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide_lessonIn
 
 export interface findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
-  howIsSectionOrganized: InformationStructureEnum[] | null;
-  whyWasSectionOrganized: string | null;
-  majorIssue: string;
-  majorSolution: string;
-  clarifyingQuestions: string[];
-  majorIssueSolved: boolean;
+  problems: string[];
+  biggestProblem: string;
+  reasonForBiggestProblem: string;
+  importantPeople: string[];
+  howArePeopleInvolvedInProblems: string;
+  sectionConsequences: string;
 }
 
 export interface findReadingGuideById_findReadingGuideById_readingGuide {
@@ -2328,13 +2328,7 @@ export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssoc
 
 export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
-  clarifyingQuestions: string[];
   submitted: boolean;
-  howIsSectionOrganized: InformationStructureEnum[] | null;
-  whyWasSectionOrganized: string | null;
-  majorIssue: string;
-  majorSolution: string;
-  majorIssueSolved: boolean;
 }
 
 export interface findReadingGuideDataForCourseAndLesson_findReadingGuidesByAssociatedLessonAndCourseId_readingGuides {
@@ -6641,13 +6635,6 @@ export enum DynamicLessonEnums {
   WARM_UP = "WARM_UP",
 }
 
-export enum InformationStructureEnum {
-  CAUSE_EFFECT = "CAUSE_EFFECT",
-  COMPARE_CONTRAST = "COMPARE_CONTRAST",
-  PROBLEM_SOLUTION = "PROBLEM_SOLUTION",
-  SEQUENCE = "SEQUENCE",
-}
-
 export enum LessonTypeEnum {
   INTRODUCTORY = "INTRODUCTORY",
   REINFORCEMENT = "REINFORCEMENT",
@@ -7552,13 +7539,13 @@ export interface UpdateProblemSolutionInput {
 }
 
 export interface UpdateReadingGuideInput {
-  clarifyingQuestions: string[];
-  howIsSectionOrganized?: InformationStructureEnum[] | null;
-  majorIssue: string;
-  majorIssueSolved: boolean;
-  majorSolution: string;
+  biggestProblem: string;
+  howArePeopleInvolvedInProblems: string;
+  importantPeople: string[];
+  problems: string[];
   readingGuideId: string;
-  whyWasSectionOrganized: string;
+  reasonForBiggestProblem: string;
+  sectionConsequences: string;
 }
 
 export interface UpdateResponsibilityPointsInput {

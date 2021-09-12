@@ -5,12 +5,10 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateReadingGuide,
   findReadingGuideById_findReadingGuideById_readingGuide,
-  InformationStructureEnum,
 } from '../../../../../schemaTypes'
 import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
 import { useCheckBox } from '../../../../../hooks/useCheckBox'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
-import { informationStructure } from '../../../../../utils'
 import { SubmitReadingGuide } from './SubmitReadingGuide'
 import {
   SectionOrganizationContainer,
@@ -35,6 +33,20 @@ import {
   ClarifyingQuestionsSubmittedQuestion,
   ClarifyingQuestionsBlock,
   Required,
+  ReadingGuideProblemsQuestionContainer,
+  InputAndButtonContainer,
+  BlueButton,
+  ProblemsListContainer,
+  ReadingGuideBiggestProblemContainer,
+  BiggestProblemListItem,
+  ReadingGuideReasonForBiggestProblemContainer,
+  Title,
+  SmallBlueButton,
+  ImportantPeopleContainer,
+  HowAreImportantPeopleContectedContainer,
+  SectionConsequencesContainer,
+  GreyButton,
+  ButtonContainer,
 } from './state-and-styles/readingGuideStyles'
 
 export type CompleteReadingGuideProps = {
@@ -50,55 +62,90 @@ export const UPDATE_READING_GUIDE_MUTATION = gql`
     }
   }
 `
+
+export type ReadingGuideStepsTypes =
+  | 'problems'
+  | 'biggestProblem'
+  | 'reasonForBiggestProblem'
+  | 'importantPeople'
+  | 'howArePeopleInvolvedInProblems'
+  | 'sectionConsequences'
+
 export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
   readingGuideInfo,
 }) => {
   const [state, event] = useReadingGuideToCompleteContextProvider()
+  const [readingGuideSteps, setReadingGuideSteps] =
+    useState<ReadingGuideStepsTypes>('problems')
 
-  const { informationStructureEnum } = useEnumContextProvider()
-  const [infoStructureList, handleChecks] = useCheckBox(
-    state.context.updateReadingGuideInputs.howIsSectionOrganized!
+  const [problem, setProblem] = useState('')
+  const [problemList, setProblemList] = useState(
+    state.context.updateReadingGuideInputs.problems
+  )
+  const [importantPeople, setImportantPeople] = useState('')
+  const [importantPeopleList, setImportantPeopleList] = useState(
+    state.context.updateReadingGuideInputs.importantPeople
   )
 
-  const [questionToClarify, setQuestionToClarify] = useState('')
-  const [clarifyingQuestions, setClarifyingQuestions] = useState<string[]>(
-    state.context.updateReadingGuideInputs.clarifyingQuestions
-  )
+  // const { informationStructureEnum } = useEnumContextProvider()
+  // const [infoStructureList, handleChecks] = useCheckBox(
+  //   state.context.updateReadingGuideInputs.howIsSectionOrganized!
+  // )
 
-  const handleDelete = (index: number) => {
-    setClarifyingQuestions((list) => [
-      ...list.slice(0, index),
-      ...list.slice(index + 1),
-    ])
-  }
+  // const [questionToClarify, setQuestionToClarify] = useState('')
+  // const [clarifyingQuestions, setClarifyingQuestions] = useState<string[]>(
+  //   state.context.updateReadingGuideInputs.clarifyingQuestions
+  // )
+
+  // const handleDelete = (index: number) => {
+  //   setClarifyingQuestions((list) => [
+  //     ...list.slice(0, index),
+  //     ...list.slice(index + 1),
+  //   ])
+  // }
 
   const [updateReadingGuide] = useMutation<
     updateReadingGuide,
     updateReadingGuideVariables
   >(UPDATE_READING_GUIDE_MUTATION, {
     variables: { input: state.context.updateReadingGuideInputs },
-    onCompleted: (data) => console.log(data.updateReadingGuide.readingGuide),
+    onCompleted: (data) => 'updated',
     refetchQueries: ['findReadingGuideById'],
   })
 
   useEffect(() => {
     updateReadingGuide()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.context.updateReadingGuideInputs])
 
-  useEffect(() => {
-    event({ type: 'SET_HOW_IS_ORGANIZED', payload: infoStructureList })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [infoStructureList])
+  // useEffect(() => {
+  //   event({ type: 'SET_HOW_IS_ORGANIZED', payload: infoStructureList })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [infoStructureList])
 
-  useEffect(() => {
-    event({ type: 'SET_CLARIFYING_QUESTION', payload: clarifyingQuestions })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clarifyingQuestions])
+  // useEffect(() => {
+  //   event({ type: 'SET_CLARIFYING_QUESTION', payload: clarifyingQuestions })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [clarifyingQuestions])
 
   const multipleSections =
     readingGuideInfo.lessonInfo.assignedSectionIdList.length > 1
-
+  const handleFinishProblemList = () => {
+    event({
+      type: 'SET_READING_GUIDE_PROPERTIES',
+      keyName: 'problems',
+      payload: problemList,
+    })
+    setReadingGuideSteps('biggestProblem')
+  }
+  const handleFinishImportantPeopleList = () => {
+    event({
+      type: 'SET_READING_GUIDE_PROPERTIES',
+      keyName: 'importantPeople',
+      payload: importantPeopleList,
+    })
+    setReadingGuideSteps('howArePeopleInvolvedInProblems')
+  }
+  console.log(state.context.updateReadingGuideInputs)
   return (
     <>
       <ReadingGuideHeader>
@@ -106,269 +153,213 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
       </ReadingGuideHeader>
       {state.matches('questions') && (
         <>
-          <SectionOrganizationContainer
-          // onMouseOver={() =>
-          //   event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
-          // }
-          >
-            <div
-              onClick={() =>
-                event({ type: 'SET_HELP', payload: 'howIsSectionOrganized' })
-              }
+          {readingGuideSteps === 'problems' && (
+            <ReadingGuideProblemsQuestionContainer
+              onSubmit={(e) => e.preventDefault()}
             >
-              {multipleSections ? (
-                <>
-                  <span>
-                    1. How is the information in these sections organized?
-                  </span>{' '}
-                  <span style={{ color: 'var(--grey)' }}>
-                    (Click as many as you think make sense)
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span>
-                    1. How is the information in this section organized?
-                  </span>{' '}
-                  <span style={{ color: 'var(--grey)' }}>
-                    (Click as many as you think make sense)
-                  </span>
-                </>
+              <Title>
+                List as many problems that are being faced in{' '}
+                {multipleSections ? 'these sections' : 'this section'} as you
+                can?
+              </Title>
+              <InputAndButtonContainer>
+                <ReadingGuideInput
+                  onChange={(e) => setProblem(e.target.value)}
+                />
+                {problem.length > 0 ? (
+                  <BlueButton
+                    type='reset'
+                    onClick={() => setProblemList([...problemList, problem])}
+                  >
+                    Add Problem
+                  </BlueButton>
+                ) : (
+                  <GreyButton></GreyButton>
+                )}
+              </InputAndButtonContainer>
+              <ProblemsListContainer>
+                {problemList.map((problem, i: number) => (
+                  <div key={i}>{problem}</div>
+                ))}
+              </ProblemsListContainer>
+              {problemList.length > 0 && (
+                // <ButtonContainer>
+                <BlueButton onClick={handleFinishProblemList}>Next</BlueButton>
+                // </ButtonContainer>
               )}
-            </div>
-            <SectionOrganizationBodyContainer>
-              {informationStructureEnum.map(
-                (item: InformationStructureEnum) => (
-                  <div key={item}>
-                    <input
-                      type='checkbox'
-                      value={item}
-                      checked={infoStructureList.includes(item)}
-                      onChange={handleChecks}
-                    />
-                    <span>{informationStructure(item)}</span>
-                  </div>
-                )
-              )}
-            </SectionOrganizationBodyContainer>
-          </SectionOrganizationContainer>
-          <ReasonForOrganizationContainer>
-            <div
-              onClick={() =>
-                event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
-              }
-            >
-              {infoStructureList.length > 1
-                ? '2. Why do you think the author used these ways to organize the information?'
-                : '2. Why do you think the author used this way to organize the information?'}
-            </div>
-            <ReadingGuideTextArea
-              placeholder='Explain your thinking here...'
-              onFocus={() =>
-                event({ type: 'SET_HELP', payload: 'whyWasSectionOrganized' })
-              }
-              value={
-                state.context.updateReadingGuideInputs.whyWasSectionOrganized
-              }
-              onChange={(e: any) =>
-                event({ type: 'SET_WHY_IS_ORGANIZED', payload: e.target.value })
-              }
-            />
-          </ReasonForOrganizationContainer>
-          <MajorIssueContainer>
-            <div
-            // onClick={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
-            >
-              {multipleSections ? (
-                <div
+            </ReadingGuideProblemsQuestionContainer>
+          )}
+          {readingGuideSteps === 'biggestProblem' && (
+            <ReadingGuideBiggestProblemContainer>
+              <Title>
+                Select the problem do you think is the biggest problem?
+              </Title>
+              <ProblemsListContainer>
+                {problemList.map((problem, i: number) => (
+                  <BiggestProblemListItem
+                    key={i}
+                    selected={
+                      state.context.updateReadingGuideInputs.biggestProblem ===
+                      problem
+                    }
+                    onClick={() =>
+                      event({
+                        type: 'SET_READING_GUIDE_PROPERTIES',
+                        keyName: 'biggestProblem',
+                        payload: problem,
+                      })
+                    }
+                  >
+                    {problem}
+                  </BiggestProblemListItem>
+                ))}
+              </ProblemsListContainer>
+              {state.context.updateReadingGuideInputs.biggestProblem && (
+                <BlueButton
                   onClick={() =>
-                    event({ type: 'SET_HELP', payload: 'majorIssue' })
+                    setReadingGuideSteps('reasonForBiggestProblem')
                   }
                 >
-                  <Required>* </Required>3. What was the major issue discussed
-                  in the sections
-                </div>
-              ) : (
-                <div
-                  onClick={() =>
-                    event({ type: 'SET_HELP', payload: 'majorIssue' })
-                  }
-                >
-                  <Required>* </Required>3. What was the major issue discussed
-                  in the section
-                </div>
+                  Next
+                </BlueButton>
               )}
-            </div>
-            <ReadingGuideInput
-              onFocus={() => event({ type: 'SET_HELP', payload: 'majorIssue' })}
-              value={state.context.updateReadingGuideInputs.majorIssue}
-              onChange={(e: any) =>
-                event({ type: 'SET_MAJOR_ISSUE', payload: e.target.value })
-              }
-            />
-          </MajorIssueContainer>
-          <MajorIssueSolvedContainer
-          // onMouseOver={() =>
-          //   event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
-          // }
-          >
-            {multipleSections ? (
-              <div
-                onClick={() =>
-                  event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
-                }
-              >
-                <Required>* </Required>
-                4. Was the issue handled or problem solved in the sections?
-              </div>
-            ) : (
-              <div
-                onClick={() =>
-                  event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
-                }
-              >
-                <Required>* </Required>
-                4. Was the issue handled or problem solved in the section?
-              </div>
-            )}
-
-            <ReadingGuideSelect
-              onFocus={() =>
-                event({ type: 'SET_HELP', payload: 'majorIssueSolved' })
-              }
-              value={
-                state.context.updateReadingGuideInputs.majorIssueSolved
-                  ? 'true'
-                  : 'false'
-              }
-              onChange={(e: any) => {
-                event({
-                  type: 'SET_MAJOR_ISSUE_SOLVED',
-                  payload: e.target.value === 'true' ? true : false,
-                })
-              }}
-            >
-              <option value='true'>Yes</option>
-              <option value='false'>No</option>
-            </ReadingGuideSelect>
-          </MajorIssueSolvedContainer>
-          {state.context.updateReadingGuideInputs.majorIssueSolved ? (
-            <MajorSolutionContainer
-            // onMouseOver={() =>
-            //   event({ type: 'SET_HELP', payload: 'majorSolution' })
-            // }
-            >
-              <div
-                onClick={() =>
-                  event({ type: 'SET_HELP', payload: 'majorSolution' })
-                }
-              >
-                <Required>* </Required>5. How was the issue solved?
-              </div>
+            </ReadingGuideBiggestProblemContainer>
+          )}
+          {readingGuideSteps === 'reasonForBiggestProblem' && (
+            <ReadingGuideReasonForBiggestProblemContainer>
+              <Title>
+                Why do you think '
+                {state.context.updateReadingGuideInputs.biggestProblem}' is the
+                biggest problem?
+              </Title>
               <ReadingGuideInput
-                onFocus={() =>
-                  event({ type: 'SET_HELP', payload: 'majorSolution' })
+                value={
+                  state.context.updateReadingGuideInputs.reasonForBiggestProblem
                 }
-                value={state.context.updateReadingGuideInputs.majorSolution}
-                onChange={(e: any) =>
-                  event({ type: 'SET_MAJOR_SOLUTION', payload: e.target.value })
-                }
-              />
-            </MajorSolutionContainer>
-          ) : (
-            <MajorSolutionContainer
-              onMouseOver={() =>
-                event({ type: 'SET_HELP', payload: 'majorSolution' })
-              }
-            >
-              <div
-                onClick={() =>
-                  event({ type: 'SET_HELP', payload: 'majorSolution' })
-                }
-              >
-                <Required>* </Required>5. Why was the issue not solved?
-              </div>
-              <ReadingGuideInput
-                onFocus={() =>
-                  event({ type: 'SET_HELP', payload: 'majorSolution' })
-                }
-                value={state.context.updateReadingGuideInputs.majorSolution}
-                onChange={(e: any) =>
+                onChange={(e) =>
                   event({
-                    type: 'SET_MAJOR_SOLUTION',
+                    type: 'SET_READING_GUIDE_PROPERTIES',
+                    keyName: 'reasonForBiggestProblem',
                     payload: e.target.value,
                   })
                 }
               />
-            </MajorSolutionContainer>
+              {state.context.updateReadingGuideInputs
+                .reasonForBiggestProblem && (
+                <SmallBlueButton
+                  onClick={() => setReadingGuideSteps('importantPeople')}
+                >
+                  Next
+                </SmallBlueButton>
+              )}
+            </ReadingGuideReasonForBiggestProblemContainer>
+          )}
+          {readingGuideSteps === 'importantPeople' && (
+            <ImportantPeopleContainer>
+              <Title>
+                Who are the most important people discussed in{' '}
+                {multipleSections ? 'these sections' : 'this section'}?
+              </Title>
+              <InputAndButtonContainer>
+                <ReadingGuideInput
+                  onChange={(e) => setImportantPeople(e.target.value)}
+                />
+                {importantPeople.length > 0 ? (
+                  <BlueButton
+                    type='reset'
+                    onClick={() =>
+                      setImportantPeopleList([
+                        ...importantPeopleList,
+                        importantPeople,
+                      ])
+                    }
+                  >
+                    Add Person
+                  </BlueButton>
+                ) : (
+                  <GreyButton></GreyButton>
+                )}
+              </InputAndButtonContainer>
+              <ProblemsListContainer>
+                {importantPeopleList.map((person, i: number) => (
+                  <div key={i}>{person}</div>
+                ))}
+              </ProblemsListContainer>
+              {importantPeopleList.length > 0 && (
+                <SmallBlueButton onClick={handleFinishImportantPeopleList}>
+                  Next
+                </SmallBlueButton>
+              )}
+            </ImportantPeopleContainer>
+          )}
+          {readingGuideSteps === 'howArePeopleInvolvedInProblems' && (
+            <HowAreImportantPeopleContectedContainer>
+              <Title>
+                How{' '}
+                {state.context.updateReadingGuideInputs.importantPeople.length >
+                1
+                  ? 'are these people'
+                  : 'is this person'}{' '}
+                involved in the{' '}
+                {state.context.updateReadingGuideInputs.problems.length > 1
+                  ? 'problems'
+                  : 'problem'}{' '}
+                you just mentioned?
+              </Title>
+              <Title>
+                {importantPeopleList.map((importantPeople, i: number) => (
+                  <div key={i}>{importantPeople}</div>
+                ))}
+              </Title>
+              <ReadingGuideTextArea
+                value={
+                  state.context.updateReadingGuideInputs
+                    .howArePeopleInvolvedInProblems
+                }
+                onChange={(e) =>
+                  event({
+                    type: 'SET_READING_GUIDE_PROPERTIES',
+                    keyName: 'howArePeopleInvolvedInProblems',
+                    payload: e.target.value,
+                  })
+                }
+              />
+              {state.context.updateReadingGuideInputs
+                .howArePeopleInvolvedInProblems && (
+                <SmallBlueButton
+                  onClick={() => setReadingGuideSteps('sectionConsequences')}
+                >
+                  Next
+                </SmallBlueButton>
+              )}
+            </HowAreImportantPeopleContectedContainer>
+          )}
+          {readingGuideSteps === 'sectionConsequences' && (
+            <SectionConsequencesContainer>
+              <Title>
+                List a potential consequence of{' '}
+                {multipleSections ? 'these sections' : 'this section'}.
+              </Title>
+              <ReadingGuideInput
+                value={
+                  state.context.updateReadingGuideInputs.sectionConsequences
+                }
+                onChange={(e) =>
+                  event({
+                    type: 'SET_READING_GUIDE_PROPERTIES',
+                    keyName: 'sectionConsequences',
+                    payload: e.target.value,
+                  })
+                }
+              />
+              {state.context.updateReadingGuideInputs.sectionConsequences && (
+                <ButtonContainer>
+                  <SubmitReadingGuide />
+                </ButtonContainer>
+              )}
+            </SectionConsequencesContainer>
           )}
         </>
-      )}
-      {state.matches('clarifyingQuestions') && (
-        <ClarifyingQuestionsContainer
-        // onMouseOver={() =>
-        //   event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
-        // }
-        >
-          <ClarifyingQuestionsTitle
-            onClick={() =>
-              event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
-            }
-          >
-            <Required>* </Required>
-            6. Come up with at least one (or more) questions that would help you
-            understand the section better.
-          </ClarifyingQuestionsTitle>
-          <ClarifyingQuestionsForm onSubmit={(e: any) => e.preventDefault()}>
-            <ClarifyingQuestionsTextArea
-              onFocus={() =>
-                event({ type: 'SET_HELP', payload: 'clarifyingQuestions' })
-              }
-              onChange={(e: any) => setQuestionToClarify(e.target.value)}
-            />
-            <ClarifyingQuestionsAddButton
-              type='reset'
-              onClick={() => {
-                setClarifyingQuestions((list) => [...list, questionToClarify])
-                setQuestionToClarify('')
-              }}
-            >
-              Add Question
-            </ClarifyingQuestionsAddButton>
-          </ClarifyingQuestionsForm>
-          <ClarifyingQuestionsSubmittedQuestionsDisplay>
-            <ClarifyingQuestionsSubmittedQuestionTitle>
-              Click on Question to Delete
-            </ClarifyingQuestionsSubmittedQuestionTitle>
-            <ClarifyingQuestionsBlock>
-              {clarifyingQuestions.map((question, i) => (
-                <ClarifyingQuestionsSubmittedQuestion key={i}>
-                  <Required
-                    onMouseOver={() => {}}
-                    onClick={() => handleDelete(i)}
-                  >
-                    {i + 1}. {question}
-                  </Required>
-                </ClarifyingQuestionsSubmittedQuestion>
-              ))}
-            </ClarifyingQuestionsBlock>
-          </ClarifyingQuestionsSubmittedQuestionsDisplay>
-        </ClarifyingQuestionsContainer>
-      )}
-
-      {state.matches('clarifyingQuestions') ? (
-        <SubmitReadingGuideContainer>
-          <SubmitReadingGuideButton onClick={() => event({ type: 'PREVIOUS' })}>
-            Back
-          </SubmitReadingGuideButton>
-          <SubmitReadingGuide />
-        </SubmitReadingGuideContainer>
-      ) : (
-        <SubmitReadingGuideContainer>
-          <SubmitReadingGuideButton onClick={() => event({ type: 'NEXT' })}>
-            Next
-          </SubmitReadingGuideButton>
-        </SubmitReadingGuideContainer>
       )}
     </>
   )

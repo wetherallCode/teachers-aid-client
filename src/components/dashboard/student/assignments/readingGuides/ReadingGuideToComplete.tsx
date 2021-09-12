@@ -52,12 +52,18 @@ export const FIND_READING_GUIDE_BY_ID_QUERY = gql`
           assignedSectionIdList
         }
         readingGuideFinal {
-          howIsSectionOrganized
-          whyWasSectionOrganized
-          majorIssue
-          majorSolution
-          clarifyingQuestions
-          majorIssueSolved
+          # howIsSectionOrganized
+          # whyWasSectionOrganized
+          # majorIssue
+          # majorSolution
+          # clarifyingQuestions
+          # majorIssueSolved
+          problems
+          biggestProblem
+          reasonForBiggestProblem
+          importantPeople
+          howArePeopleInvolvedInProblems
+          sectionConsequences
         }
       }
     }
@@ -102,26 +108,48 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
       if (data.findReadingGuideById.readingGuide.readingGuideFinal)
         event({
           type: 'SET_READING_GUIDE_INPUTS',
+
           payload: {
-            clarifyingQuestions:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .clarifyingQuestions,
-            majorIssue:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .majorIssue,
-            howIsSectionOrganized:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .howIsSectionOrganized,
-            majorSolution:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .majorSolution,
-            whyWasSectionOrganized: data.findReadingGuideById.readingGuide
-              .readingGuideFinal.whyWasSectionOrganized!,
-            majorIssueSolved:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .majorIssueSolved,
             readingGuideId: readingGuideToComplete,
+            problems:
+              data.findReadingGuideById.readingGuide.readingGuideFinal.problems,
+            biggestProblem:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .biggestProblem,
+            reasonForBiggestProblem:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .reasonForBiggestProblem,
+            importantPeople:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .importantPeople,
+            howArePeopleInvolvedInProblems:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .howArePeopleInvolvedInProblems,
+            sectionConsequences:
+              data.findReadingGuideById.readingGuide.readingGuideFinal
+                .sectionConsequences,
           },
+          // payload: {
+          //   clarifyingQuestions:
+          //     data.findReadingGuideById.readingGuide.readingGuideFinal
+          //       .clarifyingQuestions,
+          //   majorIssue:
+          //     data.findReadingGuideById.readingGuide.readingGuideFinal
+          //       .majorIssue,
+          //   howIsSectionOrganized:
+          //     data.findReadingGuideById.readingGuide.readingGuideFinal
+          //       .howIsSectionOrganized,
+          //   majorSolution:
+          //     data.findReadingGuideById.readingGuide.readingGuideFinal
+          //       .majorSolution,
+          //   whyWasSectionOrganized:
+          //     data.findReadingGuideById.readingGuide.readingGuideFinal
+          //       .whyWasSectionOrganized!,
+          //   majorIssueSolved:
+          //     data.findReadingGuideById.readingGuide.readingGuideFinal
+          //       .majorIssueSolved,
+          //   readingGuideId: readingGuideToComplete,
+          // },
         })
       if (!data?.findReadingGuideById.readingGuide.readingGuideFinal) {
         startReadingGuide()

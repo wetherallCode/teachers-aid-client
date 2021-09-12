@@ -105,8 +105,18 @@ export const ReadingGuideInput = styled.input`
   border-bottom: 1px solid var(--blue);
   width: 100%;
   color: var(--blue);
-  font-size: 1.3rem;
+  background-color: transparent;
+  font-size: 2.5vh;
   align-self: start;
+  &:focus {
+    outline: none;
+  }
+`
+
+export const InputAndButtonContainer = styled.div`
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-column-gap: 1%;
 `
 
 export const ReadingGuideSelect = styled.select`
@@ -116,10 +126,97 @@ export const ReadingGuideSelect = styled.select`
   color: var(--blue);
 `
 
+export const ReadingGuideQuestion = styled.div`
+  grid-row: 2/-2;
+  grid-column: 2/-2;
+  font-size: 3vh;
+  display: grid;
+`
+
+export const ReadingGuideProblemsQuestionContainer = styled.form`
+  grid-row: 2/-2;
+  grid-column: 2/-2;
+  font-size: 3vh;
+  display: grid;
+
+  /* justify-items: center; */
+  align-items: center;
+`
+
+export const ProblemsListContainer = styled.div`
+  font-size: 2.5vh;
+  height: 10vh;
+  overflow: scroll;
+`
+
+export const ButtonContainer = styled.div`
+  justify-items: center;
+  display: grid;
+`
+
+export const BlueButton = styled.button`
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 2vh;
+  border-radius: 5px;
+`
+
+export const GreyButton = styled(BlueButton)`
+  background-color: var(--grey);
+  color: var(--blue);
+`
+
+export const ReadingGuideBiggestProblemContainer = styled(ReadingGuideQuestion)`
+  grid-template-rows: 1fr 4fr;
+  /* align-items: center; */
+`
+
+export const Title = styled.div`
+  align-self: center;
+  justify-self: center;
+`
+
+export type BiggestProblemListItemProps = {
+  selected: boolean
+}
+export const BiggestProblemListItem = styled.div<BiggestProblemListItemProps>`
+  text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')};
+  cursor: pointer;
+  width: fit-content;
+`
+
+export const ReadingGuideReasonForBiggestProblemContainer = styled(
+  ReadingGuideQuestion
+)`
+  grid-template-rows: 1fr 2fr 1fr;
+`
+
+export const SmallBlueButton = styled(BlueButton)`
+  height: 3vh;
+`
+
+export const ImportantPeopleContainer = styled(
+  ReadingGuideProblemsQuestionContainer
+)``
+
+export const HowAreImportantPeopleContectedContainer = styled(
+  ReadingGuideQuestion
+)`
+  grid-template-rows: 1fr 2fr 3fr 1fr;
+`
+
+export const SectionConsequencesContainer = styled(ReadingGuideQuestion)``
+
 export const ReadingGuideTextArea = styled.textarea`
   height: 90%;
   font-family: inherit;
   color: var(--blue);
+  background-color: transparent;
+  font-size: 2.5vh;
+  align-self: start;
+  &:focus {
+    outline: none;
+  }
 `
 export const ReasonForOrganizationContainer = styled(QuestionBlock)`
   grid-row: 3/4;

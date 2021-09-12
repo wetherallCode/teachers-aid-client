@@ -3,7 +3,7 @@ import { gql, useQuery } from '@apollo/client'
 import {
   findReadingGuideDataForCourseAndLessonVariables,
   findReadingGuideDataForCourseAndLesson,
-  InformationStructureEnum,
+  // InformationStructureEnum,
 } from '../../../../../schemaTypes'
 
 export type DataViewerProps = { lessonId: string; course: string }
@@ -26,13 +26,13 @@ export const FIND_READING_GUIDE_DATA_FOR_COURSE_AND_LESSON_QUERY = gql`
         completed
         graded
         readingGuideFinal {
-          clarifyingQuestions
+          # clarifyingQuestions
           submitted
-          howIsSectionOrganized
-          whyWasSectionOrganized
-          majorIssue
-          majorSolution
-          majorIssueSolved
+          # howIsSectionOrganized
+          # whyWasSectionOrganized
+          # majorIssue
+          # majorSolution
+          # majorIssueSolved
         }
       }
     }
@@ -77,79 +77,79 @@ export const ReadingGuideDataViewer: FC<DataViewerProps> = ({
   let majorIssueSolved: number = 0
   let majorIssueUnsolved: number = 0
 
-  readingGuides?.forEach((guide) => {
-    if (guide.readingGuideFinal) {
-      const clarifyingQuestions: string[] =
-        guide.readingGuideFinal.clarifyingQuestions
+  // readingGuides?.forEach((guide) => {
+  //   if (guide.readingGuideFinal) {
+  //     const clarifyingQuestions: string[] =
+  //       guide.readingGuideFinal.clarifyingQuestions
 
-      const obj = {
-        student: guide.hasOwner.firstName,
-        questions: [...clarifyingQuestions],
-      }
-      completedReadingGuidesNumber = completedReadingGuidesNumber + 1
-      clarifyingQuestionsList = [...clarifyingQuestionsList, obj]
-      majorIssuesList = [...majorIssuesList, guide.readingGuideFinal.majorIssue]
+  //     const obj = {
+  //       student: guide.hasOwner.firstName,
+  //       questions: [...clarifyingQuestions],
+  //     }
+  //     completedReadingGuidesNumber = completedReadingGuidesNumber + 1
+  //     clarifyingQuestionsList = [...clarifyingQuestionsList, obj]
+  //     majorIssuesList = [...majorIssuesList, guide.readingGuideFinal.majorIssue]
 
-      if (guide.readingGuideFinal.majorIssueSolved) {
-        majorIssueSolved = majorIssueSolved + 1
-        majorSolutionsList = [
-          ...majorSolutionsList,
-          guide.readingGuideFinal.majorSolution,
-        ]
-      }
-      if (!guide.readingGuideFinal.majorIssueSolved) {
-        majorIssueUnsolved = majorIssueUnsolved + 1
-        majorUnsolvedIssueList = [
-          ...majorUnsolvedIssueList,
-          guide.readingGuideFinal.majorSolution,
-        ]
-      }
-      if (
-        guide.readingGuideFinal.howIsSectionOrganized!.includes(
-          InformationStructureEnum.PROBLEM_SOLUTION
-        )
-      ) {
-        problemSolutionTypes = problemSolutionTypes + 1
-        problemSolutionReasons = [
-          ...problemSolutionReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized!,
-        ]
-      }
-      if (
-        guide.readingGuideFinal.howIsSectionOrganized!.includes(
-          InformationStructureEnum.CAUSE_EFFECT
-        )
-      ) {
-        causeEffectTypes = causeEffectTypes + 1
-        causeEffectReasons = [
-          ...causeEffectReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized!,
-        ]
-      }
-      if (
-        guide.readingGuideFinal.howIsSectionOrganized!.includes(
-          InformationStructureEnum.COMPARE_CONTRAST
-        )
-      ) {
-        compareContrastTypes = compareContrastTypes + 1
-        compareContrastReasons = [
-          ...compareContrastReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized!,
-        ]
-      }
-      if (
-        guide.readingGuideFinal.howIsSectionOrganized!.includes(
-          InformationStructureEnum.SEQUENCE
-        )
-      ) {
-        sequenceTypes = sequenceTypes + 1
-        sequenceReasons = [
-          ...sequenceReasons,
-          guide.readingGuideFinal.whyWasSectionOrganized!,
-        ]
-      }
-    }
-  })
+  //     if (guide.readingGuideFinal.majorIssueSolved) {
+  //       majorIssueSolved = majorIssueSolved + 1
+  //       majorSolutionsList = [
+  //         ...majorSolutionsList,
+  //         guide.readingGuideFinal.majorSolution,
+  //       ]
+  //     }
+  //     if (!guide.readingGuideFinal.majorIssueSolved) {
+  //       majorIssueUnsolved = majorIssueUnsolved + 1
+  //       majorUnsolvedIssueList = [
+  //         ...majorUnsolvedIssueList,
+  //         guide.readingGuideFinal.majorSolution,
+  //       ]
+  //     }
+  //     if (
+  //       guide.readingGuideFinal.howIsSectionOrganized!.includes(
+  //         InformationStructureEnum.PROBLEM_SOLUTION
+  //       )
+  //     ) {
+  //       problemSolutionTypes = problemSolutionTypes + 1
+  //       problemSolutionReasons = [
+  //         ...problemSolutionReasons,
+  //         guide.readingGuideFinal.whyWasSectionOrganized!,
+  //       ]
+  //     }
+  //     if (
+  //       guide.readingGuideFinal.howIsSectionOrganized!.includes(
+  //         InformationStructureEnum.CAUSE_EFFECT
+  //       )
+  //     ) {
+  //       causeEffectTypes = causeEffectTypes + 1
+  //       causeEffectReasons = [
+  //         ...causeEffectReasons,
+  //         guide.readingGuideFinal.whyWasSectionOrganized!,
+  //       ]
+  //     }
+  //     if (
+  //       guide.readingGuideFinal.howIsSectionOrganized!.includes(
+  //         InformationStructureEnum.COMPARE_CONTRAST
+  //       )
+  //     ) {
+  //       compareContrastTypes = compareContrastTypes + 1
+  //       compareContrastReasons = [
+  //         ...compareContrastReasons,
+  //         guide.readingGuideFinal.whyWasSectionOrganized!,
+  //       ]
+  //     }
+  //     if (
+  //       guide.readingGuideFinal.howIsSectionOrganized!.includes(
+  //         InformationStructureEnum.SEQUENCE
+  //       )
+  //     ) {
+  //       sequenceTypes = sequenceTypes + 1
+  //       sequenceReasons = [
+  //         ...sequenceReasons,
+  //         guide.readingGuideFinal.whyWasSectionOrganized!,
+  //       ]
+  //     }
+  //   }
+  // })
 
   let completionFraction =
     completedReadingGuidesNumber + '/' + readingGuides?.length

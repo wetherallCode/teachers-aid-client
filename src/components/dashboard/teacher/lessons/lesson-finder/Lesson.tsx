@@ -118,6 +118,8 @@ export const Lesson = ({ date }: LessonProps) => {
           style={{
             color: 'var(--white)',
             textDecoration: 'none',
+            display: 'grid',
+            alignItems: 'center',
           }}
           to={`lesson-planner/${dateValue}`}
         >

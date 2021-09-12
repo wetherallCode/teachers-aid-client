@@ -23,18 +23,18 @@ export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
               know the answer, please give me your best guess.
             </SectionOrganizationBodyEntry>
             <br />
-            <SectionOrganizationBodyEntry>
+            {/* <SectionOrganizationBodyEntry>
               To get full credit you need to complete every question/task that
               has a red asterisk <Required>*</Required>
-            </SectionOrganizationBodyEntry>
+            </SectionOrganizationBodyEntry> */}
             <br />
-            <SectionOrganizationBodyEntry>
+            {/* <SectionOrganizationBodyEntry>
               If you need help understanding the question/task, click on the
               question to get help.
-            </SectionOrganizationBodyEntry>
+            </SectionOrganizationBodyEntry> */}
           </ul>
         )}
-        {state.context.help === 'majorIssue' && (
+        {state.context.help === 'problems' && (
           <ul>
             <SectionOrganizationBodyEntry>
               Read through the text to find the biggest problem or issue that
@@ -47,7 +47,7 @@ export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
             </SectionOrganizationBodyEntry>
           </ul>
         )}
-        {state.context.help === 'howIsSectionOrganized' && (
+        {state.context.help === 'biggestProblem' && (
           <ul>
             <SectionOrganizationBodyEntry>
               Problem and solution shows a problem or a solution to a problem,
@@ -71,7 +71,7 @@ export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
             </SectionOrganizationBodyEntry>
           </ul>
         )}
-        {state.context.help === 'whyWasSectionOrganized' && (
+        {state.context.help === 'reasonForBiggestProblem' && (
           <ul>
             <SectionOrganizationBodyEntry>
               Just explain your thinking. What made you think it was one or more
@@ -89,28 +89,28 @@ export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
             </SectionOrganizationBodyEntry>
           </ul>
         )}
-        {state.context.help === 'majorSolution' && (
+        {state.context.help === 'importantPeople' && (
           <ul>
-            {state.context.updateReadingGuideInputs.majorIssueSolved ? (
-              <SectionOrganizationBodyEntry>
-                How did the person or people solve the problem? What actions did
-                they take?
-              </SectionOrganizationBodyEntry>
-            ) : (
-              <>
-                <SectionOrganizationBodyEntry>
-                  Do your best to explain why the person or people couldn't
-                  solve their problem?
-                </SectionOrganizationBodyEntry>
-                <br />
-                <SectionOrganizationBodyEntry>
-                  What did the guess wrong that led them to make mistakes?
-                </SectionOrganizationBodyEntry>
-              </>
-            )}
+            <SectionOrganizationBodyEntry>
+              How did the person or people solve the problem? What actions did
+              they take?
+            </SectionOrganizationBodyEntry>
           </ul>
         )}
-        {state.context.help === 'clarifyingQuestions' && (
+        {state.context.help === 'howArePeopleInvolvedInProblems' && (
+          <ul>
+            <SectionOrganizationBodyEntry>
+              What things could the author have made clearer to help you
+              understand why people made the decisions they made?
+            </SectionOrganizationBodyEntry>
+            <br />
+            <SectionOrganizationBodyEntry>
+              The more questions you ask the better you will understand how to
+              understand what you read. You learn best when you ask questions.
+            </SectionOrganizationBodyEntry>
+          </ul>
+        )}
+        {state.context.help === 'sectionConsequences' && (
           <ul>
             <SectionOrganizationBodyEntry>
               What things could the author have made clearer to help you
