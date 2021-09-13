@@ -10,7 +10,7 @@ export type ReadingGuideHelpProps = {}
 
 export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
   const [state] = useReadingGuideToCompleteContextProvider()
-  console.log(state.context.help)
+
   return (
     <>
       <ReadingGuideInfoTitle>Help with the Reading Guide</ReadingGuideInfoTitle>
