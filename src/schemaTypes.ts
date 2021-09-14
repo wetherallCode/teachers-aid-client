@@ -1710,6 +1710,7 @@ export interface findLessonsByUnit_findLessonsByUnit_lessons {
   _id: string | null;
   lessonName: string;
   assignedDate: any;
+  lessonType: LessonTypeEnum;
 }
 
 export interface findLessonsByUnit_findLessonsByUnit {
