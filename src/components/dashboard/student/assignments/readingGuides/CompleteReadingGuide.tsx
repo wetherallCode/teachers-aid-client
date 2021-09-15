@@ -180,6 +180,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
               </Title>
               <InputAndButtonContainer>
                 <ReadingGuideInput
+                  autoFocus={true}
                   onChange={(e) => setProblem(e.target.value)}
                 />
                 {problem.length > 0 ? (
@@ -200,7 +201,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                     Add Problem
                   </BlueButton>
                 ) : (
-                  <GreyButton></GreyButton>
+                  <GreyButton type='submit'></GreyButton>
                 )}
               </InputAndButtonContainer>
               <ProblemsListContainer>
@@ -240,24 +241,26 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 Select the problem do you think is the biggest problem?
               </Title>
               <ProblemsToSelectContainer>
-                {problemList.map((problem, i: number) => (
-                  <BiggestProblemListItem
-                    key={i}
-                    selected={
-                      state.context.updateReadingGuideInputs.biggestProblem ===
-                      problem
-                    }
-                    onClick={() =>
-                      event({
-                        type: 'SET_READING_GUIDE_PROPERTIES',
-                        keyName: 'biggestProblem',
-                        payload: problem,
-                      })
-                    }
-                  >
-                    {problem}
-                  </BiggestProblemListItem>
-                ))}
+                {state.context.updateReadingGuideInputs.problems.map(
+                  (problem: string, i: number) => (
+                    <BiggestProblemListItem
+                      key={i}
+                      selected={
+                        state.context.updateReadingGuideInputs
+                          .biggestProblem === problem
+                      }
+                      onClick={() =>
+                        event({
+                          type: 'SET_READING_GUIDE_PROPERTIES',
+                          keyName: 'biggestProblem',
+                          payload: problem,
+                        })
+                      }
+                    >
+                      {problem}
+                    </BiggestProblemListItem>
+                  )
+                )}
               </ProblemsToSelectContainer>
               {state.context.updateReadingGuideInputs.biggestProblem && (
                 <BlueButton
@@ -278,6 +281,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 biggest problem?
               </Title>
               <ReadingGuideInput
+                autoFocus={true}
                 value={
                   state.context.updateReadingGuideInputs.reasonForBiggestProblem
                 }
@@ -307,9 +311,11 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
               </Title>
               <InputAndButtonContainer>
                 <ReadingGuideInput
+                  autoFocus={true}
                   onChange={(e) => setImportantPeople(e.target.value)}
                 />
-                {importantPeople.length > 0 ? (
+                {state.context.updateReadingGuideInputs.importantPeople.length >
+                0 ? (
                   <BlueButton
                     type='reset'
                     onClick={() => {
@@ -380,6 +386,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 ))}
               </Title>
               <ReadingGuideTextArea
+                autoFocus={true}
                 value={
                   state.context.updateReadingGuideInputs
                     .howArePeopleInvolvedInProblems
@@ -409,6 +416,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 {multipleSections ? 'these sections' : 'this section'}.
               </Title>
               <ReadingGuideInput
+                autoFocus={true}
                 value={
                   state.context.updateReadingGuideInputs.sectionConsequences
                 }
