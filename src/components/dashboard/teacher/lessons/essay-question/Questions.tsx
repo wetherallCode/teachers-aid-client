@@ -4,9 +4,9 @@ import { EssayQuestionBuilder } from './build-essay-questions/EssayQuestionBuild
 export type QuestionsProps = {}
 
 export const Questions = ({}: QuestionsProps) => {
-  return (
-    <>
-      <EssayQuestionBuilder />
-    </>
-  )
+	return (
+		<>
+			<EssayQuestionBuilder />
+		</>
+	)
 }
