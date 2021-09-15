@@ -1162,33 +1162,6 @@ export interface findReadingGuidesToCompleteVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: updateReadingGuide
-// ====================================================
-
-export interface updateReadingGuide_updateReadingGuide_readingGuide {
-  __typename: "ReadingGuide";
-  _id: string | null;
-}
-
-export interface updateReadingGuide_updateReadingGuide {
-  __typename: "UpdateReadingGuidePayload";
-  readingGuide: updateReadingGuide_updateReadingGuide_readingGuide;
-}
-
-export interface updateReadingGuide {
-  updateReadingGuide: updateReadingGuide_updateReadingGuide;
-}
-
-export interface updateReadingGuideVariables {
-  input: UpdateReadingGuideInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findReadingGuideById
 // ====================================================
 
@@ -6572,6 +6545,33 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateReadingGuide
+// ====================================================
+
+export interface updateReadingGuide_updateReadingGuide_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface updateReadingGuide_updateReadingGuide {
+  __typename: "UpdateReadingGuidePayload";
+  readingGuide: updateReadingGuide_updateReadingGuide_readingGuide;
+}
+
+export interface updateReadingGuide {
+  updateReadingGuide: updateReadingGuide_updateReadingGuide;
+}
+
+export interface updateReadingGuideVariables {
+  input: UpdateReadingGuideInput;
 }
 
 /* tslint:disable */
