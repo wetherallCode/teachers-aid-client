@@ -51,20 +51,22 @@ export const EssayLessonSelect: FC<EssayLessonSelectProps> = ({ courseId }) => {
 			<SelectorContainer>
 				<SelectorTitle>Select Lesson</SelectorTitle>
 				<ItemSelectorContainer>
-					{data?.findLessonsByUnit.lessons.map((lesson) => (
-						<SelectableItem
-							key={lesson._id!}
-							onClick={() => {
-								event({ type: 'SET_LESSON', payload: lesson._id! })
-								event({
-									type: 'SET_ASSIGNED_DATE',
-									payload: lesson.assignedDate!,
-								})
-								event({ type: 'ESSAY_INFO' })
-							}}>
-							{lesson.lessonName}
-						</SelectableItem>
-					))}
+					{data?.findLessonsByUnit.lessons
+						.filter((lesson) => lesson.lessonType === 'REINFORCEMENT')
+						.map((lesson) => (
+							<SelectableItem
+								key={lesson._id!}
+								onClick={() => {
+									event({ type: 'SET_LESSON', payload: lesson._id! })
+									event({
+										type: 'SET_ASSIGNED_DATE',
+										payload: lesson.assignedDate!,
+									})
+									event({ type: 'ESSAY_INFO' })
+								}}>
+								{lesson.lessonName}
+							</SelectableItem>
+						))}
 				</ItemSelectorContainer>
 			</SelectorContainer>
 			<SelectButtonContainer>
