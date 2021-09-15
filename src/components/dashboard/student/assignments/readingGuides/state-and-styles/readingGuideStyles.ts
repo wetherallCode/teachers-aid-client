@@ -144,10 +144,27 @@ export const ReadingGuideProblemsQuestionContainer = styled.form`
 `
 
 export const ProblemsListContainer = styled.div`
+  align-self: start;
   font-size: 2.5vh;
-  height: 10vh;
+  height: 100%;
   overflow: scroll;
+  display: grid;
+  grid-template-rows: 1fr 4fr;
 `
+
+export const ProblemsLisContainerTitle = styled.div`
+  justify-self: center;
+  align-self: center;
+`
+
+export const ProblemsListItem = styled.div`
+  cursor: pointer;
+  width: fit-content;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+export const ProblemsToSelectContainer = styled.div``
 
 export const ButtonContainer = styled.div`
   justify-items: center;
