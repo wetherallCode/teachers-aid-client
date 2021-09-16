@@ -96,12 +96,13 @@ export const SubjectComplimentIdentifier = ({
       <RestatementDirectionsContainer>
         <UnderlinedText>Directions</UnderlinedText>
         <div>
-          Since the verb "{question.helpingVerb}" a linking verb, there is no
-          object. However, there is a noun that comes after "
+          Since the verb "{question.helpingVerb}" is a linking verb, there is no
+          object. However, there is an adjective that comes after "
           {question.helpingVerb}" called the subject compliment. Select the{' '}
-          {question.nounType.toLowerCase()} that comes after the word "
-          {question.helpingVerb}." This will include any adjective that modifies
-          the {question.nounType.toLowerCase()}.
+          {/* {question.nounType.toLowerCase()}  */}
+          adjective that comes after the word "{question.helpingVerb}."
+          {/* This will include any adjective that modifies
+          the {question.nounType.toLowerCase()}. */}
         </div>
       </RestatementDirectionsContainer>
       <RestatementQuestionToRestateContainer>

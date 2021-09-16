@@ -169,6 +169,7 @@ export const ProblemsToSelectContainer = styled.div``
 export const ButtonContainer = styled.div`
   justify-items: center;
   display: grid;
+  grid-auto-flow: column;
 `
 
 export const BlueButton = styled.button`
@@ -176,6 +177,9 @@ export const BlueButton = styled.button`
   color: var(--white);
   font-size: 2vh;
   border-radius: 5px;
+`
+export const NextButton = styled(BlueButton)`
+  width: 35vh;
 `
 
 export const GreyButton = styled(BlueButton)`
@@ -210,6 +214,10 @@ export const ReadingGuideReasonForBiggestProblemContainer = styled(
 
 export const SmallBlueButton = styled(BlueButton)`
   height: 3vh;
+`
+
+export const SmallNextButton = styled(SmallBlueButton)`
+  width: 35vh;
 `
 
 export const ImportantPeopleContainer = styled(
