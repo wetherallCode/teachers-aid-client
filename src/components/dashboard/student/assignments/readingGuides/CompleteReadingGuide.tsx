@@ -470,7 +470,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                 <ButtonContainer>
                   <SmallNextButton
                     onClick={() =>
-                      setReadingGuideSteps('reasonForBiggestProblem')
+                      setReadingGuideSteps('howArePeopleInvolvedInProblems')
                     }
                   >
                     Back
