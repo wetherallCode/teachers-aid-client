@@ -77,7 +77,7 @@ export const Lesson = ({ date }: LessonProps) => {
 			variables: {
 				input: { assignedDate: new Date(date.date).toLocaleDateString() },
 			},
-			// onCompleted: (data) => console.log(data),
+			onCompleted: (data) => console.log(data),
 			pollInterval: 1000,
 			onError: (error) => console.error(error),
 		}
@@ -89,28 +89,31 @@ export const Lesson = ({ date }: LessonProps) => {
 		date.date.toString().substr(0, 3) === 'Sat' || date.date.toString().substr(0, 3) === 'Sun'
 
 	const dateValue = Date.parse(new Date(date.date).toLocaleDateString())
-
+	console.log(data?.findLessonsByAssignedDate.lessons)
+	loading && <div>loading</div>
 	return (
 		<div>
 			{/* {data?.findLessonsByAssignedDate.lessons?.length !== 0 ? ( */}
 			<>
-				<div
-					style={{
-						height: '6vh',
-						overflow: 'scroll',
-						borderBottom: '1px solid var(--white)',
-					}}>
-					{courseLessons.map((lesson, i: number) => (
-						<div
-							key={i}
-							onClick={() => {
-								event({ type: 'GET_LESSON', payload: lesson })
-								event({ type: 'NEXT' })
-							}}>
-							{lesson.assignedCourses.map((course) => course.name)}
-						</div>
-					))}
-				</div>
+				{data && data?.findLessonsByAssignedDate.lessons?.length !== 0 && (
+					<div
+						style={{
+							height: '6vh',
+							overflow: 'scroll',
+							borderBottom: '1px solid var(--white)',
+						}}>
+						{courseLessons.map((lesson, i: number) => (
+							<div
+								key={i}
+								onClick={() => {
+									event({ type: 'GET_LESSON', payload: lesson })
+									event({ type: 'NEXT' })
+								}}>
+								{lesson.assignedCourses.map((course) => course.name)}
+							</div>
+						))}
+					</div>
+				)}
 				<Link
 					style={{
 						color: 'var(--white)',

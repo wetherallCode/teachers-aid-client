@@ -6,99 +6,112 @@ import { LessonPlanSectionTitles } from './state-n-styles/lessonFinderStyles'
 export type LessonDetailsProps = {}
 
 export const LessonDetails = ({}: LessonDetailsProps) => {
-  const [state, event] = useLessonFinderContextProvider()
-  const {
-    lessonName,
-    essentialQuestion,
-    beforeActivity,
-    pageNumbers,
-    assignedSections,
-    afterActivity,
-    duringActivities,
-    questionList,
-    // lessonType,
-  } = state.context.lesson!
+	const [state, event] = useLessonFinderContextProvider()
+	const {
+		lessonName,
+		essentialQuestion,
+		beforeActivity,
+		pageNumbers,
+		assignedSections,
+		afterActivity,
+		duringActivities,
+		questionList,
+		lessonType,
+	} = state.context.lesson!
 
-  const readings =
-    pageNumbers.endingPage !== pageNumbers.startingPage
-      ? pageNumbers.startingPage + ' - ' + pageNumbers.endingPage
-      : pageNumbers.startingPage
+	const readings =
+		pageNumbers.endingPage !== pageNumbers.startingPage
+			? pageNumbers.startingPage + ' - ' + pageNumbers.endingPage
+			: pageNumbers.startingPage
 
-  const lessonTitle =
-    assignedSections.startingSection + ' - ' + assignedSections.endingSection
+	const lessonTitle = assignedSections.startingSection + ' - ' + assignedSections.endingSection
 
-  return (
-    <>
-      <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
-      <LessonPlanSectionTitles>
-        {state.context.lesson && <div>{lessonTitle}</div>}
-      </LessonPlanSectionTitles>
-      <div>
-        <div>Grouping: individual/whole</div>{' '}
-        <div>Depth of Knowledge: Levels 3 </div>
-        <br />
-        <LessonPlanSectionTitles>Essential Question</LessonPlanSectionTitles>
-        <div>{essentialQuestion}</div>
-        <br />
-        <LessonPlanSectionTitles>
-          Activating Strategy
-        </LessonPlanSectionTitles>{' '}
-        <div>
-          Students will start with a critical thinking question or be asked to
-          think of questions to ask to engage student's thinking about the
-          lesson.
-        </div>
-        <ul>
-          <li>Task: {beforeActivity.task}</li>
-        </ul>
-        <br />
-        <LessonPlanSectionTitles>Teaching Strategy</LessonPlanSectionTitles>
-        <div>
-          Read Page {readings}: {lessonTitle}
-        </div>
-        <div>
-          Students will read a paragraph and respond to a critical thinking
-          question that will help them strengthen their schemas, have them think
-          logically, ask them to evaluate decisions made in the past, or think
-          of possible consequences to the actions of the people we discuss with
-          a brief class dicussion for most paragraphs in the reading.
-        </div>
-        <br />
-        {duringActivities.length === 0 ? (
-          <>
-            <LessonPlanSectionTitles>
-              Deep Thinking Questions
-            </LessonPlanSectionTitles>
-            <ul>
-              {duringActivities.map((question, i: number) => (
-                <li key={i}>{question.task}</li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <LessonPlanSectionTitles></LessonPlanSectionTitles>
-        )}
-        <br />
-        <LessonPlanSectionTitles>
-          Summarization Strategy
-        </LessonPlanSectionTitles>
-        <div>Exit ticket</div>
-        <ul>
-          {/* {questionList.map((question, i: number) => (
-            <li key={i}>{question.question}</li>
-          ))} */}
-          <li>{afterActivity.task}</li>
-        </ul>
-        <br />
-        <LessonPlanSectionTitles>Modifications</LessonPlanSectionTitles>
-        <div>
-          Every student will get a chance to read, write, think, and discuss.
-          For visual learners there will be a chance to read everyday. For audio
-          learners there will be a chance to be read aloud and have discussion.
-          For tactile learners, there are graphic organizers to aid them in
-          constructing their writing.
-        </div>
-      </div>
-    </>
-  )
+	return (
+		<>
+			<button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
+			<LessonPlanSectionTitles>
+				{state.context.lesson && <div>{lessonTitle}</div>}
+			</LessonPlanSectionTitles>
+			<div>
+				<div>Grouping: individual/whole</div> <div>Depth of Knowledge: Levels 3 </div>
+				<br />
+				<LessonPlanSectionTitles>Essential Question</LessonPlanSectionTitles>
+				<div>{essentialQuestion}</div>
+				<br />
+				<LessonPlanSectionTitles>Activating Strategy</LessonPlanSectionTitles>{' '}
+				{lessonType === 'INTRODUCTORY' ? (
+					<div>
+						Students will start off with a quick review of what was discussed in the previous
+						lesson.
+					</div>
+				) : (
+					<>
+						<div>
+							Students will start with a critical thinking question or be asked to think of
+							questions to ask to engage student's thinking about the lesson.
+						</div>
+						<ul>
+							<li>Task: {beforeActivity.task}</li>
+						</ul>
+					</>
+				)}
+				<br />
+				<LessonPlanSectionTitles>Teaching Strategy</LessonPlanSectionTitles>
+				<div>
+					Read Page {readings}: {lessonTitle}
+				</div>
+				{lessonType === 'INTRODUCTORY' ? (
+					<div>
+						Students will take notes and answer oral comprehension questions on the material in the
+						aforementioned sections. The notes will be used as a reference for taking a
+						comprehension quiz on said material.
+					</div>
+				) : (
+					<div>
+						Students will read a paragraph and respond to a critical thinking question that will
+						help them strengthen their schemas, have them think logically, ask them to evaluate
+						decisions made in the past, or think of possible consequences to the actions of the
+						people we discuss with a brief class dicussion for most paragraphs in the reading.
+					</div>
+				)}
+				<br />
+				{lessonType === 'INTRODUCTORY' ? (
+					<LessonPlanSectionTitles></LessonPlanSectionTitles>
+				) : (
+					<>
+						<LessonPlanSectionTitles>Deep Thinking Questions</LessonPlanSectionTitles>
+						<ul>
+							{duringActivities.map((question, i: number) => (
+								<li key={i}>{question.task}</li>
+							))}
+						</ul>
+					</>
+				)}
+				<br />
+				<LessonPlanSectionTitles>Summarization Strategy</LessonPlanSectionTitles>
+				{lessonType === 'INTRODUCTORY' ? (
+					<div>
+						Students will take the information they've learned in class and use their text and notes
+						to complete a reading guide. If time runs short the reading guide can be completed at
+						home.
+					</div>
+				) : (
+					<>
+						<div>Exit ticket</div>
+						<ul>
+							<li>{afterActivity.task}</li>
+						</ul>
+					</>
+				)}
+				<br />
+				<LessonPlanSectionTitles>Modifications</LessonPlanSectionTitles>
+				<div>
+					Every student will get a chance to read, write, think, and discuss. For visual learners
+					there will be a chance to read everyday. For audio learners there will be a chance to be
+					read aloud and have discussion. For tactile learners, there are graphic organizers to aid
+					them in constructing their writing.
+				</div>
+			</div>
+		</>
+	)
 }
