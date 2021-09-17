@@ -50,7 +50,10 @@ export const Absence = ({
 			],
 		}
 	)
-	console.log()
+	console.log(
+		new Date().toLocaleDateString(),
+		student.hasAbsences.some((absence) => absence.dayAbsent === new Date().toLocaleDateString())
+	)
 	return (
 		<>
 			{student.hasAbsences.length === 0 ||

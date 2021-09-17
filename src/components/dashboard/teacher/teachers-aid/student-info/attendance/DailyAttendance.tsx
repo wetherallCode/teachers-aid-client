@@ -105,6 +105,7 @@ export const DailyAttendance = ({ student, absenceCheck }: DailyAttendanceProps)
 	const todaysAbsence = student.hasAbsences.filter(
 		(a) => a.dayAbsent === new Date().toLocaleDateString()
 	)
+
 	const absenceId = todaysAbsence.length !== 0 ? todaysAbsence[0]._id! : ''
 
 	const todaysExcusedLateness = student.hasExcusedLatenesses.filter(

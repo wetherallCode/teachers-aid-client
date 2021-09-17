@@ -3306,33 +3306,6 @@ export interface findChaptersByTextIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: CreateEssayQuestion
-// ====================================================
-
-export interface CreateEssayQuestion_createEssayQuestion_essayQuestion {
-  __typename: "EssayQuestion";
-  _id: string | null;
-}
-
-export interface CreateEssayQuestion_createEssayQuestion {
-  __typename: "CreateEssayQuestionPayload";
-  essayQuestion: CreateEssayQuestion_createEssayQuestion_essayQuestion;
-}
-
-export interface CreateEssayQuestion {
-  createEssayQuestion: CreateEssayQuestion_createEssayQuestion;
-}
-
-export interface CreateEssayQuestionVariables {
-  input: CreateEssayQuestionInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findCoursesById
 // ====================================================
 
@@ -3563,6 +3536,7 @@ export interface findLessonsByAssignedDate_findLessonsByAssignedDate_lessons {
   afterActivity: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_afterActivity;
   questionList: findLessonsByAssignedDate_findLessonsByAssignedDate_lessons_questionList[];
   essentialQuestion: string;
+  lessonType: LessonTypeEnum;
 }
 
 export interface findLessonsByAssignedDate_findLessonsByAssignedDate {
@@ -6572,6 +6546,33 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: CreateEssayQuestion
+// ====================================================
+
+export interface CreateEssayQuestion_createEssayQuestion_essayQuestion {
+  __typename: "EssayQuestion";
+  _id: string | null;
+}
+
+export interface CreateEssayQuestion_createEssayQuestion {
+  __typename: "CreateEssayQuestionPayload";
+  essayQuestion: CreateEssayQuestion_createEssayQuestion_essayQuestion;
+}
+
+export interface CreateEssayQuestion {
+  createEssayQuestion: CreateEssayQuestion_createEssayQuestion;
+}
+
+export interface CreateEssayQuestionVariables {
+  input: CreateEssayQuestionInput;
 }
 
 /* tslint:disable */
