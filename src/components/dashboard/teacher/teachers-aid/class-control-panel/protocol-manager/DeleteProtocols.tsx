@@ -10,9 +10,12 @@ import {
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import { date } from '../../../../../../utils'
 import { ProtocolControllerButton } from '../../styles/classControlPanelStyles'
+import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
+import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 
 export type DeleteProtocolsProps = {
   lessonId: string
+  presentStudentList: string[]
 }
 
 export const DELETE_PROTOCOLS_MUTATION = gql`
@@ -39,8 +42,14 @@ export const FIND_ACTIVE_PROTOCOLS_QUERY = gql`
     }
   }
 `
-export const DeleteProtocols: FC<DeleteProtocolsProps> = ({ lessonId }) => {
+export const DeleteProtocols: FC<DeleteProtocolsProps> = ({
+  lessonId,
+  presentStudentList,
+}) => {
   const [state, event] = useTeachersAidContextProvider()
+  const { markingPeriodEnum } = useEnumContextProvider()
+  const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const { currentMarkingPeriod } = markingPeriodState.context
 
   const { loading, data } = useQuery<
     findActiveProtocolsByCourseForProtocolRemoval,
@@ -64,10 +73,11 @@ export const DeleteProtocols: FC<DeleteProtocolsProps> = ({ lessonId }) => {
   >(DELETE_PROTOCOLS_MUTATION, {
     variables: {
       input: {
-        studentIds: studentIds!,
+        studentIds: presentStudentList,
         assignedDate: date,
         task: state.context.selectedProtocol.task,
         lessonId,
+        markingPeriod: currentMarkingPeriod,
       },
     },
     onCompleted: (data) => console.log(data),

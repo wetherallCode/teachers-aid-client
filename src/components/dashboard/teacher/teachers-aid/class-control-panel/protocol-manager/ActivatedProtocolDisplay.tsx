@@ -26,7 +26,10 @@ import {
   ProtocolControllerButton,
 } from '../../styles/classControlPanelStyles'
 
-export type ActivatedProtocolDisplayProps = { lessonId: string }
+export type ActivatedProtocolDisplayProps = {
+  lessonId: string
+  presentStudentList: string[]
+}
 
 export const FINISH_STUDENT_PROTOCOL_MUTATION = gql`
   mutation finishStudentProtocol($input: FinishProtocolInput!) {
@@ -40,6 +43,7 @@ export const FINISH_STUDENT_PROTOCOL_MUTATION = gql`
 
 export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
   lessonId,
+  presentStudentList,
 }) => {
   const [state, event] = useTeachersAidContextProvider()
   const [finishStudentProtocol] = useMutation<
@@ -129,7 +133,10 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
             Finish
           </ProtocolControllerButton>
         )}
-        <DeleteProtocols lessonId={lessonId} />
+        <DeleteProtocols
+          lessonId={lessonId}
+          presentStudentList={presentStudentList}
+        />
       </ProtocolControllerContainer>
     </ProtocolManagerContainer>
   )
