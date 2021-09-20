@@ -41,6 +41,17 @@ export const COURSE_QUERY = gql`
             dayAbsent
           }
         }
+        hasCourseInfo {
+          assignedSeats {
+            student {
+              _id
+              firstName
+              hasAbsences {
+                dayAbsent
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -76,6 +87,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
     },
     onError: (error) => console.error(error),
   })
+
   const presentStudentList = data
     ?.findCourseById!.course!.hasStudents!.filter(
       (student) =>
@@ -86,6 +98,19 @@ export const TeachersAid = ({}: TeachersAidProps) => {
     )
     .map((student) => student._id)! as string[]
 
+  const assignedPresentStudents =
+    data?.findCourseById.course.hasCourseInfo?.assignedSeats
+      .map((student) => student.student)
+      .filter(
+        (student) =>
+          (student && student.hasAbsences.length === 0) ||
+          (student &&
+            student.hasAbsences.some(
+              (absence) => absence.dayAbsent !== new Date().toLocaleDateString()
+            ))
+      )
+      .map((student) => student?._id)! as string[]
+  // console.log(assignedPresentStudents)
   // useEffect(() => {
   //   console.log('change')
   //   if (state.context.courseInfo) {
@@ -141,7 +166,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
         </StudentInfoContainer>
         <ClassControlPanelContainer>
           <RandomStudentGenerator />
-          <ClassControlPanel presentStudentList={presentStudentList} />
+          <ClassControlPanel presentStudentList={assignedPresentStudents!} />
           <TimerPresets />
         </ClassControlPanelContainer>
       </TeachersAidContainer>
