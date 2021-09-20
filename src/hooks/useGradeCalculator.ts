@@ -68,9 +68,10 @@ export const useGradeCalculator = ({
       (assignment) => assignment.markingPeriod === markingPeriod
     )
 
-  const applicableCurrentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
-    (points) => points.markingPeriod === markingPeriod
-  )!
+  const applicableCurrentMarkingPeriodResponsiblityPoints =
+    responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
+      (points) => points.markingPeriod === markingPeriod
+    )!
 
   if (
     !applicableCurrentMarkingPeriodResponsiblityPoints &&
@@ -91,7 +92,7 @@ export const useGradeCalculator = ({
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
     )
-
+    console.log(applicableEssays?.map((essay) => essay.score.earnedPoints))
     const essayEarnedPoints = applicableEssays
       ?.map((essay) => essay.score.earnedPoints)
       .reduce((acc: number, i: number) => acc + i)!
@@ -153,9 +154,10 @@ export const useGradeCalculator = ({
   ) {
     // Grade Category Weights: Supportive = 1
     // console.log('Only ResponsibilityPoints')
-    const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-      (points) => points.markingPeriod === markingPeriod
-    )!
+    const currentMarkingPeriodResponsiblityPoints =
+      responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+        (points) => points.markingPeriod === markingPeriod
+      )!
 
     const points =
       currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
@@ -212,9 +214,10 @@ export const useGradeCalculator = ({
     // Grade Category Weights: Supportive = .3  Secondary = .7
     // console.log('ResponsiblityPoints and Secondary Only')
 
-    const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-      (points) => points.markingPeriod === markingPeriod
-    )!
+    const currentMarkingPeriodResponsiblityPoints =
+      responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+        (points) => points.markingPeriod === markingPeriod
+      )!
 
     const { responsibilityPoints } = currentMarkingPeriodResponsiblityPoints[0]
 
@@ -266,7 +269,7 @@ export const useGradeCalculator = ({
   ) {
     // Grade Category Weights: Supportive = .23068182   Primary = .76931818
     // console.log('Only Essays and ResponsibilityPoints')
-
+    console.log(data?.findAssignmentByStudentId.assignments)
     const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
       (assignment) =>
         (assignment.__typename === 'Essay' &&
@@ -294,9 +297,10 @@ export const useGradeCalculator = ({
 
     const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
 
-    const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-      (points) => points.markingPeriod === markingPeriod
-    )!
+    const currentMarkingPeriodResponsiblityPoints =
+      responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+        (points) => points.markingPeriod === markingPeriod
+      )!
 
     const { responsibilityPoints } = currentMarkingPeriodResponsiblityPoints[0]
 
@@ -368,9 +372,10 @@ export const useGradeCalculator = ({
     articleReviewMaxPoints
   )
 
-  const currentMarkingPeriodResponsiblityPoints = responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-    (points) => points.markingPeriod === markingPeriod
-  )!
+  const currentMarkingPeriodResponsiblityPoints =
+    responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
+      (points) => points.markingPeriod === markingPeriod
+    )!
 
   const responsibilityPointGrade =
     currentMarkingPeriodResponsiblityPoints &&
