@@ -36,7 +36,7 @@ export const CourseManager: FC<CourseManagerProps> = () => {
           path='assignment-manager'
           element={
             <AssignmentManagerContextProvider>
-              <AssignmentManager />
+              <AssignmentManager courseId={course} />
             </AssignmentManagerContextProvider>
           }
         />
