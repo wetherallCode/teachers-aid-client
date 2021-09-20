@@ -11,7 +11,7 @@ export type SeatingChartProps = {}
 export const SeatingChart: FC<SeatingChartProps> = () => {
   const [state] = useTeachersAidContextProvider()
   const courseMaxSize = state.context.courseInfo!.assignedSeats.length
-  console.log(courseMaxSize === 27)
+
   return (
     <>
       {courseMaxSize === 12 ? (
