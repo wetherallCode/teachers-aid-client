@@ -95,7 +95,11 @@ export const Essays: FC<EssaysProps> = () => {
   const essayTitle = essays?.findEssaysByAssociatedLessonId.essays.map(
     (essay) => essay.readings.readingSections
   )
-
+  console.log(
+    essays?.findEssaysByAssociatedLessonId.essays.length === 0
+      ? 'No Essays Assigned For this Lesson'
+      : 'Essays were assigned'
+  )
   if (loading) return <div>Loading </div>
 
   return (
@@ -122,11 +126,13 @@ export const Essays: FC<EssaysProps> = () => {
           }}
         >
           <option value='none'>Select a Lesson</option>
-          {lessons?.findLessonsByUnit.lessons.map((lesson) => (
-            <option key={lesson._id!} value={lesson._id!}>
-              {lesson.lessonName}
-            </option>
-          ))}
+          {lessons?.findLessonsByUnit.lessons
+            .filter((l) => l.lessonType === 'REINFORCEMENT')
+            .map((lesson) => (
+              <option key={lesson._id!} value={lesson._id!}>
+                {lesson.lessonName}
+              </option>
+            ))}
         </select>
       )}
       {!createCSVToggle && assignmentList.length > 0 && (
