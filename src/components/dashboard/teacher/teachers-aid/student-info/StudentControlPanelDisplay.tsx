@@ -12,6 +12,7 @@ import {
   StudentControlButtonContainer,
   ControlButtons,
 } from '../styles/studentInfoStyles'
+import { DailyBehavior } from './behavior/DailyBehavior'
 
 export type StudentControlPanelDisplayProps = {
   student: findStudentInfoByStudentId_findStudentById_student
@@ -57,7 +58,9 @@ export const StudentControlPanelDisplay: FC<StudentControlPanelDisplayProps> =
             {student && controllerState === 'ATTENDANCE' && (
               <DailyAttendance student={student} absenceCheck={absenceCheck} />
             )}
-            {student && controllerState === 'BEHAVIOR' && <div>Behavior</div>}
+            {student && controllerState === 'BEHAVIOR' && (
+              <DailyBehavior studentId={student._id!} />
+            )}
           </StudentControlPanelContainer>
         )}
       </>

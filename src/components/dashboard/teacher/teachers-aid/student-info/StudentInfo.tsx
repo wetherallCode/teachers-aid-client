@@ -13,7 +13,6 @@ import {
 } from '../styles/studentInfoStyles'
 import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
-import { todaysLocaleDate } from '../../../../../utils'
 
 export type StudentInfoProps = {}
 

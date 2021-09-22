@@ -5824,7 +5824,7 @@ export interface findStudentInfoByStudentId_findStudentById_student {
   hasExcusedLatenesses: findStudentInfoByStudentId_findStudentById_student_hasExcusedLatenesses[];
   hasResponsibilityPoints: findStudentInfoByStudentId_findStudentById_student_hasResponsibilityPoints[];
   hasProtocols: findStudentInfoByStudentId_findStudentById_student_hasProtocols[];
-  hasBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors;
+  hasBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[];
 }
 
 export interface findStudentInfoByStudentId_findStudentById {
@@ -6617,6 +6617,16 @@ export interface enumValues_LessonTypeEnum {
   enumValues: enumValues_LessonTypeEnum_enumValues[] | null;
 }
 
+export interface enumValues_BehaviorEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_BehaviorEnum {
+  __typename: "__Type";
+  enumValues: enumValues_BehaviorEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -6636,6 +6646,7 @@ export interface enumValues {
   VerbTypeEnum: enumValues_VerbTypeEnum | null;
   QuestionWordEnum: enumValues_QuestionWordEnum | null;
   LessonTypeEnum: enumValues_LessonTypeEnum | null;
+  BehaviorEnum: enumValues_BehaviorEnum | null;
 }
 
 /* tslint:disable */
@@ -7172,6 +7183,8 @@ export interface CreateSignInSheetsInput {
 }
 
 export interface CreateStudentBehaviorInput {
+  markingPeriod: MarkingPeriodEnum;
+  responsibilityPoints: number;
   studentBehaviorType: BehaviorEnum;
   studentId: string;
 }
