@@ -242,9 +242,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
           )}
           {readingGuideSteps === 'biggestProblem' && (
             <ReadingGuideBiggestProblemContainer>
-              <Title>
-                Select the problem do you think is the biggest problem?
-              </Title>
+              <Title>Click the problem you think is the biggest problem?</Title>
               <ProblemsToSelectContainer>
                 {state.context.updateReadingGuideInputs.problems.map(
                   (problem: string, i: number) => (
