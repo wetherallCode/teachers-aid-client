@@ -88,15 +88,18 @@ export const TeachersAid = ({}: TeachersAidProps) => {
     onError: (error) => console.error(error),
   })
 
-  const presentStudentList = data
-    ?.findCourseById!.course!.hasStudents!.filter(
-      (student) =>
-        (student && student.hasAbsences.length === 0) ||
-        student.hasAbsences.some(
-          (absence) => absence.dayAbsent !== todaysLocaleDate
-        )
-    )
-    .map((student) => student._id)! as string[]
+  const presentStudentList =
+    data?.findCourseById.course.hasCourseInfo?.assignedSeats
+      .map((student) => student.student)
+      .filter(
+        (student) =>
+          (student && student.hasAbsences.length === 0) ||
+          (student &&
+            student?.hasAbsences.some(
+              (absence) => absence.dayAbsent !== new Date().toLocaleDateString()
+            ))
+      )
+      .map((student) => student?._id)! as string[]
 
   const assignedPresentStudents =
     data?.findCourseById.course.hasCourseInfo?.assignedSeats
@@ -110,6 +113,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
             ))
       )
       .map((student) => student?._id)! as string[]
+  console.log(presentStudentList)
   // console.log(assignedPresentStudents)
   // useEffect(() => {
   //   console.log('change')

@@ -5687,33 +5687,6 @@ export interface createUnexcusedLatenessVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createStudentBehavior
-// ====================================================
-
-export interface createStudentBehavior_createStudentBehavior_studentBehavior {
-  __typename: "StudentBehavior";
-  _id: string | null;
-}
-
-export interface createStudentBehavior_createStudentBehavior {
-  __typename: "CreateStudentBehaviorPayload";
-  studentBehavior: createStudentBehavior_createStudentBehavior_studentBehavior;
-}
-
-export interface createStudentBehavior {
-  createStudentBehavior: createStudentBehavior_createStudentBehavior;
-}
-
-export interface createStudentBehaviorVariables {
-  input: CreateStudentBehaviorInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -6773,6 +6746,33 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createStudentBehavior
+// ====================================================
+
+export interface createStudentBehavior_createStudentBehavior_studentBehavior {
+  __typename: "StudentBehavior";
+  _id: string | null;
+}
+
+export interface createStudentBehavior_createStudentBehavior {
+  __typename: "CreateStudentBehaviorPayload";
+  studentBehavior: createStudentBehavior_createStudentBehavior_studentBehavior;
+}
+
+export interface createStudentBehavior {
+  createStudentBehavior: createStudentBehavior_createStudentBehavior;
+}
+
+export interface createStudentBehaviorVariables {
+  input: CreateStudentBehaviorInput;
 }
 
 /* tslint:disable */

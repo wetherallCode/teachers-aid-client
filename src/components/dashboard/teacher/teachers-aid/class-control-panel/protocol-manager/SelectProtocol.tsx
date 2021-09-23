@@ -135,7 +135,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
       'findActiveProtocolsByCourseForProtocolRemoval',
     ],
   })
-
+  console.log(presentStudentList)
   return (
     <ProtocolSelectorContainer>
       {!state.context.selectedProtocol.completed ? (

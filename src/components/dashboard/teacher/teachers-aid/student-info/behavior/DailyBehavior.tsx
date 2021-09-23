@@ -8,6 +8,10 @@ import {
   BehaviorEnum,
   MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
+import {
+  phraseCapitalizer,
+  underscoreEliminator,
+} from '../../../../../../utils'
 
 export type DailyBehaviorProps = { studentId: string }
 
@@ -34,20 +38,41 @@ export const DailyBehavior = ({ studentId }: DailyBehaviorProps) => {
     createStudentBehavior,
     createStudentBehaviorVariables
   >(CREATE_BEHAVIOR_MUTATION, {
-    variables: {
-      input: {
-        studentBehaviorType: BehaviorEnum.ANSWERED_QUESTION,
-        studentId,
-        markingPeriod: currentMarkingPeriod,
-        responsibilityPoints: 2,
-      },
-    },
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
+
+  const behaviorPoints = (behavior: BehaviorEnum) => {
+    if (behavior === BehaviorEnum.ANSWERED_QUESTION) {
+      return 2
+    } else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) {
+      return 0
+    } else return -5
+  }
+
   return (
     <>
-      <div></div>
+      <div>
+        {behaviorEnum.map((behavior: BehaviorEnum, i: number) => (
+          <div
+            key={i}
+            onClick={() =>
+              createStudentBehavior({
+                variables: {
+                  input: {
+                    studentBehaviorType: behavior,
+                    studentId,
+                    markingPeriod: currentMarkingPeriod,
+                    responsibilityPoints: behaviorPoints(behavior),
+                  },
+                },
+              })
+            }
+          >
+            {phraseCapitalizer(underscoreEliminator(behavior))}
+          </div>
+        ))}
+      </div>
     </>
   )
 }
