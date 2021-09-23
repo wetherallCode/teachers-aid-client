@@ -69,7 +69,15 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> =
         )) ||
       (readingGuidesForMarkingPeriod &&
         readingGuidesForMarkingPeriod.length === 0)
-
+    console.log(
+      readingGuidesForMarkingPeriod &&
+        readingGuidesForMarkingPeriod.filter(
+          (readingGuide) =>
+            !readingGuide.paperBased &&
+            !readingGuide.graded &&
+            readingGuide.assigned
+        )
+    )
     return (
       <>
         <AssignmentTypeTitle>
@@ -99,7 +107,9 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> =
                   readingGuidesForMarkingPeriod
                     .filter(
                       (readingGuide) =>
-                        !readingGuide.paperBased && !readingGuide.graded
+                        !readingGuide.paperBased &&
+                        !readingGuide.graded &&
+                        readingGuide.assigned
                     )
                     .map((readingGuide) => (
                       <ul key={readingGuide._id!}>
