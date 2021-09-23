@@ -3,76 +3,79 @@ import React from 'react'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import {
-  createStudentBehaviorVariables,
-  createStudentBehavior,
-  BehaviorEnum,
-  MarkingPeriodEnum,
+	createStudentBehaviorVariables,
+	createStudentBehavior,
+	BehaviorEnum,
+	MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
+import { phraseCapitalizer, underscoreEliminator } from '../../../../../../utils'
 import {
-  phraseCapitalizer,
-  underscoreEliminator,
-} from '../../../../../../utils'
+	ControlButtons,
+	StudentBehaviorButton,
+	StudentBehaviorButtonContainer,
+	StudentControlButtonContainer,
+} from '../../styles/studentInfoStyles'
 
 export type DailyBehaviorProps = { studentId: string }
 
 export const CREATE_BEHAVIOR_MUTATION = gql`
-  mutation createStudentBehavior($input: CreateStudentBehaviorInput!) {
-    createStudentBehavior(input: $input) {
-      studentBehavior {
-        _id
-      }
-    }
-  }
+	mutation createStudentBehavior($input: CreateStudentBehaviorInput!) {
+		createStudentBehavior(input: $input) {
+			studentBehavior {
+				_id
+			}
+		}
+	}
 `
 
 export const DailyBehavior = ({ studentId }: DailyBehaviorProps) => {
-  const { behaviorEnum, markingPeriodEnum } = useEnumContextProvider()
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
-  const { currentMarkingPeriod } = markingPeriodState.context
+	const { behaviorEnum, markingPeriodEnum } = useEnumContextProvider()
+	const [markingPeriodState] = useMarkingPeriodContextProvider()
+	const { currentMarkingPeriod } = markingPeriodState.context
 
-  // const markingPeriodNumber = markingPeriodEnum.findIndex(
-  //   (element: MarkingPeriodEnum) => element === currentMarkingPeriod
-  // )
+	// const markingPeriodNumber = markingPeriodEnum.findIndex(
+	//   (element: MarkingPeriodEnum) => element === currentMarkingPeriod
+	// )
 
-  const [createStudentBehavior] = useMutation<
-    createStudentBehavior,
-    createStudentBehaviorVariables
-  >(CREATE_BEHAVIOR_MUTATION, {
-    onCompleted: (data) => console.log(data),
-    refetchQueries: [],
-  })
+	const [createStudentBehavior] = useMutation<
+		createStudentBehavior,
+		createStudentBehaviorVariables
+	>(CREATE_BEHAVIOR_MUTATION, {
+		onCompleted: (data) => console.log(data),
+		refetchQueries: [],
+	})
 
-  const behaviorPoints = (behavior: BehaviorEnum) => {
-    if (behavior === BehaviorEnum.ANSWERED_QUESTION) {
-      return 2
-    } else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) {
-      return 0
-    } else return -5
-  }
+	const behaviorPoints = (behavior: BehaviorEnum) => {
+		if (behavior === BehaviorEnum.ANSWERED_QUESTION) {
+			return 2
+		} else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) {
+			return 0
+		} else return -5
+	}
 
-  return (
-    <>
-      <div>
-        {behaviorEnum.map((behavior: BehaviorEnum, i: number) => (
-          <div
-            key={i}
-            onClick={() =>
-              createStudentBehavior({
-                variables: {
-                  input: {
-                    studentBehaviorType: behavior,
-                    studentId,
-                    markingPeriod: currentMarkingPeriod,
-                    responsibilityPoints: behaviorPoints(behavior),
-                  },
-                },
-              })
-            }
-          >
-            {phraseCapitalizer(underscoreEliminator(behavior))}
-          </div>
-        ))}
-      </div>
-    </>
-  )
+	return (
+		<>
+			<StudentBehaviorButtonContainer>
+				{behaviorEnum.map((behavior: BehaviorEnum, i: number) => (
+					<StudentBehaviorButton
+						key={i}
+						goodBehavior={behaviorPoints(behavior) >= 0}
+						onClick={() =>
+							createStudentBehavior({
+								variables: {
+									input: {
+										studentBehaviorType: behavior,
+										studentId,
+										markingPeriod: currentMarkingPeriod,
+										responsibilityPoints: behaviorPoints(behavior),
+									},
+								},
+							})
+						}>
+						{phraseCapitalizer(underscoreEliminator(behavior))}
+					</StudentBehaviorButton>
+				))}
+			</StudentBehaviorButtonContainer>
+		</>
+	)
 }
