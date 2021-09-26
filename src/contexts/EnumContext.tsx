@@ -99,6 +99,18 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    QuizQuestionDifficultyLevelEnum: __type(
+      name: "QuizQuestionDifficultyLevelEnum"
+    ) {
+      enumValues {
+        name
+      }
+    }
+    QuizQuestionTypeEnum: __type(name: "QuizQuestionTypeEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -186,6 +198,13 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         behaviorEnum: data?.BehaviorEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        quizQuestionDifficultyLevelEnum:
+          data?.QuizQuestionDifficultyLevelEnum?.enumValues?.map(
+            (value) => value.name
+          ),
+        quizQuestionTypeEnum: data?.QuizQuestionTypeEnum?.enumValues?.map(
           (value) => value.name
         ),
       }}

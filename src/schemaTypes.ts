@@ -4535,6 +4535,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  gradeType: GradeTypeEnum;
   markingPeriod: MarkingPeriodEnum;
 }
 
@@ -4570,6 +4571,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  gradeType: GradeTypeEnum;
   markingPeriod: MarkingPeriodEnum;
   finalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft | null;
 }
@@ -4599,6 +4601,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  gradeType: GradeTypeEnum;
   markingPeriod: MarkingPeriodEnum;
   readingGuideFinal: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal | null;
 }
@@ -6627,6 +6630,26 @@ export interface enumValues_BehaviorEnum {
   enumValues: enumValues_BehaviorEnum_enumValues[] | null;
 }
 
+export interface enumValues_QuizQuestionDifficultyLevelEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_QuizQuestionDifficultyLevelEnum {
+  __typename: "__Type";
+  enumValues: enumValues_QuizQuestionDifficultyLevelEnum_enumValues[] | null;
+}
+
+export interface enumValues_QuizQuestionTypeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_QuizQuestionTypeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_QuizQuestionTypeEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -6647,6 +6670,8 @@ export interface enumValues {
   QuestionWordEnum: enumValues_QuestionWordEnum | null;
   LessonTypeEnum: enumValues_LessonTypeEnum | null;
   BehaviorEnum: enumValues_BehaviorEnum | null;
+  QuizQuestionDifficultyLevelEnum: enumValues_QuizQuestionDifficultyLevelEnum | null;
+  QuizQuestionTypeEnum: enumValues_QuizQuestionTypeEnum | null;
 }
 
 /* tslint:disable */
