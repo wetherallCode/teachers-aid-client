@@ -100,7 +100,7 @@ export const SubjectPredicateSplit = ({
     <>
       <>
         <RestatementDirectionsContainer>
-          <UnderlinedText>Directions</UnderlinedText>
+          <UnderlinedText>Split the Subject from the Predicate</UnderlinedText>
           Every sentence can be split into two parts: the subject and the
           predicate. Click (or tap) on the sentence below to separate it into
           the subject and predicate. The subject will be on the left side with a

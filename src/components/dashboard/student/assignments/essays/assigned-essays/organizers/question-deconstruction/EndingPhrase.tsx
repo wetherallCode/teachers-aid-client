@@ -192,7 +192,7 @@ export const EndingPhrase = ({
   return (
     <>
       <RestatementDirectionsContainer>
-        <UnderlinedText>Directions</UnderlinedText>
+        <UnderlinedText>Ending Phrase</UnderlinedText>
         {writingLevel === WritingLevelEnum.DEVELOPING && (
           <div>
             Now we'll figure out how to end the sentence. There are different

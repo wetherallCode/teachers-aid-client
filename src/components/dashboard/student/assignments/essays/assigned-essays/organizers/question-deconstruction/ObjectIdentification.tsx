@@ -133,7 +133,7 @@ export const ObjectIdentification = ({
       {step === 'checkForObject' && (
         <>
           <RestatementDirectionsContainerObjectDirections>
-            <UnderlinedText>Directions</UnderlinedText>
+            <UnderlinedText>Identify the Object</UnderlinedText>
             <div>
               The next step is to figure out the direct object of the verb. Some
               verbs are transitive and have an object, and some verbs are

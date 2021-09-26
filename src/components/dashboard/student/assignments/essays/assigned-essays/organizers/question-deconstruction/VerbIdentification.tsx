@@ -165,7 +165,7 @@ export const VerbIdentification = ({
   return (
     <>
       <RestatementDirectionsContainer>
-        <UnderlinedText>Directions</UnderlinedText>
+        <UnderlinedText>Identify the Verb</UnderlinedText>
         {question.helpingVerb === 'did' ? (
           <div>
             Find the Verb or Verb Phrase. Select the word or group of words that

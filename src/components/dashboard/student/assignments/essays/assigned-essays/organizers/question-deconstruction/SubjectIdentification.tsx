@@ -102,7 +102,7 @@ export const SubjectIdentification = ({
   return (
     <>
       <RestatementDirectionsContainer>
-        <UnderlinedText>Directions</UnderlinedText>
+        <UnderlinedText>Identify the Simple Subject</UnderlinedText>
         Select and highlight the Simple Subject of the question. Simple subjects
         are the noun in the complete subject. There may be adjectives that
         modify the noun or prepositional phrases that add specificity to the

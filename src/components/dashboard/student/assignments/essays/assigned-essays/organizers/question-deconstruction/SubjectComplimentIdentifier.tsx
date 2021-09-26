@@ -94,7 +94,7 @@ export const SubjectComplimentIdentifier = ({
   return (
     <>
       <RestatementDirectionsContainer>
-        <UnderlinedText>Directions</UnderlinedText>
+        <UnderlinedText>Identify the Subject Compliment</UnderlinedText>
         <div>
           Since the verb "{question.helpingVerb}" is a linking verb, there is no
           object. However, there is an adjective that comes after "

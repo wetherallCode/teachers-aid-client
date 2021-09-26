@@ -143,7 +143,7 @@ export const HelpingVerbIdentification = ({
     <>
       <>
         <RestatementDirectionsContainer>
-          <UnderlinedText>Directions</UnderlinedText>
+          <UnderlinedText>Helping Verb Identification</UnderlinedText>
           Since the helping verb is "{question.helpingVerb},"{' '}
           {question.helpingVerb !== 'did'
             ? `it needs to be moved after the subject of the sentence. `
