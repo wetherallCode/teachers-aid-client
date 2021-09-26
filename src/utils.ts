@@ -11,11 +11,11 @@ export const secondaryGradeCalculator = (
   earnedPoints: number,
   maxPoints: number
 ) => {
-  return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 35
+  return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 40
 }
 
 export const supportiveGradeCalculator = (points: number) => {
-  return (Math.round(1000 * points) / 1000) * 0.15
+  return (Math.round(1000 * points) / 1000) * 0.1
 }
 
 export const responsibilityPointConverter = (
