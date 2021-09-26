@@ -3,6 +3,10 @@ import {
   TextSectionQuestionsInput,
   TextSectionVocabInput,
   PageNumbersInput,
+  CreateQuizQuestionInput,
+  QuizQuestionDifficultyLevelEnum,
+  QuizQuestionTypeEnum,
+  AnswerListInput,
 } from '../../../../../../schemaTypes'
 import { Machine, assign } from 'xstate'
 
@@ -66,6 +70,16 @@ export type sectionEditorMachineEvent =
       index: number | null
     }
   | { type: 'EDIT_PROTOCOL'; payload: TextSectionProtocolsInput }
+  | {
+      type: 'SET_QUIZ_QUESTION_INPUT'
+      keyName: string
+      payload:
+        | string
+        | AnswerListInput[]
+        | QuizQuestionDifficultyLevelEnum
+        | QuizQuestionTypeEnum
+    }
+  | { type: 'RESET_QUIZ_QUESTION_INPUTS' }
 
 export type sectionEditorMachineContext = {
   fromText: string
@@ -86,6 +100,7 @@ export type sectionEditorMachineContext = {
   isHidden: boolean
   currentIndex: number
   addItem: boolean
+  quizQuestion: CreateQuizQuestionInput
   // quizQuestion:
 }
 
@@ -119,7 +134,15 @@ export const sectionEditorMachine = Machine<
     isHidden: true,
     currentIndex: -1,
     addItem: false,
+    quizQuestion: {
+      answerList: [],
+      associatedTextSectionId: '',
+      difficultyLevel: QuizQuestionDifficultyLevelEnum.EASY,
+      question: '',
+      questionType: QuizQuestionTypeEnum.MULTIPLE_CHOICE,
+    },
   },
+
   states: {
     textSectionValues: {
       on: {
@@ -229,6 +252,28 @@ export const sectionEditorMachine = Machine<
             return {
               ...ctx,
               protocolToEdit: evt.payload,
+            }
+          }),
+        },
+        SET_QUIZ_QUESTION_INPUT: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              quizQuestion: { ...ctx.quizQuestion, [evt.keyName]: evt.payload },
+            }
+          }),
+        },
+        RESET_QUIZ_QUESTION_INPUTS: {
+          actions: assign((ctx) => {
+            return {
+              ...ctx,
+              quizQuestion: {
+                ...ctx.quizQuestion,
+                answerList: [],
+                difficultyLevel: QuizQuestionDifficultyLevelEnum.EASY,
+                question: '',
+                questionType: QuizQuestionTypeEnum.MULTIPLE_CHOICE,
+              },
             }
           }),
         },

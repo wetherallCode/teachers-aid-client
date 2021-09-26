@@ -189,6 +189,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
     updateTextSection()
   }, [state.context])
 
+  console.log(editorState)
   if (loading) return <div>Loading </div>
   return (
     <div>

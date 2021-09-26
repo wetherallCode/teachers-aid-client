@@ -5,18 +5,9 @@ import {
   findQuizQuestionsByTextSectionIdVariables,
 } from '../../../../../../schemaTypes'
 import { useSectionEditorContextProvider } from '../state-n-styles/sectionEditorContext'
+import { AddQuizQuestion } from './AddQuizQuestion'
 
 export type QuizQuestionsProps = {}
-
-export const CREATE_QUIZ_QUESTION_MUTATION = gql`
-  mutation createQuizQuestion($input: CreateQuizQuestionInput!) {
-    createQuizQuestion(input: $input) {
-      quizQuestion {
-        _id
-      }
-    }
-  }
-`
 
 export const FIND_QUIZ_QUESTIONS_BY_TEXT_SECTION_ID_QUERY = gql`
   query findQuizQuestionsByTextSectionId(
@@ -50,9 +41,20 @@ export const QuizQuestions = ({}: QuizQuestionsProps) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
+
   return (
-    <>
-      <div>Add Quiz Question</div>
-    </>
+    <div>
+      <div>Quiz Questions</div>
+      <div>
+        {data?.findQuizQuestionsByTextSectionId.quizQuestions.map(
+          (question, i: number) => (
+            <div key={i}>
+              {question.difficultyLevel}: {question.question}
+            </div>
+          )
+        )}
+      </div>
+      <AddQuizQuestion />
+    </div>
   )
 }
