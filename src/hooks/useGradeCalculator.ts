@@ -5,8 +5,10 @@ import { RESPONSIBILITY_POINTS_QUERY } from '../components/dashboard/teacher/stu
 import {
   findAssignmentByStudentId,
   findAssignmentByStudentIdVariables,
+  findAssignmentByStudentId_findAssignmentByStudentId_assignments,
   findResponsibilityPointsByStudentId,
   findResponsibilityPointsByStudentIdVariables,
+  GradeTypeEnum,
   MarkingPeriodEnum,
 } from '../schemaTypes'
 import {
@@ -62,12 +64,18 @@ export const useGradeCalculator = ({
       assignment.markingPeriod === markingPeriod
   )!
 
-  const applicableArticleReviews =
-    data?.findAssignmentByStudentId.articleReviews &&
-    data?.findAssignmentByStudentId.articleReviews.some(
-      (assignment) => assignment.markingPeriod === markingPeriod
-    )
+  // const applicableArticleReviews =
+  //   data?.findAssignmentByStudentId.articleReviews &&
+  //   data?.findAssignmentByStudentId.articleReviews.some(
+  //     (assignment) => assignment.markingPeriod === markingPeriod
+  //   )
 
+  const secondaryGrades = data?.findAssignmentByStudentId.assignments.some(
+    (assignment) =>
+      assignment.gradeType === GradeTypeEnum.SECONDARY &&
+      assignment.markingPeriod === markingPeriod
+  )
+  console.log(secondaryGrades)
   const applicableCurrentMarkingPeriodResponsiblityPoints =
     responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
       (points) => points.markingPeriod === markingPeriod
@@ -76,7 +84,7 @@ export const useGradeCalculator = ({
   if (
     !applicableCurrentMarkingPeriodResponsiblityPoints &&
     essays &&
-    applicableArticleReviews
+    secondaryGrades
   ) {
     // Grade Category Weights:// Grade Category Weights: Primary = .588 Secondary = .412
     // console.log('Only Primary and Secondary')
@@ -101,20 +109,21 @@ export const useGradeCalculator = ({
       ?.map((essay) => essay.score.maxPoints)
       .reduce((acc: number, i: number) => acc + i)!
 
-    const articleReviews =
-      data?.findAssignmentByStudentId.articleReviews &&
-      data?.findAssignmentByStudentId.articleReviews.filter(
+    const secondaryGradeAssignments =
+      secondaryGrades &&
+      data?.findAssignmentByStudentId.assignments.filter(
         (assignment) =>
+          assignment.gradeType === GradeTypeEnum.SECONDARY &&
           assignment.markingPeriod === markingPeriod &&
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
       )
 
-    const articleReviewEarnedPoints = articleReviews
+    const secondaryGradesEarnedPoints = secondaryGradeAssignments
       ?.map((review) => review.score.earnedPoints)
       .reduce((acc: number, i: number) => acc + i)!
 
-    const articleReviewMaxPoints = articleReviews
+    const secondaryGradesMaxPoints = secondaryGradeAssignments
       ?.map((review) => review.score.maxPoints)
       .reduce((acc: number, i: number) => acc + i)!
 
@@ -128,8 +137,8 @@ export const useGradeCalculator = ({
     }
 
     const secondary = secondaryGrade(
-      articleReviewEarnedPoints,
-      articleReviewMaxPoints
+      secondaryGradesEarnedPoints,
+      secondaryGradesMaxPoints
     )
 
     const gradeTotal = (primaryGrade: number, secondaryGrade: number) => {
@@ -149,7 +158,7 @@ export const useGradeCalculator = ({
 
   if (
     !essays &&
-    !applicableArticleReviews &&
+    !secondaryGrades &&
     applicableCurrentMarkingPeriodResponsiblityPoints
   ) {
     // Grade Category Weights: Supportive = 1
@@ -172,25 +181,42 @@ export const useGradeCalculator = ({
   if (
     !applicableCurrentMarkingPeriodResponsiblityPoints &&
     !essays &&
-    applicableArticleReviews
+    secondaryGrades
   ) {
     // console.log('Only Secondary')
-    const articleReviews =
-      data?.findAssignmentByStudentId.articleReviews &&
-      data?.findAssignmentByStudentId.articleReviews.filter(
+    const secondaryGradeAssignments =
+      secondaryGrades &&
+      data?.findAssignmentByStudentId.assignments.filter(
         (assignment) =>
+          assignment.gradeType === GradeTypeEnum.SECONDARY &&
           assignment.markingPeriod === markingPeriod &&
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
       )
 
-    const articleReviewEarnedPoints = articleReviews
+    const secondaryGradesEarnedPoints = secondaryGradeAssignments
       ?.map((review) => review.score.earnedPoints)
       .reduce((acc: number, i: number) => acc + i)!
 
-    const articleReviewMaxPoints = articleReviews
+    const secondaryGradesMaxPoints = secondaryGradeAssignments
       ?.map((review) => review.score.maxPoints)
       .reduce((acc: number, i: number) => acc + i)!
+    // const articleReviews =
+    //   data?.findAssignmentByStudentId.articleReviews &&
+    //   data?.findAssignmentByStudentId.articleReviews.filter(
+    //     (assignment) =>
+    //       assignment.markingPeriod === markingPeriod &&
+    //       Date.parse(new Date().toLocaleString()) >
+    //         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+    //   )
+
+    // const articleReviewEarnedPoints = articleReviews
+    //   ?.map((review) => review.score.earnedPoints)
+    //   .reduce((acc: number, i: number) => acc + i)!
+
+    // const articleReviewMaxPoints = articleReviews
+    //   ?.map((review) => review.score.maxPoints)
+    //   .reduce((acc: number, i: number) => acc + i)!
 
     const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
       return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 100
@@ -198,8 +224,8 @@ export const useGradeCalculator = ({
 
     return {
       grade: +secondaryGrade(
-        articleReviewEarnedPoints,
-        articleReviewMaxPoints
+        secondaryGradesEarnedPoints,
+        secondaryGradesMaxPoints
       ).toFixed(2),
       loading: assignmentLoading || responsibilityPointsLoading,
       noGrade: false,
@@ -208,7 +234,7 @@ export const useGradeCalculator = ({
 
   if (
     !essays &&
-    applicableArticleReviews &&
+    secondaryGrades &&
     applicableCurrentMarkingPeriodResponsiblityPoints
   ) {
     // Grade Category Weights: Supportive = .3  Secondary = .7
@@ -223,29 +249,47 @@ export const useGradeCalculator = ({
 
     const supportive = (Math.round(1000 * responsibilityPoints) / 1000) * 0.3
 
-    const articleReviews =
-      data?.findAssignmentByStudentId.articleReviews &&
-      data?.findAssignmentByStudentId.articleReviews.filter(
+    // const articleReviews =
+    //   data?.findAssignmentByStudentId.articleReviews &&
+    //   data?.findAssignmentByStudentId.articleReviews.filter(
+    //     (assignment) =>
+    //       assignment.markingPeriod === markingPeriod &&
+    //       Date.parse(new Date().toLocaleString()) >
+    //         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+    //   )
+
+    // const articleReviewEarnedPoints = articleReviews
+    //   ?.map((review) => review.score.earnedPoints)
+    //   .reduce((acc: number, i: number) => acc + i)!
+
+    // const articleReviewMaxPoints = articleReviews
+    //   ?.map((review) => review.score.maxPoints)
+    //   .reduce((acc: number, i: number) => acc + i)!
+    const secondaryGradeAssignments =
+      secondaryGrades &&
+      data?.findAssignmentByStudentId.assignments.filter(
         (assignment) =>
+          assignment.gradeType === GradeTypeEnum.SECONDARY &&
           assignment.markingPeriod === markingPeriod &&
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
       )
 
-    const articleReviewEarnedPoints = articleReviews
+    const secondaryGradesEarnedPoints = secondaryGradeAssignments
       ?.map((review) => review.score.earnedPoints)
       .reduce((acc: number, i: number) => acc + i)!
 
-    const articleReviewMaxPoints = articleReviews
+    const secondaryGradesMaxPoints = secondaryGradeAssignments
       ?.map((review) => review.score.maxPoints)
       .reduce((acc: number, i: number) => acc + i)!
+
     const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
       return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 70
     }
 
     const secondary = secondaryGrade(
-      articleReviewEarnedPoints,
-      articleReviewMaxPoints
+      secondaryGradesEarnedPoints,
+      secondaryGradesMaxPoints
     )
 
     const gradeTotal = (supportive: number, secondaryGrade: number) => {
@@ -263,13 +307,13 @@ export const useGradeCalculator = ({
   }
 
   if (
-    !applicableArticleReviews &&
+    !secondaryGrades &&
     essays &&
     applicableCurrentMarkingPeriodResponsiblityPoints
   ) {
     // Grade Category Weights: Supportive = .23068182   Primary = .76931818
     // console.log('Only Essays and ResponsibilityPoints')
-    console.log(data?.findAssignmentByStudentId.assignments)
+    // console.log(data?.findAssignmentByStudentId.assignments)
     const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
       (assignment) =>
         (assignment.__typename === 'Essay' &&
@@ -324,7 +368,7 @@ export const useGradeCalculator = ({
   if (
     !applicableCurrentMarkingPeriodResponsiblityPoints &&
     !essays &&
-    !applicableArticleReviews
+    !secondaryGrades
   ) {
     return { grade: 0, loading: false, noGrade: true }
   }
@@ -350,26 +394,43 @@ export const useGradeCalculator = ({
 
   const essayGrade = primaryGradeCalculator(essayEarnedPoints, essayMaxPoints)
 
-  const articleReviews =
-    data?.findAssignmentByStudentId.articleReviews &&
-    data?.findAssignmentByStudentId.articleReviews.filter(
+  // const articleReviews =
+  //   data?.findAssignmentByStudentId.articleReviews &&
+  //   data?.findAssignmentByStudentId.articleReviews.filter(
+  //     (assignment) =>
+  //       assignment.markingPeriod === markingPeriod &&
+  //       Date.parse(new Date().toLocaleString()) >
+  //         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+  //   )
+
+  // const articleReviewEarnedPoints = articleReviews
+  //   ?.map((review) => review.score.earnedPoints)
+  //   .reduce((acc: number, i: number) => acc + i)!
+
+  // const articleReviewMaxPoints = articleReviews
+  //   ?.map((review) => review.score.maxPoints)
+  //   .reduce((acc: number, i: number) => acc + i)!
+  const secondaryGradeAssignments =
+    // secondaryGrades &&
+    data?.findAssignmentByStudentId.assignments.filter(
       (assignment) =>
+        assignment.gradeType === GradeTypeEnum.SECONDARY &&
         assignment.markingPeriod === markingPeriod &&
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
     )
 
-  const articleReviewEarnedPoints = articleReviews
+  const secondaryGradesEarnedPoints = secondaryGradeAssignments
     ?.map((review) => review.score.earnedPoints)
     .reduce((acc: number, i: number) => acc + i)!
 
-  const articleReviewMaxPoints = articleReviews
+  const secondaryGradesMaxPoints = secondaryGradeAssignments
     ?.map((review) => review.score.maxPoints)
     .reduce((acc: number, i: number) => acc + i)!
 
-  const articleReviewGrade = secondaryGradeCalculator(
-    articleReviewEarnedPoints,
-    articleReviewMaxPoints
+  const secondary = secondaryGradeCalculator(
+    secondaryGradesEarnedPoints,
+    secondaryGradesMaxPoints
   )
 
   const currentMarkingPeriodResponsiblityPoints =
@@ -383,11 +444,7 @@ export const useGradeCalculator = ({
       currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
     )
   // console.log(essayGrade, articleReviewGrade, responsibilityPointGrade)
-  const grade = totalGrade(
-    essayGrade,
-    articleReviewGrade,
-    responsibilityPointGrade
-  )
+  const grade = totalGrade(essayGrade, secondary, responsibilityPointGrade)
 
   return {
     grade: grade,
