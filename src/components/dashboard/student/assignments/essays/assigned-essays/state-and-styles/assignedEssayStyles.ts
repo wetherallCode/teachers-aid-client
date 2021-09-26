@@ -245,7 +245,7 @@ export const RestatementQuestionToRestateContainer = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  font-size: 2.5vh;
+  font-size: 3vh;
 `
 
 export const EndingPhraseOptionsContainer = styled(
@@ -266,7 +266,7 @@ export const RestatementDirectionsContainer = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  font-size: 2vh;
+  font-size: 2.5vh;
 `
 
 export const RestatementDirectionsContainerObjectDirections = styled(
@@ -301,7 +301,7 @@ export const RestatementFeedbackContainer = styled.div<RestatementFeedbackContai
   grid-template-rows: 1fr 5fr;
   justify-items: center;
   align-items: top;
-  font-size: 2;
+  font-size: 2vh;
   color: ${({ correct }) => (correct ? 'var(--blue)' : 'var(--red)')};
 `
 
@@ -333,7 +333,7 @@ export const RestatementSplitter = styled.div<RestatementSplitterProps>`
   grid-column: 1/-1;
   justify-self: center;
   align-self: center;
-  font-size: 2.5vh;
+  font-size: 3vh;
   cursor: ${({ cursorFormat }) =>
     cursorFormat === 'TEXT'
       ? 'text'
