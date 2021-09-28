@@ -110,7 +110,7 @@ export const simplePredicateGrader = ({
 		...completePredicate.split(' '),
 		lastWordInCompletePredicateWithPunctuation,
 	].join(' ')
-	console.log()
+
 	if (
 		// !completePredicate.includes(givenSimplePredicate!) ||
 		!auxilaryVerbCheck &&
