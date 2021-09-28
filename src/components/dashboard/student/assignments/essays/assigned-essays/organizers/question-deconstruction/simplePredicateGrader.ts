@@ -64,6 +64,7 @@ export const simplePredicateGrader = ({
     }
   }
 
+<<<<<<< HEAD
   if (givenSimplePredicate === correctSimplePredicate) {
     return {
       correctSimplePredicate: true,
@@ -104,6 +105,43 @@ export const simplePredicateGrader = ({
   }
   const lastWordInCompletePredicateWithPunctuation =
     completePredicate.split(' ')[completePredicate.split(' ').length - 1] + '.'
+=======
+	const completePredicateWithPunctutation = [
+		...completePredicate.split(' '),
+		lastWordInCompletePredicateWithPunctuation,
+	].join(' ')
+
+	if (
+		// !completePredicate.includes(givenSimplePredicate!) ||
+		!auxilaryVerbCheck &&
+		!`${completePredicate}.`.includes(givenSimplePredicate!)
+	) {
+		return {
+			whatWentWrong: 'Your simple predicate is in the subject.',
+			howToFix:
+				'Look at the predicate only and find the action, being, having, or feeling word that is in the complete predicate.',
+			correctSimplePredicate: false,
+		}
+	}
+	if (
+		givenSimplePredicate &&
+		!correctSimplePredicate!.includes(givenSimplePredicate!) &&
+		completePredicateWithPunctutation.includes(givenSimplePredicate!)
+	) {
+		return {
+			whatWentWrong: 'The correct simple predicate comes before your selection.',
+			howToFix: `The simple predicate often comes right after the dividing line. `,
+			correctSimplePredicate: false,
+		}
+	}
+	if (!verbPhrase && givenSimplePredicate!.split(' ').length > 1) {
+		return {
+			whatWentWrong: 'In this sentence the verb is just one word.',
+			howToFix: `Find the one word ${verbTypeTranslator} in the predicate. `,
+			correctSimplePredicate: false,
+		}
+	}
+>>>>>>> 39d9c57556b6c6a9e6e4d51ad3aa3895173b3e33
 
   const completePredicateWithPunctutation = [
     ...completePredicate.split(' '),
