@@ -2100,16 +2100,16 @@ export interface updateGradingDraftVariables {
 // GraphQL query operation: findStudentsByCourse
 // ====================================================
 
-export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test_readings {
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz_readings {
   __typename: "Readings";
   readingSections: string;
 }
 
-export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test {
-  __typename: "Test";
+export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz {
+  __typename: "Quiz";
   _id: string | null;
   markingPeriod: MarkingPeriodEnum;
-  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test_readings;
+  readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz_readings;
 }
 
 export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay_readings {
@@ -2149,7 +2149,7 @@ export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignmen
   graded: boolean;
 }
 
-export type findStudentsByCourse_findStudentsByCourse_students_hasAssignments = findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Test | findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay | findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide;
+export type findStudentsByCourse_findStudentsByCourse_students_hasAssignments = findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz | findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Essay | findStudentsByCourse_findStudentsByCourse_students_hasAssignments_ReadingGuide;
 
 export interface findStudentsByCourse_findStudentsByCourse_students {
   __typename: "Student";
@@ -2181,24 +2181,24 @@ export interface findStudentsByCourseVariables {
 // GraphQL query operation: findAssignmentById
 // ====================================================
 
-export interface findAssignmentById_findAssignmentById_assignment_Test_hasOwner {
+export interface findAssignmentById_findAssignmentById_assignment_Quiz_hasOwner {
   __typename: "Student";
   firstName: string;
   lastName: string;
 }
 
-export interface findAssignmentById_findAssignmentById_assignment_Test_readings {
+export interface findAssignmentById_findAssignmentById_assignment_Quiz_readings {
   __typename: "Readings";
   readingPages: string;
   readingSections: string;
 }
 
-export interface findAssignmentById_findAssignmentById_assignment_Test {
-  __typename: "Test";
+export interface findAssignmentById_findAssignmentById_assignment_Quiz {
+  __typename: "Quiz";
   _id: string | null;
-  hasOwner: findAssignmentById_findAssignmentById_assignment_Test_hasOwner;
+  hasOwner: findAssignmentById_findAssignmentById_assignment_Quiz_hasOwner;
   late: boolean;
-  readings: findAssignmentById_findAssignmentById_assignment_Test_readings;
+  readings: findAssignmentById_findAssignmentById_assignment_Quiz_readings;
 }
 
 export interface findAssignmentById_findAssignmentById_assignment_Essay_hasOwner {
@@ -2291,7 +2291,7 @@ export interface findAssignmentById_findAssignmentById_assignment_ReadingGuide {
   readingGuideFinal: findAssignmentById_findAssignmentById_assignment_ReadingGuide_readingGuideFinal | null;
 }
 
-export type findAssignmentById_findAssignmentById_assignment = findAssignmentById_findAssignmentById_assignment_Test | findAssignmentById_findAssignmentById_assignment_Essay | findAssignmentById_findAssignmentById_assignment_ReadingGuide;
+export type findAssignmentById_findAssignmentById_assignment = findAssignmentById_findAssignmentById_assignment_Quiz | findAssignmentById_findAssignmentById_assignment_Essay | findAssignmentById_findAssignmentById_assignment_ReadingGuide;
 
 export interface findAssignmentById_findAssignmentById {
   __typename: "FindAssignmentByIdPayload";
@@ -2377,7 +2377,7 @@ export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments
 }
 
 export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments {
-  __typename: "Essay" | "ReadingGuide" | "Test";
+  __typename: "Essay" | "Quiz" | "ReadingGuide";
   _id: string | null;
   score: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments_score;
   readings: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments_readings;
@@ -2399,7 +2399,7 @@ export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments
 }
 
 export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments {
-  __typename: "Essay" | "ReadingGuide" | "Test";
+  __typename: "Essay" | "Quiz" | "ReadingGuide";
   hasOwner: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner;
 }
 
@@ -2525,7 +2525,7 @@ export interface findAssignmentByStudentIdForSecondary_findAssignmentByStudentId
 }
 
 export interface findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments {
-  __typename: "Essay" | "ReadingGuide" | "Test";
+  __typename: "Essay" | "Quiz" | "ReadingGuide";
   _id: string | null;
   assigned: boolean;
   missing: boolean;
@@ -3180,7 +3180,7 @@ export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assigned
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAssignments {
-  __typename: "Essay" | "ReadingGuide" | "Test";
+  __typename: "Essay" | "Quiz" | "ReadingGuide";
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student {
@@ -4515,23 +4515,23 @@ export interface findRubricEntries {
 // GraphQL query operation: findAssignmentByStudentId
 // ====================================================
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_readings {
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_readings {
   __typename: "Readings";
   readingSections: string;
 }
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_score {
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_score {
   __typename: "Score";
   earnedPoints: number;
   maxPoints: number;
 }
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test {
-  __typename: "Test";
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz {
+  __typename: "Quiz";
   _id: string | null;
   assigned: boolean;
-  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_readings;
-  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test_score;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_score;
   exempt: boolean;
   dueDate: string;
   dueTime: string;
@@ -4606,7 +4606,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   readingGuideFinal: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal | null;
 }
 
-export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_Test | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide;
+export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide;
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score {
   __typename: "Score";
