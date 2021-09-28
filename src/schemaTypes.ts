@@ -5849,69 +5849,6 @@ export interface findStudentInfoByStudentIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findCourseByIdForTeachersAid
-// ====================================================
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences {
-  __typename: "StudentAbsence";
-  dayAbsent: any;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences[];
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences {
-  __typename: "StudentAbsence";
-  dayAbsent: any;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences[];
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats {
-  __typename: "StudentSeat";
-  student: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student | null;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo {
-  __typename: "CourseInfo";
-  assignedSeats: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats[];
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course {
-  __typename: "Course";
-  name: string;
-  hasStudents: findCourseByIdForTeachersAid_findCourseById_course_hasStudents[];
-  hasCourseInfo: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo | null;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById {
-  __typename: "FindCourseByIdPayload";
-  course: findCourseByIdForTeachersAid_findCourseById_course;
-}
-
-export interface findCourseByIdForTeachersAid {
-  findCourseById: findCourseByIdForTeachersAid_findCourseById;
-}
-
-export interface findCourseByIdForTeachersAidVariables {
-  input: FindCourseByIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: changePassword
 // ====================================================
 
@@ -6798,6 +6735,69 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findCourseByIdForTeachersAid
+// ====================================================
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences[];
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences[];
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats {
+  __typename: "StudentSeat";
+  student: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student | null;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo {
+  __typename: "CourseInfo";
+  assignedSeats: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats[];
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course {
+  __typename: "Course";
+  name: string;
+  hasStudents: findCourseByIdForTeachersAid_findCourseById_course_hasStudents[];
+  hasCourseInfo: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo | null;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById {
+  __typename: "FindCourseByIdPayload";
+  course: findCourseByIdForTeachersAid_findCourseById_course;
+}
+
+export interface findCourseByIdForTeachersAid {
+  findCourseById: findCourseByIdForTeachersAid_findCourseById;
+}
+
+export interface findCourseByIdForTeachersAidVariables {
+  input: FindCourseByIdInput;
 }
 
 /* tslint:disable */
