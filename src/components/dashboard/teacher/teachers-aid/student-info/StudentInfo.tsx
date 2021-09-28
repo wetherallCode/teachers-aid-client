@@ -141,12 +141,15 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     data?.findStudentById.student.hasResponsibilityPoints.filter(
       (rp) =>
         rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
-    )
+    )!
 
   const absenceCheck = data?.findStudentById.student.hasAbsences.some(
     (absence) => absence.dayAbsent === new Date().toLocaleDateString()
   )!
-  console.log(absenceCheck)
+  const rp =
+    currentResponsibilityPoints &&
+    currentResponsibilityPoints[0].responsibilityPoints
+
   if (loading)
     return (
       <>
@@ -161,8 +164,9 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     <>
       <StudentInfoDisplay absent={absenceCheck}>
         <StudentNameContainer>
-          {data?.findStudentById.student.firstName}{' '}
-          {data?.findStudentById.student.lastName}
+          <div> {data?.findStudentById.student.firstName}</div>
+          <div>{data?.findStudentById.student.lastName}</div>
+          <div>{rp}</div>
         </StudentNameContainer>
         {/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
       </StudentInfoDisplay>

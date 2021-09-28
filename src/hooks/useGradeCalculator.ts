@@ -128,12 +128,12 @@ export const useGradeCalculator = ({
       .reduce((acc: number, i: number) => acc + i)!
 
     const primaryGrade = (earnedPoints: number, maxPoints: number) => {
-      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 58.8
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 60
     }
     const primary = primaryGrade(essayEarnedPoints, essayMaxPoints)
 
     const secondaryGrade = (earnedPoints: number, maxPoints: number) => {
-      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 41.2
+      return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 40
     }
 
     const secondary = secondaryGrade(
