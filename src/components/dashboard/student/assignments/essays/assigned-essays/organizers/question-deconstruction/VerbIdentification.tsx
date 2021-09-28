@@ -184,13 +184,17 @@ export const VerbIdentification = ({
         ) : (
           <div>
             Find the Verb or Verb Phrase. Since the helping verb is "
-            {question.helpingVerb}" then {question.helpingVerb} is either a
+            {question.helpingVerb}" then "{question.helpingVerb}"" is either a
             auxilary verb that comes before a main verb, or{' '}
-            {question.helpingVerb} is the verb which makes it a linking verb.
-            The way to figure out if it is one or the other is to look at the
+            {question.helpingVerb} is the verb which makes it a linking verb. If
+            there is an action word after "{question.helpingVerb}", highlight
+            both "{question.helpingVerb}" and the action word. If there isn't an
+            action word after "{question.helpingVerb}", just double click "
+            {question.helpingVerb}."
+            {/* The way to figure it out is to look at the
             word that comes after {question.helpingVerb}. Is there an action
             word that comes after it or a person, place, thing, or idea that
-            comes after.
+            comes after. */}
           </div>
         )}
       </RestatementDirectionsContainer>
