@@ -45,6 +45,17 @@ export const GetStartedButtonContainer = styled.div`
   justify-items: center;
   align-items: center;
 `
+export const StudentGradeContainer = styled.div`
+  grid-row: 7/-1;
+  grid-column: 1/-1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
+
+export const GradeDisplay = styled.div`
+  font-size: 4vh;
+`
 
 export const GetAssignmentsButton = styled.button`
   width: 10rem;
