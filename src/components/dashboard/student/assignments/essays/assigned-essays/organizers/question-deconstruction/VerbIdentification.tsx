@@ -48,8 +48,8 @@ export const VerbIdentification = ({
     (question.helpingVerb !== 'did' &&
       question.simplePredicate.split(' ').length > 1 &&
       question.simplePredicate.split(' ').includes(question.helpingVerb)) ||
-    !question.subjectCompliment
-  console.log(auxilaryVerbCheck)
+    (question.helpingVerb !== 'did' && !question.subjectCompliment)
+  console.log(question.helpingVerb !== 'did')
   const { correctSimplePredicate, howToFix, message, whatWentWrong } =
     simplePredicateGrader({
       completePredicate:
