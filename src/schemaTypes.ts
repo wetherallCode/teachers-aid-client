@@ -4603,6 +4603,8 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   dueTime: string;
   gradeType: GradeTypeEnum;
   markingPeriod: MarkingPeriodEnum;
+  completed: boolean;
+  graded: boolean;
   readingGuideFinal: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal | null;
 }
 
