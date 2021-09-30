@@ -30,7 +30,7 @@ export const Home = () => {
   return (
     <>
       <HomeScreenContainer>
-        {me.__typename === 'Student' && (
+        {me && me.__typename === 'Student' && (
           <StudentGradeDisplay studentId={me._id!} />
         )}
         <>
