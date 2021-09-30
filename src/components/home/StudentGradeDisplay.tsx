@@ -15,7 +15,7 @@ export const StudentGradeDisplay = ({
     pollInterval: 5000,
     markingPeriod: currentMarkingPeriod.context.currentMarkingPeriod,
   })
-  console.log(grade)
+
   return (
     <StudentGradeContainer>
       {grade && (
