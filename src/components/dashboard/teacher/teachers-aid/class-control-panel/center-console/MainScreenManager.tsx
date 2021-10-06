@@ -23,6 +23,7 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
     onCompleted: (data) => console.log(data.UpdateDynamicLesson),
     refetchQueries: ['findLessonByCourseAndDate'],
   })
+  console.log(state.context.attendanceToggle)
   return (
     <>
       <MainScreenControlButton
@@ -31,9 +32,10 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
         Seating Chart
       </MainScreenControlButton>
       <MainScreenControlButton
-        onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' })}
+        // onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' })}
+        onClick={() => event({ type: 'SET_ATTENDANCE_TOGGLE' })}
       >
-        Attendance
+        {state.context.attendanceToggle ? 'Behavior' : 'Attendance'}
       </MainScreenControlButton>
       <MainScreenControlButton
         onClick={() =>

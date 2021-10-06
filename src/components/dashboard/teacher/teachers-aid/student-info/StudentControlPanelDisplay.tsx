@@ -48,17 +48,17 @@ export const StudentControlPanelDisplay: FC<StudentControlPanelDisplayProps> =
         ) : (
           <StudentControlPanelContainer>
             <StudentControlButtonContainer>
-              <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
+              {/* <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
                 Attendance
               </ControlButtons>
               <ControlButtons onClick={() => setControllerState('BEHAVIOR')}>
                 Behavior
-              </ControlButtons>
+              </ControlButtons> */}
             </StudentControlButtonContainer>
-            {student && controllerState === 'ATTENDANCE' && (
+            {student && state.context.attendanceToggle && (
               <DailyAttendance student={student} absenceCheck={absenceCheck} />
             )}
-            {student && controllerState === 'BEHAVIOR' && (
+            {student && !state.context.attendanceToggle && (
               <DailyBehavior studentId={student._id!} />
             )}
           </StudentControlPanelContainer>

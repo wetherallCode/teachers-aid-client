@@ -68,6 +68,7 @@ export type teachersAidMachineEvent =
       type: 'UPDATE_COURSE_INFO'
       payload: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
     }
+  | { type: 'SET_ATTENDANCE_TOGGLE' }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
@@ -93,6 +94,7 @@ export type teachersAidMachineContext = {
     | 'PROTOCOL_RESPONSES'
     | 'VIRTUAL_ATTENDANCE'
     | 'HOMEWORK'
+  attendanceToggle: boolean
 }
 
 export const teachersAidMachine = Machine<
@@ -105,6 +107,7 @@ export const teachersAidMachine = Machine<
   type: 'parallel',
   context: {
     // courseSelectCurrentId: '',
+    attendanceToggle: true,
     courseSelectVisible: true,
     associatedLessonId: '',
     courseInfo: {
@@ -291,6 +294,14 @@ export const teachersAidMachine = Machine<
                   mainScreenVirtualQuestionViewer: false,
                   mainScreenHomeworkAssigner: true,
                   currentMainScreenView: 'HOMEWORK',
+                }
+              }),
+            },
+            SET_ATTENDANCE_TOGGLE: {
+              actions: assign((ctx) => {
+                return {
+                  ...ctx,
+                  attendanceToggle: !ctx.attendanceToggle,
                 }
               }),
             },
