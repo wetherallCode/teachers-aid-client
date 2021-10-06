@@ -168,7 +168,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
 					)}
 				</StudentInfoContainer>
 				<ClassControlPanelContainer>
-					<RandomStudentGenerator />
+					<RandomStudentGenerator presentStudentList={assignedPresentStudents!} />
 					<ClassControlPanel presentStudentList={assignedPresentStudents!} />
 					<TimerPresets />
 				</ClassControlPanelContainer>
