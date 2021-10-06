@@ -7,7 +7,11 @@ import {
 	StudentInfoDisplay,
 	StudentNameContainer,
 } from './styles/studentInfoStyles'
-import { ClassControlPanelContainer } from './styles/classControlPanelStyles'
+import {
+	ClassControlPanelContainer,
+	RandomStudentGeneratorButton,
+	RandomStudentGeneratorContainer,
+} from './styles/classControlPanelStyles'
 import { SeatingChartContainer, StartingDisplay } from './styles/seatingChartStyles'
 import { gql, useQuery } from '@apollo/client'
 import { StudentInfo } from './student-info/StudentInfo'
@@ -168,7 +172,21 @@ export const TeachersAid = ({}: TeachersAidProps) => {
 					)}
 				</StudentInfoContainer>
 				<ClassControlPanelContainer>
-					<RandomStudentGenerator presentStudentList={assignedPresentStudents!} />
+					{assignedPresentStudents ? (
+						<RandomStudentGenerator presentStudentList={assignedPresentStudents!} />
+					) : (
+						<RandomStudentGeneratorContainer>
+							<RandomStudentGeneratorButton
+							// onClick={() => {
+							// 	selectNewStudent()
+							// 	event({
+							// 		type: 'SET_STUDENT_ID',
+							// 		payload: currentStudent,
+							// 	})
+							// }}
+							></RandomStudentGeneratorButton>
+						</RandomStudentGeneratorContainer>
+					)}
 					<ClassControlPanel presentStudentList={assignedPresentStudents!} />
 					<TimerPresets />
 				</ClassControlPanelContainer>
