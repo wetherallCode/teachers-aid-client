@@ -152,10 +152,11 @@ export const TeachersAid = ({}: TeachersAidProps) => {
   //   })
   // }, [event, presentStudentList])
   console.log(assignedPresentStudents)
+  console.log(window.outerWidth)
   if (loading) return <div>Loading </div>
   return (
     <>
-      <TeachersAidContainer>
+      <TeachersAidContainer width={window.outerWidth}>
         <SeatingChartContainer>
           {!state.context.courseInfo!._id ? (
             <StartingDisplay>
