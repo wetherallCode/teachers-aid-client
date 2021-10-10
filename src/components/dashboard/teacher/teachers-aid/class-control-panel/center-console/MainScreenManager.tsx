@@ -23,7 +23,7 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
     onCompleted: (data) => console.log(data.UpdateDynamicLesson),
     refetchQueries: ['findLessonByCourseAndDate'],
   })
-  console.log(state.context.attendanceToggle)
+  // console.log(state.context.attendanceToggle)
   return (
     <>
       <MainScreenControlButton
