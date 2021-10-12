@@ -8,7 +8,6 @@ import {
   removeAbsence,
   removeAbsenceVariables,
 } from '../../../../../../schemaTypes'
-import { todaysLocaleDate } from '../../../../../../utils'
 import { AttendanceButton } from '../../styles/studentInfoStyles'
 import {
   CREATE_STUDENT_ABSENCE_MUTATION,
@@ -43,7 +42,7 @@ export const Absence = ({
   >(CREATE_STUDENT_ABSENCE_MUTATION, {
     variables: {
       input: {
-        dayAbsent: todaysLocaleDate,
+        dayAbsent: new Date().toLocaleDateString(),
         markingPeriod: currentMarkingPeriod,
         studentId: student._id!,
       },
