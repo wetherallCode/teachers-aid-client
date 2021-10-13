@@ -8,15 +8,8 @@ import {
 } from '../../../../../../schemaTypes'
 import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
 import { gql, useQuery } from '@apollo/client'
-import { FIND_STUDENT_INFORMATION_QUERY } from '../../student-info/StudentInfo'
-import { todaysLocaleDate } from '../../../../../../utils'
 
 export type DeskProps = { deskNumber: number }
-
-export type DeskDisplayProps = {
-  absent: boolean
-  assigned: boolean
-}
 
 export const FIND_STUDENT_INFO_FOR_DESK_QUERY = gql`
   query findStudentInfoByStudentIdForDesk($input: FindStudentByIdInput!) {
@@ -66,6 +59,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
         <DeskDisplay
           absent={isAbsent!}
           assigned={desk.student !== null}
+          // picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
             if (desk.student) {
               event({ type: 'SET_STUDENT_ID', payload: desk.student?._id! })
@@ -79,6 +73,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
         <DeskDisplay
           absent={isAbsent!}
           assigned={desk.redCohortStudent !== null}
+          picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
             console.log(desk.redCohortStudent?._id!)
             if (desk.redCohortStudent) {
@@ -99,6 +94,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {state.context.courseInfo!.cohortBasedSeating && !redWeek && (
         <DeskDisplay
           absent={isAbsent!}
+          picked={state.context.studentId === desk.student?._id!}
           assigned={desk.whiteCohortStudent !== null}
           onClick={() => {
             if (desk.whiteCohortStudent) {

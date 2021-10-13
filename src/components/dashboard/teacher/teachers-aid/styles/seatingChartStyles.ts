@@ -127,6 +127,10 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
     !assigned ? 'var(--grey)' : absent ? 'var(--red)' : 'var(--blue)'};
 
   color: var(--white);
+  text-decoration: ${({ picked }) => (picked ? 'underline' : 'none')};
+
+  border: ${({ picked }) =>
+    picked ? '5px solid var(--red)' : '1px solid var(--white)'};
 
   text-shadow: 2px 2px 2px black;
   display: grid;
@@ -134,7 +138,3 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
   align-items: center;
   font-size: 1.2rem;
 `
-// text-decoration: ${({ picked }) => (picked ? 'underline' : 'none')};
-
-// border: ${({ picked }) =>
-//   picked ? '5px solid var(--red)' : '1px solid var(--white)'};
