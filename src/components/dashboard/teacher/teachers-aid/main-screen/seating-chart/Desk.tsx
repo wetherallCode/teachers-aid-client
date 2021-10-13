@@ -73,7 +73,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
         <DeskDisplay
           absent={isAbsent!}
           assigned={desk.redCohortStudent !== null}
-          picked={state.context.studentId === desk.student?._id!}
+          // picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
             console.log(desk.redCohortStudent?._id!)
             if (desk.redCohortStudent) {
@@ -94,7 +94,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {state.context.courseInfo!.cohortBasedSeating && !redWeek && (
         <DeskDisplay
           absent={isAbsent!}
-          picked={state.context.studentId === desk.student?._id!}
+          // picked={state.context.studentId === desk.student?._id!}
           assigned={desk.whiteCohortStudent !== null}
           onClick={() => {
             if (desk.whiteCohortStudent) {
