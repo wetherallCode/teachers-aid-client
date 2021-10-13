@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { DeskDisplayProps } from '../main-screen/seating-chart/Desk'
 
 export const SeatingChartContainer = styled.div`
   background-color: var(--white);
@@ -114,6 +113,13 @@ export const TripleSeatDeskContainer = styled(DeskContainer)`
 // 	border-radius: 5px;
 // 	box-shadow: 2px 2px 2px var(--grey);
 // `
+
+export type DeskDisplayProps = {
+  absent: boolean
+  assigned: boolean
+  picked: boolean
+}
+
 export const DeskDisplay = styled.div<DeskDisplayProps>`
   height: 100%;
   border-radius: 5px;
@@ -122,8 +128,6 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
 
   color: var(--white);
 
-  border: ${({ picked }) =>
-    picked ? '5px solid var(--red)' : '1px solid var(--white)'};
   text-shadow: 2px 2px 2px black;
   display: grid;
   justify-items: center;
@@ -131,3 +135,6 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
   font-size: 1.2rem;
 `
 // text-decoration: ${({ picked }) => (picked ? 'underline' : 'none')};
+
+// border: ${({ picked }) =>
+//   picked ? '5px solid var(--red)' : '1px solid var(--white)'};
