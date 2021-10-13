@@ -3949,6 +3949,65 @@ export interface createUnitVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createQuizzesByCourse
+// ====================================================
+
+export interface createQuizzesByCourse_createQuizzesByCourse_quizzes {
+  __typename: "Quiz";
+  _id: string | null;
+}
+
+export interface createQuizzesByCourse_createQuizzesByCourse {
+  __typename: "CreateQuizzesByCoursePayload";
+  quizzes: createQuizzesByCourse_createQuizzesByCourse_quizzes[];
+}
+
+export interface createQuizzesByCourse {
+  createQuizzesByCourse: createQuizzesByCourse_createQuizzesByCourse;
+}
+
+export interface createQuizzesByCourseVariables {
+  input: CreateQuizzesByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findLessonsByAssignedDateForQuizzableLessons
+// ====================================================
+
+export interface findLessonsByAssignedDateForQuizzableLessons_findLessonsByAssignedDate_lessons_assignedCourses {
+  __typename: "Course";
+  _id: string | null;
+}
+
+export interface findLessonsByAssignedDateForQuizzableLessons_findLessonsByAssignedDate_lessons {
+  __typename: "Lesson";
+  assignedCourses: findLessonsByAssignedDateForQuizzableLessons_findLessonsByAssignedDate_lessons_assignedCourses[];
+}
+
+export interface findLessonsByAssignedDateForQuizzableLessons_findLessonsByAssignedDate {
+  __typename: "FindLessonsByAssignedDatePayload";
+  lessons: findLessonsByAssignedDateForQuizzableLessons_findLessonsByAssignedDate_lessons[] | null;
+}
+
+export interface findLessonsByAssignedDateForQuizzableLessons {
+  findLessonsByAssignedDate: findLessonsByAssignedDateForQuizzableLessons_findLessonsByAssignedDate;
+}
+
+export interface findLessonsByAssignedDateForQuizzableLessonsVariables {
+  input: FindLessonsByAssignedDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: AddNewChapter
 // ====================================================
 
@@ -5268,6 +5327,33 @@ export interface findEssaysByAssociatedLessonIdForTodaysClassVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: assignQuizzesByStudentIdsAndDate
+// ====================================================
+
+export interface assignQuizzesByStudentIdsAndDate_assignQuizzesByStudentIdsAndDate_quizzes {
+  __typename: "Quiz";
+  _id: string | null;
+}
+
+export interface assignQuizzesByStudentIdsAndDate_assignQuizzesByStudentIdsAndDate {
+  __typename: "AssignQuizzesByStudentIdsAndDatePayload";
+  quizzes: assignQuizzesByStudentIdsAndDate_assignQuizzesByStudentIdsAndDate_quizzes[];
+}
+
+export interface assignQuizzesByStudentIdsAndDate {
+  assignQuizzesByStudentIdsAndDate: assignQuizzesByStudentIdsAndDate_assignQuizzesByStudentIdsAndDate;
+}
+
+export interface assignQuizzesByStudentIdsAndDateVariables {
+  input: AssignQuizzesByStudentIdsAndDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assignReadingGuidesForTeachersAid
 // ====================================================
 
@@ -5330,6 +5416,46 @@ export interface findReadingGuidesByCourseIdAndAssignedDate {
 
 export interface findReadingGuidesByCourseIdAndAssignedDateVariables {
   input: FindReadingGuidesByCourseIdAndAssignedDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findQuizzesForCourseByAssignedDate
+// ====================================================
+
+export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+  _id: string | null;
+}
+
+export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes {
+  __typename: "Quiz";
+  _id: string | null;
+  hasOwner: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes_hasOwner;
+  assigned: boolean;
+  markingPeriod: MarkingPeriodEnum;
+  assignedDate: string;
+  isActive: boolean;
+  finishedQuiz: boolean;
+}
+
+export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate {
+  __typename: "FindQuizzesForCourseByAssignedDatePayload";
+  quizzes: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes[];
+}
+
+export interface findQuizzesForCourseByAssignedDate {
+  findQuizzesForCourseByAssignedDate: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate;
+}
+
+export interface findQuizzesForCourseByAssignedDateVariables {
+  input: FindQuizzesForCourseByAssignedDateInput;
 }
 
 /* tslint:disable */
@@ -5843,6 +5969,69 @@ export interface findStudentInfoByStudentId {
 
 export interface findStudentInfoByStudentIdVariables {
   input: FindStudentByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findCourseByIdForTeachersAid
+// ====================================================
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences[];
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences[];
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats {
+  __typename: "StudentSeat";
+  student: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student | null;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo {
+  __typename: "CourseInfo";
+  assignedSeats: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats[];
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById_course {
+  __typename: "Course";
+  name: string;
+  hasStudents: findCourseByIdForTeachersAid_findCourseById_course_hasStudents[];
+  hasCourseInfo: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo | null;
+}
+
+export interface findCourseByIdForTeachersAid_findCourseById {
+  __typename: "FindCourseByIdPayload";
+  course: findCourseByIdForTeachersAid_findCourseById_course;
+}
+
+export interface findCourseByIdForTeachersAid {
+  findCourseById: findCourseByIdForTeachersAid_findCourseById;
+}
+
+export interface findCourseByIdForTeachersAidVariables {
+  input: FindCourseByIdInput;
 }
 
 /* tslint:disable */
@@ -6744,69 +6933,6 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL query operation: findCourseByIdForTeachersAid
-// ====================================================
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences {
-  __typename: "StudentAbsence";
-  dayAbsent: any;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasStudents {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasStudents_hasAbsences[];
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences {
-  __typename: "StudentAbsence";
-  dayAbsent: any;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  hasAbsences: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences[];
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats {
-  __typename: "StudentSeat";
-  student: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student | null;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo {
-  __typename: "CourseInfo";
-  assignedSeats: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats[];
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById_course {
-  __typename: "Course";
-  name: string;
-  hasStudents: findCourseByIdForTeachersAid_findCourseById_course_hasStudents[];
-  hasCourseInfo: findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo | null;
-}
-
-export interface findCourseByIdForTeachersAid_findCourseById {
-  __typename: "FindCourseByIdPayload";
-  course: findCourseByIdForTeachersAid_findCourseById_course;
-}
-
-export interface findCourseByIdForTeachersAid {
-  findCourseById: findCourseByIdForTeachersAid_findCourseById;
-}
-
-export interface findCourseByIdForTeachersAidVariables {
-  input: FindCourseByIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -6828,6 +6954,7 @@ export enum BehaviorEnum {
   DID_NOT_ANSWER_QUESTION = "DID_NOT_ANSWER_QUESTION",
   DISRESPECTFUL = "DISRESPECTFUL",
   DISRUPTIVE = "DISRUPTIVE",
+  UNPREPARED = "UNPREPARED",
 }
 
 export enum ContactTypeEnum {
@@ -7047,6 +7174,11 @@ export interface AssignEssaysInput {
   studentIds: string[];
 }
 
+export interface AssignQuizzesByStudentIdsAndDateInput {
+  assignedDate?: string | null;
+  studentIds: string[];
+}
+
 export interface AssignReadingGuidesInput {
   assignedDate: any;
   associatedLessonId: string;
@@ -7184,6 +7316,17 @@ export interface CreateQuizQuestionInput {
   difficultyLevel: QuizQuestionDifficultyLevelEnum;
   question: string;
   questionType: QuizQuestionTypeEnum;
+}
+
+export interface CreateQuizzesByCourseInput {
+  assignedDate: string;
+  assignedSectionIds: string[];
+  courseIds: string[];
+  dueDate: string;
+  dueTime: string;
+  hasAssigner: string;
+  markingPeriod: MarkingPeriodEnum;
+  readings: ReadingsInput;
 }
 
 export interface CreateReadingGuideInput {
@@ -7378,6 +7521,11 @@ export interface FindParentContactsByTeacherIdInput {
 
 export interface FindQuizQuestionsByTextSectionIdInput {
   associatedTextSectionId: string;
+}
+
+export interface FindQuizzesForCourseByAssignedDateInput {
+  assignedDate: string;
+  courseId: string;
 }
 
 export interface FindReadingGuideByIdInput {

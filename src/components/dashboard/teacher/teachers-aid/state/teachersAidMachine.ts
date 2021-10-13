@@ -147,7 +147,7 @@ export const teachersAidMachine = Machine<
     },
     studentProtocolAssessment: {
       studentId: '',
-      assessment: ProtocolAssessmentEnum.WORKED_VERY_WELL,
+      assessment: ProtocolAssessmentEnum.WORKED_WELL,
       task: '',
       assignedDate: '',
       discussionLevel: DiscussionTypesEnum.NOT_REQUIRED,

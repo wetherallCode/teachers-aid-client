@@ -151,8 +151,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
   //     payload: presentStudentList,
   //   })
   // }, [event, presentStudentList])
-  console.log(assignedPresentStudents)
-  console.log(window.outerWidth)
+
   if (loading) return <div>Loading </div>
   return (
     <>
@@ -163,7 +162,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
               <Greetings phrase={`${title}. ${me.lastName}!`} />
             </StartingDisplay>
           ) : (
-            <MainScreenDisplay />
+            <MainScreenDisplay presentStudentList={assignedPresentStudents!} />
           )}
         </SeatingChartContainer>
         <StudentInfoContainer>

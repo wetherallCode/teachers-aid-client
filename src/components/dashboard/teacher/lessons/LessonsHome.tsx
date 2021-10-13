@@ -14,6 +14,8 @@ import { LessonFinderContextProvider } from './lesson-finder/state-n-styles/Less
 import { BuildEssayQuestionContextProvider } from './essay-question/build-essay-questions/state-n-styles/BuildEssayQuestionContext'
 import { EssayQuestionBuilder } from './essay-question/build-essay-questions/EssayQuestionBuilder'
 import { Questions } from './essay-question/Questions'
+import { CreateQuiz } from './quiz-creator/CreateQuiz'
+import { CreateQuizContextProvider } from './quiz-creator/state-n-styles/CreateQuizContext'
 
 export const LessonsHome = () => {
   return (
@@ -58,7 +60,14 @@ export const LessonsHome = () => {
           </BuildEssayQuestionContextProvider>
         }
       />
-      {/* <Route path='' element={<LessonCalendar />} /> */}
+      <Route
+        path='create-quiz/:date/*'
+        element={
+          <CreateQuizContextProvider>
+            <CreateQuiz />
+          </CreateQuizContextProvider>
+        }
+      />
     </Routes>
   )
 }

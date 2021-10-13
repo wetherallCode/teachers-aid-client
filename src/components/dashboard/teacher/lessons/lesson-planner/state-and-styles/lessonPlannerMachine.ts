@@ -7,6 +7,8 @@ import {
   MarkingPeriodEnum,
   AcademicOutcomeTypes,
   LessonTypeEnum,
+  CreateQuizzesByCourseInput,
+  ReadingsInput,
 } from '../../../../../../schemaTypes'
 
 export type lessonPlannerMachineSchema = {
@@ -50,6 +52,11 @@ export type lessonPlannerMachineEvent =
   | { type: 'SET_LESSON_NAME'; payload: string }
   | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
   | { type: 'SET_LESSON_TYPE'; payload: LessonTypeEnum }
+  | {
+      type: 'SET_QUIZ_INPUTS'
+      keyName: string
+      payload: string | string[] | ReadingsInput
+    }
 
 export type lessonPlannerMachineContext = {
   date: string
@@ -74,6 +81,7 @@ export type lessonPlannerMachineContext = {
   lessonName: string
   markingPeriod: MarkingPeriodEnum
   lessonType: LessonTypeEnum
+  createQuizInputs: CreateQuizzesByCourseInput
 }
 
 export const lessonPlannerMachine = Machine<
@@ -118,6 +126,17 @@ export const lessonPlannerMachine = Machine<
     lessonName: '',
     markingPeriod: MarkingPeriodEnum.FIRST,
     lessonType: LessonTypeEnum.REINFORCEMENT,
+    createQuizInputs: {
+      assignedDate: '',
+      // associatedLessonId: '',
+      assignedSectionIds: [],
+      courseIds: [],
+      dueDate: '',
+      dueTime: '',
+      hasAssigner: '',
+      markingPeriod: MarkingPeriodEnum.FIRST,
+      readings: { readingPages: '', readingSections: '' },
+    },
   },
 
   states: {
@@ -328,6 +347,17 @@ export const lessonPlannerMachine = Machine<
             return {
               ...ctx,
               courses: evt.payload,
+            }
+          }),
+        },
+        SET_QUIZ_INPUTS: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              createQuizInputs: {
+                ...ctx.createQuizInputs,
+                [evt.keyName]: evt.payload,
+              },
             }
           }),
         },

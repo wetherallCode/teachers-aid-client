@@ -19,6 +19,8 @@ import {
 } from './state-and-styles/lessonPlannerStyles'
 import { CreateLesson } from './CreateLesson'
 import { sortByLetter } from '../../../../../utils'
+import { CreateQuiz } from '../quiz-creator/CreateQuiz'
+import { CreateQuizContextProvider } from '../quiz-creator/state-n-styles/CreateQuizContext'
 
 export type CourseAssignerProps = {}
 
@@ -74,6 +76,9 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
             <AssignCourseName>{course.name}</AssignCourseName>
           </CourseToAssignContainer>
         ))}
+        {/* <CreateQuizContextProvider> */}
+        <CreateQuiz />
+        {/* </CreateQuizContextProvider> */}
       </AssignCourseContainer>
       <SectionPickerButtonContainer>
         <LessonPlannerButton onClick={() => event({ type: 'PREVIOUS' })}>
