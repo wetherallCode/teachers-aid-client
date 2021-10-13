@@ -480,7 +480,7 @@ export const EssayOrganizerSheet = styled(EssaySheet)`
   display: grid;
   grid-template-rows: repeat(8, 1fr);
   grid-template-columns: repeat(12, 1fr);
-  font-size: 1.5vh;
+  font-size: 2vh;
 `
 
 export const EssayOrganizerTitle = styled.div`
