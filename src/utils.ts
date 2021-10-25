@@ -343,6 +343,9 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'split') {
     return 'split'
   }
+  if (lowerCaseVerb === 'build') {
+    return 'built'
+  }
 
   return verb
 }
