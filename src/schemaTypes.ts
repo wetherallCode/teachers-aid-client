@@ -290,6 +290,7 @@ export interface findEssaysToComplete_findEssaysToCompleteByStudentId_essays {
   readings: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_readings;
   topic: findEssaysToComplete_findEssaysToCompleteByStudentId_essays_topic;
   markingPeriod: MarkingPeriodEnum;
+  exempt: boolean;
 }
 
 export interface findEssaysToComplete_findEssaysToCompleteByStudentId {
@@ -1125,6 +1126,81 @@ export interface resubmitEssayFinalDraftVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findQuizQuestionsByQuizzableSections
+// ====================================================
+
+export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList {
+  __typename: "AnswerList";
+  answer: string;
+  correct: boolean;
+  partiallyCorrect: boolean;
+}
+
+export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions {
+  __typename: "QuizQuestion";
+  _id: string | null;
+  difficultyLevel: QuizQuestionDifficultyLevelEnum;
+  questionType: QuizQuestionTypeEnum;
+  question: string;
+  answerList: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList[];
+  associatedTextSectionId: string;
+}
+
+export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections {
+  __typename: "FindQuizQuestionsByQuizzableSectionsPayload";
+  quizQuestions: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions[];
+}
+
+export interface findQuizQuestionsByQuizzableSections {
+  findQuizQuestionsByQuizzableSections: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections;
+}
+
+export interface findQuizQuestionsByQuizzableSectionsVariables {
+  input: FindQuizQuestionsByQuizzableSectionsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findQuizById
+// ====================================================
+
+export interface findQuizById_findQuizById_quiz_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findQuizById_findQuizById_quiz {
+  __typename: "Quiz";
+  _id: string | null;
+  finishedQuiz: boolean;
+  isActive: boolean;
+  quizzableSections: string[];
+  readings: findQuizById_findQuizById_quiz_readings;
+}
+
+export interface findQuizById_findQuizById {
+  __typename: "FindQuizByIdPayload";
+  quiz: findQuizById_findQuizById_quiz;
+}
+
+export interface findQuizById {
+  findQuizById: findQuizById_findQuizById;
+}
+
+export interface findQuizByIdVariables {
+  input: FindQuizByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findReadingGuidesToComplete
 // ====================================================
 
@@ -1295,6 +1371,42 @@ export interface submitReadingGuide {
 
 export interface submitReadingGuideVariables {
   input: SubmitReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findQuizzesByStudentId
+// ====================================================
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes {
+  __typename: "Quiz";
+  _id: string | null;
+  isActive: boolean;
+  assigned: boolean;
+  readings: findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings;
+  finishedQuiz: boolean;
+}
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId {
+  __typename: "FindQuizzesByStudentIdPayload";
+  quizzes: findQuizzesByStudentId_findQuizzesByStudentId_quizzes[];
+}
+
+export interface findQuizzesByStudentId {
+  findQuizzesByStudentId: findQuizzesByStudentId_findQuizzesByStudentId;
+}
+
+export interface findQuizzesByStudentIdVariables {
+  input: FindQuizzesByStudentIdInput;
 }
 
 /* tslint:disable */
@@ -6933,6 +7045,28 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: activateQuiz
+// ====================================================
+
+export interface activateQuiz_activateQuiz {
+  __typename: "ActivateQuizPayload";
+  activated: boolean;
+}
+
+export interface activateQuiz {
+  activateQuiz: activateQuiz_activateQuiz;
+}
+
+export interface activateQuizVariables {
+  input: ActivateQuizInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -7114,6 +7248,11 @@ export interface AcademicSentenceStructureInput {
   subject: string;
   subjectCompliment?: string | null;
   verb: string;
+}
+
+export interface ActivateQuizInput {
+  activate: boolean;
+  quizId: string;
 }
 
 export interface AddCourseToTeacherInput {
@@ -7519,8 +7658,21 @@ export interface FindParentContactsByTeacherIdInput {
   teacherId: string;
 }
 
+export interface FindQuizByIdInput {
+  quizId: string;
+}
+
+export interface FindQuizQuestionsByQuizzableSectionsInput {
+  quizzableSectionIds: string[];
+}
+
 export interface FindQuizQuestionsByTextSectionIdInput {
   associatedTextSectionId: string;
+}
+
+export interface FindQuizzesByStudentIdInput {
+  markingPeriod: MarkingPeriodEnum;
+  studentId: string;
 }
 
 export interface FindQuizzesForCourseByAssignedDateInput {
