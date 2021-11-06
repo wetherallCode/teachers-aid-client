@@ -123,34 +123,6 @@ export const TeachersAid = ({}: TeachersAidProps) => {
           )
       )
       .map((student) => student?._id)! as string[]
-  // console.log(assignedPresentStudents)
-  // useEffect(() => {
-  //   console.log('change')
-  //   if (state.context.courseInfo) {
-  //     const presentStudents = state.context
-  //       .courseInfo!.course.hasStudents // .filter((desk) => desk.student !== null)
-  //       .filter((student) => {
-  //         return !student?.hasAbsences.some((day) => day.dayAbsent === date)
-  //       })
-  //       .map((student) => student?._id) as string[]
-
-  //     event({
-  //       type: 'SET_PRESENT_STUDENTS',
-  //       payload: presentStudents,
-  //     })
-  //   }
-  // }, [
-  //   event,
-  //   state.context.courseInfo,
-  //   state.context.courseInfo!.course.hasStudents,
-  // ])
-
-  // useEffect(() => {
-  //   event({
-  //     type: 'SET_PRESENT_STUDENTS',
-  //     payload: presentStudentList,
-  //   })
-  // }, [event, presentStudentList])
 
   if (loading) return <div>Loading </div>
   return (
