@@ -7,6 +7,7 @@ import {
 } from '../../../../../../../../schemaTypes'
 import {
   irregularPastTenseVerbList,
+  specialVerbsInPastTense,
   timeAFunction,
 } from '../../../../../../../../utils'
 import {
@@ -49,7 +50,7 @@ export const VerbIdentification = ({
       question.simplePredicate.split(' ').length > 1 &&
       question.simplePredicate.split(' ').includes(question.helpingVerb)) ||
     (question.helpingVerb !== 'did' && !question.subjectCompliment)
-  console.log(question.helpingVerb !== 'did')
+
   const { correctSimplePredicate, howToFix, message, whatWentWrong } =
     simplePredicateGrader({
       completePredicate:
@@ -69,8 +70,11 @@ export const VerbIdentification = ({
     })
 
   const irregularVerbCheck = irregularPastTenseVerbList(text)
+
   const congugatedVerb = (verb: string) => {
-    return verb === irregularVerbCheck
+    return verb === specialVerbsInPastTense(verb)
+      ? specialVerbsInPastTense(verb)
+      : verb === irregularVerbCheck
       ? irregularVerbCheck
           .charAt(irregularVerbCheck.length - 1)
           .toLowerCase() === 'e'
@@ -81,12 +85,12 @@ export const VerbIdentification = ({
   useEffect(() => {
     if (correctSimplePredicate && text) {
       setVerb(text)
-      const pastTenseVerb =
-        irregularPastTenseVerbList(text) === text
-          ? text + 'ed'
-          : irregularPastTenseVerbList(text)
+      // const pastTenseVerb =
+      //   irregularPastTenseVerbList(text) === text
+      //     ? text + 'ed'
+      //     : irregularPastTenseVerbList(text)
+      const pastTenseVerb = congugatedVerb(text)
 
-      console.log(congugatedVerb(question.simplePredicate))
       setTimeout(() => {
         question.helpingVerb === 'did' &&
           setQuestionToModify(
