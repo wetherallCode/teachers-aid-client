@@ -1126,6 +1126,33 @@ export interface resubmitEssayFinalDraftVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: finishQuiz
+// ====================================================
+
+export interface finishQuiz_finishQuiz_quiz {
+  __typename: "Quiz";
+  _id: string | null;
+}
+
+export interface finishQuiz_finishQuiz {
+  __typename: "FinishQuizPayload";
+  quiz: finishQuiz_finishQuiz_quiz;
+}
+
+export interface finishQuiz {
+  finishQuiz: finishQuiz_finishQuiz;
+}
+
+export interface finishQuizVariables {
+  input: FinishQuizInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findQuizQuestionsByQuizzableSections
 // ====================================================
 
@@ -1165,6 +1192,50 @@ export interface findQuizQuestionsByQuizzableSectionsVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: activateQuiz
+// ====================================================
+
+export interface activateQuiz_activateQuiz {
+  __typename: "ActivateQuizPayload";
+  activated: boolean;
+}
+
+export interface activateQuiz {
+  activateQuiz: activateQuiz_activateQuiz;
+}
+
+export interface activateQuizVariables {
+  input: ActivateQuizInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: startQuiz
+// ====================================================
+
+export interface startQuiz_startQuiz {
+  __typename: "StartQuizPayload";
+  started: boolean;
+}
+
+export interface startQuiz {
+  startQuiz: startQuiz_startQuiz;
+}
+
+export interface startQuizVariables {
+  input: StartQuizInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findQuizById
 // ====================================================
 
@@ -1177,6 +1248,7 @@ export interface findQuizById_findQuizById_quiz {
   __typename: "Quiz";
   _id: string | null;
   finishedQuiz: boolean;
+  startedQuiz: boolean;
   isActive: boolean;
   quizzableSections: string[];
   readings: findQuizById_findQuizById_quiz_readings;
@@ -5439,6 +5511,28 @@ export interface findEssaysByAssociatedLessonIdForTodaysClassVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: unAssignQuizByQuizId
+// ====================================================
+
+export interface unAssignQuizByQuizId_unAssignQuizByQuizId {
+  __typename: "UnAssignQuizByQuizIdPayload";
+  unAssigned: boolean;
+}
+
+export interface unAssignQuizByQuizId {
+  unAssignQuizByQuizId: unAssignQuizByQuizId_unAssignQuizByQuizId;
+}
+
+export interface unAssignQuizByQuizIdVariables {
+  input: UnAssignQuizByQuizIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assignQuizzesByStudentIdsAndDate
 // ====================================================
 
@@ -5546,6 +5640,17 @@ export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssign
   _id: string | null;
 }
 
+export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
 export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes {
   __typename: "Quiz";
   _id: string | null;
@@ -5554,7 +5659,10 @@ export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssign
   markingPeriod: MarkingPeriodEnum;
   assignedDate: string;
   isActive: boolean;
+  startedQuiz: boolean;
   finishedQuiz: boolean;
+  readings: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes_readings;
+  score: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes_score;
 }
 
 export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate {
@@ -7045,28 +7153,6 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL mutation operation: activateQuiz
-// ====================================================
-
-export interface activateQuiz_activateQuiz {
-  __typename: "ActivateQuizPayload";
-  activated: boolean;
-}
-
-export interface activateQuiz {
-  activateQuiz: activateQuiz_activateQuiz;
-}
-
-export interface activateQuizVariables {
-  input: ActivateQuizInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -7314,6 +7400,7 @@ export interface AssignEssaysInput {
 }
 
 export interface AssignQuizzesByStudentIdsAndDateInput {
+  assign: boolean;
   assignedDate?: string | null;
   studentIds: string[];
 }
@@ -7759,6 +7846,12 @@ export interface FinishProtocolInput {
   task: string;
 }
 
+export interface FinishQuizInput {
+  earnedPoints: number;
+  quizId: string;
+  responsibilityPoints: number;
+}
+
 export interface GradeTemporaryTaskInput {
   _id: string;
   answered: boolean;
@@ -7918,6 +8011,10 @@ export interface StartProtocolInput {
   task: string;
 }
 
+export interface StartQuizInput {
+  quizId: string;
+}
+
 export interface StartReadingGuideInput {
   paperBased: boolean;
   readingGuideId: string;
@@ -7991,6 +8088,10 @@ export interface TopicInput {
   question: string;
   questionType: QuestionTypeEnum;
   writingLevel: WritingLevelEnum;
+}
+
+export interface UnAssignQuizByQuizIdInput {
+  quizId: string;
 }
 
 export interface UpdateAcademicOrganizerInput {
