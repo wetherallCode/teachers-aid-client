@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { EssayOrganizer } from './EssayOrganizer'
 import {
   EssayOrganizerRestatement,
@@ -13,11 +13,12 @@ export type DevelopingEssayOrganizerProps = {
   organizer: EssayOrganizer
 }
 
-export const DevelopingEssayOrganizer: FC<DevelopingEssayOrganizerProps> = ({
+export const DevelopingEssayOrganizer = ({
   organizer,
-}) => {
+}: DevelopingEssayOrganizerProps) => {
   const essayOrganizer =
     organizer.__typename === 'DevelopingOrganizer' ? organizer : null
+
   return (
     <>
       <EssayOrganizerRestatement>
