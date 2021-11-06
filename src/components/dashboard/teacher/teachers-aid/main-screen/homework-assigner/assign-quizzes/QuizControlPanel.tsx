@@ -6,10 +6,10 @@ import {
   findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes,
 } from '../../../../../../../schemaTypes'
 import {
-  IndividualQuizContainer,
   QuizControlPanelContainer,
   QuizNameContainer,
 } from '../../../styles/mainScreenStyles'
+import { IndividualQuizControl } from './IndividualQuizControl'
 
 export type QuizControlPanelProps = {
   quizzes: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes[]
@@ -39,18 +39,22 @@ export const QuizControlPanel = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findQuizzesForCourseByAssignedDate'],
   })
+  const allQuizzesAssigned = quizzes.every((quiz) => quiz.assigned)
+  // console.log(allQuizzesAssigned)
   return (
     <QuizControlPanelContainer>
       <QuizNameContainer>
-        QuizName{' '}
+        {quizzes[0].readings.readingSections + ' '}
         <button
           onClick={() =>
             assignQuizzes({
               variables: {
                 input: {
+                  assignedDate: '10/17/2021',
                   // assignedDate: new Date().toLocaleDateString(),
-                  assignedDate: '10/12/2021',
+
                   studentIds: presentStudentList,
+                  assign: true,
                 },
               },
             })
@@ -63,32 +67,46 @@ export const QuizControlPanel = ({
       <div style={{ overflow: 'scroll' }}>
         {quizzes.map((quiz, i) => (
           <div
+            key={i}
             style={{
               backgroundColor: i % 2 === 0 ? 'var(--grey)' : 'var(--white)',
               display: 'grid',
               gridTemplateColumns: '3fr 1fr',
+              height: '8%',
+              justifyItems: 'center',
+              alignItems: 'center',
             }}
           >
-            <div>
+            <div style={{ justifySelf: 'left' }}>
               {quiz.hasOwner.lastName}, {quiz.hasOwner.firstName}
             </div>
-            {quiz.assigned ? (
-              <div>
-                {quiz.isActive
-                  ? 'Active'
-                  : quiz.finishedQuiz
-                  ? 'Finished'
-                  : 'Not Active'}
-              </div>
+            {quiz.assigned || quiz.finishedQuiz ? (
+              <IndividualQuizControl quiz={quiz} />
             ) : (
               <button
+                style={
+                  quiz.assigned
+                    ? {
+                        backgroundColor: 'var(--red)',
+                        color: 'var(--white)',
+                        borderRadius: '5px',
+                        width: '75%',
+                      }
+                    : {
+                        backgroundColor: 'var(--blue)',
+                        color: 'var(--white)',
+                        borderRadius: '5px',
+                        width: '75%',
+                      }
+                }
                 onClick={() =>
                   assignQuizzes({
                     variables: {
                       input: {
                         // assignedDate: new Date().toLocaleDateString(),
-                        assignedDate: '10/12/2021',
+                        assignedDate: '10/17/2021',
                         studentIds: [quiz.hasOwner._id!],
+                        assign: true,
                       },
                     },
                   })

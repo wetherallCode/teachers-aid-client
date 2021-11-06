@@ -34,7 +34,16 @@ export const FIND_QUIZZES_BY_ASSIGNED_DATE_QUERY = gql`
         markingPeriod
         assignedDate
         isActive
+        startedQuiz
         finishedQuiz
+        readings {
+          readingSections
+        }
+        score {
+          earnedPoints
+          maxPoints
+        }
+        startedQuiz
       }
     }
   }
@@ -52,7 +61,7 @@ export const HomeworkAssigner = ({
       input: {
         courseId: state.context.courseInfo?.course._id!,
         // assignedDate: new Date().toLocaleDateString(),
-        assignedDate: '10/12/2021',
+        assignedDate: '10/17/2021',
       },
     },
     pollInterval: 1000,
