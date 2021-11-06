@@ -13,6 +13,8 @@ import { StudentAssignmentContextProvider } from './assignments/state-n-styles/S
 import { StudentGrades } from './grades/StudentGrades'
 import { ArticleReviewToComplete } from './assignments/articleReviews/ArticleReviewToComplete'
 import { ArticleReviewToCompleteContextProvider } from './assignments/articleReviews/state-styles/ArticleReviewToCompleteContext'
+import { QuizToCompleteContextProvider } from './assignments/quizzes/state-n-styles/QuizToCompleteContext'
+import { QuizToComplete } from './assignments/quizzes/QuizToComplete'
 
 export const StudentDashboardHome = () => {
   const { pathname } = useLocation()
@@ -50,6 +52,14 @@ export const StudentDashboardHome = () => {
             <ArticleReviewToCompleteContextProvider>
               <ArticleReviewToComplete />
             </ArticleReviewToCompleteContextProvider>
+          }
+        />
+        <Route
+          path='assignments/quiz/toComplete/:quizToComplete'
+          element={
+            <QuizToCompleteContextProvider>
+              <QuizToComplete />
+            </QuizToCompleteContextProvider>
           }
         />
         <Route path='grades/*' element={<StudentGrades />} />
