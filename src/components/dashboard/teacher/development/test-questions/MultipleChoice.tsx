@@ -60,7 +60,7 @@ export const MultipleChoice = ({}: MultipleChoiceProps) => {
   //     return ([array[i], array[j]] = [array[j], array[i]])
   //   }
   // }
-
+  console.log(question.answerList)
   // console.log(shuffle(answerList))
   function shuffleAnswerList(array: AnswerProps[]) {
     return array.sort(() => Math.random() - 0.5)

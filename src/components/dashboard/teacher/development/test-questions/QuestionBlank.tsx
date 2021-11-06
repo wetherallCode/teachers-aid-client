@@ -14,7 +14,6 @@ export const QuestionBlank = ({
   answerList,
 }: QuestionBlankProps) => {
   const [answerValue, setAnswerValue] = useState<AnswerProps | null>(null)
-
   const { points } = multipleChoiceGrader({
     answer: answerValue,
     difficultyLevel: question.questionDifficultyLevel,
