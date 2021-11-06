@@ -79,3 +79,20 @@ export type IndividualQuizContainerProps = { grey: boolean }
 export const IndividualQuizContainer = styled.div<IndividualQuizContainerProps>`
   background-color: ${({ grey }) => (grey ? 'var(--grey)' : 'var(--white')};
 `
+export const IndividualQuizControlContainer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+`
+
+export const QuizStatusIndicator = styled.div`
+  justify-self: left;
+`
+
+export type AssignQuizButtonProps = { assigned: boolean }
+
+// export const AssignQuizButton = styled.button<AssignQuizButtonProps>`
+//   background-color: ${({ assigned }) =>
+//     assigned ? 'var(--red)' : 'var(--blue'};
+//   color: ;
+// `
