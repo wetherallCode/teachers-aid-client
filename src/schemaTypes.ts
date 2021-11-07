@@ -5495,6 +5495,28 @@ export interface unAssignQuizByQuizIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: forceFinishQuiz
+// ====================================================
+
+export interface forceFinishQuiz_forceFinishQuiz {
+  __typename: "ForceFinishQuizPayload";
+  finished: boolean;
+}
+
+export interface forceFinishQuiz {
+  forceFinishQuiz: forceFinishQuiz_forceFinishQuiz;
+}
+
+export interface forceFinishQuizVariables {
+  input: ForceFinishQuizInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assignQuizzesByStudentIdsAndDate
 // ====================================================
 
@@ -7851,6 +7873,10 @@ export interface FinishQuizInput {
   earnedPoints: number;
   quizId: string;
   responsibilityPoints: number;
+}
+
+export interface ForceFinishQuizInput {
+  quizId: string;
 }
 
 export interface GradeTemporaryTaskInput {

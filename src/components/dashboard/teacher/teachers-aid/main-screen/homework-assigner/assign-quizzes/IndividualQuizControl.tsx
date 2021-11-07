@@ -6,6 +6,8 @@ import {
   findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes,
   unAssignQuizByQuizIdVariables,
   unAssignQuizByQuizId,
+  forceFinishQuizVariables,
+  forceFinishQuiz,
 } from '../../../../../../../schemaTypes'
 import { ACTIVATE_QUIZ_MUTATION } from '../../../../../student/assignments/quizzes/QuizSelect'
 import {
@@ -25,6 +27,14 @@ export const UNASSIGN_QUIZ_MUTATION = gql`
     }
   }
 `
+
+export const FORCE_FINISH_QUIZ_MUTATION = gql`
+  mutation forceFinishQuiz($input: ForceFinishQuizInput!) {
+    forceFinishQuiz(input: $input) {
+      finished
+    }
+  }
+`
 export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
   const [activateQuiz] = useMutation<activateQuiz, activateQuizVariables>(
     ACTIVATE_QUIZ_MUTATION,
@@ -41,6 +51,16 @@ export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
+
+  const [forceFinishQuiz] = useMutation<
+    forceFinishQuiz,
+    forceFinishQuizVariables
+  >(FORCE_FINISH_QUIZ_MUTATION, {
+    variables: { input: { quizId: quiz._id! } },
+    onCompleted: (data) => console.log(data),
+    refetchQueries: [],
+  })
+
   const score = quiz.score.earnedPoints / quiz.score.maxPoints
   const notStarted = !quiz.startedQuiz && !quiz.finishedQuiz && !quiz.isActive
   return (
@@ -101,6 +121,7 @@ export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
               borderRadius: '5px',
               width: '80%',
             }}
+            onClick={() => forceFinishQuiz()}
           >
             Finish
           </button>
