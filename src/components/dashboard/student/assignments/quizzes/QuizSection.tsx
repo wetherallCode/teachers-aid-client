@@ -86,15 +86,16 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
       refetchQueries: ['findQuizById'],
     }
   )
+  let score =
+    state.context.earnedPoints / state.context.quizzableSections.length
 
   useEffect(() => {
     if (!quiz.isActive && !quiz.finishedQuiz && quiz.forcedFinish) {
-      finishQuiz()
+      console.log('forced finish')
+      console.log(score)
+      // finishQuiz()
     }
   }, [quiz.forcedFinish])
-
-  let score =
-    state.context.earnedPoints / state.context.quizzableSections.length
 
   if (loading) return null
   return (
