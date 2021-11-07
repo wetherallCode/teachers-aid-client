@@ -1,5 +1,6 @@
-import { gql, useQuery } from '@apollo/client'
-import React, { useState } from 'react'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import {
   findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList,
@@ -7,9 +8,15 @@ import {
   findQuizQuestionsByQuizzableSections,
   findQuizQuestionsByQuizzableSectionsVariables,
   findQuizById_findQuizById_quiz,
+  finishQuizVariables,
+  finishQuiz,
 } from '../../../../../schemaTypes'
+import { FINISH_QUIZ_MUTATION } from './FinishQuiz'
 import { QuizQuestionDisplay } from './QuizQuestionDisplay'
-import { QuizMessageContainer } from './state-n-styles/QuizStyles'
+import {
+  FinishedQuizContainer,
+  QuizMessageContainer,
+} from './state-n-styles/QuizStyles'
 import { useQuizToCompleteContextProvider } from './state-n-styles/QuizToCompleteContext'
 
 export type QuizSectionProps = { quiz: findQuizById_findQuizById_quiz }
@@ -37,6 +44,7 @@ export const FIND_QUIZ_QUESTIONS_QUERY = gql`
 
 export const QuizSection = ({ quiz }: QuizSectionProps) => {
   const [state, event] = useQuizToCompleteContextProvider()
+  const navigate = useNavigate()
   const [answerValue, setAnswerValue] =
     useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
       null
@@ -59,11 +67,49 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
     onError: (error) => console.error(error),
   })
 
+  const [finishQuiz] = useMutation<finishQuiz, finishQuizVariables>(
+    FINISH_QUIZ_MUTATION,
+    {
+      variables: {
+        input: {
+          quizId: quiz._id!,
+          earnedPoints: +state.context.earnedPoints.toFixed(2),
+          responsibilityPoints: state.context.responsibilityPoints,
+        },
+      },
+      onCompleted: () => {
+        const timer = setTimeout(() => {
+          navigate('/dashboard/assignments/')
+        }, 3000)
+        return () => clearTimeout(timer)
+      },
+      refetchQueries: ['findQuizById'],
+    }
+  )
+
+  useEffect(() => {
+    if (!quiz.isActive && !quiz.finishedQuiz && quiz.forcedFinish) {
+      finishQuiz()
+    }
+  }, [quiz.forcedFinish])
+
+  let score =
+    state.context.earnedPoints / state.context.quizzableSections.length
+
   if (loading) return null
   return (
     <>
       {!quiz.isActive && !quiz.finishedQuiz ? (
-        <QuizMessageContainer>Quiz is suspended</QuizMessageContainer>
+        <>
+          {quiz.forcedFinish ? (
+            <FinishedQuizContainer>
+              <div>Quiz Complete</div>
+              <div>Score: {(score * 100).toFixed(2)}%</div>
+            </FinishedQuizContainer>
+          ) : (
+            <QuizMessageContainer>Quiz is suspended</QuizMessageContainer>
+          )}
+        </>
       ) : (
         <>
           {data?.findQuizQuestionsByQuizzableSections.quizQuestions.length! >

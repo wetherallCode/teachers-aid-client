@@ -15,6 +15,7 @@ export const FIND_QUIZ_BY_ID_QUERY = gql`
         _id
         finishedQuiz
         startedQuiz
+        forcedFinish
         isActive
         quizzableSections
         readings {
@@ -26,7 +27,7 @@ export const FIND_QUIZ_BY_ID_QUERY = gql`
 `
 
 export const QuizToComplete = ({}: QuizToCompleteProps) => {
-  const [state, event] = useQuizToCompleteContextProvider()
+  const [, event] = useQuizToCompleteContextProvider()
   const params = useParams()
   const { loading, data } = useQuery<findQuizById, findQuizByIdVariables>(
     FIND_QUIZ_BY_ID_QUERY,

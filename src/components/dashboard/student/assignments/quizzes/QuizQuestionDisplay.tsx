@@ -71,8 +71,8 @@ export const QuizQuestionDisplay = ({
     useEffect(() => {
       window.addEventListener('focus', onFocus)
       window.addEventListener('blur', onBlur)
-
       window.addEventListener('resize', onResize)
+
       // Specify how to clean up after this effect:
       return () => {
         window.removeEventListener('focus', onFocus)
@@ -84,7 +84,7 @@ export const QuizQuestionDisplay = ({
     return null
   }
 
-  // WindowFocusHandler()
+  WindowFocusHandler()
   const [answerValue, setAnswerValue] =
     useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
       null

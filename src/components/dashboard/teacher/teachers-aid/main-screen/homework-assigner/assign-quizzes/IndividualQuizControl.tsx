@@ -58,35 +58,53 @@ export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
       </QuizStatusIndicator>
 
       {!quiz.isActive && !quiz.finishedQuiz && !notStarted && (
-        <button
-          style={
-            !quiz.isActive
-              ? {
-                  backgroundColor: 'var(--red)',
-                  color: 'var(--white)',
-                  borderRadius: '5px',
-                  width: '75%',
-                }
-              : {
-                  backgroundColor: 'var(--blue)',
-                  color: 'var(--white)',
-                  borderRadius: '5px',
-                  width: '75%',
-                }
-          }
-          onClick={() =>
-            activateQuiz({
-              variables: {
-                input: {
-                  activate: true,
-                  quizId: quiz._id!,
+        <>
+          <button
+            style={
+              !quiz.isActive
+                ? {
+                    backgroundColor: 'var(--red)',
+                    color: 'var(--white)',
+                    borderRadius: '5px',
+                    width: '80%',
+                    display: 'grid',
+                    justifySelf: 'center',
+                  }
+                : {
+                    backgroundColor: 'var(--blue)',
+                    color: 'var(--white)',
+                    borderRadius: '5px',
+                    width: '80%',
+                    display: 'grid',
+                    justifySelf: 'center',
+                  }
+            }
+            onClick={() =>
+              activateQuiz({
+                variables: {
+                  input: {
+                    activate: true,
+                    quizId: quiz._id!,
+                  },
                 },
-              },
-            })
-          }
-        >
-          Reactivate
-        </button>
+              })
+            }
+          >
+            Reactivate
+          </button>
+          <button
+            style={{
+              display: 'grid',
+              justifySelf: 'center',
+              backgroundColor: 'var(--red)',
+              color: 'var(--white)',
+              borderRadius: '5px',
+              width: '80%',
+            }}
+          >
+            Finish
+          </button>
+        </>
       )}
       {quiz.assigned && notStarted && (
         <button
