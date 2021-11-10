@@ -25,6 +25,7 @@ export const ME_QUERY = gql`
       }
       ... on Student {
         __typename
+        hasIEP
         inCourses {
           _id
           name
@@ -51,7 +52,7 @@ type UserContextProps = {
   children: ReactNode
 }
 
-export const UserContextProvider: FC<UserContextProps> = ({ children }) => {
+export const UserContextProvider = ({ children }: UserContextProps) => {
   const { loading, data } = useQuery<me>(ME_QUERY, {
     // onCompleted: (data) => console.log(data),
     onError: (error) => error && <div>Things went wrong, please refresh!</div>,
