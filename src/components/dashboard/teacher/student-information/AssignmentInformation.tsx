@@ -106,6 +106,32 @@ export const AssignmentInformation = ({
 		(review) => review.markingPeriod === selectedMarkingPeriod
 	)!
 
+	const allEssays = data?.findAssignmentByStudentId.assignments.filter(
+		(assignment) =>
+			(assignment.__typename === 'Essay' && assignment.finalDraft?.returned) ||
+			(assignment.__typename === 'Essay' &&
+				!assignment.exempt &&
+				!assignment.finalDraft &&
+				assignment.assigned &&
+				Date.parse(new Date().toLocaleString()) >
+					Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+	)
+
+	const allEssaysEarnedPointTotal = allEssays
+		?.map((essay) => essay.score.earnedPoints)
+		.reduce((acc: number, i: number) => acc + i)!
+	const allEssaysMaxPointTotal = allEssays
+		?.map((essay) => essay.score.maxPoints)
+		.reduce((acc: number, i: number) => acc + i)!
+	const overallEssayScoreCalculator = (earnedPoints: number, maxPoints: number) => {
+		// return Math.round(1000 * (earnedPoints / maxPoints)) / 1000
+		return (earnedPoints / maxPoints) * 4
+	}
+	const overallEssayScore = overallEssayScoreCalculator(
+		allEssaysEarnedPointTotal,
+		allEssaysMaxPointTotal
+	)
+
 	if (loading) return <div>Loading </div>
 	return (
 		<AssignmentInformationContainer>
@@ -168,6 +194,7 @@ export const AssignmentInformation = ({
 								)}
 							</IndividualAssignmentDisplay>
 						))}
+						<div>Overall Essay Score (FY): {overallEssayScore}</div>
 					</AssignmentInformationStyle>
 				)}
 				{state.matches('information.assignments.readingGuides') && (
