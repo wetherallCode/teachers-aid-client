@@ -11,6 +11,7 @@ export type DraftSelectorProps = {
 }
 
 export const DraftSelector: FC<DraftSelectorProps> = ({ essay }) => {
+  console.log(essay)
   const [state, event] = useGradeEssayContextProvider()
 
   useEffect(() => {

@@ -12,19 +12,24 @@ export type EssayToGradeOrganizerProps = {
 export const EssayToGradeOrganizer: FC<EssayToGradeOrganizerProps> = ({
   organizer,
 }) => {
+  console.log(organizer)
   return (
     <>
-      <EssayOrganizerTitle>
-        <div>Organizer</div>
-      </EssayOrganizerTitle>
-      {organizer.__typename === 'DevelopingOrganizer' && (
-        <DevelopingEssayOrganizer organizer={organizer} />
-      )}
-      {organizer.__typename === 'AcademicOrganizer' && (
-        <AcademicEssayOrganizer organizer={organizer} />
-      )}
-      {organizer.__typename === 'AdvancedOrganizer' && (
-        <AdvancedEssayOrganizer organizer={organizer} />
+      {organizer && (
+        <>
+          <EssayOrganizerTitle>
+            <div>Organizer</div>
+          </EssayOrganizerTitle>
+          {organizer.__typename === 'DevelopingOrganizer' && (
+            <DevelopingEssayOrganizer organizer={organizer} />
+          )}
+          {organizer.__typename === 'AcademicOrganizer' && (
+            <AcademicEssayOrganizer organizer={organizer} />
+          )}
+          {organizer.__typename === 'AdvancedOrganizer' && (
+            <AdvancedEssayOrganizer organizer={organizer} />
+          )}
+        </>
       )}
     </>
   )
