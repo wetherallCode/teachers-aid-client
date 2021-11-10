@@ -50,11 +50,12 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
       null
     )
   const { quizQuestionDifficultyLevelEnum } = useEnumContextProvider()
+
   const [difficultyState, setDifficultyState] =
     useState<QuizQuestionDifficultyLevelEnum>(
       QuizQuestionDifficultyLevelEnum.DIFFICULT
     )
-
+  console.log(difficultyState)
   const { loading, data } = useQuery<
     findQuizQuestionsByQuizzableSections,
     findQuizQuestionsByQuizzableSectionsVariables
@@ -80,7 +81,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
       onCompleted: () => {
         const timer = setTimeout(() => {
           navigate('/dashboard/assignments/')
-        }, 3000)
+        }, 5000)
         return () => clearTimeout(timer)
       },
       refetchQueries: ['findQuizById'],
@@ -89,7 +90,6 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
 
   useEffect(() => {
     if (!quiz.isActive && !quiz.finishedQuiz && quiz.forcedFinish) {
-      console.log('forced finish')
       finishQuiz()
     }
   }, [quiz.forcedFinish])
@@ -100,18 +100,28 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
   if (loading) return null
   return (
     <>
-      {!quiz.isActive && !quiz.finishedQuiz ? (
-        <>
-          {quiz.forcedFinish ? (
-            <FinishedQuizContainer>
-              <div>Quiz Complete</div>
-              <div>Score: {(score * 100).toFixed(2)}%</div>
-            </FinishedQuizContainer>
-          ) : (
-            <QuizMessageContainer>Quiz is suspended</QuizMessageContainer>
-          )}
-        </>
-      ) : (
+      {/* {!quiz.isActive &&
+        !quiz.finishedQuiz &&
+        quiz.startedQuiz &&
+        !quiz.forcedFinish && (
+          <QuizMessageContainer>Getting Quiz</QuizMessageContainer>
+        )} */}
+      {!quiz.isActive &&
+        !quiz.finishedQuiz &&
+        quiz.startedQuiz &&
+        !quiz.forcedFinish && (
+          <QuizMessageContainer>Quiz is suspended</QuizMessageContainer>
+        )}
+      {!quiz.isActive &&
+        quiz.finishedQuiz &&
+        quiz.startedQuiz &&
+        quiz.forcedFinish && (
+          <FinishedQuizContainer>
+            <div>Quiz Complete</div>
+            <div>Score: {(score * 100).toFixed(2)}%</div>
+          </FinishedQuizContainer>
+        )}
+      {quiz.isActive && !quiz.finishedQuiz && quiz.startedQuiz && (
         <>
           {data?.findQuizQuestionsByQuizzableSections.quizQuestions.length! >
             0 && (
@@ -120,9 +130,17 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
                 data?.findQuizQuestionsByQuizzableSections.quizQuestions!
               }
               quizId={quiz._id!}
+              difficultyState={difficultyState}
+              setDifficultyState={setDifficultyState}
             />
           )}
         </>
+      )}
+      {quiz.finishedQuiz && (
+        <FinishedQuizContainer>
+          <div>Quiz Complete</div>
+          <div>Score: {(score * 100).toFixed(2)}%</div>
+        </FinishedQuizContainer>
       )}
     </>
   )

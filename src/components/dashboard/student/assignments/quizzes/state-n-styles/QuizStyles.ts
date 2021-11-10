@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const QuizContainer = styled.div`
   height: 95vh;
   display: grid;
-
   grid-template-rows: 1fr 5fr;
 `
 
@@ -17,6 +16,7 @@ export const QuizMessageContainer = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+  font-size: 5vh;
 `
 
 export const QuestionBlankContainer = styled.form`

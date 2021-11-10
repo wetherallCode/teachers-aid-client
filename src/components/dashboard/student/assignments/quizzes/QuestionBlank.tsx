@@ -153,7 +153,7 @@ export const QuestionBlank = ({
             )
         }
       }
-    }
+    } else return null
   }
 
   return (
@@ -167,14 +167,7 @@ export const QuestionBlank = ({
             <QuizQuestionAnswersContainer>
               {answers.map((answer, i) => {
                 return (
-                  <QuizQuestionAnswerLabelContainer
-                    key={answer.answer}
-                    style={
-                      answer.correct
-                        ? { color: 'var(--red)' }
-                        : { color: 'var(--blue)' }
-                    }
-                  >
+                  <QuizQuestionAnswerLabelContainer key={answer.answer}>
                     <QuizQuestionAnswerInput
                       type='radio'
                       checked={answerValue === answer}
@@ -189,25 +182,21 @@ export const QuestionBlank = ({
           )}
           {questionType === QuizQuestionTypeEnum.TRUE_FALSE && (
             <QuizQuestionAnswersContainer>
-              {answers.map((answer, i) => {
-                return (
-                  <QuizQuestionAnswerLabelContainer
-                    key={i}
-                    style={
-                      answer.correct
-                        ? { color: 'var(--red)' }
-                        : { color: 'var(--blue)' }
-                    }
-                  >
-                    <QuizQuestionAnswerInput
-                      type='radio'
-                      checked={answerValue === answer}
-                      onChange={() => setAnswerValue(answer)}
-                    />
-                    {answer.answer}
-                  </QuizQuestionAnswerLabelContainer>
-                )
-              })}
+              {answers
+                .sort((x, y) => (x.answer < y.answer ? 1 : -1)) // sorts out True then False
+                .map((answer, i) => {
+                  console.log(answer)
+                  return (
+                    <QuizQuestionAnswerLabelContainer key={i}>
+                      <QuizQuestionAnswerInput
+                        type='radio'
+                        checked={answerValue === answer}
+                        onChange={() => setAnswerValue(answer)}
+                      />
+                      {answer.answer}
+                    </QuizQuestionAnswerLabelContainer>
+                  )
+                })}
             </QuizQuestionAnswersContainer>
           )}
           <QuizQuestionSubmitContainer>

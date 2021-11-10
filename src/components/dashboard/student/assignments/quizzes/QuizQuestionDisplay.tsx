@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client'
-import React, { useEffect, useState } from 'react'
+
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import {
   activateQuizVariables,
@@ -17,6 +18,8 @@ import { useQuizToCompleteContextProvider } from './state-n-styles/QuizToComplet
 export type QuizQuestionDisplayProps = {
   questions: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions[]
   quizId: string
+  difficultyState: QuizQuestionDifficultyLevelEnum
+  setDifficultyState: Dispatch<SetStateAction<QuizQuestionDifficultyLevelEnum>>
 }
 
 // User has switched away from the tab (AKA tab is hidden)
@@ -24,8 +27,11 @@ export type QuizQuestionDisplayProps = {
 export const QuizQuestionDisplay = ({
   questions,
   quizId,
+  difficultyState,
+  setDifficultyState,
 }: QuizQuestionDisplayProps) => {
   const [state, event] = useQuizToCompleteContextProvider()
+  // const [difficultyLevel, setDifficultyLevel] = useState(initialState)
   const [windowWidth, setwindowWidth] = useState(window.innerWidth)
 
   const [activateQuiz] = useMutation<activateQuiz, activateQuizVariables>(
@@ -90,10 +96,11 @@ export const QuizQuestionDisplay = ({
       null
     )
 
-  const [difficultyState, setDifficultyState] =
-    useState<QuizQuestionDifficultyLevelEnum>(
-      QuizQuestionDifficultyLevelEnum.DIFFICULT
-    )
+  // const [difficultyState, setDifficultyState] =
+  //   useState<QuizQuestionDifficultyLevelEnum>(
+  //     QuizQuestionDifficultyLevelEnum.DIFFICULT
+  //   )
+
   const quizQuestions = questions.filter(
     (section) =>
       section.associatedTextSectionId === state.context.currentQuizzableSection

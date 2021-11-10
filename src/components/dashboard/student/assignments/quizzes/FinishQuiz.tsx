@@ -33,7 +33,7 @@ export const FinishQuiz = ({ finished, quizId }: FinishQuizProps) => {
       onCompleted: () => {
         const timer = setTimeout(() => {
           navigate('/dashboard/assignments/')
-        }, 3000)
+        }, 5000)
         return () => clearTimeout(timer)
       },
       refetchQueries: ['findQuizById'],
