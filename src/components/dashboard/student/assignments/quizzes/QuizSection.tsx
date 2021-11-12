@@ -35,6 +35,7 @@ export const FIND_QUIZ_QUESTIONS_QUERY = gql`
           answer
           correct
           partiallyCorrect
+          removable
         }
         associatedTextSectionId
       }
@@ -55,7 +56,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
     useState<QuizQuestionDifficultyLevelEnum>(
       QuizQuestionDifficultyLevelEnum.DIFFICULT
     )
-  console.log(difficultyState)
+
   const { loading, data } = useQuery<
     findQuizQuestionsByQuizzableSections,
     findQuizQuestionsByQuizzableSectionsVariables

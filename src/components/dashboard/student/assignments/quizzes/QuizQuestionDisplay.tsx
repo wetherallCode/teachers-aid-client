@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client'
-
 import React, { useEffect, useState, Dispatch, SetStateAction } from 'react'
-import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
+import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import {
   activateQuizVariables,
   activateQuiz,
@@ -9,9 +8,9 @@ import {
   findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList,
   QuizQuestionDifficultyLevelEnum,
   QuizQuestionTypeEnum,
+  me_me_Student,
 } from '../../../../../schemaTypes'
 import { QuestionBlank } from './QuestionBlank'
-import { multipleChoiceGrader } from './quizQuestionGrader'
 import { ACTIVATE_QUIZ_MUTATION } from './QuizSelect'
 import { useQuizToCompleteContextProvider } from './state-n-styles/QuizToCompleteContext'
 
@@ -30,8 +29,9 @@ export const QuizQuestionDisplay = ({
   difficultyState,
   setDifficultyState,
 }: QuizQuestionDisplayProps) => {
+  const me: me_me_Student = useUserContextProvider()
   const [state, event] = useQuizToCompleteContextProvider()
-  // const [difficultyLevel, setDifficultyLevel] = useState(initialState)
+
   const [windowWidth, setwindowWidth] = useState(window.innerWidth)
 
   const [activateQuiz] = useMutation<activateQuiz, activateQuizVariables>(
@@ -96,11 +96,6 @@ export const QuizQuestionDisplay = ({
       null
     )
 
-  // const [difficultyState, setDifficultyState] =
-  //   useState<QuizQuestionDifficultyLevelEnum>(
-  //     QuizQuestionDifficultyLevelEnum.DIFFICULT
-  //   )
-
   const quizQuestions = questions.filter(
     (section) =>
       section.associatedTextSectionId === state.context.currentQuizzableSection
@@ -110,12 +105,13 @@ export const QuizQuestionDisplay = ({
     (question) => question.difficultyLevel === difficultyState
   )!
 
-  const answers = [...currentQuizQuestion!.answerList]
+  const answers = me.hasIEP
+    ? currentQuizQuestion!.answerList.filter((answer) => !answer.removable)
+    : [...currentQuizQuestion!.answerList]
 
   function shuffleAnswerList(array: any) {
     return array.sort(() => Math.random() - 0.5)
   }
-
   const randomizedAnswers = shuffleAnswerList(
     answers
   ) as findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList[]
