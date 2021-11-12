@@ -1153,6 +1153,46 @@ export interface finishQuizVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findQuizQuestionsByQuizzableSections
+// ====================================================
+
+export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList {
+  __typename: "AnswerList";
+  answer: string;
+  correct: boolean;
+  partiallyCorrect: boolean;
+  removable: boolean;
+}
+
+export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions {
+  __typename: "QuizQuestion";
+  _id: string | null;
+  difficultyLevel: QuizQuestionDifficultyLevelEnum;
+  questionType: QuizQuestionTypeEnum;
+  question: string;
+  answerList: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList[];
+  associatedTextSectionId: string;
+}
+
+export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections {
+  __typename: "FindQuizQuestionsByQuizzableSectionsPayload";
+  quizQuestions: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions[];
+}
+
+export interface findQuizQuestionsByQuizzableSections {
+  findQuizQuestionsByQuizzableSections: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections;
+}
+
+export interface findQuizQuestionsByQuizzableSectionsVariables {
+  input: FindQuizQuestionsByQuizzableSectionsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: activateQuiz
 // ====================================================
 
@@ -7122,6 +7162,7 @@ export interface me_me_Student {
   lastName: string;
   password: string;
   _id: string | null;
+  hasIEP: boolean | null;
   inCourses: me_me_Student_inCourses[];
   hasWritingMetrics: me_me_Student_hasWritingMetrics;
 }
@@ -7130,45 +7171,6 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: findQuizQuestionsByQuizzableSections
-// ====================================================
-
-export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList {
-  __typename: "AnswerList";
-  answer: string;
-  correct: boolean;
-  partiallyCorrect: boolean;
-}
-
-export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions {
-  __typename: "QuizQuestion";
-  _id: string | null;
-  difficultyLevel: QuizQuestionDifficultyLevelEnum;
-  questionType: QuizQuestionTypeEnum;
-  question: string;
-  answerList: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList[];
-  associatedTextSectionId: string;
-}
-
-export interface findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections {
-  __typename: "FindQuizQuestionsByQuizzableSectionsPayload";
-  quizQuestions: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions[];
-}
-
-export interface findQuizQuestionsByQuizzableSections {
-  findQuizQuestionsByQuizzableSections: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections;
-}
-
-export interface findQuizQuestionsByQuizzableSectionsVariables {
-  input: FindQuizQuestionsByQuizzableSectionsInput;
 }
 
 /* tslint:disable */
@@ -7396,6 +7398,7 @@ export interface AnswerListInput {
   answer: string;
   correct: boolean;
   partiallyCorrect: boolean;
+  removable: boolean;
 }
 
 export interface AssessIndividualProtocolsInput {

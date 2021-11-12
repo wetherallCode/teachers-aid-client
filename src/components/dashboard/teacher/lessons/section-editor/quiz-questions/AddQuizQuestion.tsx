@@ -30,6 +30,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
     answer: '',
     correct: false,
     partiallyCorrect: false,
+    removable: false,
   })
   const [trueStatement, setTrueStatement] = useState(true)
 
@@ -40,7 +41,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
     createQuizQuestionVariables
   >(CREATE_QUIZ_QUESTION_MUTATION, {
     variables: { input: state.context.quizQuestion },
-    onCompleted: (data) => event({ type: 'RESET_QUIZ_QUESTION_INPUTS' }),
+    onCompleted: () => event({ type: 'RESET_QUIZ_QUESTION_INPUTS' }),
     refetchQueries: [
       {
         query: FIND_QUIZ_QUESTIONS_BY_TEXT_SECTION_ID_QUERY,
@@ -51,7 +52,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
       // 'findQuizQuestionsByTextSectionId',
     ],
   })
-  console.log(state.context.quizQuestion)
+  const removableToggle = !answer.correct && !answer.partiallyCorrect
 
   useEffect(() => {
     event({
@@ -70,8 +71,18 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
         type: 'SET_QUIZ_QUESTION_INPUT',
         keyName: 'answerList',
         payload: [
-          { answer: 'True', correct: trueStatement, partiallyCorrect: false },
-          { answer: 'False', correct: !trueStatement, partiallyCorrect: false },
+          {
+            answer: 'True',
+            correct: trueStatement,
+            partiallyCorrect: false,
+            removable: false,
+          },
+          {
+            answer: 'False',
+            correct: !trueStatement,
+            partiallyCorrect: false,
+            removable: false,
+          },
         ],
       })
     }
@@ -164,6 +175,23 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
               <option value={'yes'}>Yes</option>
               <option value={'no'}>No</option>
             </select>
+            {removableToggle && (
+              <>
+                <div>Removeable</div>
+                <select
+                  value={answer.removable ? 'yes' : 'no'}
+                  onChange={(e) =>
+                    setAnswer({
+                      ...answer,
+                      removable: e.target.value === 'yes' ? true : false,
+                    })
+                  }
+                >
+                  <option value={'yes'}>Yes</option>
+                  <option value={'no'}>No</option>
+                </select>
+              </>
+            )}
             <button
               type='reset'
               onClick={() => {
@@ -176,6 +204,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
                   answer: '',
                   correct: false,
                   partiallyCorrect: false,
+                  removable: false,
                 })
               }}
             >
