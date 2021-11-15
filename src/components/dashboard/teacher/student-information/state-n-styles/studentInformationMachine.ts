@@ -12,6 +12,7 @@ export type studentInformationMachineSchema = {
             essays: {}
             readingGuides: {}
             articleReviews: {}
+            quizzes: {}
           }
         }
         protocols: {}
@@ -27,6 +28,7 @@ export type studentInformationMachineEvent =
   | { type: 'CONTACTS' }
   | { type: 'READING_GUIDES' }
   | { type: 'ESSAYS' }
+  | { type: 'QUIZZES' }
   | { type: 'ARTICLE_REVIEWS' }
   | {
       type: 'SET_STUDENT'
@@ -81,6 +83,7 @@ export const studentInformationMachine = Machine<
                 PROTOCOLS: '#studentInformation.information.protocols',
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
+                QUIZZES: 'quizzes',
               },
             },
             readingGuides: {
@@ -90,6 +93,7 @@ export const studentInformationMachine = Machine<
                 PROTOCOLS: '#studentInformation.information.protocols',
                 ESSAYS: 'essays',
                 ARTICLE_REVIEWS: 'articleReviews',
+                QUIZZES: 'quizzes',
               },
             },
             articleReviews: {
@@ -98,6 +102,17 @@ export const studentInformationMachine = Machine<
                 CONTACTS: '#studentInformation.information.contacts',
                 PROTOCOLS: '#studentInformation.information.protocols',
                 READING_GUIDES: 'readingGuides',
+                ESSAYS: 'essays',
+                QUIZZES: 'quizzes',
+              },
+            },
+            quizzes: {
+              on: {
+                STUDENT_INFO: '#studentInformation.information.studentInfo',
+                CONTACTS: '#studentInformation.information.contacts',
+                PROTOCOLS: '#studentInformation.information.protocols',
+                READING_GUIDES: 'readingGuides',
+                ARTICLE_REVIEWS: 'articleReviews',
                 ESSAYS: 'essays',
               },
             },
