@@ -5,7 +5,6 @@ import { RESPONSIBILITY_POINTS_QUERY } from '../components/dashboard/teacher/stu
 import {
   findAssignmentByStudentId,
   findAssignmentByStudentIdVariables,
-  findAssignmentByStudentId_findAssignmentByStudentId_assignments,
   findResponsibilityPointsByStudentId,
   findResponsibilityPointsByStudentIdVariables,
   GradeTypeEnum,
@@ -62,6 +61,7 @@ export const useGradeCalculator = ({
     (assignment) =>
       assignment.__typename === 'Essay' &&
       assignment.markingPeriod === markingPeriod &&
+      !assignment.exempt &&
       Date.parse(new Date().toLocaleString()) >
         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
   )!
@@ -76,6 +76,7 @@ export const useGradeCalculator = ({
     (assignment) =>
       assignment.gradeType === GradeTypeEnum.SECONDARY &&
       assignment.markingPeriod === markingPeriod &&
+      !assignment.exempt &&
       Date.parse(new Date().toLocaleString()) >
         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
   )
@@ -84,12 +85,8 @@ export const useGradeCalculator = ({
     responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
       (points) => points.markingPeriod === markingPeriod
     )!
+
   if (!assignmentLoading && !responsibilityPointsLoading) {
-    console.log(
-      essays,
-      secondaryGrades,
-      applicableCurrentMarkingPeriodResponsiblityPoints
-    )
     if (
       !applicableCurrentMarkingPeriodResponsiblityPoints &&
       essays &&
@@ -125,6 +122,7 @@ export const useGradeCalculator = ({
           (assignment) =>
             assignment.gradeType === GradeTypeEnum.SECONDARY &&
             assignment.markingPeriod === markingPeriod &&
+            !assignment.exempt &&
             Date.parse(new Date().toLocaleString()) >
               Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
         )
@@ -200,10 +198,11 @@ export const useGradeCalculator = ({
           (assignment) =>
             assignment.gradeType === GradeTypeEnum.SECONDARY &&
             assignment.markingPeriod === markingPeriod &&
+            !assignment.exempt &&
             Date.parse(new Date().toLocaleString()) >
               Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
         )
-      console.log(secondaryGradeAssignments)
+
       const secondaryGradesEarnedPoints = secondaryGradeAssignments
         ?.map((review) => review.score.earnedPoints)
         .reduce((acc: number, i: number) => acc + i, 0)!
@@ -282,10 +281,11 @@ export const useGradeCalculator = ({
           (assignment) =>
             assignment.gradeType === GradeTypeEnum.SECONDARY &&
             assignment.markingPeriod === markingPeriod &&
+            !assignment.exempt &&
             Date.parse(new Date().toLocaleString()) >
               Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
         )
-
+      console.log(secondaryGradeAssignments)
       const secondaryGradesEarnedPoints = secondaryGradeAssignments
         ?.map((review) => review.score.earnedPoints)
         .reduce((acc: number, i: number) => acc + i, 0)!
@@ -302,7 +302,7 @@ export const useGradeCalculator = ({
         secondaryGradesEarnedPoints,
         secondaryGradesMaxPoints
       )
-      console.log(secondaryGradesMaxPoints)
+
       const gradeTotal = (supportive: number, secondaryGrade: number) => {
         const number = Number(
           Number(supportive) + Number(secondaryGrade)
@@ -432,6 +432,7 @@ export const useGradeCalculator = ({
         (assignment) =>
           assignment.gradeType === GradeTypeEnum.SECONDARY &&
           assignment.markingPeriod === markingPeriod &&
+          !assignment.exempt &&
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
       )
