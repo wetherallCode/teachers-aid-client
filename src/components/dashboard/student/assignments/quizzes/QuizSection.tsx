@@ -1,9 +1,7 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import {
-  findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList,
   QuizQuestionDifficultyLevelEnum,
   findQuizQuestionsByQuizzableSections,
   findQuizQuestionsByQuizzableSectionsVariables,
@@ -44,13 +42,8 @@ export const FIND_QUIZ_QUESTIONS_QUERY = gql`
 `
 
 export const QuizSection = ({ quiz }: QuizSectionProps) => {
-  const [state, event] = useQuizToCompleteContextProvider()
+  const [state] = useQuizToCompleteContextProvider()
   const navigate = useNavigate()
-  const [answerValue, setAnswerValue] =
-    useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
-      null
-    )
-  const { quizQuestionDifficultyLevelEnum } = useEnumContextProvider()
 
   const [difficultyState, setDifficultyState] =
     useState<QuizQuestionDifficultyLevelEnum>(
@@ -118,8 +111,10 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
         quiz.startedQuiz &&
         quiz.forcedFinish && (
           <FinishedQuizContainer>
-            <div>Quiz Complete</div>
-            <div>Score: {(score * 100).toFixed(2)}%</div>
+            <div>
+              <div>Quiz Complete</div>
+              <div>Score: {(score * 100).toFixed(2)}%</div>
+            </div>
           </FinishedQuizContainer>
         )}
       {quiz.isActive && !quiz.finishedQuiz && quiz.startedQuiz && (
@@ -137,7 +132,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
           )}
         </>
       )}
-      {quiz.finishedQuiz && (
+      {quiz.finishedQuiz && !quiz.forcedFinish && (
         <FinishedQuizContainer>
           <div>Quiz Complete</div>
           <div>Score: {(score * 100).toFixed(2)}%</div>

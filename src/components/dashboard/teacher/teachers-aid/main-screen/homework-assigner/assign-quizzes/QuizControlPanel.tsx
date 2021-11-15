@@ -83,37 +83,41 @@ export const QuizControlPanel = ({
             {quiz.assigned || quiz.finishedQuiz ? (
               <IndividualQuizControl quiz={quiz} />
             ) : (
-              <button
-                style={
-                  quiz.assigned
-                    ? {
-                        backgroundColor: 'var(--red)',
-                        color: 'var(--white)',
-                        borderRadius: '5px',
-                        width: '75%',
-                      }
-                    : {
-                        backgroundColor: 'var(--blue)',
-                        color: 'var(--white)',
-                        borderRadius: '5px',
-                        width: '75%',
-                      }
-                }
-                onClick={() =>
-                  assignQuizzes({
-                    variables: {
-                      input: {
-                        // assignedDate: new Date().toLocaleDateString(),
-                        assignedDate: '10/17/2021',
-                        studentIds: [quiz.hasOwner._id!],
-                        assign: true,
+              <>
+                {' '}
+                <button
+                  style={
+                    quiz.assigned
+                      ? {
+                          backgroundColor: 'var(--red)',
+                          color: 'var(--white)',
+                          borderRadius: '5px',
+                          width: '75%',
+                        }
+                      : {
+                          backgroundColor: 'var(--blue)',
+                          color: 'var(--white)',
+                          borderRadius: '5px',
+                          width: '75%',
+                        }
+                  }
+                  onClick={() =>
+                    assignQuizzes({
+                      variables: {
+                        input: {
+                          // assignedDate: new Date().toLocaleDateString(),
+                          assignedDate: '10/17/2021',
+                          studentIds: [quiz.hasOwner._id!],
+                          assign: true,
+                        },
                       },
-                    },
-                  })
-                }
-              >
-                Assign
-              </button>
+                    })
+                  }
+                >
+                  Assign
+                </button>
+                <button>Exempt</button>
+              </>
             )}
           </div>
         ))}

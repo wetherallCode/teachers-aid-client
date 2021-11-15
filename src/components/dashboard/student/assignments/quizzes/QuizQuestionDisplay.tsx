@@ -91,10 +91,6 @@ export const QuizQuestionDisplay = ({
   }
 
   WindowFocusHandler()
-  const [answerValue, setAnswerValue] =
-    useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
-      null
-    )
 
   const quizQuestions = questions.filter(
     (section) =>

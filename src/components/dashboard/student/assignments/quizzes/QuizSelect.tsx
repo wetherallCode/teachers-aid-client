@@ -3,13 +3,11 @@ import React from 'react'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
 import {
-  activateQuiz,
-  activateQuizVariables,
   findQuizzesByStudentId,
   findQuizzesByStudentIdVariables,
   me_me,
-  startQuizVariables,
   startQuiz,
+  startQuizVariables,
 } from '../../../../../schemaTypes'
 import {
   AssignmentLink,
@@ -79,6 +77,7 @@ export const QuizSelect = ({}: QuizSelectProps) => {
                     <AssignmentLink
                       to={`quiz/toComplete/${quizToTake[0]._id}`}
                       onClick={() =>
+                        !quizToTake[0].startedQuiz &&
                         startQuiz({
                           variables: {
                             input: {

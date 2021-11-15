@@ -36,7 +36,16 @@ export const FIND_QUIZZES_BY_STUDENT_ID_QUERY = gql`
           readingSections
         }
         finishedQuiz
+        startedQuiz
       }
+    }
+  }
+`
+
+export const MARK_EXEMPT_MUTATION = gql`
+  mutation markExempt($input: MarkExemptInput!) {
+    markExempt(input: $input) {
+      marked
     }
   }
 `
@@ -62,7 +71,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  // if (loading) return <div>Loading </div>
+
   return (
     <AssignmentsToCompleteContainer>
       <AssignmentsTypeSelectorPanel>
