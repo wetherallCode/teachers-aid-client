@@ -69,6 +69,7 @@ export type teachersAidMachineEvent =
       payload: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
     }
   | { type: 'SET_ATTENDANCE_TOGGLE' }
+  | { type: 'SET_CURRENT_READING_GUIDE_INDEX'; payload: number }
 
 export type teachersAidMachineContext = {
   // courseSelectCurrentId: string
@@ -95,6 +96,7 @@ export type teachersAidMachineContext = {
     | 'VIRTUAL_ATTENDANCE'
     | 'HOMEWORK'
   attendanceToggle: boolean
+  currentReadingGuideIndex: number
 }
 
 export const teachersAidMachine = Machine<
@@ -161,6 +163,7 @@ export const teachersAidMachine = Machine<
     mainScreenVirtualQuestionViewer: false,
     mainScreenHomeworkAssigner: false,
     currentMainScreenView: 'SEATING_CHART',
+    currentReadingGuideIndex: 0,
   },
   states: {
     teachersAid: {
@@ -188,6 +191,14 @@ export const teachersAidMachine = Machine<
             return {
               ...ctx,
               associatedLessonId: evt.payload,
+            }
+          }),
+        },
+        SET_CURRENT_READING_GUIDE_INDEX: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              currentReadingGuideIndex: evt.payload,
             }
           }),
         },

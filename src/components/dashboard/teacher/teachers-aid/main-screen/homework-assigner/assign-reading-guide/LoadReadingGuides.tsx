@@ -22,13 +22,25 @@ export const FIND_READING_GUIDES_BY_COURSE_ID_AND_ASSIGNED_DATE_QUERY = gql`
         _id
         hasOwner {
           _id
+          firstName
+          lastName
         }
         assigned
+        exempt
+        graded
         dueDate
         associatedLessonId
         readings {
           readingPages
           readingSections
+        }
+        readingGuideFinal {
+          problems
+          biggestProblem
+          importantPeople
+          howArePeopleInvolvedInProblems
+          reasonForBiggestProblem
+          sectionConsequences
         }
       }
     }

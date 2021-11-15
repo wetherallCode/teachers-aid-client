@@ -12,6 +12,7 @@ import {
   HomeworkAssignerTitleContainer,
   HomeworkAssingerContainer,
 } from '../../styles/mainScreenStyles'
+import { ReadingGuideViewer } from '../readingGuideViewer/ReadingGuideViewer'
 import { LoadEssays } from './assign-essay/LoadEssays'
 import { QuizControlPanel } from './assign-quizzes/QuizControlPanel'
 import { LoadReadingGuides } from './assign-reading-guide/LoadReadingGuides'
@@ -33,6 +34,7 @@ export const FIND_QUIZZES_BY_ASSIGNED_DATE_QUERY = gql`
         assigned
         markingPeriod
         assignedDate
+        exempt
         isActive
         startedQuiz
         finishedQuiz
@@ -52,7 +54,7 @@ export const FIND_QUIZZES_BY_ASSIGNED_DATE_QUERY = gql`
 export const HomeworkAssigner = ({
   presentStudentList,
 }: HomeworkAssignerProps) => {
-  const [state, event] = useTeachersAidContextProvider()
+  const [state] = useTeachersAidContextProvider()
   const { loading, data } = useQuery<
     findQuizzesForCourseByAssignedDate,
     findQuizzesForCourseByAssignedDateVariables
@@ -71,7 +73,7 @@ export const HomeworkAssigner = ({
   })
 
   const [assignmentControlState, setAssignmentControlState] = useState<
-    'quiz' | 'homework'
+    'quiz' | 'homework' | 'readingGuide'
   >(
     data?.findQuizzesForCourseByAssignedDate.quizzes.length! > 0
       ? 'quiz'
@@ -95,6 +97,11 @@ export const HomeworkAssigner = ({
         >
           Homework
         </AssignmentControlItem>
+        <AssignmentControlItem
+          onClick={() => setAssignmentControlState('readingGuide')}
+        >
+          Reading Guides
+        </AssignmentControlItem>
       </AssignmentControlSelector>
       {assignmentControlState === 'homework' && (
         <HomeworkAssingerContainer>
@@ -103,11 +110,18 @@ export const HomeworkAssigner = ({
         </HomeworkAssingerContainer>
       )}
       {assignmentControlState === 'quiz' && (
-        <QuizControlPanel
-          quizzes={data?.findQuizzesForCourseByAssignedDate.quizzes!}
-          presentStudentList={presentStudentList}
-        />
+        <>
+          {data?.findQuizzesForCourseByAssignedDate.quizzes.length! > 0 ? (
+            <QuizControlPanel
+              quizzes={data?.findQuizzesForCourseByAssignedDate.quizzes!}
+              presentStudentList={presentStudentList}
+            />
+          ) : (
+            <div>No Quiz Scheduled for Today!</div>
+          )}
+        </>
       )}
+      {assignmentControlState === 'readingGuide' && <ReadingGuideViewer />}
     </AssignmentControlPanelContainer>
   )
 }

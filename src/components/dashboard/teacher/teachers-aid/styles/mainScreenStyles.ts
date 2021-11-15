@@ -24,10 +24,13 @@ export const HomeworkAssignerTitleContainer = styled.div`
 `
 export const AssignmentControlSelector = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
   font-size: 3vh;
   justify-items: center;
   align-items: center;
+  background-color: var(--blue);
+  color: var(--white);
 `
 export const AssignmentControlItem = styled.div`
   cursor: pointer;
@@ -65,15 +68,26 @@ export const QuizControlPanelContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 10fr;
   grid-template-columns: 1fr;
-  height: 50vh;
+  height: 55vh;
 `
 
 export const QuizNameContainer = styled.div`
   grid-column: 1 / span 2;
-  font-size: 2vh;
-  justify-self: center;
-  align-self: center;
+  font-size: 2.5vh;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  justify-items: center;
+  align-items: center;
 `
+
+export const AssignAllQuizzesButton = styled.button`
+  background-color: var(--blue);
+  color: var(--white);
+  width: 15vh;
+  border-radius: 5px;
+  font-size: 2vh;
+`
+
 export type IndividualQuizContainerProps = { grey: boolean }
 
 export const IndividualQuizContainer = styled.div<IndividualQuizContainerProps>`
@@ -96,3 +110,16 @@ export type AssignQuizButtonProps = { assigned: boolean }
 //     assigned ? 'var(--red)' : 'var(--blue'};
 //   color: ;
 // `
+
+export const ReadingGuideReviewContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  height: 50vh;
+  justify-items: center;
+  align-items: center;
+`
+export const ReadingGuideControlArrowContainer = styled.div`
+  font-size: 5vh;
+  cursor: pointer;
+  /* height */
+`

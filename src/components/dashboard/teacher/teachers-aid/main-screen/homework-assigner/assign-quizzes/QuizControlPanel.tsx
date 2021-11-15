@@ -4,8 +4,12 @@ import {
   assignQuizzesByStudentIdsAndDate,
   assignQuizzesByStudentIdsAndDateVariables,
   findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes,
+  markExemptVariables,
+  markExempt,
 } from '../../../../../../../schemaTypes'
+import { MARK_EXEMPT_MUTATION } from '../../../../../student/assignments/StudentAssignments'
 import {
+  AssignAllQuizzesButton,
   QuizControlPanelContainer,
   QuizNameContainer,
 } from '../../../styles/mainScreenStyles'
@@ -40,12 +44,20 @@ export const QuizControlPanel = ({
     refetchQueries: ['findQuizzesForCourseByAssignedDate'],
   })
   const allQuizzesAssigned = quizzes.every((quiz) => quiz.assigned)
-  // console.log(allQuizzesAssigned)
+
+  const [markExempt] = useMutation<markExempt, markExemptVariables>(
+    MARK_EXEMPT_MUTATION,
+    {
+      onCompleted: (data) => console.log(data),
+      refetchQueries: ['findQuizzesForCourseByAssignedDate'],
+    }
+  )
+
   return (
     <QuizControlPanelContainer>
       <QuizNameContainer>
-        {quizzes[0].readings.readingSections + ' '}
-        <button
+        <div>{quizzes[0].readings.readingSections + ' '}</div>
+        <AssignAllQuizzesButton
           onClick={() =>
             assignQuizzes({
               variables: {
@@ -61,7 +73,7 @@ export const QuizControlPanel = ({
           }
         >
           Assign
-        </button>
+        </AssignAllQuizzesButton>
       </QuizNameContainer>
 
       <div style={{ overflow: 'scroll' }}>
@@ -81,10 +93,19 @@ export const QuizControlPanel = ({
               {quiz.hasOwner.lastName}, {quiz.hasOwner.firstName}
             </div>
             {quiz.assigned || quiz.finishedQuiz ? (
-              <IndividualQuizControl quiz={quiz} />
+              <IndividualQuizControl
+                quiz={quiz}
+                presentStudentList={presentStudentList}
+              />
             ) : (
-              <>
-                {' '}
+              <div
+                style={{
+                  display: 'grid',
+                  gridAutoFlow: 'column',
+                  columnGap: '2vh',
+                  justifyItems: 'center',
+                }}
+              >
                 <button
                   style={
                     quiz.assigned
@@ -92,13 +113,13 @@ export const QuizControlPanel = ({
                           backgroundColor: 'var(--red)',
                           color: 'var(--white)',
                           borderRadius: '5px',
-                          width: '75%',
+                          width: '100%',
                         }
                       : {
                           backgroundColor: 'var(--blue)',
                           color: 'var(--white)',
                           borderRadius: '5px',
-                          width: '75%',
+                          width: '100%',
                         }
                   }
                   onClick={() =>
@@ -116,8 +137,36 @@ export const QuizControlPanel = ({
                 >
                   Assign
                 </button>
-                <button>Exempt</button>
-              </>
+                <button
+                  style={
+                    quiz.assigned
+                      ? {
+                          backgroundColor: 'var(--red)',
+                          color: 'var(--white)',
+                          borderRadius: '5px',
+                          width: '100%',
+                        }
+                      : {
+                          backgroundColor: 'var(--blue)',
+                          color: 'var(--white)',
+                          borderRadius: '5px',
+                          width: '100%',
+                        }
+                  }
+                  onClick={() =>
+                    markExempt({
+                      variables: {
+                        input: {
+                          assignmentId: quiz._id!,
+                          exemptStatus: !quiz.exempt,
+                        },
+                      },
+                    })
+                  }
+                >
+                  {quiz.exempt ? 'Not Exempt' : 'Exempt'}
+                </button>
+              </div>
             )}
           </div>
         ))}

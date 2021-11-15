@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   activateQuizVariables,
   activateQuiz,
@@ -8,8 +8,11 @@ import {
   unAssignQuizByQuizId,
   forceFinishQuizVariables,
   forceFinishQuiz,
+  markExemptVariables,
+  markExempt,
 } from '../../../../../../../schemaTypes'
 import { ACTIVATE_QUIZ_MUTATION } from '../../../../../student/assignments/quizzes/QuizSelect'
+import { MARK_EXEMPT_MUTATION } from '../../../../../student/assignments/StudentAssignments'
 import {
   IndividualQuizControlContainer,
   QuizStatusIndicator,
@@ -18,6 +21,7 @@ import { ASSIGN_QUIZZES_MUTATION } from './QuizControlPanel'
 
 export type IndividualQuizControlProps = {
   quiz: findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssignedDate_quizzes
+  presentStudentList: string[]
 }
 
 export const UNASSIGN_QUIZ_MUTATION = gql`
@@ -35,7 +39,10 @@ export const FORCE_FINISH_QUIZ_MUTATION = gql`
     }
   }
 `
-export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
+export const IndividualQuizControl = ({
+  quiz,
+  presentStudentList,
+}: IndividualQuizControlProps) => {
   const [activateQuiz] = useMutation<activateQuiz, activateQuizVariables>(
     ACTIVATE_QUIZ_MUTATION,
     {
@@ -61,19 +68,58 @@ export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
     refetchQueries: [],
   })
 
+  const [markExempt] = useMutation<markExempt, markExemptVariables>(
+    MARK_EXEMPT_MUTATION,
+    {
+      onCompleted: (data) => console.log(data),
+      refetchQueries: ['findQuizzesForCourseByAssignedDate'],
+    }
+  )
+
+  useEffect(() => {
+    if (!presentStudentList.includes(quiz.hasOwner._id!)) {
+      unAssignQuiz()
+      markExempt({
+        variables: { input: { assignmentId: quiz._id!, exemptStatus: true } },
+      })
+    }
+  }, [presentStudentList])
+
   const score = quiz.score.earnedPoints / quiz.score.maxPoints
   const notStarted = !quiz.startedQuiz && !quiz.finishedQuiz && !quiz.isActive
+
   return (
     <IndividualQuizControlContainer>
       <QuizStatusIndicator>
         {notStarted ? (
           'Not Started'
         ) : quiz.isActive ? (
-          'Active'
+          <div
+            style={{
+              display: 'grid',
+              gridAutoFlow: 'column',
+              columnGap: '3vh',
+            }}
+          >
+            <div>Active</div>
+            <button
+              style={{
+                display: 'grid',
+                justifySelf: 'center',
+                backgroundColor: 'var(--red)',
+                color: 'var(--white)',
+                borderRadius: '5px',
+                width: '100%',
+              }}
+              onClick={() => forceFinishQuiz()}
+            >
+              Finish
+            </button>
+          </div>
         ) : quiz.finishedQuiz ? (
           <div>Finished {(score * 100).toFixed(2)}%</div>
         ) : (
-          'Not Active'
+          'Suspended'
         )}
       </QuizStatusIndicator>
 
@@ -135,13 +181,13 @@ export const IndividualQuizControl = ({ quiz }: IndividualQuizControlProps) => {
                   backgroundColor: 'var(--red)',
                   color: 'var(--white)',
                   borderRadius: '5px',
-                  width: '75%',
+                  width: '100%',
                 }
               : {
                   backgroundColor: 'var(--blue)',
                   color: 'var(--white)',
                   borderRadius: '5px',
-                  width: '75%',
+                  width: '100%',
                 }
           }
           onClick={() => unAssignQuiz()}

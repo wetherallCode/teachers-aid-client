@@ -62,7 +62,7 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
       <MainScreenControlButton
         onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' })}
       >
-        Homework
+        Assignments
       </MainScreenControlButton>
     </>
   )
