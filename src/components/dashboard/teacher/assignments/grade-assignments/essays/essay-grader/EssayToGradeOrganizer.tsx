@@ -12,7 +12,6 @@ export type EssayToGradeOrganizerProps = {
 export const EssayToGradeOrganizer: FC<EssayToGradeOrganizerProps> = ({
   organizer,
 }) => {
-  console.log(organizer)
   return (
     <>
       {organizer && (
