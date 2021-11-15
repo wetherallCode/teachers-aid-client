@@ -1468,6 +1468,7 @@ export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes {
   assigned: boolean;
   readings: findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings;
   finishedQuiz: boolean;
+  startedQuiz: boolean;
 }
 
 export interface findQuizzesByStudentId_findQuizzesByStudentId {
@@ -1481,6 +1482,28 @@ export interface findQuizzesByStudentId {
 
 export interface findQuizzesByStudentIdVariables {
   input: FindQuizzesByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: markExempt
+// ====================================================
+
+export interface markExempt_markExempt {
+  __typename: "MarkExemptPayload";
+  marked: boolean;
+}
+
+export interface markExempt {
+  markExempt: markExempt_markExempt;
+}
+
+export interface markExemptVariables {
+  input: MarkExemptInput;
 }
 
 /* tslint:disable */
@@ -4760,30 +4783,6 @@ export interface findRubricEntries {
 // GraphQL query operation: findAssignmentByStudentId
 // ====================================================
 
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_readings {
-  __typename: "Readings";
-  readingSections: string;
-}
-
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_score {
-  __typename: "Score";
-  earnedPoints: number;
-  maxPoints: number;
-}
-
-export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz {
-  __typename: "Quiz";
-  _id: string | null;
-  assigned: boolean;
-  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_readings;
-  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_score;
-  exempt: boolean;
-  dueDate: string;
-  dueTime: string;
-  gradeType: GradeTypeEnum;
-  markingPeriod: MarkingPeriodEnum;
-}
-
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings {
   __typename: "Readings";
   readingSections: string;
@@ -4853,7 +4852,32 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   readingGuideFinal: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal | null;
 }
 
-export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide;
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz {
+  __typename: "Quiz";
+  _id: string | null;
+  assigned: boolean;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_score;
+  exempt: boolean;
+  dueDate: string;
+  dueTime: string;
+  gradeType: GradeTypeEnum;
+  markingPeriod: MarkingPeriodEnum;
+  finishedQuiz: boolean;
+}
+
+export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz;
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score {
   __typename: "Score";
@@ -5617,6 +5641,8 @@ export interface assignReadingGuidesForTeachersAidVariables {
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_hasOwner {
   __typename: "Student";
   _id: string | null;
+  firstName: string;
+  lastName: string;
 }
 
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readings {
@@ -5625,14 +5651,27 @@ export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByC
   readingSections: string;
 }
 
+export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  problems: string[];
+  biggestProblem: string;
+  importantPeople: string[];
+  howArePeopleInvolvedInProblems: string;
+  reasonForBiggestProblem: string;
+  sectionConsequences: string;
+}
+
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides {
   __typename: "ReadingGuide";
   _id: string | null;
   hasOwner: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_hasOwner;
   assigned: boolean;
+  exempt: boolean;
+  graded: boolean;
   dueDate: string;
   associatedLessonId: string | null;
   readings: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readings;
+  readingGuideFinal: findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readingGuideFinal | null;
 }
 
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate {
@@ -5682,6 +5721,7 @@ export interface findQuizzesForCourseByAssignedDate_findQuizzesForCourseByAssign
   assigned: boolean;
   markingPeriod: MarkingPeriodEnum;
   assignedDate: string;
+  exempt: boolean;
   isActive: boolean;
   startedQuiz: boolean;
   finishedQuiz: boolean;
@@ -7902,6 +7942,11 @@ export interface LessonTextSectionsInput {
 export interface LoginInput {
   password: string;
   userName: string;
+}
+
+export interface MarkExemptInput {
+  assignmentId: string;
+  exemptStatus: boolean;
 }
 
 export interface MarkTemporaryTaskAbsentInput {
