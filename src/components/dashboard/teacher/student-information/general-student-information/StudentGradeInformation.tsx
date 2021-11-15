@@ -15,13 +15,17 @@ export const StudentGradeInformation = ({
   student,
   selectedMarkingPeriod,
 }: StudentGradeInformationProps) => {
-  const { grade: calculatedGrade, loading, noGrade } = useGradeCalculator({
+  const {
+    grade: calculatedGrade,
+    loading,
+    noGrade,
+  } = useGradeCalculator({
     studentId: student._id!,
     markingPeriod: selectedMarkingPeriod,
     polling: true,
     pollInterval: 1000,
   })
-
+  console.log(calculatedGrade)
   return (
     <>
       {!noGrade ? (
