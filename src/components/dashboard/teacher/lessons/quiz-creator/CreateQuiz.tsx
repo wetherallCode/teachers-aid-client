@@ -58,7 +58,7 @@ export const CreateQuiz = ({}: CreateQuizProps) => {
     event({
       type: 'SET_QUIZ_INPUTS',
       keyName: 'markingPeriod',
-      payload: currentMarkingPeriod,
+      payload: state.context.markingPeriod,
     })
     event({
       type: 'SET_QUIZ_INPUTS',
@@ -74,7 +74,7 @@ export const CreateQuiz = ({}: CreateQuizProps) => {
       },
     })
   }, [state.context.courses])
-  console.log(state.context.createQuizInputs)
+  console.log(state.context.markingPeriod)
   return (
     <div>
       {/* <FindAllQuizzableLessons assignedDate={quizDate} /> */}
