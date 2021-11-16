@@ -20,6 +20,9 @@ export const IndividualReadingGuideReviewDisplay = ({
   return (
     <>
       <div>
+        {readingGuide.hasOwner.firstName} {readingGuide.hasOwner.lastName}
+      </div>
+      <div>
         <div>Problems</div>
         <div>
           {problems.map((p, i: number) => (

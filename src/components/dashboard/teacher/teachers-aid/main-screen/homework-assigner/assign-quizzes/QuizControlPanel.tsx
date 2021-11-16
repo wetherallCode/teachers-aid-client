@@ -62,9 +62,8 @@ export const QuizControlPanel = ({
             assignQuizzes({
               variables: {
                 input: {
-                  assignedDate: '10/17/2021',
-                  // assignedDate: new Date().toLocaleDateString(),
-
+                  // assignedDate: '10/17/2021',
+                  assignedDate: new Date().toLocaleDateString(),
                   studentIds: presentStudentList,
                   assign: true,
                 },
@@ -126,8 +125,8 @@ export const QuizControlPanel = ({
                     assignQuizzes({
                       variables: {
                         input: {
-                          // assignedDate: new Date().toLocaleDateString(),
-                          assignedDate: '10/17/2021',
+                          assignedDate: new Date().toLocaleDateString(),
+                          // assignedDate: '10/17/2021',
                           studentIds: [quiz.hasOwner._id!],
                           assign: true,
                         },
