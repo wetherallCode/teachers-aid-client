@@ -117,21 +117,24 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
             </div>
           </FinishedQuizContainer>
         )}
-      {quiz.isActive && !quiz.finishedQuiz && quiz.startedQuiz && (
-        <>
-          {data?.findQuizQuestionsByQuizzableSections.quizQuestions.length! >
-            0 && (
-            <QuizQuestionDisplay
-              questions={
-                data?.findQuizQuestionsByQuizzableSections.quizQuestions!
-              }
-              quizId={quiz._id!}
-              difficultyState={difficultyState}
-              setDifficultyState={setDifficultyState}
-            />
-          )}
-        </>
-      )}
+      {quiz.isActive &&
+        !quiz.finishedQuiz &&
+        quiz.startedQuiz &&
+        !quiz.forcedFinish && (
+          <>
+            {data?.findQuizQuestionsByQuizzableSections.quizQuestions.length! >
+              0 && (
+              <QuizQuestionDisplay
+                questions={
+                  data?.findQuizQuestionsByQuizzableSections.quizQuestions!
+                }
+                quizId={quiz._id!}
+                difficultyState={difficultyState}
+                setDifficultyState={setDifficultyState}
+              />
+            )}
+          </>
+        )}
       {quiz.finishedQuiz && !quiz.forcedFinish && (
         <FinishedQuizContainer>
           <div>Quiz Complete</div>
