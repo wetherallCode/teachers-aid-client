@@ -97,7 +97,7 @@ export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
 
   return (
     <>
-      {me.teachesCourses.slice(1).map((course) => (
+      {me.teachesCourses.slice(2).map((course) => (
         <CourseSelectButton
           key={course._id!}
           onClick={() => {
