@@ -5879,6 +5879,28 @@ export interface findVirtualResponsesVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: reviewReadingGuides
+// ====================================================
+
+export interface reviewReadingGuides_reviewReadingGuides {
+  __typename: "ReviewReadingGuidesPayload";
+  reviewed: boolean;
+}
+
+export interface reviewReadingGuides {
+  reviewReadingGuides: reviewReadingGuides_reviewReadingGuides;
+}
+
+export interface reviewReadingGuidesVariables {
+  input: ReviewReadingGuidesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findStudentInfoByStudentIdForDesk
 // ====================================================
 
@@ -7062,6 +7084,16 @@ export interface enumValues_QuizQuestionTypeEnum {
   enumValues: enumValues_QuizQuestionTypeEnum_enumValues[] | null;
 }
 
+export interface enumValues_ReadingGuideReviewOptionsEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_ReadingGuideReviewOptionsEnum {
+  __typename: "__Type";
+  enumValues: enumValues_ReadingGuideReviewOptionsEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -7084,6 +7116,7 @@ export interface enumValues {
   BehaviorEnum: enumValues_BehaviorEnum | null;
   QuizQuestionDifficultyLevelEnum: enumValues_QuizQuestionDifficultyLevelEnum | null;
   QuizQuestionTypeEnum: enumValues_QuizQuestionTypeEnum | null;
+  ReadingGuideReviewOptionsEnum: enumValues_ReadingGuideReviewOptionsEnum | null;
 }
 
 /* tslint:disable */
@@ -7346,6 +7379,13 @@ export enum QuizQuestionDifficultyLevelEnum {
 export enum QuizQuestionTypeEnum {
   MULTIPLE_CHOICE = "MULTIPLE_CHOICE",
   TRUE_FALSE = "TRUE_FALSE",
+}
+
+export enum ReadingGuideReviewOptionsEnum {
+  GOOD_EFFORT = "GOOD_EFFORT",
+  LITTLE_EFFORT = "LITTLE_EFFORT",
+  NO_EFFORT = "NO_EFFORT",
+  SOME_EFFORT = "SOME_EFFORT",
 }
 
 export enum RubricSectionEnum {
@@ -8057,6 +8097,11 @@ export interface ReturnedRubricEntryInput {
   howToImprove?: string | null;
   rubricSection: RubricSectionEnum;
   score: number;
+}
+
+export interface ReviewReadingGuidesInput {
+  effort: ReadingGuideReviewOptionsEnum;
+  readingGuideId: string;
 }
 
 export interface RubricEntryInput {

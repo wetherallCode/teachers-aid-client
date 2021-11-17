@@ -111,6 +111,13 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    ReadingGuideReviewOptionsEnum: __type(
+      name: "ReadingGuideReviewOptionsEnum"
+    ) {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -207,6 +214,10 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
         quizQuestionTypeEnum: data?.QuizQuestionTypeEnum?.enumValues?.map(
           (value) => value.name
         ),
+        readingGuideReviewOptionsEnum:
+          data?.ReadingGuideReviewOptionsEnum?.enumValues?.map(
+            (value) => value.name
+          ),
       }}
     >
       {children}
