@@ -104,32 +104,22 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
         {state.matches('organizers.academicOrganizer.identifications') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              Now that you have advanced to the Academic level, things will
-              change slightly. You will still restate the question, but there
-              are some additional pieces of information you need to think about
-              to better answer the questions. As always, read the directions and
-              the feedback to improve.
+              Writing the answer to this question is a process, and I want to
+              help you by walking you through each step. Take your time and read
+              the directions and the feedback to get better. The more you try
+              the faster this gets.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}
         {state.matches('organizers.academicOrganizer.restatement') && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
-              The subject of a sentence is the person, place or thing (Noun)
-              that is doing something or being something. Example: Robert threw
-              the ball. Robert is the subject.
+              Follow the directions for each step to complete the restatement
+              for your essay.
             </EssaySectionOrganizationBodyEntry>
             <EssaySectionOrganizationBodyEntry>
-              The verb is the thing the subject is doing or being. In the
-              example, threw is the verb.
-            </EssaySectionOrganizationBodyEntry>
-            <EssaySectionOrganizationBodyEntry>
-              The Direct Object of the Verb is what receives the verb's action.
-              In the example: the ball is the object of the verb. A simple test
-              to find a direct object, ask "What did the (subject) (verb)?" If
-              there is a person, place, thing, or idea, then that is the direct
-              object. If the words "on, to, with, in," or another preposition
-              comes before the object, then there is no direct object.
+              If you get the answer wrong, please read the feedback section that
+              pops up to help guide you to the correct answer.
             </EssaySectionOrganizationBodyEntry>
           </ul>
         )}

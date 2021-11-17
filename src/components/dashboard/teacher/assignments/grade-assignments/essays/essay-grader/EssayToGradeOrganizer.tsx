@@ -2,11 +2,11 @@ import React, { FC } from 'react'
 import { AcademicEssayOrganizer } from '../../../../../student/assignments/essays/assigned-essays/essay-info/essay-organizers/AcademicEssayOrganizer'
 import { AdvancedEssayOrganizer } from '../../../../../student/assignments/essays/assigned-essays/essay-info/essay-organizers/AdvancedEssayOrganizer'
 import { DevelopingEssayOrganizer } from '../../../../../student/assignments/essays/assigned-essays/essay-info/essay-organizers/DevelopingEssayOrganizer'
-import { EssayOrganizer } from '../../../../../student/assignments/essays/assigned-essays/essay-info/essay-organizers/EssayOrganizer'
+import { EssayOrganizerType } from '../../../../../student/assignments/essays/assigned-essays/essay-info/essay-organizers/EssayOrganizer'
 import { EssayOrganizerTitle } from '../../../../../student/assignments/essays/assigned-essays/state-and-styles/assignedEssayStyles'
 
 export type EssayToGradeOrganizerProps = {
-  organizer: EssayOrganizer
+  organizer: EssayOrganizerType
 }
 
 export const EssayToGradeOrganizer: FC<EssayToGradeOrganizerProps> = ({

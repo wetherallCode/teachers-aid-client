@@ -54,9 +54,12 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
   const [state, event] = useStudentEssayContextProvider()
 
   const auxilaryVerbCheck =
-    questionParts.helpingVerb !== 'did' &&
-    questionParts.simplePredicate.split(' ').length > 1 &&
-    questionParts.simplePredicate.split(' ').includes(questionParts.helpingVerb)
+    (questionParts.helpingVerb !== 'did' &&
+      questionParts.simplePredicate.split(' ').length > 1 &&
+      questionParts.simplePredicate
+        .split(' ')
+        .includes(questionParts.helpingVerb)) ||
+    (questionParts.helpingVerb !== 'did' && !questionParts.subjectCompliment)
 
   const [updateAcademicOrganizer] = useMutation<
     updateAcademicOrganizer,
@@ -133,6 +136,7 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
           updateAcademicOrganizer={updateAcademicOrganizer}
           questionParts={questionParts}
           auxilaryVerbCheck={auxilaryVerbCheck}
+          topic={topic}
         />
       )}
       {state.matches('organizers.academicOrganizer.conclusion') && (
@@ -140,6 +144,7 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
           updateAcademicOrganizer={updateAcademicOrganizer}
           questionParts={questionParts}
           auxilaryVerbCheck={auxilaryVerbCheck}
+          topic={topic}
         />
       )}
     </>

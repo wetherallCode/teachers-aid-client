@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import { EssayOrganizer } from './EssayOrganizer'
+import { EssayOrganizerType } from './EssayOrganizer'
 
-export type AdvancedEssayOrganizerProps = { organizer: EssayOrganizer }
+export type AdvancedEssayOrganizerProps = { organizer: EssayOrganizerType }
 
 export const AdvancedEssayOrganizer: FC<AdvancedEssayOrganizerProps> = ({
   organizer,

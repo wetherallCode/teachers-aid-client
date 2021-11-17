@@ -7,6 +7,7 @@ import {
   QuestionTypeEnum,
   findEssayById_findEssayById_essay_workingDraft_organizer,
   findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
+  findEssayById_findEssayById_essay_topic,
 } from '../../../../../../../../schemaTypes'
 import { gql, useMutation } from '@apollo/client'
 import { AcademicProblemSolution } from './AcademicProblemSolution'
@@ -32,6 +33,7 @@ export type AcademicAnswerTypesProps = {
   updateAcademicOrganizer: UpdateAcademicOrganizerType
   questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
   auxilaryVerbCheck: boolean
+  topic: findEssayById_findEssayById_essay_topic
 }
 
 export const SET_ANSWER_TYPE_MUTATION = gql`
@@ -55,6 +57,7 @@ export const AcademicAnswerTypes = ({
   organizer,
   updateAcademicOrganizer,
   questionParts,
+  topic,
 }: AcademicAnswerTypesProps) => {
   const [state, event] = useStudentEssayContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
@@ -193,7 +196,11 @@ export const AcademicAnswerTypes = ({
       {state.matches('organizers.academicOrganizer.answer.whyCauseEffect') &&
         state.context.academicOrganizer.questionType ===
           QuestionTypeEnum.WHY_CAUSE_EFFECT && (
-          <AcademicWhyCauseEffect questionParts={questionParts} />
+          <AcademicWhyCauseEffect
+            questionParts={questionParts}
+            topic={topic}
+            organizer={organizer}
+          />
         )}
     </>
   )

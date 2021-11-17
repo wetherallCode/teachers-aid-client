@@ -19,7 +19,7 @@ export const EssayUnitSelect: FC<EssayUnitSelectProps> = () => {
   const [state, event] = useCreateAssignmentContextPovider()
 
   const { loading, data } = useQuery<findUnits>(FIND_UNITS_QUERY, {
-    // onCompleted: (data) => console.log(data.findUnits.units),
+    onCompleted: (data) => console.log(data.findUnits.units),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>

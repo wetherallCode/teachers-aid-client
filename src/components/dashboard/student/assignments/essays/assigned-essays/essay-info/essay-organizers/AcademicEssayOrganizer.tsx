@@ -13,21 +13,25 @@ import {
   HowCauseEffectOrganizerAnswer,
   WhyCauseEffectOrganizerAnswer,
 } from '../../state-and-styles/assignedEssayStyles'
-import { EssayOrganizer } from './EssayOrganizer'
+import { EssayOrganizerType } from './EssayOrganizer'
 
 export type AcademicEssayOrganizerProps = {
-  organizer: EssayOrganizer
+  organizer: EssayOrganizerType
 }
 
-export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
+export const AcademicEssayOrganizer = ({
   organizer,
-}) => {
+}: AcademicEssayOrganizerProps) => {
   const essayOrganizer =
     organizer.__typename === 'AcademicOrganizer' ? organizer : null
-  console.log(essayOrganizer)
+  // console.log(essayOrganizer)
   const { verb, subject, object } = essayOrganizer?.academicSentenceStructure!
   const linkingVerbCheck =
-    verb.toLowerCase() === 'was' || verb.toLowerCase() === 'were'
+    organizer.restatement.split(' ').includes('were') ||
+    organizer.restatement.split(' ').includes('was')
+  const linkingVerb = organizer.restatement.split(' ').includes('were')
+    ? 'were'
+    : organizer.restatement.split(' ').includes('was') && 'was'
   return (
     <>
       <EssayOrganizerRestatement>
@@ -166,7 +170,7 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
                   {essayOrganizer.answerType.proximateCause}
                 </AcademicEssayOrganizerAnswerBlockBody>
               </AcademicEssayOrganizerAnswerBlock>
-              <AcademicEssayOrganizerAnswerBlock
+              {/* <AcademicEssayOrganizerAnswerBlock
                 style={{
                   borderTop: '1px solid var(--blue)',
                   // borderRight: '1px solid var(--blue)',
@@ -182,10 +186,10 @@ export const AcademicEssayOrganizer: FC<AcademicEssayOrganizerProps> = ({
                   </AcademicEssayOrganizerAnswerBlockBody>
                 ) : (
                   <AcademicEssayOrganizerAnswerBlockBody>
-                    {subject} {verb} {object}
+                    {subject} {linkingVerb} {verb} {object}
                   </AcademicEssayOrganizerAnswerBlockBody>
                 )}
-              </AcademicEssayOrganizerAnswerBlock>
+              </AcademicEssayOrganizerAnswerBlock> */}
             </WhyCauseEffectOrganizerAnswer>
           )}
         </>

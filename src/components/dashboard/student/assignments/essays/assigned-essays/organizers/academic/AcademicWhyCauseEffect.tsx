@@ -2,6 +2,8 @@ import React, { FC, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { useMutation, gql } from '@apollo/client'
 import {
+  findEssayById_findEssayById_essay_topic,
+  findEssayById_findEssayById_essay_workingDraft_organizer,
   findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateWhyCauseEffect,
@@ -14,11 +16,17 @@ import {
   PartInput,
   OrganizerControlButtonContainer,
   OrganizerControlButton,
+  OrganizerTitleContainer,
+  OrganizerTitleStyle,
+  QuestionContainer,
+  QuestionStyle,
 } from '../../state-and-styles/assignedEssayStyles'
 import { irregularPastTenseVerbList } from '../../../../../../../../utils'
 
 export type AcademicWhyCauseEffectProps = {
   questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
+  topic: findEssayById_findEssayById_essay_topic
+  organizer: findEssayById_findEssayById_essay_workingDraft_organizer
 }
 
 export const UPDATE_WHY_CAUSE_EFFECT_MUTATION = gql`
@@ -33,6 +41,8 @@ export const UPDATE_WHY_CAUSE_EFFECT_MUTATION = gql`
 
 export const AcademicWhyCauseEffect = ({
   questionParts,
+  topic,
+  organizer,
 }: AcademicWhyCauseEffectProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
@@ -69,7 +79,7 @@ export const AcademicWhyCauseEffect = ({
 
   const verbPhraseCheck = verb.split(' ').length > 1
   const verbPhraseSplitter = verb.split(' ')
-  console.log(verb)
+  console.log(auxilaryVerbCheck)
   // const irregularVerbCheck = irregularPastTenseVerbList(verbPhraseSplitter[0])
 
   // const congugatedVerb =
@@ -83,6 +93,12 @@ export const AcademicWhyCauseEffect = ({
   // console.log(verb !== 'was')
   return (
     <>
+      <OrganizerTitleContainer>
+        <OrganizerTitleStyle>Answer the Question</OrganizerTitleStyle>
+      </OrganizerTitleContainer>
+      <QuestionContainer>
+        <QuestionStyle>{organizer.restatement}</QuestionStyle>
+      </QuestionContainer>
       <AcademicQuestionAnswerTypeContainer>
         <AcademicRestatementTitle>
           <div>Why Question: Cause and Effect</div>
@@ -93,10 +109,10 @@ export const AcademicWhyCauseEffect = ({
               Why did {questionParts.simpleSubject} {verb}
               {object ? ' ' + object : null}?
             </div>
-          ) : auxilaryVerbCheck ? (
+          ) : !object ? (
             <div>
-              Why {verbPhraseSplitter[0]} {questionParts.simpleSubject}{' '}
-              {verbPhraseSplitter[1]}?
+              Why {questionParts.helpingVerb} {questionParts.simpleSubject}{' '}
+              {verbPhraseSplitter[0]}?
             </div>
           ) : (
             <div>

@@ -561,7 +561,7 @@ export const HowCauseEffectOrganizerAnswer = styled.div`
 `
 export const WhyCauseEffectOrganizerAnswer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-flow: column;
 `
 
 export const EssayOrganizerPartHeader = styled.div`

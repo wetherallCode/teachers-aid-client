@@ -16,28 +16,36 @@ import {
 } from '../../state-and-styles/assignedEssayStyles'
 import { UnderlinedText } from '../../../../../../../../appStyles'
 import { verbsThatChangeInIngFormat } from '../../../../../../../../utils'
-import { findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts } from '../../../../../../../../schemaTypes'
+import {
+  findEssayById_findEssayById_essay_topic,
+  findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
+} from '../../../../../../../../schemaTypes'
 
 export type AcademicConclusionProps = {
   updateAcademicOrganizer: UpdateAcademicOrganizerType
   questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
   auxilaryVerbCheck: boolean
+  topic: findEssayById_findEssayById_essay_topic
 }
 
 export const AcademicConclusion: FC<AcademicConclusionProps> = ({
   updateAcademicOrganizer,
   questionParts,
   auxilaryVerbCheck,
+  topic,
 }) => {
   const [state, event] = useStudentEssayContextProvider()
   const { subject, object, subjectCompliment } =
     state.context.academicOrganizer.academicSentenceStructure
-  const { simplePredicate } = questionParts
-
+  const { simplePredicate, helpingVerb } = questionParts
+  console.log(auxilaryVerbCheck)
+  // const verbConverter = auxilaryVerbCheck
+  //   ? verbsThatChangeInIngFormat(simplePredicate.split(' ')[0]) +
+  //     ' ' +
+  //     simplePredicate.split(' ')[1]
+  //   : verbsThatChangeInIngFormat(simplePredicate).replace('ed', '')
   const verbConverter = auxilaryVerbCheck
-    ? verbsThatChangeInIngFormat(simplePredicate.split(' ')[0]) +
-      ' ' +
-      simplePredicate.split(' ')[1]
+    ? 'being ' + simplePredicate
     : verbsThatChangeInIngFormat(simplePredicate).replace('ed', '')
 
   useEffect(() => {

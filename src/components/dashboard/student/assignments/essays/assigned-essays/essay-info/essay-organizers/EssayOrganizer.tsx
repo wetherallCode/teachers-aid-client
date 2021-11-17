@@ -9,16 +9,16 @@ import { DevelopingEssayOrganizer } from './DevelopingEssayOrganizer'
 import { AcademicEssayOrganizer } from './AcademicEssayOrganizer'
 import { AdvancedEssayOrganizer } from './AdvancedEssayOrganizer'
 
-export type EssayOrganizer =
+export type EssayOrganizerType =
   | findEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer
   | findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer
   | findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer
 
 export type EssayOrganizerProps = {
-  organizer: EssayOrganizer
+  organizer: EssayOrganizerType
 }
 
-export const EssayOrganizer: FC<EssayOrganizerProps> = ({ organizer }) => {
+export const EssayOrganizer = ({ organizer }: EssayOrganizerProps) => {
   return (
     <>
       <EssayOrganizerTitle>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { EssayOrganizer } from './EssayOrganizer'
+import { EssayOrganizerType } from './EssayOrganizer'
 import {
   EssayOrganizerRestatement,
   EssayOrganizerPartHeader,
@@ -10,7 +10,7 @@ import {
 } from '../../state-and-styles/assignedEssayStyles'
 
 export type DevelopingEssayOrganizerProps = {
-  organizer: EssayOrganizer
+  organizer: EssayOrganizerType
 }
 
 export const DevelopingEssayOrganizer = ({
