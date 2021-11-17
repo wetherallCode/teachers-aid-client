@@ -62,8 +62,8 @@ export const HomeworkAssigner = ({
     variables: {
       input: {
         courseId: state.context.courseInfo?.course._id!,
-        // assignedDate: new Date().toLocaleDateString(),
-        assignedDate: '10/17/2021',
+        assignedDate: new Date().toLocaleDateString(),
+        // assignedDate: '10/17/2021',
       },
     },
     pollInterval: 1000,
