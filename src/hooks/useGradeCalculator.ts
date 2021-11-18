@@ -67,19 +67,6 @@ export const useGradeCalculator = ({
         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
   )!
 
-  // const essays = data?.findAssignmentByStudentId.assignments.some(
-  //   (assignment) =>
-  //     (assignment.__typename === 'Essay' &&
-  //       assignment.finalDraft?.returned &&
-  //       assignment.markingPeriod === markingPeriod) ||
-  //     (assignment.__typename === 'Essay' &&
-  //       !assignment.exempt &&
-  //       !assignment.finalDraft &&
-  //       assignment.markingPeriod === markingPeriod &&
-  //       Date.parse(new Date().toLocaleString()) >
-  //         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
-  // )
-
   // const applicableArticleReviews =
   //   data?.findAssignmentByStudentId.articleReviews &&
   //   data?.findAssignmentByStudentId.articleReviews.some(
