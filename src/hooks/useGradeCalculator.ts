@@ -62,9 +62,23 @@ export const useGradeCalculator = ({
       assignment.__typename === 'Essay' &&
       assignment.markingPeriod === markingPeriod &&
       !assignment.exempt &&
+      assignment.finalDraft?.returned &&
       Date.parse(new Date().toLocaleString()) >
         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
   )!
+
+  // const essays = data?.findAssignmentByStudentId.assignments.some(
+  //   (assignment) =>
+  //     (assignment.__typename === 'Essay' &&
+  //       assignment.finalDraft?.returned &&
+  //       assignment.markingPeriod === markingPeriod) ||
+  //     (assignment.__typename === 'Essay' &&
+  //       !assignment.exempt &&
+  //       !assignment.finalDraft &&
+  //       assignment.markingPeriod === markingPeriod &&
+  //       Date.parse(new Date().toLocaleString()) >
+  //         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+  // )
 
   // const applicableArticleReviews =
   //   data?.findAssignmentByStudentId.articleReviews &&
@@ -388,6 +402,7 @@ export const useGradeCalculator = ({
       console.log('Nothing')
       return { grade: 0, loading: false, noGrade: true }
     }
+
     const applicableEssays = data?.findAssignmentByStudentId.assignments.filter(
       (assignment) =>
         (assignment.__typename === 'Essay' &&
@@ -400,6 +415,16 @@ export const useGradeCalculator = ({
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
     )
+    const secondaryGradeAssignments =
+      data?.findAssignmentByStudentId.assignments.filter(
+        (assignment) =>
+          assignment.gradeType === GradeTypeEnum.SECONDARY &&
+          assignment.markingPeriod === markingPeriod &&
+          !assignment.exempt &&
+          Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+      )
+
     const essayEarnedPoints = applicableEssays
       ?.map((essay) => essay.score.earnedPoints)
       .reduce((acc: number, i: number) => acc + i)!
@@ -426,16 +451,6 @@ export const useGradeCalculator = ({
     // const articleReviewMaxPoints = articleReviews
     //   ?.map((review) => review.score.maxPoints)
     //   .reduce((acc: number, i: number) => acc + i)!
-    const secondaryGradeAssignments =
-      // secondaryGrades &&
-      data?.findAssignmentByStudentId.assignments.filter(
-        (assignment) =>
-          assignment.gradeType === GradeTypeEnum.SECONDARY &&
-          assignment.markingPeriod === markingPeriod &&
-          !assignment.exempt &&
-          Date.parse(new Date().toLocaleString()) >
-            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
-      )
 
     const secondaryGradesEarnedPoints = secondaryGradeAssignments
       ?.map((review) => review.score.earnedPoints)
