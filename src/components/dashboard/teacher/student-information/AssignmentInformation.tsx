@@ -134,6 +134,7 @@ export const AssignmentInformation = ({
     allEssays
       ?.map((essay) => essay.score.earnedPoints)
       .reduce((acc: number, i: number) => acc + i)!
+
   const allEssaysMaxPointTotal =
     allEssays?.length! > 0 &&
     allEssays
