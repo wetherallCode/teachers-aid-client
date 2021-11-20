@@ -25,7 +25,7 @@ export const StudentGradeInformation = ({
     polling: true,
     pollInterval: 1000,
   })
-  console.log(calculatedGrade)
+
   return (
     <>
       {!noGrade ? (
