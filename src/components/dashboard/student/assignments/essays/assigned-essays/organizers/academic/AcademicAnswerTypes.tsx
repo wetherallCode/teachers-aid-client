@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 // import { useStudentEssayContextProvider } from '../../StudentEssayContext'
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,7 +21,6 @@ import {
   OrganizerControlButton,
   AcademicRestatementTitle,
   AcademicQuestionTypeSelect,
-  AcademicQuestionAnswerTypeContainer,
   AcademicRestatementContainer,
   AcademicRestatementInput,
   RestatementOutput,
