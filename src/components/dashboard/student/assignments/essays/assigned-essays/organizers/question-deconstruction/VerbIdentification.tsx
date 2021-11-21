@@ -72,7 +72,7 @@ export const VerbIdentification = ({
   const irregularVerbCheck = irregularPastTenseVerbList(text)
 
   const congugatedVerb = (verb: string) => {
-    return verb === specialVerbsInPastTense(verb)
+    return verb !== specialVerbsInPastTense(verb)
       ? specialVerbsInPastTense(verb)
       : verb === irregularVerbCheck
       ? irregularVerbCheck
@@ -82,6 +82,7 @@ export const VerbIdentification = ({
         : verb + 'ed'
       : irregularVerbCheck
   }
+  // console.log(congugatedVerb(question.simplePredicate))
   useEffect(() => {
     if (correctSimplePredicate && text) {
       setVerb(text)
