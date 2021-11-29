@@ -104,9 +104,10 @@ export const AcademicWhyCauseEffect = ({
           <div>Why Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          {verb === 'did' ? (
+          {questionParts.helpingVerb === 'did' ? (
             <div>
-              Why did {questionParts.simpleSubject} {verb}
+              Why did {questionParts.simpleSubject}{' '}
+              {questionParts.simplePredicate}
               {object ? ' ' + object : null}?
             </div>
           ) : !object ? (
