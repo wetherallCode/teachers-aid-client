@@ -27,7 +27,7 @@ export const subjectPredicateGrading = ({
   const verbPhraseCheck = verb.split(' ').length > 1
   const verbPhraseSplitter = verb.split(' ')
   const wholeVerb = helpingVerb === 'did' ? verb : helpingVerb
-
+  console.log(subjectCheck)
   if (givenPredicate === '.' || givenPredicate === '?') {
     return {
       whatWentWrong: `Your subject can't be the whole sentence.`,
@@ -88,14 +88,7 @@ export const subjectPredicateGrading = ({
       correct: false,
     }
   }
-  // const subjectWithPrepositionalPhrase =
-  console.log(verb)
-  // if (helpingVerb === 'did' && predicateCheck[0] !== verb) {
-  console.log(
-    // predicateCheck[0] !== verb
-    verb
-    // verbPhraseCheck ? predicateCheck[0] !== verbPhraseSplitter[0] : predicateCheck[0] !== verb
-  )
+
   if (
     verbPhraseCheck
       ? predicateCheck[0] !== verbPhraseSplitter[0]

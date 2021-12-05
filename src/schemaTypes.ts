@@ -601,33 +601,6 @@ export interface updateAcademicOrganizerVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: updateProblemSolution
-// ====================================================
-
-export interface updateProblemSolution_updateProblemSolution_essay {
-  __typename: "Essay";
-  _id: string | null;
-}
-
-export interface updateProblemSolution_updateProblemSolution {
-  __typename: "UpdateProblemSolutionPayload";
-  essay: updateProblemSolution_updateProblemSolution_essay;
-}
-
-export interface updateProblemSolution {
-  updateProblemSolution: updateProblemSolution_updateProblemSolution;
-}
-
-export interface updateProblemSolutionVariables {
-  input: UpdateProblemSolutionInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: updateWhyCauseEffect
 // ====================================================
 
@@ -7244,6 +7217,33 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateProblemSolution
+// ====================================================
+
+export interface updateProblemSolution_updateProblemSolution_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateProblemSolution_updateProblemSolution {
+  __typename: "UpdateProblemSolutionPayload";
+  essay: updateProblemSolution_updateProblemSolution_essay;
+}
+
+export interface updateProblemSolution {
+  updateProblemSolution: updateProblemSolution_updateProblemSolution;
+}
+
+export interface updateProblemSolutionVariables {
+  input: UpdateProblemSolutionInput;
 }
 
 /* tslint:disable */

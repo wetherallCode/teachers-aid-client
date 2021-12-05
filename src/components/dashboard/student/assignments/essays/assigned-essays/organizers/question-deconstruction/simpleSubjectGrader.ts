@@ -17,6 +17,7 @@ export const simpleSubjectGrader = ({
   nounType,
   questionToModify,
 }: SimpleSubjectGraderProps) => {
+  console.log(correctSimpleSubject)
   const lastWordInQuestion = questionToModify
     .slice(questionToModify.length - 1)
     .join('')
@@ -61,12 +62,12 @@ export const simpleSubjectGrader = ({
       correctSimpleSubject: false,
     }
   }
-  console.log(
-    completeSubject.toLowerCase().includes(givenSimpleSubject.toLowerCase()) &&
-      !correctSimpleSubject
-        .toLowerCase()
-        .includes(givenSimpleSubject.toLowerCase())
-  )
+  // console.log(
+  //   completeSubject.toLowerCase().includes(givenSimpleSubject.toLowerCase()) &&
+  //     !correctSimpleSubject
+  //       .toLowerCase()
+  //       .includes(givenSimpleSubject.toLowerCase())
+  // )
   if (
     completeSubject.toLowerCase().includes(givenSimpleSubject.toLowerCase()) &&
     !correctSimpleSubject

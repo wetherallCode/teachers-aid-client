@@ -63,7 +63,7 @@ export const SubjectPredicateSplit = ({
       helpingVerb: question.helpingVerb,
     }
   )
-  console.log(questionToModify)
+
   useEffect(() => {
     if (point && correct) {
       const timer = setTimeout(() => {
@@ -84,7 +84,6 @@ export const SubjectPredicateSplit = ({
         setPoint(null)
         const endTime = new Date().toISOString()
         const timeToComplete = timeAFunction(startTime, endTime)
-        console.log(timeToComplete)
       },
       attempt < 1 ? 4000 : 4000 + attempt * 1000
       // 3000
