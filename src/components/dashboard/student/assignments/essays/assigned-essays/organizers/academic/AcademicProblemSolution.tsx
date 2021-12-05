@@ -99,7 +99,12 @@ export const AcademicProblemSolution = ({
       questionParts.simpleSubject.split(' ').length - 1
     ]
   const properNoun = properNounCheck(noun)
-  console.log(properNoun)
+  const properNameEndsInS =
+    properNoun &&
+    questionParts.simpleSubject.charAt(
+      questionParts.simpleSubject.length - 1
+    ) === 's'
+
   return (
     <>
       <OrganizerTitleContainer>
@@ -136,7 +141,7 @@ export const AcademicProblemSolution = ({
         <AnswerTypeContainter>
           <div>
             Why is this {questionParts.simpleSubject}
-            {properNoun ? `'` : `'s`} problem?
+            {properNameEndsInS ? `'` : `'s`} problem?
           </div>
           <PartInput
             value={
