@@ -244,7 +244,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   })
 
   if (loading) return <div>Loading </div>
-
+  console.log(state.context.previousDraft.additionalComments)
   return (
     <EssayGraderContainer>
       {loadingDraft && (
@@ -348,7 +348,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
               )}
               {gradeDetailState === 'comments' && (
                 <div>
-                  {state.context.draftToGrade.additionalComments?.map(
+                  {state.context.previousDraft.additionalComments?.map(
                     (comment, i: number) => (
                       <span key={i}>{comment}</span>
                     )
