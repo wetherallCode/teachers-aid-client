@@ -110,6 +110,11 @@ export const AcademicWhyCauseEffect = ({
               {questionParts.simplePredicate}
               {object ? ' ' + object : null}?
             </div>
+          ) : questionParts.subjectCompliment ? (
+            <div>
+              Why {questionParts.helpingVerb} {questionParts.simpleSubject}{' '}
+              {questionParts.subjectCompliment}?
+            </div>
           ) : !object ? (
             <div>
               Why {questionParts.helpingVerb} {questionParts.simpleSubject}{' '}
