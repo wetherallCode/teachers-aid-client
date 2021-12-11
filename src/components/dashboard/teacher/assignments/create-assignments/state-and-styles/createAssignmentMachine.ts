@@ -157,7 +157,7 @@ export const createAssignmentMachine = Machine<
         readingSections: '',
       },
       markingPeriod: MarkingPeriodEnum.FIRST,
-      maxPoints: 2,
+      maxPoints: 3,
       assignedDate: dateConverter(new Date().toISOString().substring(0, 10)),
       dueDate: '',
       dueTime: TimeOfDay.BEFORE_CLASS,
