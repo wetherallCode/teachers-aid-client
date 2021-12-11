@@ -75,15 +75,15 @@ export const CreateReadingGuide = ({
   const [currentCourseInfo] = me.teachesCourses.filter(
     (course) => course._id === courseId
   )
-  const sortedCourses = me.teachesCourses
-    .slice(1)
-    .sort(sortByLetter)
-    .filter(
-      (course) => course.name.charAt(0) === currentCourseInfo.name.charAt(0)
-    )
+  const sortedCourses = me.teachesCourses.slice(2)
+  // .sort(sortByLetter)
+  // .filter(
+  //   (course) => course.name.charAt(0) === currentCourseInfo.name.charAt(0)
+  // )
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
+  console.log(currentCourseIndex)
 
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
@@ -105,7 +105,7 @@ export const CreateReadingGuide = ({
     onCompleted: (data) => {
       if (sortedCourses[currentCourseIndex + 1]) {
         setCourseId(sortedCourses[currentCourseIndex + 1]._id!)
-        event({ type: 'ESSAY' })
+        // event({ type: 'READING_GUIDE' })
       } else navigate('/dashboard/assignments')
     },
     refetchQueries: [],
