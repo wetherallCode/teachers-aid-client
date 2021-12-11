@@ -8029,6 +8029,7 @@ export interface RegisterStudentInput {
   cohort: StudentCohortEnum;
   email?: string | null;
   firstName: string;
+  hasIEP?: boolean | null;
   lastName: string;
   middleName?: string | null;
   password: string;

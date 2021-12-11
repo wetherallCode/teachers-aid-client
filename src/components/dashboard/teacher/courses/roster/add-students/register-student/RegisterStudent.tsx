@@ -21,6 +21,8 @@ import {
   InformationInput,
   PageTitle,
   RegisterStudentContainer,
+  YesNoContainer,
+  YesNoSelect,
 } from '../state-n-styles/addStudentsStyles'
 
 export type RegisterStudentProps = {}
@@ -102,6 +104,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
         virtual: false,
         password: 'password',
         userName: '',
+        hasIEP: false,
       },
     })
     event({ type: 'ADD_TO_COURSE' })
@@ -179,6 +182,25 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
                 event({ type: 'ADD_SCHOOL_ID', payload: e.target.value.trim() })
               }
             />
+          </InformationDetailInputContainer>
+          <InformationDetailInputContainer>
+            <div>IEP Student</div>
+            <YesNoContainer>
+              <YesNoSelect
+                selected={state.context.studentToRegister.hasIEP!}
+                onClick={() => event({ type: 'SET_IEP_STATUS', payload: true })}
+              >
+                Yes
+              </YesNoSelect>
+              <YesNoSelect
+                selected={!state.context.studentToRegister.hasIEP!}
+                onClick={() =>
+                  event({ type: 'SET_IEP_STATUS', payload: false })
+                }
+              >
+                No
+              </YesNoSelect>
+            </YesNoContainer>
           </InformationDetailInputContainer>
         </InformationContainer>
         {/* <div>Change Cohort:</div>

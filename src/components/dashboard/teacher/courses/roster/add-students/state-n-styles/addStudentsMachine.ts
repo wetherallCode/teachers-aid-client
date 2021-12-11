@@ -28,6 +28,7 @@ export type addStudentsMachineEvent =
   | { type: 'SET_COURSE_ID'; payload: string }
   | { type: 'ADD_STUDENT_IDS'; payload: string }
   | { type: 'REMOVE_STUDENT_IDS'; payload: number }
+  | { type: 'SET_IEP_STATUS'; payload: boolean }
 
 export type addStudentsMachineContext = {
   studentToRegister: RegisterStudentInput
@@ -52,6 +53,7 @@ export const addStudentsMachine = Machine<
       virtual: false,
       password: 'password',
       userName: '',
+      hasIEP: false,
     },
     addStudentToCourse: {
       courseId: '',
@@ -155,6 +157,17 @@ export const addStudentsMachine = Machine<
             }
           }),
         },
+        SET_IEP_STATUS: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              studentToRegister: {
+                ...ctx.studentToRegister,
+                hasIEP: evt.payload,
+              },
+            }
+          }),
+        },
         ADD_STUDENT_IDS: {
           actions: assign((ctx, evt) => {
             console.log('adding Id')
@@ -167,7 +180,6 @@ export const addStudentsMachine = Machine<
             }
           }),
         },
-
         RESET_REGISTER_INPUTS: {
           actions: assign((ctx, evt) => {
             console.log(evt.payload)

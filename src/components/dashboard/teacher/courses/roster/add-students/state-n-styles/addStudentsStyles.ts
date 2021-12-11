@@ -30,10 +30,24 @@ export const InformationDetailInputContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 3fr;
   align-items: center;
-  justify-items: center;
+  /* justify-items: center; */
   font-size: 3vh;
+  margin-left: 5%;
 `
 
+export const YesNoContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`
+export type YesNoSelectProps = { selected: boolean }
+
+export const YesNoSelect = styled.div<YesNoSelectProps>`
+  color: ${({ selected }) => (selected ? 'var(--red)' : 'var(--blue)')};
+  text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')};
+  cursor: pointer;
+`
 export const InformationInput = styled.input`
   width: 80vh;
   height: 5vh;
