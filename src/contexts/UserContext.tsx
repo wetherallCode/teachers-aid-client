@@ -19,6 +19,8 @@ export const ME_QUERY = gql`
           hasCourseInfo {
             startsAt
             endsAt
+            halfDayStartsAt
+            halfDayEndsAt
             schoolDayType
           }
         }
@@ -33,6 +35,8 @@ export const ME_QUERY = gql`
             _id
             startsAt
             endsAt
+            halfDayStartsAt
+            halfDayEndsAt
             schoolDayType
           }
         }
