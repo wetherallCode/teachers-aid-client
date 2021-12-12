@@ -202,12 +202,12 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
     data?.findEssayById.essay.score.earnedPoints! /
     data?.findEssayById.essay.score.maxPoints!
 
-  const assignmentsInClassAllowed = false
+  const { assignmentsInClassNotAllowed } = me.inCourses[0].hasCourseInfo!
 
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
-    assignmentsInClassAllowed &&
+    assignmentsInClassNotAllowed &&
     Date.parse(dateTime) >
       Date.parse(
         timeFinder(

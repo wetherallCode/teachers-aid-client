@@ -81,8 +81,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
   })
   if (loading) return <div>Loading </div>
 
-  const assignmentsInClassNotAllowed = true
-
+  const { assignmentsInClassNotAllowed } = me.inCourses[0].hasCourseInfo!
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
@@ -103,6 +102,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
             : me.inCourses[0].hasCourseInfo?.endsAt!
         )
       )
+  // console.log(classTime)
 
   return (
     <AssignmentsToCompleteContainer>
