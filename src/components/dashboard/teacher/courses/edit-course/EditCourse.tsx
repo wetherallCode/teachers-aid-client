@@ -8,7 +8,7 @@ import {
   findCourseByIdForCourseEditorVariables,
   CourseMaxSizeEnum,
 } from '../../../../../schemaTypes'
-import { useEditCourseContextProvider } from './state/EditCourseContext'
+import { useEditCourseContextProvider } from './state-n-styles/EditCourseContext'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 
 export type EditCourseProps = {}

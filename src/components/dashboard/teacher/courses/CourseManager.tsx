@@ -5,7 +5,7 @@ import { LessonEditorContextProvider } from '../lessons/lesson-editor/LessonEdit
 import { AssignAssignments } from '../assignments/assign-assignments/AssignAssignments'
 import { RosterDashboard } from './roster/RosterDashboard'
 import { ReadingGuideData } from '../assignments/readingGuideData/ReadingGuideData'
-import { EditCourseContextProvider } from './edit-course/state/EditCourseContext'
+import { EditCourseContextProvider } from './edit-course/state-n-styles/EditCourseContext'
 import { EditCourse } from './edit-course/EditCourse'
 import { AssignmentManager } from './course-assignments/AssignmentManager'
 import { AssignmentManagerContextProvider } from './course-assignments/state-styles/AssignmentManagerContext'
