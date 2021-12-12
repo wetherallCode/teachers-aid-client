@@ -52,8 +52,8 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
         </LessonPlanSectionTitles>{' '}
         {lessonType === 'INTRODUCTORY' ? (
           <div>
-            Students will start off with a quick review of what was discussed in
-            the previous lesson.
+            Students will start off with a quiz to determine the level of
+            content aquisition each student achieved.
           </div>
         ) : (
           <>
