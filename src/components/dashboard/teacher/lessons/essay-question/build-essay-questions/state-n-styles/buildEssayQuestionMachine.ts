@@ -68,7 +68,7 @@ export const buildEssayQuestionMachine = Machine<
         completeSubject: '',
         simpleSubject: '',
         nounType: NounTypeEnum.THING,
-        compoundNoun: true,
+        compoundNoun: false,
         completePredicate: '',
         simplePredicate: '',
         helpingVerb: '',
