@@ -69,9 +69,10 @@ export const ObjectIdentification = ({
   const hasObject = question.object
 
   const auxilaryVerbCheck =
-    question.helpingVerb !== 'did' &&
-    question.simplePredicate.split(' ').length > 1 &&
-    question.simplePredicate.split(' ').includes(question.helpingVerb)
+    (question.helpingVerb !== 'did' &&
+      question.simplePredicate.split(' ').length > 1 &&
+      question.simplePredicate.split(' ').includes(question.helpingVerb)) ||
+    (question.helpingVerb !== 'did' && !question.subjectCompliment)
 
   const conjugatedVerb =
     irregularPastTenseVerbList(question.simplePredicate) ===
