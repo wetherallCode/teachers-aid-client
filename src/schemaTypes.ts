@@ -120,6 +120,7 @@ export interface findCurrentSchoolDay_findSchoolDayByDate_schoolDay {
   _id: string | null;
   cohortWeek: StudentCohortEnum;
   schoolDayCount: number;
+  schoolDayLength: SchoolDayLengthEnum;
   todaysDate: string;
   currentSchoolDayType: SchoolDayType;
   signInSheets: findCurrentSchoolDay_findSchoolDayByDate_schoolDay_signInSheets[] | null;
@@ -7094,6 +7095,16 @@ export interface enumValues_ReadingGuideReviewOptionsEnum {
   enumValues: enumValues_ReadingGuideReviewOptionsEnum_enumValues[] | null;
 }
 
+export interface enumValues_SchoolDayLengthEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_SchoolDayLengthEnum {
+  __typename: "__Type";
+  enumValues: enumValues_SchoolDayLengthEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -7117,6 +7128,7 @@ export interface enumValues {
   QuizQuestionDifficultyLevelEnum: enumValues_QuizQuestionDifficultyLevelEnum | null;
   QuizQuestionTypeEnum: enumValues_QuizQuestionTypeEnum | null;
   ReadingGuideReviewOptionsEnum: enumValues_ReadingGuideReviewOptionsEnum | null;
+  SchoolDayLengthEnum: enumValues_SchoolDayLengthEnum | null;
 }
 
 /* tslint:disable */
@@ -7182,6 +7194,8 @@ export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   __typename: "CourseInfo";
   startsAt: string;
   endsAt: string;
+  halfDayStartsAt: string;
+  halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
 }
 
@@ -7208,6 +7222,8 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   _id: string | null;
   startsAt: string;
   endsAt: string;
+  halfDayStartsAt: string;
+  halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
 }
 
@@ -7394,6 +7410,12 @@ export enum RubricSectionEnum {
   GENERAL = "GENERAL",
   OVERALL = "OVERALL",
   TOPIC = "TOPIC",
+}
+
+export enum SchoolDayLengthEnum {
+  FULL = "FULL",
+  HALF = "HALF",
+  ONE_HOUR_DELAY = "ONE_HOUR_DELAY",
 }
 
 export enum SchoolDayType {
@@ -7677,6 +7699,7 @@ export interface CreateSchoolDayInput {
   cohortWeek: StudentCohortEnum;
   currentSchoolDayType: SchoolDayType;
   schoolDayCount: number;
+  schoolDayLength: SchoolDayLengthEnum;
 }
 
 export interface CreateSignInSheetsInput {

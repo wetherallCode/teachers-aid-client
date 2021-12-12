@@ -8,6 +8,7 @@ import {
   AssignmentsTypeStyle,
   AssignmentsTypeSelectorHeader,
   AssignmentTypeContainer,
+  NoWorkContainer,
 } from './state-n-styles/assignmentsStyles'
 import { useStudentAssignmentContextProvider } from './state-n-styles/StudentAssignmentContext'
 import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
@@ -18,10 +19,15 @@ import {
   findQuizzesByStudentIdVariables,
   MarkingPeriodEnum,
   me_me,
+  me_me_Student,
+  SchoolDayLengthEnum,
 } from '../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { gql, useQuery } from '@apollo/client'
 import { QuizSelect } from './quizzes/QuizSelect'
+import { timeFinder } from '../../../../utils'
+import { useTime } from '../../../../hooks/useTime'
+import { useSchoolDayContextProvider } from '../../school-day/state/SchoolDayContext'
 
 export type StudentAssignmentsProps = {}
 
@@ -51,10 +57,13 @@ export const MARK_EXEMPT_MUTATION = gql`
 `
 
 export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
-  const me: me_me = useUserContextProvider()
+  const me: me_me_Student = useUserContextProvider()
   const [state, event] = useStudentAssignmentContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
+  const [currentSchoolDayState] = useSchoolDayContextProvider()
+
   const { currentMarkingPeriod } = markingPeriodState.context
+  const { dateTime } = useTime()
   // const fakeCurrentMarkingPeriod = MarkingPeriodEnum.SECOND
   // useEffect(() => {
   //   event({ type: 'SET_MARKING_PERIOD', payload: fakeCurrentMarkingPeriod })
@@ -67,10 +76,33 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
       input: { markingPeriod: currentMarkingPeriod, studentId: me._id! },
     },
     pollInterval: 1000,
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
+
+  const assignmentsInClassNotAllowed = true
+
+  const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
+
+  const classTime =
+    assignmentsInClassNotAllowed &&
+    Date.parse(dateTime) >
+      Date.parse(
+        timeFinder(
+          schoolDayLength === SchoolDayLengthEnum.HALF
+            ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
+            : me.inCourses[0].hasCourseInfo?.startsAt!
+        )
+      ) &&
+    Date.parse(dateTime) <
+      Date.parse(
+        timeFinder(
+          schoolDayLength === SchoolDayLengthEnum.HALF
+            ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
+            : me.inCourses[0].hasCourseInfo?.endsAt!
+        )
+      )
 
   return (
     <AssignmentsToCompleteContainer>
@@ -111,12 +143,40 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
         </AssignmentsTypeStyle> */}
       </AssignmentsTypeSelectorPanel>
       <AssignmentTypeContainer>
-        {state.matches('essaysToComplete') && <AssignedEssaySelect />}
+        {state.matches('essaysToComplete') && (
+          <>
+            {!classTime ? (
+              <AssignedEssaySelect />
+            ) : (
+              <NoWorkContainer>
+                You can only do work after class
+              </NoWorkContainer>
+            )}
+          </>
+        )}
         {state.matches('completedEssays') && <CompletedEssaySelect />}
         {state.matches('readingGuidesToComplete') && (
-          <AssignedReadingGuideSelect />
+          <>
+            {!classTime ? (
+              <AssignedReadingGuideSelect />
+            ) : (
+              <NoWorkContainer>
+                You can only do work after class
+              </NoWorkContainer>
+            )}
+          </>
         )}
-        {state.matches('articleReviewsToComplete') && <ArticleReviewSelect />}
+        {state.matches('articleReviewsToComplete') && (
+          <>
+            {!classTime ? (
+              <ArticleReviewSelect />
+            ) : (
+              <NoWorkContainer>
+                You can only do work after class
+              </NoWorkContainer>
+            )}
+          </>
+        )}
         {state.matches('quizzes') && <QuizSelect />}
         <MarkingPeriodSelector />
       </AssignmentTypeContainer>

@@ -13,6 +13,7 @@ import {
   SchoolDayType,
   findCurrentSchoolDay,
   findCurrentSchoolDayVariables,
+  SchoolDayLengthEnum,
 } from '../../schemaTypes'
 import { capitalizer, timeFinder, date } from '../../utils'
 import { useDailyAgendaContextProvider } from './state-n-styles/DailyAgendaContext'
@@ -144,22 +145,49 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
   const schoolDayType =
     schoolDayData?.findSchoolDayByDate.schoolDay?.currentSchoolDayType!
 
+  const schoolDayLength =
+    schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
+
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
           (course) =>
             Date.parse(dateTime) >
-              Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
+              Date.parse(
+                timeFinder(
+                  schoolDayLength === SchoolDayLengthEnum.HALF
+                    ? course.hasCourseInfo?.halfDayStartsAt!
+                    : course.hasCourseInfo?.startsAt!
+                )
+              ) &&
             Date.parse(dateTime) <
-              Date.parse(timeFinder(course.hasCourseInfo?.endsAt!)) &&
+              Date.parse(
+                timeFinder(
+                  schoolDayLength === SchoolDayLengthEnum.HALF
+                    ? course.hasCourseInfo?.halfDayEndsAt!
+                    : course.hasCourseInfo?.endsAt!
+                )
+              ) &&
             course.hasCourseInfo?.schoolDayType === schoolDayType
         )
       : me.inCourses.filter(
           (course) =>
             Date.parse(dateTime) >
-              Date.parse(timeFinder(course.hasCourseInfo?.startsAt!)) &&
+              Date.parse(
+                timeFinder(
+                  schoolDayLength === SchoolDayLengthEnum.HALF
+                    ? course.hasCourseInfo?.halfDayStartsAt!
+                    : course.hasCourseInfo?.startsAt!
+                )
+              ) &&
             Date.parse(dateTime) <
-              Date.parse(timeFinder(course.hasCourseInfo?.endsAt!))
+              Date.parse(
+                timeFinder(
+                  schoolDayLength === SchoolDayLengthEnum.HALF
+                    ? course.hasCourseInfo?.halfDayEndsAt!
+                    : course.hasCourseInfo?.endsAt!
+                )
+              )
         )
 
   // console.dir(courseToLoad)

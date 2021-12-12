@@ -48,8 +48,8 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> =
         input: { studentId: me._id! },
       },
       pollInterval: 1000,
-      onCompleted: (data) =>
-        console.log(data.findReadingGuidesToCompleteByStudentId),
+      // onCompleted: (data) =>
+      //   console.log(data.findReadingGuidesToCompleteByStudentId),
       onError: (error) => console.error(error),
     })
     const readingGuidesForMarkingPeriod =
@@ -69,15 +69,7 @@ export const AssignedReadingGuideSelect: FC<AssignedReadingGuideSelectProps> =
         )) ||
       (readingGuidesForMarkingPeriod &&
         readingGuidesForMarkingPeriod.length === 0)
-    console.log(
-      readingGuidesForMarkingPeriod &&
-        readingGuidesForMarkingPeriod.filter(
-          (readingGuide) =>
-            !readingGuide.paperBased &&
-            !readingGuide.graded &&
-            readingGuide.assigned
-        )
-    )
+
     return (
       <>
         <AssignmentTypeTitle>

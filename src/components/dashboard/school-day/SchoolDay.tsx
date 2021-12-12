@@ -25,6 +25,7 @@ export const FIND_CURRENT_SCHOOL_DAY_QUERY = gql`
         _id
         cohortWeek
         schoolDayCount
+        schoolDayLength
         todaysDate
         currentSchoolDayType
         signInSheets {

@@ -4,6 +4,7 @@ import {
   StudentCohortEnum,
   SchoolDayType,
   findCurrentSchoolDay_findSchoolDayByDate_schoolDay,
+  SchoolDayLengthEnum,
 } from '../../../../schemaTypes'
 
 export type schoolDayMachineSchema = {
@@ -19,6 +20,7 @@ export type schoolDayMachineEvent =
   | { type: 'CURRENT_SCHOOL_DAY' }
   | { type: 'SET_CURRENT_SCHOOL_DAY_COUNT'; payload: number }
   | { type: 'SET_CURRENT_SCHOOL_DAY_TYPE'; payload: SchoolDayType }
+  | { type: 'SET_CURRENT_SCHOOL_DAY_LENGTH'; payload: SchoolDayLengthEnum }
   | { type: 'SET_CURRENT_COHORT_WEEK'; payload: StudentCohortEnum }
   | {
       type: 'SET_TODAYS_SCHOOL_DAY'
@@ -42,6 +44,7 @@ export const schoolDayMachine = Machine<
       cohortWeek: StudentCohortEnum.RED,
       currentSchoolDayType: SchoolDayType.A,
       schoolDayCount: 0,
+      schoolDayLength: SchoolDayLengthEnum.FULL,
     },
     currentSchoolDay: {
       __typename: 'SchoolDay',
@@ -51,6 +54,7 @@ export const schoolDayMachine = Machine<
       schoolDayCount: 0,
       signInSheets: [],
       todaysDate: '',
+      schoolDayLength: SchoolDayLengthEnum.FULL,
     },
   },
   states: {
@@ -70,6 +74,7 @@ export const schoolDayMachine = Machine<
                 currentSchoolDayType: evt.payload.currentSchoolDayType,
                 schoolDayCount: evt.payload.schoolDayCount,
                 signInSheets: evt.payload.signInSheets,
+                schoolDayLength: evt.payload.schoolDayLength,
               },
             }
           }),
@@ -97,6 +102,17 @@ export const schoolDayMachine = Machine<
               createSchoolDay: {
                 ...ctx.createSchoolDay,
                 currentSchoolDayType: evt.payload,
+              },
+            }
+          }),
+        },
+        SET_CURRENT_SCHOOL_DAY_LENGTH: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              createSchoolDay: {
+                ...ctx.createSchoolDay,
+                schoolDayLength: evt.payload,
               },
             }
           }),

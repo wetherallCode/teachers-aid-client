@@ -118,6 +118,11 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    SchoolDayLengthEnum: __type(name: "SchoolDayLengthEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -181,6 +186,9 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           (value) => value.name
         ),
         schoolDayType: data?.SchoolDayType?.enumValues?.map(
+          (value) => value.name
+        ),
+        schoolDayLengthEnum: data?.SchoolDayLengthEnum?.enumValues?.map(
           (value) => value.name
         ),
         academicOutcomeTypes: data?.AcademicOutcomeTypes?.enumValues?.map(

@@ -7,8 +7,11 @@ import {
   findCurrentSchoolDayCount,
   StudentCohortEnum,
   SchoolDayType,
+  SchoolDayLengthEnum,
 } from '../../../schemaTypes'
 import { useSchoolDayContextProvider } from './state/SchoolDayContext'
+import { useEnumContextProvider } from '../../../contexts/EnumContext'
+import { phraseCapitalizer, underscoreEliminator } from '../../../utils'
 
 export type CreateSchoolDayProps = {}
 
@@ -34,6 +37,7 @@ export const FIND_CURRENT_SCHOOL_DAY_COUNT_QUERY = gql`
 `
 export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
   const [state, event] = useSchoolDayContextProvider()
+  const { schoolDayLengthEnum } = useEnumContextProvider()
 
   useQuery<findCurrentSchoolDayCount>(FIND_CURRENT_SCHOOL_DAY_COUNT_QUERY, {
     onCompleted: (data) => {
@@ -64,6 +68,7 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
         cohortWeek: state.context.createSchoolDay.cohortWeek,
         schoolDayCount: state.context.createSchoolDay.schoolDayCount + 1,
         currentSchoolDayType: SchoolDayType.AB,
+        schoolDayLength: state.context.createSchoolDay.schoolDayLength,
         // state.context.createSchoolDay.currentSchoolDayType,
         // state.context.createSchoolDay.currentSchoolDayType === SchoolDayType.A
         //   ? SchoolDayType.B
@@ -130,7 +135,7 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
           White Week
         </div>
       </> */}
-      <>
+      {/* <>
         <div>What type of School Day?</div>
         {
           // state.context.createSchoolDay.currentSchoolDayType ===
@@ -172,10 +177,27 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
             </div>
           </>
         }
-      </>
+      </> */}
       <>
         <div>What day of school is it?</div>
         <div>{state.context.createSchoolDay.schoolDayCount + 1}</div>
+      </>
+      <>
+        <div>School Day Length?</div>
+        <select
+          onChange={(e: any) =>
+            event({
+              type: 'SET_CURRENT_SCHOOL_DAY_LENGTH',
+              payload: e.target.value,
+            })
+          }
+        >
+          {schoolDayLengthEnum.map((length: SchoolDayLengthEnum) => (
+            <option key={length} value={length}>
+              {underscoreEliminator(phraseCapitalizer(length))}
+            </option>
+          ))}
+        </select>
       </>
       <button onClick={() => createSchoolDay()}>Let's Start the Day!</button>
     </>

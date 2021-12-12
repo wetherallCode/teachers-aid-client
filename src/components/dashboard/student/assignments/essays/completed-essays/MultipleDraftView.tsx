@@ -42,7 +42,7 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
     score: 0,
     graded: false,
   }
-  console.log(state.value)
+
   return (
     <>
       <DraftSelectorContainer>

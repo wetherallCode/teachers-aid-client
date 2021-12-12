@@ -6,6 +6,8 @@ import {
   findCompletedEssayByIdVariables,
   findCompletedEssayById,
   SubmittedFinalDraftsInput,
+  me_me_Student,
+  SchoolDayLengthEnum,
 } from '../../../../../../schemaTypes'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 
@@ -31,6 +33,10 @@ import { HowToImprove } from './HowToImprove'
 import { SubmitRedoneEssay } from './SubmitRedoneEssay'
 import { RedoEssayOrganizerHelp } from './RedoEssayOrganizerHelp'
 import { RedoEssayOrganizer } from './organizers/RedoEssayOrganizer'
+import { useTime } from '../../../../../../hooks/useTime'
+import { timeFinder } from '../../../../../../utils'
+import { useUserContextProvider } from '../../../../../../contexts/UserContext'
+import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
 
 export const FIND_COMPLETED_ESSSAY_BY_ID_QUERY = gql`
   query findCompletedEssayById($input: FindEssayByIdInput!) {
@@ -142,10 +148,11 @@ export type CompletedEssayProps = {}
 
 export const CompletedEssay: FC<CompletedEssayProps> = () => {
   const { completedEssay } = useParams()
-
+  const me: me_me_Student = useUserContextProvider()
   const navigate = useNavigate()
   const [state, event] = useCompletedEssayContextProvider()
-
+  const [currentSchoolDayState] = useSchoolDayContextProvider()
+  const { dateTime } = useTime()
   const { loading, data } = useQuery<
     findCompletedEssayById,
     findCompletedEssayByIdVariables
@@ -161,9 +168,10 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
       event({ type: 'SET_ESSAY_ID', payload: data.findEssayById.essay._id! })
       event({
         type: 'SET_DRAFT_NUMBER',
-        payload: data.findEssayById.essay.finalDraft?.submittedFinalDraft[
-          data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 1
-        ].draftNumber!,
+        payload:
+          data.findEssayById.essay.finalDraft?.submittedFinalDraft[
+            data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 1
+          ].draftNumber!,
       })
       event({
         type: 'SET_DRAFT',
@@ -174,12 +182,10 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
     onError: (error) => console.error(error),
   })
 
-  const waysToImprove: (
-    | string
-    | null
-  )[] = data?.findEssayById.essay.finalDraft?.submittedFinalDraft[
-    data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 1
-  ].rubricEntries.map((entry) => entry.howToImprove)!
+  const waysToImprove: (string | null)[] =
+    data?.findEssayById.essay.finalDraft?.submittedFinalDraft[
+      data.findEssayById.essay.finalDraft.submittedFinalDraft.length - 1
+    ].rubricEntries.map((entry) => entry.howToImprove)!
 
   const submittedFinalDraft: SubmittedFinalDraftsInput = {
     draftNumber: state.context.draftNumber + 1,
@@ -195,6 +201,29 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
   const gradePercent =
     data?.findEssayById.essay.score.earnedPoints! /
     data?.findEssayById.essay.score.maxPoints!
+
+  const assignmentsInClassAllowed = false
+
+  const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
+
+  const classTime =
+    assignmentsInClassAllowed &&
+    Date.parse(dateTime) >
+      Date.parse(
+        timeFinder(
+          schoolDayLength === SchoolDayLengthEnum.HALF
+            ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
+            : me.inCourses[0].hasCourseInfo?.startsAt!
+        )
+      ) &&
+    Date.parse(dateTime) <
+      Date.parse(
+        timeFinder(
+          schoolDayLength === SchoolDayLengthEnum.HALF
+            ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
+            : me.inCourses[0].hasCourseInfo?.endsAt!
+        )
+      )
 
   return (
     <EssayContainer>
@@ -232,13 +261,17 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
           <MultipleDraftView essay={data?.findEssayById.essay!} />
 
           <EssayRedoButtonContainer>
-            {state.matches('reviewEssay') && (
+            {state.matches('reviewEssay') && !classTime ? (
               <CompletedEssayControlButton
                 onClick={() => {
                   event({ type: 'NEXT' })
                 }}
               >
                 Redo Essay
+              </CompletedEssayControlButton>
+            ) : (
+              <CompletedEssayControlButton>
+                You Can't Redo Essays During Class
               </CompletedEssayControlButton>
             )}
             {state.matches('redoEssay') && (
