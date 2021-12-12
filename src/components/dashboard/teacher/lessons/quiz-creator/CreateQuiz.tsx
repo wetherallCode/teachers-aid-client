@@ -74,7 +74,7 @@ export const CreateQuiz = ({}: CreateQuizProps) => {
       },
     })
   }, [state.context.courses])
-  console.log(state.context.markingPeriod)
+
   return (
     <div>
       {/* <FindAllQuizzableLessons assignedDate={quizDate} /> */}
