@@ -7225,6 +7225,7 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   halfDayStartsAt: string;
   halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
+  assignmentsInClassNotAllowed: boolean;
 }
 
 export interface me_me_Student_inCourses {
