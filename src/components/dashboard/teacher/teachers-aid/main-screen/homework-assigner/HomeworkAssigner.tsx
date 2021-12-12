@@ -63,7 +63,6 @@ export const HomeworkAssigner = ({
       input: {
         courseId: state.context.courseInfo?.course._id!,
         assignedDate: new Date().toLocaleDateString(),
-        // assignedDate: '10/17/2021',
       },
     },
     pollInterval: 1000,
@@ -83,9 +82,6 @@ export const HomeworkAssigner = ({
   if (loading) return <div>Loading </div>
   return (
     <AssignmentControlPanelContainer>
-      {/* <HomeworkAssignerTitleContainer>
-        Assignments
-      </HomeworkAssignerTitleContainer> */}
       <AssignmentControlSelector>
         <AssignmentControlItem
           onClick={() => setAssignmentControlState('quiz')}
