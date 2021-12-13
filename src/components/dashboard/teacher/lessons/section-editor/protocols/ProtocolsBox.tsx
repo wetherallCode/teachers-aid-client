@@ -91,6 +91,7 @@ export const ProtocolsBox: FC<ProtocolsBoxProps> = ({
         ) : (
           <div
             onClick={() => {
+              event({ type: 'PROTOCOL_ADDER' })
               toggleProtocolItemInputs(true)
               handleAdd(0)
             }}
