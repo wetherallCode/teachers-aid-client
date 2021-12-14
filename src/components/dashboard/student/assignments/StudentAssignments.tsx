@@ -15,6 +15,8 @@ import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
 import { MarkingPeriodSelector } from './MarkingPeriodSelector'
 import { useMarkingPeriodContextProvider } from '../../../../contexts/markingPeriod/MarkingPeriodContext'
 import {
+  findCurrentSchoolDay,
+  findCurrentSchoolDayVariables,
   findQuizzesByStudentId,
   findQuizzesByStudentIdVariables,
   MarkingPeriodEnum,
@@ -28,6 +30,7 @@ import { QuizSelect } from './quizzes/QuizSelect'
 import { timeFinder } from '../../../../utils'
 import { useTime } from '../../../../hooks/useTime'
 import { useSchoolDayContextProvider } from '../../school-day/state/SchoolDayContext'
+import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../school-day/SchoolDay'
 
 export type StudentAssignmentsProps = {}
 
@@ -79,12 +82,25 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
     // onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+  const { data: schoolDayData } = useQuery<
+    findCurrentSchoolDay,
+    findCurrentSchoolDayVariables
+  >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
+    variables: {
+      input: { date: '12/14/2021' },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+  const schoolDay = schoolDayData?.findSchoolDayByDate.schoolDay !== null
+
   if (loading) return <div>Loading </div>
 
   const { assignmentsInClassNotAllowed } = me.inCourses[0].hasCourseInfo!
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
+    schoolDay &&
     assignmentsInClassNotAllowed &&
     Date.parse(dateTime) >
       Date.parse(

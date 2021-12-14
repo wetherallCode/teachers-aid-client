@@ -8,6 +8,8 @@ import {
   SubmittedFinalDraftsInput,
   me_me_Student,
   SchoolDayLengthEnum,
+  findCurrentSchoolDay,
+  findCurrentSchoolDayVariables,
 } from '../../../../../../schemaTypes'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 
@@ -37,6 +39,7 @@ import { useTime } from '../../../../../../hooks/useTime'
 import { timeFinder } from '../../../../../../utils'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
+import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../../../school-day/SchoolDay'
 
 export const FIND_COMPLETED_ESSSAY_BY_ID_QUERY = gql`
   query findCompletedEssayById($input: FindEssayByIdInput!) {
@@ -196,8 +199,18 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
     score: 0,
     graded: false,
   }
+  const { data: schoolDayData } = useQuery<
+    findCurrentSchoolDay,
+    findCurrentSchoolDayVariables
+  >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
+    variables: {
+      input: { date: '12/14/2021' },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+  const schoolDay = schoolDayData?.findSchoolDayByDate.schoolDay !== null
 
-  if (loading) return <div>Loading </div>
   const gradePercent =
     data?.findEssayById.essay.score.earnedPoints! /
     data?.findEssayById.essay.score.maxPoints!
@@ -207,6 +220,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
+    schoolDay &&
     assignmentsInClassNotAllowed &&
     Date.parse(dateTime) >
       Date.parse(
@@ -225,6 +239,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
         )
       )
 
+  if (loading) return <div>Loading </div>
   return (
     <EssayContainer>
       <CompletedEssayDetailsContainer>
