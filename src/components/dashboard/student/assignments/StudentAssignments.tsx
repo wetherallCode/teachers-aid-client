@@ -118,7 +118,6 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
             : me.inCourses[0].hasCourseInfo?.endsAt!
         )
       )
-  // console.log(classTime)
 
   return (
     <AssignmentsToCompleteContainer>

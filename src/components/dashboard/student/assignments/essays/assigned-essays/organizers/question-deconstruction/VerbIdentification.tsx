@@ -82,6 +82,11 @@ export const VerbIdentification = ({
         : verb + 'ed'
       : irregularVerbCheck
   }
+  console.log(
+    question.helpingVerb !== 'did' &&
+      auxilaryVerbCheck &&
+      question.object !== null
+  )
   // console.log(congugatedVerb(question.simplePredicate))
   useEffect(() => {
     if (correctSimplePredicate && text) {
@@ -139,7 +144,19 @@ export const VerbIdentification = ({
           if (question.helpingVerb !== 'did' && !auxilaryVerbCheck) {
             setState('subject-complement-identification')
           }
-          if (question.helpingVerb !== 'did' && auxilaryVerbCheck) {
+
+          if (
+            question.helpingVerb !== 'did' &&
+            auxilaryVerbCheck &&
+            question.object !== null
+          ) {
+            setState('object-identification')
+          }
+          if (
+            question.helpingVerb !== 'did' &&
+            auxilaryVerbCheck &&
+            question.object === null
+          ) {
             setState('ending-phrase')
           }
         }

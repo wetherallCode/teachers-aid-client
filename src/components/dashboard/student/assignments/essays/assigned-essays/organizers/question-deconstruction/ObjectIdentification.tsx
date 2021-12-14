@@ -8,6 +8,7 @@ import {
 import {
   capitalizer,
   irregularPastTenseVerbList,
+  phraseCapitalizer,
   timeAFunction,
 } from '../../../../../../../../utils'
 
@@ -146,10 +147,11 @@ export const ObjectIdentification = ({
             <div>{questionToModify.join(' ').replace(' | ', ' ')}</div>
             <br />
             <div>
-              and ask yourself: Did {question.completeSubject}{' '}
-              {question.simplePredicate} something? If there is a direct answer
-              to this question, the answer is yes. If there isn't a direct
-              answer (or the question makes no sense), the answer is no.
+              and ask yourself: {phraseCapitalizer(question.helpingVerb)}{' '}
+              {question.completeSubject} {question.simplePredicate} something?
+              If there is a direct answer to this question, the answer is yes.
+              If there isn't a direct answer (or the question makes no sense),
+              the answer is no.
             </div>
           </RestatementDirectionsContainerObjectDirections>
           <RestatementDirectionsContainerObjectDirectionsButtonContainer>
