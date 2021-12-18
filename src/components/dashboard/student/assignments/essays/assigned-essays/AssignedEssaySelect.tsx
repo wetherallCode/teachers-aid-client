@@ -16,6 +16,7 @@ import {
 } from '../../state-n-styles/assignmentsStyles'
 
 import { useStudentAssignmentContextProvider } from '../../state-n-styles/StudentAssignmentContext'
+import { ReadingGuideCheck } from './ReadingGuideCheck'
 
 export type AssignedEssaySelectProps = {}
 
@@ -106,12 +107,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
                       .map((essay) => (
                         <ul key={essay._id}>
                           <AssignmentLinkLi>
-                            <AssignmentLink
-                              to={`essay/toComplete/${essay._id!}`}
-                              // key={essay._id!}
-                            >
-                              {essay.readings.readingSections}
-                            </AssignmentLink>
+                            <ReadingGuideCheck essay={essay} />
                           </AssignmentLinkLi>
                         </ul>
                       ))}

@@ -832,6 +832,35 @@ export interface findEssayQuestionByIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findReadingGuideByUserIdAndReadingSection
+// ====================================================
+
+export interface findReadingGuideByUserIdAndReadingSection_findReadingGuideByUserIdAndReadingSection_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  exempt: boolean;
+  graded: boolean;
+}
+
+export interface findReadingGuideByUserIdAndReadingSection_findReadingGuideByUserIdAndReadingSection {
+  __typename: "FindReadingGuideByUserIdAndReadingSectionPayload";
+  readingGuide: findReadingGuideByUserIdAndReadingSection_findReadingGuideByUserIdAndReadingSection_readingGuide | null;
+}
+
+export interface findReadingGuideByUserIdAndReadingSection {
+  findReadingGuideByUserIdAndReadingSection: findReadingGuideByUserIdAndReadingSection_findReadingGuideByUserIdAndReadingSection;
+}
+
+export interface findReadingGuideByUserIdAndReadingSectionVariables {
+  input: FindReadingGuideByUserIdAndReadingSectionInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: submitEssayFinalDraft
 // ====================================================
 
@@ -7899,6 +7928,11 @@ export interface FindQuizzesForCourseByAssignedDateInput {
 
 export interface FindReadingGuideByIdInput {
   readingGuideId: string;
+}
+
+export interface FindReadingGuideByUserIdAndReadingSectionInput {
+  readingSections: string;
+  studentId: string;
 }
 
 export interface FindReadingGuidesByAssociatedLessonAndCourseIdInput {
