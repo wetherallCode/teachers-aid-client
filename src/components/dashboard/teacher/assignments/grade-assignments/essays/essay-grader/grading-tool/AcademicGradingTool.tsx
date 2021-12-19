@@ -4,6 +4,7 @@ import {
   findRubricEntries_findRubricEntries_rubricEntries,
   WritingLevelEnum,
   ReturnedRubricEntryInput,
+  RubricSectionEnum,
 } from '../../../../../../../../schemaTypes'
 import { useCheckBox } from '../../../../../../../../hooks/useCheckBox'
 import { useEnumContextProvider } from '../../../../../../../../contexts/EnumContext'
@@ -31,13 +32,13 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
   const [sectionSelector, setSectionSelector] = useState(0)
   const [rubricList, handleChange] = useCheckBox([])
   const rubricEntriesList: ReturnedRubricEntryInput[] = []
-
+  console.log(rubricList)
   rubricList.forEach((entry: string) => {
     const splitValues = entry.split(',')
 
     const rubricEntryValues: ReturnedRubricEntryInput = {
       entry: splitValues[0],
-      rubricSection: state.context.currentRubricSection,
+      rubricSection: splitValues[3] as RubricSectionEnum,
       score: Number(splitValues[1]),
       howToImprove: splitValues[2],
     }
@@ -139,6 +140,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
                   entry.entry,
                   entry.score.toString(),
                   entry.howToImprove!,
+                  entry.rubricSection,
                 ]}
               />
             ))}

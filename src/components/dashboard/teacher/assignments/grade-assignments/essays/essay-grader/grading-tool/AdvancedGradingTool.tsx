@@ -6,6 +6,7 @@ import {
   ReturnedRubricEntryInput,
   WritingLevelEnum,
   findRubricEntries_findRubricEntries_rubricEntries,
+  RubricSectionEnum,
 } from '../../../../../../../../schemaTypes'
 import { AdditionalComments } from './AdditionalComments'
 import {
@@ -36,7 +37,7 @@ export const AdvancedGradingTool: FC<AdvancedGradingToolProps> = ({
 
     const rubricEntryValues: ReturnedRubricEntryInput = {
       entry: splitValues[0],
-      rubricSection: state.context.currentRubricSection,
+      rubricSection: splitValues[3] as RubricSectionEnum,
       score: Number(splitValues[1]),
       howToImprove: splitValues[2],
     }
@@ -118,6 +119,7 @@ export const AdvancedGradingTool: FC<AdvancedGradingToolProps> = ({
                     entry.entry,
                     entry.score.toString(),
                     entry.howToImprove!,
+                    entry.rubricSection,
                   ]}
                   onChange={handleChange}
                 />
