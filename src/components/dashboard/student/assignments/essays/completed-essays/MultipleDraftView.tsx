@@ -175,7 +175,7 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
               <ScoreSheetRubricCommentsTitle>
                 Additional Comments
               </ScoreSheetRubricCommentsTitle>
-              <div>
+              <div style={{ height: '30vh', overflow: 'scroll' }}>
                 <ul>
                   {currentDraft!.additionalComments!.map(
                     (comment, i: number) => (
