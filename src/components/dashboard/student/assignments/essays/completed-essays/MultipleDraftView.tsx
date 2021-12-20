@@ -15,6 +15,7 @@ import {
   ScoreSheetRubricComments,
   ScoreSheetRubricCommentsTitle,
   ScoreSheetAdditionalComments,
+  RubricSectionTitle,
 } from './state/completedEssayStyles'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { RedoEssayEditor } from './RedoEssayEditor'
@@ -32,7 +33,7 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
     essay.finalDraft?.submittedFinalDraft.length! - 1
   )
   const currentDraft = essay.finalDraft?.submittedFinalDraft[draftSelector]
-
+  // console.log(currentDraft?.gradingDraft)
   const submittedFinalDraft: SubmittedFinalDraftsInput = {
     draftNumber: state.context.draftNumber + 1,
     draft: state.context.draftToUpdate,
@@ -138,11 +139,36 @@ export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
                 Rubric Comments
               </ScoreSheetRubricCommentsTitle>
               <div>
-                <ul>
-                  {currentDraft!.rubricEntries.map((entry, i: number) => (
-                    <li key={i}>{entry.entry}</li>
-                  ))}
-                </ul>
+                <div>
+                  <RubricSectionTitle>Topic</RubricSectionTitle>
+                  <ul>
+                    {currentDraft!.rubricEntries
+                      .filter((r) => r.rubricSection === 'TOPIC')
+                      .map((entry, i: number) => (
+                        <li key={i}>{entry.entry}</li>
+                      ))}
+                  </ul>
+                </div>
+                <div>
+                  <RubricSectionTitle>Answer</RubricSectionTitle>
+                  <ul>
+                    {currentDraft!.rubricEntries
+                      .filter((r) => r.rubricSection === 'ANSWER')
+                      .map((entry, i: number) => (
+                        <li key={i}>{entry.entry}</li>
+                      ))}
+                  </ul>
+                </div>
+                <div>
+                  <RubricSectionTitle>Conclusion</RubricSectionTitle>
+                  <ul>
+                    {currentDraft!.rubricEntries
+                      .filter((r) => r.rubricSection === 'CONCLUSION')
+                      .map((entry, i: number) => (
+                        <li key={i}>{entry.entry}</li>
+                      ))}
+                  </ul>
+                </div>
               </div>
             </ScoreSheetRubricComments>
             <ScoreSheetAdditionalComments>

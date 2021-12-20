@@ -71,6 +71,12 @@ export const ScoreSheetRubricCommentsTitle = styled.div`
   justify-self: center;
   align-self: center;
   text-decoration: underline;
+  font-size: 1.4rem;
+`
+
+export const RubricSectionTitle = styled.div`
+  text-align: center;
+  text-decoration: underline;
 `
 
 export const CompletedEssayContainer = styled(EssayEditorContainer)`
