@@ -38,7 +38,7 @@ export const AcademicConclusion: FC<AcademicConclusionProps> = ({
   const { subject, object, subjectCompliment } =
     state.context.academicOrganizer.academicSentenceStructure
   const { simplePredicate, helpingVerb } = questionParts
-  console.log(auxilaryVerbCheck)
+  console.log(subjectCompliment)
   // const verbConverter = auxilaryVerbCheck
   //   ? verbsThatChangeInIngFormat(simplePredicate.split(' ')[0]) +
   //     ' ' +
@@ -52,6 +52,16 @@ export const AcademicConclusion: FC<AcademicConclusionProps> = ({
     updateAcademicOrganizer()
   }, [state.context.academicOrganizer.conclusion, updateAcademicOrganizer])
 
+  const conclusionSetup = `As a result of ${subject}
+  ${verbConverter} 
+  ${
+    object
+      ? object
+      : subjectCompliment !== null
+      ? questionParts.subjectCompliment
+      : ''
+  }`
+
   return (
     <>
       <OrganizerTitleContainer>
@@ -60,15 +70,8 @@ export const AcademicConclusion: FC<AcademicConclusionProps> = ({
       <RestatementDirectionsContainer>
         <UnderlinedText>Directions</UnderlinedText>
         <div>
-          First start the conclusion this way: "As a result of {subject}{' '}
-          {verbConverter}{' '}
-          {object
-            ? object
-            : subjectCompliment !== null
-            ? subjectCompliment
-            : ''}
-          , ..." Then put the consequence of this statement in place of the
-          "..." Be sure to write the "As a result ..." in the box below.
+          First start the conclusion this way: {conclusionSetup}, , ..." Then
+          put the consequence of this statement in place of the "...."
         </div>
       </RestatementDirectionsContainer>
       {/* <RestatementTitle>Write your conclusion</RestatementTitle> */}
