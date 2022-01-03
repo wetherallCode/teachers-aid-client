@@ -152,7 +152,7 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
   const index = markingPeriodEnum.findIndex(
     (c: MarkingPeriodEnum) => c === markingPeriodToGrade
   )
-  console.log(state.value)
+
   return (
     <CourseEssaysToGradeContainer>
       <EssayTitle>
