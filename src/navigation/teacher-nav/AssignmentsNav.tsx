@@ -15,8 +15,11 @@ export const AssignmentNav: FC<TeacherNavProps> = ({
         <motion.li variants={liVariants}>
           <Link to='dashboard/assignments/create'>Create</Link>
         </motion.li>
-        <motion.li variants={liVariants}>
+        {/* <motion.li variants={liVariants}>
           <Link to='dashboard/assignments/edit'>Edit</Link>
+        </motion.li> */}
+        <motion.li variants={liVariants}>
+          <Link to='dashboard/assignments/check'>Check</Link>
         </motion.li>
         <motion.li variants={liVariants}>
           <Link to='dashboard/assignments/grade'>Grade</Link>
