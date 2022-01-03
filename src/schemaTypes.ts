@@ -1721,6 +1721,7 @@ export interface findLessonsByCourse_findLessonByCourse_lessons {
   _id: string | null;
   lessonName: string;
   assignedDate: any;
+  lessonType: LessonTypeEnum;
 }
 
 export interface findLessonsByCourse_findLessonByCourse {
@@ -1804,6 +1805,60 @@ export interface assignReadingGuides {
 
 export interface assignReadingGuidesVariables {
   input: AssignReadingGuidesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findReadingGuidesByMarkingPeriod
+// ====================================================
+
+export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+}
+
+export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  problems: string[];
+  biggestProblem: string;
+  reasonForBiggestProblem: string;
+  importantPeople: string[];
+  howArePeopleInvolvedInProblems: string;
+  sectionConsequences: string;
+}
+
+export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+  hasOwner: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_hasOwner;
+  reviewed: boolean;
+  completed: boolean;
+  exempt: boolean;
+  readings: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readings;
+  readingGuideFinal: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readingGuideFinal | null;
+}
+
+export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod {
+  __typename: "FindReadingGuidesByMarkingPeriodPayload";
+  readingGuides: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides[];
+}
+
+export interface findReadingGuidesByMarkingPeriod {
+  findReadingGuidesByMarkingPeriod: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod;
+}
+
+export interface findReadingGuidesByMarkingPeriodVariables {
+  input: FindReadingGuidesByMarkingPeriodInput;
 }
 
 /* tslint:disable */
@@ -7943,6 +7998,10 @@ export interface FindReadingGuidesByAssociatedLessonAndCourseIdInput {
 export interface FindReadingGuidesByCourseIdAndAssignedDateInput {
   assignedDate?: string | null;
   courseId: string;
+}
+
+export interface FindReadingGuidesByMarkingPeriodInput {
+  markingPeriod: MarkingPeriodEnum;
 }
 
 export interface FindReadingGuidesToCompleteByStudentIdInput {

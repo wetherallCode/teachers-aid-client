@@ -41,6 +41,13 @@ export const TwentyFourSeatFloorPlan = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
 `
+
+export const ThirtySeatPairsFloorPlan = styled.div`
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+`
 export const TwelveSeatFloorPlan = styled.div`
   display: grid;
   height: 100%;

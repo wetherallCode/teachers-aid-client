@@ -5,6 +5,7 @@ import { TwelveSeatChart } from './TwelveSeatChart'
 import { ThirtySeatChart } from './ThirtySeatChart'
 import { ThirtySixSeatChart } from './ThirtySixSeatChart'
 import { TwentySixIndividualSeatChart } from './TwentySixIndividualSeatChart'
+import { ThirtySeatPairs } from './ThirtySixSeatPairs'
 
 export type SeatingChartProps = {}
 
@@ -23,7 +24,7 @@ export const SeatingChart: FC<SeatingChartProps> = () => {
       ) : courseMaxSize === 36 ? (
         <ThirtySixSeatChart />
       ) : courseMaxSize > 25 && courseMaxSize < 30 ? (
-        <TwentySixIndividualSeatChart />
+        <ThirtySeatPairs />
       ) : null}
     </>
   )
