@@ -286,6 +286,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
                 {' '}
                 Partially Correct: {answer.partiallyCorrect ? 'Yes' : 'No'}
               </span>
+              <span> Removable: {answer.removable ? 'Yes' : 'No'}</span>
             </div>
           ))}
         </div>
