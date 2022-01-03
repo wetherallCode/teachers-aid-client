@@ -15,6 +15,7 @@ import { ArticleReviewManager } from './article-reviews/ArticleReviewManager'
 import { ArticleReviewContextProvider } from './article-reviews/state-styles/ArticleReviewContext'
 import { GradeEssayContainerContextProvider } from './grade-assignments/state-n-styles/GradeEssayContainerContext'
 import { GrammarPractice } from '../development/grammar/GrammarPractice'
+import { CheckAssignments } from './check-assignments/CheckAssignments'
 
 export type AssignmentDashboardProps = {}
 
@@ -38,6 +39,7 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
         }
       />
       <Route path='edit' element={<EditAssignments />} />
+      <Route path='check/*' element={<CheckAssignments />} />
       {/* <GradeEssayContextProvider> */}
       <Route
         path='grade/*'
