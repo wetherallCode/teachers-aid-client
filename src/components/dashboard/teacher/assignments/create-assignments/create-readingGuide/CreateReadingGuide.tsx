@@ -75,6 +75,7 @@ export const CreateReadingGuide = ({
   const [currentCourseInfo] = me.teachesCourses.filter(
     (course) => course._id === courseId
   )
+
   const sortedCourses = me.teachesCourses.slice(2)
   // .sort(sortByLetter)
   // .filter(
@@ -83,7 +84,8 @@ export const CreateReadingGuide = ({
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
-  console.log(currentCourseIndex)
+  console.log(sortedCourses[currentCourseIndex + 1])
+  // console.log(sortedCourses[currentCourseIndex + 1]._id)
 
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
@@ -105,8 +107,8 @@ export const CreateReadingGuide = ({
     onCompleted: (data) => {
       if (sortedCourses[currentCourseIndex + 1]) {
         setCourseId(sortedCourses[currentCourseIndex + 1]._id!)
-        // event({ type: 'READING_GUIDE' })
-      } else navigate('/dashboard/assignments')
+        event({ type: 'IDLE' })
+      } else navigate('/dashboard')
     },
     refetchQueries: [],
   })
@@ -115,7 +117,13 @@ export const CreateReadingGuide = ({
     <LessonInformationSelectContainer>
       <AssignedDateCheck courseId={courseId} lessonId={lesson._id!} />
       <ReadingGuideInformationSelectContainer>
-        <SelectorTitle>Create Reading Guide</SelectorTitle>
+        <SelectorTitle>
+          <div>Create Reading Guide</div>
+          <div>
+            {lesson.assignedSections.startingSection}-
+            {lesson.assignedSections.endingSection}
+          </div>
+        </SelectorTitle>
         <DateAssignContainer>
           <DateAssignItemContainer>
             <div>Assigned Date: </div>

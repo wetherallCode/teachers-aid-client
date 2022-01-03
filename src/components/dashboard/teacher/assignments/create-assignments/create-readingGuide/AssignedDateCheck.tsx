@@ -34,7 +34,7 @@ export const AssignedDateCheck = ({
           .slice()
           .sort(sortByDate)!
 
-        const previousLesson = sortedLessons[lessonIndex - 1]!
+        const previousLesson = sortedLessons[lessonIndex]! //this works like its the lessons date
 
         const previousLessonDate = previousLesson
           ? previousLesson.assignedDate
