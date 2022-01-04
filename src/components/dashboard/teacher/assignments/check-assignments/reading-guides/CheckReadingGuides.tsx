@@ -18,6 +18,7 @@ import {
 import { MarkingPeriodSelector } from '../../grade-assignments/state-n-styles/GradeEssayContainerStyles'
 import {
   ReadingGuideCheckContainer,
+  ReadingGuides,
   ReadingGuidesToCheckContainer,
   ReadingGuideToReviewContainer,
   ReadingGuideToSelectContainer,
@@ -41,9 +42,11 @@ export const FIND_READING_GUIDES_BY_MARKING_PERIOD_QUERY = gql`
         reviewed
         completed
         exempt
+        effort
         readings {
           readingSections
         }
+        dueDate
         readingGuideFinal {
           problems
           biggestProblem
@@ -86,6 +89,7 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
+
   const readingGuidesToCheck =
     data?.findReadingGuidesByMarkingPeriod.readingGuides.filter(
       (rg) => !rg.exempt && !rg.reviewed && rg.completed
@@ -120,26 +124,33 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
         </MarkingPeriodSelectorContainer>
       </MarkingPeriodSelector>
       <ReadingGuidesToCheckContainer>
-        <div>
+        <ReadingGuides>
           {readingGuidesToCheck.map((rg, i) => (
             <ReadingGuideToSelectContainer
               key={rg._id}
               alternatingLine={i % 2 === 0}
+              onClick={() => setReadingGuideToReview(rg)}
             >
-              <ReadingGuideToSelectNameContainer
-                onClick={() => setReadingGuideToReview(rg)}
-              >
+              <ReadingGuideToSelectNameContainer>
                 <div>{rg.hasOwner.firstName}</div>
                 <div>{rg.hasOwner.lastName}</div>
               </ReadingGuideToSelectNameContainer>
               <div>{rg.readings.readingSections}</div>
             </ReadingGuideToSelectContainer>
           ))}
-        </div>
+        </ReadingGuides>
         <div>
           {readingGuideToReview ? (
             <ReadingGuideToReviewContainer>
-              <IndividualReadingGuide readingGuide={readingGuideToReview!} />
+              <IndividualReadingGuide
+                readingGuide={readingGuideToReview!}
+                setReadingGuideToReview={setReadingGuideToReview}
+                readingGuidesToCheck={
+                  data?.findReadingGuidesByMarkingPeriod.readingGuides.filter(
+                    (rg) => !rg.exempt && !rg.reviewed && rg.completed
+                  )!
+                }
+              />
             </ReadingGuideToReviewContainer>
           ) : (
             <ReadingGuideToReviewContainer>

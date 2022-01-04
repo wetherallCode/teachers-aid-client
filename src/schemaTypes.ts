@@ -1844,7 +1844,9 @@ export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeri
   reviewed: boolean;
   completed: boolean;
   exempt: boolean;
+  effort: ReadingGuideReviewOptionsEnum;
   readings: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readings;
+  dueDate: string;
   readingGuideFinal: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readingGuideFinal | null;
 }
 
