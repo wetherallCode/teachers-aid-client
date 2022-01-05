@@ -28,9 +28,9 @@ export const IndividualReadingGuideReviewDisplay = ({
   readingGuide,
 }: IndividualReadingGuideReviewDisplayProps) => {
   const { readingGuideReviewOptionsEnum } = useEnumContextProvider()
-  const [effort, setEffort] = useState<ReadingGuideReviewOptionsEnum>(
-    readingGuideReviewOptionsEnum.GOOD_EFFORT
-  )
+  // const [effort, setEffort] = useState<ReadingGuideReviewOptionsEnum>(
+  //   readingGuideReviewOptionsEnum.GOOD_EFFORT
+  // )
   const {
     biggestProblem,
     problems,
@@ -43,11 +43,11 @@ export const IndividualReadingGuideReviewDisplay = ({
     reviewReadingGuides,
     reviewReadingGuidesVariables
   >(REVIEW_READING_GUIDE_MUTATION, {
-    variables: {
-      input: { effort, readingGuideId: readingGuide._id! },
-    },
+    // variables: {
+    //   input: { effort, readingGuideId: readingGuide._id! },
+    // },
     onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    refetchQueries: ['findReadingGuidesByCourseIdAndAssignedDate'],
   })
   return (
     <div>
@@ -89,7 +89,19 @@ export const IndividualReadingGuideReviewDisplay = ({
       <div>
         {readingGuideReviewOptionsEnum.map(
           (review: ReadingGuideReviewOptionsEnum) => (
-            <button key={review}>
+            <button
+              key={review}
+              onClick={() =>
+                reviewReadingGuides({
+                  variables: {
+                    input: {
+                      effort: review,
+                      readingGuideId: readingGuide._id!,
+                    },
+                  },
+                })
+              }
+            >
               {phraseCapitalizer(underscoreEliminator(review))}
             </button>
           )
