@@ -48,30 +48,32 @@ export const DraftSelectorNext = styled.div`
 export const ScoreSheet = styled(EssaySheet)`
   display: grid;
   grid-template-rows: 1fr 3fr 3fr;
+  padding-right: 1vh;
 `
 export const ScoreSheetScore = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
-  font-size: 2rem;
-  text-decoration: underline;
+  font-size: 3.5vh;
+  padding-right: 1vh;
+  /* text-decoration: underline; */
 `
 export const ScoreSheetRubricComments = styled.div`
   display: grid;
   grid-template-rows: 1fr 6fr;
-  font-size: 1.2rem;
+  font-size: 2vh;
 `
 export const ScoreSheetAdditionalComments = styled.div`
   display: grid;
   grid-template-rows: 1fr 6fr;
-  font-size: 1.2rem;
+  font-size: 2vh;
 `
 
 export const ScoreSheetRubricCommentsTitle = styled.div`
   justify-self: center;
   align-self: center;
   text-decoration: underline;
-  font-size: 1.4rem;
+  font-size: 2.3vh;
 `
 
 export const RubricSectionTitle = styled.div`
