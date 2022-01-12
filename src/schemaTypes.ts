@@ -4881,9 +4881,16 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   maxPoints: number;
 }
 
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  rubricSection: RubricSectionEnum;
+  score: number;
+}
+
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft {
   __typename: "SubmittedFinalDraft";
   graded: boolean;
+  rubricEntries: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft_rubricEntries[];
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft {
@@ -5093,6 +5100,50 @@ export interface findWritingMetrics {
 
 export interface findWritingMetricsVariables {
   input: FindWritingMetricsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssaysByStudentId
+// ====================================================
+
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  rubricSection: RubricSectionEnum;
+  score: number;
+}
+
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  rubricEntries: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries[];
+}
+
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft[];
+}
+
+export interface findEssaysByStudentId_findEssaysByStudentId_essays {
+  __typename: "Essay";
+  markingPeriod: MarkingPeriodEnum;
+  finalDraft: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft | null;
+}
+
+export interface findEssaysByStudentId_findEssaysByStudentId {
+  __typename: "FindEssaysByStudentIdPayload";
+  essays: findEssaysByStudentId_findEssaysByStudentId_essays[];
+}
+
+export interface findEssaysByStudentId {
+  findEssaysByStudentId: findEssaysByStudentId_findEssaysByStudentId;
+}
+
+export interface findEssaysByStudentIdVariables {
+  input: FindEssaysByStudentIdInput;
 }
 
 /* tslint:disable */
@@ -7917,6 +7968,10 @@ export interface FindEssaysByAssociatedLessonIdAndCourseIdInput {
 
 export interface FindEssaysByAssociatedLessonIdInput {
   associatedLessonId: string;
+}
+
+export interface FindEssaysByStudentIdInput {
+  studentId: string;
 }
 
 export interface FindEssaysToCompleteByStudentIdInput {

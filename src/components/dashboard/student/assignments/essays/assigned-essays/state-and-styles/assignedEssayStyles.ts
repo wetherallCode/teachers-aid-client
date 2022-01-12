@@ -89,7 +89,7 @@ export const QuestionStyle = styled.div`
 
 export const QuestionTypeContainer = styled.div`
   grid-row: 3/5;
-  grid-column: 3/-3;
+  grid-column: studnet3/-3;
   align-items: center;
   justify-items: center;
   font-size: 2rem;

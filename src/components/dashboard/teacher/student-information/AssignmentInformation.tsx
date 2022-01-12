@@ -11,6 +11,7 @@ import {
   findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz,
   MarkingPeriodEnum,
 } from '../../../../schemaTypes'
+import { SGOInfo } from './SGOInfo'
 import { useStudentInformationContextProvider } from './state-n-styles/StudentInformationContext'
 import {
   AssignmentInformationAssignmentSwitchContainer,
@@ -51,6 +52,10 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
             submitted
             submittedFinalDraft {
               graded
+              rubricEntries {
+                rubricSection
+                score
+              }
             }
           }
         }
@@ -116,6 +121,10 @@ export const AssignmentInformation = ({
 
   const articleReviews = data?.findAssignmentByStudentId.articleReviews.filter(
     (review) => review.markingPeriod === selectedMarkingPeriod
+  )!
+
+  const completedEssays = data?.findAssignmentByStudentId.assignments.filter(
+    (assignment) => assignment.__typename === 'Essay' && assignment.finalDraft
   )!
 
   const allEssays = data?.findAssignmentByStudentId.assignments.filter(
@@ -231,6 +240,7 @@ export const AssignmentInformation = ({
               </IndividualAssignmentDisplay>
             ))}
             <div>Overall Essay Score (FY): {overallEssayScore}</div>
+            <SGOInfo studentId={studentId!} />
           </AssignmentInformationStyle>
         )}
         {state.matches('information.assignments.readingGuides') && (
