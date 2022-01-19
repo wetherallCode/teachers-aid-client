@@ -11,15 +11,15 @@ export type ExitActivityProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
 }
 
-export const ExitActivity: FC<ExitActivityProps> = ({ lesson }) => {
+export const ExitActivity = ({ lesson }: ExitActivityProps) => {
   return (
-    <LessonMainScreen>
-      <LessonComponentTitleContainer>Cool Down</LessonComponentTitleContainer>
+    <>
+      <LessonComponentTitleContainer>Exit Ticket</LessonComponentTitleContainer>
       <LessonComponentDetailsContainer>
         <LessonComponentDetailsStyle>
           {lesson.afterActivity.task}
         </LessonComponentDetailsStyle>
       </LessonComponentDetailsContainer>
-    </LessonMainScreen>
+    </>
   )
 }
