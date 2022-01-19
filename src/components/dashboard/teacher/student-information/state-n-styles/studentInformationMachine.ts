@@ -13,6 +13,7 @@ export type studentInformationMachineSchema = {
             readingGuides: {}
             articleReviews: {}
             quizzes: {}
+            sgo: {}
           }
         }
         protocols: {}
@@ -30,6 +31,7 @@ export type studentInformationMachineEvent =
   | { type: 'ESSAYS' }
   | { type: 'QUIZZES' }
   | { type: 'ARTICLE_REVIEWS' }
+  | { type: 'SGO' }
   | {
       type: 'SET_STUDENT'
       payload: findAllStudentsForStudentInformation_findAllStudents_students
@@ -84,6 +86,7 @@ export const studentInformationMachine = Machine<
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
                 QUIZZES: 'quizzes',
+                SGO: 'sgo',
               },
             },
             readingGuides: {
@@ -94,6 +97,7 @@ export const studentInformationMachine = Machine<
                 ESSAYS: 'essays',
                 ARTICLE_REVIEWS: 'articleReviews',
                 QUIZZES: 'quizzes',
+                SGO: 'sgo',
               },
             },
             articleReviews: {
@@ -104,6 +108,7 @@ export const studentInformationMachine = Machine<
                 READING_GUIDES: 'readingGuides',
                 ESSAYS: 'essays',
                 QUIZZES: 'quizzes',
+                SGO: 'sgo',
               },
             },
             quizzes: {
@@ -114,6 +119,18 @@ export const studentInformationMachine = Machine<
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
                 ESSAYS: 'essays',
+                SGO: 'sgo',
+              },
+            },
+            sgo: {
+              on: {
+                STUDENT_INFO: '#studentInformation.information.studentInfo',
+                CONTACTS: '#studentInformation.information.contacts',
+                PROTOCOLS: '#studentInformation.information.protocols',
+                READING_GUIDES: 'readingGuides',
+                ARTICLE_REVIEWS: 'articleReviews',
+                ESSAYS: 'essays',
+                QUIZZES: 'quizzes',
               },
             },
           },

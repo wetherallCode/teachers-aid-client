@@ -164,7 +164,7 @@ export const AssignmentInformation = ({
     allEssaysEarnedPointTotal ? allEssaysEarnedPointTotal : 0,
     allEssaysMaxPointTotal ? allEssaysMaxPointTotal : 0
   )
-
+  console.log(state.value)
   if (loading) return <div>Loading </div>
   return (
     <AssignmentInformationContainer>
@@ -186,6 +186,12 @@ export const AssignmentInformation = ({
           onClick={() => event({ type: 'QUIZZES' })}
         >
           Quizzes
+        </AssignmentSwitch>
+        <AssignmentSwitch
+          selected={state.matches('information.assignments.sgo')}
+          onClick={() => event({ type: 'SGO' })}
+        >
+          SGO Info
         </AssignmentSwitch>
         {/* <AssignmentSwitch
           selected={state.matches('information.assignments.articleReviews')}
@@ -240,7 +246,6 @@ export const AssignmentInformation = ({
               </IndividualAssignmentDisplay>
             ))}
             <div>Overall Essay Score (FY): {overallEssayScore}</div>
-            <SGOInfo studentId={studentId!} />
           </AssignmentInformationStyle>
         )}
         {state.matches('information.assignments.readingGuides') && (
@@ -298,6 +303,9 @@ export const AssignmentInformation = ({
               </IndividualAssignmentDisplay>
             ))}
           </AssignmentInformationStyle>
+        )}
+        {state.matches('information.assignments.sgo') && (
+          <SGOInfo studentId={studentId!} />
         )}
         {/* {state.matches('information.assignments.articleReviews') && (
           <AssignmentInformationStyle>

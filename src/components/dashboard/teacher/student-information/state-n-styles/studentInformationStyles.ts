@@ -119,7 +119,7 @@ export const MarkingPeriodSelectorSwitchContainer = styled(
 
 export const AssignmentInformationAssignmentSwitchContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 `
 
 export type AssignmentSwitchProps = {

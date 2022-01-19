@@ -5111,14 +5111,26 @@ export interface findWritingMetricsVariables {
 // GraphQL query operation: findEssaysByStudentId
 // ====================================================
 
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
   rubricSection: RubricSectionEnum;
   score: number;
+  entry: string;
 }
 
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft {
   __typename: "SubmittedFinalDraft";
+  score: number;
   rubricEntries: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries[];
 }
 
@@ -5130,6 +5142,8 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft {
 export interface findEssaysByStudentId_findEssaysByStudentId_essays {
   __typename: "Essay";
   markingPeriod: MarkingPeriodEnum;
+  score: findEssaysByStudentId_findEssaysByStudentId_essays_score;
+  readings: findEssaysByStudentId_findEssaysByStudentId_essays_readings;
   finalDraft: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft | null;
 }
 
