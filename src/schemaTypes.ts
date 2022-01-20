@@ -1813,6 +1813,51 @@ export interface assignReadingGuidesVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findEssaysByTopic
+// ====================================================
+
+export interface findEssaysByTopic_findEssaysByTopic_essays_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+}
+
+export interface findEssaysByTopic_findEssaysByTopic_essays_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  gradingDraft: any;
+}
+
+export interface findEssaysByTopic_findEssaysByTopic_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: findEssaysByTopic_findEssaysByTopic_essays_finalDraft_submittedFinalDraft[];
+}
+
+export interface findEssaysByTopic_findEssaysByTopic_essays {
+  __typename: "Essay";
+  _id: string | null;
+  hasOwner: findEssaysByTopic_findEssaysByTopic_essays_hasOwner;
+  finalDraft: findEssaysByTopic_findEssaysByTopic_essays_finalDraft | null;
+}
+
+export interface findEssaysByTopic_findEssaysByTopic {
+  __typename: "FindEssaysByTopicPayload";
+  essays: findEssaysByTopic_findEssaysByTopic_essays[];
+}
+
+export interface findEssaysByTopic {
+  findEssaysByTopic: findEssaysByTopic_findEssaysByTopic;
+}
+
+export interface findEssaysByTopicVariables {
+  input: FindEssaysByTopicInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findReadingGuidesByMarkingPeriod
 // ====================================================
 
@@ -7986,6 +8031,10 @@ export interface FindEssaysByAssociatedLessonIdInput {
 
 export interface FindEssaysByStudentIdInput {
   studentId: string;
+}
+
+export interface FindEssaysByTopicInput {
+  question: string;
 }
 
 export interface FindEssaysToCompleteByStudentIdInput {
