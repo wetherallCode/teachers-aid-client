@@ -45,6 +45,15 @@ export const SubjectPredicateSplit = ({
     separator,
     sentence.slice(point!, sentence.length).trim(),
   ]
+  const selectedPredicate =
+    newSentence[2].split(' ').length > 1
+      ? newSentence[2]
+      : newSentence[2].split('').includes('.')
+      ? newSentence[2]
+          .split('')
+          .filter((letters) => letters !== '.')
+          .join('')
+      : newSentence[2]
 
   const { message, correct, whatWentWrong, howToFix } = subjectPredicateGrading(
     {
@@ -53,7 +62,7 @@ export const SubjectPredicateSplit = ({
         question.helpingVerb === 'did' || auxilaryVerbCheck
           ? newSentence[0]
           : newSentence[0].split(' ').join(' '),
-      givenPredicate: newSentence[2],
+      givenPredicate: selectedPredicate,
       sentence,
       noun: question.simpleSubject.split(' '),
       compoundNoun: question.compoundNoun,
