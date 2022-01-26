@@ -26,8 +26,10 @@ export const subjectPredicateGrading = ({
   const predicateCheck = givenPredicate.split(' ')
   const verbPhraseCheck = verb.split(' ').length > 1
   const verbPhraseSplitter = verb.split(' ')
+  const verbPunctuationSplitter = verb.split('')
+  // console.log(predicateCheck)
   const wholeVerb = helpingVerb === 'did' ? verb : helpingVerb
-  console.log(subjectCheck)
+  // console.log(subjectCheck)
   if (givenPredicate === '.' || givenPredicate === '?') {
     return {
       whatWentWrong: `Your subject can't be the whole sentence.`,
