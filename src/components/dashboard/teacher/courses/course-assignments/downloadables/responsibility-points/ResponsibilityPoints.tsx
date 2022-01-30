@@ -45,12 +45,12 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
     (courseToFind) => courseToFind._id === course
   )
 
-  const [markingPeriodSelect, setMarkingPeriodSelect] = useState(
-    markingPeriod.context.currentMarkingPeriod
-  )
+  const [markingPeriodSelect, setMarkingPeriodSelect] = useState<
+    MarkingPeriodEnum | ''
+  >('')
   const [rosterList, setRosterList] = useState<any[]>([])
   const [csvToggle, setCsvToggle] = useState(false)
-  console.log(csvToggle)
+
   const { loading, data } = useQuery<
     findResponsibilityPointsByCourse,
     findResponsibilityPointsByCourseVariables
@@ -63,9 +63,10 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-  const responsibilityPointList = data?.findResponsibilityPointsByCourse.responsibilityPointList.filter(
-    (rp) => rp.markingPeriod === markingPeriodSelect
-  )
+  const responsibilityPointList =
+    data?.findResponsibilityPointsByCourse.responsibilityPointList.filter(
+      (rp) => rp.markingPeriod === markingPeriodSelect
+    )
   const title = 'responsibility_points'
   const headers = [
     { label: 'NAME', key: 'NAME' },
@@ -83,6 +84,7 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
         value={markingPeriodSelect}
         onChange={(e: any) => setMarkingPeriodSelect(e.target.value)}
       >
+        <option value={''}>Select</option>
         {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
           <option key={mp} value={mp}>
             {mp}

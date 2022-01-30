@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CSVLink } from 'react-csv'
 import { useParams } from 'react-router'
 import { useEnumContextProvider } from '../../../../../../../contexts/EnumContext'
@@ -10,6 +10,7 @@ import {
   findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments,
   findStudentsByCourseForSecondaryGradeFinder,
   findStudentsByCourseForSecondaryGradeFinderVariables,
+  MarkingPeriodEnum,
   me_me_Teacher,
 } from '../../../../../../../schemaTypes'
 import { MarkingPeriodSelectorSwitch } from '../../../../../../reusable-components/MarkingPeriodSelectorSwitch'
@@ -34,6 +35,15 @@ export const FIND_STUDENTS_BY_COURSE_FOR_SECONDARY_GRADE_FINDER_QUERY = gql`
 export type SecondaryGradesProps = {
   // assignments: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments[]
 }
+export type AssignmentTypeProps = {
+  NAME: string
+  STUDENTID: string | null
+  GRADE: string | number
+  ABSENT: string
+  EXEMPT: string
+  INCOMPLETE: string
+  MISSING: string
+}
 
 export const SecondaryGrades = ({}: SecondaryGradesProps) => {
   const [state, event] = useAssignmentManagerContextProvider()
@@ -56,18 +66,19 @@ export const SecondaryGrades = ({}: SecondaryGradesProps) => {
     onError: (error) => console.error(error),
   })
 
-  const [assignmentList, setAssignmentList] = useState<any[]>([])
+  const [assignmentList, setAssignmentList] = useState<AssignmentTypeProps[]>(
+    []
+  )
 
   const [courseName] = me.teachesCourses.filter(
     (courseToFind) => courseToFind._id === course
   )
 
-  const [markingPeriodSelect, setMarkingPeriodSelect] = useState(
-    markingPeriod.context.currentMarkingPeriod
-  )
+  const [markingPeriodSelect, setMarkingPeriodSelect] = useState<
+    MarkingPeriodEnum | ''
+  >('')
   // const [rosterList, setRosterList] = useState<any[]>([])
   const [createCSVToggle, setCreateCSVToggle] = useState(false)
-
   const headers = [
     { label: 'NAME', key: 'NAME' },
     { label: 'STUDENTID', key: 'STUDENTID' },
@@ -77,15 +88,24 @@ export const SecondaryGrades = ({}: SecondaryGradesProps) => {
     { label: 'INCOMPLETE', key: 'INCOMPLETE' },
     { label: 'MISSING', key: 'MISSING' },
   ]
+  // useEffect(() => {
+  //   setAssignmentList([])
+  // }, [markingPeriodSelect])
 
   if (loading) return <div>Loading </div>
 
   return (
     <>
-      <MarkingPeriodSelectorSwitch
+      {/* <MarkingPeriodSelectorSwitch
         selectedMarkingPeriod={markingPeriodSelect}
         setSelectedMarkingPeriod={setMarkingPeriodSelect}
-      />
+      /> */}
+      <select onChange={(e: any) => setMarkingPeriodSelect(e.target.value)}>
+        <option value={''}>Select</option>
+        {markingPeriodEnum.map((mp: MarkingPeriodEnum) => (
+          <option key={mp}>{mp}</option>
+        ))}
+      </select>
       {assignmentList.length > 0 && (
         <>
           {!createCSVToggle ? (
@@ -135,17 +155,21 @@ export const SecondaryGrades = ({}: SecondaryGradesProps) => {
           )}
         </>
       )}
-      <div>
-        {data?.findStudentsByCourse.students.map((student) => (
-          <SecondaryGradeRows
-            key={student._id!}
-            student={student}
-            markingPeriodSelect={markingPeriodSelect}
-            setAssignmentList={setAssignmentList}
-            createCSVToggle={createCSVToggle}
-          />
-        ))}
-      </div>
+      {markingPeriodSelect && (
+        <div>
+          {data?.findStudentsByCourse.students.map((student) => (
+            <SecondaryGradeRows
+              key={student._id!}
+              student={student}
+              classSize={data.findStudentsByCourse.students.length}
+              markingPeriodSelect={markingPeriodSelect}
+              setAssignmentList={setAssignmentList}
+              assignmentList={assignmentList}
+              createCSVToggle={createCSVToggle}
+            />
+          ))}
+        </div>
+      )}
     </>
   )
 }

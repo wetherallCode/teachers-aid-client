@@ -8,12 +8,15 @@ import {
   MarkingPeriodEnum,
 } from '../../../../../../../schemaTypes'
 import { SecondaryGradeRowInfo } from './SecondaryGradeRowInfo'
+import { AssignmentTypeProps } from './SecondaryGrades'
 
 export type SecondaryGradeRowsProps = {
   student: findStudentsByCourseForSecondaryGradeFinder_findStudentsByCourse_students
-  markingPeriodSelect: MarkingPeriodEnum
-  setAssignmentList: Dispatch<SetStateAction<any[]>>
+  markingPeriodSelect: MarkingPeriodEnum | ''
+  setAssignmentList: Dispatch<SetStateAction<AssignmentTypeProps[]>>
+  assignmentList: AssignmentTypeProps[]
   createCSVToggle: boolean
+  classSize: number
 }
 
 export const FIND_ASSIGNMENTS_FOR_SECONDARY_QUERY = gql`
@@ -43,7 +46,9 @@ export const SecondaryGradeRows = ({
   student,
   markingPeriodSelect,
   setAssignmentList,
+  assignmentList,
   createCSVToggle,
+  classSize,
 }: SecondaryGradeRowsProps) => {
   const { loading, data } = useQuery<
     findAssignmentByStudentIdForSecondary,
@@ -55,7 +60,7 @@ export const SecondaryGradeRows = ({
     onCompleted: (data) => console.log(),
     onError: (error) => console.error(error),
   })
-
+  console.log(markingPeriodSelect)
   const secondaryGrades = data?.findAssignmentByStudentId.assignments
     .filter((a) => a.gradeType === 'SECONDARY')
     .filter(
@@ -86,9 +91,11 @@ export const SecondaryGradeRows = ({
   return (
     <SecondaryGradeRowInfo
       student={student}
+      classSize={classSize}
       secondaryGradeScore={secondaryGradeScore}
       setAssignmentList={setAssignmentList}
       createCSVToggle={createCSVToggle}
+      assignmentList={assignmentList}
     />
   )
 }
