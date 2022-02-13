@@ -45,6 +45,7 @@ export const QuestionBlank = ({
     useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
       null
     )
+  console.log(answerValue)
   const handleFinished = () => {
     setFinished(true)
   }
@@ -76,6 +77,7 @@ export const QuestionBlank = ({
           ) {
             handleFinished()
           } else {
+            setAnswerValue(null)
             setDifficultyState(QuizQuestionDifficultyLevelEnum.DIFFICULT)
             event({ type: 'NEXT_QUIZZABLE_SECTION' })
           }
@@ -93,12 +95,15 @@ export const QuestionBlank = ({
               handleFinished()
             } else {
               setDifficultyState(QuizQuestionDifficultyLevelEnum.DIFFICULT)
+              setAnswerValue(null)
               event({ type: 'NEXT_QUIZZABLE_SECTION' })
             }
-          } else
+          } else {
+            setAnswerValue(null)
             setDifficultyState(
               quizQuestionDifficultyLevelEnum[currentDifficulty - 1]
             )
+          }
         }
       }
 
@@ -129,6 +134,7 @@ export const QuestionBlank = ({
             handleFinished()
           } else {
             setDifficultyState(QuizQuestionDifficultyLevelEnum.DIFFICULT)
+            setAnswerValue(null)
             event({ type: 'NEXT_QUIZZABLE_SECTION' })
           }
         } else {
@@ -145,12 +151,15 @@ export const QuestionBlank = ({
               handleFinished()
             } else {
               setDifficultyState(QuizQuestionDifficultyLevelEnum.DIFFICULT)
+              setAnswerValue(null)
               event({ type: 'NEXT_QUIZZABLE_SECTION' })
             }
-          } else
+          } else {
+            setAnswerValue(null)
             setDifficultyState(
               quizQuestionDifficultyLevelEnum[currentDifficulty - 1]
             )
+          }
         }
       }
     } else return null
@@ -185,7 +194,6 @@ export const QuestionBlank = ({
               {answers
                 .sort((x, y) => (x.answer < y.answer ? 1 : -1)) // sorts out True then False
                 .map((answer, i) => {
-                  console.log(answer)
                   return (
                     <QuizQuestionAnswerLabelContainer key={i}>
                       <QuizQuestionAnswerInput
