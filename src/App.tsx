@@ -26,6 +26,7 @@ import {
   findCurrentSchoolDayVariables,
   me_me,
 } from './schemaTypes'
+import { UpdateUserActivity } from './components/home/UpdateUserActivity'
 
 export type LoginToggleProps = {
   onClick: () => void
@@ -46,7 +47,7 @@ function App() {
   const me: me_me = useUserContextProvider()
   const [, event] = useSchoolDayContextProvider()
   const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
-
+  // console.log(me.isActive)
   const { data, loading } = useQuery<
     findCurrentSchoolDay,
     findCurrentSchoolDayVariables
@@ -65,10 +66,11 @@ function App() {
   })
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [isNavOpen, setIsNavOpen] = useState(false)
-
+  console.log(isLoginVisible)
   return (
     <AppContainer>
       <Header>
+        {me && <UpdateUserActivity userId={me._id!} />}
         <HomeLink to='/'>MrWetherall.org</HomeLink>
         <LoginContainer>
           {!me ? (

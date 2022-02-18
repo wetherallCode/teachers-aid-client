@@ -4,10 +4,12 @@ import { DeskDisplay } from '../../styles/seatingChartStyles'
 import {
   findStudentInfoByStudentIdForDesk,
   findStudentInfoByStudentIdForDeskVariables,
+  me_me,
   StudentCohortEnum,
 } from '../../../../../../schemaTypes'
 import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
 import { gql, useQuery } from '@apollo/client'
+import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 
 export type DeskProps = { deskNumber: number }
 
@@ -27,6 +29,7 @@ export const FIND_STUDENT_INFO_FOR_DESK_QUERY = gql`
 
 export const Desk: FC<DeskProps> = ({ deskNumber }) => {
   const [state, event] = useTeachersAidContextProvider()
+  const me: me_me = useUserContextProvider()
   const [schoolDayState] = useSchoolDayContextProvider()
   const todaysDate = new Date().toLocaleDateString()
   const [cohortSwitch, setcohortSwitch] = useState(false)
@@ -58,6 +61,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {!state.context.courseInfo!.cohortBasedSeating && (
         <DeskDisplay
           absent={isAbsent!}
+          active={me.isActive}
           assigned={desk.student !== null}
           picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
@@ -72,6 +76,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {state.context.courseInfo!.cohortBasedSeating && redWeek && (
         <DeskDisplay
           absent={isAbsent!}
+          active={me.isActive}
           assigned={desk.redCohortStudent !== null}
           picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
@@ -94,6 +99,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {state.context.courseInfo!.cohortBasedSeating && !redWeek && (
         <DeskDisplay
           absent={isAbsent!}
+          active={me.isActive}
           picked={state.context.studentId === desk.student?._id!}
           assigned={desk.whiteCohortStudent !== null}
           onClick={() => {

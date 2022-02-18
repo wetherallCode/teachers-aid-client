@@ -3,7 +3,13 @@ import { useForm } from '../../hooks'
 
 import { useNavigate } from 'react-router-dom'
 import { gql, useMutation } from '@apollo/client'
-import { login, loginVariables, me_me } from '../../schemaTypes'
+import {
+  login,
+  loginVariables,
+  me_me,
+  updateUserActiveVariables,
+  updateUserActive,
+} from '../../schemaTypes'
 
 import {
   Button,
@@ -13,6 +19,7 @@ import {
   ButtonContainer,
 } from './loginStyles'
 import { useUserContextProvider } from '../../contexts/UserContext'
+import { UPDATE_USER_ACTIVITY_MUTATION } from './UpdateUserActivity'
 
 const LOGIN_MUTATION = gql`
   mutation login($input: LoginInput!) {
@@ -27,10 +34,10 @@ export type LoginProps = {
   toggleLogin: () => void
 }
 
-export const Login: FC<LoginProps> = ({ toggleLogin }) => {
+export const Login = ({ toggleLogin }: LoginProps) => {
   const [values, handleChange] = useForm({ userName: '', password: '' })
   const [inValid, setInValid] = useState(false)
-  const me = useUserContextProvider() as me_me
+  const me: me_me = useUserContextProvider()
 
   const navigate = useNavigate()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -42,14 +49,27 @@ export const Login: FC<LoginProps> = ({ toggleLogin }) => {
       },
       refetchQueries: ['me'],
 
-      // onCompleted: () => {
-
-      // },
+      onCompleted: (data) => {
+        updateUserActive({
+          variables: {
+            input: { userId: data.login.user._id!, isActive: true },
+          },
+        })
+        toggleLogin()
+      },
       onError: () => {
         setInValid(true)
       },
     }
   )
+  const [updateUserActive] = useMutation<
+    updateUserActive,
+    updateUserActiveVariables
+  >(UPDATE_USER_ACTIVITY_MUTATION, {
+    // variables: { input: { userId: me._id!, isActive: true } },
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['me'],
+  })
 
   useEffect(() => {
     if (me && data) {
@@ -58,6 +78,15 @@ export const Login: FC<LoginProps> = ({ toggleLogin }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [me, data])
+  // useEffect(() => {
+  //   if (me) {
+  //     updateUserActive({
+  //       variables: {
+  //         input: { userId: me._id!, isActive: true },
+  //       },
+  //     })
+  //   }
+  // },[])
 
   const handleSubmit = (e: any) => {
     e.preventDefault()

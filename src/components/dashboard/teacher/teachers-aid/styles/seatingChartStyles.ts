@@ -125,13 +125,20 @@ export type DeskDisplayProps = {
   absent: boolean
   assigned: boolean
   picked: boolean
+  active: boolean
 }
 
 export const DeskDisplay = styled.div<DeskDisplayProps>`
   height: 100%;
   border-radius: 5px;
-  background-color: ${({ absent, assigned }) =>
-    !assigned ? 'var(--grey)' : absent ? 'var(--red)' : 'var(--blue)'};
+  background-color: ${({ absent, assigned, active }) =>
+    !assigned
+      ? 'var(--grey)'
+      : absent
+      ? 'var(--red)'
+      : active
+      ? 'var(--white)'
+      : 'var(--blue)'};
 
   text-decoration: ${({ picked }) => (picked ? 'underline' : 'none')};
 

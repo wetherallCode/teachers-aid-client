@@ -7408,6 +7408,7 @@ export interface me_me_Teacher {
   firstName: string;
   lastName: string;
   password: string;
+  isActive: boolean;
   _id: string | null;
   title: TitleEnum;
   teachesCourses: me_me_Teacher_teachesCourses[];
@@ -7447,6 +7448,7 @@ export interface me_me_Student {
   firstName: string;
   lastName: string;
   password: string;
+  isActive: boolean;
   _id: string | null;
   hasIEP: boolean | null;
   inCourses: me_me_Student_inCourses[];
@@ -7457,6 +7459,28 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateUserActive
+// ====================================================
+
+export interface updateUserActive_updateUserActive {
+  __typename: "UpdateUserActivePayload";
+  updated: boolean;
+}
+
+export interface updateUserActive {
+  updateUserActive: updateUserActive_updateUserActive;
+}
+
+export interface updateUserActiveVariables {
+  input: UpdateUserActiveInput;
 }
 
 /* tslint:disable */
@@ -7612,6 +7636,7 @@ export enum RubricSectionEnum {
 export enum SchoolDayLengthEnum {
   FULL = "FULL",
   HALF = "HALF",
+  NINETY_MINUTE_DELAY = "NINETY_MINUTE_DELAY",
   ONE_HOUR_DELAY = "ONE_HOUR_DELAY",
 }
 
@@ -8584,6 +8609,11 @@ export interface UpdateTextSectionInput {
   hasVocab: TextSectionVocabInput[];
   header: string;
   pageNumbers: PageNumbersInput;
+}
+
+export interface UpdateUserActiveInput {
+  isActive: boolean;
+  userId: string;
 }
 
 export interface UpdateWhyCauseEffectInput {
