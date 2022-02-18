@@ -9,6 +9,7 @@ export const ME_QUERY = gql`
       firstName
       lastName
       password
+      isActive
       _id
       ... on Teacher {
         __typename
