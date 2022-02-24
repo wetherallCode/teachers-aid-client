@@ -144,8 +144,8 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
 
   border: ${({ picked }) =>
     picked ? '5px solid var(--red)' : '1px solid var(--white)'};
-  color: var(--white);
-  text-shadow: 2px 2px 2px black;
+  color: ${({ active }) => (active ? 'var(--blue)' : 'var(--white)')};
+  text-shadow: ${({ active }) => (active ? 'none' : '2px 2px 2px black')};
   display: grid;
   justify-items: center;
   align-items: center;

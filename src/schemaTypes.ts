@@ -6110,6 +6110,8 @@ export interface findStudentInfoByStudentIdForDesk_findStudentById_student_hasAb
 export interface findStudentInfoByStudentIdForDesk_findStudentById_student {
   __typename: "Student";
   _id: string | null;
+  isActive: boolean;
+  firstName: string;
   hasAbsences: findStudentInfoByStudentIdForDesk_findStudentById_student_hasAbsences[];
 }
 

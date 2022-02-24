@@ -18,6 +18,8 @@ export const FIND_STUDENT_INFO_FOR_DESK_QUERY = gql`
     findStudentById(input: $input) {
       student {
         _id
+        isActive
+        firstName
         hasAbsences {
           _id
           dayAbsent
@@ -47,6 +49,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
     },
     // onCompleted: (data) =>
     // console.log(data.findStudentById.student.hasAbsences),
+    pollInterval: 1000,
     onError: (error) => console.error(error + 'desk'),
   })
 
@@ -61,7 +64,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {!state.context.courseInfo!.cohortBasedSeating && (
         <DeskDisplay
           absent={isAbsent!}
-          active={me.isActive}
+          active={data?.findStudentById.student.isActive!}
           assigned={desk.student !== null}
           picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
@@ -76,7 +79,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {state.context.courseInfo!.cohortBasedSeating && redWeek && (
         <DeskDisplay
           absent={isAbsent!}
-          active={me.isActive}
+          active={data?.findStudentById.student.isActive!}
           assigned={desk.redCohortStudent !== null}
           picked={state.context.studentId === desk.student?._id!}
           onClick={() => {
@@ -99,7 +102,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
       {state.context.courseInfo!.cohortBasedSeating && !redWeek && (
         <DeskDisplay
           absent={isAbsent!}
-          active={me.isActive}
+          active={data?.findStudentById.student.isActive!}
           picked={state.context.studentId === desk.student?._id!}
           assigned={desk.whiteCohortStudent !== null}
           onClick={() => {
