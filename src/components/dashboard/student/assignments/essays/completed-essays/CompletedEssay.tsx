@@ -161,7 +161,7 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
     findCompletedEssayByIdVariables
   >(FIND_COMPLETED_ESSSAY_BY_ID_QUERY, {
     variables: {
-      input: { _id: completedEssay },
+      input: { _id: completedEssay! },
     },
     onCompleted: (data) => {
       event({

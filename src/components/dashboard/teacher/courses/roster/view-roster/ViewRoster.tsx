@@ -76,7 +76,7 @@ export const ViewRoster: FC<ViewRosterProps> = () => {
     findRosterByCourseVariables
   >(FIND_ROSTER_BY_COURSE_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     onCompleted: (data) =>
       console.log(

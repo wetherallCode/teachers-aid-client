@@ -22,6 +22,7 @@ import {
 import {
   irregularPastTenseVerbList,
   isLetterUpperCase,
+  verbsThatChangeInIngFormList,
 } from '../../../../../../../../utils'
 import { UnderlinedText } from '../../../../../../../../appStyles'
 
@@ -105,6 +106,12 @@ export const AcademicProblemSolution = ({
       questionParts.simpleSubject.length - 1
     ) === 's'
 
+  const verbInIngFormat =
+    verbsThatChangeInIngFormList(questionParts.simplePredicate) ===
+    questionParts.simplePredicate
+      ? questionParts.simplePredicate + 'ing'
+      : verbsThatChangeInIngFormList(questionParts.simplePredicate)
+
   return (
     <>
       <OrganizerTitleContainer>
@@ -125,7 +132,10 @@ export const AcademicProblemSolution = ({
           <div>How Question: Problem and Solution</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>What is the problem for {questionParts.simpleSubject}?</div>
+          <div>
+            What is the problem for {questionParts.simpleSubject} that{' '}
+            {verbInIngFormat} {questionParts.object} solves?
+          </div>
           <PartInput
             value={
               state.context.academicOrganizer.answer.problemSolution.problem

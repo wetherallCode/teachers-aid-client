@@ -64,7 +64,7 @@ export const AddStudents: FC<AddStudentsProps> = () => {
     findCourseByIdForStudentRegistrationVariables
   >(FIND_COURSE_BY_ID_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     // onCompleted: (data) => console.log(data.findCourseById.course),
     onError: (error) => console.error(error),

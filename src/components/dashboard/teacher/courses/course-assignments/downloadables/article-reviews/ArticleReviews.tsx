@@ -47,7 +47,7 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
     findArticleReviewsByCourseVariables
   >(FIND_ARTICLE_REVIEWS_BY_COURSE_QUERY, {
     variables: {
-      input: { courseId: course, markingPeriod },
+      input: { courseId: course!, markingPeriod },
     },
     pollInterval: 1000,
     onCompleted: (data) =>

@@ -75,7 +75,7 @@ export const Essays: FC<EssaysProps> = () => {
     findLessonsByUnitVariables
   >(FIND_LESSONS_BY_UNIT_QUERY, {
     variables: {
-      input: { unitId: state.context.unitId, courseId: course },
+      input: { unitId: state.context.unitId, courseId: course! },
     },
     onCompleted: (lessons) => console.log(lessons),
     onError: (error) => console.error(error),

@@ -6,7 +6,9 @@ import { AssignLesson } from './AssignLesson'
 
 export type AssignReadingGuideByCourseProps = {}
 
-export const AssignReadingGuideByCourse: FC<AssignReadingGuideByCourseProps> = () => {
+export const AssignReadingGuideByCourse: FC<
+  AssignReadingGuideByCourseProps
+> = () => {
   const { course } = useParams()
   const [lessonId, setLessonId] = useState('')
   const [unitId, setUnitId] = useState('')
@@ -22,7 +24,7 @@ export const AssignReadingGuideByCourse: FC<AssignReadingGuideByCourseProps> = (
           setLessonId={setLessonId}
         />
       )}
-      {lessonId && <AssignLesson courseId={course} lessonId={lessonId} />}
+      {lessonId && <AssignLesson courseId={course!} lessonId={lessonId} />}
     </>
   )
 }

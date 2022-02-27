@@ -156,14 +156,14 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
   useEffect(() => {
-    event({ type: 'SET_ESSAY_ID', payload: essayToComplete })
+    event({ type: 'SET_ESSAY_ID', payload: essayToComplete! })
   }, [essayToComplete, event])
 
   const { loading, data } = useQuery<findEssayById, findEssayByIdVariables>(
     FIND_ESSAY_BY_ID_QUERY,
     {
       variables: {
-        input: { _id: essayToComplete },
+        input: { _id: essayToComplete! },
       },
       onCompleted: (data) => {
         const draftToParse = JSON.parse(

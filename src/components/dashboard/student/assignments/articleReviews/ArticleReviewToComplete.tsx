@@ -75,7 +75,7 @@ export const ArticleReviewToComplete: FC<ArticleReviewToCompleteProps> = () => {
     findArticleReviewByIdVariables
   >(FIND_ARTICLE_REVIEW_BY_ID_QUERY, {
     variables: {
-      input: { articleReviewId: articleReviewToComplete },
+      input: { articleReviewId: articleReviewToComplete! },
     },
     onCompleted: (data) => {
       const {

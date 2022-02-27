@@ -20,7 +20,7 @@ export const AssignSeats = ({}: AssignSeatsProps) => {
     findCourseByIdForStudentRegistrationVariables
   >(FIND_COURSE_BY_ID_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     onCompleted: (data) => {
       console.log(data.findCourseById.course)

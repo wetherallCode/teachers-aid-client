@@ -27,7 +27,7 @@ export const CourseManager: FC<CourseManagerProps> = () => {
           path='lesson-editor'
           element={
             <LessonEditorContextProvider>
-              <LessonEditor course={course} />
+              <LessonEditor course={course!} />
             </LessonEditorContextProvider>
           }
         />
@@ -36,7 +36,7 @@ export const CourseManager: FC<CourseManagerProps> = () => {
           path='assignment-manager'
           element={
             <AssignmentManagerContextProvider>
-              <AssignmentManager courseId={course} />
+              <AssignmentManager courseId={course!} />
             </AssignmentManagerContextProvider>
           }
         />

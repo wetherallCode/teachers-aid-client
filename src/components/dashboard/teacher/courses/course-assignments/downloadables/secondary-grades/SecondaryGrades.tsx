@@ -59,7 +59,7 @@ export const SecondaryGrades = ({}: SecondaryGradesProps) => {
     findStudentsByCourseForSecondaryGradeFinderVariables
   >(FIND_STUDENTS_BY_COURSE_FOR_SECONDARY_GRADE_FINDER_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     // onCompleted: (data) =>
     //   console.log(data.findStudentsByCourse.students.map((student) => student)),

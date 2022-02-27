@@ -27,7 +27,7 @@ export const subjectPredicateGrading = ({
   const verbPhraseCheck = verb.split(' ').length > 1
   const verbPhraseSplitter = verb.split(' ')
   const verbPunctuationSplitter = verb.split('')
-  // console.log(predicateCheck)
+  console.log(subjectCheck.join(' '))
   const wholeVerb = helpingVerb === 'did' ? verb : helpingVerb
   // console.log(subjectCheck)
   if (givenPredicate === '.' || givenPredicate === '?') {

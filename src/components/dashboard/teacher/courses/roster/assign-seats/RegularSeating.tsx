@@ -52,7 +52,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
     findCourseByIdForStudentRegistrationVariables
   >(FIND_COURSE_BY_ID_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     onCompleted: (data) => {
       const assignedSeats: StudentSeatInput[] = []
@@ -82,7 +82,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
       variables: {
         input: {
           cohortBasedSeating: false,
-          courseId: course,
+          courseId: course!,
           seat: {
             studentId: null,
             deskNumber: deskNumber,
@@ -96,7 +96,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
       variables: {
         input: {
           cohortBasedSeating: false,
-          courseId: course,
+          courseId: course!,
           seat: {
             studentId,
             deskNumber,
@@ -156,7 +156,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
             assignedSeats={
               data?.findCourseById.course.hasCourseInfo?.assignedSeats!
             }
-            course={course}
+            course={course!}
             assignSeats={assignSeats}
             studentsInCourse={data?.findCourseById.course.hasStudents!}
           />
@@ -171,7 +171,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
             assignedSeats={
               data?.findCourseById.course.hasCourseInfo?.assignedSeats!
             }
-            course={course}
+            course={course!}
             assignSeats={assignSeats}
             studentsInCourse={data?.findCourseById.course.hasStudents!}
           />

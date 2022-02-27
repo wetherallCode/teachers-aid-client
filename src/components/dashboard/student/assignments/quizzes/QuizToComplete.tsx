@@ -33,7 +33,7 @@ export const QuizToComplete = ({}: QuizToCompleteProps) => {
     FIND_QUIZ_BY_ID_QUERY,
     {
       variables: {
-        input: { quizId: params.quizToComplete },
+        input: { quizId: params.quizToComplete! },
       },
       onCompleted: (data) => {
         event({

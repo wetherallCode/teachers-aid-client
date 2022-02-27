@@ -90,7 +90,7 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
     startReadingGuideVariables
   >(START_READING_GUIDE_MUTATION, {
     variables: {
-      input: { readingGuideId: readingGuideToComplete, paperBased: false },
+      input: { readingGuideId: readingGuideToComplete!, paperBased: false },
     },
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findReadingGuideById'],
@@ -101,16 +101,16 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
     findReadingGuideByIdVariables
   >(FIND_READING_GUIDE_BY_ID_QUERY, {
     variables: {
-      input: { readingGuideId: readingGuideToComplete },
+      input: { readingGuideId: readingGuideToComplete! },
     },
     onCompleted: (data) => {
-      event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete })
+      event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete! })
       if (data.findReadingGuideById.readingGuide.readingGuideFinal)
         event({
           type: 'SET_READING_GUIDE_INPUTS',
 
           payload: {
-            readingGuideId: readingGuideToComplete,
+            readingGuideId: readingGuideToComplete!,
             problems:
               data.findReadingGuideById.readingGuide.readingGuideFinal.problems,
             biggestProblem:

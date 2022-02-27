@@ -56,7 +56,7 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
     findResponsibilityPointsByCourseVariables
   >(FIND_RESPONSIBILITY_POINTS_BY_COURSE_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     pollInterval: 1000,
     onCompleted: (data) => console.log(data),

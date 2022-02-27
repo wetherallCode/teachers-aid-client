@@ -72,12 +72,12 @@ export const TemporaryTasks: FC<TemporaryTasksProps> = () => {
         )}
         {state.matches('create') && (
           <LoadTasks
-            courseId={course}
+            courseId={course!}
             dateIssued={new Date().toLocaleDateString()}
           />
         )}
       </>
-      {state.matches('review') && <ReviewTasks courseId={course} />}
+      {state.matches('review') && <ReviewTasks courseId={course!} />}
     </TemporaryTasksContainer>
   )
 }

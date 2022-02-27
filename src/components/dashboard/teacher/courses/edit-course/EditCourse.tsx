@@ -65,7 +65,7 @@ export const EditCourse: FC<EditCourseProps> = () => {
     findCourseByIdForCourseEditorVariables
   >(FIND_COURSE_INFO_FOR_COURSE_EDITOR_QUERY, {
     variables: {
-      input: { courseId: course },
+      input: { courseId: course! },
     },
     onCompleted: (data) => {
       const { name, hasCourseInfo } = data.findCourseById.course
@@ -83,7 +83,7 @@ export const EditCourse: FC<EditCourseProps> = () => {
       event({
         type: 'LOAD_COURSE_DATA',
         payload: {
-          courseId: course,
+          courseId: course!,
           name,
           courseType,
           endsAt,

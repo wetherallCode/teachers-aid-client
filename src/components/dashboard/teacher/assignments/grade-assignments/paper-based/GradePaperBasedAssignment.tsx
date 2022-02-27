@@ -68,7 +68,9 @@ export const FIND_ASSIGNMENT_BY_ID_QUERY = gql`
   }
 `
 
-export const GradePaperBasedAssignment: FC<GradePaperBasedAssignmentProps> = () => {
+export const GradePaperBasedAssignment: FC<
+  GradePaperBasedAssignmentProps
+> = () => {
   const [state, event] = usePaperBasedContextProvider()
 
   const { assignmentId } = useParams()
@@ -77,10 +79,10 @@ export const GradePaperBasedAssignment: FC<GradePaperBasedAssignmentProps> = () 
     findAssignmentByIdVariables
   >(FIND_ASSIGNMENT_BY_ID_QUERY, {
     variables: {
-      input: { assignmentId },
+      input: { assignmentId: assignmentId! },
     },
     onCompleted: (data) => {
-      event({ type: 'SET_ASSIGNMENT_ID', payload: assignmentId })
+      event({ type: 'SET_ASSIGNMENT_ID', payload: assignmentId! })
       event({
         type: 'SET_ASSIGNMENT_TYPE',
         payload: data.findAssignmentById.assignment.__typename,
@@ -98,8 +100,8 @@ export const GradePaperBasedAssignment: FC<GradePaperBasedAssignmentProps> = () 
   })
   if (loading) return <div>Loading </div>
 
-  const assignment: findAssignmentById_findAssignmentById_assignment = data
-    ?.findAssignmentById.assignment!
+  const assignment: findAssignmentById_findAssignmentById_assignment =
+    data?.findAssignmentById.assignment!
 
   return (
     <>
@@ -128,7 +130,7 @@ export const GradePaperBasedAssignment: FC<GradePaperBasedAssignmentProps> = () 
       state.matches('assignmentSelect.readingGuide') &&
       !assignment.graded ? (
         <SubmitReadingGuide
-          readingGuideId={assignmentId}
+          readingGuideId={assignmentId!}
           readingGuide={assignment}
         />
       ) : (

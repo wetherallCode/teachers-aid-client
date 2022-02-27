@@ -17,13 +17,13 @@ export const ReadingGuideData: FC<ReadingGuideDataProps> = () => {
       <UnitSelect setUnitId={setUnitId} />
       {unitId && (
         <ReadingGuideLessonSelect
-          course={course}
+          course={course!}
           unitId={unitId}
           setLessonId={setLessonId}
         />
       )}
       {lessonId && (
-        <ReadingGuideDataViewer lessonId={lessonId} course={course} />
+        <ReadingGuideDataViewer lessonId={lessonId} course={course!} />
       )}
     </>
   )

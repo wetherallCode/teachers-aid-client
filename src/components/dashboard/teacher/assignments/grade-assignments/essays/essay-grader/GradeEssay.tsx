@@ -156,7 +156,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
     findEssayToGradeByIdVariables
   >(FIND_ESSAY_TO_GRADE_QUERY, {
     variables: {
-      input: { _id: essayId },
+      input: { _id: essayId! },
     },
     // fetchPolicy: 'network-only',
     onCompleted: (data) => {
