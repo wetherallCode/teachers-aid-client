@@ -1,5 +1,5 @@
-import React, { useState, FC } from 'react'
-import { Route, Routes, Navigate } from 'react-router-dom'
+import React, { useState, FC, useEffect } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Modal } from './animations'
 import { useUserContextProvider } from './contexts/UserContext'
 import { Dashboard } from './components/dashboard/Dashboard'
@@ -45,6 +45,7 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({ error }) => {
 
 function App() {
   const me: me_me = useUserContextProvider()
+  const nav = useNavigate()
   const [, event] = useSchoolDayContextProvider()
   const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
   // console.log(me.isActive)
@@ -66,7 +67,11 @@ function App() {
   })
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [isNavOpen, setIsNavOpen] = useState(false)
-  console.log(isLoginVisible)
+
+  useEffect(() => {
+    if (!me) nav('/')
+  }, [me])
+
   return (
     <AppContainer>
       <Header>
@@ -99,9 +104,10 @@ function App() {
       <Routes>
         <Route path='' element={<Home />} />
         <Route path='dashboard/*' element={<Dashboard />} />
-        {!me ? (
+        {/* {!me ? (
           <Navigate to='/' />
-        ) : (
+        ) : ( */}
+        {me && (
           <Route
             path='lesson-home'
             element={

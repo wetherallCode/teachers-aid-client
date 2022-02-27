@@ -1,24 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { me_me } from '../../schemaTypes'
 import { StudentDashboardHome } from './student/StudentDashboardHome'
 import { TeacherDashboardHome } from './teacher/TeacherDashboardHome'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useUserContextProvider } from '../../contexts/UserContext'
 import styled from 'styled-components'
 
 export const Dashboard = () => {
-  const me = useUserContextProvider() as me_me
-
+  const me: me_me = useUserContextProvider()
+  const nav = useNavigate()
+  useEffect(() => {
+    if (!me) nav('/')
+  }, [me])
   return (
     <>
-      {!me ? (
+      {/* {!me ? (
         <Navigate to='/' />
-      ) : (
+      ) : ( */}
+      {me && (
         <DashboardContainer>
           {me?.__typename === 'Teacher' && <TeacherDashboardHome />}
           {me?.__typename === 'Student' && <StudentDashboardHome />}
         </DashboardContainer>
       )}
+      {/* )} */}
     </>
   )
 }
