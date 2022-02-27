@@ -87,7 +87,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
     findCurrentSchoolDayVariables
   >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
     variables: {
-      input: { date: '12/14/2021' },
+      input: { date: new Date().toLocaleDateString() },
     },
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
