@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { useMutation, gql } from '@apollo/client'
 import {
+  findEssayById_findEssayById_essay_topic,
   findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateProblemSolution,
@@ -28,6 +29,7 @@ import { UnderlinedText } from '../../../../../../../../appStyles'
 
 export type AcademicProblemSolutionProps = {
   questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
+  topic: findEssayById_findEssayById_essay_topic
 }
 
 export const UPDATE_PROBLEM_SOLUTION_MUTATION = gql`
@@ -42,6 +44,7 @@ export const UPDATE_PROBLEM_SOLUTION_MUTATION = gql`
 
 export const AcademicProblemSolution = ({
   questionParts,
+  topic,
 }: AcademicProblemSolutionProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
@@ -129,13 +132,11 @@ export const AcademicProblemSolution = ({
       </RestatementDirectionsContainer>
       <AcademicQuestionAnswerTypeContainer>
         <AcademicRestatementTitle>
+          <div>{topic.question}</div>
           <div>How Question: Problem and Solution</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>
-            What is the problem for {questionParts.simpleSubject} that{' '}
-            {verbInIngFormat} {questionParts.object} solves?
-          </div>
+          <div>What is the problem for {questionParts.simpleSubject}?</div>
           <PartInput
             value={
               state.context.academicOrganizer.answer.problemSolution.problem

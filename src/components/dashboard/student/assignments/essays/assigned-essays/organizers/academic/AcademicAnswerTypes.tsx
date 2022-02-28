@@ -185,7 +185,10 @@ export const AcademicAnswerTypes = ({
       {state.matches('organizers.academicOrganizer.answer.problemSolution') &&
         state.context.academicOrganizer.questionType ===
           QuestionTypeEnum.HOW_PROBLEM_SOLUTION && (
-          <AcademicProblemSolution questionParts={questionParts} />
+          <AcademicProblemSolution
+            questionParts={questionParts}
+            topic={topic}
+          />
         )}
       {state.matches('organizers.academicOrganizer.answer.howCauseEffect') &&
         state.context.academicOrganizer.questionType ===
