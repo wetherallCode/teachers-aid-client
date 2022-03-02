@@ -452,7 +452,7 @@ export const useGradeCalculator = ({
     const secondaryGradesMaxPoints = secondaryGradeAssignments
       ?.map((review) => review.score.maxPoints)
       .reduce((acc: number, i: number) => acc + i)!
-    console.log(secondaryGradeAssignments!)
+    // console.log(secondaryGradeAssignments!)
     const secondary = secondaryGradeCalculator(
       secondaryGradesEarnedPoints,
       secondaryGradesMaxPoints
