@@ -132,7 +132,7 @@ export const AcademicProblemSolution = ({
       </RestatementDirectionsContainer>
       <AcademicQuestionAnswerTypeContainer>
         <AcademicRestatementTitle>
-          <div>{topic.question}</div>
+          <div style={{ fontSize: '70%' }}>{topic.question}</div>
           <div>How Question: Problem and Solution</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
