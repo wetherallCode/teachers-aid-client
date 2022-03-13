@@ -11,6 +11,7 @@ import {
   ProtocolAssessmentEnum,
   DiscussionTypesEnum,
 } from '../../../../../schemaTypes'
+import { StudentInfoSelectorTypes } from '../class-control-panel/center-console/StudentInfoSelector'
 
 export type teachersAidMachineSchema = {
   states: {
@@ -69,6 +70,10 @@ export type teachersAidMachineEvent =
       payload: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo
     }
   | { type: 'SET_ATTENDANCE_TOGGLE' }
+  | {
+      type: 'SET_STUDENT_INFO_SELECTOR'
+      payload: StudentInfoSelectorTypes
+    }
   | { type: 'SET_CURRENT_READING_GUIDE_INDEX'; payload: number }
 
 export type teachersAidMachineContext = {
@@ -96,6 +101,7 @@ export type teachersAidMachineContext = {
     | 'VIRTUAL_ATTENDANCE'
     | 'HOMEWORK'
   attendanceToggle: boolean
+  studentInfoSelector: StudentInfoSelectorTypes
   currentReadingGuideIndex: number
 }
 
@@ -110,6 +116,7 @@ export const teachersAidMachine = Machine<
   context: {
     // courseSelectCurrentId: '',
     attendanceToggle: true,
+    studentInfoSelector: 'ATTENDANCE',
     courseSelectVisible: true,
     associatedLessonId: '',
     courseInfo: {
@@ -316,12 +323,28 @@ export const teachersAidMachine = Machine<
                 }
               }),
             },
+            SET_STUDENT_INFO_SELECTOR: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentInfoSelector: evt.payload,
+                }
+              }),
+            },
           },
         },
         dynamicLesson: {
           on: {
             PREVIOUS: 'mainScreenManager',
             NEXT: 'protocolManager',
+            SET_STUDENT_INFO_SELECTOR: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  studentInfoSelector: evt.payload,
+                }
+              }),
+            },
           },
         },
         protocolManager: {
@@ -347,7 +370,6 @@ export const teachersAidMachine = Machine<
             },
             CHANGE_MAIN_SCREEN_SEATING_CHART: {
               actions: assign((ctx, evt) => {
-                console.log('change')
                 return {
                   ...ctx,
                   mainScreenSeatingChart: true,

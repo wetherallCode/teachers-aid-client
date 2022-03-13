@@ -169,7 +169,7 @@ export const ProtocolControllerButton = styled.button`
 export const DynamicLessonContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 1fr 3fr 1fr;
   /* justify-items: center;
   align-items: center; */
 `

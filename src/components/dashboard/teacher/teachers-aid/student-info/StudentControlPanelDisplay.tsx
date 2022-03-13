@@ -22,47 +22,48 @@ export type StudentControlPanelDisplayProps = {
   absenceCheck: boolean
 }
 
-export const StudentControlPanelDisplay: FC<StudentControlPanelDisplayProps> =
-  ({ student, loadStudentInfo, absenceCheck }) => {
-    const [state, event] = useTeachersAidContextProvider()
-    const [controllerState, setControllerState] = useState<
-      'ATTENDANCE' | 'BEHAVIOR'
-    >('ATTENDANCE')
+export const StudentControlPanelDisplay: FC<
+  StudentControlPanelDisplayProps
+> = ({ student, loadStudentInfo, absenceCheck }) => {
+  const [state, event] = useTeachersAidContextProvider()
+  const [controllerState, setControllerState] = useState<
+    'ATTENDANCE' | 'BEHAVIOR'
+  >('ATTENDANCE')
 
-    useEffect(() => {
-      if (student?.hasProtocols.some((protocol) => protocol.isActive)) {
-        event({ type: 'ASSESS_PROTOCOL_DISPLAY' })
-      }
-    }, [student])
+  useEffect(() => {
+    if (student?.hasProtocols.some((protocol) => protocol.isActive)) {
+      event({ type: 'ASSESS_PROTOCOL_DISPLAY' })
+    }
+  }, [student])
 
-    const protocols = student?.hasProtocols
+  const protocols = student?.hasProtocols
 
-    return (
-      <>
-        {student?.hasProtocols.some((protocol) => protocol.isActive) ? (
-          <AssessProtocol
-            loadStudentInfo={loadStudentInfo}
-            protocols={protocols}
-            student={student}
-          />
-        ) : (
-          <StudentControlPanelContainer>
-            <StudentControlButtonContainer>
-              {/* <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
+  return (
+    <>
+      {student?.hasProtocols.some((protocol) => protocol.isActive) ? (
+        <AssessProtocol
+          loadStudentInfo={loadStudentInfo}
+          protocols={protocols}
+          student={student}
+        />
+      ) : (
+        <StudentControlPanelContainer>
+          <StudentControlButtonContainer>
+            {/* <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
                 Attendance
               </ControlButtons>
               <ControlButtons onClick={() => setControllerState('BEHAVIOR')}>
                 Behavior
               </ControlButtons> */}
-            </StudentControlButtonContainer>
-            {student && state.context.attendanceToggle && (
-              <DailyAttendance student={student} absenceCheck={absenceCheck} />
-            )}
-            {student && !state.context.attendanceToggle && (
-              <DailyBehavior studentId={student._id!} />
-            )}
-          </StudentControlPanelContainer>
-        )}
-      </>
-    )
-  }
+          </StudentControlButtonContainer>
+          {student && state.context.studentInfoSelector === 'ATTENDANCE' && (
+            <DailyAttendance student={student} absenceCheck={absenceCheck} />
+          )}
+          {student && state.context.studentInfoSelector !== 'ATTENDANCE' && (
+            <DailyBehavior studentId={student._id!} />
+          )}
+        </StudentControlPanelContainer>
+      )}
+    </>
+  )
+}

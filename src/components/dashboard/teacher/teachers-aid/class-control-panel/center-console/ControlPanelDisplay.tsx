@@ -20,6 +20,7 @@ import { useQuery } from '@apollo/client'
 import { FIND_LESSON_QUERY } from '../../../../../lesson/LessonMainMenu'
 import { MainScreenManager } from './MainScreenManager'
 import { Protocols } from '../protocols/Protocols'
+import { StudentInfoSelector } from './StudentInfoSelector'
 
 export type ControlPanelDisplayProps = { presentStudentList: string[] }
 
@@ -56,7 +57,8 @@ export const ControlPanelDisplay = ({
 
   if (loading)
     return (
-      <CenteredDiv>
+      <CenteredDiv style={{ display: 'grid', gridTemplateRows: '1fr 4fr' }}>
+        <StudentInfoSelector />
         <div>No Lesson Scheduled for Today</div>
       </CenteredDiv>
     )
@@ -72,7 +74,10 @@ export const ControlPanelDisplay = ({
                 lesson={data?.findLessonByCourseAndDate.lesson!}
               />
             ) : (
-              <CenteredDiv>
+              <CenteredDiv
+                style={{ display: 'grid', gridTemplateRows: '1fr 4fr' }}
+              >
+                <StudentInfoSelector />
                 <div>No Lesson Scheduled for Today</div>
               </CenteredDiv>
             )}

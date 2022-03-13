@@ -18,6 +18,7 @@ import {
 import { WarmUp } from '../../../../../lesson/lesson-components/WarmUp'
 import { WarmUpManager } from '../warmup-manager/WarmUpManager'
 import { CoolDownManager } from '../coolDown-manager/CoolDownManager'
+import { StudentInfoSelector } from '../center-console/StudentInfoSelector'
 
 export type DynamicLessonManagerProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -60,6 +61,7 @@ export const DynamicLessonManager = ({ lesson }: DynamicLessonManagerProps) => {
 
   return (
     <DynamicLessonContainer>
+      <StudentInfoSelector />
       <DynamicLessonHeader>Dynamic Lesson</DynamicLessonHeader>
       {lesson.dynamicLesson === 'OFF' ? (
         <DynamicLessonOnButton
