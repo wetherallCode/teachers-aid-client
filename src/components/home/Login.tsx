@@ -50,12 +50,12 @@ export const Login = ({ toggleLogin }: LoginProps) => {
       refetchQueries: ['me'],
 
       onCompleted: (data) => {
-        updateUserActive({
-          variables: {
-            input: { userId: data.login.user._id!, isActive: true },
-          },
-        })
-        toggleLogin()
+        // updateUserActive({
+        //   variables: {
+        //     input: { userId: data.login.user._id!, isActive: true },
+        //   },
+        // })
+        // toggleLogin()
       },
       onError: () => {
         setInValid(true)
@@ -72,12 +72,12 @@ export const Login = ({ toggleLogin }: LoginProps) => {
   })
 
   useEffect(() => {
-    if (me && data) {
+    if (me) {
       toggleLogin()
       // navigate('dashboard')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me, data])
+  }, [me])
   // useEffect(() => {
   //   if (me) {
   //     updateUserActive({
