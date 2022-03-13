@@ -8,6 +8,7 @@ import {
   findQuizById_findQuizById_quiz,
   finishQuizVariables,
   finishQuiz,
+  MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { FINISH_QUIZ_MUTATION } from './FinishQuiz'
 import { QuizQuestionDisplay } from './QuizQuestionDisplay'
@@ -84,7 +85,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
 
   useEffect(() => {
     if (!quiz.isActive && !quiz.finishedQuiz && quiz.forcedFinish) {
-      finishQuiz()
+      // finishQuiz()
     }
   }, [quiz.forcedFinish])
 
@@ -128,6 +129,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
               quizId={quiz._id!}
               difficultyState={difficultyState}
               setDifficultyState={setDifficultyState}
+              markingPeriod={quiz.markingPeriod}
             />
           )}
         </>

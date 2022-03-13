@@ -1,11 +1,23 @@
 import { gql, useMutation } from '@apollo/client'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { finishQuizVariables, finishQuiz } from '../../../../../schemaTypes'
+import { useUserContextProvider } from '../../../../../contexts/UserContext'
+import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
+import {
+  finishQuizVariables,
+  finishQuiz,
+  me_me,
+  MarkingPeriodEnum,
+} from '../../../../../schemaTypes'
+import { responsibilityPointConverter } from '../../../../../utils'
 import { FinishedQuizContainer } from './state-n-styles/QuizStyles'
 import { useQuizToCompleteContextProvider } from './state-n-styles/QuizToCompleteContext'
 
-export type FinishQuizProps = { finished: boolean; quizId: string }
+export type FinishQuizProps = {
+  finished: boolean
+  quizId: string
+  markingPeriod: MarkingPeriodEnum
+}
 
 export const FINISH_QUIZ_MUTATION = gql`
   mutation finishQuiz($input: FinishQuizInput!) {
@@ -17,9 +29,20 @@ export const FINISH_QUIZ_MUTATION = gql`
   }
 `
 
-export const FinishQuiz = ({ finished, quizId }: FinishQuizProps) => {
+export const FinishQuiz = ({
+  finished,
+  quizId,
+  markingPeriod,
+}: FinishQuizProps) => {
   const [state, event] = useQuizToCompleteContextProvider()
+
+  const me: me_me = useUserContextProvider()
   const navigate = useNavigate()
+  const { grade } = useGradeCalculator({
+    studentId: me._id!,
+    markingPeriod: markingPeriod,
+    polling: false,
+  })
   const [finishQuiz] = useMutation<finishQuiz, finishQuizVariables>(
     FINISH_QUIZ_MUTATION,
     {
@@ -27,7 +50,11 @@ export const FinishQuiz = ({ finished, quizId }: FinishQuizProps) => {
         input: {
           quizId,
           earnedPoints: +state.context.earnedPoints.toFixed(2),
-          responsibilityPoints: state.context.responsibilityPoints,
+          // responsibilityPoints: state.context.responsibilityPoints,
+          responsibilityPoints: responsibilityPointConverter(
+            grade,
+            state.context.responsibilityPoints
+          ),
         },
       },
       onCompleted: () => {

@@ -15,6 +15,7 @@ export const FIND_QUIZ_BY_ID_QUERY = gql`
         _id
         finishedQuiz
         startedQuiz
+        markingPeriod
         forcedFinish
         isActive
         quizzableSections
@@ -49,7 +50,7 @@ export const QuizToComplete = ({}: QuizToCompleteProps) => {
       onError: (error) => console.error(error),
     }
   )
-
+  // console.log(data?.findQuizById.quiz)
   if (loading) return <div>Loading </div>
   return (
     <QuizContainer>

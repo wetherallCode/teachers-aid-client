@@ -1280,6 +1280,7 @@ export interface findQuizById_findQuizById_quiz {
   _id: string | null;
   finishedQuiz: boolean;
   startedQuiz: boolean;
+  markingPeriod: MarkingPeriodEnum;
   forcedFinish: boolean;
   isActive: boolean;
   quizzableSections: string[];

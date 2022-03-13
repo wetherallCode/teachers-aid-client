@@ -3,6 +3,7 @@ import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import {
   findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions,
   findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList,
+  MarkingPeriodEnum,
   QuizQuestionDifficultyLevelEnum,
   QuizQuestionTypeEnum,
 } from '../../../../../schemaTypes'
@@ -27,6 +28,7 @@ export type QuestionBlankProps = {
   difficultyState: QuizQuestionDifficultyLevelEnum
   setDifficultyState: Dispatch<SetStateAction<QuizQuestionDifficultyLevelEnum>>
   currentQuizQuestion: findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions
+  markingPeriod: MarkingPeriodEnum
 }
 
 export const QuestionBlank = ({
@@ -37,6 +39,7 @@ export const QuestionBlank = ({
   difficultyState,
   currentQuizQuestion,
   quizId,
+  markingPeriod,
 }: QuestionBlankProps) => {
   const [state, event] = useQuizToCompleteContextProvider()
   const [finished, setFinished] = useState(false)
@@ -45,7 +48,7 @@ export const QuestionBlank = ({
     useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
       null
     )
-  console.log(answerValue)
+
   const handleFinished = () => {
     setFinished(true)
   }
@@ -216,7 +219,11 @@ export const QuestionBlank = ({
       ) : (
         <>
           <div></div>
-          <FinishQuiz finished={finished} quizId={quizId} />
+          <FinishQuiz
+            finished={finished}
+            quizId={quizId}
+            markingPeriod={markingPeriod}
+          />
         </>
       )}
     </QuestionBlankContainer>

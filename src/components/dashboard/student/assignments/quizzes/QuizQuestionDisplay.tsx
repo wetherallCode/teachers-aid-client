@@ -9,6 +9,7 @@ import {
   QuizQuestionDifficultyLevelEnum,
   QuizQuestionTypeEnum,
   me_me_Student,
+  MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { QuestionBlank } from './QuestionBlank'
 import { ACTIVATE_QUIZ_MUTATION } from './QuizSelect'
@@ -19,6 +20,7 @@ export type QuizQuestionDisplayProps = {
   quizId: string
   difficultyState: QuizQuestionDifficultyLevelEnum
   setDifficultyState: Dispatch<SetStateAction<QuizQuestionDifficultyLevelEnum>>
+  markingPeriod: MarkingPeriodEnum
 }
 
 // User has switched away from the tab (AKA tab is hidden)
@@ -28,6 +30,7 @@ export const QuizQuestionDisplay = ({
   quizId,
   difficultyState,
   setDifficultyState,
+  markingPeriod,
 }: QuizQuestionDisplayProps) => {
   const me: me_me_Student = useUserContextProvider()
   const [state, event] = useQuizToCompleteContextProvider()
@@ -126,6 +129,7 @@ export const QuizQuestionDisplay = ({
       question={currentQuizQuestion.question}
       questionType={currentQuizQuestion.questionType}
       quizId={quizId}
+      markingPeriod={markingPeriod}
     />
   )
 }
