@@ -198,7 +198,7 @@ export const MainScreenControlButton = styled.button`
 
 export const DynamicLessonHeader = styled.div`
   grid-column: 1 / -1;
-  font-size: 1.4rem;
+  font-size: 1.4vh;
   align-self: center;
   justify-self: center;
 `

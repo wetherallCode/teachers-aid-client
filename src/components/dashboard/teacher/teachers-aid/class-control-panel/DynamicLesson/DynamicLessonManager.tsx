@@ -62,7 +62,9 @@ export const DynamicLessonManager = ({ lesson }: DynamicLessonManagerProps) => {
   return (
     <DynamicLessonContainer>
       <DynamicLessonHeader>Dynamic Lesson</DynamicLessonHeader>
-      <div style={{ gridColumn: '1/-1' }}>
+      <div
+        style={{ gridColumn: '1/-1', display: 'grid', justifyItems: 'center' }}
+      >
         <StudentInfoSelector />
       </div>
       {lesson.dynamicLesson === 'OFF' ? (
