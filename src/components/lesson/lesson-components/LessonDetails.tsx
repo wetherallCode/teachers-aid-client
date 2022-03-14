@@ -1,5 +1,8 @@
 import React, { FC } from 'react'
-import { findLessonByCourseAndDate_findLessonByCourseAndDate_lesson } from '../../../schemaTypes'
+import {
+  findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
+  findLessonStatus_findLessonStatus_lesson,
+} from '../../../schemaTypes'
 import {
   LessonComponentTitleContainer,
   LessonComponentDetailsContainer,
@@ -10,10 +13,10 @@ import {
 } from '../state-n-styles/lessonStyles'
 
 export type LessonDetailsProps = {
-  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
+  lesson: findLessonStatus_findLessonStatus_lesson
 }
 
-export const LessonDetails: FC<LessonDetailsProps> = ({ lesson }) => {
+export const LessonDetails = ({ lesson }: LessonDetailsProps) => {
   return (
     <>
       <LessonComponentTitleContainer>
@@ -34,8 +37,21 @@ export const LessonDetails: FC<LessonDetailsProps> = ({ lesson }) => {
         <LessonDetailCenter>
           Essential Question: {lesson.essentialQuestion}
         </LessonDetailCenter>
-        {/* <LessonDetailCenter>Objectives</LessonDetailCenter> */}
-        {/* <div>{lesson?.objectives}</div> */}
+        {lesson.lessonType === 'INTRODUCTORY' && (
+          <>
+            <LessonDetailCenter>Reading Instructions</LessonDetailCenter>
+            <ul>
+              <li>Read the assigned sections.</li>
+              <li>
+                Reread the assigned sections and underline the important
+                information.
+              </li>
+              <li>Put checkmarks next to things you understand.</li>
+              <li>Put question marks next to things you don't understand.</li>
+              <li>Answer the essential question.</li>
+            </ul>
+          </>
+        )}
       </LessonDetailsContainer>
     </>
   )

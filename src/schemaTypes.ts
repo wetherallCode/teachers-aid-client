@@ -6851,6 +6851,7 @@ export interface findLessonStatus_findLessonStatus_lesson {
   beforeActivity: findLessonStatus_findLessonStatus_lesson_beforeActivity;
   afterActivity: findLessonStatus_findLessonStatus_lesson_afterActivity;
   dynamicLesson: DynamicLessonEnums;
+  lessonType: LessonTypeEnum;
 }
 
 export interface findLessonStatus_findLessonStatus {

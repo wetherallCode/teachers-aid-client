@@ -72,6 +72,7 @@ export const FIND_LESSON_STATUS_QUERY = gql`
           isActive
         }
         dynamicLesson
+        lessonType
       }
     }
   }
@@ -84,8 +85,7 @@ export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
     variables: {
       input: { lessonId },
     },
-    onCompleted: (data) =>
-      console.log(data.findLessonStatus.lesson.dynamicLesson),
+    onCompleted: (data) => console.log(data.findLessonStatus.lesson),
     pollInterval: 500,
     onError: (error) => console.error(error),
   })

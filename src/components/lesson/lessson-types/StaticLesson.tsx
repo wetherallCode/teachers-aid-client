@@ -3,6 +3,7 @@ import {
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
   me_me_Teacher_teachesCourses,
   DynamicLessonEnums,
+  findLessonStatus_findLessonStatus_lesson,
 } from '../../../schemaTypes'
 import {
   LessonPageContainer,
@@ -22,7 +23,7 @@ import { Vocab } from '../lesson-components/Vocab'
 import { ExitActivity } from '../lesson-components/ExitActivity'
 
 export type StaticLessonProps = {
-  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
+  lesson: findLessonStatus_findLessonStatus_lesson
   courseToLoad?: me_me_Teacher_teachesCourses
 }
 

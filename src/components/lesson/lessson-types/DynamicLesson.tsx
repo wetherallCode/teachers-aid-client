@@ -4,6 +4,7 @@ import {
   me_me_Teacher_teachesCourses,
   me_me,
   DynamicLessonEnums,
+  findLessonStatus_findLessonStatus_lesson,
 } from '../../../schemaTypes'
 import { WarmUp } from '../lesson-components/WarmUp'
 import { LessonDetails } from '../lesson-components/LessonDetails'
@@ -29,17 +30,16 @@ import { useUserContextProvider } from '../../../contexts/UserContext'
 import { AssignedSeating } from '../lesson-components/AssignedSeating'
 
 export type DynamicLessonProps = {
-  lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
+  lesson: findLessonStatus_findLessonStatus_lesson
   courseToLoad?: me_me_Teacher_teachesCourses
   fakeCourse?: me_me_Teacher_teachesCourses
-  // stopPolling: () => void
 }
 
 export const DynamicLesson = ({ lesson, courseToLoad }: DynamicLessonProps) => {
   const me: me_me = useUserContextProvider()
   const [, event] = useDailyAgendaContextProvider()
   const { dynamicLesson } = lesson
-  console.log(courseToLoad)
+
   return (
     <LessonPageContainer>
       <ClassInfoContainer>
@@ -48,17 +48,7 @@ export const DynamicLesson = ({ lesson, courseToLoad }: DynamicLessonProps) => {
           <div>{date}</div>
         </ClassInfoStyle>
       </ClassInfoContainer>
-      <StopLessonContainer>
-        {/* <StopLessonButton
-          onClick={() => {
-            // stopPolling()
-            event({ type: 'POLLING' })
-            event({ type: 'GET_LESSON' })
-          }}
-        >
-          Leave Lesson
-        </StopLessonButton> */}
-      </StopLessonContainer>
+      <StopLessonContainer></StopLessonContainer>
 
       {lesson.duringActivities.some((protocol) => protocol.isActive) ? (
         <ProtocolsContainer>
