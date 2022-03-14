@@ -229,16 +229,17 @@ export const DynamicLessonButton = styled.button<DynamicLessonButtonProps>`
   justify-self: center;
 `
 export const DynamicLessonOnButton = styled(DynamicLessonButton)`
-  grid-row: 2/3;
+  grid-row: 3/4;
   grid-column: 1/-1;
 `
 
 export const DynamicLessonOffButtonContainer = styled.div`
-  grid-row: 3/-1;
+  grid-row: 4/-1;
   grid-column: 1/-1;
   display: grid;
   justify-items: center;
   align-items: start;
+  /* height: 50%; */
 `
 export const DynamicLessonOffButton = styled.button`
   color: var(--white);
