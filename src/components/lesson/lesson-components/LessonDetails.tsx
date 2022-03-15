@@ -37,10 +37,15 @@ export const LessonDetails = ({ lesson }: LessonDetailsProps) => {
         <LessonDetailCenter>
           Essential Question: {lesson.essentialQuestion}
         </LessonDetailCenter>
+
         {lesson.lessonType === 'INTRODUCTORY' && (
           <>
-            <LessonDetailCenter>Reading Instructions</LessonDetailCenter>
-            <ul>
+            <LessonDetailCenter
+              style={{ fontSize: '3vh', textDecoration: 'underline' }}
+            >
+              Reading Instructions
+            </LessonDetailCenter>
+            <ol style={{ margin: 0 }}>
               <li>Read the assigned sections.</li>
               <li>
                 Reread the assigned sections and underline the important
@@ -49,7 +54,7 @@ export const LessonDetails = ({ lesson }: LessonDetailsProps) => {
               <li>Put checkmarks next to things you understand.</li>
               <li>Put question marks next to things you don't understand.</li>
               <li>Answer the essential question.</li>
-            </ul>
+            </ol>
           </>
         )}
       </LessonDetailsContainer>

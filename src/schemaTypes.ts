@@ -6969,6 +6969,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
   beforeActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity;
   afterActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity;
   dynamicLesson: DynamicLessonEnums;
+  lessonType: LessonTypeEnum;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate {

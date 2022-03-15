@@ -97,6 +97,7 @@ export const FIND_LESSON_QUERY = gql`
           isActive
         }
         dynamicLesson
+        lessonType
       }
     }
   }
