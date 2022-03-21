@@ -185,18 +185,16 @@ export const ThirtySeatPairs = ({}: ThirtySeatPairsProps) => {
           </DeskContainer>
         </RightSide>
       </PairSeatingGroup>
-      {/* <PairSeatingGroup>
+      <PairSeatingGroup>
         <LeftSide>
           <DeskContainer>
             <Desk deskNumber={29} />
           </DeskContainer>
         </LeftSide>
         <RightSide>
-          <DeskContainer>
-            <Desk deskNumber={30} />
-          </DeskContainer>
+          <DeskContainer>{/* <Desk deskNumber={30} /> */}</DeskContainer>
         </RightSide>
-      </PairSeatingGroup> */}
+      </PairSeatingGroup>
     </ThirtySeatPairsFloorPlan>
   )
 }

@@ -376,7 +376,7 @@ export const ThirtySeatPairSeatingChart = ({
             </DeskContainer>
           </RightSide>
         </PairSeatingGroup>
-        {/* <PairSeatingGroup>
+        <PairSeatingGroup>
           <LeftSide>
             <DeskContainer>
               <AssignedDesk
@@ -388,7 +388,7 @@ export const ThirtySeatPairSeatingChart = ({
               />
             </DeskContainer>
           </LeftSide>
-          <RightSide>
+          {/* <RightSide>
             <DeskContainer>
               <AssignedDesk
                 assignedSeats={assignedSeats}
@@ -398,8 +398,8 @@ export const ThirtySeatPairSeatingChart = ({
                 studentsInCourse={studentsInCourse}
               />
             </DeskContainer>
-          </RightSide>
-        </PairSeatingGroup> */}
+          </RightSide> */}
+        </PairSeatingGroup>
       </ThirtySeatPairsFloorPlan>
       {/* </TwentySixIndividualSeatFloorPlan> */}
     </>
