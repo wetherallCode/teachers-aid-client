@@ -36,11 +36,14 @@ export const RosterDashboard = ({ courseName }: RosterDashboardProps) => {
             </AddStudentsContextProvider>
           }
         />
-        <Route path='assign-seats'>
-          <AssignSeatsContextProvider>
-            <AssignSeats />
-          </AssignSeatsContextProvider>
-        </Route>
+        <Route
+          path='assign-seats'
+          element={
+            <AssignSeatsContextProvider>
+              <AssignSeats />
+            </AssignSeatsContextProvider>
+          }
+        />
         <Route path='view-roster' element={<ViewRoster />} />
       </Routes>
     </RosterDashboardContainer>
