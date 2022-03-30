@@ -55,7 +55,7 @@ export const DailyBehavior = ({ studentId }: DailyBehaviorProps) => {
     else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) return 0
     else if (behavior === BehaviorEnum.ON_TASK) return 2
     else if (behavior === BehaviorEnum.OFF_TASK) return -2
-    else if (behavior === BehaviorEnum.DISRUPTIVE) return -3
+    else if (behavior === BehaviorEnum.DISRUPTIVE) return -10
     else if (behavior === BehaviorEnum.EXCESSIVE_TALKING) return -2
     else if (behavior === BehaviorEnum.UNPREPARED) return -2
     else if (behavior === BehaviorEnum.DISRESPECTFUL) return -10
