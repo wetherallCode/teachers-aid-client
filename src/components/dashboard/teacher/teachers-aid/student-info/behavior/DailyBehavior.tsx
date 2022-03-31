@@ -10,6 +10,7 @@ import {
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
+  responsibilityPointConverter,
   underscoreEliminator,
 } from '../../../../../../utils'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
@@ -20,7 +21,11 @@ import {
   StudentControlButtonContainer,
 } from '../../styles/studentInfoStyles'
 
-export type DailyBehaviorProps = { studentId: string }
+export type DailyBehaviorProps = {
+  studentId: string
+  grade: number
+  gradeLoading: boolean
+}
 
 export const CREATE_BEHAVIOR_MUTATION = gql`
   mutation createStudentBehavior($input: CreateStudentBehaviorInput!) {
@@ -32,7 +37,11 @@ export const CREATE_BEHAVIOR_MUTATION = gql`
   }
 `
 
-export const DailyBehavior = ({ studentId }: DailyBehaviorProps) => {
+export const DailyBehavior = ({
+  studentId,
+  grade,
+  gradeLoading,
+}: DailyBehaviorProps) => {
   const [state] = useTeachersAidContextProvider()
   const { behaviorEnum, markingPeriodEnum } = useEnumContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
@@ -51,9 +60,11 @@ export const DailyBehavior = ({ studentId }: DailyBehaviorProps) => {
   })
 
   const behaviorPoints = (behavior: BehaviorEnum) => {
-    if (behavior === BehaviorEnum.ANSWERED_QUESTION) return 2
+    if (behavior === BehaviorEnum.ANSWERED_QUESTION)
+      return responsibilityPointConverter(grade, 2)
     else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) return 0
-    else if (behavior === BehaviorEnum.ON_TASK) return 2
+    else if (behavior === BehaviorEnum.ON_TASK)
+      return responsibilityPointConverter(grade, 2)
     else if (behavior === BehaviorEnum.OFF_TASK) return -2
     else if (behavior === BehaviorEnum.COMPLETED_ASSIGNMENT) return 10
     else if (behavior === BehaviorEnum.DISRUPTIVE) return -10

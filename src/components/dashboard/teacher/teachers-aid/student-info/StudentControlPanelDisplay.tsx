@@ -20,11 +20,17 @@ export type StudentControlPanelDisplayProps = {
     options?: QueryLazyOptions<findStudentInfoByStudentIdVariables> | undefined
   ) => void
   absenceCheck: boolean
+  grade: number
+  gradeLoading: boolean
 }
 
-export const StudentControlPanelDisplay: FC<
-  StudentControlPanelDisplayProps
-> = ({ student, loadStudentInfo, absenceCheck }) => {
+export const StudentControlPanelDisplay = ({
+  student,
+  loadStudentInfo,
+  absenceCheck,
+  grade,
+  gradeLoading,
+}: StudentControlPanelDisplayProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [controllerState, setControllerState] = useState<
     'ATTENDANCE' | 'BEHAVIOR'
@@ -60,7 +66,11 @@ export const StudentControlPanelDisplay: FC<
             <DailyAttendance student={student} absenceCheck={absenceCheck} />
           )}
           {student && state.context.studentInfoSelector !== 'ATTENDANCE' && (
-            <DailyBehavior studentId={student._id!} />
+            <DailyBehavior
+              studentId={student._id!}
+              grade={grade}
+              gradeLoading={gradeLoading}
+            />
           )}
         </StudentControlPanelContainer>
       )}

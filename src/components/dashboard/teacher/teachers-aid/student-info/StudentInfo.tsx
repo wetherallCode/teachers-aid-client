@@ -13,6 +13,7 @@ import {
 } from '../styles/studentInfoStyles'
 import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 
 export type StudentInfoProps = {}
 
@@ -89,7 +90,13 @@ export const StudentInfo = ({}: StudentInfoProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  const [loadStudentInfo, { loading, data }] = useLazyQuery<
+  const { grade, loading: gradeLoading } = useGradeCalculator({
+    studentId: state.context.studentId!,
+    markingPeriod: markingPeriodState.context.currentMarkingPeriod,
+    polling: true,
+  })
+
+  const [loadStudentInfo, { loading: studentInfoLoading, data }] = useLazyQuery<
     findStudentInfoByStudentId,
     findStudentInfoByStudentIdVariables
   >(FIND_STUDENT_INFORMATION_QUERY, {
@@ -150,7 +157,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     currentResponsibilityPoints &&
     currentResponsibilityPoints[0].responsibilityPoints
 
-  if (loading)
+  if (studentInfoLoading)
     return (
       <>
         <StudentInfoDisplay>
@@ -175,6 +182,8 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         loadStudentInfo={loadStudentInfo}
         student={data?.findStudentById.student!}
         absenceCheck={absenceCheck}
+        grade={grade}
+        gradeLoading={gradeLoading}
       />
     </>
   )

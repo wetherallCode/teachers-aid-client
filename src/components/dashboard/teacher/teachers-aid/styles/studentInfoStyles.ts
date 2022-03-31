@@ -138,10 +138,11 @@ export const StudentBehaviorButtonContainer = styled.div`
 
 export type StudentBehaviorButtonProps = {
   goodBehavior: boolean
+  ready?: boolean
 }
 
 export const StudentBehaviorButton = styled.button<StudentBehaviorButtonProps>`
-  background-color: ${({ goodBehavior }) =>
+  background-color: ${({ goodBehavior, ready }) =>
     goodBehavior ? 'var(--blue)' : 'var(--red)'};
   color: var(--white);
   border-radius: 5px;
