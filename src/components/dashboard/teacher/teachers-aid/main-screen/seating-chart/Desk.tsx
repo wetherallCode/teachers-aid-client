@@ -49,7 +49,7 @@ export const Desk: FC<DeskProps> = ({ deskNumber }) => {
     },
     // onCompleted: (data) =>
     // console.log(data.findStudentById.student.hasAbsences),
-    pollInterval: 1000,
+    // pollInterval: 1000,
     onError: (error) => console.error(error + 'desk'),
   })
 
