@@ -75,7 +75,7 @@ function App() {
   return (
     <AppContainer>
       <Header>
-        {me && <UpdateUserActivity userId={me._id!} />}
+        {/* {me && <UpdateUserActivity userId={me._id!} />} */}
         <HomeLink to='/'>MrWetherall.org</HomeLink>
         <LoginContainer>
           {!me ? (
