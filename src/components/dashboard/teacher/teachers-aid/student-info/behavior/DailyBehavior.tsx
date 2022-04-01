@@ -50,7 +50,7 @@ export const DailyBehavior = ({
   // const markingPeriodNumber = markingPeriodEnum.findIndex(
   //   (element: MarkingPeriodEnum) => element === currentMarkingPeriod
   // )
-
+  console.log(gradeLoading)
   const [createStudentBehavior] = useMutation<
     createStudentBehavior,
     createStudentBehaviorVariables
@@ -67,6 +67,7 @@ export const DailyBehavior = ({
       return responsibilityPointConverter(grade, 2)
     else if (behavior === BehaviorEnum.OFF_TASK) return -2
     else if (behavior === BehaviorEnum.COMPLETED_ASSIGNMENT) return 10
+    else if (behavior === BehaviorEnum.REFUSED_TO_WORK) return -10
     else if (behavior === BehaviorEnum.DISRUPTIVE) return -10
     else if (behavior === BehaviorEnum.EXCESSIVE_TALKING) return -2
     else if (behavior === BehaviorEnum.UNPREPARED) return -2
@@ -75,8 +76,8 @@ export const DailyBehavior = ({
     else return 0
   }
   const questionAndAnswerBehaviors = behaviorEnum.slice(0, 2)
-  const negativeBehaviors = behaviorEnum.slice(5, 9)
-  const taskBehaviors = behaviorEnum.slice(2, 5)
+  const negativeBehaviors = behaviorEnum.slice(6)
+  const taskBehaviors = behaviorEnum.slice(2, 6)
 
   return (
     <>
@@ -100,7 +101,9 @@ export const DailyBehavior = ({
                   })
                 }
               >
-                {phraseCapitalizer(underscoreEliminator(behavior))}
+                {behaviorPoints(behavior) > 0 && gradeLoading
+                  ? 'loading'
+                  : phraseCapitalizer(underscoreEliminator(behavior))}
               </StudentBehaviorButton>
             )
           )}
