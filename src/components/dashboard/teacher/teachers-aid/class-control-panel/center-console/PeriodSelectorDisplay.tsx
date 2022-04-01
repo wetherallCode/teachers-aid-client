@@ -86,12 +86,14 @@ export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
     findCourseInfoByCourseId,
     findCourseInfoByCourseIdVariables
   >(GET_COURSE_INFO_QUERY, {
-    onCompleted: (data) =>
+    onCompleted: (data) => {
       event({
         type: 'SET_COURSE',
         payload: data.findCourseInfoByCourseId.courseInfo,
-      }),
-    pollInterval: 1000,
+      })
+    },
+    // pollInterval: 1000,
+
     onError: (error) => console.error(error),
   })
 
@@ -101,6 +103,7 @@ export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
         <CourseSelectButton
           key={course._id!}
           onClick={() => {
+            console.log(new Date().toISOString().substring(17, 23))
             loadCourse({ variables: { input: { courseId: course._id! } } })
           }}
         >
