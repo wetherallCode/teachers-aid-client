@@ -177,7 +177,6 @@ export const teachersAidMachine = Machine<
       on: {
         SET_COURSE: {
           actions: assign((ctx, evt) => {
-            console.log('courseSet')
             return {
               ...ctx,
               courseInfo: evt.payload,
