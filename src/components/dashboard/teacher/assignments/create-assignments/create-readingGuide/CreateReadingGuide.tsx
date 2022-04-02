@@ -7,8 +7,10 @@ import {
   TimeOfDay,
   MarkingPeriodEnum,
   findLessonById_findLessonById_lesson,
+  checkQuizQuestionsForTextSections,
+  checkQuizQuestionsForTextSectionsVariables,
 } from '../../../../../../schemaTypes'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { useCreateAssignmentContextPovider } from '../state-and-styles/CreateAssignmentContext'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useCheckBox } from '../../../../../../hooks/useCheckBox'
@@ -57,7 +59,15 @@ export const CREATE_READING_GUIDE_MUTATION = gql`
     }
   }
 `
-
+export const CHECK_QUIZ_QUESTIONS_QUERY = gql`
+  query checkQuizQuestionsForTextSections(
+    $input: CheckQuizQuestionsForTextSectionsInput!
+  ) {
+    checkQuizQuestionsForTextSections(input: $input) {
+      textSectionIds
+    }
+  }
+`
 export const CreateReadingGuide = ({
   me,
   courseIdList,
@@ -84,8 +94,17 @@ export const CreateReadingGuide = ({
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
-  console.log(sortedCourses[currentCourseIndex + 1])
-  // console.log(sortedCourses[currentCourseIndex + 1]._id)
+
+  const { loading, data: quizQuestionIdData } = useQuery<
+    checkQuizQuestionsForTextSections,
+    checkQuizQuestionsForTextSectionsVariables
+  >(CHECK_QUIZ_QUESTIONS_QUERY, {
+    variables: {
+      input: { textSectionIds: lesson.assignedSectionIdList },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
 
   const [createReadingGuide, { data, called }] = useMutation<
     createReadingGuide,
@@ -205,7 +224,12 @@ export const CreateReadingGuide = ({
               <div>Max Points</div>
               <GeneralInput
                 type='text'
-                value={state.context.readingGuide.maxPoints}
+                value={
+                  loading
+                    ? 'loading'
+                    : quizQuestionIdData?.checkQuizQuestionsForTextSections
+                        .textSectionIds.length
+                }
                 onChange={(e: any) =>
                   event({
                     type: 'SET_READING_GUIDE_MAX_POINTS',
