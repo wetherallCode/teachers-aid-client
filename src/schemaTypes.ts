@@ -2154,6 +2154,28 @@ export interface createReadingGuideVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: checkQuizQuestionsForTextSections
+// ====================================================
+
+export interface checkQuizQuestionsForTextSections_checkQuizQuestionsForTextSections {
+  __typename: "CheckQuizQuestionsForTextSectionsPayload";
+  textSectionIds: string[];
+}
+
+export interface checkQuizQuestionsForTextSections {
+  checkQuizQuestionsForTextSections: checkQuizQuestionsForTextSections_checkQuizQuestionsForTextSections;
+}
+
+export interface checkQuizQuestionsForTextSectionsVariables {
+  input: CheckQuizQuestionsForTextSectionsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findEssaysToGradeById
 // ====================================================
 
@@ -7805,6 +7827,10 @@ export interface ChangePasswordInput {
   newPassword: string;
   oldPassword: string;
   userName: string;
+}
+
+export interface CheckQuizQuestionsForTextSectionsInput {
+  textSectionIds: string[];
 }
 
 export interface ControlCoolDownInput {
