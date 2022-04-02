@@ -163,6 +163,7 @@ export const teachersAidMachine = Machine<
       partnerIds: null,
       protocolActivityType: ProtocolActivityTypes.INDIVIDUAL,
       markingPeriod: MarkingPeriodEnum.FIRST,
+      responsibilityPoints: 2,
     },
     mainScreenSeatingChart: true,
     mainScreenVirtualAttendance: false,

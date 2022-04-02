@@ -48,6 +48,7 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
                   task: response.task,
                   assessment: ProtocolAssessmentEnum.WORKED_WELL,
                   markingPeriod: response.markingPeriod,
+                  responsibilityPoints: 2,
                 },
               },
             })
@@ -67,6 +68,7 @@ export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
                   task: response.task,
                   assessment: ProtocolAssessmentEnum.WORKED_VERY_WELL,
                   markingPeriod: response.markingPeriod,
+                  responsibilityPoints: 2,
                 },
               },
             })

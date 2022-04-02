@@ -51,6 +51,7 @@ export const StudentControlPanelDisplay = ({
           loadStudentInfo={loadStudentInfo}
           protocols={protocols}
           student={student}
+          grade={grade}
         />
       ) : (
         <StudentControlPanelContainer>

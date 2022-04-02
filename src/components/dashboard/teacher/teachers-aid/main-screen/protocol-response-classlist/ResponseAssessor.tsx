@@ -36,7 +36,7 @@ export const ASSESS_INDIVIDITUAL_PROTOCOLS_MUTATION = gql`
   }
 `
 
-export const ResponseAssessor: FC<ResponseAssessorProps> = ({ protocol }) => {
+export const ResponseAssessor = ({ protocol }: ResponseAssessorProps) => {
   const [MarkingPeriodState] = useMarkingPeriodContextProvider()
   const { protocolAssessmentEnum } = useEnumContextProvider()
   // const [assessment, setAssessment] = useState<ProtocolAssessmentEnum | null>(
@@ -86,6 +86,7 @@ export const ResponseAssessor: FC<ResponseAssessorProps> = ({ protocol }) => {
                         assessment: assessment,
                         markingPeriod:
                           MarkingPeriodState.context.currentMarkingPeriod,
+                        responsibilityPoints: 2,
                       },
                     },
                   })
@@ -104,6 +105,7 @@ export const ResponseAssessor: FC<ResponseAssessorProps> = ({ protocol }) => {
                   assessment: null,
                   markingPeriod:
                     MarkingPeriodState.context.currentMarkingPeriod,
+                  responsibilityPoints: 2,
                 },
               },
             })

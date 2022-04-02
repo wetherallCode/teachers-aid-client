@@ -7776,6 +7776,7 @@ export interface AssessIndividualProtocolsInput {
   assessment?: ProtocolAssessmentEnum | null;
   markingPeriod: MarkingPeriodEnum;
   protocolId: string;
+  responsibilityPoints: number;
 }
 
 export interface AssessStudentProtocolInput {
@@ -7785,6 +7786,7 @@ export interface AssessStudentProtocolInput {
   markingPeriod: MarkingPeriodEnum;
   partnerIds?: string[] | null;
   protocolActivityType: ProtocolActivityTypes;
+  responsibilityPoints: number;
   studentId: string;
   task: string;
 }

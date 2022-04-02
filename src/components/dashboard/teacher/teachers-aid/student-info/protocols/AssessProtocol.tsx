@@ -37,6 +37,7 @@ export type AssessProtocolProps = {
     options?: QueryLazyOptions<findStudentInfoByStudentIdVariables> | undefined
   ) => void
   student: findStudentInfoByStudentId_findStudentById_student
+  grade: number
 }
 
 export const ASSESS_PROTOCOL_MUTATION = gql`
@@ -54,11 +55,12 @@ export const ASSESS_PROTOCOL_MUTATION = gql`
     }
   }
 `
-export const AssessProtocol: FC<AssessProtocolProps> = ({
+export const AssessProtocol = ({
   protocols,
   student,
   loadStudentInfo,
-}) => {
+  grade,
+}: AssessProtocolProps) => {
   const [selectedStudents, setSelectedStudents] = useState<
     findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats[]
   >([])
@@ -76,9 +78,9 @@ export const AssessProtocol: FC<AssessProtocolProps> = ({
     assessStudentProtocolVariables
   >(ASSESS_PROTOCOL_MUTATION, {
     variables: { input: state.context.studentProtocolAssessment },
-    onCompleted: (data) => {
-      console.log('assessed')
-    },
+    // onCompleted: (data) => {
+    //   console.log('assessed')
+    // },
     refetchQueries: ['findStudentInfoByStudentId'],
   })
 

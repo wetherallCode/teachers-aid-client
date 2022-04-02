@@ -14,6 +14,7 @@ import {
 import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
+import { responsibilityPointConverter } from '../../../../../utils'
 
 export type StudentInfoProps = {}
 
@@ -131,6 +132,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
             studentId: data.findStudentById.student._id!,
             partnerIds: protocol.partners ? partnerList! : [],
             markingPeriod: protocol.markingPeriod,
+            responsibilityPoints: responsibilityPointConverter(grade, 2),
           },
         })
       }
