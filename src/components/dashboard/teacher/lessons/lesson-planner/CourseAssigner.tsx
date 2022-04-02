@@ -61,7 +61,9 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
   })
 
   const courseList = me.teachesCourses
-  const realCourseList = courseList.slice(1)
+  const realCourseList = courseList
+    .slice(2)
+    .filter((c) => c.name !== 'Unenrolled')
 
   return (
     <>

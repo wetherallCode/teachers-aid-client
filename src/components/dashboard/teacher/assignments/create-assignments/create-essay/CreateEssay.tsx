@@ -160,7 +160,10 @@ export const CreateEssay = ({
     onError: (error) => console.error(error),
     refetchQueries: [],
   })
-  const courses = me.teachesCourses.slice(1).sort(sortByLetter)
+  const courses = me.teachesCourses
+    .slice(1)
+    .sort(sortByLetter)
+    .filter((c) => c.name !== 'Unenrolled')
 
   const selectedDevelopingEssays = state.context.essay.topicList.filter(
     (essay) => essay.writingLevel === 'DEVELOPING'

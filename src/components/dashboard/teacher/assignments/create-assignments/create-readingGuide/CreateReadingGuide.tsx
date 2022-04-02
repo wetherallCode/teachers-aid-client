@@ -80,7 +80,10 @@ export const CreateReadingGuide = ({
   const [assignedCourseIds, handleChange] = useCheckBox([courseId])
   const navigate = useNavigate()
 
-  const courses = me.teachesCourses.slice(0).sort(sortByLetter)
+  const courses = me.teachesCourses
+    .slice(0)
+    .sort(sortByLetter)
+    .filter((c) => c.name !== 'Unenrolled')
 
   const [currentCourseInfo] = me.teachesCourses.filter(
     (course) => course._id === courseId

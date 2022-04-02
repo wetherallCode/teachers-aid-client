@@ -99,17 +99,20 @@ export const PeriodSelectorDisplay = ({}: PeriodSelectorDisplayProps) => {
 
   return (
     <>
-      {me.teachesCourses.slice(2).map((course) => (
-        <CourseSelectButton
-          key={course._id!}
-          onClick={() => {
-            console.log(new Date().toISOString().substring(17, 23))
-            loadCourse({ variables: { input: { courseId: course._id! } } })
-          }}
-        >
-          {course.name}
-        </CourseSelectButton>
-      ))}
+      {me.teachesCourses
+        .slice(2)
+        .filter((c) => c.name !== 'Unenrolled')
+        .map((course) => (
+          <CourseSelectButton
+            key={course._id!}
+            onClick={() => {
+              console.log(new Date().toISOString().substring(17, 23))
+              loadCourse({ variables: { input: { courseId: course._id! } } })
+            }}
+          >
+            {course.name}
+          </CourseSelectButton>
+        ))}
     </>
   )
 }
