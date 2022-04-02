@@ -40,15 +40,15 @@ export const EssayTopicLoader = ({ ids }: EssayTopicLoaderProps) => {
       input: { _ids: ids },
     },
     onCompleted: (data) => {
-      console.log(
-        data.findTextSectionsById.textSections.map((section) =>
-          section.hasEssayQuestions.map((question) => [
-            question.questionParts.originalQuestion,
-            question.questionParts.questionType,
-            question._id,
-          ])
-        )
-      )
+      // console.log(
+      //   data.findTextSectionsById.textSections.map((section) =>
+      //     section.hasEssayQuestions.map((question) => [
+      //       question.questionParts.originalQuestion,
+      //       question.questionParts.questionType,
+      //       question._id,
+      //     ])
+      //   )
+      // )
       const questionList = data.findTextSectionsById.textSections
         .map((section) =>
           section.hasEssayQuestions.map((question) => [
