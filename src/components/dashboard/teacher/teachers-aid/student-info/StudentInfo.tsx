@@ -173,7 +173,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         <StudentNameContainer>
           <div> {data?.findStudentById.student.firstName}</div>
           <div>{data?.findStudentById.student.lastName}</div>
-          <div>{rp}</div>
+          <div>{rp && rp.toFixed(2)}</div>
         </StudentNameContainer>
         {/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
       </StudentInfoDisplay>
