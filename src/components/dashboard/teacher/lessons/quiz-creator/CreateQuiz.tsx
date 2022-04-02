@@ -76,10 +76,10 @@ export const CreateQuiz = ({}: CreateQuizProps) => {
   }, [state.context.courses])
 
   return (
-    <div>
+    <div style={{ gridColumn: '1/-1', fontSize: '3vh', display: 'grid' }}>
       {/* <FindAllQuizzableLessons assignedDate={quizDate} /> */}
-      <div>Create Quiz</div>
-      <div>
+      <div style={{ textAlign: 'center' }}>Create Quiz</div>
+      <div style={{ textAlign: 'center' }}>
         When?{' '}
         <input
           type='date'
@@ -107,7 +107,24 @@ export const CreateQuiz = ({}: CreateQuizProps) => {
           }}
         />
       </div>
-      <button onClick={() => createQuizzes()}>Create Quizzes</button>
+      <div
+        style={{
+          display: 'grid',
+          placeItems: 'center',
+        }}
+      >
+        <button
+          style={{
+            width: '50%',
+            fontSize: '2.5vh',
+            color: 'var(--white)',
+            backgroundColor: 'var(--blue)',
+          }}
+          onClick={() => createQuizzes()}
+        >
+          Create Quizzes
+        </button>
+      </div>
     </div>
   )
 }

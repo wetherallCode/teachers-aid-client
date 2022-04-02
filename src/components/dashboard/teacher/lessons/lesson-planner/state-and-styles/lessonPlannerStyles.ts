@@ -408,7 +408,7 @@ export const AssignCourseContainer = styled.div`
   grid-row: 3/-3;
   grid-column: 1/-1;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
 `
 export const CourseToAssignContainer = styled.div`
