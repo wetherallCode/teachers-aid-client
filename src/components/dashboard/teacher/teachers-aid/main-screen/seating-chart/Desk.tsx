@@ -29,7 +29,7 @@ export const FIND_STUDENT_INFO_FOR_DESK_QUERY = gql`
   }
 `
 
-export const Desk: FC<DeskProps> = ({ deskNumber }) => {
+export const Desk = ({ deskNumber }: DeskProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const me: me_me = useUserContextProvider()
   const [schoolDayState] = useSchoolDayContextProvider()
