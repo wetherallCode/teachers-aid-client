@@ -78,7 +78,7 @@ export const GET_COURSE_INFO_QUERY = gql`
     }
   }
 `
-export const PeriodSelectorDisplay: FC<PeriodSelectorDisplayProps> = () => {
+export const PeriodSelectorDisplay = ({}: PeriodSelectorDisplayProps) => {
   const me: me_me_Teacher = useUserContextProvider()
   const [, event] = useTeachersAidContextProvider()
 
