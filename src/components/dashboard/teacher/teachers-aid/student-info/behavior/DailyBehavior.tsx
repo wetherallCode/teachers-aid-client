@@ -50,7 +50,7 @@ export const DailyBehavior = ({
   // const markingPeriodNumber = markingPeriodEnum.findIndex(
   //   (element: MarkingPeriodEnum) => element === currentMarkingPeriod
   // )
-  console.log(gradeLoading)
+  console.log(grade)
   const [createStudentBehavior] = useMutation<
     createStudentBehavior,
     createStudentBehaviorVariables
