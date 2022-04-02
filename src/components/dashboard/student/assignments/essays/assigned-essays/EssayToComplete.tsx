@@ -32,6 +32,7 @@ import {
 } from './state-and-styles/assignedEssayStyles'
 import { EssayInfo } from './essay-info/EssayInfo'
 import { UnderlinedCenteredText } from '../../../../../../appStyles'
+import { useGradeCalculator } from '../../../../../../hooks/useGradeCalculator'
 
 export type EssayToCompleteProps = {}
 
@@ -113,6 +114,10 @@ export const FIND_ESSAY_BY_ID_QUERY = gql`
           readingPages
           readingSections
         }
+        hasOwner {
+          _id
+        }
+        markingPeriod
         dueDate
         dueTime
         topic {
@@ -330,7 +335,6 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
       onError: (error) => console.error(error),
     }
   )
-  if (loading) return <div>Loading </div>
 
   const organizer = data?.findEssayById.essay.workingDraft
     .organizer as findEssayById_findEssayById_essay_workingDraft_organizer
@@ -355,6 +359,13 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
     ),
   ].join(' ')
 
+  const { grade, loading: gradeLoading } = useGradeCalculator({
+    studentId: data?.findEssayById.essay.hasOwner._id!,
+    markingPeriod: data?.findEssayById.essay.markingPeriod!,
+    polling: false,
+  })
+
+  if (loading) return <div>Loading </div>
   return (
     <EssayContainer>
       <AssignmentDetailsContainer>
@@ -401,6 +412,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
               <StudentEssayEditor
                 essay={data?.findEssayById.essay!}
                 submittedFinalDraft={submittedFinalDraft}
+                grade={grade}
               />
             </>
           )}

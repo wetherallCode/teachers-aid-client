@@ -423,6 +423,11 @@ export interface findEssayById_findEssayById_essay_readings {
   readingSections: string;
 }
 
+export interface findEssayById_findEssayById_essay_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+}
+
 export interface findEssayById_findEssayById_essay_topic {
   __typename: "Topic";
   question: string;
@@ -447,6 +452,8 @@ export interface findEssayById_findEssayById_essay {
   _id: string | null;
   workingDraft: findEssayById_findEssayById_essay_workingDraft;
   readings: findEssayById_findEssayById_essay_readings;
+  hasOwner: findEssayById_findEssayById_essay_hasOwner;
+  markingPeriod: MarkingPeriodEnum;
   dueDate: string;
   dueTime: string;
   topic: findEssayById_findEssayById_essay_topic;
@@ -1401,6 +1408,11 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide_readingG
   sectionConsequences: string;
 }
 
+export interface findReadingGuideById_findReadingGuideById_readingGuide_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+}
+
 export interface findReadingGuideById_findReadingGuideById_readingGuide {
   __typename: "ReadingGuide";
   _id: string | null;
@@ -1409,6 +1421,8 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide {
   dueTime: string;
   lessonInfo: findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo;
   readingGuideFinal: findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal | null;
+  markingPeriod: MarkingPeriodEnum;
+  hasOwner: findReadingGuideById_findReadingGuideById_readingGuide_hasOwner;
 }
 
 export interface findReadingGuideById_findReadingGuideById {
@@ -8437,6 +8451,7 @@ export interface SubmitEssayFinalDraftInput {
   _id: string;
   late: boolean;
   paperBased: boolean;
+  responsibilityPoints?: number | null;
   submittedFinalDraft: SubmittedFinalDraftsInput;
   submitTime: string;
 }
@@ -8446,6 +8461,7 @@ export interface SubmitReadingGuideInput {
   late: boolean;
   paperBased: boolean;
   readingGuideId: string;
+  responsibilityPoints?: number | null;
   submitTime: string;
 }
 

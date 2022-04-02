@@ -30,6 +30,7 @@ import { EssayOrganizer } from './essay-info/essay-organizers/EssayOrganizer'
 type StudentEssayEditorProps = {
   essay: findEssayById_findEssayById_essay
   submittedFinalDraft: SubmittedFinalDraftsInput
+  grade: number
 }
 
 export type submittedFinalDraftType = {
@@ -39,10 +40,11 @@ export type submittedFinalDraftType = {
   score: number
 }
 
-export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
+export const StudentEssayEditor = ({
   essay,
   submittedFinalDraft,
-}) => {
+  grade,
+}: StudentEssayEditorProps) => {
   const [state, event] = useStudentEssayContextProvider()
   const editor = useMemo(() => withReact(createEditor()), [])
   const parsedEssay = JSON.parse(essay.workingDraft.draft)
@@ -163,6 +165,7 @@ export const StudentEssayEditor: FC<StudentEssayEditorProps> = ({
           _id={state.context.essayId}
           submittedFinalDraft={submittedFinalDraft}
           response={value[0].children[0].text !== ''}
+          grade={grade}
         />
       </OrganizerControlButtonContainer>
     </EssayEditorBackgroundContainer>

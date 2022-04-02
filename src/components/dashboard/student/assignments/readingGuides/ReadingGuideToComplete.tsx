@@ -30,6 +30,7 @@ import {
   AssignmentDetailsGoBackButtonContainer,
   AssignmentDetailsGoBackButton,
 } from '../essays/assigned-essays/state-and-styles/assignedEssayStyles'
+import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 
 export type ReadingGuideToCompleteProps = {}
 
@@ -64,6 +65,10 @@ export const FIND_READING_GUIDE_BY_ID_QUERY = gql`
           importantPeople
           howArePeopleInvolvedInProblems
           sectionConsequences
+        }
+        markingPeriod
+        hasOwner {
+          _id
         }
       }
     }
@@ -158,6 +163,12 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
     onError: (error) => console.error(error),
   })
 
+  const { grade, loading: gradeLoading } = useGradeCalculator({
+    studentId: data?.findReadingGuideById.readingGuide.hasOwner._id!,
+    markingPeriod: data?.findReadingGuideById.readingGuide.markingPeriod!,
+    polling: false,
+  })
+
   if (loading) return <div>Loading </div>
 
   return (
@@ -198,6 +209,7 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
             <ReadingGuideToCompleteContainer>
               <CompleteReadingGuide
                 readingGuideInfo={data?.findReadingGuideById.readingGuide!}
+                grade={grade}
               />
             </ReadingGuideToCompleteContainer>
 

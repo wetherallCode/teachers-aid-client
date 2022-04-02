@@ -11,8 +11,11 @@ import {
   SmallNextButton,
   SubmitReadingGuideButton,
 } from './state-and-styles/readingGuideStyles'
+import { responsibilityPointConverter } from '../../../../../utils'
 
-export type SubmitReadingGuideProps = {}
+export type SubmitReadingGuideProps = {
+  grade: number
+}
 
 export const SUBMIT_READING_GUIDE_MUTATION = gql`
   mutation submitReadingGuide($input: SubmitReadingGuideInput!) {
@@ -24,7 +27,7 @@ export const SUBMIT_READING_GUIDE_MUTATION = gql`
   }
 `
 
-export const SubmitReadingGuide: FC<SubmitReadingGuideProps> = () => {
+export const SubmitReadingGuide = ({ grade }: SubmitReadingGuideProps) => {
   const navigate = useNavigate()
   const [state] = useReadingGuideToCompleteContextProvider()
 
@@ -33,7 +36,6 @@ export const SubmitReadingGuide: FC<SubmitReadingGuideProps> = () => {
     submitReadingGuideVariables
   >(SUBMIT_READING_GUIDE_MUTATION, {
     onCompleted: () => {
-      console.log(new Date().toLocaleString())
       navigate('/dashboard/assignments')
     },
     refetchQueries: ['findReadingGuidesToComplete', 'findReadingGuideById'],
@@ -48,6 +50,7 @@ export const SubmitReadingGuide: FC<SubmitReadingGuideProps> = () => {
               input: {
                 ...state.context.submitReadingGuideInputs,
                 submitTime: new Date().toLocaleString(),
+                responsibilityPoints: responsibilityPointConverter(grade, 5),
               },
             },
           })

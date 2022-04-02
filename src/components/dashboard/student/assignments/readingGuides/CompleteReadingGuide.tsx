@@ -56,6 +56,7 @@ import { Button } from '../../../../home/loginStyles'
 
 export type CompleteReadingGuideProps = {
   readingGuideInfo: findReadingGuideById_findReadingGuideById_readingGuide
+  grade: number
 }
 
 export const UPDATE_READING_GUIDE_MUTATION = gql`
@@ -78,6 +79,7 @@ export type ReadingGuideStepsTypes =
 
 export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
   readingGuideInfo,
+  grade,
 }) => {
   const [state, event] = useReadingGuideToCompleteContextProvider()
   const [readingGuideSteps, setReadingGuideSteps] =
@@ -164,7 +166,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
       )
     event({ type: 'REMOVE_IMPORTANT_PEOPLE', payload: index })
   }
-  console.log(state.context.updateReadingGuideInputs.importantPeople)
+
   return (
     <>
       <ReadingGuideHeader>
@@ -473,7 +475,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
                   >
                     Back
                   </SmallNextButton>
-                  <SubmitReadingGuide />
+                  <SubmitReadingGuide grade={grade} />
                 </ButtonContainer>
               )}
             </SectionConsequencesContainer>

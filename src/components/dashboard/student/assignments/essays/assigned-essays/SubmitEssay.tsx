@@ -18,6 +18,7 @@ import {
 } from './state-and-styles/assignedEssayStyles'
 import { Modal } from '../../../../../../animations'
 import { useStudentEssayContextProvider } from './state-and-styles/StudentEssayContext'
+import { responsibilityPointConverter } from '../../../../../../utils'
 
 export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
   mutation submitEssayFinalDraft($input: SubmitEssayFinalDraftInput!) {
@@ -41,13 +42,15 @@ export type SubmitEssayFinalDraftInput = {
   submittedFinalDraft: SubmittedFinalDraftsInput
   // essay: findEssayById_findEssayById_essay
   response: boolean
+  grade: number
 }
 
-export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
+export const SubmitEssay = ({
   _id,
   submittedFinalDraft,
   response,
-}) => {
+  grade,
+}: SubmitEssayFinalDraftInput) => {
   const navigate = useNavigate()
   const [, event] = useStudentEssayContextProvider()
   const [submitToggle, setSubmitToggle] = useState(false)
@@ -72,6 +75,7 @@ export const SubmitEssay: FC<SubmitEssayFinalDraftInput> = ({
             submitTime: new Date().toLocaleString(),
             late: true, //server will change based on time submitted
             paperBased: false,
+            responsibilityPoints: responsibilityPointConverter(grade, 10),
           },
         },
       })
