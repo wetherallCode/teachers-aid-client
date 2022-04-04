@@ -8479,7 +8479,7 @@ export interface SubmitEssayFinalDraftInput {
   _id: string;
   late: boolean;
   paperBased: boolean;
-  responsibilityPoints?: number | null;
+  responsibilityPoints: number;
   submittedFinalDraft: SubmittedFinalDraftsInput;
   submitTime: string;
 }
@@ -8489,7 +8489,7 @@ export interface SubmitReadingGuideInput {
   late: boolean;
   paperBased: boolean;
   readingGuideId: string;
-  responsibilityPoints?: number | null;
+  responsibilityPoints: number;
   submitTime: string;
 }
 
