@@ -70,7 +70,7 @@ export const DailyBehavior = ({
     else if (behavior === BehaviorEnum.REFUSED_TO_WORK) return -10
     else if (behavior === BehaviorEnum.DISRUPTIVE) return -10
     else if (behavior === BehaviorEnum.EXCESSIVE_TALKING) return -2
-    else if (behavior === BehaviorEnum.UNPREPARED) return -2
+    else if (behavior === BehaviorEnum.UNPREPARED) return -10
     else if (behavior === BehaviorEnum.DISRESPECTFUL) return -10
     else if (behavior === BehaviorEnum.INNAPROPRIATE_LANGUAGE) return -10
     else return 0
@@ -152,7 +152,11 @@ export const DailyBehavior = ({
                 })
               }
             >
-              {phraseCapitalizer(underscoreEliminator(behavior))}
+              {behaviorPoints(behavior) > 0 &&
+              gradeLoading &&
+              behavior === 'ON_TASK'
+                ? 'loading'
+                : phraseCapitalizer(underscoreEliminator(behavior))}
             </StudentBehaviorButton>
           ))}
         </StudentBehaviorButtonContainer>
