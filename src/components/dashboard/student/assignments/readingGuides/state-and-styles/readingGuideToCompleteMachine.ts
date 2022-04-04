@@ -96,6 +96,7 @@ export const readingGuideToCompleteMachine = Machine<
       late: true,
       submitTime: new Date().toLocaleString(),
       paperBased: false,
+      responsibilityPoints: 10,
     },
     help: 'general',
     helpDisplay: true,

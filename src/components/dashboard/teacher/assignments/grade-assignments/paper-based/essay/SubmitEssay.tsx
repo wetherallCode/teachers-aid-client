@@ -65,6 +65,7 @@ export const SubmitEssay: FC<SubmitEssayProps> = ({ essay }) => {
         submitTime: new Date().toLocaleString(),
         submittedFinalDraft: submittedFinalDraft,
         paperBased: true,
+        responsibilityPoints: 10,
       },
     },
     onCompleted: () => navigate(`/dashboard/assignments/grade/${essay._id}`),
