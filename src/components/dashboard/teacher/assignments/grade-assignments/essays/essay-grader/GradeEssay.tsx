@@ -122,6 +122,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
         finalDraft {
           submitTime
           submitted
+          submitTime
           returned
           submittedFinalDraft {
             draft
