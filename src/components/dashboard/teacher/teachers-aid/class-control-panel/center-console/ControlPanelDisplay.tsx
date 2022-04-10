@@ -51,7 +51,7 @@ export const ControlPanelDisplay = ({
           payload: data.findLessonByCourseAndDate.lesson._id!,
         })
     },
-    pollInterval: 100,
+    pollInterval: 1000,
     onError: (error) => console.error(error),
   })
 
