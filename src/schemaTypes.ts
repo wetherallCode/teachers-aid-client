@@ -7529,6 +7529,41 @@ export interface me {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL query operation: findBehaviorsByStudentIdAndDate
+// ====================================================
+
+export interface findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors_student {
+  __typename: "Student";
+  firstName: string;
+}
+
+export interface findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors {
+  __typename: "StudentBehavior";
+  _id: string | null;
+  student: findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors_student;
+  behavior: BehaviorEnum;
+  responsibilityPoints: number;
+}
+
+export interface findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate {
+  __typename: "FindBehaviorsByStudentIdAndDatePayload";
+  behaviors: findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors[];
+}
+
+export interface findBehaviorsByStudentIdAndDate {
+  findBehaviorsByStudentIdAndDate: findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate;
+}
+
+export interface findBehaviorsByStudentIdAndDateVariables {
+  input: FindBehaviorsByStudentIdAndDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -8060,6 +8095,11 @@ export interface FindAssignmentByStudentIdInput {
 
 export interface FindAssignmentsByCourseIdInput {
   courseId: string;
+}
+
+export interface FindBehaviorsByStudentIdAndDateInput {
+  date: string;
+  studentId: string;
 }
 
 export interface FindChaptersByTextIdInput {

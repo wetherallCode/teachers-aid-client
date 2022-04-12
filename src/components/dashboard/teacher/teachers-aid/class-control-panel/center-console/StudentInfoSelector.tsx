@@ -7,9 +7,11 @@ export type StudentInfoSelectorTypes =
   | 'NEGATIVE_BEHAVIOR'
   | 'ATTENDANCE'
   | 'TASK_CHECK'
+  | 'INFO'
+
 export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
   const [state, event] = useTeachersAidContextProvider()
-  console.log(state.context.studentInfoSelector)
+
   const handleSelection = (selection: StudentInfoSelectorTypes) => {
     event({ type: 'SET_STUDENT_INFO_SELECTOR', payload: selection })
   }
@@ -19,7 +21,7 @@ export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
         display: 'grid',
         gridAutoFlow: 'column',
         gridAutoColumns: '1fr',
-        width: '75%',
+        width: '90%',
         gridColumnGap: '15%',
       }}
     >
@@ -29,6 +31,7 @@ export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
       </button>
       <button onClick={() => handleSelection('NEGATIVE_BEHAVIOR')}>-</button>
       <button onClick={() => handleSelection('TASK_CHECK')}>T</button>
+      <button onClick={() => handleSelection('INFO')}>Info</button>
     </div>
   )
 }

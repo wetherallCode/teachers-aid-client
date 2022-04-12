@@ -150,3 +150,16 @@ export const StudentBehaviorButton = styled.button<StudentBehaviorButtonProps>`
   height: 7vh;
   font-size: 100%;
 `
+
+export const BehaviorRemoverContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  color: var(--blue);
+  font-size: 3vh;
+`
+
+export const BehaviorRemoverTitleContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`

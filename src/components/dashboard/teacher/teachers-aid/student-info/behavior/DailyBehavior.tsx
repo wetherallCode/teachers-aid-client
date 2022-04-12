@@ -20,6 +20,7 @@ import {
   StudentBehaviorButtonContainer,
   StudentControlButtonContainer,
 } from '../../styles/studentInfoStyles'
+import { BehaviorRemover } from './BehaviorRemover'
 
 export type DailyBehaviorProps = {
   studentId: string
@@ -56,7 +57,10 @@ export const DailyBehavior = ({
     createStudentBehaviorVariables
   >(CREATE_BEHAVIOR_MUTATION, {
     onCompleted: (data) => console.log(data),
-    refetchQueries: ['findStudentInfoByStudentId'],
+    refetchQueries: [
+      'findStudentInfoByStudentId',
+      'findBehaviorsByStudentIdAndDate',
+    ],
   })
 
   const behaviorPoints = (behavior: BehaviorEnum) => {
@@ -160,6 +164,9 @@ export const DailyBehavior = ({
             </StudentBehaviorButton>
           ))}
         </StudentBehaviorButtonContainer>
+      )}
+      {state.context.studentInfoSelector === 'INFO' && (
+        <BehaviorRemover studentId={studentId} />
       )}
     </>
   )
