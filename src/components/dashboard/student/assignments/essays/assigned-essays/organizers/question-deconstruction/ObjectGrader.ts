@@ -52,6 +52,8 @@ export function objectGrader({
       howToFix: `Make sure you select an entire word or a group of words.`,
     }
   }
+  const objectContainsPreposition = findPreposition(correctObject.trim())
+
   for (const wordInSelection of givenObject
     .trim()
     .split(' ')
@@ -95,7 +97,11 @@ export function objectGrader({
       howToFix: `Objects are nouns and nouns can be modified by adjective, so look for the person, place, thing, or idea that the ${simpleSubject} ${conjugatedVerb} and any adjective that would come before it.`,
     }
   }
-  if (givenObject.trim() !== '' && findPreposition(givenObject.trim())) {
+  if (
+    givenObject.trim() !== '' &&
+    findPreposition(givenObject.trim()) &&
+    !objectContainsPreposition
+  ) {
     return {
       correctObject: false,
       message: 'Your object cannot include a preposition.',
