@@ -163,3 +163,12 @@ export const BehaviorRemoverTitleContainer = styled.div`
   justify-items: center;
   align-items: center;
 `
+export const BehaviorItemContainer = styled.div`
+  display: grid;
+  grid-auto-row: 1fr;
+`
+
+export const BehaviorItem = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+`

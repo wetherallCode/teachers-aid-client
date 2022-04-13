@@ -5,6 +5,12 @@ import {
   findBehaviorsByStudentIdAndDateVariables,
 } from '../../../../../../schemaTypes'
 import {
+  phraseCapitalizer,
+  underscoreEliminator,
+} from '../../../../../../utils'
+import {
+  BehaviorItem,
+  BehaviorItemContainer,
   BehaviorRemoverContainer,
   BehaviorRemoverTitleContainer,
 } from '../../styles/studentInfoStyles'
@@ -39,18 +45,26 @@ export const BehaviorRemover = ({ studentId }: BehaviorRemoverProps) => {
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
-  if (loading) return <div>Loading </div>
+  // if (loading) return <div>Loading </div>
   return (
     <BehaviorRemoverContainer>
       <BehaviorRemoverTitleContainer>
         Today's Behavior
       </BehaviorRemoverTitleContainer>
-      {data?.findBehaviorsByStudentIdAndDate.behaviors.map((behavior) => (
-        <>
-          <div>{behavior.behavior}</div>
-          <button>Delete</button>
-        </>
-      ))}
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <BehaviorItemContainer>
+          {data?.findBehaviorsByStudentIdAndDate.behaviors.map((behavior) => (
+            <BehaviorItem>
+              <div>
+                {phraseCapitalizer(underscoreEliminator(behavior.behavior))}
+              </div>
+              <button>Delete</button>
+            </BehaviorItem>
+          ))}
+        </BehaviorItemContainer>
+      )}
     </BehaviorRemoverContainer>
   )
 }
