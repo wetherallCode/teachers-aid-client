@@ -81,6 +81,7 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
         hasBehaviors {
           _id
           behavior
+          date
         }
       }
     }
@@ -139,7 +140,11 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     },
     onError: (error) => console.error(error),
   })
-  console.log(studentInfoLoading)
+
+  const studentBehaviors = data?.findStudentById.student.hasBehaviors.filter(
+    (b) => b.date === new Date().toLocaleDateString()
+  )!
+
   useEffect(() => {
     if (state.context.studentId) {
       loadStudentInfo()
@@ -187,6 +192,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         absenceCheck={absenceCheck}
         grade={grade}
         gradeLoading={gradeLoading}
+        studentBehaviors={studentBehaviors}
       />
     </>
   )

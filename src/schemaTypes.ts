@@ -6542,6 +6542,7 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasBehaviors
   __typename: "StudentBehavior";
   _id: string | null;
   behavior: BehaviorEnum;
+  date: string;
 }
 
 export interface findStudentInfoByStudentId_findStudentById_student {

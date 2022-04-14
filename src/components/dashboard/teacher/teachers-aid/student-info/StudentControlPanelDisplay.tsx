@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import {
   findStudentInfoByStudentId_findStudentById_student,
   findStudentInfoByStudentIdVariables,
+  findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
 } from '../../../../../schemaTypes'
 import { AssessProtocol } from './protocols/AssessProtocol'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
@@ -22,6 +23,7 @@ export type StudentControlPanelDisplayProps = {
   absenceCheck: boolean
   grade: number
   gradeLoading: boolean
+  studentBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[]
 }
 
 export const StudentControlPanelDisplay = ({
@@ -30,6 +32,7 @@ export const StudentControlPanelDisplay = ({
   absenceCheck,
   grade,
   gradeLoading,
+  studentBehaviors,
 }: StudentControlPanelDisplayProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [controllerState, setControllerState] = useState<
@@ -71,6 +74,7 @@ export const StudentControlPanelDisplay = ({
               studentId={student._id!}
               grade={grade}
               gradeLoading={gradeLoading}
+              studentBehaviors={studentBehaviors}
             />
           )}
         </StudentControlPanelContainer>

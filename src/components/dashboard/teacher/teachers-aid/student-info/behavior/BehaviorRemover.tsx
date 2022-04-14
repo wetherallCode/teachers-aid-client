@@ -6,6 +6,7 @@ import {
   removeStudentBehaviorVariables,
   removeStudentBehavior,
   MarkingPeriodEnum,
+  findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
@@ -22,6 +23,7 @@ import {
 export type BehaviorRemoverProps = {
   studentId: string
   currentMarkingPeriod: MarkingPeriodEnum
+  studentBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[]
 }
 
 export const FIND_BEHAVIORS_BY_STUDENT_ID_AND_DATE_QUERY = gql`
@@ -50,6 +52,7 @@ export const REMOVE_STUDENT_BEHAVIOR_MUTATION = gql`
 `
 
 export const BehaviorRemover = ({
+  studentBehaviors,
   studentId,
   currentMarkingPeriod,
 }: BehaviorRemoverProps) => {
@@ -83,7 +86,8 @@ export const BehaviorRemover = ({
         <div>Loading</div>
       ) : (
         <BehaviorItemContainer>
-          {data?.findBehaviorsByStudentIdAndDate.behaviors.map((behavior) => (
+          {/* {data?.findBehaviorsByStudentIdAndDate.behaviors.map((behavior) => ( */}
+          {studentBehaviors.map((behavior) => (
             <BehaviorItem>
               <div>
                 {phraseCapitalizer(underscoreEliminator(behavior.behavior))}

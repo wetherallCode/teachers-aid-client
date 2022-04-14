@@ -7,6 +7,7 @@ import {
   createStudentBehavior,
   BehaviorEnum,
   MarkingPeriodEnum,
+  findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
@@ -26,6 +27,7 @@ export type DailyBehaviorProps = {
   studentId: string
   grade: number
   gradeLoading: boolean
+  studentBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[]
 }
 
 export const CREATE_BEHAVIOR_MUTATION = gql`
@@ -42,6 +44,7 @@ export const DailyBehavior = ({
   studentId,
   grade,
   gradeLoading,
+  studentBehaviors,
 }: DailyBehaviorProps) => {
   const [state] = useTeachersAidContextProvider()
   const { behaviorEnum, markingPeriodEnum } = useEnumContextProvider()
@@ -169,6 +172,7 @@ export const DailyBehavior = ({
         <BehaviorRemover
           studentId={studentId}
           currentMarkingPeriod={currentMarkingPeriod}
+          studentBehaviors={studentBehaviors}
         />
       )}
     </>
