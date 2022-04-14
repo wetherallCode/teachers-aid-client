@@ -1,8 +1,11 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import React from 'react'
 import {
   findBehaviorsByStudentIdAndDate,
   findBehaviorsByStudentIdAndDateVariables,
+  removeStudentBehaviorVariables,
+  removeStudentBehavior,
+  MarkingPeriodEnum,
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
@@ -13,9 +16,13 @@ import {
   BehaviorItemContainer,
   BehaviorRemoverContainer,
   BehaviorRemoverTitleContainer,
+  RemoveBehaviorButton,
 } from '../../styles/studentInfoStyles'
 
-export type BehaviorRemoverProps = { studentId: string }
+export type BehaviorRemoverProps = {
+  studentId: string
+  currentMarkingPeriod: MarkingPeriodEnum
+}
 
 export const FIND_BEHAVIORS_BY_STUDENT_ID_AND_DATE_QUERY = gql`
   query findBehaviorsByStudentIdAndDate(
@@ -34,7 +41,18 @@ export const FIND_BEHAVIORS_BY_STUDENT_ID_AND_DATE_QUERY = gql`
   }
 `
 
-export const BehaviorRemover = ({ studentId }: BehaviorRemoverProps) => {
+export const REMOVE_STUDENT_BEHAVIOR_MUTATION = gql`
+  mutation removeStudentBehavior($input: RemoveStudentBehaviorInput!) {
+    removeStudentBehavior(input: $input) {
+      removed
+    }
+  }
+`
+
+export const BehaviorRemover = ({
+  studentId,
+  currentMarkingPeriod,
+}: BehaviorRemoverProps) => {
   const { loading, data } = useQuery<
     findBehaviorsByStudentIdAndDate,
     findBehaviorsByStudentIdAndDateVariables
@@ -44,6 +62,16 @@ export const BehaviorRemover = ({ studentId }: BehaviorRemoverProps) => {
     },
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
+  })
+  const [removeStudentBehavior] = useMutation<
+    removeStudentBehavior,
+    removeStudentBehaviorVariables
+  >(REMOVE_STUDENT_BEHAVIOR_MUTATION, {
+    onCompleted: (data) => console.log(data),
+    refetchQueries: [
+      'findBehaviorsByStudentIdAndDate',
+      'findStudentInfoByStudentId',
+    ],
   })
   // if (loading) return <div>Loading </div>
   return (
@@ -60,7 +88,20 @@ export const BehaviorRemover = ({ studentId }: BehaviorRemoverProps) => {
               <div>
                 {phraseCapitalizer(underscoreEliminator(behavior.behavior))}
               </div>
-              <button>Delete</button>
+              <RemoveBehaviorButton
+                onClick={() =>
+                  removeStudentBehavior({
+                    variables: {
+                      input: {
+                        markingPeriod: currentMarkingPeriod,
+                        studentBehaviorId: behavior._id!,
+                      },
+                    },
+                  })
+                }
+              >
+                Delete
+              </RemoveBehaviorButton>
             </BehaviorItem>
           ))}
         </BehaviorItemContainer>

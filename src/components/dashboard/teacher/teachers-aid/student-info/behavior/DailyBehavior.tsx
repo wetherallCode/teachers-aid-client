@@ -166,7 +166,10 @@ export const DailyBehavior = ({
         </StudentBehaviorButtonContainer>
       )}
       {state.context.studentInfoSelector === 'INFO' && (
-        <BehaviorRemover studentId={studentId} />
+        <BehaviorRemover
+          studentId={studentId}
+          currentMarkingPeriod={currentMarkingPeriod}
+        />
       )}
     </>
   )
