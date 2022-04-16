@@ -43,7 +43,9 @@ export const MarkLessonForSGO = ({ sectionIds }: MarkLessonForSGOProps) => {
         ))}
       </ul>
       <br />
-      <button>Mark for SGOs</button>
+      {data?.findEssayQuestionsForLesson.essayQuestions.length! > 0 && (
+        <button>Mark for SGOs</button>
+      )}
     </>
   )
 }
