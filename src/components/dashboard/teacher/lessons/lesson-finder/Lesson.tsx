@@ -128,7 +128,7 @@ export const Lesson = ({ date }: LessonProps) => {
         >
           Create Lesson
         </Link>
-        <Link
+        {/* <Link
           style={{
             color: 'var(--white)',
             textDecoration: 'none',
@@ -138,7 +138,7 @@ export const Lesson = ({ date }: LessonProps) => {
           to={`create-quiz/${dateValue}`}
         >
           Create Quiz
-        </Link>
+        </Link> */}
       </>
     </div>
   )
