@@ -90,7 +90,7 @@ export const Lesson = ({ date }: LessonProps) => {
     date.date.toString().substr(0, 3) === 'Sun'
 
   const dateValue = Date.parse(new Date(date.date).toLocaleDateString())
-  console.log(data?.findLessonsByAssignedDate.lessons)
+
   loading && <div>loading</div>
   return (
     <div>
