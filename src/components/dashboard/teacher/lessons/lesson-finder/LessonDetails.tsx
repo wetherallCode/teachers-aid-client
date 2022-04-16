@@ -1,6 +1,7 @@
 import React from 'react'
 import { LessonTypeEnum } from '../../../../../schemaTypes'
 import { phraseCapitalizer } from '../../../../../utils'
+import { MarkLessonForSGO } from './MarkLessonForSGO'
 import { useLessonFinderContextProvider } from './state-n-styles/LessonFinderContext'
 import { LessonPlanSectionTitles } from './state-n-styles/lessonFinderStyles'
 
@@ -18,6 +19,7 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
     duringActivities,
     questionList,
     lessonType,
+    assignedSectionIdList,
   } = state.context.lesson!
 
   const readings =
@@ -27,7 +29,7 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
 
   const lessonTitle =
     assignedSections.startingSection + ' - ' + assignedSections.endingSection
-
+  console.log(assignedSectionIdList)
   return (
     <>
       <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
@@ -74,9 +76,11 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
         </div>
         {lessonType === 'INTRODUCTORY' ? (
           <div>
-            Students will take notes and answer oral comprehension questions on
-            the material in the aforementioned sections. The notes will be used
-            as a reference for taking a comprehension quiz on said material.
+            Students will work individually on annotating text and finding the
+            main ideas presented in the material in the aforementioned sections.
+            The main ideas and annotations will be used as a way to
+            independently introduce themselves to the text and prepare for going
+            in depth for the next day's lesson.
           </div>
         ) : (
           <div>
@@ -131,6 +135,7 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
           constructing their writing.
         </div>
       </div>
+      <MarkLessonForSGO sectionIds={assignedSectionIdList} />
     </>
   )
 }

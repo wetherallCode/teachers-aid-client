@@ -4095,6 +4095,39 @@ export interface findLessonsByAssignedDateVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findEssayQuestionsForLesson
+// ====================================================
+
+export interface findEssayQuestionsForLesson_findEssayQuestionsForLesson_essayQuestions_questionParts {
+  __typename: "QuestionPartsContainer";
+  originalQuestion: string;
+}
+
+export interface findEssayQuestionsForLesson_findEssayQuestionsForLesson_essayQuestions {
+  __typename: "EssayQuestion";
+  _id: string | null;
+  questionParts: findEssayQuestionsForLesson_findEssayQuestionsForLesson_essayQuestions_questionParts;
+}
+
+export interface findEssayQuestionsForLesson_findEssayQuestionsForLesson {
+  __typename: "FindEssayQuestionsForLessonPayload";
+  essayQuestions: findEssayQuestionsForLesson_findEssayQuestionsForLesson_essayQuestions[];
+}
+
+export interface findEssayQuestionsForLesson {
+  findEssayQuestionsForLesson: findEssayQuestionsForLesson_findEssayQuestionsForLesson;
+}
+
+export interface findEssayQuestionsForLessonVariables {
+  input: FindEssayQuestionsForLessonInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: getCoursesForUser
 // ====================================================
 
@@ -8159,6 +8192,10 @@ export interface FindEssayByIdInput {
 
 export interface FindEssayQuestionByIdInput {
   essayQuestionId: string;
+}
+
+export interface FindEssayQuestionsForLessonInput {
+  sectionIds: string[];
 }
 
 export interface FindEssaysByAssociatedLessonIdAndCourseIdInput {
