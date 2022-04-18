@@ -4107,6 +4107,7 @@ export interface findEssayQuestionsForLesson_findEssayQuestionsForLesson_essayQu
   __typename: "EssayQuestion";
   _id: string | null;
   questionParts: findEssayQuestionsForLesson_findEssayQuestionsForLesson_essayQuestions_questionParts;
+  sgoQuestion: boolean;
 }
 
 export interface findEssayQuestionsForLesson_findEssayQuestionsForLesson {
@@ -4120,6 +4121,28 @@ export interface findEssayQuestionsForLesson {
 
 export interface findEssayQuestionsForLessonVariables {
   input: FindEssayQuestionsForLessonInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: markLessonForSGO
+// ====================================================
+
+export interface markLessonForSGO_markLessonForSGO {
+  __typename: "MarkLessonForSGOPayload";
+  marked: boolean;
+}
+
+export interface markLessonForSGO {
+  markLessonForSGO: markLessonForSGO_markLessonForSGO;
+}
+
+export interface markLessonForSGOVariables {
+  input: MarkLessonForSGOInput;
 }
 
 /* tslint:disable */
@@ -8402,6 +8425,10 @@ export interface LoginInput {
 export interface MarkExemptInput {
   assignmentId: string;
   exemptStatus: boolean;
+}
+
+export interface MarkLessonForSGOInput {
+  sectionIds: string[];
 }
 
 export interface MarkTemporaryTaskAbsentInput {

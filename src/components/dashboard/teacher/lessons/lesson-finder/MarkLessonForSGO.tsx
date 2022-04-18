@@ -1,8 +1,10 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import React from 'react'
 import {
   findEssayQuestionsForLesson,
   findEssayQuestionsForLessonVariables,
+  markLessonForSGOVariables,
+  markLessonForSGO,
 } from '../../../../../schemaTypes'
 
 export type MarkLessonForSGOProps = {
@@ -17,7 +19,15 @@ export const FIND_ESSAY_QUESTIONS_FOR_SGO_QUERY = gql`
         questionParts {
           originalQuestion
         }
+        sgoQuestion
       }
+    }
+  }
+`
+export const MARK_LESSON_FOR_SGO_MUTATION = gql`
+  mutation markLessonForSGO($input: MarkLessonForSGOInput!) {
+    markLessonForSGO(input: $input) {
+      marked
     }
   }
 `
@@ -30,8 +40,22 @@ export const MarkLessonForSGO = ({ sectionIds }: MarkLessonForSGOProps) => {
     variables: {
       input: { sectionIds },
     },
-    onCompleted: (data) => console.log(data),
+    onCompleted: (data) =>
+      console.log(
+        data.findEssayQuestionsForLesson.essayQuestions.map(
+          (q) => q.sgoQuestion
+        )
+      ),
     onError: (error) => console.error(error),
+  })
+
+  const [markLessonForSGO] = useMutation<
+    markLessonForSGO,
+    markLessonForSGOVariables
+  >(MARK_LESSON_FOR_SGO_MUTATION, {
+    variables: { input: { sectionIds } },
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['findEssayQuestionsForLesson'],
   })
   if (loading) return <div>Loading </div>
   return (
@@ -39,12 +63,14 @@ export const MarkLessonForSGO = ({ sectionIds }: MarkLessonForSGOProps) => {
       <br />
       <ul>
         {data?.findEssayQuestionsForLesson.essayQuestions.map((q) => (
-          <li key={q._id!}>{q.questionParts.originalQuestion}</li>
+          <li key={q._id!}>
+            {q.questionParts.originalQuestion} {q.sgoQuestion ? 'SGO' : ''}
+          </li>
         ))}
       </ul>
       <br />
       {data?.findEssayQuestionsForLesson.essayQuestions.length! > 0 && (
-        <button>Mark for SGOs</button>
+        <button onClick={() => markLessonForSGO()}>Mark for SGOs</button>
       )}
     </>
   )
