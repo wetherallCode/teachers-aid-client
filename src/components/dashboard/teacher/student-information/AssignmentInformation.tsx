@@ -11,7 +11,7 @@ import {
   findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz,
   MarkingPeriodEnum,
 } from '../../../../schemaTypes'
-import { SGOInfo } from './SGOInfo'
+import { SGOInfo } from './sgo-info/SGOInfo'
 import { useStudentInformationContextProvider } from './state-n-styles/StudentInformationContext'
 import {
   AssignmentInformationAssignmentSwitchContainer,

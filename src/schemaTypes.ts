@@ -5254,6 +5254,11 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays_score {
   earnedPoints: number;
 }
 
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_topic {
+  __typename: "Topic";
+  essayQuestionId: string;
+}
+
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_readings {
   __typename: "Readings";
   readingSections: string;
@@ -5281,6 +5286,7 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays {
   __typename: "Essay";
   markingPeriod: MarkingPeriodEnum;
   score: findEssaysByStudentId_findEssaysByStudentId_essays_score;
+  topic: findEssaysByStudentId_findEssaysByStudentId_essays_topic;
   readings: findEssaysByStudentId_findEssaysByStudentId_essays_readings;
   finalDraft: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft | null;
 }
@@ -5296,6 +5302,97 @@ export interface findEssaysByStudentId {
 
 export interface findEssaysByStudentIdVariables {
   input: FindEssaysByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findEssayQuestionByIdForSGO
+// ====================================================
+
+export interface findEssayQuestionByIdForSGO_findEssayQuestionById_essayQuestion {
+  __typename: "EssayQuestion";
+  sgoQuestion: boolean;
+}
+
+export interface findEssayQuestionByIdForSGO_findEssayQuestionById {
+  __typename: "FindEssayQuestionByIdPayload";
+  essayQuestion: findEssayQuestionByIdForSGO_findEssayQuestionById_essayQuestion;
+}
+
+export interface findEssayQuestionByIdForSGO {
+  findEssayQuestionById: findEssayQuestionByIdForSGO_findEssayQuestionById;
+}
+
+export interface findEssayQuestionByIdForSGOVariables {
+  input: FindEssayQuestionByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findSGOEssaysByStudentId
+// ====================================================
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_topic {
+  __typename: "Topic";
+  essayQuestionId: string;
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  rubricSection: RubricSectionEnum;
+  score: number;
+  entry: string;
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  score: number;
+  rubricEntries: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries[];
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft_submittedFinalDraft[];
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays {
+  __typename: "Essay";
+  markingPeriod: MarkingPeriodEnum;
+  score: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_score;
+  topic: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_topic;
+  readings: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_readings;
+  finalDraft: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft | null;
+}
+
+export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId {
+  __typename: "FindSGOEssaysByStudentIdPayload";
+  essays: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays[];
+}
+
+export interface findSGOEssaysByStudentId {
+  findSGOEssaysByStudentId: findSGOEssaysByStudentId_findSGOEssaysByStudentId;
+}
+
+export interface findSGOEssaysByStudentIdVariables {
+  input: FindSGOEssaysByStudentIdInput;
 }
 
 /* tslint:disable */
@@ -8334,6 +8431,10 @@ export interface FindResponsibilityPointsByCourseInput {
 }
 
 export interface FindResponsibilityPointsByStudentIdInput {
+  studentId: string;
+}
+
+export interface FindSGOEssaysByStudentIdInput {
   studentId: string;
 }
 
