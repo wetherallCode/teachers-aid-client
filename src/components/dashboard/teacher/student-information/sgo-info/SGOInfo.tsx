@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   findEssayQuestionByIdForSGO,
   findEssayQuestionByIdForSGOVariables,
@@ -84,9 +84,18 @@ export const FIND_SGO_ESSAYS_QUERY = gql`
 `
 
 export type RubricEntries =
-  | findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries[]
+  | {
+      __typename: 'RubricEntry'
+      rubricSection: RubricSectionEnum
+      score: number
+      entry: string
+      readings: string
+    }[]
   | null
 export const SGOInfo = ({ studentId }: SGOInfoProps) => {
+  const [sgoSwitch, setSgoSwitch] = useState<'WRITING' | 'CONCLUSION'>(
+    'WRITING'
+  )
   const { loading, data } = useQuery<
     findSGOEssaysByStudentId,
     findSGOEssaysByStudentIdVariables
@@ -106,7 +115,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
   )!
 
   const answerEntries: RubricEntries = []
+  const answerEntryScore: number[] = []
   const conclusionEntries: RubricEntries = []
+  const conclusionEntryScore: number[] = []
 
   if (!loading) {
     for (const essay of data?.findSGOEssaysByStudentId.essays!) {
@@ -121,15 +132,16 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
           }
           return 0
         })[0]
-
-        // for (const finalDraft of essay.finalDraft?.submittedFinalDraft!) {
+        console.log(essay.readings.readingSections)
         for (const entry of bestEssay.rubricEntries) {
           if (entry.rubricSection === 'ANSWER') {
+            console.log(entry)
             answerEntries.push({
               __typename: entry.__typename,
               rubricSection: entry.rubricSection,
               score: entry.score > 4 ? 4 : entry.score,
               entry: entry.entry,
+              readings: essay.readings.readingSections,
             })
           }
           if (entry.rubricSection === 'CONCLUSION') {
@@ -138,6 +150,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               rubricSection: entry.rubricSection,
               score: entry.score > 4 ? 4 : entry.score,
               entry: entry.entry,
+              readings: essay.readings.readingSections,
             })
           }
         }
@@ -145,14 +158,16 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
         answerEntries.push({
           __typename: 'RubricEntry',
           rubricSection: RubricSectionEnum.ANSWER,
-          score: 0,
+          score: 1,
           entry: '',
+          readings: essay.readings.readingSections,
         })
         conclusionEntries.push({
           __typename: 'RubricEntry',
           rubricSection: RubricSectionEnum.CONCLUSION,
-          score: 0,
+          score: 1,
           entry: '',
+          readings: essay.readings.readingSections,
         })
       }
     }
@@ -169,22 +184,49 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
 
     const conclusionScoreAverage =
       totalConclusionScore / conclusionEntries.length
+    // const test = answerEntries.reduce((acc ,i)=> acc.includes(i) ? [...acc] : [...i] )
 
-    console.log(conclusionEntries)
+    // for (const entry of answerEntries){
+    //  if ()
+    // }
     return (
       <>
-        <div>SGO</div>
         <div>
-          {answerEntries.map((entry, i: number) => (
-            <div key={i}>{entry.score}</div>
-          ))}
+          <div>
+            <div onClick={() => setSgoSwitch('WRITING')}>Writing SGO</div>
+            <div onClick={() => setSgoSwitch('CONCLUSION')}>Conclusion SGO</div>
+          </div>
+          <div>
+            {sgoSwitch === 'WRITING' && (
+              <div style={{ overflow: 'scroll', height: '40vh' }}>
+                <div>
+                  {answerEntries.map((entry, i: number) => (
+                    <div key={i}>
+                      <div>{entry.readings}</div>
+                      <div>{entry.score}</div>
+                    </div>
+                  ))}
+                </div>
+                <div>{+answerScoreAverage.toFixed(2)}</div>
+              </div>
+            )}
+            {sgoSwitch === 'CONCLUSION' && (
+              <div style={{ overflow: 'scroll', height: '40vh' }}>
+                <div>
+                  {conclusionEntries.map((entry, i: number) => (
+                    <div key={i}>
+                      <div>{entry.readings}</div>
+                      <div>{entry.score}</div>
+                    </div>
+                  ))}
+                </div>
+                <div>{+conclusionScoreAverage.toFixed(2)}</div>
+              </div>
+            )}
+          </div>
         </div>
-        <div>{+answerScoreAverage.toFixed(2)}</div>
+        {/* <div>Conclusion Score: {+conclusionScoreAverage.toFixed(2) - 1}</div> */}
       </>
-      // <div>
-      //   <div>Answer Score: {+answerScoreAverage.toFixed(2) - 1}</div>
-      //   <div>Conclusion Score: {+conclusionScoreAverage.toFixed(2) - 1}</div>
-      // </div>
     )
   } else return <div>Loading </div>
 }
