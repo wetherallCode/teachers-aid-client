@@ -5376,6 +5376,7 @@ export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalD
 export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays {
   __typename: "Essay";
   markingPeriod: MarkingPeriodEnum;
+  assignedDate: string;
   score: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_score;
   topic: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_topic;
   readings: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_readings;
