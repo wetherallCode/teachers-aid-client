@@ -167,3 +167,8 @@ export const IndividualAssignmentDisplay = styled.div<IndividualAssignmentDispla
   background-color: ${({ everyOtherLine }) =>
     everyOtherLine ? 'var(--grey)' : 'var(--white)'};
 `
+export const SGOContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+`
+export const SGOTypeSwitch = styled.div``
