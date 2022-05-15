@@ -1,5 +1,8 @@
 import { RubricEntryInput } from './schemaTypes'
 
+export function average(nums: number[]) {
+  return nums.reduce((a, b) => a + b) / nums.length
+}
 export const primaryGradeCalculator = (
   earnedPoints: number,
   maxPoints: number
