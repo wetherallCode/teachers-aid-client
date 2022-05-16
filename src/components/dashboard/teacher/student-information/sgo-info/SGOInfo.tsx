@@ -11,7 +11,7 @@ import {
   findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries,
   RubricSectionEnum,
 } from '../../../../../schemaTypes'
-import { average } from '../../../../../utils'
+import { average, copyToClipBoard } from '../../../../../utils'
 import { SGOContainer } from '../state-n-styles/studentInformationStyles'
 
 export type SGOInfoProps = {
@@ -286,11 +286,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               </div>
               <div>{+answerScoreAverage.toFixed(2)}</div>
               <br />
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(answerData.toString())
-                }}
-              >
+              <button onClick={copyToClipBoard(answerData.toString())}>
                 Copy Data
               </button>
             </div>
@@ -309,11 +305,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               </div>
               <div>{+conclusionScoreAverage.toFixed(2)}</div>
               <br />
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText(conclusionData.toString())
-                }}
-              >
+              <button onClick={copyToClipBoard(conclusionData.toString())}>
                 Copy Data
               </button>
             </div>
