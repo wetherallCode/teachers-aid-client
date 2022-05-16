@@ -3,6 +3,12 @@ import { RubricEntryInput } from './schemaTypes'
 export function average(nums: number[]) {
   return nums.reduce((a, b) => a + b) / nums.length
 }
+
+export const copyToClipBoard = (text: string) => {
+  return () => {
+    navigator.clipboard.writeText(text)
+  }
+}
 export const primaryGradeCalculator = (
   earnedPoints: number,
   maxPoints: number
