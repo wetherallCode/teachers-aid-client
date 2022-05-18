@@ -5289,6 +5289,7 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays {
   score: findEssaysByStudentId_findEssaysByStudentId_essays_score;
   topic: findEssaysByStudentId_findEssaysByStudentId_essays_topic;
   readings: findEssaysByStudentId_findEssaysByStudentId_essays_readings;
+  assignedDate: string;
   finalDraft: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft | null;
 }
 
