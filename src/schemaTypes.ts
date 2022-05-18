@@ -5257,6 +5257,7 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays_score {
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_topic {
   __typename: "Topic";
   essayQuestionId: string;
+  question: string;
 }
 
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_readings {
@@ -5394,6 +5395,24 @@ export interface findSGOEssaysByStudentId {
 
 export interface findSGOEssaysByStudentIdVariables {
   input: FindSGOEssaysByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findAllQuestions
+// ====================================================
+
+export interface findAllQuestions_findAllQuestions {
+  __typename: "FindAllQuestionsPayload";
+  questions: string[];
+}
+
+export interface findAllQuestions {
+  findAllQuestions: findAllQuestions_findAllQuestions;
 }
 
 /* tslint:disable */

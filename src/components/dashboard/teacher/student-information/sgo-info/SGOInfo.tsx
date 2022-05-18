@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import React, { useState } from 'react'
 import {
+  findAllQuestions,
   findEssayQuestionByIdForSGO,
   findEssayQuestionByIdForSGOVariables,
   findEssaysByStudentId,
@@ -28,6 +29,7 @@ export const FIND_ESSAYS_BY_STUDENT_QUERY = gql`
         }
         topic {
           essayQuestionId
+          question
         }
         readings {
           readingSections
@@ -85,6 +87,13 @@ export const FIND_SGO_ESSAYS_QUERY = gql`
     }
   }
 `
+export const FIND_ALL_ESSAY_QUESTIONS_QUERY = gql`
+  query findAllQuestions {
+    findAllQuestions {
+      questions
+    }
+  }
+`
 
 export type RubricEntries =
   | {
@@ -100,7 +109,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
   const [sgoSwitch, setSgoSwitch] = useState<'WRITING' | 'CONCLUSION'>(
     'WRITING'
   )
-  const { loading, data } = useQuery<
+  const { loading, data: sgoEssays } = useQuery<
     findSGOEssaysByStudentId,
     findSGOEssaysByStudentIdVariables
   >(FIND_SGO_ESSAYS_QUERY, {
@@ -111,14 +120,46 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
     //   console.log(data.findSGOEssaysByStudentId.essays),
     onError: (error) => console.error(error),
   })
+  const { data: allEssays } = useQuery<
+    findEssaysByStudentId,
+    findEssaysByStudentIdVariables
+  >(FIND_ESSAYS_BY_STUDENT_QUERY, {
+    variables: {
+      input: { studentId },
+    },
+    // onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
+  const { data: allQuestionsData } = useQuery<findAllQuestions>(
+    FIND_ALL_ESSAY_QUESTIONS_QUERY,
+    {
+      onCompleted: (data) => console.log(data.findAllQuestions.questions),
+      onError: (error) => console.error(error),
+    }
+  )
 
-  const essaysToReview = data?.findSGOEssaysByStudentId.essays.filter(
+  const sgoEssaysList = sgoEssays?.findSGOEssaysByStudentId.essays.slice(0, 30)!
+  const allEssayList = allEssays?.findEssaysByStudentId.essays!.filter(
     (essay) =>
       essay.finalDraft &&
       essay.markingPeriod !== 'FIRST' &&
       essay.score.earnedPoints !== 0
-  )!
+  )
+  // .sort((a, b) => {
+  //   const essayA = a.score
+  //   const essayB = b.score
+  //   if (essayA < essayB) return -1
+  //   if (essayA > essayB) return 1
+  //   return 0
+  // })!
 
+  // const essaysToReview = allEssayList.filter(
+  //   (essay) =>
+  //     essay.finalDraft &&
+  //     essay.markingPeriod !== 'FIRST' &&
+  //     essay.score.earnedPoints !== 0
+  // )!
+  // console.log(allEssayList.slice(0, 30))
   const answerEntries: RubricEntries = []
   const conclusionEntries: RubricEntries = []
   let i: number = 1
@@ -136,7 +177,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
   }[] = []
 
   if (!loading) {
-    for (const essay of data?.findSGOEssaysByStudentId.essays.slice(0, 30)!) {
+    for (const essay of allEssayList!) {
       if (essay.finalDraft) {
         const essayToSort = [...essay.finalDraft?.submittedFinalDraft!]
         const bestEssay = essayToSort.sort((a, b) => {
