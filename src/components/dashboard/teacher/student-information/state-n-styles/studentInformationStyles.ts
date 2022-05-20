@@ -171,4 +171,9 @@ export const SGOContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 10fr;
 `
-export const SGOTypeSwitch = styled.div``
+export const SGOTypeSwitch = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`
