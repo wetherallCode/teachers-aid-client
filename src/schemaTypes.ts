@@ -5275,6 +5275,7 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_s
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft {
   __typename: "SubmittedFinalDraft";
   score: number;
+  draft: any;
   rubricEntries: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries[];
 }
 
@@ -5285,6 +5286,7 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft {
 
 export interface findEssaysByStudentId_findEssaysByStudentId_essays {
   __typename: "Essay";
+  _id: string | null;
   markingPeriod: MarkingPeriodEnum;
   score: findEssaysByStudentId_findEssaysByStudentId_essays_score;
   topic: findEssaysByStudentId_findEssaysByStudentId_essays_topic;
@@ -5377,6 +5379,7 @@ export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_finalD
 
 export interface findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays {
   __typename: "Essay";
+  _id: string | null;
   markingPeriod: MarkingPeriodEnum;
   assignedDate: string;
   score: findSGOEssaysByStudentId_findSGOEssaysByStudentId_essays_score;
