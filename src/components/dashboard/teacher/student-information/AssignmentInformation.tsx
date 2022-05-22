@@ -99,7 +99,7 @@ export const AssignmentInformation = ({
     variables: {
       input: { studentId },
     },
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
 
@@ -164,7 +164,7 @@ export const AssignmentInformation = ({
     allEssaysEarnedPointTotal ? allEssaysEarnedPointTotal : 0,
     allEssaysMaxPointTotal ? allEssaysMaxPointTotal : 0
   )
-  console.log(state.value)
+  // console.log(state.value)
   if (loading) return <div>Loading </div>
   return (
     <AssignmentInformationContainer>
