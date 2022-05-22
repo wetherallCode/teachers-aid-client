@@ -5265,6 +5265,12 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays_readings {
   readingSections: string;
 }
 
+export interface findEssaysByStudentId_findEssaysByStudentId_essays_hasOwner {
+  __typename: "Student";
+  lastName: string;
+  firstName: string;
+}
+
 export interface findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
   rubricSection: RubricSectionEnum;
@@ -5292,6 +5298,7 @@ export interface findEssaysByStudentId_findEssaysByStudentId_essays {
   topic: findEssaysByStudentId_findEssaysByStudentId_essays_topic;
   readings: findEssaysByStudentId_findEssaysByStudentId_essays_readings;
   assignedDate: string;
+  hasOwner: findEssaysByStudentId_findEssaysByStudentId_essays_hasOwner;
   finalDraft: findEssaysByStudentId_findEssaysByStudentId_essays_finalDraft | null;
 }
 

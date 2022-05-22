@@ -16,6 +16,7 @@ import { average, copyToClipBoard } from '../../../../../utils'
 import {
   SGOContainer,
   SGOTypeSwitch,
+  SGOTypeSwitchContainer,
 } from '../state-n-styles/studentInformationStyles'
 import { Essays } from './Essays'
 
@@ -40,6 +41,10 @@ export const FIND_ESSAYS_BY_STUDENT_QUERY = gql`
           readingSections
         }
         assignedDate
+        hasOwner {
+          lastName
+          firstName
+        }
         finalDraft {
           submittedFinalDraft {
             score
@@ -129,7 +134,10 @@ export type EssayEntryType = {
   number: number
   question: string
   answerScore: number
+  answerEntries: string[]
+  conclusionEntries: string[]
   conclusionScore: number
+  studentName: string
 }[]
 
 export const SGOInfo = ({ studentId }: SGOInfoProps) => {
@@ -164,7 +172,6 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
       onError: (error) => console.error(error),
     }
   )
-
   const essayTotal = 40
   const sgoEssaysList = sgoEssays?.findSGOEssaysByStudentId.essays.slice(
     0,
@@ -193,7 +200,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
       if (essayA > essayB) return 1
       return 0
     })
-    .slice(0, 40)!
+  // .slice(0, 40)!
 
   const questionList = allQuestionsData?.findAllQuestions.questions.slice(
     16,
@@ -209,8 +216,6 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
     readingSection: string
     number: number
     questionNumber: number
-    // essayId: string
-    draft: string
   }[] = []
 
   const conclusionEntryScore: {
@@ -224,12 +229,14 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
 
   if (!loading) {
     let i: number = 1
-    const allCompletedEssays = allEssayList.filter(
+    const allCompletedEssays = allEssayList!.filter(
       (essay) => essay.finalDraft && essay.score.earnedPoints !== 0
     )
 
     if (allCompletedEssays.length > 25) {
       for (const essay of allCompletedEssays.slice(0, 25)) {
+        const studentName =
+          essay.hasOwner.firstName + ' ' + essay.hasOwner.lastName
         const questionNo = questionList?.findIndex(
           (i) => i === essay.topic.question
         )!
@@ -249,9 +256,45 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
         let conclusionScoreContainer: number[] = []
 
         for (const entry of bestEssay.rubricEntries) {
-          answerScoreContainer.push(entry.score > 4 ? 4 : entry.score)
-          conclusionScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+          if (entry.rubricSection === 'ANSWER') {
+            answerEntries.push({
+              __typename: entry.__typename,
+              rubricSection: entry.rubricSection,
+              score: entry.score > 4 ? 4 : entry.score,
+              entry: entry.entry,
+              readings: essay.readings.readingSections,
+              number: i,
+            })
+
+            // answerScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+            answerScoreContainer.push(
+              entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+            )
+          }
+
+          if (entry.rubricSection === 'CONCLUSION') {
+            conclusionEntries.push({
+              __typename: entry.__typename,
+              rubricSection: entry.rubricSection,
+              score: entry.score > 4 ? 4 : entry.score,
+              entry: entry.entry,
+              readings: essay.readings.readingSections,
+              number: i,
+            })
+            // conclusionScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+            conclusionScoreContainer.push(
+              entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+            )
+          }
         }
+
+        const answerEntryList = bestEssay.rubricEntries
+          .filter((e) => e.rubricSection === 'ANSWER' && e.entry)
+          .map((e) => e.entry)
+
+        const conclusionEntryList = bestEssay.rubricEntries
+          .filter((e) => e.rubricSection === 'CONCLUSION' && e.entry)
+          .map((e) => e.entry)
 
         answerScoreContainer.length > 1
           ? essayEntryList.push({
@@ -262,6 +305,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               question: essay.topic.question,
               questionNumber: questionNo + 1,
               readingSection: essay.readings.readingSections,
+              studentName,
+              answerEntries: answerEntryList,
+              conclusionEntries: conclusionEntryList,
             })
           : answerScoreContainer.length === 1
           ? essayEntryList.push({
@@ -272,6 +318,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               question: essay.topic.question,
               questionNumber: questionNo + 1,
               readingSection: essay.readings.readingSections,
+              studentName,
+              answerEntries: answerEntryList,
+              conclusionEntries: conclusionEntryList,
             })
           : essayEntryList.push({
               answerScore: 0,
@@ -281,6 +330,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               question: essay.topic.question,
               questionNumber: questionNo + 1,
               readingSection: essay.readings.readingSections,
+              studentName,
+              answerEntries: answerEntryList,
+              conclusionEntries: conclusionEntryList,
             })
 
         answerScoreContainer.length > 1
@@ -289,7 +341,6 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               readingSection: essay.readings.readingSections,
               score: average(answerScoreContainer),
               questionNumber: questionNo + 1,
-              draft: bestEssay.draft,
             })
           : answerScoreContainer.length === 1
           ? answerEntryScore.push({
@@ -297,14 +348,12 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               readingSection: essay.readings.readingSections,
               score: answerScoreContainer[0],
               questionNumber: questionNo + 1,
-              draft: bestEssay.draft,
             })
           : answerEntryScore.push({
               number: i,
               readingSection: essay.readings.readingSections,
               score: 0,
               questionNumber: questionNo + 1,
-              draft: bestEssay.draft,
             })
 
         conclusionScoreContainer.length > 1
@@ -329,8 +378,12 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
             })
         i = i + 1
       }
+      console.log(answerEntryScore)
+      console.log(conclusionEntryScore)
     } else {
-      for (const essay of allEssayList.slice(0, 25)!) {
+      for (const essay of allEssayList!.slice(0, 25)!) {
+        const studentName =
+          essay.hasOwner.firstName + ' ' + essay.hasOwner.lastName
         const questionNo = questionList?.findIndex(
           (i) => i === essay.topic.question
         )!
@@ -361,7 +414,10 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 number: i,
               })
 
-              answerScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+              // answerScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+              answerScoreContainer.push(
+                entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+              )
             }
 
             if (entry.rubricSection === 'CONCLUSION') {
@@ -373,13 +429,23 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 readings: essay.readings.readingSections,
                 number: i,
               })
-              conclusionScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+              // conclusionScoreContainer.push(entry.score > 4 ? 4 : entry.score)
+              conclusionScoreContainer.push(
+                entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+              )
             }
 
             // answerScoreContainer.length > 1 &&
             //   console.log(average(answerScoreContainer))
             // conclusionEntryScore.push(average(answerScoreContainer))
           }
+          const answerEntryList = bestEssay.rubricEntries
+            .filter((e) => e.rubricSection === 'ANSWER' && e.entry)
+            .map((e) => e.entry)
+          const conclusionEntryList = bestEssay.rubricEntries
+            .filter((e) => e.rubricSection === 'CONCLUSION' && e.entry)
+            .map((e) => e.entry)
+
           answerScoreContainer.length > 1
             ? essayEntryList.push({
                 answerScore: average(answerScoreContainer),
@@ -389,6 +455,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 question: essay.topic.question,
                 questionNumber: questionNo + 1,
                 readingSection: essay.readings.readingSections,
+                studentName,
+                answerEntries: answerEntryList,
+                conclusionEntries: conclusionEntryList,
               })
             : answerScoreContainer.length === 1
             ? essayEntryList.push({
@@ -399,6 +468,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 question: essay.topic.question,
                 questionNumber: questionNo + 1,
                 readingSection: essay.readings.readingSections,
+                studentName,
+                answerEntries: answerEntryList,
+                conclusionEntries: conclusionEntryList,
               })
             : essayEntryList.push({
                 answerScore: 0,
@@ -408,6 +480,9 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 question: essay.topic.question,
                 questionNumber: questionNo + 1,
                 readingSection: essay.readings.readingSections,
+                studentName,
+                answerEntries: answerEntryList,
+                conclusionEntries: conclusionEntryList,
               })
 
           answerScoreContainer.length > 1
@@ -416,7 +491,6 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 readingSection: essay.readings.readingSections,
                 score: average(answerScoreContainer),
                 questionNumber: questionNo + 1,
-                draft: bestEssay.draft,
               })
             : answerScoreContainer.length === 1
             ? answerEntryScore.push({
@@ -424,16 +498,14 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 readingSection: essay.readings.readingSections,
                 score: answerScoreContainer[0],
                 questionNumber: questionNo + 1,
-                draft: bestEssay.draft,
               })
             : answerEntryScore.push({
                 number: i,
                 readingSection: essay.readings.readingSections,
                 score: 0,
                 questionNumber: questionNo + 1,
-                draft: '',
               })
-          console.log('filling answerEntryScore')
+
           conclusionScoreContainer.length > 1
             ? conclusionEntryScore.push({
                 number: i,
@@ -469,7 +541,6 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
             readingSection: essay.readings.readingSections,
             score: 0,
             questionNumber: questionNo + 1,
-            draft: '',
           })
           conclusionEntries.push({
             __typename: 'RubricEntry',
@@ -488,6 +559,8 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
         }
         i = i + 1
       }
+      console.log(answerEntryScore)
+      console.log(conclusionEntryScore)
     }
 
     const totalAnswerScore = answerEntryScore
@@ -504,23 +577,43 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
       totalConclusionScore / conclusionEntryScore.length
 
     const answerData = answerEntryScore.map(
-      (entry) => entry.score + ' (' + entry.questionNumber + ')'
+      // (entry) => entry.score + ' (' + entry.questionNumber + ')'
+      (entry) => entry.score
     )
     const conclusionData = conclusionEntryScore.map(
-      (entry) => entry.score + ' (' + entry.questionNumber + ')'
+      // (entry) => entry.score + ' (' + entry.questionNumber + ')'
+      (entry) => entry.score
     )
     // const individualEssayIds = answerEntryScore.map((i) => i.essayId)
 
     return (
       <SGOContainer>
-        <SGOTypeSwitch>
-          <div onClick={() => setSgoSwitch('WRITING')}>Writing SGO</div>
-          <div onClick={() => setSgoSwitch('CONCLUSION')}>Conclusion SGO</div>
-          <div onClick={() => setSgoSwitch('ESSAYS')}>Essays</div>
-        </SGOTypeSwitch>
+        <SGOTypeSwitchContainer>
+          <SGOTypeSwitch
+            selected={sgoSwitch === 'WRITING'}
+            onClick={() => setSgoSwitch('WRITING')}
+          >
+            Writing SGO
+          </SGOTypeSwitch>
+          <SGOTypeSwitch
+            selected={sgoSwitch === 'CONCLUSION'}
+            onClick={() => setSgoSwitch('CONCLUSION')}
+          >
+            Conclusion SGO
+          </SGOTypeSwitch>
+          <SGOTypeSwitch
+            selected={sgoSwitch === 'ESSAYS'}
+            onClick={() => setSgoSwitch('ESSAYS')}
+          >
+            Essays
+          </SGOTypeSwitch>
+        </SGOTypeSwitchContainer>
         <div>
           {sgoSwitch === 'WRITING' && (
             <div style={{ overflow: 'scroll', height: '40vh' }}>
+              <button onClick={copyToClipBoard(answerData.toString())}>
+                Copy Data
+              </button>
               <div>
                 {answerEntryScore.map((entry, i: number) => (
                   <div key={i}>
@@ -533,13 +626,13 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               </div>
               <div>{+answerScoreAverage.toFixed(2)}</div>
               <br />
-              <button onClick={copyToClipBoard(answerData.toString())}>
-                Copy Data
-              </button>
             </div>
           )}
           {sgoSwitch === 'CONCLUSION' && (
             <div style={{ overflow: 'scroll', height: '40vh' }}>
+              <button onClick={copyToClipBoard(conclusionData.toString())}>
+                Copy Data
+              </button>
               <div>
                 {conclusionEntryScore.map((entry, i: number) => (
                   <div key={i}>
@@ -552,9 +645,6 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               </div>
               <div>{+conclusionScoreAverage.toFixed(2)}</div>
               <br />
-              <button onClick={copyToClipBoard(conclusionData.toString())}>
-                Copy Data
-              </button>
             </div>
           )}
           {sgoSwitch === 'ESSAYS' && (

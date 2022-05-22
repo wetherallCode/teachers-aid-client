@@ -171,9 +171,28 @@ export const SGOContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 10fr;
 `
-export const SGOTypeSwitch = styled.div`
+export const SGOTypeSwitchContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
 `
+
+export type SGOTypeSwitchProps = {
+  selected: boolean
+}
+export const SGOTypeSwitch = styled.div<SGOTypeSwitchProps>`
+  text-decoration: ${({ selected }) => (selected ? 'underline' : 'none')};
+`
+export const SGOEssayContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 2fr 3fr;
+`
+export const SGOScoreContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
+// export const SGOEssayQuestionContainer = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 3fr;
+// `
