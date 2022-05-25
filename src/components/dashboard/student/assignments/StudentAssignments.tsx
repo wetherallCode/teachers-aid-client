@@ -31,6 +31,7 @@ import { timeFinder } from '../../../../utils'
 import { useTime } from '../../../../hooks/useTime'
 import { useSchoolDayContextProvider } from '../../school-day/state/SchoolDayContext'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../school-day/SchoolDay'
+import { useClassTimeIndicator } from '../../../../hooks/useClassTimeIndicator'
 
 export type StudentAssignmentsProps = {}
 
@@ -61,16 +62,12 @@ export const MARK_EXEMPT_MUTATION = gql`
 
 export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
   const me: me_me_Student = useUserContextProvider()
+  const { classTime } = useClassTimeIndicator(me)
   const [state, event] = useStudentAssignmentContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
-  const [currentSchoolDayState] = useSchoolDayContextProvider()
 
   const { currentMarkingPeriod } = markingPeriodState.context
-  const { dateTime } = useTime()
-  // const fakeCurrentMarkingPeriod = MarkingPeriodEnum.SECOND
-  // useEffect(() => {
-  //   event({ type: 'SET_MARKING_PERIOD', payload: fakeCurrentMarkingPeriod })
-  // }, [])
+
   const { loading, data } = useQuery<
     findQuizzesByStudentId,
     findQuizzesByStudentIdVariables
@@ -92,32 +89,6 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
-  const schoolDay = schoolDayData?.findSchoolDayByDate.schoolDay !== null
-
-  if (loading) return <div>Loading </div>
-
-  const { assignmentsInClassNotAllowed } = me.inCourses[0].hasCourseInfo!
-  const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
-
-  const classTime =
-    schoolDay &&
-    assignmentsInClassNotAllowed &&
-    Date.parse(dateTime) >
-      Date.parse(
-        timeFinder(
-          schoolDayLength === SchoolDayLengthEnum.HALF
-            ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
-            : me.inCourses[0].hasCourseInfo?.startsAt!
-        )
-      ) &&
-    Date.parse(dateTime) <
-      Date.parse(
-        timeFinder(
-          schoolDayLength === SchoolDayLengthEnum.HALF
-            ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
-            : me.inCourses[0].hasCourseInfo?.endsAt!
-        )
-      )
 
   return (
     <AssignmentsToCompleteContainer>
