@@ -10,7 +10,7 @@ export type EssayHelpProps = {}
 
 export const EssayHelp: FC<EssayHelpProps> = () => {
   const [state] = useStudentEssayContextProvider()
-  console.log(state.context.academicOrganizer.restatement)
+
   return (
     <>
       <EssayInfoTitle>Help with Your Essay</EssayInfoTitle>
