@@ -8,7 +8,6 @@ import {
   findEssayByIdVariables,
   UpdateWorkingDraft,
   UpdateWorkingDraftVariables,
-  WritingLevelEnum,
   findEssayById_findEssayById_essay_workingDraft_organizer,
   findEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
   findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer,
@@ -16,6 +15,7 @@ import {
   findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType,
   findEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType,
   SubmittedFinalDraftsInput,
+  me_me_Student,
 } from '../../../../../../schemaTypes'
 import { useStudentEssayContextProvider } from './state-and-styles/StudentEssayContext'
 import { OrganizerInfo } from './organizers/OrganizerInfo'
@@ -33,6 +33,8 @@ import {
 import { EssayInfo } from './essay-info/EssayInfo'
 import { UnderlinedCenteredText } from '../../../../../../appStyles'
 import { useGradeCalculator } from '../../../../../../hooks/useGradeCalculator'
+import { useClassTimeIndicator } from '../../../../../../hooks/useClassTimeIndicator'
+import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 
 export type EssayToCompleteProps = {}
 
@@ -156,7 +158,9 @@ export type updateWorkingDraftType = (
 ) => void
 
 export const EssayToComplete = ({}: EssayToCompleteProps) => {
+  const me: me_me_Student = useUserContextProvider()
   const { essayToComplete } = useParams()
+  const { classTime } = useClassTimeIndicator(me)
   const navigate = useNavigate()
   const [state, event] = useStudentEssayContextProvider()
 
@@ -364,6 +368,10 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
     markingPeriod: data?.findEssayById.essay.markingPeriod!,
     polling: false,
   })
+
+  useEffect(() => {
+    if (classTime) navigate('dashboard/assignments')
+  }, [classTime, navigate])
 
   if (loading) return <div>Loading </div>
   return (
