@@ -163,7 +163,7 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
             )}
           </>
         )}
-        {state.matches('quizzes') && <QuizSelect />}
+        {state.matches('quizzes') && <>{classTime && <QuizSelect />}</>}
         <MarkingPeriodSelector />
       </AssignmentTypeContainer>
     </AssignmentsToCompleteContainer>

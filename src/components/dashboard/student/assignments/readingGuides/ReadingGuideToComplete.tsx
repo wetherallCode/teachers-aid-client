@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {
   findReadingGuideById,
   findReadingGuideByIdVariables,
+  me_me_Student,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   startReadingGuide,
   startReadingGuideVariables,
@@ -31,6 +32,8 @@ import {
   AssignmentDetailsGoBackButton,
 } from '../essays/assigned-essays/state-and-styles/assignedEssayStyles'
 import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
+import { useUserContextProvider } from '../../../../../contexts/UserContext'
+import { useClassTimeIndicator } from '../../../../../hooks/useClassTimeIndicator'
 
 export type ReadingGuideToCompleteProps = {}
 
@@ -86,6 +89,9 @@ export const START_READING_GUIDE_MUTATION = gql`
 `
 
 export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
+  const me: me_me_Student = useUserContextProvider()
+  const { classTime } = useClassTimeIndicator(me)
+
   const { readingGuideToComplete } = useParams()
   const navigate = useNavigate()
   const [state, event] = useReadingGuideToCompleteContextProvider()
@@ -169,6 +175,9 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
     polling: false,
   })
 
+  useEffect(() => {
+    if (classTime) navigate('dashboard/assignments')
+  }, [classTime, navigate])
   if (loading) return <div>Loading </div>
 
   return (

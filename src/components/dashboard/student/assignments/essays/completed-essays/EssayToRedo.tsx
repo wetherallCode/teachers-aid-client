@@ -4,18 +4,25 @@ import {
   findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer,
   findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer,
   findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
+  me_me_Student,
   SubmittedFinalDraftsInput,
 } from '../../../../../../schemaTypes'
 import { useCompletedEssayContextProvider } from './state/CompletedEssayContext'
 import { RedoEssayEditor } from './RedoEssayEditor'
 import { SubmitRedoneEssay } from './SubmitRedoneEssay'
+import { useNavigate } from 'react-router'
+import { useUserContextProvider } from '../../../../../../contexts/UserContext'
+import { useClassTimeIndicator } from '../../../../../../hooks/useClassTimeIndicator'
 
 export type EssayToRedoProps = {
   essay: findCompletedEssayById_findEssayById_essay
 }
 
 export const EssayToRedo: FC<EssayToRedoProps> = ({ essay }) => {
+  const me: me_me_Student = useUserContextProvider()
   const [state, event] = useCompletedEssayContextProvider()
+  const { classTime } = useClassTimeIndicator(me)
+  const navigate = useNavigate()
   const [loaded, setLoaded] = useState(false)
   useEffect(() => {
     if (essay.workingDraft.organizer?.__typename === 'DevelopingOrganizer') {
@@ -94,7 +101,9 @@ export const EssayToRedo: FC<EssayToRedoProps> = ({ essay }) => {
     score: 0,
     graded: false,
   }
-
+  useEffect(() => {
+    if (classTime) navigate('dashboard/assignments')
+  }, [classTime, navigate])
   return (
     <>
       {loaded && (
