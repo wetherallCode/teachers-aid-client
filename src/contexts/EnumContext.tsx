@@ -123,6 +123,16 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    BehaviorQualityEnum: __type(name: "BehaviorQualityEnum") {
+      enumValues {
+        name
+      }
+    }
+    BehaviorCategoryEnum: __type(name: "BehaviorCategoryEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -226,6 +236,12 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           data?.ReadingGuideReviewOptionsEnum?.enumValues?.map(
             (value) => value.name
           ),
+        behaviorQualityEnum: data?.BehaviorQualityEnum?.enumValues?.map(
+          (value) => value.name
+        ),
+        behaviorCategoryEnum: data?.BehaviorCategoryEnum?.enumValues?.map(
+          (value) => value.name
+        ),
       }}
     >
       {children}
