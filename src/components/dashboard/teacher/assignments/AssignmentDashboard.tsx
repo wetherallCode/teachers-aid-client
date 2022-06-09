@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import { CreateAssignment } from './create-assignments/CreateAssignment'
 import { CreateAssignmentContextProvider } from './create-assignments/state-and-styles/CreateAssignmentContext'
 import { EditAssignments } from './edit-assignments/EditAssignments'
@@ -16,10 +16,13 @@ import { ArticleReviewContextProvider } from './article-reviews/state-styles/Art
 import { GradeEssayContainerContextProvider } from './grade-assignments/state-n-styles/GradeEssayContainerContext'
 import { GrammarPractice } from '../development/grammar/GrammarPractice'
 import { CheckAssignments } from './check-assignments/CheckAssignments'
+import { useNavSync } from '../../../../hooks/useNavSync'
 
 export type AssignmentDashboardProps = {}
 
 export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
+  const location = useLocation()
+  useNavSync(location, 'ASSIGNMENTS')
   return (
     <Routes>
       <Route

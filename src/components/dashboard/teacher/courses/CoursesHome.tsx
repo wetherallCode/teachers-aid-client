@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useLocation } from 'react-router'
+import { useNavSync } from '../../../../hooks/useNavSync'
 import { CourseManager } from './CourseManager'
 import { CreateCourse } from './create-course/CreateCourse'
 import { CreateCourseContextProvider } from './create-course/state/CreateCourseContext'
@@ -7,6 +8,8 @@ import { CreateCourseContextProvider } from './create-course/state/CreateCourseC
 export type CoursesHomeProps = {}
 
 export const CoursesHome = ({}: CoursesHomeProps) => {
+  const location = useLocation()
+  useNavSync(location, 'COURSES')
   return (
     <Routes>
       <Route path=':course/*' element={<CourseManager />} />

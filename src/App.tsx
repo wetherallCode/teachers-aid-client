@@ -1,5 +1,5 @@
 import React, { useState, FC, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
 import { Modal } from './animations'
 import { useUserContextProvider } from './contexts/UserContext'
 import { Dashboard } from './components/dashboard/Dashboard'
@@ -25,8 +25,12 @@ import {
   findCurrentSchoolDay,
   findCurrentSchoolDayVariables,
   me_me,
+  me_me_Student,
 } from './schemaTypes'
 import { UpdateUserActivity } from './components/home/UpdateUserActivity'
+import { TodaysLessonPlan } from './components/lesson/TodaysLessonPlan'
+import { StudentBehavior } from './components/dashboard/student/behavior/StudentBehavior'
+import { useLocation } from 'react-router'
 
 export type LoginToggleProps = {
   onClick: () => void
@@ -46,6 +50,8 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({ error }) => {
 function App() {
   const me: me_me = useUserContextProvider()
   const nav = useNavigate()
+  const location = useLocation()
+  console.log(location)
   const [, event] = useSchoolDayContextProvider()
   const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
   // console.log(me.isActive)
@@ -67,16 +73,18 @@ function App() {
   })
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [isNavOpen, setIsNavOpen] = useState(false)
+  // const student = me.__typename === 'Student' && me !== null ? me : null
 
   useEffect(() => {
     if (!me) nav('/')
   }, [me])
-
   return (
     <AppContainer>
       <Header>
         {/* {me && <UpdateUserActivity userId={me._id!} />} */}
-        <HomeLink to='/'>MrWetherall.org</HomeLink>
+        <HomeLink to='/'>
+          {location.pathname !== '/' ? `←Back` : 'MrWetherall.org'}
+        </HomeLink>
         <LoginContainer>
           {!me ? (
             <LoginToggle onClick={toggleLogin}>Login</LoginToggle>
@@ -116,6 +124,9 @@ function App() {
               </DailyAgendaContextProvider>
             }
           />
+        )}
+        {me && (
+          <Route path='behavior-home' element={<StudentBehavior me={me} />} />
         )}
         <Route
           path='/problem-solution-guide/*'

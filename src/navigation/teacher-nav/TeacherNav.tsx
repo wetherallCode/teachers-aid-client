@@ -9,6 +9,7 @@ import { AssignmentNav } from './AssignmentsNav'
 import { CoursesNav } from './CoursesNav'
 import { RubricsNav } from './RubricsNav'
 import { ParentContactsNav } from './ParentContactsNav'
+import { BehaviorNav } from './BehaviorNav'
 
 export type TeacherNavProps = {
   setIsNavOpen: Dispatch<SetStateAction<boolean>>
@@ -70,6 +71,12 @@ export const TeacherNav: FC<TeacherNavProps> = ({
             </motion.li>
             <motion.li
               variants={liVariants}
+              onClick={() => event({ type: 'BEHAVIOR' })}
+            >
+              <Link to='dashboard/behavior'>Behavior</Link>
+            </motion.li>
+            <motion.li
+              variants={liVariants}
               onClick={() => event({ type: 'DEVELOPMENT' })}
             >
               <Link to='dashboard/development'>Development</Link>
@@ -97,6 +104,12 @@ export const TeacherNav: FC<TeacherNavProps> = ({
           )}
           {state.matches('parentContacts') && (
             <ParentContactsNav
+              toggleLogin={toggleLogin}
+              setIsNavOpen={setIsNavOpen}
+            />
+          )}
+          {state.matches('behavior') && (
+            <BehaviorNav
               toggleLogin={toggleLogin}
               setIsNavOpen={setIsNavOpen}
             />

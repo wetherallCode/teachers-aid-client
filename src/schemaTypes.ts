@@ -2739,6 +2739,107 @@ export interface findReadingGuideDataForCourseAndLessonVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findAllBehaviorTypes
+// ====================================================
+
+export interface findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes {
+  __typename: "BehaviorType";
+  _id: string | null;
+  behaviorName: string;
+  behaviorQuality: BehaviorQualityEnum;
+  behaviorCategory: BehaviorCategoryEnum;
+  points: number;
+}
+
+export interface findAllBehaviorTypes_findAllBehaviorTypes {
+  __typename: "FindAllBehaviorTypesPayload";
+  behaviorTypes: findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes[];
+}
+
+export interface findAllBehaviorTypes {
+  findAllBehaviorTypes: findAllBehaviorTypes_findAllBehaviorTypes;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createBehaviorType
+// ====================================================
+
+export interface createBehaviorType_createBehaviorType_behaviorType {
+  __typename: "BehaviorType";
+  behaviorName: string;
+  behaviorQuality: BehaviorQualityEnum;
+  behaviorCategory: BehaviorCategoryEnum;
+  points: number;
+}
+
+export interface createBehaviorType_createBehaviorType {
+  __typename: "CreateBehaviorTypePayload";
+  behaviorType: createBehaviorType_createBehaviorType_behaviorType;
+}
+
+export interface createBehaviorType {
+  createBehaviorType: createBehaviorType_createBehaviorType;
+}
+
+export interface createBehaviorTypeVariables {
+  input: CreateBehaviorTypeInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: editBehaviorType
+// ====================================================
+
+export interface editBehaviorType_editBehaviorTypes {
+  __typename: "EditBehaviorTypesPayload";
+  updated: boolean;
+}
+
+export interface editBehaviorType {
+  editBehaviorTypes: editBehaviorType_editBehaviorTypes;
+}
+
+export interface editBehaviorTypeVariables {
+  input: EditBehaviorTypesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: deleteBehaviorType
+// ====================================================
+
+export interface deleteBehaviorType_deleteBehaviorType {
+  __typename: "DeleteBehaviorTypePayload";
+  deleted: boolean;
+}
+
+export interface deleteBehaviorType {
+  deleteBehaviorType: deleteBehaviorType_deleteBehaviorType;
+}
+
+export interface deleteBehaviorTypeVariables {
+  input: DeleteBehaviorTypeInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findAssignmentsByCourseId
 // ====================================================
 
@@ -7606,6 +7707,26 @@ export interface enumValues_SchoolDayLengthEnum {
   enumValues: enumValues_SchoolDayLengthEnum_enumValues[] | null;
 }
 
+export interface enumValues_BehaviorQualityEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_BehaviorQualityEnum {
+  __typename: "__Type";
+  enumValues: enumValues_BehaviorQualityEnum_enumValues[] | null;
+}
+
+export interface enumValues_BehaviorCategoryEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_BehaviorCategoryEnum {
+  __typename: "__Type";
+  enumValues: enumValues_BehaviorCategoryEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -7630,6 +7751,8 @@ export interface enumValues {
   QuizQuestionTypeEnum: enumValues_QuizQuestionTypeEnum | null;
   ReadingGuideReviewOptionsEnum: enumValues_ReadingGuideReviewOptionsEnum | null;
   SchoolDayLengthEnum: enumValues_SchoolDayLengthEnum | null;
+  BehaviorQualityEnum: enumValues_BehaviorQualityEnum | null;
+  BehaviorCategoryEnum: enumValues_BehaviorCategoryEnum | null;
 }
 
 /* tslint:disable */
@@ -7787,6 +7910,13 @@ export enum BasicQuestionEnum {
   WHY = "WHY",
 }
 
+export enum BehaviorCategoryEnum {
+  INDEPENDANT_WORK = "INDEPENDANT_WORK",
+  NEGATIVE_BEHAVIOR = "NEGATIVE_BEHAVIOR",
+  POSITIVE_BEHAVIOR = "POSITIVE_BEHAVIOR",
+  QUESTION_AND_ANSWER = "QUESTION_AND_ANSWER",
+}
+
 export enum BehaviorEnum {
   ANSWERED_QUESTION = "ANSWERED_QUESTION",
   COMPLETED_ASSIGNMENT = "COMPLETED_ASSIGNMENT",
@@ -7799,6 +7929,12 @@ export enum BehaviorEnum {
   ON_TASK = "ON_TASK",
   REFUSED_TO_WORK = "REFUSED_TO_WORK",
   UNPREPARED = "UNPREPARED",
+}
+
+export enum BehaviorQualityEnum {
+  NEGATIVE = "NEGATIVE",
+  NEUTRAL = "NEUTRAL",
+  POSITIVE = "POSITIVE",
 }
 
 export enum ContactTypeEnum {
@@ -8102,6 +8238,13 @@ export interface CreateArticleReviewsInput {
   markingPeriod: MarkingPeriodEnum;
 }
 
+export interface CreateBehaviorTypeInput {
+  behaviorCategory: BehaviorCategoryEnum;
+  behaviorName: string;
+  behaviorQuality: BehaviorQualityEnum;
+  points: number;
+}
+
 export interface CreateCourseInfoInput {
   cohortBasedSeating: boolean;
   courseId: string;
@@ -8263,11 +8406,23 @@ export interface CreateUnitInput {
   unitName: string;
 }
 
+export interface DeleteBehaviorTypeInput {
+  behaviorTypeId: string;
+}
+
 export interface DevelopingSentenceStructureInput {
   object?: string | null;
   subject: string;
   subjectCompliment?: string | null;
   verb: string;
+}
+
+export interface EditBehaviorTypesInput {
+  behaviorCategory: BehaviorCategoryEnum;
+  behaviorName: string;
+  behaviorQuality: BehaviorQualityEnum;
+  behaviorTypeId: string;
+  points: number;
 }
 
 export interface FindActiveProtocolByStudentInput {
