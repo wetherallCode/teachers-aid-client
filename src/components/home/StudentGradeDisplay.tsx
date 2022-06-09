@@ -17,18 +17,15 @@ export const StudentGradeDisplay = ({
   })
 
   return (
-    <StudentGradeContainer>
-      {grade && (
-        <>
-          <GradeDisplay>Current Grade: {grade.grade}%</GradeDisplay>
-          <br />
-          <div>
+    <>
+      <GradeDisplay>Current Grade</GradeDisplay>
+      <GradeDisplay>{grade ? grade.grade + '%' : 'Calculating'}</GradeDisplay>
+
+      {/* <div>
             This grade may not be what is in Genesis and will change constantly.
             If you have just completed an essay, your grade will change when
             you've completed the essay and change again when it is graded.
-          </div>
-        </>
-      )}
-    </StudentGradeContainer>
+          </div> */}
+    </>
   )
 }

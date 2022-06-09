@@ -15,10 +15,7 @@ export const PASSWORD_CHECK_QUERY = gql`
     }
   }
 `
-export const PasswordCheck: FC<PasswordCheckProps> = ({
-  me,
-  setPasswordCheck,
-}) => {
+export const PasswordCheck = ({ me, setPasswordCheck }: PasswordCheckProps) => {
   const [passwordCheck] = useLazyQuery<passwordCheck, passwordCheckVariables>(
     PASSWORD_CHECK_QUERY,
     {

@@ -21,7 +21,7 @@ export type LogoutProps = {
   setIsNavOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export const Logout: FC<LogoutProps> = ({ toggleLogin, setIsNavOpen }) => {
+export const Logout = ({ toggleLogin, setIsNavOpen }: LogoutProps) => {
   const navigate = useNavigate()
   const me: me_me = useUserContextProvider()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

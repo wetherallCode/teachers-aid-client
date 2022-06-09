@@ -5,7 +5,7 @@ export type GreetingsProps = {
   phrase: string
 }
 
-export const Greetings: FC<GreetingsProps> = ({ phrase }) => {
+export const Greetings = ({ phrase }: GreetingsProps) => {
   return (
     <>
       {Date.parse(time) < Date.parse(noon)
@@ -13,7 +13,7 @@ export const Greetings: FC<GreetingsProps> = ({ phrase }) => {
         : Date.parse(time) > Date.parse(evening)
         ? 'Good Evening'
         : 'Good Afternoon'}
-      , {phrase}
+      {' ' + phrase}
     </>
   )
 }

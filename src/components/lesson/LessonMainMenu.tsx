@@ -259,98 +259,19 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
       loadLesson({
         variables: { input: { courseId: courseToLoad._id!, lessonDate: date } },
       })
+      if (data?.findLessonByCourseAndDate.lesson) {
+        event({ type: 'TODAYS_LESSON' })
+        startPolling!(100)
+        event({ type: 'POLLING' })
+      }
     }
   }, [courseToLoad, dateTime])
 
-  if (loading) return <div>Loading </div>
   if (!me) return <Navigate to='/' />
   return (
     <>
-      {state.matches('getLesson') && (
-        <LessonMainMenuContainer>
-          <GreetingsContainer>
-            <Greetings
-              phrase={
-                me.__typename === 'Teacher'
-                  ? `${capitalizer(me.title)}. ${me.lastName}`
-                  : `${me.firstName}`
-              }
-            />
-          </GreetingsContainer>
-          <LessonSelectorContainer>
-            <CurrentLessonContainer>
-              <>
-                {data?.findLessonByCourseAndDate.lesson && courseToLoad ? (
-                  <>
-                    <CurrentLesson>
-                      {useFake ? 'Fake Lesson' : 'Current Lesson'}
-                    </CurrentLesson>
-
-                    <LessonNameStyle>
-                      {/* {!useFake
-                        ? me.__typename === 'Teacher' &&
-                          `${courseToLoad.name}: `
-                        : me.__typename === 'Teacher' && `${fakeCourse.name}: `} */}
-                      {courseToLoad.name}:
-                      {data.findLessonByCourseAndDate.lesson?.lessonName}
-                    </LessonNameStyle>
-                    <GoToLessonButton
-                      onClick={() => {
-                        // if (fakeCourse) {
-                        //   event({ type: 'TODAYS_LESSON' })
-                        //   startPolling!(100)
-                        //   event({ type: 'POLLING' })
-                        // }
-                        if (courseToLoad) {
-                          if (
-                            me.__typename === 'Student' &&
-                            handleSignInCheck(me._id!)
-                          ) {
-                            event({ type: 'TODAYS_LESSON' })
-                            startPolling!(100)
-                            event({ type: 'POLLING' })
-                          } else if (me.__typename === 'Teacher') {
-                            event({ type: 'TODAYS_LESSON' })
-                            startPolling!(100)
-                            event({ type: 'POLLING' })
-                          } else {
-                            studentSignIn()
-                          }
-                        }
-                      }}
-                    >
-                      {me.__typename === 'Student' &&
-                      !handleSignInCheck(me._id!)
-                        ? 'Sign In'
-                        : 'Go To Lesson'}
-                    </GoToLessonButton>
-                  </>
-                ) : (
-                  <LessonNameStyle>No Lesson Scheduled</LessonNameStyle>
-                )}
-              </>
-            </CurrentLessonContainer>
-            {/* <button>Get Old Lessons</button> */}
-          </LessonSelectorContainer>
-        </LessonMainMenuContainer>
-      )}
       {state.matches('todaysLesson') && (
         <>
-          {/* {data?.findLessonByCourseAndDate.lesson!.dynamicLesson !== 'OFF' ? (
-            <>
-              <DynamicLesson
-                lesson={data?.findLessonByCourseAndDate.lesson!}
-                stopPolling={stopPolling!}
-                courseToLoad={courseToLoad}
-                // fakeCourse={fakeCourse}
-              />
-            </>
-          ) : (
-            <StaticLesson
-              lesson={data?.findLessonByCourseAndDate.lesson!}
-              courseToLoad={courseToLoad}
-            />
-          )} */}
           <LessonLoader
             lessonId={data?.findLessonByCourseAndDate.lesson?._id!}
             courseToLoad={courseToLoad}
