@@ -8,7 +8,6 @@ export const VocabInfo = () => {
     definition: '',
   })
   const [state, event] = useSectionBuilderContextProvider()
-  console.log(state.value)
 
   return (
     <form

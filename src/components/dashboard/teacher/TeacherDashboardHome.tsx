@@ -14,6 +14,7 @@ import { ParentContacts } from './parent-contact/ParentContacts'
 import { StudentInformation } from './student-information/StudentInformation'
 import { StudentInformationContextProvider } from './student-information/state-n-styles/StudentInformationContext'
 import { DevelopmentHome } from './development/DevelopmentHome'
+import { BehaviorHome } from './behaviors/BehaviorHome'
 
 export const TeacherDashboardHome = () => {
   const { pathname } = useLocation()
@@ -55,6 +56,9 @@ export const TeacherDashboardHome = () => {
       </Routes>
       <Routes>
         <Route path='parentContacts/*' element={<ParentContacts />} />
+      </Routes>
+      <Routes>
+        <Route path='behavior/*' element={<BehaviorHome />} />
       </Routes>
       <Routes>
         <Route path='development/*' element={<DevelopmentHome />} />
