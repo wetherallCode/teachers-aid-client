@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 import { TeacherNavProps } from './TeacherNav'
 import { Logout } from '../../components/home/Logout'
 
-export const AssignmentNav: FC<TeacherNavProps> = ({
+export const AssignmentNav = ({
   toggleLogin,
   setIsNavOpen,
-}) => {
+}: TeacherNavProps) => {
   return (
     <>
       <motion.ul variants={ulVariants}>
