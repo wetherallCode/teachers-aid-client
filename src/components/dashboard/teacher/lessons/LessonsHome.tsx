@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import { SectionBuilder } from './section-builder/SectionBuilder'
 import { SectionEditor } from './section-editor/SectionEditor'
 import { SectionEditorContextProvider } from './section-editor/state-n-styles/sectionEditorContext'
@@ -16,8 +16,11 @@ import { EssayQuestionBuilder } from './essay-question/build-essay-questions/Ess
 import { Questions } from './essay-question/Questions'
 import { CreateQuiz } from './quiz-creator/CreateQuiz'
 import { CreateQuizContextProvider } from './quiz-creator/state-n-styles/CreateQuizContext'
+import { useNavSync } from '../../../../hooks/useNavSync'
 
 export const LessonsHome = () => {
+  const location = useLocation()
+  useNavSync(location, 'LESSONS')
   return (
     <Routes>
       <Route
