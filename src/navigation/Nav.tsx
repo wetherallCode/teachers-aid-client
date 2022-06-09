@@ -27,10 +27,10 @@ export const ulVariants = {
   open: {
     scale: 1.02,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-      staggerDirection: -1,
-      when: 'afterchildren',
+      // staggerChildren: 0.1,
+      // delayChildren: 0.2,
+      // staggerDirection: 1,
+      // when: 'afterchildren',
     },
   },
   closed: { scale: 1 },
@@ -58,9 +58,7 @@ export const Nav: FC<NavProps> = ({
       ref={ref}
     >
       {me.__typename === 'Teacher' && (
-        <TeacherNavContextProvider>
-          <TeacherNav setIsNavOpen={setIsNavOpen} toggleLogin={toggleLogin} />
-        </TeacherNavContextProvider>
+        <TeacherNav setIsNavOpen={setIsNavOpen} toggleLogin={toggleLogin} />
       )}
       {me.__typename === 'Student' && (
         <StudentNav setIsNavOpen={setIsNavOpen} toggleLogin={toggleLogin} />
