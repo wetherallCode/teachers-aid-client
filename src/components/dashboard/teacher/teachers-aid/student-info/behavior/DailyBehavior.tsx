@@ -5,7 +5,6 @@ import { useMarkingPeriodContextProvider } from '../../../../../../contexts/mark
 import {
   createStudentBehaviorVariables,
   createStudentBehavior,
-  BehaviorEnum,
   MarkingPeriodEnum,
   findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
 } from '../../../../../../schemaTypes'
@@ -66,29 +65,29 @@ export const DailyBehavior = ({
     ],
   })
 
-  const behaviorPoints = (behavior: BehaviorEnum) => {
-    if (behavior === BehaviorEnum.ANSWERED_QUESTION)
-      return responsibilityPointConverter(grade, 2)
-    else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) return 0
-    else if (behavior === BehaviorEnum.ON_TASK)
-      return responsibilityPointConverter(grade, 2)
-    else if (behavior === BehaviorEnum.OFF_TASK) return -2
-    else if (behavior === BehaviorEnum.COMPLETED_ASSIGNMENT) return 10
-    else if (behavior === BehaviorEnum.REFUSED_TO_WORK) return -10
-    else if (behavior === BehaviorEnum.DISRUPTIVE) return -10
-    else if (behavior === BehaviorEnum.EXCESSIVE_TALKING) return -2
-    else if (behavior === BehaviorEnum.UNPREPARED) return -10
-    else if (behavior === BehaviorEnum.DISRESPECTFUL) return -10
-    else if (behavior === BehaviorEnum.INNAPROPRIATE_LANGUAGE) return -10
-    else return 0
-  }
+  // const behaviorPoints = (behavior: BehaviorEnum) => {
+  //   if (behavior === BehaviorEnum.ANSWERED_QUESTION)
+  //     return responsibilityPointConverter(grade, 2)
+  //   else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) return 0
+  //   else if (behavior === BehaviorEnum.ON_TASK)
+  //     return responsibilityPointConverter(grade, 2)
+  //   else if (behavior === BehaviorEnum.OFF_TASK) return -2
+  //   else if (behavior === BehaviorEnum.COMPLETED_ASSIGNMENT) return 10
+  //   else if (behavior === BehaviorEnum.REFUSED_TO_WORK) return -10
+  //   else if (behavior === BehaviorEnum.DISRUPTIVE) return -10
+  //   else if (behavior === BehaviorEnum.EXCESSIVE_TALKING) return -2
+  //   else if (behavior === BehaviorEnum.UNPREPARED) return -10
+  //   else if (behavior === BehaviorEnum.DISRESPECTFUL) return -10
+  //   else if (behavior === BehaviorEnum.INNAPROPRIATE_LANGUAGE) return -10
+  //   else return 0
+  // }
   const questionAndAnswerBehaviors = behaviorEnum.slice(0, 2)
   const negativeBehaviors = behaviorEnum.slice(6)
   const taskBehaviors = behaviorEnum.slice(2, 6)
 
   return (
     <>
-      {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
+      {/* {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
         <StudentBehaviorButtonContainer>
           {questionAndAnswerBehaviors.map(
             (behavior: BehaviorEnum, i: number) => (
@@ -115,8 +114,8 @@ export const DailyBehavior = ({
             )
           )}
         </StudentBehaviorButtonContainer>
-      )}
-      {state.context.studentInfoSelector === 'NEGATIVE_BEHAVIOR' && (
+      )} */}
+      {/* {state.context.studentInfoSelector === 'NEGATIVE_BEHAVIOR' && (
         <StudentBehaviorButtonContainer>
           {negativeBehaviors.map((behavior: BehaviorEnum, i: number) => (
             <StudentBehaviorButton
@@ -167,7 +166,7 @@ export const DailyBehavior = ({
             </StudentBehaviorButton>
           ))}
         </StudentBehaviorButtonContainer>
-      )}
+      )} */}
       {state.context.studentInfoSelector === 'INFO' && (
         <BehaviorRemover
           studentId={studentId}
