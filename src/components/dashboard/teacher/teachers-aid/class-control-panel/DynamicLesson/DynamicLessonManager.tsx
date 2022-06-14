@@ -85,7 +85,7 @@ export const DynamicLessonManager = ({
         },
       },
     })
-    createBatchStudentBehavior()
+    // createBatchStudentBehavior()
   }
 
   return (
