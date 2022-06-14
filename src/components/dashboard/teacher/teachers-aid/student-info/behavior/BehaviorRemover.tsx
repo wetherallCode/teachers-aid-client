@@ -36,7 +36,14 @@ export const FIND_BEHAVIORS_BY_STUDENT_ID_AND_DATE_QUERY = gql`
         student {
           firstName
         }
-        behavior
+        behavior {
+          _id
+          behaviorName
+          behaviorCategory
+          behaviorQuality
+          behaviorName
+          points
+        }
         responsibilityPoints
       }
     }
@@ -90,7 +97,9 @@ export const BehaviorRemover = ({
           {studentBehaviors.map((behavior) => (
             <BehaviorItem>
               <div>
-                {phraseCapitalizer(underscoreEliminator(behavior.behavior))}
+                {phraseCapitalizer(
+                  underscoreEliminator(behavior.behavior.behaviorName)
+                )}
               </div>
               <RemoveBehaviorButton
                 onClick={() =>
