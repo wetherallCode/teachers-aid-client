@@ -80,7 +80,13 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
         }
         hasBehaviors {
           _id
-          behavior
+          behavior {
+            _id
+            behaviorCategory
+            behaviorName
+            points
+            behaviorQuality
+          }
           date
         }
       }

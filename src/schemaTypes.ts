@@ -5771,6 +5771,33 @@ export interface updateDynamicLessonVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createBatchStudentBehavior
+// ====================================================
+
+export interface createBatchStudentBehavior_createBatchStudentBehavior_studentBehaviors {
+  __typename: "StudentBehavior";
+  _id: string | null;
+}
+
+export interface createBatchStudentBehavior_createBatchStudentBehavior {
+  __typename: "CreateBatchStudentBehaviorPayload";
+  studentBehaviors: createBatchStudentBehavior_createBatchStudentBehavior_studentBehaviors[];
+}
+
+export interface createBatchStudentBehavior {
+  createBatchStudentBehavior: createBatchStudentBehavior_createBatchStudentBehavior;
+}
+
+export interface createBatchStudentBehaviorVariables {
+  input: CreateBatchStudentBehaviorInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: finishStudentProtocol
 // ====================================================
 
@@ -6653,11 +6680,20 @@ export interface findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate
   firstName: string;
 }
 
+export interface findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors_behavior {
+  __typename: "BehaviorType";
+  _id: string | null;
+  behaviorName: string;
+  behaviorCategory: BehaviorCategoryEnum;
+  behaviorQuality: BehaviorQualityEnum;
+  points: number;
+}
+
 export interface findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors {
   __typename: "StudentBehavior";
   _id: string | null;
   student: findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors_student;
-  behavior: BehaviorEnum;
+  behavior: findBehaviorsByStudentIdAndDate_findBehaviorsByStudentIdAndDate_behaviors_behavior;
   responsibilityPoints: number;
 }
 
@@ -6823,10 +6859,19 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols
   markingPeriod: MarkingPeriodEnum;
 }
 
+export interface findStudentInfoByStudentId_findStudentById_student_hasBehaviors_behavior {
+  __typename: "BehaviorType";
+  _id: string | null;
+  behaviorCategory: BehaviorCategoryEnum;
+  behaviorName: string;
+  points: number;
+  behaviorQuality: BehaviorQualityEnum;
+}
+
 export interface findStudentInfoByStudentId_findStudentById_student_hasBehaviors {
   __typename: "StudentBehavior";
   _id: string | null;
-  behavior: BehaviorEnum;
+  behavior: findStudentInfoByStudentId_findStudentById_student_hasBehaviors_behavior;
   date: string;
 }
 
@@ -7917,20 +7962,6 @@ export enum BehaviorCategoryEnum {
   QUESTION_AND_ANSWER = "QUESTION_AND_ANSWER",
 }
 
-export enum BehaviorEnum {
-  ANSWERED_QUESTION = "ANSWERED_QUESTION",
-  COMPLETED_ASSIGNMENT = "COMPLETED_ASSIGNMENT",
-  DID_NOT_ANSWER_QUESTION = "DID_NOT_ANSWER_QUESTION",
-  DISRESPECTFUL = "DISRESPECTFUL",
-  DISRUPTIVE = "DISRUPTIVE",
-  EXCESSIVE_TALKING = "EXCESSIVE_TALKING",
-  INNAPROPRIATE_LANGUAGE = "INNAPROPRIATE_LANGUAGE",
-  OFF_TASK = "OFF_TASK",
-  ON_TASK = "ON_TASK",
-  REFUSED_TO_WORK = "REFUSED_TO_WORK",
-  UNPREPARED = "UNPREPARED",
-}
-
 export enum BehaviorQualityEnum {
   NEGATIVE = "NEGATIVE",
   NEUTRAL = "NEUTRAL",
@@ -8238,6 +8269,13 @@ export interface CreateArticleReviewsInput {
   markingPeriod: MarkingPeriodEnum;
 }
 
+export interface CreateBatchStudentBehaviorInput {
+  behaviorTypeId: string;
+  markingPeriod: MarkingPeriodEnum;
+  responsibilityPoints: number;
+  studentIds: string[];
+}
+
 export interface CreateBehaviorTypeInput {
   behaviorCategory: BehaviorCategoryEnum;
   behaviorName: string;
@@ -8368,9 +8406,9 @@ export interface CreateSignInSheetsInput {
 }
 
 export interface CreateStudentBehaviorInput {
+  behaviorTypeId: string;
   markingPeriod: MarkingPeriodEnum;
   responsibilityPoints: number;
-  studentBehaviorType: BehaviorEnum;
   studentId: string;
 }
 
