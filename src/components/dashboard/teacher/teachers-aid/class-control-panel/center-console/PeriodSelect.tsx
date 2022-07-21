@@ -8,7 +8,7 @@ import {
 
 export type PeriodSelectProps = {}
 
-export const PeriodSelect: FC<PeriodSelectProps> = () => {
+export const PeriodSelect = ({}: PeriodSelectProps) => {
   const [state, event] = useTeachersAidContextProvider()
 
   return (
