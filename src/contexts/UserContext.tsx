@@ -39,7 +39,7 @@ export const ME_QUERY = gql`
             halfDayStartsAt
             halfDayEndsAt
             schoolDayType
-            assignmentsInClassNotAllowed
+            assignmentsInClassAllowed
           }
         }
         hasWritingMetrics {

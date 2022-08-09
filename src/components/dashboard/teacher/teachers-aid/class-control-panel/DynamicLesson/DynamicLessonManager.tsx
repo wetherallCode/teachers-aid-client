@@ -71,7 +71,14 @@ export const DynamicLessonManager = ({
     createBatchStudentBehavior,
     createBatchStudentBehaviorVariables
   >(CREATE_BATCH_STUDENT_BEHAVIOR_MUTATION, {
-    // variables: { input: {behaviorTypeId} },
+    variables: {
+      input: {
+        behaviorTypeId: '62a33f0c2c8c161570b3c258'!,
+        markingPeriod: lesson.assignedMarkingPeriod,
+        responsibilityPoints: 2,
+        studentIds: presentStudentList,
+      },
+    },
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
@@ -85,7 +92,9 @@ export const DynamicLessonManager = ({
         },
       },
     })
-    // createBatchStudentBehavior()
+    lesson.lessonType === 'REINFORCEMENT' &&
+      !lesson.lessonStarted &&
+      createBatchStudentBehavior()
   }
 
   return (

@@ -10,7 +10,10 @@ import {
   AssignmentTypeContainer,
   NoWorkContainer,
 } from './state-n-styles/assignmentsStyles'
-import { useStudentAssignmentContextProvider } from './state-n-styles/StudentAssignmentContext'
+import {
+  StudentAssignmentContextProvider,
+  useStudentAssignmentContextProvider,
+} from './state-n-styles/StudentAssignmentContext'
 import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
 import { MarkingPeriodSelector } from './MarkingPeriodSelector'
 import { useMarkingPeriodContextProvider } from '../../../../contexts/markingPeriod/MarkingPeriodContext'
@@ -32,6 +35,17 @@ import { useTime } from '../../../../hooks/useTime'
 import { useSchoolDayContextProvider } from '../../school-day/state/SchoolDayContext'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../school-day/SchoolDay'
 import { useClassTimeIndicator } from '../../../../hooks/useClassTimeIndicator'
+import { Route, Routes } from 'react-router'
+import { ArticleReviewToComplete } from './articleReviews/ArticleReviewToComplete'
+import { ArticleReviewToCompleteContextProvider } from './articleReviews/state-styles/ArticleReviewToCompleteContext'
+import { EssayToComplete } from './essays/assigned-essays/EssayToComplete'
+import { StudentEssayContextProvider } from './essays/assigned-essays/state-and-styles/StudentEssayContext'
+import { CompletedEssay } from './essays/completed-essays/CompletedEssay'
+import { CompletedEssayContextProvider } from './essays/completed-essays/state/CompletedEssayContext'
+import { QuizToComplete } from './quizzes/QuizToComplete'
+import { QuizToCompleteContextProvider } from './quizzes/state-n-styles/QuizToCompleteContext'
+import { ReadingGuideToComplete } from './readingGuides/ReadingGuideToComplete'
+import { ReadingGuideToCompleteContextProvider } from './readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 
 export type StudentAssignmentsProps = {}
 
@@ -60,7 +74,7 @@ export const MARK_EXEMPT_MUTATION = gql`
   }
 `
 
-export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
+export const StudentAssignments = ({}: StudentAssignmentsProps) => {
   const me: me_me_Student = useUserContextProvider()
   const { classTime } = useClassTimeIndicator(me)
   const [state, event] = useStudentAssignmentContextProvider()
@@ -166,6 +180,56 @@ export const StudentAssignments: FC<StudentAssignmentsProps> = () => {
         {state.matches('quizzes') && <>{classTime && <QuizSelect />}</>}
         <MarkingPeriodSelector />
       </AssignmentTypeContainer>
+      {/* <Routes>
+        <Route
+          path='assignments/*'
+          element={
+            <StudentAssignmentContextProvider>
+              <StudentAssignments />
+            </StudentAssignmentContextProvider>
+          }
+        />
+        <Route
+          path='assignments/essay/toComplete/:essayToComplete'
+          element={
+            <StudentEssayContextProvider>
+              <EssayToComplete />
+            </StudentEssayContextProvider>
+          }
+        />
+        <Route
+          path='assignments/essay/completed/:completedEssay'
+          element={
+            <CompletedEssayContextProvider>
+              <CompletedEssay />
+            </CompletedEssayContextProvider>
+          }
+        />
+        <Route
+          path='assignments/reading-guide/toComplete/:readingGuideToComplete'
+          element={
+            <ReadingGuideToCompleteContextProvider>
+              <ReadingGuideToComplete />
+            </ReadingGuideToCompleteContextProvider>
+          }
+        />
+        <Route
+          path='assignments/articleReview/toComplete/:articleReviewToComplete'
+          element={
+            <ArticleReviewToCompleteContextProvider>
+              <ArticleReviewToComplete />
+            </ArticleReviewToCompleteContextProvider>
+          }
+        />
+        <Route
+          path='assignments/quiz/toComplete/:quizToComplete'
+          element={
+            <QuizToCompleteContextProvider>
+              <QuizToComplete />
+            </QuizToCompleteContextProvider>
+          }
+        />
+      </Routes> */}
     </AssignmentsToCompleteContainer>
   )
 }

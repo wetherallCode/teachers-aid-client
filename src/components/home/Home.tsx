@@ -66,38 +66,39 @@ export const Home = () => {
                 />
               </HomeScreenTitle>
               {student && (
-                <StudentHomeScreenOptionsContainer>
-                  <StudentHomeScreenOptions to={lessonLink}>
-                    <OptionTitle>Today's Lesson Plan</OptionTitle>
-                    <DailyAgendaContextProvider>
-                      <TodaysLessonPlan setHasLessonNow={setHasLessonNow} />
-                    </DailyAgendaContextProvider>
-                    {/* <StyledLink to='/lesson-home'>
-                      <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
-                    </StyledLink> */}
-                  </StudentHomeScreenOptions>
+                <div></div>
+                // <StudentHomeScreenOptionsContainer>
+                //   <StudentHomeScreenOptions to={lessonLink}>
+                //     <OptionTitle>Today's Lesson Plan</OptionTitle>
+                //     <DailyAgendaContextProvider>
+                //       <TodaysLessonPlan setHasLessonNow={setHasLessonNow} />
+                //     </DailyAgendaContextProvider>
+                //     {/* <StyledLink to='/lesson-home'>
+                //       <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
+                //     </StyledLink> */}
+                //   </StudentHomeScreenOptions>
 
-                  <StudentHomeScreenOptions to='/dashboard/assignments'>
-                    <OptionTitle>Get Assignments</OptionTitle>
-                    {/* <StyledLink to='/dashboard/assignments'>
-                      <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
-                    </StyledLink> */}
-                  </StudentHomeScreenOptions>
-                  <StudentHomeScreenOptions to=''>
-                    {me && me.__typename === 'Student' && (
-                      <StudentGradeDisplay studentId={me._id!} />
-                    )}
-                  </StudentHomeScreenOptions>
-                  <StudentHomeScreenOptions to='behavior-home'>
-                    <OptionTitle>How did I do Today?</OptionTitle>
-                  </StudentHomeScreenOptions>
-                  <StudentHomeScreenOptions to=''>
-                    5th Box
-                  </StudentHomeScreenOptions>
-                  <LogoutOption onClick={() => logoutMutation()}>
-                    {loading ? 'Logging Out...' : 'Logout'}
-                  </LogoutOption>
-                </StudentHomeScreenOptionsContainer>
+                //   <StudentHomeScreenOptions to='/dashboard/assignments'>
+                //     <OptionTitle>Get Assignments</OptionTitle>
+                //     {/* <StyledLink to='/dashboard/assignments'>
+                //       <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
+                //     </StyledLink> */}
+                //   </StudentHomeScreenOptions>
+                //   <StudentHomeScreenOptions to=''>
+                //     {me && me.__typename === 'Student' && (
+                //       <StudentGradeDisplay studentId={me._id!} />
+                //     )}
+                //   </StudentHomeScreenOptions>
+                //   <StudentHomeScreenOptions to='behavior-home'>
+                //     <OptionTitle>How did I do Today?</OptionTitle>
+                //   </StudentHomeScreenOptions>
+                //   <StudentHomeScreenOptions to=''>
+                //     5th Box
+                //   </StudentHomeScreenOptions>
+                //   <LogoutOption onClick={() => logoutMutation()}>
+                //     {loading ? 'Logging Out...' : 'Logout'}
+                //   </LogoutOption>
+                // </StudentHomeScreenOptionsContainer>
               )}
               {teacher && <div>Teacher</div>}
             </>

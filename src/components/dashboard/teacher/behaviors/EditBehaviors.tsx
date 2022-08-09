@@ -43,6 +43,7 @@ export const EditBehaviors = ({ behavior }: EditBehaviorsProps) => {
     behaviorQuality: behavior.behaviorQuality,
     behaviorCategory: behavior.behaviorCategory,
     points: behavior.points,
+    forTeachersAid: behavior.forTeachersAid,
   })
 
   const [editBehaviorType] = useMutation<
@@ -56,6 +57,7 @@ export const EditBehaviors = ({ behavior }: EditBehaviorsProps) => {
         behaviorQuality: behaviorValues.behaviorQuality,
         behaviorCategory: behaviorValues.behaviorCategory,
         points: behaviorValues.points,
+        forTeachersAid: behaviorValues.forTeachersAid,
       },
     },
     onCompleted: () => console.log('edited'),
@@ -78,39 +80,64 @@ export const EditBehaviors = ({ behavior }: EditBehaviorsProps) => {
   return (
     <div>
       <div>
-        <span>Behavior: </span>
         {editToggle ? (
-          <input
-            value={behaviorValues.behaviorName}
-            onChange={(e) =>
-              setBehaviorValues({
-                ...behaviorValues,
-                behaviorName: e.target.value,
-              })
-            }
-          />
+          <>
+            <span>Behavior: </span>
+            <input
+              value={behaviorValues.behaviorName}
+              onChange={(e) =>
+                setBehaviorValues({
+                  ...behaviorValues,
+                  behaviorName: e.target.value,
+                })
+              }
+            />
+          </>
         ) : (
           <span>{behavior.behaviorName}</span>
         )}
       </div>
       <div>
-        <span>Category: </span>
         {editToggle ? (
-          <select
-            value={behaviorValues.behaviorCategory}
-            onChange={(e: any) =>
-              setBehaviorValues({
-                ...behaviorValues,
-                behaviorCategory: e.target.value,
-              })
-            }
-          >
-            {behaviorCategoryEnum.map((b: BehaviorCategoryEnum) => (
-              <option key={b}>{b}</option>
-            ))}
-          </select>
+          <>
+            <span>Category: </span>
+            <select
+              value={behaviorValues.behaviorCategory}
+              onChange={(e: any) =>
+                setBehaviorValues({
+                  ...behaviorValues,
+                  behaviorCategory: e.target.value,
+                })
+              }
+            >
+              {behaviorCategoryEnum.map((b: BehaviorCategoryEnum) => (
+                <option key={b}>{b}</option>
+              ))}
+            </select>
+          </>
         ) : (
           <span>Category: {behavior.behaviorCategory}</span>
+        )}
+      </div>
+      <div>
+        {editToggle ? (
+          <>
+            <span>For TeachersAid </span>
+            <select
+              value={behaviorValues.forTeachersAid.toString()}
+              onChange={(e: any) =>
+                setBehaviorValues({
+                  ...behaviorValues,
+                  forTeachersAid: e.target.value === 'true' ? true : false,
+                })
+              }
+            >
+              <option value='true'>True</option>
+              <option value='false'>False</option>
+            </select>
+          </>
+        ) : (
+          <span>For TeachersAid: {behavior.forTeachersAid}</span>
         )}
       </div>
       <div>

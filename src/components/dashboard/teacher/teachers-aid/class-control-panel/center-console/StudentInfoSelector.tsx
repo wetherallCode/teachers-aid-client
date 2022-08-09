@@ -8,6 +8,7 @@ export type StudentInfoSelectorTypes =
   | 'ATTENDANCE'
   | 'TASK_CHECK'
   | 'INFO'
+  | 'STATUS'
 
 export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
   const [state, event] = useTeachersAidContextProvider()
@@ -20,12 +21,13 @@ export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
       style={{
         display: 'grid',
         gridAutoFlow: 'column',
-        gridAutoColumns: '1fr',
-        width: '90%',
+        gridAutoColumns: '5%',
+        width: '80%',
         gridColumnGap: '15%',
       }}
     >
       <button onClick={() => handleSelection('ATTENDANCE')}>A</button>
+      <button onClick={() => handleSelection('STATUS')}>S</button>
       <button onClick={() => handleSelection('QUESTION_AND_ANSWER')}>
         Q&A
       </button>

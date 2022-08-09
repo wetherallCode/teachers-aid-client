@@ -20,7 +20,7 @@ export const Dashboard = () => {
       {me && (
         <DashboardContainer>
           {me?.__typename === 'Teacher' && <TeacherDashboardHome />}
-          {me?.__typename === 'Student' && <StudentDashboardHome />}
+          {me?.__typename === 'Student' && <StudentDashboardHome me={me} />}
         </DashboardContainer>
       )}
       {/* )} */}

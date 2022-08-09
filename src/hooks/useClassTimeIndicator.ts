@@ -26,12 +26,12 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
   })
   const schoolDay = schoolDayData?.findSchoolDayByDate.schoolDay !== null
 
-  const { assignmentsInClassNotAllowed } = student.inCourses[0].hasCourseInfo!
+  const { assignmentsInClassAllowed } = student.inCourses[0].hasCourseInfo!
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
     schoolDay &&
-    assignmentsInClassNotAllowed &&
+    assignmentsInClassAllowed &&
     Date.parse(dateTime) >
       Date.parse(
         timeFinder(

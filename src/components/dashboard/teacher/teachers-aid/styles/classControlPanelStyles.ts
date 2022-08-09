@@ -219,7 +219,7 @@ export const DynamicLessonButton = styled.button<DynamicLessonButtonProps>`
   color: var(--blue);
   height: 40%;
   width: 70%;
-  font-size: 1.5vw;
+  font-size: 1.5vh;
   border-radius: 5px;
   background-color: ${({ currentLessonSetting }) =>
     currentLessonSetting ? 'var(--red)' : 'var(--white)'};

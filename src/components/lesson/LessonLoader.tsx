@@ -73,6 +73,7 @@ export const FIND_LESSON_STATUS_QUERY = gql`
         }
         dynamicLesson
         lessonType
+        lessonStarted
       }
     }
   }

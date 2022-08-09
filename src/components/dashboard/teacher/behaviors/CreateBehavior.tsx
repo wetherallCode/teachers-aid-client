@@ -28,7 +28,7 @@ export const CREATE_BEHAVIOR_TYPE_MUTATION = gql`
 `
 
 export const CreateBehavior = ({}: CreateBehaviorProps) => {
-  const { behaviorQualityEnum, behaviorCategoryEnum } = useEnumContextProvider()
+  const { behaviorCategoryEnum } = useEnumContextProvider()
   const match = useLocation()
   console.log(match)
   const [behaviorValues, setBehaviorValues] = useState({
@@ -36,6 +36,7 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
     behaviorQuality: BehaviorQualityEnum.NEUTRAL,
     behaviorCategory: BehaviorCategoryEnum.QUESTION_AND_ANSWER,
     points: 0,
+    forTeachersAid: true,
   })
 
   const [createBehavior] = useMutation<
@@ -48,6 +49,7 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
         behaviorQuality: behaviorValues.behaviorQuality,
         behaviorCategory: behaviorValues.behaviorCategory,
         points: behaviorValues.points,
+        forTeachersAid: behaviorValues.forTeachersAid,
       },
     },
     refetchQueries: ['findAllBehaviorTypes'],
@@ -101,6 +103,20 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
         value={behaviorValues.points}
         onChange={(e: any) => handlePointsAllocation(e)}
       />
+      <div>For TeachersAid</div>
+      <select
+        value={behaviorValues.forTeachersAid.toString()}
+        onChange={(e: any) =>
+          setBehaviorValues({
+            ...behaviorValues,
+            forTeachersAid: e.target.value === 'true' ? true : false,
+          })
+        }
+      >
+        <option value='true'>True</option>
+        <option value='false'>False</option>
+      </select>
+      <div></div>
       <button
         type='reset'
         onClick={() => {
@@ -110,6 +126,7 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
             behaviorQuality: BehaviorQualityEnum.NEUTRAL,
             behaviorCategory: BehaviorCategoryEnum.QUESTION_AND_ANSWER,
             points: 0,
+            forTeachersAid: true,
           })
         }}
       >

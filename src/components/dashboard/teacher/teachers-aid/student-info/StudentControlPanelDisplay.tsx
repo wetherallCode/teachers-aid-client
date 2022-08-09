@@ -3,6 +3,7 @@ import {
   findStudentInfoByStudentId_findStudentById_student,
   findStudentInfoByStudentIdVariables,
   findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
+  MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { AssessProtocol } from './protocols/AssessProtocol'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
@@ -14,6 +15,7 @@ import {
   ControlButtons,
 } from '../styles/studentInfoStyles'
 import { DailyBehavior } from './behavior/DailyBehavior'
+import { StudentStatus } from './status/StudentStatus'
 
 export type StudentControlPanelDisplayProps = {
   student: findStudentInfoByStudentId_findStudentById_student
@@ -24,11 +26,13 @@ export type StudentControlPanelDisplayProps = {
   grade: number
   gradeLoading: boolean
   studentBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[]
+  markingPeriod: MarkingPeriodEnum
 }
 
 export const StudentControlPanelDisplay = ({
   student,
   loadStudentInfo,
+  markingPeriod,
   absenceCheck,
   grade,
   gradeLoading,
@@ -49,7 +53,8 @@ export const StudentControlPanelDisplay = ({
 
   return (
     <>
-      {student?.hasProtocols.some((protocol) => protocol.isActive) ? (
+      {!absenceCheck &&
+      student?.hasProtocols.some((protocol) => protocol.isActive) ? (
         <AssessProtocol
           loadStudentInfo={loadStudentInfo}
           protocols={protocols}
@@ -69,14 +74,19 @@ export const StudentControlPanelDisplay = ({
           {student && state.context.studentInfoSelector === 'ATTENDANCE' && (
             <DailyAttendance student={student} absenceCheck={absenceCheck} />
           )}
-          {student && state.context.studentInfoSelector !== 'ATTENDANCE' && (
-            <DailyBehavior
-              studentId={student._id!}
-              grade={grade}
-              gradeLoading={gradeLoading}
-              studentBehaviors={studentBehaviors}
-            />
+          {student && state.context.studentInfoSelector === 'STATUS' && (
+            <StudentStatus student={student} markingPeriod={markingPeriod} />
           )}
+          {!absenceCheck &&
+            student &&
+            state.context.studentInfoSelector !== 'ATTENDANCE' && (
+              <DailyBehavior
+                studentId={student._id!}
+                grade={grade}
+                gradeLoading={gradeLoading}
+                studentBehaviors={studentBehaviors}
+              />
+            )}
         </StudentControlPanelContainer>
       )}
     </>

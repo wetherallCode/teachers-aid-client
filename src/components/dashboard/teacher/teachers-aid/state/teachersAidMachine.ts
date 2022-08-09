@@ -61,7 +61,7 @@ export type teachersAidMachineEvent =
   | { type: 'DISCUSSION_ASSESSMENT'; payload: DiscussionTypesEnum }
   | { type: 'PROTOCOL_ASSESSMENT'; payload: ProtocolAssessmentEnum }
   | { type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' }
-  | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' }
+  | { type: 'CHANGE_MAIN_SCREEN_STUDENT_STATUS' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' }
   | { type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' }
@@ -90,7 +90,7 @@ export type teachersAidMachineContext = {
   activeProtocol: boolean
   studentProtocolAssessment: AssessStudentProtocolInput
   mainScreenSeatingChart: boolean
-  mainScreenVirtualAttendance: boolean
+  mainScreenStudentStatus: boolean
   mainScreenVirtualProtocolResponses: boolean
   mainScreenVirtualQuestionViewer: boolean
   mainScreenHomeworkAssigner: boolean
@@ -98,7 +98,7 @@ export type teachersAidMachineContext = {
     | 'SEATING_CHART'
     | 'QUESTIONS'
     | 'PROTOCOL_RESPONSES'
-    | 'VIRTUAL_ATTENDANCE'
+    | 'STUDENT_STATUS'
     | 'HOMEWORK'
   attendanceToggle: boolean
   studentInfoSelector: StudentInfoSelectorTypes
@@ -166,7 +166,7 @@ export const teachersAidMachine = Machine<
       responsibilityPoints: 2,
     },
     mainScreenSeatingChart: true,
-    mainScreenVirtualAttendance: false,
+    mainScreenStudentStatus: false,
     mainScreenVirtualProtocolResponses: false,
     mainScreenVirtualQuestionViewer: false,
     mainScreenHomeworkAssigner: false,
@@ -255,7 +255,7 @@ export const teachersAidMachine = Machine<
                 return {
                   ...ctx,
                   mainScreenSeatingChart: true,
-                  mainScreenVirtualAttendance: false,
+                  mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: false,
                   mainScreenHomeworkAssigner: false,
@@ -263,16 +263,16 @@ export const teachersAidMachine = Machine<
                 }
               }),
             },
-            CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE: {
+            CHANGE_MAIN_SCREEN_STUDENT_STATUS: {
               actions: assign((ctx) => {
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
-                  mainScreenVirtualAttendance: true,
+                  mainScreenStudentStatus: true,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: false,
                   mainScreenHomeworkAssigner: false,
-                  currentMainScreenView: 'VIRTUAL_ATTENDANCE',
+                  currentMainScreenView: 'STUDENT_STATUS',
                 }
               }),
             },
@@ -281,7 +281,7 @@ export const teachersAidMachine = Machine<
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
-                  mainScreenVirtualAttendance: false,
+                  mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: true,
                   mainScreenVirtualQuestionViewer: false,
                   mainScreenHomeworkAssigner: false,
@@ -294,7 +294,7 @@ export const teachersAidMachine = Machine<
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
-                  mainScreenVirtualAttendance: false,
+                  mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: true,
                   mainScreenHomeworkAssigner: false,
@@ -307,7 +307,7 @@ export const teachersAidMachine = Machine<
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
-                  mainScreenVirtualAttendance: false,
+                  mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: false,
                   mainScreenHomeworkAssigner: true,
@@ -373,7 +373,7 @@ export const teachersAidMachine = Machine<
                 return {
                   ...ctx,
                   mainScreenSeatingChart: true,
-                  mainScreenVirtualAttendance: false,
+                  mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
                   mainScreenVirtualQuestionViewer: false,
                   currentMainScreenView: 'SEATING_CHART',
@@ -385,7 +385,7 @@ export const teachersAidMachine = Machine<
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
-                  mainScreenVirtualAttendance: false,
+                  mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: true,
                   mainScreenVirtualQuestionViewer: false,
                   currentMainScreenView: 'PROTOCOL_RESPONSES',

@@ -16,6 +16,7 @@ export type MainScreenManagerProps = {
 
 export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
   const [state, event] = useTeachersAidContextProvider()
+
   const [updateDynamicLeson] = useMutation<
     updateDynamicLesson,
     updateDynamicLessonVariables
@@ -33,9 +34,9 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
       </MainScreenControlButton>
       <MainScreenControlButton
         // onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' })}
-        onClick={() => event({ type: 'SET_ATTENDANCE_TOGGLE' })}
+        onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_STUDENT_STATUS' })}
       >
-        {state.context.attendanceToggle ? 'Behavior' : 'Attendance'}
+        Student Status
       </MainScreenControlButton>
       <MainScreenControlButton
         onClick={() =>

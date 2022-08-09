@@ -15,6 +15,7 @@ import { StudentControlPanelDisplay } from './StudentControlPanelDisplay'
 import { useMarkingPeriodContextProvider } from '../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 import { responsibilityPointConverter } from '../../../../../utils'
+import { useCalculateGrades } from '../../../../../hooks/useCalculateGrades'
 
 export type StudentInfoProps = {}
 
@@ -86,8 +87,18 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
             behaviorName
             points
             behaviorQuality
+            forTeachersAid
           }
           date
+        }
+        hasStatus {
+          _id
+          date
+          departTime
+          hasReturned
+          markingPeriod
+          outOfClassDestination
+          returnTime
         }
       }
     }
@@ -98,12 +109,11 @@ export const StudentInfo = ({}: StudentInfoProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  const { grade, loading: gradeLoading } = useGradeCalculator({
+  const { grade, loading: gradeLoading } = useCalculateGrades({
     studentId: state.context.studentId!,
     markingPeriod: markingPeriodState.context.currentMarkingPeriod,
     polling: true,
   })
-
   const [loadStudentInfo, { loading: studentInfoLoading, data }] = useLazyQuery<
     findStudentInfoByStudentId,
     findStudentInfoByStudentIdVariables
@@ -144,7 +154,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         })
       }
     },
-    onError: (error) => console.error(error),
+    onError: (error) => console.error('loadStudentInfo: ' + error),
   })
 
   const studentBehaviors = data?.findStudentById.student.hasBehaviors.filter(
@@ -199,6 +209,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         grade={grade}
         gradeLoading={gradeLoading}
         studentBehaviors={studentBehaviors}
+        markingPeriod={markingPeriodState.context.currentMarkingPeriod}
       />
     </>
   )

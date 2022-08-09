@@ -98,6 +98,7 @@ export const FIND_LESSON_QUERY = gql`
         }
         dynamicLesson
         lessonType
+        lessonStarted
       }
     }
   }
@@ -266,10 +267,11 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
       }
     }
   }, [courseToLoad, dateTime])
-
+  console.log(courseToLoad)
   if (!me) return <Navigate to='/' />
   return (
     <>
+      {state.matches('getLesson') && <div>No Lesson</div>}
       {state.matches('todaysLesson') && (
         <>
           <LessonLoader

@@ -73,7 +73,7 @@ export const TeacherNav: FC<TeacherNavProps> = ({
               variants={liVariants}
               onClick={() => event({ type: 'BEHAVIOR' })}
             >
-              <Link to='dashboard/behavior'>Behavior</Link>
+              <Link to='dashboard/behavior/edit-behavior'>Behavior</Link>
             </motion.li>
             <motion.li
               variants={liVariants}

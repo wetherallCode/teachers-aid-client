@@ -14,6 +14,7 @@ import { UserContextProvider } from './contexts/UserContext'
 import { MarkingPeriodContextProvider } from './contexts/markingPeriod/MarkingPeriodContext'
 import { EnumContextProvider } from './contexts/EnumContext'
 import { SchoolDayContextProvider } from './components/dashboard/school-day/state/SchoolDayContext'
+import { TeacherNavContextProvider } from './navigation/teacher-nav/TeacherNavContext'
 
 const devLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -56,7 +57,9 @@ ReactDOM.render(
           <MarkingPeriodContextProvider>
             <EnumContextProvider>
               <SchoolDayContextProvider>
-                <App />
+                <TeacherNavContextProvider>
+                  <App />
+                </TeacherNavContextProvider>
               </SchoolDayContextProvider>
             </EnumContextProvider>
           </MarkingPeriodContextProvider>

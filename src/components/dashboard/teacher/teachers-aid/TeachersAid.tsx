@@ -50,8 +50,20 @@ export const COURSE_QUERY = gql`
             student {
               _id
               firstName
+              lastName
               hasAbsences {
                 dayAbsent
+              }
+              hasStatus {
+                student {
+                  firstName
+                  lastName
+                  _id
+                }
+                departTime
+                hasReturned
+                outOfClassDestination
+                date
               }
             }
           }
@@ -89,9 +101,13 @@ export const TeachersAid = ({}: TeachersAidProps) => {
         payload: presentStudentList,
       })
     },
+    pollInterval: 1000,
     onError: (error) => console.error(error),
   })
-
+  const students = data?.findCourseById.course.hasCourseInfo?.assignedSeats
+    .filter((seat) => seat.student !== null)
+    .map((seat) => seat.student)!
+  console.log(students)
   // const presentStudentList =
   //   data?.findCourseById.course.hasCourseInfo?.assignedSeats
   //     .map((student) => student.student)
@@ -111,6 +127,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
   //     .map((student) => student.student)
   //     .filter((student) => student).length
   // )
+
   const assignedPresentStudents =
     data?.findCourseById.course.hasCourseInfo?.assignedSeats
       .map((student) => student.student)
@@ -120,7 +137,8 @@ export const TeachersAid = ({}: TeachersAidProps) => {
           student &&
           !student.hasAbsences.some(
             (absence) => absence.dayAbsent === new Date().toLocaleDateString()
-          )
+          ) &&
+          student.hasStatus.filter((status) => !status.hasReturned).length === 0
       )
       .map((student) => student?._id)! as string[]
 
@@ -134,7 +152,10 @@ export const TeachersAid = ({}: TeachersAidProps) => {
               <Greetings phrase={`${title}. ${me.lastName}!`} />
             </StartingDisplay>
           ) : (
-            <MainScreenDisplay presentStudentList={assignedPresentStudents!} />
+            <MainScreenDisplay
+              presentStudentList={assignedPresentStudents!}
+              students={students}
+            />
           )}
         </SeatingChartContainer>
         <StudentInfoContainer>

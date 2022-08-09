@@ -2,6 +2,7 @@ import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { findAllBehaviorTypes } from '../../../../schemaTypes'
 import { EditBehaviors } from './EditBehaviors'
+import { BehaviorListContainer } from './behaviorStyles'
 
 export type BehaviorTypeListProps = {}
 
@@ -14,6 +15,7 @@ export const FIND_ALL_BEHAVIOR_TYPES_QUERY = gql`
         behaviorQuality
         behaviorCategory
         points
+        forTeachersAid
       }
     }
   }
@@ -31,11 +33,11 @@ export const BehaviorTypeList = ({}: BehaviorTypeListProps) => {
   if (loading) return <div>Loading </div>
   return (
     <>
-      <div>
+      <BehaviorListContainer>
         {data?.findAllBehaviorTypes.behaviorTypes.map((behavior) => (
           <EditBehaviors behavior={behavior} key={behavior._id} />
         ))}
-      </div>
+      </BehaviorListContainer>
     </>
   )
 }

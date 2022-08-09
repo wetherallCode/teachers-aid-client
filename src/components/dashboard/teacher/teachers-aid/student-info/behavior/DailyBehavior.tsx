@@ -1,5 +1,5 @@
-import { gql, useMutation } from '@apollo/client'
 import React from 'react'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import {
@@ -7,12 +7,16 @@ import {
   createStudentBehavior,
   MarkingPeriodEnum,
   findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
+  findAllBehaviorTypes,
+  BehaviorCategoryEnum,
+  findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes,
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
   responsibilityPointConverter,
   underscoreEliminator,
 } from '../../../../../../utils'
+import { FIND_ALL_BEHAVIOR_TYPES_QUERY } from '../../../behaviors/BehaviorTypeList'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 import {
   ControlButtons,
@@ -46,13 +50,20 @@ export const DailyBehavior = ({
   studentBehaviors,
 }: DailyBehaviorProps) => {
   const [state] = useTeachersAidContextProvider()
-  const { behaviorEnum, markingPeriodEnum } = useEnumContextProvider()
+  const { behaviorCategoryEnum, BehaviorQualityEnum } = useEnumContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { currentMarkingPeriod } = markingPeriodState.context
 
   // const markingPeriodNumber = markingPeriodEnum.findIndex(
   //   (element: MarkingPeriodEnum) => element === currentMarkingPeriod
   // )
+  const { loading, data } = useQuery<findAllBehaviorTypes>(
+    FIND_ALL_BEHAVIOR_TYPES_QUERY,
+    {
+      onCompleted: (data) => console.log(data),
+      onError: (error) => console.error(error),
+    }
+  )
 
   const [createStudentBehavior] = useMutation<
     createStudentBehavior,
@@ -64,6 +75,28 @@ export const DailyBehavior = ({
       'findBehaviorsByStudentIdAndDate',
     ],
   })
+  const questionAndAnswerBehaviorList =
+    data?.findAllBehaviorTypes.behaviorTypes.filter(
+      (b) => b.behaviorCategory === BehaviorCategoryEnum.QUESTION_AND_ANSWER
+    )!
+  const negativeBehaviorList = data?.findAllBehaviorTypes.behaviorTypes.filter(
+    (b) => b.behaviorCategory === BehaviorCategoryEnum.NEGATIVE_BEHAVIOR
+  )!
+  const independentBehaviorList = studentBehaviors.find(
+    (b) =>
+      b.date === new Date().toLocaleDateString() &&
+      b.behavior.behaviorName === 'Unprepared'
+  )
+    ? data?.findAllBehaviorTypes.behaviorTypes.filter(
+        (b) =>
+          b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK &&
+          b.behaviorName !== 'Unprepared'
+      )!
+    : data?.findAllBehaviorTypes.behaviorTypes.filter(
+        (b) =>
+          b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK &&
+          b.behaviorName !== 'Prepared and Ready'
+      )!
 
   // const behaviorPoints = (behavior: BehaviorEnum) => {
   //   if (behavior === BehaviorEnum.ANSWERED_QUESTION)
@@ -81,92 +114,107 @@ export const DailyBehavior = ({
   //   else if (behavior === BehaviorEnum.INNAPROPRIATE_LANGUAGE) return -10
   //   else return 0
   // }
-  const questionAndAnswerBehaviors = behaviorEnum.slice(0, 2)
-  const negativeBehaviors = behaviorEnum.slice(6)
-  const taskBehaviors = behaviorEnum.slice(2, 6)
+  // const questionAndAnswerBehaviors = behaviorEnum.slice(0, 2)
+  // const negativeBehaviors = behaviorEnum.slice(6)
+  // const taskBehaviors = behaviorEnum.slice(2, 6)
 
+  const negativeNumberDeterminer = (
+    behavior: findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes
+  ) => {}
+
+  if (loading) return <div>Loading </div>
   return (
     <>
-      {/* {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
+      {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
         <StudentBehaviorButtonContainer>
-          {questionAndAnswerBehaviors.map(
-            (behavior: BehaviorEnum, i: number) => (
-              <StudentBehaviorButton
-                key={i}
-                goodBehavior={behaviorPoints(behavior) >= 0}
-                onClick={() =>
-                  createStudentBehavior({
-                    variables: {
-                      input: {
-                        studentBehaviorType: behavior,
-                        studentId,
-                        markingPeriod: currentMarkingPeriod,
-                        responsibilityPoints: behaviorPoints(behavior),
-                      },
-                    },
-                  })
-                }
-              >
-                {behaviorPoints(behavior) > 0 && gradeLoading
-                  ? 'loading'
-                  : phraseCapitalizer(underscoreEliminator(behavior))}
-              </StudentBehaviorButton>
-            )
-          )}
-        </StudentBehaviorButtonContainer>
-      )} */}
-      {/* {state.context.studentInfoSelector === 'NEGATIVE_BEHAVIOR' && (
-        <StudentBehaviorButtonContainer>
-          {negativeBehaviors.map((behavior: BehaviorEnum, i: number) => (
+          {questionAndAnswerBehaviorList.map((behavior, i: number) => (
             <StudentBehaviorButton
               key={i}
-              goodBehavior={behaviorPoints(behavior) >= 0}
+              goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
               onClick={() =>
                 createStudentBehavior({
                   variables: {
                     input: {
-                      studentBehaviorType: behavior,
+                      behaviorTypeId: behavior._id!,
                       studentId,
                       markingPeriod: currentMarkingPeriod,
-                      responsibilityPoints: behaviorPoints(behavior),
+                      responsibilityPoints:
+                        behavior.points > 0
+                          ? responsibilityPointConverter(grade, behavior.points)
+                          : behavior.points,
+                      date: new Date().toLocaleDateString(),
                     },
                   },
                 })
               }
             >
-              {phraseCapitalizer(underscoreEliminator(behavior))}
+              {behavior.points > 0 && gradeLoading
+                ? 'loading'
+                : behavior.behaviorName}
+            </StudentBehaviorButton>
+          ))}
+        </StudentBehaviorButtonContainer>
+      )}
+      {state.context.studentInfoSelector === 'NEGATIVE_BEHAVIOR' && (
+        <StudentBehaviorButtonContainer>
+          {negativeBehaviorList.map((behavior, i: number) => (
+            <StudentBehaviorButton
+              key={i}
+              goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
+              onClick={() =>
+                createStudentBehavior({
+                  variables: {
+                    input: {
+                      behaviorTypeId: behavior._id!,
+                      studentId,
+                      markingPeriod: currentMarkingPeriod,
+                      responsibilityPoints:
+                        behavior.points > 0
+                          ? responsibilityPointConverter(grade, behavior.points)
+                          : behavior.points,
+                      date: new Date().toLocaleDateString(),
+                    },
+                  },
+                })
+              }
+            >
+              {behavior.points > 0 && gradeLoading
+                ? 'loading'
+                : behavior.behaviorName}
             </StudentBehaviorButton>
           ))}
         </StudentBehaviorButtonContainer>
       )}
       {state.context.studentInfoSelector === 'TASK_CHECK' && (
         <StudentBehaviorButtonContainer>
-          {taskBehaviors.map((behavior: BehaviorEnum, i: number) => (
+          {independentBehaviorList.map((behavior, i: number) => (
             <StudentBehaviorButton
               key={i}
-              goodBehavior={behaviorPoints(behavior) >= 0}
+              goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
               onClick={() =>
                 createStudentBehavior({
                   variables: {
                     input: {
-                      studentBehaviorType: behavior,
+                      behaviorTypeId: behavior._id!,
                       studentId,
                       markingPeriod: currentMarkingPeriod,
-                      responsibilityPoints: behaviorPoints(behavior),
+                      responsibilityPoints:
+                        behavior.points > 0
+                          ? responsibilityPointConverter(grade, behavior.points)
+                          : behavior.points,
+                      date: new Date().toLocaleDateString(),
                     },
                   },
                 })
               }
             >
-              {behaviorPoints(behavior) > 0 &&
-              gradeLoading &&
-              behavior === 'ON_TASK'
+              {behavior.points > 0 && gradeLoading
                 ? 'loading'
-                : phraseCapitalizer(underscoreEliminator(behavior))}
+                : behavior.behaviorName}
             </StudentBehaviorButton>
           ))}
         </StudentBehaviorButtonContainer>
-      )} */}
+      )}
       {state.context.studentInfoSelector === 'INFO' && (
         <BehaviorRemover
           studentId={studentId}

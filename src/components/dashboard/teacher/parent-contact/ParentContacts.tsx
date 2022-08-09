@@ -10,7 +10,7 @@ export type ParentContactsProps = {}
 export const ParentContacts: FC<ParentContactsProps> = () => {
   const location = useLocation()
   useNavSync(location, 'PARENT_CONTACTS')
-  console.log(location)
+
   return (
     <>
       <Routes>

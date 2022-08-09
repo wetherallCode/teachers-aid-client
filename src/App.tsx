@@ -77,13 +77,14 @@ function App() {
 
   useEffect(() => {
     if (!me) nav('/')
+    if (location.pathname === '/' && me) nav('/dashboard')
   }, [me])
   return (
     <AppContainer>
       <Header>
         {/* {me && <UpdateUserActivity userId={me._id!} />} */}
-        <HomeLink to='/'>
-          {location.pathname !== '/' ? `←Back` : 'MrWetherall.org'}
+        <HomeLink to='/dashboard'>
+          {location.pathname !== '/dashboard' ? `←Back` : 'MrWetherall.org'}
         </HomeLink>
         <LoginContainer>
           {!me ? (
@@ -109,8 +110,9 @@ function App() {
           me={me}
         />
       )}
+
       <Routes>
-        <Route path='' element={<Home />} />
+        {/* <Route path='' element={<Home />} /> */}
         <Route path='dashboard/*' element={<Dashboard />} />
         {/* {!me ? (
           <Navigate to='/' />
@@ -125,9 +127,9 @@ function App() {
             }
           />
         )}
-        {me && (
+        {/* {me && (
           <Route path='behavior-home' element={<StudentBehavior me={me} />} />
-        )}
+        )} */}
         <Route
           path='/problem-solution-guide/*'
           element={<ProblemAndSolutionGuide />}

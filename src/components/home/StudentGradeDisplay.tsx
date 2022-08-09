@@ -1,5 +1,6 @@
 import React from 'react'
 import { useMarkingPeriodContextProvider } from '../../contexts/markingPeriod/MarkingPeriodContext'
+import { useCalculateGrades } from '../../hooks/useCalculateGrades'
 import { useGradeCalculator } from '../../hooks/useGradeCalculator'
 import { GradeDisplay, StudentGradeContainer } from './homeStyles'
 
@@ -9,7 +10,7 @@ export const StudentGradeDisplay = ({
   studentId,
 }: StudentGradeDisplayProps) => {
   const [currentMarkingPeriod] = useMarkingPeriodContextProvider()
-  const grade = useGradeCalculator({
+  const { grade, loading } = useCalculateGrades({
     studentId,
     polling: true,
     pollInterval: 5000,
@@ -19,7 +20,7 @@ export const StudentGradeDisplay = ({
   return (
     <>
       <GradeDisplay>Current Grade</GradeDisplay>
-      <GradeDisplay>{grade ? grade.grade + '%' : 'Calculating'}</GradeDisplay>
+      <GradeDisplay>{!loading ? grade + '%' : 'Calculating'}</GradeDisplay>
 
       {/* <div>
             This grade may not be what is in Genesis and will change constantly.

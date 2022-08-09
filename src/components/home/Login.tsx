@@ -74,7 +74,7 @@ export const Login = ({ toggleLogin }: LoginProps) => {
   useEffect(() => {
     if (me) {
       toggleLogin()
-      // navigate('dashboard')
+      navigate('dashboard')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [me])
