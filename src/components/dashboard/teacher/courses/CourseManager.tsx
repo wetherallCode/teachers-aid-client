@@ -13,10 +13,21 @@ import { TemporaryTasks } from './temporary-tasks/TemporaryTasks'
 import { TemporaryTasksContextProvider } from './temporary-tasks/state-n-styles/TemporaryTasksContext'
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { me_me_Teacher } from '../../../../schemaTypes'
+import { gql } from '@apollo/client'
 
 export type CourseManagerProps = {}
 
-export const CourseManager: FC<CourseManagerProps> = () => {
+export const TOGGLE_ALLOW_ASSIGNMENTS_IN_CLASS_MUTATION = gql`
+  mutation toggleAssignmentsAllowedInClass(
+    $input: ToggleAssignmentsAllowedInClassInput!
+  ) {
+    toggleAssignmentsAllowedInClass(input: $input) {
+      toggled
+    }
+  }
+`
+
+export const CourseManager = ({}: CourseManagerProps) => {
   const me: me_me_Teacher = useUserContextProvider()
   const { course } = useParams()
   const [name] = me.teachesCourses.filter((courses) => courses._id === course)

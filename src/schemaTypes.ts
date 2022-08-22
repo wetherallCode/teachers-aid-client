@@ -8233,6 +8233,28 @@ export interface findAllMarkingPeriodGradesVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: toggleAssignmentsAllowedInClass
+// ====================================================
+
+export interface toggleAssignmentsAllowedInClass_toggleAssignmentsAllowedInClass {
+  __typename: "ToggleAssignmentsAllowedInClassPayload";
+  toggled: boolean;
+}
+
+export interface toggleAssignmentsAllowedInClass {
+  toggleAssignmentsAllowedInClass: toggleAssignmentsAllowedInClass_toggleAssignmentsAllowedInClass;
+}
+
+export interface toggleAssignmentsAllowedInClassVariables {
+  input: ToggleAssignmentsAllowedInClassInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -9308,6 +9330,10 @@ export interface TextSectionQuestionsInput {
 export interface TextSectionVocabInput {
   definition: string;
   word: string;
+}
+
+export interface ToggleAssignmentsAllowedInClassInput {
+  courseId: string;
 }
 
 export interface TopicInput {
