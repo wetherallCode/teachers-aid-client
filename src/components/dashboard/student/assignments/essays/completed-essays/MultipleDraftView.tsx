@@ -33,7 +33,7 @@ export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
     essay.finalDraft?.submittedFinalDraft.length! - 1
   )
   const currentDraft = essay.finalDraft?.submittedFinalDraft[draftSelector]
-  // console.log(currentDraft?.gradingDraft)
+
   const submittedFinalDraft: SubmittedFinalDraftsInput = {
     draftNumber: state.context.draftNumber + 1,
     draft: state.context.draftToUpdate,
@@ -140,6 +140,16 @@ export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
               </ScoreSheetRubricCommentsTitle>
               <div>
                 <div>
+                  <RubricSectionTitle>General</RubricSectionTitle>
+                  <ul>
+                    {currentDraft!.rubricEntries
+                      .filter((r) => r.rubricSection === 'GENERAL')
+                      .map((entry, i: number) => (
+                        <li key={i}>{entry.entry}</li>
+                      ))}
+                  </ul>
+                </div>
+                <div>
                   <RubricSectionTitle>Topic</RubricSectionTitle>
                   <ul>
                     {currentDraft!.rubricEntries
@@ -159,6 +169,7 @@ export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
                       ))}
                   </ul>
                 </div>
+
                 <div>
                   <RubricSectionTitle>Conclusion</RubricSectionTitle>
                   <ul>

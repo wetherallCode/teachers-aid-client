@@ -58,7 +58,7 @@ export const CompletedEssayViewer = ({ draft }: CompletedEssayViewerProps) => {
         editor={editor}
         value={parsedEssay as Node[]}
         onChange={(value: any) => {
-          setValue(value as Node[])
+          // setValue(value as Node[])
         }}
       >
         <Editable
@@ -74,7 +74,6 @@ export const CompletedEssayViewer = ({ draft }: CompletedEssayViewerProps) => {
             height: '98%',
             userSelect: 'none',
           }}
-          placeholder={`Your essay goes here; let's get started...`}
           onKeyDown={(e) => {
             // e.preventDefault()
             // if (e.key === 'Enter') return null

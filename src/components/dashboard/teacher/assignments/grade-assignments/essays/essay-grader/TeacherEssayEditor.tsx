@@ -167,7 +167,6 @@ const DefaultElement = (props: any) => {
 }
 
 export const Leaf = ({ setCommentNumber, ...props }: any) => {
-  // console.log(props)
   return (
     <span
       {...props.attributes}

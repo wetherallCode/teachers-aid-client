@@ -245,7 +245,6 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
     }
   }, [classTime, navigate, assignmentsAllowedInClass])
 
-  console.log(state.matches('reviewEssay'))
   if (loading) return <div>Loading </div>
 
   return (
@@ -284,6 +283,15 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
           <MultipleDraftView essay={data?.findEssayById.essay!} />
 
           <EssayRedoButtonContainer>
+            {state.matches('reviewEssay') && !classTime && (
+              <CompletedEssayControlButton
+                onClick={() => {
+                  event({ type: 'NEXT' })
+                }}
+              >
+                Redo Essay
+              </CompletedEssayControlButton>
+            )}
             {state.matches('reviewEssay') &&
               classTime &&
               assignmentsAllowedInClass && (

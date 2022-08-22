@@ -2448,33 +2448,6 @@ export interface returnGradedEssayVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: updateGradingDraft
-// ====================================================
-
-export interface updateGradingDraft_updateGradingDraft_essay {
-  __typename: "Essay";
-  _id: string | null;
-}
-
-export interface updateGradingDraft_updateGradingDraft {
-  __typename: "UpdateGradingDraftPayload";
-  essay: updateGradingDraft_updateGradingDraft_essay;
-}
-
-export interface updateGradingDraft {
-  updateGradingDraft: updateGradingDraft_updateGradingDraft;
-}
-
-export interface updateGradingDraftVariables {
-  input: UpdateGradingDraftInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findStudentsByCourse
 // ====================================================
 
@@ -8249,6 +8222,33 @@ export interface toggleAssignmentsAllowedInClass {
 
 export interface toggleAssignmentsAllowedInClassVariables {
   input: ToggleAssignmentsAllowedInClassInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: updateGradingDraft
+// ====================================================
+
+export interface updateGradingDraft_updateGradingDraft_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateGradingDraft_updateGradingDraft {
+  __typename: "UpdateGradingDraftPayload";
+  essay: updateGradingDraft_updateGradingDraft_essay;
+}
+
+export interface updateGradingDraft {
+  updateGradingDraft: updateGradingDraft_updateGradingDraft;
+}
+
+export interface updateGradingDraftVariables {
+  input: UpdateGradingDraftInput;
 }
 
 /* tslint:disable */
