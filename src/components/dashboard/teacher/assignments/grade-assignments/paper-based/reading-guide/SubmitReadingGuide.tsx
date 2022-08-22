@@ -8,19 +8,21 @@ import {
   submitReadingGuideVariables,
 } from '../../../../../../../schemaTypes'
 import { useMutation } from '@apollo/client'
-import { SUBMIT_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/SubmitReadingGuide'
+// import { SUBMIT_READING_GUIDE_MUTATION } from '../../../../../../student/assignments/readingGuides/SubmitReadingGuide'
 import { usePaperBasedContextProvider } from '../state/PaperBasedContext'
-import { START_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/ReadingGuideToComplete'
+import { START_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/assigned-reading-guides/ReadingGuideToComplete'
+import { SUBMIT_READING_GUIDE_MUTATION } from '../../../../../student/assignments/readingGuides/assigned-reading-guides/SubmitReadingGuide'
+// import { START_READING_GUIDE_MUTATION } from '../../../../../../student/assignments/readingGuides/ReadingGuideToComplete'
 
 export type SubmitReadingGuideProps = {
   readingGuideId: string
   readingGuide: findAssignmentById_findAssignmentById_assignment_ReadingGuide
 }
 
-export const SubmitReadingGuide: FC<SubmitReadingGuideProps> = ({
+export const SubmitReadingGuide = ({
   readingGuideId,
   readingGuide,
-}) => {
+}: SubmitReadingGuideProps) => {
   const [state, event] = usePaperBasedContextProvider()
 
   const [startPaperBasedReadingGuide] = useMutation<

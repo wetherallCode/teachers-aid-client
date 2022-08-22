@@ -4,14 +4,14 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   submitReadingGuide,
   submitReadingGuideVariables,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 import { useNavigate } from 'react-router'
-import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
+import { useReadingGuideToCompleteContextProvider } from '../state-and-styles/ReadingGuideToCompleteContext'
 import {
   SmallNextButton,
   SubmitReadingGuideButton,
-} from './state-and-styles/readingGuideStyles'
-import { responsibilityPointConverter } from '../../../../../utils'
+} from '../state-and-styles/readingGuideStyles'
+import { responsibilityPointConverter } from '../../../../../../utils'
 
 export type SubmitReadingGuideProps = {
   grade: number

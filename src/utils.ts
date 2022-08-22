@@ -277,6 +277,9 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'run') {
     return 'ran'
   }
+  if (lowerCaseVerb === 'swim') {
+    return 'swam'
+  }
   if (lowerCaseVerb === 'get') {
     return 'got'
   }
@@ -300,6 +303,12 @@ export const irregularPastTenseVerbList = (verb: string) => {
   }
   if (lowerCaseVerb === 'write') {
     return 'wrote'
+  }
+  if (lowerCaseVerb === 'ride') {
+    return 'rode'
+  }
+  if (lowerCaseVerb === 'hide') {
+    return 'hid'
   }
   if (lowerCaseVerb === 'take') {
     return 'took'
@@ -330,6 +339,27 @@ export const irregularPastTenseVerbList = (verb: string) => {
   }
   if (lowerCaseVerb === 'feel') {
     return 'felt'
+  }
+  if (lowerCaseVerb === 'eat') {
+    return 'ate'
+  }
+  if (lowerCaseVerb === 'carry') {
+    return 'carried'
+  }
+  if (lowerCaseVerb === 'admit') {
+    return 'admitted'
+  }
+  if (lowerCaseVerb === 'deter') {
+    return 'deterred'
+  }
+  if (lowerCaseVerb === 'excel') {
+    return 'excelled'
+  }
+  if (lowerCaseVerb === 'prefer') {
+    return 'preferred'
+  }
+  if (lowerCaseVerb === 'submit') {
+    return 'submitted'
   }
   if (lowerCaseVerb === 'do') {
     return 'did'
@@ -366,6 +396,9 @@ export const specialVerbsInPastTense = (verb: string) => {
   const lowerCaseVerb = verb.toLowerCase()
   if (lowerCaseVerb === 'stop') {
     return 'stopped'
+  }
+  if (lowerCaseVerb === 'control') {
+    return 'controlled'
   }
   if (lowerCaseVerb === 'plan') {
     return 'planned'

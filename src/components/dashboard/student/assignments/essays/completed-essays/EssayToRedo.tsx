@@ -13,17 +13,21 @@ import { SubmitRedoneEssay } from './SubmitRedoneEssay'
 import { useNavigate } from 'react-router'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { useClassTimeIndicator } from '../../../../../../hooks/useClassTimeIndicator'
+import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
 
 export type EssayToRedoProps = {
   essay: findCompletedEssayById_findEssayById_essay
 }
 
-export const EssayToRedo: FC<EssayToRedoProps> = ({ essay }) => {
+export const EssayToRedo = ({ essay }: EssayToRedoProps) => {
   const me: me_me_Student = useUserContextProvider()
   const [state, event] = useCompletedEssayContextProvider()
+  // const { assignmentsInClassAllowed } = me.inCourses[0].hasCourseInfo!
+  const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
   const { classTime } = useClassTimeIndicator(me)
   const navigate = useNavigate()
   const [loaded, setLoaded] = useState(false)
+
   useEffect(() => {
     if (essay.workingDraft.organizer?.__typename === 'DevelopingOrganizer') {
       const developingOrganizer = essay.workingDraft
@@ -101,9 +105,12 @@ export const EssayToRedo: FC<EssayToRedoProps> = ({ essay }) => {
     score: 0,
     graded: false,
   }
+
   useEffect(() => {
-    if (classTime) navigate('dashboard/assignments')
-  }, [classTime, navigate])
+    console.log(assignmentsAllowedInClass)
+    if (classTime && !assignmentsAllowedInClass)
+      navigate('/dashboard/assignments')
+  }, [classTime, navigate, assignmentsAllowedInClass])
   return (
     <>
       {loaded && (

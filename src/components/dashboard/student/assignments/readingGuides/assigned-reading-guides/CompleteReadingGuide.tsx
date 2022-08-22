@@ -4,10 +4,10 @@ import {
   findReadingGuideById_findReadingGuideById_readingGuide,
   updateReadingGuide,
   updateReadingGuideVariables,
-} from '../../../../../schemaTypes'
-import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
-import { useCheckBox } from '../../../../../hooks/useCheckBox'
-import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
+} from '../../../../../../schemaTypes'
+import { useReadingGuideToCompleteContextProvider } from '../state-and-styles/ReadingGuideToCompleteContext'
+import { useCheckBox } from '../../../../../../hooks/useCheckBox'
+import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { SubmitReadingGuide } from './SubmitReadingGuide'
 import {
   SectionOrganizationContainer,
@@ -51,8 +51,7 @@ import {
   ProblemsToSelectContainer,
   NextButton,
   SmallNextButton,
-} from './state-and-styles/readingGuideStyles'
-import { Button } from '../../../../home/loginStyles'
+} from '../state-and-styles/readingGuideStyles'
 
 export type CompleteReadingGuideProps = {
   readingGuideInfo: findReadingGuideById_findReadingGuideById_readingGuide
@@ -135,7 +134,7 @@ export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
   // }, [clarifyingQuestions])
 
   const multipleSections =
-    readingGuideInfo.lessonInfo.assignedSectionIdList.length > 1
+    readingGuideInfo.lessonInfo!.assignedSectionIdList.length > 1
   const handleFinishProblemList = () => {
     // event({
     // 	type: 'SET_READING_GUIDE_PROPERTIES',

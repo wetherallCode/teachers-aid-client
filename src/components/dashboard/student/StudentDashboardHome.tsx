@@ -5,7 +5,7 @@ import { EssayToComplete } from './assignments/essays/assigned-essays/EssayToCom
 import { StudentEssayContextProvider } from './assignments/essays/assigned-essays/state-and-styles/StudentEssayContext'
 import { CompletedEssay } from './assignments/essays/completed-essays/CompletedEssay'
 import { CompletedEssayContextProvider } from './assignments/essays/completed-essays/state/CompletedEssayContext'
-import { ReadingGuideToComplete } from './assignments/readingGuides/ReadingGuideToComplete'
+// import { ReadingGuideToComplete } from '../assignments/readingGuides/ReadingGuideToComplete'
 import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { LessonMainMenu } from '../../lesson/LessonMainMenu'
 import { DailyAgendaContextProvider } from '../../lesson/state-n-styles/DailyAgendaContext'
@@ -33,6 +33,7 @@ import { capitalizer } from '../../../utils'
 import { Greetings } from '../../home/Greetings'
 import { LessonDisplay } from './lesson/LessonDisplay'
 import { Grades } from './grades/Grades'
+import { ReadingGuideToComplete } from './assignments/readingGuides/assigned-reading-guides/ReadingGuideToComplete'
 
 export type StudentDashboardHomeProps = {
   me: me_me_Student

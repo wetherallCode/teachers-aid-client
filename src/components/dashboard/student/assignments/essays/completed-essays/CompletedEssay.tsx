@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 
 import { useQuery, gql } from '@apollo/client'
@@ -40,6 +40,7 @@ import { timeFinder } from '../../../../../../utils'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../../../school-day/SchoolDay'
+import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
 
 export const FIND_COMPLETED_ESSSAY_BY_ID_QUERY = gql`
   query findCompletedEssayById($input: FindEssayByIdInput!) {
@@ -149,7 +150,7 @@ export const FIND_COMPLETED_ESSSAY_BY_ID_QUERY = gql`
 
 export type CompletedEssayProps = {}
 
-export const CompletedEssay: FC<CompletedEssayProps> = () => {
+export const CompletedEssay = ({}: CompletedEssayProps) => {
   const { completedEssay } = useParams()
   const me: me_me_Student = useUserContextProvider()
   const navigate = useNavigate()
@@ -215,13 +216,12 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
     data?.findEssayById.essay.score.earnedPoints! /
     data?.findEssayById.essay.score.maxPoints!
 
-  const { assignmentsInClassAllowed } = me.inCourses[0].hasCourseInfo!
+  const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
 
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
     schoolDay &&
-    assignmentsInClassAllowed &&
     Date.parse(dateTime) >
       Date.parse(
         timeFinder(
@@ -239,7 +239,15 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
         )
       )
 
+  useEffect(() => {
+    if (classTime && !assignmentsAllowedInClass && state.matches('redoEssay')) {
+      navigate('/dashboard/assignments')
+    }
+  }, [classTime, navigate, assignmentsAllowedInClass])
+
+  console.log(state.matches('reviewEssay'))
   if (loading) return <div>Loading </div>
+
   return (
     <EssayContainer>
       <CompletedEssayDetailsContainer>
@@ -276,19 +284,24 @@ export const CompletedEssay: FC<CompletedEssayProps> = () => {
           <MultipleDraftView essay={data?.findEssayById.essay!} />
 
           <EssayRedoButtonContainer>
-            {state.matches('reviewEssay') && !classTime ? (
-              <CompletedEssayControlButton
-                onClick={() => {
-                  event({ type: 'NEXT' })
-                }}
-              >
-                Redo Essay
-              </CompletedEssayControlButton>
-            ) : (
-              <CompletedEssayControlButton>
-                You Can't Redo Essays During Class
-              </CompletedEssayControlButton>
-            )}
+            {state.matches('reviewEssay') &&
+              classTime &&
+              assignmentsAllowedInClass && (
+                <CompletedEssayControlButton
+                  onClick={() => {
+                    event({ type: 'NEXT' })
+                  }}
+                >
+                  Redo Essay
+                </CompletedEssayControlButton>
+              )}
+            {state.matches('reviewEssay') &&
+              classTime &&
+              !assignmentsAllowedInClass && (
+                <CompletedEssayControlButton>
+                  You Can't Redo Essays During Class
+                </CompletedEssayControlButton>
+              )}
             {state.matches('redoEssay') && (
               <SubmitRedoneEssay
                 _id={state.context.essayId}

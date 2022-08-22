@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react'
 import { AssignedEssaySelect } from './essays/assigned-essays/AssignedEssaySelect'
 import { CompletedEssaySelect } from './essays/completed-essays/CompletedEssaySelect'
-import { AssignedReadingGuideSelect } from './readingGuides/AssignedReadingGuideSelect'
+import { AssignedReadingGuideSelect } from './readingGuides/assigned-reading-guides/AssignedReadingGuideSelect'
 import {
   AssignmentsToCompleteContainer,
   AssignmentsTypeSelectorPanel,
@@ -44,8 +44,9 @@ import { CompletedEssay } from './essays/completed-essays/CompletedEssay'
 import { CompletedEssayContextProvider } from './essays/completed-essays/state/CompletedEssayContext'
 import { QuizToComplete } from './quizzes/QuizToComplete'
 import { QuizToCompleteContextProvider } from './quizzes/state-n-styles/QuizToCompleteContext'
-import { ReadingGuideToComplete } from './readingGuides/ReadingGuideToComplete'
+// import { ReadingGuideToComplete } from './readingGuides/ReadingGuideToComplete'
 import { ReadingGuideToCompleteContextProvider } from './readingGuides/state-and-styles/ReadingGuideToCompleteContext'
+import { useAssignmentsAllowedInClassCheck } from '../../../../hooks/useAssignmentsAllowedInClassCheck'
 
 export type StudentAssignmentsProps = {}
 
@@ -77,6 +78,8 @@ export const MARK_EXEMPT_MUTATION = gql`
 export const StudentAssignments = ({}: StudentAssignmentsProps) => {
   const me: me_me_Student = useUserContextProvider()
   const { classTime } = useClassTimeIndicator(me)
+  // const { assignmentsInClassAllowed } = me.inCourses[0].hasCourseInfo!
+  const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
   const [state, event] = useStudentAssignmentContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
@@ -142,38 +145,39 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
           Article Reviews to Complete
         </AssignmentsTypeStyle> */}
       </AssignmentsTypeSelectorPanel>
+
       <AssignmentTypeContainer>
         {state.matches('essaysToComplete') && (
           <>
-            {!classTime ? (
-              <AssignedEssaySelect />
-            ) : (
+            {classTime && !assignmentsAllowedInClass ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
+            ) : (
+              <AssignedEssaySelect />
             )}
           </>
         )}
         {state.matches('completedEssays') && <CompletedEssaySelect />}
         {state.matches('readingGuidesToComplete') && (
           <>
-            {!classTime ? (
-              <AssignedReadingGuideSelect />
-            ) : (
+            {classTime && !assignmentsAllowedInClass ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
+            ) : (
+              <AssignedReadingGuideSelect />
             )}
           </>
         )}
         {state.matches('articleReviewsToComplete') && (
           <>
-            {!classTime ? (
-              <ArticleReviewSelect />
-            ) : (
+            {classTime ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
+            ) : (
+              <ArticleReviewSelect />
             )}
           </>
         )}

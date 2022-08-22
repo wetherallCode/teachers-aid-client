@@ -8,13 +8,13 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   startReadingGuide,
   startReadingGuideVariables,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 
 import { CompleteReadingGuide } from './CompleteReadingGuide'
-import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
+import { useReadingGuideToCompleteContextProvider } from '../state-and-styles/ReadingGuideToCompleteContext'
 import { VocabList } from './VocabList'
 import { ReadingGuideHelp } from './ReadingGuideHelp'
-import { dueTimeDisplay } from '../../../../../utils'
+import { dueTimeDisplay } from '../../../../../../utils'
 import {
   ReadingGuideContainer,
   ReadingGuideDetailsContainer,
@@ -22,7 +22,10 @@ import {
   ReadingGuideToCompleteContainer,
   ReadingGuideInfoSwitchButtonContainer,
   ReadingGuideInfoSwitchButton,
-} from './state-and-styles/readingGuideStyles'
+} from '../state-and-styles/readingGuideStyles'
+import { useGradeCalculator } from '../../../../../../hooks/useGradeCalculator'
+import { useUserContextProvider } from '../../../../../../contexts/UserContext'
+import { useClassTimeIndicator } from '../../../../../../hooks/useClassTimeIndicator'
 import {
   AssignmentDetailsContainer,
   AssignmentDetailsPartContainers,
@@ -30,10 +33,7 @@ import {
   AssignmentDetailsDueDate,
   AssignmentDetailsGoBackButtonContainer,
   AssignmentDetailsGoBackButton,
-} from '../essays/assigned-essays/state-and-styles/assignedEssayStyles'
-import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
-import { useUserContextProvider } from '../../../../../contexts/UserContext'
-import { useClassTimeIndicator } from '../../../../../hooks/useClassTimeIndicator'
+} from '../../essays/assigned-essays/state-and-styles/assignedEssayStyles'
 
 export type ReadingGuideToCompleteProps = {}
 
@@ -238,7 +238,7 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
               {state.context.vocabDisplay && (
                 <VocabList
                   words={
-                    data?.findReadingGuideById.readingGuide.lessonInfo
+                    data?.findReadingGuideById.readingGuide.lessonInfo!
                       .vocabList!
                   }
                 />

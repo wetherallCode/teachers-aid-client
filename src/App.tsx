@@ -84,7 +84,9 @@ function App() {
       <Header>
         {/* {me && <UpdateUserActivity userId={me._id!} />} */}
         <HomeLink to='/dashboard'>
-          {location.pathname !== '/dashboard' ? `←Back` : 'MrWetherall.org'}
+          {location.pathname !== '/dashboard'
+            ? `←Back to Home Screen`
+            : 'MrWetherall.org'}
         </HomeLink>
         <LoginContainer>
           {!me ? (

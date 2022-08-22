@@ -15,6 +15,7 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
   const [currentSchoolDayState] = useSchoolDayContextProvider()
 
   const { dateTime } = useTime()
+
   const { data: schoolDayData } = useQuery<
     findCurrentSchoolDay,
     findCurrentSchoolDayVariables
@@ -25,13 +26,10 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
     onError: (error) => console.error(error),
   })
   const schoolDay = schoolDayData?.findSchoolDayByDate.schoolDay !== null
-
-  const { assignmentsInClassAllowed } = student.inCourses[0].hasCourseInfo!
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
   const classTime =
     schoolDay &&
-    assignmentsInClassAllowed &&
     Date.parse(dateTime) >
       Date.parse(
         timeFinder(

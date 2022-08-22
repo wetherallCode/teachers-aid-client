@@ -120,19 +120,27 @@ export const AcademicProblemSolution = ({
       <OrganizerTitleContainer>
         <OrganizerTitleStyle>Answer the Question</OrganizerTitleStyle>
       </OrganizerTitleContainer>
+
       <RestatementDirectionsContainer>
         <UnderlinedText>Directions</UnderlinedText>
-        <div>
+        {/* <div>
           Problem and Solution Questions need to give a complete explanation of
           the problem and then a complete explanation of the solution. To do
           this, answer each of these questions with paraphrased answers that you
           found in the text in the assigned sections or sections that came
           before the assigned sections.
+        </div> */}
+        <div>
+          To give a complete explanation to this question: {topic.question}, you
+          need to address all four parts of a problem and solution. Answer the
+          questions below and don't forget what {questionParts.simpleSubject}{' '}
+          did is usually the solution.
         </div>
       </RestatementDirectionsContainer>
+
       <AcademicQuestionAnswerTypeContainer>
         <AcademicRestatementTitle>
-          <div style={{ fontSize: '70%' }}>{topic.question}</div>
+          {/* <div style={{ fontSize: '70%' }}>{topic.question}</div> */}
           <div>How Question: Problem and Solution</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
@@ -187,7 +195,7 @@ export const AcademicProblemSolution = ({
         <AnswerTypeContainter>
           <div>
             Why did the solution solve {questionParts.simpleSubject}
-            {properNoun ? `'` : `'s`} problem?
+            {properNameEndsInS ? `'` : `'s`} problem?
           </div>
           <PartInput
             value={

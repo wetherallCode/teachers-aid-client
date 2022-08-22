@@ -21,17 +21,16 @@ import { WarmUp } from '../lesson-components/WarmUp'
 import { LessonDetails } from '../lesson-components/LessonDetails'
 import { Vocab } from '../lesson-components/Vocab'
 import { ExitActivity } from '../lesson-components/ExitActivity'
+import { useNavigate } from 'react-router'
 
 export type StaticLessonProps = {
   lesson: findLessonStatus_findLessonStatus_lesson
   courseToLoad?: me_me_Teacher_teachesCourses
 }
 
-export const StaticLesson: FC<StaticLessonProps> = ({
-  lesson,
-  courseToLoad,
-}) => {
+export const StaticLesson = ({ lesson, courseToLoad }: StaticLessonProps) => {
   const [state, event] = useDailyAgendaContextProvider()
+  const nav = useNavigate()
   return (
     <LessonPageContainer>
       <ClassInfoContainer>
@@ -41,13 +40,13 @@ export const StaticLesson: FC<StaticLessonProps> = ({
         </ClassInfoStyle>
       </ClassInfoContainer>
       <StopLessonContainer>
-        <StopLessonButton
+        {/* <StopLessonButton
           onClick={() => {
-            event({ type: 'GET_LESSON' })
+            nav('/dashboard')
           }}
         >
           Leave Lesson
-        </StopLessonButton>
+        </StopLessonButton> */}
       </StopLessonContainer>
       <LessonMainScreen>
         {state.context.staticLessonTypes === 'WARM_UP' && (
@@ -112,7 +111,7 @@ export const StaticLesson: FC<StaticLessonProps> = ({
             })
           }
         >
-          Cool Down
+          Exit Ticket
         </LessonComponentTypeStyle>
       </LessonComponentTypeContainer>
     </LessonPageContainer>

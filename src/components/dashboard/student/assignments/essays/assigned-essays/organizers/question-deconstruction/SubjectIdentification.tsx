@@ -56,6 +56,7 @@ export const SubjectIdentification = ({
 
   useEffect(() => {
     if (correctSimpleSubject && text) {
+      setEnabled(false)
       setSubject(text)
       if (writingLevel === WritingLevelEnum.DEVELOPING) {
         event({
@@ -74,6 +75,7 @@ export const SubjectIdentification = ({
           payload: text,
         })
       const timer = setTimeout(() => {
+        setEnabled(false)
         setState('verb-identification')
       }, 3000)
       return () => {
@@ -91,7 +93,7 @@ export const SubjectIdentification = ({
           setEnabled(true)
           console.log(timeToComplete)
         },
-        attempts === 0 ? 3000 : 3000 + 1000 * attempts
+        attempts === 0 ? 6000 : 6000 + 1000 * attempts
       )
       return () => {
         clearTimeout(timer)
@@ -103,53 +105,65 @@ export const SubjectIdentification = ({
     <>
       <RestatementDirectionsContainer>
         <UnderlinedText>Identify the Simple Subject</UnderlinedText>
-        Select and highlight the Simple Subject of the question. Simple subjects
-        are the noun in the complete subject. There may be adjectives that
-        modify the noun or prepositional phrases that add specificity to the
-        noun, but only select the person, place, thing, or idea.
+        <div>
+          Select and highlight the Simple Subject of the question. Simple
+          subjects are the noun in the complete subject (the left side of the
+          divider). There may be adjectives that modify the noun or
+          prepositional phrases that add specificity to the noun, but only
+          select the person, place, thing, or idea.
+        </div>
+        <div>
+          Remember: The word "the" or "a/an" is next to the subject, select that
+          along with the simple subject.
+        </div>
       </RestatementDirectionsContainer>
-      <RestatementQuestionToRestateContainer>
-        <SentenceToManipulate
-          cursorFormat={enabled ? 'TEXT' : 'NONE'}
-          onMouseUp={(e) => {
-            enabled ? select() : e.preventDefault()
-            enabled && setattempts((a) => a + 0.5)
-          }}
-          onSelect={(e) => !enabled && e.preventDefault()}
-        >
-          {questionToModify
-            .join(' ')
-            .split(' ')
-            .map((part, i: number) => (
-              <span key={i}>
-                <span>{part}</span>
-                {part !== questionToModify[questionToModify.length - 1] && (
-                  <span> </span>
-                )}
-              </span>
-            ))}
-        </SentenceToManipulate>
-      </RestatementQuestionToRestateContainer>
       <>
-        {text && (
-          <RestatementFeedbackContainer correct={correctSimpleSubject}>
-            <UnderlinedText>Feedback</UnderlinedText>
-            {correctSimpleSubject ? (
-              <RestatementFeedBackContainerMessageContainer>
-                {message}
-              </RestatementFeedBackContainerMessageContainer>
-            ) : (
-              <RestatementFeedBackContainerMessageContainer>
-                <div>
-                  What went wrong? <span>{whatWentWrong}</span>
-                </div>
-                <br />
-                <div>
-                  How do you fix it? <span>{howToFix}</span>
-                </div>
-              </RestatementFeedBackContainerMessageContainer>
+        {enabled ? (
+          <RestatementQuestionToRestateContainer>
+            <SentenceToManipulate
+              cursorFormat={enabled ? 'TEXT' : 'NONE'}
+              onMouseUp={(e) => {
+                enabled ? select() : e.preventDefault()
+                enabled && setattempts((a) => a + 0.5)
+              }}
+              onSelect={(e) => !enabled && e.preventDefault()}
+            >
+              {questionToModify
+                .join(' ')
+                .split(' ')
+                .map((part, i: number) => (
+                  <span key={i}>
+                    <span>{part}</span>
+                    {part !== questionToModify[questionToModify.length - 1] && (
+                      <span> </span>
+                    )}
+                  </span>
+                ))}
+            </SentenceToManipulate>
+          </RestatementQuestionToRestateContainer>
+        ) : (
+          <>
+            {text && (
+              <RestatementFeedbackContainer correct={correctSimpleSubject}>
+                <UnderlinedText>Feedback</UnderlinedText>
+                {correctSimpleSubject ? (
+                  <RestatementFeedBackContainerMessageContainer>
+                    {message}
+                  </RestatementFeedBackContainerMessageContainer>
+                ) : (
+                  <RestatementFeedBackContainerMessageContainer>
+                    <div>
+                      What went wrong? <span>{whatWentWrong}</span>
+                    </div>
+                    <br />
+                    <div>
+                      How do you fix it? <span>{howToFix}</span>
+                    </div>
+                  </RestatementFeedBackContainerMessageContainer>
+                )}
+              </RestatementFeedbackContainer>
             )}
-          </RestatementFeedbackContainer>
+          </>
         )}
       </>
     </>

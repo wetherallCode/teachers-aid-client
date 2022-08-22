@@ -457,7 +457,7 @@ export interface findEssayById_findEssayById_essay {
   dueDate: string;
   dueTime: string;
   topic: findEssayById_findEssayById_essay_topic;
-  lessonInfo: findEssayById_findEssayById_essay_lessonInfo;
+  lessonInfo: findEssayById_findEssayById_essay_lessonInfo | null;
 }
 
 export interface findEssayById_findEssayById {
@@ -1419,7 +1419,7 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide {
   readings: findReadingGuideById_findReadingGuideById_readingGuide_readings;
   dueDate: string;
   dueTime: string;
-  lessonInfo: findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo;
+  lessonInfo: findReadingGuideById_findReadingGuideById_readingGuide_lessonInfo | null;
   readingGuideFinal: findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal | null;
   markingPeriod: MarkingPeriodEnum;
   hasOwner: findReadingGuideById_findReadingGuideById_readingGuide_hasOwner;
@@ -2484,7 +2484,7 @@ export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignmen
 }
 
 export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz {
-  __typename: "Quiz";
+  __typename: "Quiz" | "SpecialAssignment";
   _id: string | null;
   markingPeriod: MarkingPeriodEnum;
   readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz_readings;
@@ -2572,7 +2572,7 @@ export interface findAssignmentById_findAssignmentById_assignment_Quiz_readings 
 }
 
 export interface findAssignmentById_findAssignmentById_assignment_Quiz {
-  __typename: "Quiz";
+  __typename: "Quiz" | "SpecialAssignment";
   _id: string | null;
   hasOwner: findAssignmentById_findAssignmentById_assignment_Quiz_hasOwner;
   late: boolean;
@@ -2857,7 +2857,7 @@ export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments
 }
 
 export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
   _id: string | null;
   score: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments_score;
   readings: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments_readings;
@@ -2879,7 +2879,7 @@ export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments
 }
 
 export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
   hasOwner: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner;
 }
 
@@ -3005,7 +3005,7 @@ export interface findAssignmentByStudentIdForSecondary_findAssignmentByStudentId
 }
 
 export interface findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
   _id: string | null;
   assigned: boolean;
   missing: boolean;
@@ -3660,7 +3660,7 @@ export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assigned
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAssignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student {
@@ -5110,6 +5110,30 @@ export interface findRubricEntries {
 // GraphQL query operation: findAssignmentByStudentId
 // ====================================================
 
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment {
+  __typename: "SpecialAssignment";
+  _id: string | null;
+  assigned: boolean;
+  readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_readings;
+  score: findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_score;
+  exempt: boolean;
+  dueDate: string;
+  dueTime: string;
+  gradeType: GradeTypeEnum;
+  markingPeriod: MarkingPeriodEnum;
+}
+
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_readings {
   __typename: "Readings";
   readingSections: string;
@@ -5211,7 +5235,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   finishedQuiz: boolean;
 }
 
-export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz;
+export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz;
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_articleReviews_score {
   __typename: "Score";
@@ -8030,7 +8054,7 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   halfDayStartsAt: string;
   halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
-  assignmentsInClassAllowed: boolean;
+  assignmentsAllowedInClass: boolean;
 }
 
 export interface me_me_Student_inCourses {
@@ -8067,6 +8091,28 @@ export type me_me = me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: checkAssignmentsAllowedInClass
+// ====================================================
+
+export interface checkAssignmentsAllowedInClass_checkAssignmentsAllowedInClass {
+  __typename: "CheckAssignmentsAllowedInClassPayload";
+  allowed: boolean;
+}
+
+export interface checkAssignmentsAllowedInClass {
+  checkAssignmentsAllowedInClass: checkAssignmentsAllowedInClass_checkAssignmentsAllowedInClass;
+}
+
+export interface checkAssignmentsAllowedInClassVariables {
+  input: CheckAssignmentsAllowedInClassInput;
 }
 
 /* tslint:disable */
@@ -8145,7 +8191,23 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_score;
 }
 
-export type findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments = findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide;
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment {
+  __typename: "SpecialAssignment";
+  markingPeriod: MarkingPeriodEnum;
+  dueDate: string;
+  dueTime: string;
+  exempt: boolean;
+  gradeType: GradeTypeEnum;
+  score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score;
+}
+
+export type findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments = findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment;
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_responsibilityPoints {
   __typename: "ResponsibilityPoints";
@@ -8480,6 +8542,10 @@ export interface ChangePasswordInput {
   newPassword: string;
   oldPassword: string;
   userName: string;
+}
+
+export interface CheckAssignmentsAllowedInClassInput {
+  courseId: string;
 }
 
 export interface CheckQuizQuestionsForTextSectionsInput {

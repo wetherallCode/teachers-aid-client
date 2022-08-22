@@ -35,6 +35,7 @@ import { UnderlinedCenteredText } from '../../../../../../appStyles'
 import { useGradeCalculator } from '../../../../../../hooks/useGradeCalculator'
 import { useClassTimeIndicator } from '../../../../../../hooks/useClassTimeIndicator'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
+import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
 
 export type EssayToCompleteProps = {}
 
@@ -161,6 +162,9 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
   const me: me_me_Student = useUserContextProvider()
   const { essayToComplete } = useParams()
   const { classTime } = useClassTimeIndicator(me)
+  // const { assignmentsInClassAllowed } = me.inCourses[0].hasCourseInfo!
+  const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
+
   const navigate = useNavigate()
   const [state, event] = useStudentEssayContextProvider()
 
@@ -370,8 +374,9 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
   })
 
   useEffect(() => {
-    if (classTime) navigate('dashboard/assignments')
-  }, [classTime, navigate])
+    if (classTime && !assignmentsAllowedInClass)
+      navigate('/dashboard/assignments')
+  }, [classTime, navigate, assignmentsAllowedInClass])
 
   if (loading) return <div>Loading </div>
   return (
@@ -401,7 +406,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
 
       <EssayInfoContainer>
         <EssayInfo
-          vocabList={data?.findEssayById.essay.lessonInfo.vocabList!}
+          vocabList={data?.findEssayById.essay.lessonInfo!.vocabList!}
         />
       </EssayInfoContainer>
 

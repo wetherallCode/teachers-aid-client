@@ -55,6 +55,7 @@ export const EndingPhrase = ({
   const [questionTypeMessage, setQuestionTypeMessage] = useState<null | string>(
     null
   )
+
   const [enabled, setEnabled] = useState(true)
 
   const [setAnswerType] = useMutation<setAnswerType, setAnswerTypeVariables>(
@@ -105,7 +106,6 @@ export const EndingPhrase = ({
     if (answer) {
       if (correct) {
         if (writingLevel === WritingLevelEnum.DEVELOPING) {
-          console.log(answer && answer === 'how')
           event({
             type: 'SET_BASIC_QUESTION_TYPE',
             payload:
@@ -164,6 +164,7 @@ export const EndingPhrase = ({
       const shouldBeWhyQuestion =
         question.questionWord === QuestionWordEnum.WHY &&
         questionWord === QuestionWordEnum.HOW
+
       const shouldBeHowQuestion =
         question.questionWord === QuestionWordEnum.HOW &&
         questionWord === QuestionWordEnum.WHY
@@ -173,18 +174,19 @@ export const EndingPhrase = ({
           'Nope: If the verb is affect, change, evolve, influence, or shape, it is a How: Cause and Effect Question. Otherwise, the sentence is a Problem and Solution question. '
         )
 
-      if (shouldBeWhyQuestion || shouldBeHowQuestion)
+      if (shouldBeWhyQuestion || shouldBeHowQuestion) {
         setQuestionTypeMessage(
           // 'Nope: If the verb is affect, affect, change, evolve, influence, or shape, it is a How: Cause and Effect Question. If the verb
           'Try again! Look at the question word again.'
         )
+      }
       setQuestionTypeCorrect(false)
       setQuestionTypeEnabled(false)
 
       const timer = setTimeout(() => {
         setQuestionTypeMessage(null)
         setQuestionTypeEnabled(true)
-      }, 10000)
+      }, 5000)
       return () => clearTimeout(timer)
     }
   }
@@ -221,9 +223,9 @@ export const EndingPhrase = ({
               <div>
                 If the question is a problem and solution question then you
                 would end the sentence "...to solve a problem." If the verb is
-                solve or a synonym for solve you don't want to be repetitive so
+                solve or a synonym for solve you don't want to be repetitive, so
                 you can use "...in a certain way." If it is a why question, you
-                will still end the sentence with "...for a certain reason."
+                will end the sentence with "...for a certain reason."
               </div>
             )}
           </>
@@ -233,116 +235,132 @@ export const EndingPhrase = ({
         <br />
         <div>Click on the appropriate ending:</div>
       </RestatementDirectionsContainer>
-      {writingLevel === WritingLevelEnum.DEVELOPING && (
-        <EndingPhraseOptionsContainer>
-          <RestatementQuestionToRestateSelection
-            onClick={() => {
-              setAnswer('how')
-            }}
-          >
-            ...in a certain way.
-          </RestatementQuestionToRestateSelection>
-          <RestatementQuestionToRestateSelection
-            onClick={() => {
-              setAnswer('why')
-            }}
-          >
-            ...for a certain reason.
-          </RestatementQuestionToRestateSelection>
-        </EndingPhraseOptionsContainer>
-      )}
-      {writingLevel === WritingLevelEnum.ACADEMIC && (
+
+      <>
+        {/* {enabled ? ( */}
         <>
-          {state.context.academicOrganizer.questionType === null ? (
+          {writingLevel === WritingLevelEnum.DEVELOPING && (
             <EndingPhraseOptionsContainer>
               <RestatementQuestionToRestateSelection
                 onClick={() => {
-                  questionTypeEnabled &&
-                    handleQuestionTypeSelector(
-                      QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
-                      QuestionWordEnum.HOW
-                    )
+                  setAnswer('how')
                 }}
               >
-                How: Problem and Solution
-              </RestatementQuestionToRestateSelection>
-              <RestatementQuestionToRestateSelection
-                onClick={() => {
-                  questionTypeEnabled &&
-                    handleQuestionTypeSelector(
-                      QuestionTypeEnum.HOW_CAUSE_EFFECT,
-                      QuestionWordEnum.HOW
-                    )
-                }}
-              >
-                How: Cause and Effect
-              </RestatementQuestionToRestateSelection>
-              <RestatementQuestionToRestateSelection
-                onClick={() => {
-                  questionTypeEnabled &&
-                    handleQuestionTypeSelector(
-                      QuestionTypeEnum.WHY_CAUSE_EFFECT,
-                      QuestionWordEnum.WHY
-                    )
-                }}
-              >
-                Why: Cause and Effect
-              </RestatementQuestionToRestateSelection>
-            </EndingPhraseOptionsContainer>
-          ) : (
-            <EndingPhraseOptionsContainer>
-              <div onClick={() => setAnswer('toSolveAProblem')}>
-                ...to solve a problem.
-              </div>
-              <div onClick={() => setAnswer('inACertainWay')}>
                 ...in a certain way.
-              </div>
-              <div onClick={() => setAnswer('forACertainReason')}>
+              </RestatementQuestionToRestateSelection>
+              <RestatementQuestionToRestateSelection
+                onClick={() => {
+                  setAnswer('why')
+                }}
+              >
                 ...for a certain reason.
-              </div>
+              </RestatementQuestionToRestateSelection>
             </EndingPhraseOptionsContainer>
+          )}
+          {writingLevel === WritingLevelEnum.ACADEMIC && (
+            <>
+              {state.context.academicOrganizer.questionType === null ? (
+                <EndingPhraseOptionsContainer>
+                  <RestatementQuestionToRestateSelection
+                    onClick={() => {
+                      questionTypeEnabled &&
+                        handleQuestionTypeSelector(
+                          QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
+                          QuestionWordEnum.HOW
+                        )
+                    }}
+                  >
+                    How: Problem and Solution
+                  </RestatementQuestionToRestateSelection>
+                  <RestatementQuestionToRestateSelection
+                    onClick={() => {
+                      questionTypeEnabled &&
+                        handleQuestionTypeSelector(
+                          QuestionTypeEnum.HOW_CAUSE_EFFECT,
+                          QuestionWordEnum.HOW
+                        )
+                    }}
+                  >
+                    How: Cause and Effect
+                  </RestatementQuestionToRestateSelection>
+                  <RestatementQuestionToRestateSelection
+                    onClick={() => {
+                      questionTypeEnabled &&
+                        handleQuestionTypeSelector(
+                          QuestionTypeEnum.WHY_CAUSE_EFFECT,
+                          QuestionWordEnum.WHY
+                        )
+                    }}
+                  >
+                    Why: Cause and Effect
+                  </RestatementQuestionToRestateSelection>
+                </EndingPhraseOptionsContainer>
+              ) : (
+                <EndingPhraseOptionsContainer>
+                  <div onClick={() => setAnswer('toSolveAProblem')}>
+                    ...to solve a problem.
+                  </div>
+                  <div onClick={() => setAnswer('inACertainWay')}>
+                    ...in a certain way.
+                  </div>
+                  <div onClick={() => setAnswer('forACertainReason')}>
+                    ...for a certain reason.
+                  </div>
+                </EndingPhraseOptionsContainer>
+              )}
+            </>
           )}
         </>
-      )}
-      <br />
+        {/* ) : ( */}
+        <>
+          {answer && (
+            <RestatementFeedbackContainer
+              style={{ gridRow: '6/-2' }}
+              correct={correct}
+            >
+              <UnderlinedText>Feedback</UnderlinedText>
+              {correct ? (
+                <FinalRestatementMessageContainer>
+                  <FinalRestatementMessage>
+                    {message} Here's the final sentence:
+                  </FinalRestatementMessage>
 
-      {answer && (
-        <RestatementFeedbackContainer correct={correct}>
-          <UnderlinedText>Feedback</UnderlinedText>
-          {correct ? (
-            <FinalRestatementMessageContainer>
-              <FinalRestatementMessage>
-                {message} Here's the final sentence:
-              </FinalRestatementMessage>
-
-              <FinalRestatementStyles>
-                {questionToModify.join(' ').replace('|', '').replace('.', ' ') +
-                  ending}
-              </FinalRestatementStyles>
-            </FinalRestatementMessageContainer>
-          ) : (
-            <>
-              <div>{message}</div>
-            </>
+                  <FinalRestatementStyles>
+                    {questionToModify
+                      .join(' ')
+                      .replace('|', '')
+                      .replace('.', ' ') + ending}
+                  </FinalRestatementStyles>
+                </FinalRestatementMessageContainer>
+              ) : (
+                <>
+                  <div>{message}</div>
+                </>
+              )}
+            </RestatementFeedbackContainer>
           )}
-        </RestatementFeedbackContainer>
-      )}
-      {questionTypeMessage && (
-        <RestatementFeedbackContainer correct={questionTypeCorrect}>
-          <UnderlinedText>Feedback</UnderlinedText>
-          {questionTypeCorrect ? (
-            <FinalRestatementMessageContainer>
-              <FinalRestatementMessage>
-                {questionTypeMessage}
-              </FinalRestatementMessage>
-            </FinalRestatementMessageContainer>
-          ) : (
-            <>
-              <div>{questionTypeMessage}</div>
-            </>
+          {questionTypeMessage && (
+            <RestatementFeedbackContainer
+              style={{ gridRow: '6/-2' }}
+              correct={questionTypeCorrect}
+            >
+              <UnderlinedText>Feedback</UnderlinedText>
+              {questionTypeCorrect ? (
+                <FinalRestatementMessageContainer>
+                  <FinalRestatementMessage>
+                    {questionTypeMessage}
+                  </FinalRestatementMessage>
+                </FinalRestatementMessageContainer>
+              ) : (
+                <>
+                  <div>{questionTypeMessage}</div>
+                </>
+              )}
+            </RestatementFeedbackContainer>
           )}
-        </RestatementFeedbackContainer>
-      )}
+        </>
+        {/* )} */}
+      </>
     </>
   )
 }

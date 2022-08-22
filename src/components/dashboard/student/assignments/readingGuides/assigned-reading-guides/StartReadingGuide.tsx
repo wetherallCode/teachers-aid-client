@@ -4,7 +4,7 @@ import {
   startReadingGuideVariables,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   startReadingGuide,
-} from '../../../../../schemaTypes'
+} from '../../../../../../schemaTypes'
 import { START_READING_GUIDE_MUTATION } from './ReadingGuideToComplete'
 
 export type StartReadingGuideProps = {

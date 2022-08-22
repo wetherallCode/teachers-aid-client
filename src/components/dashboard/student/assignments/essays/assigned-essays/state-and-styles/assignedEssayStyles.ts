@@ -240,7 +240,7 @@ export const OrganizerSectionDirectionsContainer = styled.div`
   font-size: 2vh;
 `
 export const RestatementQuestionToRestateContainer = styled.div`
-  grid-row: 3/4;
+  grid-row: 5/6;
   grid-column: 1/-1;
   display: grid;
   justify-items: center;
@@ -276,7 +276,7 @@ export const RestatementDirectionsContainerObjectDirections = styled(
 `
 
 export const RestatementDirectionsContainerObjectDirectionsButtonContainer = styled.div`
-  grid-row: 4/5;
+  grid-row: 5/6;
   grid-column: 2/-2;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -295,13 +295,13 @@ export type RestatementFeedbackContainerProps = {
 }
 
 export const RestatementFeedbackContainer = styled.div<RestatementFeedbackContainerProps>`
-  grid-row: 4/-2;
+  grid-row: 5/-2;
   grid-column: 2/-2;
   display: grid;
   grid-template-rows: 1fr 5fr;
   justify-items: center;
   align-items: top;
-  font-size: 2vh;
+  font-size: 3vh;
   color: ${({ correct }) => (correct ? 'var(--blue)' : 'var(--red)')};
 `
 
@@ -318,7 +318,7 @@ export const FinalRestatementStyles = styled.div`
 export const RestatementFeedbackContainerObjectIndentification = styled(
   RestatementFeedbackContainer
 )`
-  grid-row: 5/-2;
+  grid-row: 6/-2;
 `
 export const RestatementFeedBackContainerMessageContainer = styled.div`
   /* display: grid; */
@@ -329,7 +329,7 @@ export type RestatementSplitterProps = {
   cursorFormat: 'POINTER' | 'TEXT' | 'NONE'
 }
 export const RestatementSplitter = styled.div<RestatementSplitterProps>`
-  grid-row: 3/4;
+  grid-row: 5/6;
   grid-column: 1/-1;
   justify-self: center;
   align-self: center;
@@ -533,7 +533,7 @@ export const AcademicEssayOrganizerAnswer = styled(EssayOrganizerAnswer)`
 
 export const AcademicEssayOrganizerAnswerBlock = styled.div`
   display: grid;
-  grid-template-rows: 1fr 3fr;
+  /* grid-template-rows: 1fr 3fr; */
 `
 
 export const AcademicEssayOrganizerAnswerBlockHeader = styled.div`

@@ -54,6 +54,13 @@ export const FIND_STUDENT_GRADES_QUERY = gql`
             maxPoints
           }
         }
+        ... on SpecialAssignment {
+          gradeType
+          score {
+            earnedPoints
+            maxPoints
+          }
+        }
       }
       responsibilityPoints {
         responsibilityPoints
@@ -75,6 +82,7 @@ export const useCalculateGrades = ({
     variables: {
       input: { markingPeriod, studentId },
     },
+    pollInterval: polling ? pollInterval : 0,
     // onCompleted: (data) =>
     //   console.log(data.findAllMarkingPeriodGrades.responsibilityPoints),
     onError: (error) => console.error(error),
@@ -183,6 +191,9 @@ export const useCalculateGrades = ({
         grade: gradeTotal(primaryGrade, secondaryGrade),
         loading,
         noGrade: false,
+        primaryGrade,
+        secondaryGrade,
+        rp: null,
       }
     }
 
@@ -191,6 +202,9 @@ export const useCalculateGrades = ({
         grade: handeResponsiblityPointScore(responsibilityPoints, 1),
         loading,
         noGrade: false,
+        primaryGrade: null,
+        secondaryGrade: null,
+        rp: handeResponsiblityPointScore(responsibilityPoints, 1),
       }
     }
     if (onlySecondary) {
@@ -198,6 +212,9 @@ export const useCalculateGrades = ({
         grade: +handleScoring(allSecondaryGrades, 100).toFixed(2),
         loading,
         noGrade: false,
+        primaryGrade: null,
+        secondaryGrade: +handleScoring(allSecondaryGrades, 100).toFixed(2),
+        rp: null,
       }
     }
     if (onlyPrimary) {
@@ -205,6 +222,9 @@ export const useCalculateGrades = ({
         grade: +handleScoring(allEssays, 100).toFixed(2),
         loading,
         noGrade: false,
+        primaryGrade: +handleScoring(allEssays, 100).toFixed(2),
+        secondaryGrade: null,
+        rp: null,
       }
     }
 
@@ -224,6 +244,9 @@ export const useCalculateGrades = ({
         grade: gradeTotal(primaryGrade, rp),
         loading,
         noGrade: false,
+        primaryGrade,
+        secondaryGrade: null,
+        rp,
       }
     }
     if (onlySecondaryAndResponsiblityPoints) {
@@ -242,6 +265,9 @@ export const useCalculateGrades = ({
         grade: gradeTotal(secondaryGrade, rp),
         loading,
         noGrade: false,
+        primaryGrade: null,
+        secondaryGrade,
+        rp,
       }
     }
     if (allGrades) {
@@ -257,6 +283,9 @@ export const useCalculateGrades = ({
         grade: Math.round(Number(totalGrade) * 10) / 10,
         loading,
         noGrade: false,
+        primaryGrade,
+        secondaryGrade,
+        rp,
       }
     }
   }

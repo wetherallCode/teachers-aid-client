@@ -53,7 +53,7 @@ export const FIND_COURSE_INFO_FOR_COURSE_EDITOR_QUERY = gql`
   }
 `
 
-export const EditCourse: FC<EditCourseProps> = () => {
+export const EditCourse = ({}: EditCourseProps) => {
   const { course } = useParams()
   const [state, event] = useEditCourseContextProvider()
 

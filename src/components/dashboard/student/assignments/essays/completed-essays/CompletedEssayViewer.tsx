@@ -32,9 +32,7 @@ export type submittedFinalDraftType = {
   score: number
 }
 
-export const CompletedEssayViewer: FC<CompletedEssayViewerProps> = ({
-  draft,
-}) => {
+export const CompletedEssayViewer = ({ draft }: CompletedEssayViewerProps) => {
   const editor = useMemo(() => withReact(createEditor()), [])
 
   const parsedEssay = JSON.parse(draft)

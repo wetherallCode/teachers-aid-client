@@ -470,7 +470,7 @@ export const useGradeCalculator = ({
       )
     // console.log(essayGrade, articleReviewGrade, responsibilityPointGrade)
     const grade = totalGrade(essayGrade, secondary, responsibilityPointGrade)
-    console.log(new Date().toISOString().substring(17, 23))
+    // console.log(new Date().toISOString().substring(17, 23))
     return {
       grade: grade,
       loading: assignmentLoading || responsibilityPointsLoading,

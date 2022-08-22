@@ -128,7 +128,7 @@ export const STUDENT_SIGN_IN_MUTATION = gql`
   }
 `
 
-export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
+export const LessonMainMenu = ({}: LessonMainMenuProps) => {
   const me: me_me = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
   const { dateTime } = useTime()
@@ -211,7 +211,7 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
         onError: (error) => console.error(error),
       }
     )
-  // console.log(data?.findLessonByCourseAndDate.lesson?.dynamicLesson)
+
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id
   )
@@ -267,11 +267,23 @@ export const LessonMainMenu: FC<LessonMainMenuProps> = () => {
       }
     }
   }, [courseToLoad, dateTime])
-  console.log(courseToLoad)
+  console.log(loading)
   if (!me) return <Navigate to='/' />
   return (
     <>
-      {state.matches('getLesson') && <div>No Lesson</div>}
+      {state.matches('getLesson') && (
+        <div
+          style={{
+            display: 'grid',
+            justifyItems: 'center',
+            alignItems: 'center',
+            fontSize: '3vh',
+            height: '95vh',
+          }}
+        >
+          <div>Loading Lesson</div>
+        </div>
+      )}
       {state.matches('todaysLesson') && (
         <>
           <LessonLoader

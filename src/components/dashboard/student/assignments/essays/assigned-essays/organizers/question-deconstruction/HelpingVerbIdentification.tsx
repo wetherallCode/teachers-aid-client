@@ -106,9 +106,12 @@ export const HelpingVerbIdentification = ({
     question.helpingVerb + ' ' + question.completePredicate
 
   const helpingVerbCheck = (word: string) => {
+    console.log(word)
     if (word === question.helpingVerb && question.helpingVerb === 'did') {
+      setEnabled(false)
       removeDidHandler(word)
     } else if (word === question.helpingVerb) {
+      setEnabled(false)
       moveBeingWord(word)
     } else {
       setEnabled(false)
@@ -152,60 +155,71 @@ export const HelpingVerbIdentification = ({
           {question.helpingVerb !== 'did' &&
             `Double click to have "${question.helpingVerb}" moved to the correct place in the sentence.`}
         </RestatementDirectionsContainer>
-        <RestatementQuestionToRestateContainer>
-          <SentenceToManipulate
-            cursorFormat={enabled ? 'POINTER' : 'NONE'}
-            onMouseUp={(e) => (enabled ? select() : e.preventDefault())}
-            onSelect={(e) => !enabled && e.preventDefault()}
-          >
-            {questionToModify
-              .join(' ')
-              .split(' ')
-              .includes(question.helpingVerb) ? (
-              questionToModify.map((word, i: number) => (
-                <span key={i}>
-                  <span
-                    onDoubleClick={() => {
-                      enabled && helpingVerbCheck(word.toLowerCase())
-                      enabled && setattempts((a) => a + 1)
-                    }}
-                  >
-                    {word === questionToModify[0] ? capitalizer(word) : word}
-                  </span>
-                  {word !== questionToModify[questionToModify.length - 2] && (
-                    <span> </span>
-                  )}
-                </span>
-              ))
-            ) : (
-              <div>
+
+        <>
+          {enabled ? (
+            <RestatementQuestionToRestateContainer>
+              <SentenceToManipulate
+                cursorFormat={enabled ? 'POINTER' : 'NONE'}
+                onMouseUp={(e) => (enabled ? select() : e.preventDefault())}
+                onSelect={(e) => !enabled && e.preventDefault()}
+              >
                 {questionToModify
-                  .slice(0, questionToModify.length - 1)
-                  .join(' ') +
-                  questionToModify
-                    .slice(questionToModify.length - 1)
-                    .join('')
-                    .replace('?', '.')}
-              </div>
-            )}
-          </SentenceToManipulate>
-        </RestatementQuestionToRestateContainer>
-        {wordToCheck && (
-          <RestatementFeedbackContainer
-            correct={wordToCheck.toLowerCase() === question.helpingVerb}
-          >
-            <UnderlinedText>Feedback</UnderlinedText>
-            {wordToCheck.toLowerCase() !== question.helpingVerb ? (
-              <div>
-                "{capitalizer(wordToCheck)}" is not the word "
-                {question.helpingVerb}". Double click the word "
-                {question.helpingVerb}" please.
-              </div>
-            ) : (
-              <div>That's it! Good Job!</div>
-            )}
-          </RestatementFeedbackContainer>
-        )}
+                  .join(' ')
+                  .split(' ')
+                  .includes(question.helpingVerb) ? (
+                  questionToModify.map((word, i: number) => (
+                    <span key={i}>
+                      <span
+                        onDoubleClick={() => {
+                          enabled && helpingVerbCheck(word.toLowerCase())
+                          enabled && setattempts((a) => a + 1)
+                        }}
+                      >
+                        {word === questionToModify[0]
+                          ? capitalizer(word)
+                          : word}
+                      </span>
+                      {word !==
+                        questionToModify[questionToModify.length - 2] && (
+                        <span> </span>
+                      )}
+                    </span>
+                  ))
+                ) : (
+                  <div>
+                    {questionToModify
+                      .slice(0, questionToModify.length - 1)
+                      .join(' ') +
+                      questionToModify
+                        .slice(questionToModify.length - 1)
+                        .join('')
+                        .replace('?', '.')}
+                  </div>
+                )}
+              </SentenceToManipulate>
+            </RestatementQuestionToRestateContainer>
+          ) : (
+            <>
+              {wordToCheck && (
+                <RestatementFeedbackContainer
+                  correct={wordToCheck.toLowerCase() === question.helpingVerb}
+                >
+                  <UnderlinedText>Feedback</UnderlinedText>
+                  {wordToCheck.toLowerCase() !== question.helpingVerb ? (
+                    <div>
+                      "{capitalizer(wordToCheck)}" is not the word "
+                      {question.helpingVerb}". Double click the word "
+                      {question.helpingVerb}" please.
+                    </div>
+                  ) : (
+                    <div>That's it! Good Job!</div>
+                  )}
+                </RestatementFeedbackContainer>
+              )}
+            </>
+          )}
+        </>
       </>
     </>
   )

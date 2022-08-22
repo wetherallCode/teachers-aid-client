@@ -26,7 +26,7 @@ export type MultipleDraftViewProps = {
   essay: findCompletedEssayById_findEssayById_essay
 }
 
-export const MultipleDraftView: FC<MultipleDraftViewProps> = ({ essay }) => {
+export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
   const [state, event] = useCompletedEssayContextProvider()
   const [organizerView, setOrganizerView] = useState(false)
   const [draftSelector, setDraftSelector] = useState(

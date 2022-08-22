@@ -45,6 +45,7 @@ export const SubjectPredicateSplit = ({
     separator,
     sentence.slice(point!, sentence.length).trim(),
   ]
+
   const selectedPredicate =
     newSentence[2].split(' ').length > 1
       ? newSentence[2]
@@ -80,6 +81,7 @@ export const SubjectPredicateSplit = ({
           newSentence.join(' ').split(' ')[0].charAt(0).toUpperCase() +
           newSentence.join(' ').slice(1)
         ).split(' ')
+
         setQuestionToModify(sentenceToPass)
         setState('subject-identification')
       }, 6000)
@@ -88,14 +90,14 @@ export const SubjectPredicateSplit = ({
       }
     }
     const startTime = new Date().toISOString()
+
     const timer = setTimeout(
       () => {
         setPoint(null)
         const endTime = new Date().toISOString()
         const timeToComplete = timeAFunction(startTime, endTime)
       },
-      attempt < 1 ? 4000 : 4000 + attempt * 1000
-      // 3000
+      attempt < 1 ? 6000 : 6000 + attempt * 1000
     )
     return () => {
       clearTimeout(timer)
@@ -110,10 +112,10 @@ export const SubjectPredicateSplit = ({
         <RestatementDirectionsContainer>
           <UnderlinedText>Split the Subject from the Predicate</UnderlinedText>
           Every sentence can be split into two parts: the subject and the
-          predicate. Click (or tap) on the sentence below to separate it into
-          the subject and predicate. The subject will be on the left side with a
-          single underline, and the predicate will be on the right side with
-          double underline.
+          predicate. Click on the sentence below to separate it into the subject
+          and predicate. The subject will be on the left side with a single
+          underline, and the predicate will be on the right side with double
+          underline.
         </RestatementDirectionsContainer>
         {point ? (
           <RestatementSplitter
@@ -172,7 +174,10 @@ export const SubjectPredicateSplit = ({
           </RestatementSplitter>
         )}
         {point ? (
-          <RestatementFeedbackContainer correct={correct}>
+          <RestatementFeedbackContainer
+            style={{ gridRow: '6/-2' }}
+            correct={correct}
+          >
             <UnderlinedText>Feedback</UnderlinedText>
             {!correct ? (
               <div>
@@ -217,8 +222,6 @@ export const SubjectPredicateSplit = ({
                     what the {question.nounType.toLowerCase()} is.
                   </div>
                 )}
-                <br />
-                {/* <button onClick={() => setSentence(newSentence.join(' '))}>Next Step</button> */}
               </div>
             )}
           </RestatementFeedbackContainer>

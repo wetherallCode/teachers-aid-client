@@ -62,6 +62,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
       (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
     )
     .filter((essay) => !essay.exempt)!
+
   const allEssaysComplete =
     essaysForMarkingPeriod &&
     essaysForMarkingPeriod.length > 0 &&

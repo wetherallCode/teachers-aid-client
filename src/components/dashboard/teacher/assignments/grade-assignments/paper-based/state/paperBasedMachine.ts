@@ -26,7 +26,12 @@ export type paperBasedMachineEvent =
   | { type: 'SET_ASSIGNMENT_ID'; payload: string }
   | {
       type: 'SET_ASSIGNMENT_TYPE'
-      payload: 'ArticleReview' | 'Quiz' | 'Essay' | 'ReadingGuide'
+      payload:
+        | 'ArticleReview'
+        | 'Quiz'
+        | 'Essay'
+        | 'ReadingGuide'
+        | 'SpecialAssignment'
     }
   | {
       type: 'SET_ASSIGNMENT_INFO'
@@ -58,7 +63,12 @@ export type paperBasedMachineEvent =
 
 export type paperBasedMachineContext = {
   assignmentId: string
-  assignmentType: 'ArticleReview' | 'Quiz' | 'Essay' | 'ReadingGuide'
+  assignmentType:
+    | 'ArticleReview'
+    | 'Quiz'
+    | 'Essay'
+    | 'ReadingGuide'
+    | 'SpecialAssignment'
 
   student: { firstName: string; lastName: string }
   readings: { readingPages: number; readingSections: string }

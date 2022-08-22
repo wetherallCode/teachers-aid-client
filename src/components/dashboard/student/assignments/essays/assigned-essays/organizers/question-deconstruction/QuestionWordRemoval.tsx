@@ -44,6 +44,7 @@ export const QuestionWordRemoval = ({
       word.toLowerCase() === question.questionWord.toLowerCase()
 
     if (correctAnswer) {
+      setEnabled(false)
       const timer = setTimeout(() => {
         handleQuestionWordRemove(word)
       }, 3000)
@@ -59,11 +60,12 @@ export const QuestionWordRemoval = ({
           reset()
           setEnabled(true)
         },
-        attempts === 0 ? 3000 : 3000 + 1000 * attempts
+        attempts === 0 ? 5000 : 5000 + 1000 * attempts
       )
       return () => clearTimeout(timer)
     }
   }
+
   return (
     <>
       <RestatementDirectionsContainer>
@@ -73,44 +75,58 @@ export const QuestionWordRemoval = ({
           word you think is the question word in the sentence below.
         </div>
       </RestatementDirectionsContainer>
-      <RestatementQuestionToRestateContainer>
-        <SentenceToManipulate
-          cursorFormat={enabled ? 'POINTER' : 'NONE'}
-          onMouseUp={(e) => (enabled ? select() : e.preventDefault())}
-          onSelect={(e) => !enabled && e.preventDefault()}
-        >
-          {questionToModify.map((word, i: number) => (
-            <span key={i}>
-              <span
-                onDoubleClick={() => {
-                  enabled && setattempts((a) => a + 1)
-                  enabled && handleSelection(word)
-                }}
+
+      <>
+        {enabled ? (
+          <RestatementQuestionToRestateContainer>
+            <SentenceToManipulate
+              cursorFormat={enabled ? 'POINTER' : 'NONE'}
+              onMouseUp={(e) => (enabled ? select() : e.preventDefault())}
+              onSelect={(e) => !enabled && e.preventDefault()}
+            >
+              {questionToModify.map((word, i: number) => (
+                <span key={i}>
+                  <span
+                    onDoubleClick={() => {
+                      enabled && setattempts((a) => a + 1)
+                      enabled && handleSelection(word)
+                    }}
+                    onSelect={() => {
+                      enabled && setattempts((a) => a + 1)
+                      enabled && handleSelection(word)
+                    }}
+                  >
+                    {word === questionToModify[0] ? capitalizer(word) : word}
+                  </span>
+                  {word !== questionToModify[questionToModify.length - 2] && (
+                    <span> </span>
+                  )}
+                </span>
+              ))}
+            </SentenceToManipulate>
+          </RestatementQuestionToRestateContainer>
+        ) : (
+          <>
+            {text && (
+              <RestatementFeedbackContainer
+                correct={
+                  text.toLowerCase() === question.questionWord.toLowerCase()
+                }
               >
-                {word === questionToModify[0] ? capitalizer(word) : word}
-              </span>
-              {word !== questionToModify[questionToModify.length - 2] && (
-                <span> </span>
-              )}
-            </span>
-          ))}
-        </SentenceToManipulate>
-      </RestatementQuestionToRestateContainer>
-      {text && (
-        <RestatementFeedbackContainer
-          correct={text.toLowerCase() === question.questionWord.toLowerCase()}
-        >
-          <UnderlinedText>Feedback</UnderlinedText>
-          {text.toLowerCase() !== question.questionWord.toLowerCase() ? (
-            <div>
-              "{capitalizer(text)}" is not the question word. It is either How
-              or Why. Try it again!
-            </div>
-          ) : (
-            <div>That's it! Good Job!</div>
-          )}
-        </RestatementFeedbackContainer>
-      )}
+                <UnderlinedText>Feedback</UnderlinedText>
+                {text.toLowerCase() !== question.questionWord.toLowerCase() ? (
+                  <div>
+                    "{capitalizer(text)}" is not the question word. It is either
+                    How or Why. Try it again!
+                  </div>
+                ) : (
+                  <div>That's it! Good Job!</div>
+                )}
+              </RestatementFeedbackContainer>
+            )}
+          </>
+        )}
+      </>
     </>
   )
 }

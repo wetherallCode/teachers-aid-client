@@ -9,6 +9,7 @@ import {
   capitalizer,
   irregularPastTenseVerbList,
   phraseCapitalizer,
+  specialVerbsInPastTense,
   timeAFunction,
 } from '../../../../../../../../utils'
 
@@ -76,10 +77,28 @@ export const ObjectIdentification = ({
     (question.helpingVerb !== 'did' && !question.subjectCompliment)
 
   const conjugatedVerb =
-    irregularPastTenseVerbList(question.simplePredicate) ===
+    specialVerbsInPastTense(question.simplePredicate) ===
     question.simplePredicate
-      ? question.simplePredicate + 'ed'
-      : irregularPastTenseVerbList(question.simplePredicate)
+      ? irregularPastTenseVerbList(question.simplePredicate) ===
+        question.simplePredicate
+        ? question.simplePredicate.split('')[
+            question.simplePredicate.split('').length - 1
+          ] === 'e'
+          ? question.simplePredicate + 'd'
+          : question.simplePredicate + 'ed'
+        : irregularPastTenseVerbList(question.simplePredicate)
+      : specialVerbsInPastTense(question.simplePredicate)
+
+  // const testWord = 'try'
+  // console.log(
+  //   specialVerbsInPastTense(testWord) === testWord
+  //     ? irregularPastTenseVerbList(testWord) === testWord
+  //       ? testWord.split('')[testWord.split('').length - 1] === 'e'
+  //         ? testWord + 'd'
+  //         : testWord + 'ed'
+  //       : irregularPastTenseVerbList(testWord)
+  //     : specialVerbsInPastTense(testWord)
+  // )
 
   const indexOfVerb = questionToModify
     .join(' ')
@@ -93,6 +112,7 @@ export const ObjectIdentification = ({
 
   useEffect(() => {
     if (correctObject && text) {
+      setEnabled(false)
       const timer = setTimeout(() => {
         if (writingLevel === WritingLevelEnum.DEVELOPING)
           event({
@@ -111,7 +131,7 @@ export const ObjectIdentification = ({
           })
         setState('ending-phrase')
         return () => clearTimeout(timer)
-      }, 4000)
+      }, 3000)
     }
     if (text && !correctObject) {
       setEnabled(false)
@@ -124,7 +144,7 @@ export const ObjectIdentification = ({
           setEnabled(true)
           console.log(timeToComplete)
         },
-        attempts < 1 ? 4000 : 4000 + attempts * 1000
+        attempts < 1 ? 7000 : 7000 + attempts * 1000
       )
       return () => clearTimeout(timer)
     }
@@ -147,9 +167,12 @@ export const ObjectIdentification = ({
             <div>{questionToModify.join(' ').replace(' | ', ' ')}</div>
             <br />
             <div>
-              and ask yourself: {phraseCapitalizer(question.helpingVerb)}{' '}
-              {question.completeSubject} {question.simplePredicate} something?
-              If there is a direct answer to this question, the answer is yes.
+              and ask yourself:{' '}
+              <u>
+                {phraseCapitalizer(question.helpingVerb)}{' '}
+                {question.completeSubject} {question.simplePredicate} something
+              </u>
+              ? If there is a direct answer to this question, the answer is yes.
               If there isn't a direct answer (or the question makes no sense),
               the answer is no.
             </div>
@@ -230,6 +253,7 @@ export const ObjectIdentification = ({
                     // setStep('identifyObject')
                     setState('ending-phrase')
                   }, 3000)
+
                   return () => clearTimeout(timer)
                 }
               }}
@@ -252,7 +276,7 @@ export const ObjectIdentification = ({
       {step === 'identifyObject' && (
         <>
           <RestatementDirectionsContainer>
-            <UnderlinedText>Directions</UnderlinedText>
+            <UnderlinedText>Find the Object of the Verb</UnderlinedText>
             <div>
               Now we must find the object. Select the word or words that you
               think are the object. Remember: the object comes directly after
@@ -260,40 +284,46 @@ export const ObjectIdentification = ({
               the noun together.
             </div>
           </RestatementDirectionsContainer>
-          <RestatementQuestionToRestateContainer>
-            <SentenceToManipulate
-              cursorFormat={enabled ? 'TEXT' : 'NONE'}
-              onMouseUp={(e) => {
-                enabled ? select() : e.preventDefault()
-                enabled && setAttempts((a) => a + 0.5)
-              }}
-              onSelect={(e) => !enabled && e.preventDefault()}
-            >
-              {questionToModify.map((word, i: number) => (
-                <span key={i}>
-                  <span>{word}</span>
-                  {word !== questionToModify[questionToModify.length - 1] && (
-                    <span> </span>
+
+          {enabled ? (
+            <RestatementQuestionToRestateContainer>
+              <SentenceToManipulate
+                cursorFormat={enabled ? 'TEXT' : 'NONE'}
+                onMouseUp={(e) => {
+                  enabled ? select() : e.preventDefault()
+                  enabled && setAttempts((a) => a + 0.5)
+                }}
+                onSelect={(e) => !enabled && e.preventDefault()}
+              >
+                {questionToModify.map((word, i: number) => (
+                  <span key={i}>
+                    <span>{word}</span>
+                    {word !== questionToModify[questionToModify.length - 1] && (
+                      <span> </span>
+                    )}
+                  </span>
+                ))}
+              </SentenceToManipulate>
+            </RestatementQuestionToRestateContainer>
+          ) : (
+            <>
+              {text && (
+                <RestatementFeedbackContainer correct={correctObject}>
+                  <UnderlinedText>Feedback</UnderlinedText>
+                  {!correctObject ? (
+                    <RestatementFeedBackContainerMessageContainer>
+                      <div>What went wrong? {message}</div>
+                      <br />
+                      <div>How do I fix it? {howToFix}</div>
+                    </RestatementFeedBackContainerMessageContainer>
+                  ) : (
+                    <RestatementFeedBackContainerMessageContainer>
+                      {correctMessage}
+                    </RestatementFeedBackContainerMessageContainer>
                   )}
-                </span>
-              ))}
-            </SentenceToManipulate>
-          </RestatementQuestionToRestateContainer>
-          {text && (
-            <RestatementFeedbackContainer correct={correctObject}>
-              <UnderlinedText>Feedback</UnderlinedText>
-              {!correctObject ? (
-                <RestatementFeedBackContainerMessageContainer>
-                  <div>What went wrong? {message}</div>
-                  <br />
-                  <div>How do I fix it? {howToFix}</div>
-                </RestatementFeedBackContainerMessageContainer>
-              ) : (
-                <RestatementFeedBackContainerMessageContainer>
-                  {correctMessage}
-                </RestatementFeedBackContainerMessageContainer>
+                </RestatementFeedbackContainer>
               )}
-            </RestatementFeedbackContainer>
+            </>
           )}
         </>
       )}

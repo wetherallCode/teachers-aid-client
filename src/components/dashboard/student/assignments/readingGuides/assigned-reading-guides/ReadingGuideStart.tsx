@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { StartReadingGuide } from './StartReadingGuide'
-import { findReadingGuideById_findReadingGuideById_readingGuide } from '../../../../../schemaTypes'
+import { findReadingGuideById_findReadingGuideById_readingGuide } from '../../../../../../schemaTypes'
 import { useNavigate } from 'react-router'
-import { dueTimeDisplay } from '../../../../../utils'
+import { dueTimeDisplay } from '../../../../../../utils'
 
 export type ReadingGuideStartProps = {
   readingGuideToComplete: string

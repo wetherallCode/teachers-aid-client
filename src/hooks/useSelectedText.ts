@@ -6,6 +6,7 @@ export const useSelectedText = () => {
 
   const select = () => {
     const selected = window.getSelection() as Selection
+    console.log(selected)
     setText(selected.toString())
   }
   const reset = () => {
@@ -13,6 +14,7 @@ export const useSelectedText = () => {
     window.getSelection()?.removeAllRanges()
     setText('')
   }
+
   const disable = () => null
   return [select, text, reset, disable] as const
 }

@@ -1,14 +1,14 @@
-import React, { FC } from 'react'
-import { useReadingGuideToCompleteContextProvider } from './state-and-styles/ReadingGuideToCompleteContext'
+import React from 'react'
+import { useReadingGuideToCompleteContextProvider } from '../state-and-styles/ReadingGuideToCompleteContext'
 import {
   ReadingGuideInfoTitle,
   ReadingGuideInfoBody,
   SectionOrganizationBodyEntry,
   Required,
-} from './state-and-styles/readingGuideStyles'
+} from '../state-and-styles/readingGuideStyles'
 export type ReadingGuideHelpProps = {}
 
-export const ReadingGuideHelp: FC<ReadingGuideHelpProps> = () => {
+export const ReadingGuideHelp = ({}: ReadingGuideHelpProps) => {
   const [state] = useReadingGuideToCompleteContextProvider()
 
   return (

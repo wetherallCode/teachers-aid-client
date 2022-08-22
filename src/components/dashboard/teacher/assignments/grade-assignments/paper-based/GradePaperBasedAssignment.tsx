@@ -85,7 +85,7 @@ export const GradePaperBasedAssignment: FC<
       event({ type: 'SET_ASSIGNMENT_ID', payload: assignmentId! })
       event({
         type: 'SET_ASSIGNMENT_TYPE',
-        payload: data.findAssignmentById.assignment.__typename,
+        payload: data.findAssignmentById.assignment.__typename!,
       })
       event({
         type: 'SET_LATE',
