@@ -14,26 +14,21 @@ import { TemporaryTasksContextProvider } from './temporary-tasks/state-n-styles/
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { me_me_Teacher } from '../../../../schemaTypes'
 import { gql } from '@apollo/client'
+import { CourseManagerHome } from './CourseManagerHome'
 
 export type CourseManagerProps = {}
-
-export const TOGGLE_ALLOW_ASSIGNMENTS_IN_CLASS_MUTATION = gql`
-  mutation toggleAssignmentsAllowedInClass(
-    $input: ToggleAssignmentsAllowedInClassInput!
-  ) {
-    toggleAssignmentsAllowedInClass(input: $input) {
-      toggled
-    }
-  }
-`
 
 export const CourseManager = ({}: CourseManagerProps) => {
   const me: me_me_Teacher = useUserContextProvider()
   const { course } = useParams()
-  const [name] = me.teachesCourses.filter((courses) => courses._id === course)
+  const courseManager = me.teachesCourses.filter(
+    (courses) => courses._id === course
+  )[0]
+
   return (
     <>
       <Routes>
+        <Route path='' element={<CourseManagerHome course={courseManager} />} />
         <Route
           path='lesson-editor'
           element={
@@ -61,7 +56,7 @@ export const CourseManager = ({}: CourseManagerProps) => {
         />
         <Route
           path='roster/*'
-          element={<RosterDashboard courseName={name.name} />}
+          element={<RosterDashboard courseName={courseManager.name} />}
         />
         <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
 

@@ -8025,6 +8025,7 @@ export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   halfDayStartsAt: string;
   halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
+  assignmentsAllowedInClass: boolean;
 }
 
 export interface me_me_Teacher_teachesCourses {

@@ -23,6 +23,7 @@ export const ME_QUERY = gql`
             halfDayStartsAt
             halfDayEndsAt
             schoolDayType
+            assignmentsAllowedInClass
           }
         }
       }
