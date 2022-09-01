@@ -1,5 +1,4 @@
 import React, { FC, useEffect } from 'react'
-import { Greetings } from '../home/Greetings'
 import { useUserContextProvider } from '../../contexts/UserContext'
 import {
   me_me,
@@ -14,6 +13,8 @@ import {
   findCurrentSchoolDay,
   findCurrentSchoolDayVariables,
   SchoolDayLengthEnum,
+  me_me_Student,
+  me_me_Teacher,
 } from '../../schemaTypes'
 import { capitalizer, timeFinder, date } from '../../utils'
 import { useDailyAgendaContextProvider } from './state-n-styles/DailyAgendaContext'
@@ -129,7 +130,7 @@ export const STUDENT_SIGN_IN_MUTATION = gql`
 `
 
 export const LessonMainMenu = ({}: LessonMainMenuProps) => {
-  const me: me_me = useUserContextProvider()
+  const me: me_me_Student | me_me_Teacher = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
   const { dateTime } = useTime()
 
@@ -267,7 +268,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
       }
     }
   }, [courseToLoad, dateTime])
-  console.log(loading)
+
   if (!me) return <Navigate to='/' />
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, Fragment } from 'react'
 import { useSchoolDayContextProvider } from './state/SchoolDayContext'
 import { CurrentSchoolDay } from './CurrentSchoolDay'
 import { CreateSchoolDay } from './CreateSchoolDay'
@@ -15,6 +15,10 @@ import {
 import { date } from '../../../utils'
 import { useUserContextProvider } from '../../../contexts/UserContext'
 import { CreateSignInSheets } from './CreateSignInSheets'
+import {
+  CreateSchoolDayButton,
+  SchoolDayContainer,
+} from '../teacher/teacherDashboardStyles'
 
 export type SchoolDayProps = {}
 
@@ -52,7 +56,7 @@ export const FIND_CURRENT_SCHOOL_DAY_QUERY = gql`
 //   }
 // `
 
-export const SchoolDay: FC<SchoolDayProps> = () => {
+export const SchoolDay = ({}: SchoolDayProps) => {
   const [state, event] = useSchoolDayContextProvider()
   const me: me_me_Teacher = useUserContextProvider()
   const navigate = useNavigate()
@@ -85,43 +89,35 @@ export const SchoolDay: FC<SchoolDayProps> = () => {
 
   return (
     <>
-      <>
-        {state.matches('currentSchoolDay') && (
-          <>
-            {data?.findSchoolDayByDate.schoolDay ? (
-              <>
-                <CurrentSchoolDay
-                  schoolDay={data.findSchoolDayByDate.schoolDay}
-                />
-                {/* {!hasSignInSheets && (
-                  <CreateSignInSheets
-                    todaysCourses={todaysCourses}
-                    signInSheets={
-                      data.findSchoolDayByDate.schoolDay.signInSheets!
-                    }
-                  />
-                )} */}
-                <button>Edit School Day</button>
-              </>
-            ) : (
-              <>
-                <div>No School Day</div>
-                <button onClick={() => event({ type: 'CREATE_SCHOOL_DAY' })}>
-                  Create School Day
-                </button>
-              </>
-            )}
-          </>
-        )}
-        {state.matches('createSchoolDay') && <CreateSchoolDay />}
-        {state.matches('editSchoolDay') && <EditSchoolDay />}
-      </>
-      <>
-        <button onClick={() => navigate('/dashboard/teachers-aid')}>
-          Teacher's Aid
-        </button>
-        <button onClick={() => navigate('/lesson-home')}>Class Lesson</button>
-      </>
+      {state.matches('currentSchoolDay') && (
+        <>
+          {data?.findSchoolDayByDate.schoolDay ? (
+            <>
+              <CurrentSchoolDay
+                schoolDay={data.findSchoolDayByDate.schoolDay}
+              />
+              <CreateSchoolDayButton
+                onClick={() => event({ type: 'EDIT_SCHOOL_DAY' })}
+              >
+                Edit School Day
+              </CreateSchoolDayButton>
+            </>
+          ) : (
+            <>
+              <div>Not School Day</div>
+              <CreateSchoolDayButton
+                onClick={() => event({ type: 'CREATE_SCHOOL_DAY' })}
+              >
+                Create School Day
+              </CreateSchoolDayButton>
+            </>
+          )}
+        </>
+      )}
+      {state.matches('editSchoolDay') && (
+        <EditSchoolDay schoolDay={data?.findSchoolDayByDate.schoolDay!} />
+      )}
+      {state.matches('createSchoolDay') && <CreateSchoolDay />}
     </>
   )
 }

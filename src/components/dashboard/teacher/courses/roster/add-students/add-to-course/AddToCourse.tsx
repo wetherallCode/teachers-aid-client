@@ -132,23 +132,19 @@ export const AddToCourse = ({ course }: AddToCourseProps) => {
   return (
     <AddStudentContainer>
       <PageTitle>Add To Course</PageTitle>
-      <div>
-        <div>
-          {studentsToAdd?.map((student, i: number) => (
-            <InformationDetailInputContainer key={i}>
-              <div>
-                {i + 1}. {student.lastName}, {student.firstName}
-              </div>
-              <div
-                onClick={() =>
-                  event({ type: 'REMOVE_STUDENT_IDS', payload: i })
-                }
-              >
-                Delete
-              </div>
-            </InformationDetailInputContainer>
-          ))}
-        </div>
+      <div style={{ overflow: 'scroll' }}>
+        {studentsToAdd?.map((student, i: number) => (
+          <InformationDetailInputContainer key={i}>
+            <div>
+              {i + 1}. {student.lastName}, {student.firstName}
+            </div>
+            <div
+              onClick={() => event({ type: 'REMOVE_STUDENT_IDS', payload: i })}
+            >
+              Delete
+            </div>
+          </InformationDetailInputContainer>
+        ))}
       </div>
       <div>
         <PageTitle>Add Additional Students</PageTitle>

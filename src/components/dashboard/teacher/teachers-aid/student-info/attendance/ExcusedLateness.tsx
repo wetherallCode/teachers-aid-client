@@ -2,9 +2,10 @@ import { gql, useMutation } from '@apollo/client'
 import React from 'react'
 import {
   MarkingPeriodEnum,
-  findStudentInfoByStudentId_findStudentById_student,
-  createExcusedLatenessVariables,
-  createExcusedLateness,
+  LatenessTypeEnum,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
+  createLateness,
+  createLatenessVariables,
 } from '../../../../../../schemaTypes'
 
 import { AttendanceButton } from '../../styles/studentInfoStyles'
@@ -16,7 +17,7 @@ import {
 
 export type ExcusedLatenessProps = {
   currentMarkingPeriod: MarkingPeriodEnum
-  student: findStudentInfoByStudentId_findStudentById_student
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   absent: boolean
   removeAbsence: RemoveAbsenceType
   todaysAbsenceId: string
@@ -25,10 +26,10 @@ export type ExcusedLatenessProps = {
   updateResponsibilityPoints: UpdateResponsibilityPointsType
 }
 
-export const CREATE_EXCUSED_LATENESS_QUERY = gql`
-  mutation createExcusedLateness($input: CreateExcusedLatenessInput!) {
-    createExcusedLateness(input: $input) {
-      excusedLateness {
+export const CREATE_LATENESS_QUERY = gql`
+  mutation createLateness($input: CreateLatenessInput!) {
+    createLateness(input: $input) {
+      studentLateness {
         _id
       }
     }
@@ -45,57 +46,63 @@ export const ExcusedLateness = ({
   unexcusedLatenessId,
   updateResponsibilityPoints,
 }: ExcusedLatenessProps) => {
-  const [createExcusedLateness] = useMutation<
-    createExcusedLateness,
-    createExcusedLatenessVariables
-  >(CREATE_EXCUSED_LATENESS_QUERY, {
-    variables: {
-      input: {
-        studentId: student._id!,
-        markingPeriod: currentMarkingPeriod,
-        dayLateExcused: new Date().toLocaleDateString(),
+  const [createLateness] = useMutation<createLateness, createLatenessVariables>(
+    CREATE_LATENESS_QUERY,
+    {
+      variables: {
+        input: {
+          studentId: student._id!,
+          markingPeriod: currentMarkingPeriod,
+          dayLate: new Date().toLocaleDateString(),
+          latenessType: LatenessTypeEnum.EXCUSED,
+        },
       },
-    },
-    onCompleted: (data) => console.log(data),
-    refetchQueries: ['findStudentInfoByStudentId'],
-  })
-
-  const excusedLatenessCheck = student.hasExcusedLatenesses.find(
-    (late) => late.dayLateExcused === new Date().toLocaleDateString()
+      onCompleted: (data) => console.log(data),
+      refetchQueries: ['findStudentByIdForTeachersAid'],
+    }
   )
 
-  const todaysExcusedLateness = student.hasExcusedLatenesses.filter(
-    (late) => late.dayLateExcused === new Date().toLocaleDateString()
+  const excusedLatenessCheck = student.hasLatnesses.find(
+    (late) => late.latenessType === LatenessTypeEnum.EXCUSED
   )
-  const isUnexcused = student.hasUnExcusedLatenesses.some(
-    (l) => l.dayLate === new Date().toLocaleDateString()
-  )
+
+  const todaysExcusedLateness = student.hasLatnesses.find(
+    (late) => late.latenessType === LatenessTypeEnum.EXCUSED
+  )!
+
+  const isUnexcused = student.hasUnExcusedLatenesses.find(
+    (late) => late.latenessType === LatenessTypeEnum.UNEXCUSED
+  )!
 
   return (
     <>
       {!excusedLatenessCheck ? (
         <AttendanceButton
           lateButton={true}
-          created={false}
+          created={excusedLatenessCheck !== undefined}
           onClick={() => {
             if (absent) {
               removeAbsence({ variables: { input: { _id: todaysAbsenceId } } })
             }
             if (isUnexcused) {
-              updateResponsibilityPoints({
-                variables: {
-                  input: {
-                    studentId: student._id!,
-                    markingPeriod: currentMarkingPeriod,
-                    points: 10,
-                  },
-                },
-              })
-              removeAbsence({
-                variables: { input: { _id: unexcusedLatenessId } },
+              removeLateness({
+                variables: { input: { _id: isUnexcused._id! } },
               })
             }
-            createExcusedLateness()
+            // updateResponsibilityPoints({
+            //     variables: {
+            //       input: {
+            //         studentId: student._id!,
+            //         markingPeriod: currentMarkingPeriod,
+            //         points: 10,
+            //       },
+            //     },
+            //   })
+            //   removeAbsence({
+            //     variables: { input: { _id: unexcusedLatenessId } },
+            //   })
+            // }
+            createLateness()
           }}
         >
           Create Excused Lateness
@@ -103,10 +110,10 @@ export const ExcusedLateness = ({
       ) : (
         <AttendanceButton
           lateButton={true}
-          created={true}
+          created={excusedLatenessCheck !== undefined}
           onClick={() =>
             removeLateness({
-              variables: { input: { _id: todaysExcusedLateness[0]._id! } },
+              variables: { input: { _id: todaysExcusedLateness._id! } },
             })
           }
         >

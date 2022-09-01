@@ -56,7 +56,12 @@ export const CourseManager = ({}: CourseManagerProps) => {
         />
         <Route
           path='roster/*'
-          element={<RosterDashboard courseName={courseManager.name} />}
+          element={
+            <RosterDashboard
+              courseName={courseManager.name}
+              courseId={course!}
+            />
+          }
         />
         <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
 

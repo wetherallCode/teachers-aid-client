@@ -2,9 +2,9 @@ import React, { FC, useEffect } from 'react'
 import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
 import { gql, useLazyQuery } from '@apollo/client'
 import {
-  findStudentInfoByStudentId,
-  findStudentInfoByStudentIdVariables,
   DiscussionTypesEnum,
+  findStudentByIdForTeachersAid,
+  findStudentByIdForTeachersAidVariables,
 } from '../../../../../schemaTypes'
 import {
   StudentControlPanelContainer,
@@ -20,8 +20,10 @@ import { useCalculateGrades } from '../../../../../hooks/useCalculateGrades'
 export type StudentInfoProps = {}
 
 export const FIND_STUDENT_INFORMATION_QUERY = gql`
-  query findStudentInfoByStudentId($input: FindStudentByIdInput!) {
-    findStudentById(input: $input) {
+  query findStudentByIdForTeachersAid(
+    $input: FindStudentByIdForTeachersAidInput!
+  ) {
+    findStudentByIdForTeachersAid(input: $input) {
       student {
         _id
         firstName
@@ -30,32 +32,23 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
           _id
           dayAbsent
         }
+        hasLatnesses {
+          _id
+          dayLate
+          latenessType
+        }
         hasUnExcusedLatenesses {
           _id
           dayLate
+          latenessType
         }
         hasExcusedLatenesses {
           _id
-          dayLateExcused
+          dayLate
+          latenessType
         }
         hasResponsibilityPoints {
           _id
-          markingPeriod
-        }
-        # hasAssignments {
-        #   ... on ReadingGuide {
-        #     _id
-        #     dueDate
-        #     readingGuideFinal {
-        #       clarifyingQuestions
-        #       howIsSectionOrganized
-        #       majorIssue
-        #       majorIssueSolved
-        #       majorSolution
-        #     }
-        #   }
-        # }
-        hasResponsibilityPoints {
           markingPeriod
           responsibilityPoints
         }
@@ -115,8 +108,8 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     polling: true,
   })
   const [loadStudentInfo, { loading: studentInfoLoading, data }] = useLazyQuery<
-    findStudentInfoByStudentId,
-    findStudentInfoByStudentIdVariables
+    findStudentByIdForTeachersAid,
+    findStudentByIdForTeachersAidVariables
   >(FIND_STUDENT_INFORMATION_QUERY, {
     variables: {
       input: { studentId: state.context.studentId },
@@ -125,13 +118,14 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
       if (
-        data?.findStudentById.student.hasProtocols.some(
+        data?.findStudentByIdForTeachersAid.student.hasProtocols.some(
           (protocol) => protocol.isActive
         )
       ) {
-        const [protocol] = data?.findStudentById.student.hasProtocols.filter(
-          (protocol) => protocol.isActive
-        )
+        const [protocol] =
+          data?.findStudentByIdForTeachersAid.student.hasProtocols.filter(
+            (protocol) => protocol.isActive
+          )
         const partnerList = protocol.partners?.map(
           (partner) => partner._id
         ) as string[]
@@ -146,7 +140,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
               protocol.protocolActivityType === 'INDIVIDUAL'
                 ? DiscussionTypesEnum.NOT_REQUIRED
                 : protocol.discussionLevel,
-            studentId: data.findStudentById.student._id!,
+            studentId: data.findStudentByIdForTeachersAid.student._id!,
             partnerIds: protocol.partners ? partnerList! : [],
             markingPeriod: protocol.markingPeriod,
             responsibilityPoints: responsibilityPointConverter(grade, 2),
@@ -157,9 +151,10 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     onError: (error) => console.error('loadStudentInfo: ' + error),
   })
 
-  const studentBehaviors = data?.findStudentById.student.hasBehaviors.filter(
-    (b) => b.date === new Date().toLocaleDateString()
-  )!
+  const studentBehaviors =
+    data?.findStudentByIdForTeachersAid.student.hasBehaviors.filter(
+      (b) => b.date === new Date().toLocaleDateString()
+    )!
 
   useEffect(() => {
     if (state.context.studentId) {
@@ -168,17 +163,13 @@ export const StudentInfo = ({}: StudentInfoProps) => {
   }, [loadStudentInfo, state.context.studentId])
 
   const currentResponsibilityPoints =
-    data?.findStudentById.student.hasResponsibilityPoints.filter(
-      (rp) =>
-        rp.markingPeriod === markingPeriodState.context.currentMarkingPeriod
-    )!
+    data?.findStudentByIdForTeachersAid.student.hasResponsibilityPoints
 
-  const absenceCheck = data?.findStudentById.student.hasAbsences.some(
-    (absence) => absence.dayAbsent === new Date().toLocaleDateString()
-  )!
-  const rp =
-    currentResponsibilityPoints &&
-    currentResponsibilityPoints[0].responsibilityPoints
+  const absenceCheck =
+    data?.findStudentByIdForTeachersAid.student.hasAbsences.some(
+      (absence) => absence.dayAbsent === new Date().toLocaleDateString()
+    )!
+  const rp = currentResponsibilityPoints?.responsibilityPoints
 
   if (studentInfoLoading)
     return (
@@ -194,8 +185,8 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     <>
       <StudentInfoDisplay absent={absenceCheck}>
         <StudentNameContainer>
-          <div> {data?.findStudentById.student.firstName}</div>
-          <div>{data?.findStudentById.student.lastName}</div>
+          <div> {data?.findStudentByIdForTeachersAid.student.firstName}</div>
+          <div>{data?.findStudentByIdForTeachersAid.student.lastName}</div>
           <div>{rp && rp.toFixed(2)}</div>
           {!gradeLoading ? <div>{grade}%</div> : <div>Loading </div>}
         </StudentNameContainer>
@@ -204,7 +195,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
 
       <StudentControlPanelDisplay
         loadStudentInfo={loadStudentInfo}
-        student={data?.findStudentById.student!}
+        student={data?.findStudentByIdForTeachersAid.student!}
         absenceCheck={absenceCheck}
         grade={grade}
         gradeLoading={gradeLoading}

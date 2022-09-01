@@ -1,28 +1,11 @@
-import { useQuery } from '@apollo/client'
-import React, { FC } from 'react'
-import {
-  findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts,
-  findStudentInfoByStudentId,
-  findStudentInfoByStudentIdVariables,
-} from '../../../../../schemaTypes'
-import { FIND_STUDENT_INFORMATION_QUERY } from '../../teachers-aid/student-info/StudentInfo'
+import React from 'react'
+import { findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts } from '../../../../../schemaTypes'
 
 export type ContactProps = {
   contact: findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts
 }
 
-export const Contact: FC<ContactProps> = ({ contact }) => {
-  // const { loading, data } = useQuery<
-  //   findStudentInfoByStudentId,
-  //   findStudentInfoByStudentIdVariables
-  // >(FIND_STUDENT_INFORMATION_QUERY, {
-  //   variables: {
-  //     input: { studentId: contact.studentId },
-  //   },
-  //   onCompleted: (data) => console.log(data),
-  //   onError: (error) => console.error(error),
-  // })
-
+export const Contact = ({ contact }: ContactProps) => {
   return (
     <div style={{ borderTop: '1px solid var(--blue)' }}>
       <div>

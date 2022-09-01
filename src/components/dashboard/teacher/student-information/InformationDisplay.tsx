@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { MarkingPeriodEnum } from '../../../../schemaTypes'
+import {
+  findAllStudentsForStudentInformation,
+  MarkingPeriodEnum,
+} from '../../../../schemaTypes'
 import { MarkingPeriodSelectorSwitch } from '../../../reusable-components/MarkingPeriodSelectorSwitch'
 import { TemporaryTaskDisplay } from '../courses/temporary-tasks/state-n-styles/temporaryTaskStyles'
 import { AssignmentInformation } from './AssignmentInformation'

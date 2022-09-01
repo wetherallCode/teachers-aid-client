@@ -12,6 +12,12 @@ import {
 import { useSchoolDayContextProvider } from './state/SchoolDayContext'
 import { useEnumContextProvider } from '../../../contexts/EnumContext'
 import { phraseCapitalizer, underscoreEliminator } from '../../../utils'
+import {
+  CreateSchoolDayButton,
+  CreateSchoolDayCenteredItem,
+  CreateSchoolDayContainer,
+  CreateSchoolDayInformationContainer,
+} from '../teacher/teacherDashboardStyles'
 
 export type CreateSchoolDayProps = {}
 
@@ -35,7 +41,7 @@ export const FIND_CURRENT_SCHOOL_DAY_COUNT_QUERY = gql`
     }
   }
 `
-export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
+export const CreateSchoolDay = ({}: CreateSchoolDayProps) => {
   const [state, event] = useSchoolDayContextProvider()
   const { schoolDayLengthEnum } = useEnumContextProvider()
 
@@ -100,8 +106,10 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
   //   state.context.createSchoolDay.currentSchoolDayType === SchoolDayType.B
 
   return (
-    <>
-      <div>Create School Day</div>
+    <CreateSchoolDayContainer>
+      <CreateSchoolDayCenteredItem>
+        Create School Day
+      </CreateSchoolDayCenteredItem>
       {/* <>
         <div>Cohort Week</div>
         <div
@@ -178,13 +186,15 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
           </>
         }
       </> */}
-      <>
+
+      <CreateSchoolDayInformationContainer>
         <div>What day of school is it?</div>
         <div>{state.context.createSchoolDay.schoolDayCount + 1}</div>
-      </>
-      <>
+      </CreateSchoolDayInformationContainer>
+      <CreateSchoolDayInformationContainer>
         <div>School Day Length?</div>
         <select
+          style={{ background: 'transparent', fontSize: '1.6vh' }}
           onChange={(e: any) =>
             event({
               type: 'SET_CURRENT_SCHOOL_DAY_LENGTH',
@@ -193,13 +203,26 @@ export const CreateSchoolDay: FC<CreateSchoolDayProps> = () => {
           }
         >
           {schoolDayLengthEnum.map((length: SchoolDayLengthEnum) => (
-            <option key={length} value={length}>
+            <option
+              key={length}
+              value={length}
+              style={{ color: 'var(--blue)' }}
+            >
               {underscoreEliminator(phraseCapitalizer(length))}
             </option>
           ))}
         </select>
-      </>
-      <button onClick={() => createSchoolDay()}>Let's Start the Day!</button>
-    </>
+      </CreateSchoolDayInformationContainer>
+      <CreateSchoolDayButton
+        style={{
+          gridColumn: '1/-1',
+          alignSelf: 'center',
+          justifySelf: 'center',
+        }}
+        onClick={() => createSchoolDay()}
+      >
+        Let's Start the Day!
+      </CreateSchoolDayButton>
+    </CreateSchoolDayContainer>
   )
 }

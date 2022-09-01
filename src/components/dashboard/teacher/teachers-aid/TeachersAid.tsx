@@ -107,7 +107,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
   const students = data?.findCourseById.course.hasCourseInfo?.assignedSeats
     .filter((seat) => seat.student !== null)
     .map((seat) => seat.student)!
-  console.log(students)
+
   // const presentStudentList =
   //   data?.findCourseById.course.hasCourseInfo?.assignedSeats
   //     .map((student) => student.student)

@@ -248,3 +248,15 @@ export const DynamicLessonOffButton = styled.button`
   width: 70%;
   border-radius: 5px;
 `
+export const StudentInfoSelectorContainer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: 80%;
+  grid-column-gap: 5%;
+`
+export const StudentInfoSelectorButton = styled.button`
+  background-color: var(--white);
+  color: var(--blue);
+  font-size: 2vh;
+`

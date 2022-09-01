@@ -1,5 +1,9 @@
 import React from 'react'
 import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
+import {
+  StudentInfoSelectorButton,
+  StudentInfoSelectorContainer,
+} from '../../styles/classControlPanelStyles'
 
 export type StudentInfoSelectorProps = {}
 export type StudentInfoSelectorTypes =
@@ -17,23 +21,29 @@ export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
     event({ type: 'SET_STUDENT_INFO_SELECTOR', payload: selection })
   }
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridAutoFlow: 'column',
-        gridAutoColumns: '5%',
-        width: '80%',
-        gridColumnGap: '15%',
-      }}
-    >
-      <button onClick={() => handleSelection('ATTENDANCE')}>A</button>
-      <button onClick={() => handleSelection('STATUS')}>S</button>
-      <button onClick={() => handleSelection('QUESTION_AND_ANSWER')}>
+    <StudentInfoSelectorContainer>
+      <StudentInfoSelectorButton onClick={() => handleSelection('ATTENDANCE')}>
+        A
+      </StudentInfoSelectorButton>
+      <StudentInfoSelectorButton onClick={() => handleSelection('STATUS')}>
+        S
+      </StudentInfoSelectorButton>
+      <StudentInfoSelectorButton
+        onClick={() => handleSelection('QUESTION_AND_ANSWER')}
+      >
         Q&A
-      </button>
-      <button onClick={() => handleSelection('NEGATIVE_BEHAVIOR')}>-</button>
-      <button onClick={() => handleSelection('TASK_CHECK')}>T</button>
-      <button onClick={() => handleSelection('INFO')}>Info</button>
-    </div>
+      </StudentInfoSelectorButton>
+      <StudentInfoSelectorButton
+        onClick={() => handleSelection('NEGATIVE_BEHAVIOR')}
+      >
+        -
+      </StudentInfoSelectorButton>
+      <StudentInfoSelectorButton onClick={() => handleSelection('TASK_CHECK')}>
+        T
+      </StudentInfoSelectorButton>
+      <StudentInfoSelectorButton onClick={() => handleSelection('INFO')}>
+        Info
+      </StudentInfoSelectorButton>
+    </StudentInfoSelectorContainer>
   )
 }

@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useState } from 'react'
 import {
-  findStudentInfoByStudentId_findStudentById_student_hasProtocols,
   assessStudentProtocol,
   assessStudentProtocolVariables,
-  findStudentInfoByStudentId_findStudentById_student,
   DiscussionTypesEnum,
-  findStudentInfoByStudentIdVariables,
   ProtocolAssessmentEnum,
   findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols,
+  findStudentByIdForTeachersAidVariables,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
 } from '../../../../../../schemaTypes'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import { gql, useMutation, QueryLazyOptions } from '@apollo/client'
@@ -32,11 +32,13 @@ import {
 } from '../../../../../../utils'
 
 export type AssessProtocolProps = {
-  protocols: findStudentInfoByStudentId_findStudentById_student_hasProtocols[]
+  protocols: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols[]
   loadStudentInfo: (
-    options?: QueryLazyOptions<findStudentInfoByStudentIdVariables> | undefined
+    options?:
+      | QueryLazyOptions<findStudentByIdForTeachersAidVariables>
+      | undefined
   ) => void
-  student: findStudentInfoByStudentId_findStudentById_student
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   grade: number
 }
 
@@ -81,7 +83,7 @@ export const AssessProtocol = ({
     // onCompleted: (data) => {
     //   console.log('assessed')
     // },
-    refetchQueries: ['findStudentInfoByStudentId'],
+    refetchQueries: ['findStudentByIdForTeachersAid'],
   })
 
   useEffect(() => {

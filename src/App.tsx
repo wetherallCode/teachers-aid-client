@@ -12,7 +12,13 @@ import {
   HomeLink,
   UserNameHeader,
 } from './components/home/headerStyles'
-import { LoginContainer, LoginToggle } from './components/home/homeStyles'
+import {
+  GetStartedButton,
+  HomePageContainer,
+  HomeScreenTitle,
+  LoginContainer,
+  LoginToggle,
+} from './components/home/homeStyles'
 import { capitalizer, date } from './utils'
 import styled from 'styled-components'
 import { DailyAgendaContextProvider } from './components/lesson/state-n-styles/DailyAgendaContext'
@@ -51,7 +57,7 @@ function App() {
   const me: me_me = useUserContextProvider()
   const nav = useNavigate()
   const location = useLocation()
-  console.log(location)
+
   const [, event] = useSchoolDayContextProvider()
   const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
   // console.log(me.isActive)
@@ -79,18 +85,22 @@ function App() {
     if (!me) nav('/')
     if (location.pathname === '/' && me) nav('/dashboard')
   }, [me])
+
   return (
     <AppContainer>
       <Header>
         {/* {me && <UpdateUserActivity userId={me._id!} />} */}
         <HomeLink to='/dashboard'>
-          {location.pathname !== '/dashboard'
+          {location.pathname.includes('/dashboard') &&
+          location.pathname !== '/dashboard'
             ? `←Back to Home Screen`
             : 'MrWetherall.org'}
         </HomeLink>
+        <div></div>
         <LoginContainer>
           {!me ? (
-            <LoginToggle onClick={toggleLogin}>Login</LoginToggle>
+            // <LoginToggle onClick={toggleLogin}>Login</LoginToggle>
+            <div></div>
           ) : (
             <UserNameHeader onClick={() => setIsNavOpen(true)}>
               {me.__typename === 'Teacher'
@@ -99,9 +109,9 @@ function App() {
             </UserNameHeader>
           )}
 
-          <Modal isToggled={isLoginVisible} setIsToggled={toggleLogin}>
+          {/* <Modal isToggled={isLoginVisible} setIsToggled={toggleLogin}>
             <Login toggleLogin={toggleLogin} />
-          </Modal>
+          </Modal> */}
         </LoginContainer>
       </Header>
       {me !== null && (
@@ -114,7 +124,23 @@ function App() {
       )}
 
       <Routes>
-        {/* <Route path='' element={<Home />} /> */}
+        <Route
+          path=''
+          element={
+            <HomePageContainer>
+              <HomeScreenTitle>
+                <div></div>
+                <div>Welcome to Mr. Wetherall's Class</div>
+                <div></div>
+              </HomeScreenTitle>
+              {isLoginVisible ? (
+                <Login toggleLogin={toggleLogin} />
+              ) : (
+                <GetStartedButton onClick={toggleLogin}>Login</GetStartedButton>
+              )}
+            </HomePageContainer>
+          }
+        />
         <Route path='dashboard/*' element={<Dashboard />} />
         {/* {!me ? (
           <Navigate to='/' />

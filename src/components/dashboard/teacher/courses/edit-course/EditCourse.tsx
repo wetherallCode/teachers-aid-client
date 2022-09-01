@@ -10,6 +10,7 @@ import {
 } from '../../../../../schemaTypes'
 import { useEditCourseContextProvider } from './state-n-styles/EditCourseContext'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
+import { Link } from 'react-router-dom'
 
 export type EditCourseProps = {}
 
@@ -118,6 +119,7 @@ export const EditCourse = ({}: EditCourseProps) => {
   if (loading) return <div>Loading </div>
   return (
     <>
+      <Link to={'/dashboard/courses/' + course}>Back to Menu</Link>
       <div>Edit Course</div>
 
       <div>

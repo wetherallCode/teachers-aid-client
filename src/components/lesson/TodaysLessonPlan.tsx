@@ -9,6 +9,8 @@ import {
   findLessonByCourseAndDate,
   findLessonByCourseAndDateVariables,
   me_me,
+  me_me_Student,
+  me_me_Teacher,
   SchoolDayLengthEnum,
 } from '../../schemaTypes'
 import { date, timeFinder } from '../../utils'
@@ -24,7 +26,7 @@ export type TodaysLessonPlanProps = {
 export const TodaysLessonPlan = ({
   setHasLessonNow,
 }: TodaysLessonPlanProps) => {
-  const me: me_me = useUserContextProvider()
+  const me: me_me_Student | me_me_Teacher = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
   const { dateTime } = useTime()
 
@@ -44,6 +46,7 @@ export const TodaysLessonPlan = ({
 
   const schoolDayLength =
     schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
+
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
@@ -90,14 +93,23 @@ export const TodaysLessonPlan = ({
     useLazyQuery<findLessonByCourseAndDate, findLessonByCourseAndDateVariables>(
       FIND_LESSON_QUERY,
       {
-        // onCompleted: () => {},
+        onCompleted: (data) => console.log(data),
         onError: (error) => console.error(error),
       }
     )
+  // const [loadLesson, { loading, data, startPolling, stopPolling }] =
+  //   useLazyQuery<findLessonByCourseAndDate, findLessonByCourseAndDateVariables>(
+  //     FIND_LESSON_QUERY,
+  //     {
+  //       onCompleted: (data) => console.log(data),
+  //       onError: (error) => console.error(error),
+  //     }
+  //   )
 
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id
   )
+
   const useFake = false
   useEffect(() => {
     if (useFake) {
@@ -111,7 +123,7 @@ export const TodaysLessonPlan = ({
         variables: { input: { courseId: courseToLoad._id!, lessonDate: date } },
       })
     }
-  }, [courseToLoad, dateTime])
+  }, [courseToLoad, dateTime, loadLesson, useFake])
 
   useEffect(() => {
     if (

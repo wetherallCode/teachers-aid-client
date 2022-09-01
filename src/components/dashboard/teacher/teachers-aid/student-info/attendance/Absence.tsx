@@ -4,9 +4,7 @@ import {
   createAbsenceVariables,
   createAbsence,
   MarkingPeriodEnum,
-  findStudentInfoByStudentId_findStudentById_student,
-  removeAbsence,
-  removeAbsenceVariables,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
 } from '../../../../../../schemaTypes'
 import { AttendanceButton } from '../../styles/studentInfoStyles'
 import {
@@ -17,7 +15,7 @@ import { RemoveAbsence } from './RemoveAbsence'
 
 export type AbsenceProps = {
   currentMarkingPeriod: MarkingPeriodEnum
-  student: findStudentInfoByStudentId_findStudentById_student
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   removeAbsence: RemoveAbsenceType
   todaysAbsenceId: string
   unexcusedLatenessId: string
@@ -50,7 +48,7 @@ export const Absence = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: [
       'findStudentInfoByStudentIdForDesk',
-      'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
       'findCourseByIdForTeachersAid',
     ],
   })

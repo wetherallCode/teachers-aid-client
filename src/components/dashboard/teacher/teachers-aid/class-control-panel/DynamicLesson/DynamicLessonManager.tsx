@@ -80,7 +80,7 @@ export const DynamicLessonManager = ({
       },
     },
     onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    refetchQueries: ['findStudentByIdForTeachersAid'],
   })
 
   const handleClick = (dynamicLessonSetting: DynamicLessonEnums) => {

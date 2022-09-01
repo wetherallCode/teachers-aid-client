@@ -24,6 +24,7 @@ export const ME_QUERY = gql`
             halfDayEndsAt
             schoolDayType
             assignmentsAllowedInClass
+            isHidden
           }
         }
       }
@@ -41,6 +42,7 @@ export const ME_QUERY = gql`
             halfDayEndsAt
             schoolDayType
             assignmentsAllowedInClass
+            isHidden
           }
         }
         hasWritingMetrics {

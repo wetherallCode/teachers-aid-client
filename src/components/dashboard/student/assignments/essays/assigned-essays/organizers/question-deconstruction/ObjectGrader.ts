@@ -28,10 +28,15 @@ export function objectGrader({
   const nonContextSentence =
     completeSubject + ' ' + conjugatedVerb + ' ' + correctObject
 
-  const sentenceContext = completePredicate
-    .split(' ')
-    .slice(simplePredicate.split(' ').length + correctObject.split(' ').length)
-    .join(' ')
+  const sentenceContext =
+    correctObject === null
+      ? ''
+      : completePredicate
+          .split(' ')
+          .slice(
+            simplePredicate.split(' ').length + correctObject.split(' ').length
+          )
+          .join(' ')
 
   const questionWords = questionToModify.filter(
     (word) => word !== '' && word !== '|'

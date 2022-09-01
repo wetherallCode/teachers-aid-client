@@ -55,18 +55,25 @@ export const FIND_USERS_QUERY = gql`
   }
 `
 
-export const RegisterStudent: FC<RegisterStudentProps> = () => {
+export const RegisterStudent = ({}: RegisterStudentProps) => {
   const [state, event] = useAddStudentsContextProvider()
 
   const [addToCourseToggle, setAddToCourseToggle] = useState(false)
   const [addIdFinished, setAddIdFinished] = useState(false)
 
   const { loading, data } = useQuery<findAllUsers>(FIND_USERS_QUERY, {
-    // onCompleted: (data) => console.log(data),
+    onCompleted: (data) =>
+      console.log(
+        data.findAllUsers.users.map(
+          (u) => u.__typename === 'Student' && u.userName
+        )
+      ),
     onError: (error) => console.error(error),
   })
 
-  const userNamesInUse = data?.findAllUsers.users.map((user) => user.userName)
+  const userNamesInUse = data?.findAllUsers.users.map(
+    (user) => user.__typename === 'Student' && user.userName
+  )!
 
   const [registerStudent] = useMutation<
     registerStudent,
@@ -128,7 +135,7 @@ export const RegisterStudent: FC<RegisterStudentProps> = () => {
     })
     setAddToCourseToggle(false)
   }
-  console.log(state.context.studentToRegister)
+
   if (loading) return <div>Loading </div>
   return (
     <RegisterStudentContainer>

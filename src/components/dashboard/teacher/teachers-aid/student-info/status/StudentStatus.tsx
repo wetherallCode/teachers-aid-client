@@ -4,8 +4,8 @@ import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import {
   createStudentOutOfClassVariables,
   createStudentOutOfClass,
-  findStudentInfoByStudentId_findStudentById_student,
   MarkingPeriodEnum,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
 } from '../../../../../../schemaTypes'
 import {
   StudentBehaviorButton,
@@ -13,7 +13,7 @@ import {
 } from '../../styles/studentInfoStyles'
 
 export type StudentStatusProps = {
-  student: findStudentInfoByStudentId_findStudentById_student
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   markingPeriod: MarkingPeriodEnum
 }
 

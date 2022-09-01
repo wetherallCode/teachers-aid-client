@@ -2,13 +2,13 @@ import { gql, MutationFunctionOptions, useMutation } from '@apollo/client'
 import React, { useState } from 'react'
 import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
 import {
-  findStudentInfoByStudentId_findStudentById_student,
   removeAbsence,
   removeAbsenceVariables,
   removeLateness,
   removeLatenessVariables,
   updateResponsibilityPointsVariables,
   updateResponsibilityPoints,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
 } from '../../../../../../schemaTypes'
 import { todaysLocaleDate } from '../../../../../../utils'
 import { AttendanceContainer } from '../../styles/studentInfoStyles'
@@ -17,7 +17,7 @@ import { ExcusedLateness } from './ExcusedLateness'
 import { UnexcusedLatness } from './UnexcusedLatness'
 
 export type DailyAttendanceProps = {
-  student: findStudentInfoByStudentId_findStudentById_student
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   absenceCheck: boolean
 }
 export const CREATE_STUDENT_ABSENCE_MUTATION = gql`
@@ -94,7 +94,7 @@ export const DailyAttendance = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: [
       'findStudentInfoByStudentIdForDesk',
-      'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
       'findCourseByIdForTeachersAid',
     ],
   })
@@ -103,7 +103,7 @@ export const DailyAttendance = ({
     REMOVE_LATENESS_MUTATION,
     {
       onCompleted: (data) => console.log(data),
-      refetchQueries: ['findStudentInfoByStudentId'],
+      refetchQueries: ['findStudentByIdForTeachersAid'],
     }
   )
   const [updateResponsibilityPoints] = useMutation<
@@ -111,7 +111,7 @@ export const DailyAttendance = ({
     updateResponsibilityPointsVariables
   >(UPDATE_RESPONSIBILITY_POINTS_MUTATION, {
     onCompleted: (data) => console.log(data),
-    refetchQueries: ['findStudentInfoByStudentId'],
+    refetchQueries: ['findStudentByIdForTeachersAid'],
   })
 
   const todaysAbsence = student.hasAbsences.filter(
@@ -121,7 +121,7 @@ export const DailyAttendance = ({
   const absenceId = todaysAbsence.length !== 0 ? todaysAbsence[0]._id! : ''
 
   const todaysExcusedLateness = student.hasExcusedLatenesses.filter(
-    (l) => l.dayLateExcused === new Date().toLocaleDateString()
+    (l) => l.dayLate === new Date().toLocaleDateString()
   )
   const excusedLatenessId =
     todaysExcusedLateness.length !== 0 ? todaysExcusedLateness[0]._id! : ''

@@ -8,7 +8,7 @@ export const RegisterStudentContainer = styled.div`
 export const AddStudentContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 3fr 2fr 1fr;
-  height: 100%;
+  height: 95vh;
 `
 export const PageTitle = styled.div`
   display: grid;

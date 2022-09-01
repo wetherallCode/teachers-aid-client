@@ -1,9 +1,11 @@
-import { useQuery } from '@apollo/client'
-import React, { Dispatch, SetStateAction } from 'react'
+import { gql, useQuery } from '@apollo/client'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { useTime } from '../../../../hooks/useTime'
 import {
   findCurrentSchoolDay,
   findCurrentSchoolDayVariables,
+  findSchoolDayAndLesson,
+  findSchoolDayAndLessonVariables,
   me_me,
   me_me_Student,
   SchoolDayLengthEnum,
@@ -13,6 +15,7 @@ import {
   OptionTitle,
   StudentHomeScreenOptions,
   StudentOptionsLinkButton,
+  StudentHomeScreenOptionsNonLink,
   StyledLink,
 } from '../../../home/homeStyles'
 import { DailyAgendaContextProvider } from '../../../lesson/state-n-styles/DailyAgendaContext'
@@ -20,64 +23,107 @@ import { TodaysLessonPlan } from '../../../lesson/TodaysLessonPlan'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../school-day/SchoolDay'
 
 export type LessonDisplayProps = {
+  hasLessonNow: boolean
   setHasLessonNow: Dispatch<SetStateAction<boolean>>
   me: me_me_Student
   lessonLink: '' | 'lesson-home'
 }
 
+export const IS_THERE_A_LESSON_TODAY_QUERY = gql`
+  query findSchoolDayAndLesson($input: FindSchoolDayAndLessonInput!) {
+    findSchoolDayAndLesson(input: $input) {
+      lessonToday
+    }
+  }
+`
 export const LessonDisplay = ({
   setHasLessonNow,
+  hasLessonNow,
   me,
   lessonLink,
 }: LessonDisplayProps) => {
-  const { dateTime } = useTime()
-  const { data: schoolDayData } = useQuery<
-    findCurrentSchoolDay,
-    findCurrentSchoolDayVariables
-  >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
+  const { loading, data } = useQuery<
+    findSchoolDayAndLesson,
+    findSchoolDayAndLessonVariables
+  >(IS_THERE_A_LESSON_TODAY_QUERY, {
     variables: {
-      input: { date: date },
+      input: {
+        courseId: me.inCourses[0]._id!,
+        todaysDate: new Date().toLocaleDateString(),
+      },
     },
-    onCompleted: (data) => console.log(data),
+    pollInterval: 1000,
+    onCompleted: (data) => {},
     onError: (error) => console.error(error),
   })
-  const schoolDayLength =
-    schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
-  const [courseToLoad] = me.inCourses.filter(
-    (course) =>
-      Date.parse(dateTime) >
-        Date.parse(
-          timeFinder(
-            schoolDayLength === SchoolDayLengthEnum.HALF
-              ? course.hasCourseInfo?.halfDayStartsAt!
-              : course.hasCourseInfo?.startsAt!
-          )
-        ) &&
-      Date.parse(dateTime) <
-        Date.parse(
-          timeFinder(
-            schoolDayLength === SchoolDayLengthEnum.HALF
-              ? course.hasCourseInfo?.halfDayEndsAt!
-              : course.hasCourseInfo?.endsAt!
-          )
-        )
-  )
+  console.log(data)
+  useEffect(() => {
+    data?.findSchoolDayAndLesson.lessonToday
+      ? setHasLessonNow(true)
+      : setHasLessonNow(false)
+  }, [data])
+
+  // const { dateTime } = useTime()
+
+  // const { data: schoolDayData } = useQuery<
+  //   findCurrentSchoolDay,
+  //   findCurrentSchoolDayVariables
+  // >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
+  //   variables: {
+  //     input: { date: date },
+  //   },
+  //   pollInterval: 1000,
+  //   onCompleted: (data) => console.log(data),
+  //   onError: (error) => console.error(error),
+  // })
+  // const schoolDayLength =
+  //   schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
+
+  // const [courseToLoad] = me.inCourses.filter(
+  //   (course) =>
+  //     Date.parse(dateTime) >
+  //       Date.parse(
+  //         timeFinder(
+  //           schoolDayLength === SchoolDayLengthEnum.HALF
+  //             ? course.hasCourseInfo?.halfDayStartsAt!
+  //             : course.hasCourseInfo?.startsAt!
+  //         )
+  //       ) &&
+  //     Date.parse(dateTime) <
+  //       Date.parse(
+  //         timeFinder(
+  //           schoolDayLength === SchoolDayLengthEnum.HALF
+  //             ? course.hasCourseInfo?.halfDayEndsAt!
+  //             : course.hasCourseInfo?.endsAt!
+  //         )
+  //       )
+  // )
 
   return (
-    <StudentHomeScreenOptions to={lessonLink}>
-      {!schoolDayData?.findSchoolDayByDate.schoolDay ? (
+    <StudentHomeScreenOptionsNonLink
+      style={{ gridTemplateRows: '1fr 1fr 2fr' }}
+    >
+      <OptionTitle>{new Date().toLocaleDateString()}</OptionTitle>
+      {!hasLessonNow ? (
         <OptionTitle>Not a school day</OptionTitle>
       ) : (
-        <OptionTitle>Today's Lesson Plan</OptionTitle>
+        <>
+          <div>
+            <OptionTitle>Today's Lesson Plan</OptionTitle>
+            <DailyAgendaContextProvider>
+              <TodaysLessonPlan setHasLessonNow={setHasLessonNow} />
+            </DailyAgendaContextProvider>
+          </div>
+
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <StyledLink to='/lesson-home'>
+              <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
+            </StyledLink>
+          )}
+        </>
       )}
-      <DailyAgendaContextProvider>
-        <TodaysLessonPlan setHasLessonNow={setHasLessonNow} />
-      </DailyAgendaContextProvider>
-      {courseToLoad && (
-        <StyledLink to='/lesson-home'>
-          <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
-        </StyledLink>
-      )}
-    </StudentHomeScreenOptions>
+    </StudentHomeScreenOptionsNonLink>
   )
 }

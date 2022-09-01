@@ -8,14 +8,40 @@ const fontSize = 3
 
 export const HomeScreenTitle = styled.div`
   font-size: ${fontSize + 2}vh;
-  align-self: center;
-  justify-self: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+  justify-items: center;
+`
+export const ButtonBox = styled.div`
+  display: grid;
+  /* grid-template-rows: 1fr 1fr; */
+  /* border: 1px solid var(--blue); */
+  border-radius: 10px;
+  justify-items: center;
+  align-items: center;
+  height: 80%;
+  width: 80%;
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 3vh;
+  :hover {
+    box-shadow: 2px 2px 2px var(--blue);
+    color: var(--blue);
+    background-color: var(--white);
+  }
+`
+export const LoginContainer = styled.div`
+  display: grid;
+  justify-items: end;
 `
 
-export const LoginContainer = styled.div`
-  display: flex;
-  align-content: center;
-  justify-content: flex-end;
+export const HomePageContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  justify-items: center;
+  align-content: space-evenly;
+  height: 95vh;
 `
 
 export const MainScreen = styled.div`
@@ -38,6 +64,22 @@ export const StudentHomeScreenOptionsContainer = styled.div`
   grid-auto-flow: row;
   grid-gap: 1vh;
   padding: 2vh;
+`
+
+export const StudentHomeScreenOptionsNonLink = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  border: 1px solid var(--blue);
+  border-radius: 10px;
+  justify-items: center;
+  align-items: center;
+  text-decoration: none;
+  color: var(--blue);
+  :hover {
+    box-shadow: 2px 2px 2px var(--blue);
+    /* color: var(--white); */
+    /* background-color: var(--blue); */
+  }
 `
 export const StudentHomeScreenOptions = styled(Link)`
   display: grid;
@@ -158,7 +200,7 @@ export const LogoutLink = styled.div`
   color: var(--white);
   cursor: pointer;
   ${media.iPhone} {
-    font-size: 1rem;
+    font-size: 2vh;
   }
   padding-right: 2%;
 `
@@ -180,15 +222,48 @@ export const PasswordContainer = styled.div`
   justify-items: center;
   align-items: center;
 `
-export const NewPasswordInpt = styled.input`
-  width: 80%;
-  height: 65%;
-  font-size: smaller;
+
+export const PasswordChangeContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`
+
+export const PasswordChangeItemContainers = styled.div`
+  display: grid;
+  height: 100%;
+  font-size: 3vh;
+  justify-items: center;
+  align-content: space-evenly;
+`
+export const NewPasswordInput = styled.input`
+  width: 70vh;
+  height: 3vh;
+  font-size: 2vh;
+  background-color: transparent;
 `
 export const AcceptNewPasswordButton = styled.button`
-  width: 95%;
+  width: 40vh;
 
   background: var(--blue);
   color: var(--white);
   font-size: smaller;
+  :hover {
+    box-shadow: 2px 2px 2px var(--blue);
+  }
+`
+
+export const EditSchoolDayContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: row;
+`
+export const EditSchoolDayTitle = styled.div`
+  grid-column: 1/-1;
+  align-self: center;
+  justify-self: center;
 `

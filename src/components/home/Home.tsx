@@ -57,6 +57,7 @@ export const Home = () => {
           {!passwordCheck ? (
             <>
               <HomeScreenTitle>
+                <div></div>
                 <Greetings
                   phrase={
                     me.__typename === 'Teacher'
@@ -64,6 +65,7 @@ export const Home = () => {
                       : `${me.firstName}`
                   }
                 />
+                <div></div>
               </HomeScreenTitle>
               {student && (
                 <div></div>

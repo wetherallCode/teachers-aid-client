@@ -27,7 +27,7 @@ import {
 
 export type CreateAssignmentProps = {}
 
-export const CreateAssignment: FC<CreateAssignmentProps> = () => {
+export const CreateAssignment = ({}: CreateAssignmentProps) => {
   const [courseId, setCourseId] = useState('')
   const [state, event] = useCreateAssignmentContextPovider()
   const me: me_me_Teacher = useUserContextProvider()
@@ -41,6 +41,7 @@ export const CreateAssignment: FC<CreateAssignmentProps> = () => {
           {teachesCourses
             .slice(0)
             .sort(sortByLetter)
+            .filter((c) => !c.hasCourseInfo.isHidden)
             .map((course) => (
               <CourseToSelect
                 key={course._id!}

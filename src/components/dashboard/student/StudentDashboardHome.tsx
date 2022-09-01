@@ -34,6 +34,10 @@ import { Greetings } from '../../home/Greetings'
 import { LessonDisplay } from './lesson/LessonDisplay'
 import { Grades } from './grades/Grades'
 import { ReadingGuideToComplete } from './assignments/readingGuides/assigned-reading-guides/ReadingGuideToComplete'
+import { PasswordCheck } from '../../home/PasswordCheck'
+import { usePasswordCheck } from '../../../hooks/usePasswordCheck'
+import { InitialPasswordChange } from '../../home/InitialPasswordChange'
+import { Handbook } from '../handbook/Handbook'
 
 export type StudentDashboardHomeProps = {
   me: me_me_Student
@@ -43,6 +47,9 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
   const { pathname } = useLocation()
   const [isLoginVisible, toggleLogin] = useToggle(false)
   const [hasLessonNow, setHasLessonNow] = useState(false)
+  const [passwordCheck, setPasswordCheck] = useState(false)
+  usePasswordCheck({ me, setPasswordCheck })
+
   const [logoutMutation, { loading }] = useMutation<logout>(LOGOUT_MUTATION, {
     onCompleted: () => {
       toggleLogin()
@@ -50,46 +57,60 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
     refetchQueries: ['me'],
   })
   const lessonLink = hasLessonNow ? 'lesson-home' : ''
+  if (loading) return <div>loading</div>
   return (
     <>
       {pathname === '/dashboard' && (
         <>
           <HomeScreenContainer>
             <HomeScreenTitle>
+              <div></div>
               <Greetings phrase={me.firstName} />
+              <div></div>
             </HomeScreenTitle>
-            <StudentHomeScreenOptionsContainer>
-              {/* <StudentHomeScreenOptions to={lessonLink}>
+
+            <>
+              {loading && <div>loading</div>}
+              {passwordCheck ? (
+                <InitialPasswordChange me={me} />
+              ) : (
+                <StudentHomeScreenOptionsContainer>
+                  {/* <StudentHomeScreenOptions to={lessonLink}>
                 <OptionTitle>Today's Lesson Plan</OptionTitle> */}
-              <LessonDisplay
-                setHasLessonNow={setHasLessonNow}
-                me={me}
-                lessonLink={lessonLink}
-              />
-              {/* <StyledLink to='/lesson-home'>
+                  <LessonDisplay
+                    setHasLessonNow={setHasLessonNow}
+                    hasLessonNow={hasLessonNow}
+                    me={me}
+                    lessonLink={lessonLink}
+                  />
+                  {/* <StyledLink to='/lesson-home'>
         <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
       </StyledLink> 
               </StudentHomeScreenOptions>*/}
 
-              <StudentHomeScreenOptions to='/dashboard/assignments'>
-                <OptionTitle>Get Assignments</OptionTitle>
-                {/* <StyledLink to='/dashboard/assignments'>
+                  <StudentHomeScreenOptions to='/dashboard/assignments'>
+                    <OptionTitle>Get Assignments</OptionTitle>
+                    {/* <StyledLink to='/dashboard/assignments'>
         <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
       </StyledLink> */}
-              </StudentHomeScreenOptions>
-              <StudentHomeScreenOptions to='grades'>
-                {me && me.__typename === 'Student' && (
-                  <StudentGradeDisplay studentId={me._id!} />
-                )}
-              </StudentHomeScreenOptions>
-              <StudentHomeScreenOptions to='behavior-home'>
-                <OptionTitle>How did I do Today?</OptionTitle>
-              </StudentHomeScreenOptions>
-              <StudentHomeScreenOptions to=''>5th Box</StudentHomeScreenOptions>
-              <LogoutOption onClick={() => logoutMutation()}>
-                {loading ? 'Logging Out...' : 'Logout'}
-              </LogoutOption>
-            </StudentHomeScreenOptionsContainer>
+                  </StudentHomeScreenOptions>
+                  <StudentHomeScreenOptions to='grades'>
+                    {me && me.__typename === 'Student' && (
+                      <StudentGradeDisplay studentId={me._id!} />
+                    )}
+                  </StudentHomeScreenOptions>
+                  <StudentHomeScreenOptions to='behavior-home'>
+                    <OptionTitle>How did I do Today?</OptionTitle>
+                  </StudentHomeScreenOptions>
+                  <StudentHomeScreenOptions to='handbook'>
+                    <OptionTitle>Student Handbook</OptionTitle>
+                  </StudentHomeScreenOptions>
+                  <LogoutOption onClick={() => logoutMutation()}>
+                    {loading ? 'Logging Out...' : 'Logout'}
+                  </LogoutOption>
+                </StudentHomeScreenOptionsContainer>
+              )}
+            </>
           </HomeScreenContainer>
         </>
       )}
@@ -153,6 +174,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
 
         <Route path='behavior-home' element={<StudentBehavior me={me} />} />
         <Route path='grades' element={<Grades me={me} />} />
+        <Route path='handbook' element={<Handbook me={me} />} />
       </Routes>
       <Routes></Routes>
     </>

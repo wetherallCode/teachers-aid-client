@@ -6,19 +6,19 @@ import { media } from './media'
 
 export const Header = styled.header`
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 1fr 1fr;
   background-color: var(--blue);
   color: var(--white);
   height: 5vh;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   /* text-shadow: '2px 2px 8px #474747'; */
   border-bottom: '3px solid var(--white)';
 `
 export const StyledLink = styled(Link)`
   color: var(--white);
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 4vh;
   ${media.iPhone} {
     font-size: 1rem;
   }
@@ -55,10 +55,10 @@ export const LoginToggle = styled.div<LoginToggleProps>`
 `
 
 export const UserNameHeader = styled.div<LoginToggleProps>`
-  font-size: 2rem;
+  font-size: 4vh;
   ${media.iPhone} {
     font-size: 1rem;
   }
-  margin-right: 2%;
+  padding-right: 2%;
   color: var(--white);
 `

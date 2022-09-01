@@ -5,17 +5,15 @@ export type CurrentSchoolDayProps = {
   schoolDay: findCurrentSchoolDay_findSchoolDayByDate_schoolDay
 }
 
-export const CurrentSchoolDay: FC<CurrentSchoolDayProps> = ({ schoolDay }) => {
-  console.log(schoolDay.todaysDate)
+export const CurrentSchoolDay = ({ schoolDay }: CurrentSchoolDayProps) => {
   return (
     <>
-      <div>Current School Day</div>
-      <div>Current Day of School: {schoolDay.schoolDayCount}</div>
-      <div>
-        Day's of School left until Summer Break :{' '}
-        {180 - schoolDay.schoolDayCount}
-      </div>
-      <div>Today's Date: {schoolDay.todaysDate}</div>
+      <div>Current Day of School</div>
+      <div> {schoolDay.schoolDayCount}</div>
+      <div>School days left until Summer Break</div>
+      <div>{180 - schoolDay.schoolDayCount}</div>
+
+      {/* <div>Today's Date: {schoolDay.todaysDate}</div> */}
       {/* <div>
         Current Cohort Week:{' '}
         {schoolDay.cohortWeek === 'RED' ? 'Red Week' : 'White Week'}

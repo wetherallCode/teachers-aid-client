@@ -15,13 +15,20 @@ import { ViewRoster } from './view-roster/ViewRoster'
 
 export type RosterDashboardProps = {
   courseName: string
+  courseId: string
 }
 
-export const RosterDashboard = ({ courseName }: RosterDashboardProps) => {
+export const RosterDashboard = ({
+  courseName,
+  courseId,
+}: RosterDashboardProps) => {
   console.log(courseName)
   return (
     <RosterDashboardContainer>
       <RosterNavigationContainer>
+        <RosterNavLink to={'/dashboard/courses/' + courseId}>
+          Back to Menu
+        </RosterNavLink>
         <CourseName>{courseName}</CourseName>
         <RosterNavLink to='add-students'>Add Students to Course</RosterNavLink>
         <RosterNavLink to='assign-seats'>Assign Seats</RosterNavLink>

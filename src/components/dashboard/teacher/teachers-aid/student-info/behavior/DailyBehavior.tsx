@@ -6,10 +6,10 @@ import {
   createStudentBehaviorVariables,
   createStudentBehavior,
   MarkingPeriodEnum,
-  findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
   findAllBehaviorTypes,
   BehaviorCategoryEnum,
   findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors,
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
@@ -30,7 +30,7 @@ export type DailyBehaviorProps = {
   studentId: string
   grade: number
   gradeLoading: boolean
-  studentBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[]
+  studentBehaviors: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors[]
 }
 
 export const CREATE_BEHAVIOR_MUTATION = gql`
@@ -71,7 +71,7 @@ export const DailyBehavior = ({
   >(CREATE_BEHAVIOR_MUTATION, {
     onCompleted: (data) => console.log(data),
     refetchQueries: [
-      'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
       'findBehaviorsByStudentIdAndDate',
     ],
   })
@@ -82,6 +82,7 @@ export const DailyBehavior = ({
   const negativeBehaviorList = data?.findAllBehaviorTypes.behaviorTypes.filter(
     (b) => b.behaviorCategory === BehaviorCategoryEnum.NEGATIVE_BEHAVIOR
   )!
+
   const independentBehaviorList = studentBehaviors.find(
     (b) =>
       b.date === new Date().toLocaleDateString() &&

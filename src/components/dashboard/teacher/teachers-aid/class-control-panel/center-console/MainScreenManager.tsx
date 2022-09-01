@@ -30,7 +30,7 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
       <MainScreenControlButton
         onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })}
       >
-        Seating Chart
+        Desk View
       </MainScreenControlButton>
       <MainScreenControlButton
         // onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_ATTENDANCE' })}
@@ -39,20 +39,18 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
         Student Status
       </MainScreenControlButton>
       <MainScreenControlButton
-        onClick={() =>
-          // event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' })
-          updateDynamicLeson({
-            variables: {
-              input: {
-                lessonId: lesson._id!,
-                dynamicLessonUpdate: DynamicLessonEnums.ASSIGNED_SEATING,
-              },
-            },
-          })
-        }
-      >
-        Assigned Seats
-      </MainScreenControlButton>
+      // onClick={() =>
+      // event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' })
+      // updateDynamicLeson({
+      //   variables: {
+      //     input: {
+      //       lessonId: lesson._id!,
+      //       dynamicLessonUpdate: DynamicLessonEnums.ASSIGNED_SEATING,
+      //     },
+      //   },
+      // })
+      // }
+      ></MainScreenControlButton>
       {/* <MainScreenControlButton
         onClick={() =>
           event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' })

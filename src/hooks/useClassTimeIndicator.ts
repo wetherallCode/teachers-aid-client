@@ -46,5 +46,6 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
             : student.inCourses[0].hasCourseInfo?.endsAt!
         )
       )
+
   return { classTime }
 }

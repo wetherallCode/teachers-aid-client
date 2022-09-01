@@ -44,7 +44,7 @@ export const FIND_ROSTER_BY_COURSE_QUERY = gql`
               }
               hasExcusedLatenesses {
                 markingPeriod
-                dayLateExcused
+                dayLate
               }
               hasAbsences {
                 markingPeriod

@@ -1,8 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
 import {
-  findStudentInfoByStudentId_findStudentById_student,
-  findStudentInfoByStudentIdVariables,
-  findStudentInfoByStudentId_findStudentById_student_hasBehaviors,
+  findStudentByIdForTeachersAidVariables,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors,
   MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
 import { AssessProtocol } from './protocols/AssessProtocol'
@@ -18,14 +18,16 @@ import { DailyBehavior } from './behavior/DailyBehavior'
 import { StudentStatus } from './status/StudentStatus'
 
 export type StudentControlPanelDisplayProps = {
-  student: findStudentInfoByStudentId_findStudentById_student
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   loadStudentInfo: (
-    options?: QueryLazyOptions<findStudentInfoByStudentIdVariables> | undefined
+    options?:
+      | QueryLazyOptions<findStudentByIdForTeachersAidVariables>
+      | undefined
   ) => void
   absenceCheck: boolean
   grade: number
   gradeLoading: boolean
-  studentBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[]
+  studentBehaviors: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors[]
   markingPeriod: MarkingPeriodEnum
 }
 

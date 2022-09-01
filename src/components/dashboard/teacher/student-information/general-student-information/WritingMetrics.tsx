@@ -4,6 +4,7 @@ import {
   findWritingMetrics,
   findWritingMetricsVariables,
 } from '../../../../../schemaTypes'
+import { capitalizer } from '../../../../../utils'
 
 export type WritingMetricsProps = { studentId: string }
 
@@ -39,10 +40,10 @@ export const WritingMetrics = ({ studentId }: WritingMetricsProps) => {
     <>
       <div>
         Writing Level:{' '}
-        {
+        {capitalizer(
           data?.findWritingMetrics.writingMetrics.overallWritingMetric
-            .overallWritingLevel
-        }
+            .overallWritingLevel!
+        )}
       </div>
       <div>
         Level Points:{' '}

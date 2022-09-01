@@ -31,6 +31,10 @@ export type studentInformationMachineEvent =
   | { type: 'ESSAYS' }
   | { type: 'QUIZZES' }
   | { type: 'ARTICLE_REVIEWS' }
+  | {
+      type: 'UPDATE_STUDENT'
+      payload: findAllStudentsForStudentInformation_findAllStudents_students
+    }
   | { type: 'SGO' }
   | {
       type: 'SET_STUDENT'
@@ -73,6 +77,14 @@ export const studentInformationMachine = Machine<
             ASSIGNMENTS: 'assignments',
             CONTACTS: 'contacts',
             PROTOCOLS: 'protocols',
+            UPDATE_STUDENT: {
+              actions: assign((ctx, evt) => {
+                return {
+                  ...ctx,
+                  student: evt.payload,
+                }
+              }),
+            },
           },
         },
         assignments: {

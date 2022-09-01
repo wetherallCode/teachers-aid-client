@@ -228,7 +228,7 @@ export const CreateEssay = ({
                     ? 'Before School'
                     : time === 'BEFORE_CLASS'
                     ? 'Before Class'
-                    : time === 'AFTER_CLASS'
+                    : time === 'END_OF_CLASS'
                     ? 'After Class'
                     : 'After School'}
                 </option>

@@ -26,8 +26,8 @@ export const StudentBehavior = ({ me }: StudentBehaviorProps) => {
   >(FIND_BEHAVIORS_BY_STUDENT_ID_AND_DATE_QUERY, {
     variables: {
       input: { date: new Date().toLocaleDateString(), studentId: me._id! },
-      // input: { date: '5/17/2022', studentId: me._id! },
     },
+    fetchPolicy: 'network-only',
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })

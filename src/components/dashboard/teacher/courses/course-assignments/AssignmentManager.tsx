@@ -1,5 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import React, { FC } from 'react'
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom'
 import { assign } from 'xstate/lib/actionTypes'
 import {
   findAssignmentsByCourseId,
@@ -49,6 +51,7 @@ export const FIND_ASSIGNMENTS_QUERY = gql`
 
 export const AssignmentManager = ({ courseId }: AssignmentManagerProps) => {
   const [state, event] = useAssignmentManagerContextProvider()
+  const navigate = useNavigate()
   // const { loading, data } = useQuery<
   //   findAssignmentsByCourseId,
   //   findAssignmentsByCourseIdVariables
@@ -63,6 +66,7 @@ export const AssignmentManager = ({ courseId }: AssignmentManagerProps) => {
   // if (loading) return <div>Loading </div>
   return (
     <>
+      <Link to={'/dashboard/courses/' + courseId}>Back</Link>
       <div>Assignment Manager</div>
       <div>Create Grade Download</div>
       <div>

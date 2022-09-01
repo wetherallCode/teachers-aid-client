@@ -94,6 +94,34 @@ export interface createSignInSheetsVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: updateSchoolDay
+// ====================================================
+
+export interface updateSchoolDay_updateSchoolDay_schoolDay {
+  __typename: "SchoolDay";
+  _id: string | null;
+  schoolDayLength: SchoolDayLengthEnum;
+}
+
+export interface updateSchoolDay_updateSchoolDay {
+  __typename: "UpdateSchoolDayPayload";
+  schoolDay: updateSchoolDay_updateSchoolDay_schoolDay;
+}
+
+export interface updateSchoolDay {
+  updateSchoolDay: updateSchoolDay_updateSchoolDay;
+}
+
+export interface updateSchoolDayVariables {
+  input: UpdateSchoolDayInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findCurrentSchoolDay
 // ====================================================
 
@@ -1557,6 +1585,28 @@ export interface markExemptVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findSchoolDayAndLesson
+// ====================================================
+
+export interface findSchoolDayAndLesson_findSchoolDayAndLesson {
+  __typename: "FindSchoolDayAndLessonPayload";
+  lessonToday: boolean;
+}
+
+export interface findSchoolDayAndLesson {
+  findSchoolDayAndLesson: findSchoolDayAndLesson_findSchoolDayAndLesson;
+}
+
+export interface findSchoolDayAndLessonVariables {
+  input: FindSchoolDayAndLessonInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createArticleReviews
 // ====================================================
 
@@ -2448,6 +2498,33 @@ export interface returnGradedEssayVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: updateGradingDraft
+// ====================================================
+
+export interface updateGradingDraft_updateGradingDraft_essay {
+  __typename: "Essay";
+  _id: string | null;
+}
+
+export interface updateGradingDraft_updateGradingDraft {
+  __typename: "UpdateGradingDraftPayload";
+  essay: updateGradingDraft_updateGradingDraft_essay;
+}
+
+export interface updateGradingDraft {
+  updateGradingDraft: updateGradingDraft_updateGradingDraft;
+}
+
+export interface updateGradingDraftVariables {
+  input: UpdateGradingDraftInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findStudentsByCourse
 // ====================================================
 
@@ -3039,6 +3116,28 @@ export interface findStudentsByCourseForSecondaryGradeFinderVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: toggleAssignmentsAllowedInClass
+// ====================================================
+
+export interface toggleAssignmentsAllowedInClass_toggleAssignmentsAllowedInClass {
+  __typename: "ToggleAssignmentsAllowedInClassPayload";
+  toggled: boolean;
+}
+
+export interface toggleAssignmentsAllowedInClass {
+  toggleAssignmentsAllowedInClass: toggleAssignmentsAllowedInClass_toggleAssignmentsAllowedInClass;
+}
+
+export interface toggleAssignmentsAllowedInClassVariables {
+  input: ToggleAssignmentsAllowedInClassInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createCourseInfo
 // ====================================================
 
@@ -3456,6 +3555,10 @@ export interface registerStudentVariables {
 // GraphQL query operation: findAllUsers
 // ====================================================
 
+export interface findAllUsers_findAllUsers_users_StudentForTeachersAid {
+  __typename: "StudentForTeachersAid";
+}
+
 export interface findAllUsers_findAllUsers_users_Student {
   __typename: "Student";
   userName: string;
@@ -3466,7 +3569,7 @@ export interface findAllUsers_findAllUsers_users_Teacher {
   userName: string;
 }
 
-export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
+export type findAllUsers_findAllUsers_users = findAllUsers_findAllUsers_users_StudentForTeachersAid | findAllUsers_findAllUsers_users_Student | findAllUsers_findAllUsers_users_Teacher;
 
 export interface findAllUsers_findAllUsers {
   __typename: "FindAllUsersPayload";
@@ -3617,13 +3720,13 @@ export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assigned
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasUnExcusedLatenesses {
   __typename: "UnexcusedLateness";
   markingPeriod: MarkingPeriodEnum;
-  dayLate: any;
+  dayLate: string;
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasExcusedLatenesses {
   __typename: "ExcusedLateness";
   markingPeriod: MarkingPeriodEnum;
-  dayLateExcused: any;
+  dayLate: string;
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAbsences {
@@ -4230,7 +4333,7 @@ export interface markLessonForSGOVariables {
 // ====================================================
 
 export interface getCoursesForUser_findUserData_user_Student {
-  __typename: "Student";
+  __typename: "Student" | "StudentForTeachersAid";
   _id: string | null;
 }
 
@@ -5306,6 +5409,42 @@ export interface findResponsibilityPointsByStudentIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: switchToNewCourse
+// ====================================================
+
+export interface switchToNewCourse_switchToNewCourse_student_inCourses {
+  __typename: "Course";
+  name: string;
+  _id: string | null;
+}
+
+export interface switchToNewCourse_switchToNewCourse_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  inCourses: switchToNewCourse_switchToNewCourse_student_inCourses[];
+}
+
+export interface switchToNewCourse_switchToNewCourse {
+  __typename: "SwitchToNewCoursePayload";
+  student: switchToNewCourse_switchToNewCourse_student;
+}
+
+export interface switchToNewCourse {
+  switchToNewCourse: switchToNewCourse_switchToNewCourse;
+}
+
+export interface switchToNewCourseVariables {
+  input: SwitchToNewCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findWritingMetrics
 // ====================================================
 
@@ -5337,6 +5476,34 @@ export interface findWritingMetrics {
 
 export interface findWritingMetricsVariables {
   input: FindWritingMetricsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: resetPassword
+// ====================================================
+
+export interface resetPassword_resetPassword_user {
+  __typename: "Student" | "StudentForTeachersAid" | "Teacher";
+  _id: string | null;
+  firstName: string;
+}
+
+export interface resetPassword_resetPassword {
+  __typename: "ResetPasswordPayload";
+  user: resetPassword_resetPassword_user;
+}
+
+export interface resetPassword {
+  resetPassword: resetPassword_resetPassword;
+}
+
+export interface resetPasswordVariables {
+  input: ResetPasswordInput;
 }
 
 /* tslint:disable */
@@ -5537,6 +5704,7 @@ export interface findAllQuestions {
 export interface findAllStudentsForStudentInformation_findAllStudents_students_inCourses {
   __typename: "Course";
   name: string;
+  _id: string | null;
 }
 
 export interface findAllStudentsForStudentInformation_findAllStudents_students {
@@ -6679,25 +6847,25 @@ export interface updateResponsibilityPointsVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createExcusedLateness
+// GraphQL mutation operation: createLateness
 // ====================================================
 
-export interface createExcusedLateness_createExcusedLateness_excusedLateness {
-  __typename: "ExcusedLateness";
+export interface createLateness_createLateness_studentLateness {
+  __typename: "StudentLateness";
   _id: string | null;
 }
 
-export interface createExcusedLateness_createExcusedLateness {
-  __typename: "CreateExcusedLatenessPayload";
-  excusedLateness: createExcusedLateness_createExcusedLateness_excusedLateness;
+export interface createLateness_createLateness {
+  __typename: "CreateLatenessPayload";
+  studentLateness: createLateness_createLateness_studentLateness;
 }
 
-export interface createExcusedLateness {
-  createExcusedLateness: createExcusedLateness_createExcusedLateness;
+export interface createLateness {
+  createLateness: createLateness_createLateness;
 }
 
-export interface createExcusedLatenessVariables {
-  input: CreateExcusedLatenessInput;
+export interface createLatenessVariables {
+  input: CreateLatenessInput;
 }
 
 /* tslint:disable */
@@ -6892,62 +7060,71 @@ export interface createStudentOutOfClassVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findStudentInfoByStudentId
+// GraphQL query operation: findStudentByIdForTeachersAid
 // ====================================================
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasAbsences {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAbsences {
   __typename: "StudentAbsence";
   _id: string | null;
   dayAbsent: any;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasUnExcusedLatenesses {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasLatnesses {
+  __typename: "StudentLateness";
+  _id: string | null;
+  dayLate: string;
+  latenessType: LatenessTypeEnum;
+}
+
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasUnExcusedLatenesses {
   __typename: "UnexcusedLateness";
   _id: string | null;
-  dayLate: any;
+  dayLate: string;
+  latenessType: LatenessTypeEnum;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasExcusedLatenesses {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasExcusedLatenesses {
   __typename: "ExcusedLateness";
   _id: string | null;
-  dayLateExcused: any;
+  dayLate: string;
+  latenessType: LatenessTypeEnum;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasResponsibilityPoints {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasResponsibilityPoints {
   __typename: "ResponsibilityPoints";
   _id: string | null;
   markingPeriod: MarkingPeriodEnum;
   responsibilityPoints: number;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols_student {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols_student {
   __typename: "Student";
   _id: string | null;
   firstName: string;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols_partners {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols_partners {
   __typename: "Student";
   _id: string | null;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasProtocols {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols {
   __typename: "Protocol";
   _id: string | null;
   completed: boolean;
   assignedDate: string;
   academicOutcomeType: AcademicOutcomeTypes;
-  student: findStudentInfoByStudentId_findStudentById_student_hasProtocols_student;
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols_student;
   isActive: boolean;
   task: string;
-  partners: findStudentInfoByStudentId_findStudentById_student_hasProtocols_partners[] | null;
+  partners: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols_partners[] | null;
   discussionLevel: DiscussionTypesEnum | null;
   assessment: ProtocolAssessmentEnum | null;
   protocolActivityType: ProtocolActivityTypes;
   markingPeriod: MarkingPeriodEnum;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasBehaviors_behavior {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors_behavior {
   __typename: "BehaviorType";
   _id: string | null;
   behaviorCategory: BehaviorCategoryEnum;
@@ -6957,14 +7134,14 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasBehaviors
   forTeachersAid: boolean;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasBehaviors {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors {
   __typename: "StudentBehavior";
   _id: string | null;
-  behavior: findStudentInfoByStudentId_findStudentById_student_hasBehaviors_behavior;
+  behavior: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors_behavior;
   date: string;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student_hasStatus {
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasStatus {
   __typename: "StudentOutOfClass";
   _id: string | null;
   date: string;
@@ -6975,31 +7152,32 @@ export interface findStudentInfoByStudentId_findStudentById_student_hasStatus {
   returnTime: string;
 }
 
-export interface findStudentInfoByStudentId_findStudentById_student {
-  __typename: "Student";
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student {
+  __typename: "StudentForTeachersAid";
   _id: string | null;
   firstName: string;
   lastName: string;
-  hasAbsences: findStudentInfoByStudentId_findStudentById_student_hasAbsences[];
-  hasUnExcusedLatenesses: findStudentInfoByStudentId_findStudentById_student_hasUnExcusedLatenesses[];
-  hasExcusedLatenesses: findStudentInfoByStudentId_findStudentById_student_hasExcusedLatenesses[];
-  hasResponsibilityPoints: findStudentInfoByStudentId_findStudentById_student_hasResponsibilityPoints[];
-  hasProtocols: findStudentInfoByStudentId_findStudentById_student_hasProtocols[];
-  hasBehaviors: findStudentInfoByStudentId_findStudentById_student_hasBehaviors[];
-  hasStatus: findStudentInfoByStudentId_findStudentById_student_hasStatus[];
+  hasAbsences: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAbsences[];
+  hasLatnesses: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasLatnesses[];
+  hasUnExcusedLatenesses: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasUnExcusedLatenesses[];
+  hasExcusedLatenesses: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasExcusedLatenesses[];
+  hasResponsibilityPoints: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasResponsibilityPoints;
+  hasProtocols: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols[];
+  hasBehaviors: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors[];
+  hasStatus: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasStatus[];
 }
 
-export interface findStudentInfoByStudentId_findStudentById {
-  __typename: "FindStudentByIdPayload";
-  student: findStudentInfoByStudentId_findStudentById_student;
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid {
+  __typename: "FindStudentByIdForTeachersAidPayload";
+  student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student;
 }
 
-export interface findStudentInfoByStudentId {
-  findStudentById: findStudentInfoByStudentId_findStudentById;
+export interface findStudentByIdForTeachersAid {
+  findStudentByIdForTeachersAid: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid;
 }
 
-export interface findStudentInfoByStudentIdVariables {
-  input: FindStudentByIdInput;
+export interface findStudentByIdForTeachersAidVariables {
+  input: FindStudentByIdForTeachersAidInput;
 }
 
 /* tslint:disable */
@@ -7093,7 +7271,7 @@ export interface findCourseByIdForTeachersAidVariables {
 // ====================================================
 
 export interface changePassword_changePassword_user {
-  __typename: "Student" | "Teacher";
+  __typename: "Student" | "StudentForTeachersAid" | "Teacher";
   _id: string | null;
 }
 
@@ -7120,7 +7298,7 @@ export interface changePasswordVariables {
 // ====================================================
 
 export interface login_login_user {
-  __typename: "Student" | "Teacher";
+  __typename: "Student" | "StudentForTeachersAid" | "Teacher";
   _id: string | null;
 }
 
@@ -7991,6 +8169,16 @@ export interface SetCurrentMarkingPeriodVariables {
 // GraphQL query operation: me
 // ====================================================
 
+export interface me_me_StudentForTeachersAid {
+  __typename: "StudentForTeachersAid";
+  userName: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  isActive: boolean;
+  _id: string | null;
+}
+
 export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   __typename: "CourseInfo";
   startsAt: string;
@@ -7999,6 +8187,7 @@ export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
+  isHidden: boolean;
 }
 
 export interface me_me_Teacher_teachesCourses {
@@ -8029,6 +8218,7 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   halfDayEndsAt: string;
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
+  isHidden: boolean;
 }
 
 export interface me_me_Student_inCourses {
@@ -8061,7 +8251,7 @@ export interface me_me_Student {
   hasWritingMetrics: me_me_Student_hasWritingMetrics;
 }
 
-export type me_me = me_me_Teacher | me_me_Student;
+export type me_me = me_me_StudentForTeachersAid | me_me_Teacher | me_me_Student;
 
 export interface me {
   me: me_me | null;
@@ -8207,55 +8397,6 @@ export interface findAllMarkingPeriodGradesVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL mutation operation: toggleAssignmentsAllowedInClass
-// ====================================================
-
-export interface toggleAssignmentsAllowedInClass_toggleAssignmentsAllowedInClass {
-  __typename: "ToggleAssignmentsAllowedInClassPayload";
-  toggled: boolean;
-}
-
-export interface toggleAssignmentsAllowedInClass {
-  toggleAssignmentsAllowedInClass: toggleAssignmentsAllowedInClass_toggleAssignmentsAllowedInClass;
-}
-
-export interface toggleAssignmentsAllowedInClassVariables {
-  input: ToggleAssignmentsAllowedInClassInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: updateGradingDraft
-// ====================================================
-
-export interface updateGradingDraft_updateGradingDraft_essay {
-  __typename: "Essay";
-  _id: string | null;
-}
-
-export interface updateGradingDraft_updateGradingDraft {
-  __typename: "UpdateGradingDraftPayload";
-  essay: updateGradingDraft_updateGradingDraft_essay;
-}
-
-export interface updateGradingDraft {
-  updateGradingDraft: updateGradingDraft_updateGradingDraft;
-}
-
-export interface updateGradingDraftVariables {
-  input: UpdateGradingDraftInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -8330,6 +8471,11 @@ export enum GradeTypeEnum {
   PRIMARY = "PRIMARY",
   SECONDARY = "SECONDARY",
   SUPPORTIVE = "SUPPORTIVE",
+}
+
+export enum LatenessTypeEnum {
+  EXCUSED = "EXCUSED",
+  UNEXCUSED = "UNEXCUSED",
 }
 
 export enum LessonTypeEnum {
@@ -8435,10 +8581,10 @@ export enum StudentCohortEnum {
 }
 
 export enum TimeOfDay {
-  AFTER_CLASS = "AFTER_CLASS",
   AFTER_SCHOOL = "AFTER_SCHOOL",
   BEFORE_CLASS = "BEFORE_CLASS",
   BEFORE_SCHOOL = "BEFORE_SCHOOL",
+  END_OF_CLASS = "END_OF_CLASS",
 }
 
 export enum TitleEnum {
@@ -8654,8 +8800,9 @@ export interface CreateEssentialQuestionInput {
   question: string;
 }
 
-export interface CreateExcusedLatenessInput {
-  dayLateExcused: any;
+export interface CreateLatenessInput {
+  dayLate: string;
+  latenessType: LatenessTypeEnum;
   markingPeriod: MarkingPeriodEnum;
   studentId: string;
 }
@@ -8775,7 +8922,7 @@ export interface CreateTextSectionInput {
 }
 
 export interface CreateUnexcusedLatenessInput {
-  dayLate: any;
+  dayLate: string;
   markingPeriod: MarkingPeriodEnum;
   studentId: string;
 }
@@ -9008,8 +9155,17 @@ export interface FindSGOEssaysByStudentIdInput {
   studentId: string;
 }
 
+export interface FindSchoolDayAndLessonInput {
+  courseId: string;
+  todaysDate: string;
+}
+
 export interface FindSchoolDayByDateInput {
   date: any;
+}
+
+export interface FindStudentByIdForTeachersAidInput {
+  studentId: string;
 }
 
 export interface FindStudentByIdInput {
@@ -9192,6 +9348,10 @@ export interface RemoveStudentBehaviorInput {
   studentBehaviorId: string;
 }
 
+export interface ResetPasswordInput {
+  userId: string;
+}
+
 export interface RespondToProtocolInput {
   protocolId: string;
   response: string;
@@ -9313,6 +9473,11 @@ export interface SubmittedFinalDraftsInput {
   gradingDraft: any;
   rubricEntries: RubricEntryInput[];
   score: number;
+}
+
+export interface SwitchToNewCourseInput {
+  newCourseId: string;
+  studentId: string;
 }
 
 export interface TextSectionProtocolsInput {
@@ -9470,6 +9635,15 @@ export interface UpdateRubricEntryInput {
   rubricSection: RubricSectionEnum;
   rubricWritingLevels: WritingLevelEnum[];
   score: number;
+}
+
+export interface UpdateSchoolDayInput {
+  schoolDayId: string;
+  schoolDayLength: SchoolDayLengthEnum;
+  updatedCohortWeek: StudentCohortEnum;
+  updatedCurrentSchoolDayType: SchoolDayType;
+  updatedDate: any;
+  updatedSchoolDayCount: number;
 }
 
 export interface UpdateTextSectionInput {

@@ -29,6 +29,7 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
           {teachesCourses
             .slice(0)
             .sort(sortByLetter)
+            .filter((c) => !c.hasCourseInfo.isHidden)
             .map((course) => (
               <CourseToSelect
                 key={course._id}

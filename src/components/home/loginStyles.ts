@@ -5,15 +5,16 @@ export const LoginWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--grey);
-  border: 1px solid var(--blue);
-  box-shadow: '3px 3px 3px black';
+  /* background: var(--grey); */
+  /* border: 1px solid var(--blue); */
+  /* box-shadow: '3px 3px 3px black'; */
   color: var(--blue);
   height: 35vh;
-  font-size: 1.5rem;
+  width: 70vh;
+  font-size: 2vh;
 `
 export const LoginTitle = styled.div`
-  font-size: 2rem;
+  font-size: 3.5vh;
   text-align: center;
   padding: 10%;
 `

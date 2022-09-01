@@ -34,6 +34,7 @@ import {
   AssignmentDetailsGoBackButtonContainer,
   AssignmentDetailsGoBackButton,
 } from '../../essays/assigned-essays/state-and-styles/assignedEssayStyles'
+import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
 
 export type ReadingGuideToCompleteProps = {}
 
@@ -91,6 +92,7 @@ export const START_READING_GUIDE_MUTATION = gql`
 export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
   const me: me_me_Student = useUserContextProvider()
   const { classTime } = useClassTimeIndicator(me)
+  const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
 
   const { readingGuideToComplete } = useParams()
   const navigate = useNavigate()
@@ -176,8 +178,10 @@ export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
   })
 
   useEffect(() => {
-    if (classTime) navigate('dashboard/assignments')
-  }, [classTime, navigate])
+    if (classTime && !assignmentsAllowedInClass)
+      navigate('/dashboard/assignments')
+  }, [classTime, navigate, assignmentsAllowedInClass])
+
   if (loading) return <div>Loading </div>
 
   return (
