@@ -165,6 +165,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
         />
 
         <Route
+          path='/lesson-home'
           element={
             <DailyAgendaContextProvider>
               <LessonMainMenu />
@@ -176,7 +177,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
         <Route path='grades' element={<Grades me={me} />} />
         <Route path='handbook' element={<Handbook me={me} />} />
       </Routes>
-      <Routes></Routes>
+      {/* <Routes></Routes> */}
     </>
   )
 }
