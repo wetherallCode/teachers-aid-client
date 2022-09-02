@@ -68,7 +68,7 @@ export const UnexcusedLatness = ({
   const isExcused = student.hasLatnesses.find(
     (late) => late.latenessType === LatenessTypeEnum.EXCUSED
   )!
-  console.log(unexcusedLatenessCheck === undefined)
+
   return (
     <>
       {!unexcusedLatenessCheck ? (
