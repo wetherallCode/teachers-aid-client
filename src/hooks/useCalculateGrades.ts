@@ -132,6 +132,7 @@ export const useCalculateGrades = ({
       gradeWeightPercentage
     )
   }
+
   const handeResponsiblityPointScore = (
     responsibilityPointsGrade: number,
     gradeWeightPercentage: number
@@ -147,36 +148,43 @@ export const useCalculateGrades = ({
       allEssays.length > 0 &&
       allSecondaryGrades.length > 0 &&
       !data?.findAllMarkingPeriodGrades.responsibilityPoints
+    // console.log(onlyPrimaryAndSecondary)
 
     const onlyResponsibilityPoints =
       allEssays.length === 0 &&
-      allSecondaryGrades.length < 0 &&
+      allSecondaryGrades.length === 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
+    console.log(allSecondaryGrades.length < 0)
 
     const onlySecondary =
       allEssays.length === 0 &&
       allSecondaryGrades.length > 0 &&
       !data?.findAllMarkingPeriodGrades.responsibilityPoints
+    // console.log(onlySecondary)
 
     const onlyPrimary =
       allEssays.length > 0 &&
       allSecondaryGrades.length === 0 &&
       !data?.findAllMarkingPeriodGrades.responsibilityPoints
+    // console.log(onlyPrimary)
 
     const onlySecondaryAndResponsiblityPoints =
       allEssays.length === 0 &&
       allSecondaryGrades.length > 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
+    // console.log(onlySecondaryAndResponsiblityPoints)
 
     const onlyPrimaryAndResponsibilityPoints =
       allEssays.length > 0 &&
       allSecondaryGrades.length === 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
+    // console.log(onlyPrimaryAndResponsibilityPoints)
 
     const allGrades =
       allEssays.length > 0 &&
       allSecondaryGrades.length > 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
+    // console.log(allGrades)
 
     if (onlyPrimaryAndSecondary) {
       const primaryGrade = handleScoring(allEssays, 60)
@@ -198,6 +206,7 @@ export const useCalculateGrades = ({
     }
 
     if (onlyResponsibilityPoints) {
+      console.log('only rp')
       return {
         grade: handeResponsiblityPointScore(responsibilityPoints, 1),
         loading,
