@@ -46,6 +46,7 @@ export const FIND_TEXT_SECTION_BY_ID_QUERY = gql`
           startingPage
           endingPage
         }
+        orderNumber
         hasVocab {
           word
           definition
@@ -124,6 +125,10 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
         header: data.findTextSectionById.textSection.header,
       })
       event({
+        type: 'SET_ORDER_NUMBER',
+        payload: data.findTextSectionById.textSection.orderNumber,
+      })
+      event({
         type: 'SET_PAGE_NUMBERS',
         payload: data.findTextSectionById.textSection.pageNumbers,
       })
@@ -179,6 +184,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
         hasQuestions: state.context.hasQuestions,
         hasProtocols: state.context.hasProtocols,
         hasVocab: state.context.hasVocab,
+        orderNumber: state.context.orderNumber,
       },
     },
     // onCompleted: (updateData) => console.log(updateData),

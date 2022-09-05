@@ -35,6 +35,17 @@ export const EditSectionInfo = ({ textSection }: EditSectionInfoProps) => {
           </label>
         )}
       </div>
+      <div>
+        Order:{' '}
+        {state.context.orderNumber === null
+          ? 'none'
+          : state.context.orderNumber}{' '}
+        <input
+          onChange={(e) => {
+            event({ type: 'SET_ORDER_NUMBER', payload: +e.target.value })
+          }}
+        />
+      </div>
       <div>Pages: </div>
       <div>Starting Page:</div>
       <label htmlFor='set page numbers'>

@@ -83,31 +83,62 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
             ))}
           </select> */}
           <div style={{ overflow: 'scroll', height: '35vh' }}>
-            {data?.findTextSectionsByChapter.textSections.map((section) =>
-              loading ? (
-                'Loading Sections...'
-              ) : (
-                <SectionSelectorOption
-                  key={section._id!}
-                  // selected={section._id === state.context.currentSection[0]}
-                  selected={state.context.textSectionList.includes(
-                    section._id!
-                  )}
-                  onClick={() => {
-                    // event({
-                    //   type: 'SET_CURRENT_SECTION',
-                    //   payload: [section._id!, section.header],
-                    // })
-                    event({
-                      type: 'ADD_SECTIONS',
-                      payload: [section._id!, section.header],
-                    })
-                  }}
-                >
-                  {section.header}
-                </SectionSelectorOption>
-              )
-            )}
+            {data?.findTextSectionsByChapter.textSections
+              .filter((a) => a.orderNumber)
+              .sort((a, b) => a.orderNumber! - b.orderNumber!)
+              .map((section) =>
+                loading ? (
+                  'Loading Sections...'
+                ) : (
+                  <SectionSelectorOption
+                    key={section._id!}
+                    // selected={section._id === state.context.currentSection[0]}
+                    selected={state.context.textSectionList.includes(
+                      section._id!
+                    )}
+                    onClick={() => {
+                      // event({
+                      //   type: 'SET_CURRENT_SECTION',
+                      //   payload: [section._id!, section.header],
+                      // })
+                      event({
+                        type: 'ADD_SECTIONS',
+                        payload: [section._id!, section.header],
+                      })
+                    }}
+                  >
+                    {section.header}
+                  </SectionSelectorOption>
+                )
+              )}
+            {data?.findTextSectionsByChapter.textSections
+              .filter((a) => !a.orderNumber)
+              // .sort((a, b) => a.orderNumber! - b.orderNumber!)
+              .map((section) =>
+                loading ? (
+                  'Loading Sections...'
+                ) : (
+                  <SectionSelectorOption
+                    key={section._id!}
+                    // selected={section._id === state.context.currentSection[0]}
+                    selected={state.context.textSectionList.includes(
+                      section._id!
+                    )}
+                    onClick={() => {
+                      // event({
+                      //   type: 'SET_CURRENT_SECTION',
+                      //   payload: [section._id!, section.header],
+                      // })
+                      event({
+                        type: 'ADD_SECTIONS',
+                        payload: [section._id!, section.header],
+                      })
+                    }}
+                  >
+                    {section.header}
+                  </SectionSelectorOption>
+                )
+              )}
           </div>
           {/* <SectionSelectorOptionAddButtonContainer>
             <SectionSelectorOptionAddButton

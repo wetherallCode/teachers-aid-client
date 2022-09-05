@@ -12,6 +12,7 @@ export const FIND_TEXT_SECTIONS_BY_CHAPTER_QUERY = gql`
       textSections {
         _id
         header
+        orderNumber
       }
     }
   }
@@ -32,16 +33,33 @@ export const TextSectionList = () => {
 
   return (
     <div>
-      {data?.findTextSectionsByChapter.textSections.map((section) => (
-        <div
-          key={section._id!}
-          onClick={() =>
-            event({ type: 'SET_SECTION_ID', payload: section._id! })
-          }
-        >
-          {section.header}
-        </div>
-      ))}
+      {data?.findTextSectionsByChapter.textSections
+        .filter((textSection) => textSection.orderNumber)
+        .sort((a, b) => a.orderNumber! - b.orderNumber!)
+        .map((section) => (
+          <div
+            key={section._id!}
+            onClick={() =>
+              event({ type: 'SET_SECTION_ID', payload: section._id! })
+            }
+          >
+            {section.header}
+          </div>
+        ))}
+      {data?.findTextSectionsByChapter.textSections
+        .filter((textSection) => !textSection.orderNumber)
+        // .sort((a, b) => a.orderNumber! - b.orderNumber!)
+        .map((section) => (
+          <div
+            key={section._id!}
+            style={{ color: 'var(--grey)' }}
+            onClick={() =>
+              event({ type: 'SET_SECTION_ID', payload: section._id! })
+            }
+          >
+            {section.header}
+          </div>
+        ))}
     </div>
   )
 }

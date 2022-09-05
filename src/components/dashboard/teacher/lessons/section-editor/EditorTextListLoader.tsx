@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import {
   findTextsForTextSectionEditor,
@@ -22,7 +22,7 @@ export const FIND_TEXTS_FOR_TEXT_SECTION_EDITOR_QUERY = gql`
   }
 `
 
-export const EditorTextListLoader: FC<TextListLoaderProps> = ({}: TextListLoaderProps) => {
+export const EditorTextListLoader = ({}: TextListLoaderProps) => {
   const me: me_me_Teacher = useUserContextProvider()
 
   const { loading, data } = useQuery<findTextsForTextSectionEditor>(
@@ -35,5 +35,6 @@ export const EditorTextListLoader: FC<TextListLoaderProps> = ({}: TextListLoader
 
   const texts = data?.findTexts.texts.filter((text) => text.ownerId === me._id)
   if (loading) return null
+
   return <EditorTextSelectionDisplay textList={texts!} />
 }
