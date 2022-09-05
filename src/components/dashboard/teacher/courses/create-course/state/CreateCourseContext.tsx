@@ -13,9 +13,9 @@ type CreateCourseContextProps = {
   children: ReactNode
 }
 
-export const CreateCourseContextProvider: FC<CreateCourseContextProps> = ({
+export const CreateCourseContextProvider = ({
   children,
-}) => {
+}: CreateCourseContextProps) => {
   const [state, event] = useMachine(createCourseMachine)
   return (
     <CreateCourseContext.Provider value={[state, event]}>

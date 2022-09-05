@@ -18,7 +18,7 @@ export const Expecations = ({}: ExpecationsProps) => {
           <li>I expect you to be honest. That means do your own work.</li>
           <br />
           <li>
-            I expect that you put your full effort into every task. Especially
+            I expect that you put your full effort into every task; especially
             if you “think” you can’t do it.
           </li>
           <br />

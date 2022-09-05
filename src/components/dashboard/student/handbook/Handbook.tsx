@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { me_me_Student } from '../../../schemaTypes'
-import { phraseCapitalizer, underscoreEliminator } from '../../../utils'
+import { me_me_Student } from '../../../../schemaTypes'
+import { phraseCapitalizer, underscoreEliminator } from '../../../../utils'
 import { Behavior } from './Behavior'
 import { ContactInfo } from './ContactInfo'
 import { Expecations } from './Expecations'

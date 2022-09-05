@@ -15,6 +15,7 @@ import {
   StudentBehaviorContainer,
   StudentBehaviorContentContainer,
   StudentBehaviorTitle,
+  TotalPointsForTheDayContainer,
 } from './studentBehaviorStyles'
 
 export type StudentBehaviorProps = { me: me_me }
@@ -28,9 +29,18 @@ export const StudentBehavior = ({ me }: StudentBehaviorProps) => {
       input: { date: new Date().toLocaleDateString(), studentId: me._id! },
     },
     fetchPolicy: 'network-only',
-    onCompleted: (data) => console.log(data),
+    // onCompleted: (data) =>
+    //   console.log(
+    //     data.findBehaviorsByStudentIdAndDate.behaviors[0].responsibilityPoints
+    //   ),
     onError: (error) => console.error(error),
   })
+  const totalPoints =
+    data?.findBehaviorsByStudentIdAndDate.behaviors.length! > 0 &&
+    data?.findBehaviorsByStudentIdAndDate.behaviors
+      .map((behavior) => behavior.responsibilityPoints)
+      .reduce((a, i) => a + i)
+
   return (
     <StudentBehaviorContainer>
       <StudentBehaviorTitle>How did I do today?</StudentBehaviorTitle>
@@ -46,7 +56,7 @@ export const StudentBehavior = ({ me }: StudentBehaviorProps) => {
               .map((b) => (
                 <BehaviorItem key={b._id}>
                   <div>{b.behavior.behaviorName}</div>
-                  <div>{b.responsibilityPoints.toFixed(1)}</div>
+                  {/* <div>{b.responsibilityPoints.toFixed(1)}</div> */}
                 </BehaviorItem>
               ))}
           </ul>
@@ -62,12 +72,15 @@ export const StudentBehavior = ({ me }: StudentBehaviorProps) => {
               .map((b) => (
                 <BehaviorItem key={b._id}>
                   <div>{b.behavior.behaviorName}</div>
-                  <div>{b.behavior.points}</div>
+                  {/* <div>{b.behavior.points}</div> */}
                 </BehaviorItem>
               ))}
           </ul>
         </BehaviorItemContainer>
       </StudentBehaviorContentContainer>
+      <TotalPointsForTheDayContainer>
+        Total Points for the day: {totalPoints ? totalPoints : 'None so far'}
+      </TotalPointsForTheDayContainer>
     </StudentBehaviorContainer>
   )
 }

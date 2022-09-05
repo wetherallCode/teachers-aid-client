@@ -37,7 +37,7 @@ import { ReadingGuideToComplete } from './assignments/readingGuides/assigned-rea
 import { PasswordCheck } from '../../home/PasswordCheck'
 import { usePasswordCheck } from '../../../hooks/usePasswordCheck'
 import { InitialPasswordChange } from '../../home/InitialPasswordChange'
-import { Handbook } from '../handbook/Handbook'
+import { Handbook } from './handbook/Handbook'
 
 export type StudentDashboardHomeProps = {
   me: me_me_Student

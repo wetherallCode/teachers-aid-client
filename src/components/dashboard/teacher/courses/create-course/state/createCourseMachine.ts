@@ -57,6 +57,8 @@ export const createCourseMachine = Machine<
       startsAt: '',
       endsAt: '',
       halfDayStartsAt: '',
+      hourDelayEndsAt: '',
+      hourDelayStartsAt: '',
       cohortBasedSeating: false,
       halfDayEndsAt: '',
       schoolDayType: SchoolDayType.AB,

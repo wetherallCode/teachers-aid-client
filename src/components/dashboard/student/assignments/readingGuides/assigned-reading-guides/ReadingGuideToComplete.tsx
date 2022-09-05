@@ -89,7 +89,7 @@ export const START_READING_GUIDE_MUTATION = gql`
   }
 `
 
-export const ReadingGuideToComplete: FC<ReadingGuideToCompleteProps> = () => {
+export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
   const me: me_me_Student = useUserContextProvider()
   const { classTime } = useClassTimeIndicator(me)
   const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)

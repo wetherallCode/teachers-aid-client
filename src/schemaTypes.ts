@@ -4899,6 +4899,7 @@ export interface FindTextSectionById_findTextSectionById_textSection {
   _id: string | null;
   header: string;
   pageNumbers: FindTextSectionById_findTextSectionById_textSection_pageNumbers;
+  orderNumber: number | null;
   hasVocab: FindTextSectionById_findTextSectionById_textSection_hasVocab[] | null;
   hasQuestions: FindTextSectionById_findTextSectionById_textSection_hasQuestions[] | null;
   hasProtocols: FindTextSectionById_findTextSectionById_textSection_hasProtocols[] | null;
@@ -4957,6 +4958,7 @@ export interface findTextSectionsByChapter_findTextSectionsByChapter_textSection
   __typename: "TextSection";
   _id: string | null;
   header: string;
+  orderNumber: number | null;
 }
 
 export interface findTextSectionsByChapter_findTextSectionsByChapter {
@@ -8185,6 +8187,8 @@ export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   endsAt: string;
   halfDayStartsAt: string;
   halfDayEndsAt: string;
+  hourDelayStartsAt: string;
+  hourDelayEndsAt: string;
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
   isHidden: boolean;
@@ -8216,6 +8220,8 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   endsAt: string;
   halfDayStartsAt: string;
   halfDayEndsAt: string;
+  hourDelayStartsAt: string;
+  hourDelayEndsAt: string;
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
   isHidden: boolean;
@@ -8769,6 +8775,8 @@ export interface CreateCourseInfoInput {
   endsAt: string;
   halfDayEndsAt: string;
   halfDayStartsAt: string;
+  hourDelayEndsAt: string;
+  hourDelayStartsAt: string;
   schoolDayType: SchoolDayType;
   startsAt: string;
 }
@@ -9653,6 +9661,7 @@ export interface UpdateTextSectionInput {
   hasQuestions: TextSectionQuestionsInput[];
   hasVocab: TextSectionVocabInput[];
   header: string;
+  orderNumber?: number | null;
   pageNumbers: PageNumbersInput;
 }
 

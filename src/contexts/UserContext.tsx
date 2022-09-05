@@ -22,6 +22,8 @@ export const ME_QUERY = gql`
             endsAt
             halfDayStartsAt
             halfDayEndsAt
+            hourDelayStartsAt
+            hourDelayEndsAt
             schoolDayType
             assignmentsAllowedInClass
             isHidden
@@ -40,6 +42,8 @@ export const ME_QUERY = gql`
             endsAt
             halfDayStartsAt
             halfDayEndsAt
+            hourDelayStartsAt
+            hourDelayEndsAt
             schoolDayType
             assignmentsAllowedInClass
             isHidden

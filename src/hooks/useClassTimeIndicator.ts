@@ -35,6 +35,8 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
         timeFinder(
           schoolDayLength === SchoolDayLengthEnum.HALF
             ? student.inCourses[0].hasCourseInfo?.halfDayStartsAt!
+            : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
+            ? student.inCourses[0].hasCourseInfo?.hourDelayStartsAt
             : student.inCourses[0].hasCourseInfo?.startsAt!
         )
       ) &&
@@ -43,6 +45,8 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
         timeFinder(
           schoolDayLength === SchoolDayLengthEnum.HALF
             ? student.inCourses[0].hasCourseInfo?.halfDayEndsAt!
+            : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
+            ? student.inCourses[0].hasCourseInfo.hourDelayEndsAt
             : student.inCourses[0].hasCourseInfo?.endsAt!
         )
       )

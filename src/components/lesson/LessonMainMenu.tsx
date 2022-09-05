@@ -36,6 +36,7 @@ import { useNavigate, Navigate } from 'react-router'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../dashboard/school-day/SchoolDay'
 import { useTime } from '../../hooks/useTime'
 import { LessonLoader } from './LessonLoader'
+import { useClassTimeIndicator } from '../../hooks/useClassTimeIndicator'
 
 export type LessonMainMenuProps = {}
 
@@ -132,6 +133,7 @@ export const STUDENT_SIGN_IN_MUTATION = gql`
 export const LessonMainMenu = ({}: LessonMainMenuProps) => {
   const me: me_me_Student | me_me_Teacher = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
+  // const classTime = useClassTimeIndicator()
   const { dateTime } = useTime()
 
   const { data: schoolDayData } = useQuery<
@@ -160,6 +162,8 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
+                    : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
+                    ? course.hasCourseInfo.hourDelayStartsAt
                     : course.hasCourseInfo?.startsAt!
                 )
               ) &&
@@ -168,6 +172,8 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
+                    : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
+                    ? course.hasCourseInfo.hourDelayEndsAt
                     : course.hasCourseInfo?.endsAt!
                 )
               ) &&
@@ -180,6 +186,8 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
+                    : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
+                    ? course.hasCourseInfo.hourDelayStartsAt
                     : course.hasCourseInfo?.startsAt!
                 )
               ) &&
@@ -188,6 +196,8 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
+                    : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
+                    ? course.hasCourseInfo.hourDelayEndsAt
                     : course.hasCourseInfo?.endsAt!
                 )
               )
