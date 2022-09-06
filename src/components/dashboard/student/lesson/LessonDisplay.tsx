@@ -105,7 +105,7 @@ export const LessonDisplay = ({
     >
       <OptionTitle>{new Date().toLocaleDateString()}</OptionTitle>
       {!hasLessonNow ? (
-        <OptionTitle>Not a school day</OptionTitle>
+        <OptionTitle>No Lesson Today</OptionTitle>
       ) : (
         <>
           <div>
