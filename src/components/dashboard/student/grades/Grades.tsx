@@ -36,7 +36,7 @@ export const Grades = ({ me }: GradesProps) => {
           <div>{primaryGrade ? primaryGrade.toFixed(2) + '%' : 'No grade'}</div>
         </SectionContainer>
         <SectionContainer>
-          <div>Quiz and Responsibility Grade</div>
+          <div>Quiz and Reading Guide Grade</div>
           <div>
             {secondaryGrade ? secondaryGrade.toFixed(2) + '%' : 'No grade'}
           </div>
