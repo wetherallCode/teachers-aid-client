@@ -292,7 +292,9 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
             height: '95vh',
           }}
         >
-          <div>Loading Lesson</div>
+          <div>
+            {courseToLoad ? 'Loading Lesson' : 'Class has not started yet'}
+          </div>
         </div>
       )}
       {state.matches('todaysLesson') && (
