@@ -14,6 +14,7 @@ import {
   OwnersTitleContainer,
 } from './handbookStyles'
 import { Procedures } from './Procedures'
+import { TextAnalysis } from './TextAnalysis'
 
 export type HandbookProps = { me: me_me_Student }
 
@@ -23,6 +24,7 @@ type ContentSelectorTabNameProps =
   | 'Procedures'
   | 'Contact Info'
   | 'FAQs'
+  | 'TextAnalysis'
   | 'Behavior'
 
 export const Handbook = ({ me }: HandbookProps) => {
@@ -34,6 +36,7 @@ export const Handbook = ({ me }: HandbookProps) => {
     'Grading',
     'Behavior',
     'FAQs',
+    'TextAnalysis',
     'Contact Info',
   ]
 
@@ -59,6 +62,7 @@ export const Handbook = ({ me }: HandbookProps) => {
         {contentSelection === 'Grading' && <Grading />}
         {contentSelection === 'Contact Info' && <ContactInfo />}
         {contentSelection === 'Behavior' && <Behavior />}
+        {contentSelection === 'TextAnalysis' && <TextAnalysis />}
         {contentSelection === 'FAQs' && <FAQ />}
       </HandbookInformationDisplayContainer>
     </HandbookContainer>
