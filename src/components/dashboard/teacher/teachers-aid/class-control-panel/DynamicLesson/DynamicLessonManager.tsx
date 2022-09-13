@@ -92,9 +92,8 @@ export const DynamicLessonManager = ({
         },
       },
     })
-    lesson.lessonType === 'REINFORCEMENT' &&
-      !lesson.lessonStarted &&
-      createBatchStudentBehavior()
+    // lesson.lessonType === 'REINFORCEMENT' &&
+    !lesson.lessonStarted && createBatchStudentBehavior()
   }
 
   return (
