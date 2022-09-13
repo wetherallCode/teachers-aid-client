@@ -76,10 +76,10 @@ export type ReadingGuideStepsTypes =
   | 'howArePeopleInvolvedInProblems'
   | 'sectionConsequences'
 
-export const CompleteReadingGuide: FC<CompleteReadingGuideProps> = ({
+export const CompleteReadingGuide = ({
   readingGuideInfo,
   grade,
-}) => {
+}: CompleteReadingGuideProps) => {
   const [state, event] = useReadingGuideToCompleteContextProvider()
   const [readingGuideSteps, setReadingGuideSteps] =
     useState<ReadingGuideStepsTypes>('problems')
