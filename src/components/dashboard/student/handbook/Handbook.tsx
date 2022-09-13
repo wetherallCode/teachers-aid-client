@@ -24,7 +24,7 @@ type ContentSelectorTabNameProps =
   | 'Procedures'
   | 'Contact Info'
   | 'FAQs'
-  | 'TextAnalysis'
+  | 'Text Analysis'
   | 'Behavior'
 
 export const Handbook = ({ me }: HandbookProps) => {
@@ -36,7 +36,7 @@ export const Handbook = ({ me }: HandbookProps) => {
     'Grading',
     'Behavior',
     'FAQs',
-    'TextAnalysis',
+    'Text Analysis',
     'Contact Info',
   ]
 
@@ -62,7 +62,7 @@ export const Handbook = ({ me }: HandbookProps) => {
         {contentSelection === 'Grading' && <Grading />}
         {contentSelection === 'Contact Info' && <ContactInfo />}
         {contentSelection === 'Behavior' && <Behavior />}
-        {contentSelection === 'TextAnalysis' && <TextAnalysis />}
+        {contentSelection === 'Text Analysis' && <TextAnalysis />}
         {contentSelection === 'FAQs' && <FAQ />}
       </HandbookInformationDisplayContainer>
     </HandbookContainer>
