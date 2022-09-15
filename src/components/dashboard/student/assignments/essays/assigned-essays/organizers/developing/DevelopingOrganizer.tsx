@@ -91,6 +91,11 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
     // updateDevelopingOrganizer()
   }, [state.context.developingOrganizer])
 
+  const handleNext = () => {
+    updateDevelopingOrganizer()
+    event({ type: 'NEXT' })
+  }
+
   return (
     <>
       <>
@@ -202,7 +207,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
               >
                 Save
               </OrganizerControlButton>
-              <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
+              <OrganizerControlButton onClick={handleNext}>
                 Next
               </OrganizerControlButton>
             </OrganizerControlButtonContainer>
@@ -243,7 +248,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
               >
                 Save
               </OrganizerControlButton>
-              <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
+              <OrganizerControlButton onClick={handleNext}>
                 Next
               </OrganizerControlButton>
             </OrganizerControlButtonContainer>
