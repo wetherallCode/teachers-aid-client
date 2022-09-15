@@ -367,11 +367,11 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
     ),
   ].join(' ')
 
-  const { grade, loading: gradeLoading } = useGradeCalculator({
-    studentId: data?.findEssayById.essay.hasOwner._id!,
-    markingPeriod: data?.findEssayById.essay.markingPeriod!,
-    polling: false,
-  })
+  // const { grade, loading: gradeLoading } = useGradeCalculator({
+  //   studentId: data?.findEssayById.essay.hasOwner._id!,
+  //   markingPeriod: data?.findEssayById.essay.markingPeriod!,
+  //   polling: false,
+  // })
 
   useEffect(() => {
     if (classTime && !assignmentsAllowedInClass)
@@ -425,7 +425,6 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
               <StudentEssayEditor
                 essay={data?.findEssayById.essay!}
                 submittedFinalDraft={submittedFinalDraft}
-                grade={grade}
               />
             </>
           )}

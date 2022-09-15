@@ -30,7 +30,7 @@ import { EssayOrganizer } from './essay-info/essay-organizers/EssayOrganizer'
 type StudentEssayEditorProps = {
   essay: findEssayById_findEssayById_essay
   submittedFinalDraft: SubmittedFinalDraftsInput
-  grade: number
+  // grade: number
 }
 
 export type submittedFinalDraftType = {
@@ -43,7 +43,6 @@ export type submittedFinalDraftType = {
 export const StudentEssayEditor = ({
   essay,
   submittedFinalDraft,
-  grade,
 }: StudentEssayEditorProps) => {
   const [state, event] = useStudentEssayContextProvider()
   const editor = useMemo(() => withReact(createEditor()), [])
@@ -56,7 +55,7 @@ export const StudentEssayEditor = ({
   }, [content])
 
   useEffect(() => {
-    updateWorkingDraft()
+    // updateWorkingDraft()
   }, [state.context.draftToUpdate])
 
   const [updateWorkingDraft] = useMutation<
@@ -86,6 +85,7 @@ export const StudentEssayEditor = ({
   const renderLeaf = useCallback((props) => {
     return <Leaf {...props} />
   }, [])
+  console.log('in the right place')
 
   return (
     <EssayEditorBackgroundContainer>
@@ -165,7 +165,9 @@ export const StudentEssayEditor = ({
           _id={state.context.essayId}
           submittedFinalDraft={submittedFinalDraft}
           response={value[0].children[0].text !== ''}
-          grade={grade}
+          // grade={grade}
+          essay={essay}
+          updateWorkingDraft={updateWorkingDraft}
         />
       </OrganizerControlButtonContainer>
     </EssayEditorBackgroundContainer>

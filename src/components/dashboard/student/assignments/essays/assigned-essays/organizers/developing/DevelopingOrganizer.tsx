@@ -88,7 +88,7 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
   })
 
   useEffect(() => {
-    updateDevelopingOrganizer()
+    // updateDevelopingOrganizer()
   }, [state.context.developingOrganizer])
 
   return (
@@ -197,6 +197,11 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
               >
                 Back
               </OrganizerControlButton>
+              <OrganizerControlButton
+                onClick={() => updateDevelopingOrganizer()}
+              >
+                Save
+              </OrganizerControlButton>
               <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
                 Next
               </OrganizerControlButton>
@@ -232,6 +237,11 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
                 onClick={() => event({ type: 'PREVIOUS' })}
               >
                 Back
+              </OrganizerControlButton>
+              <OrganizerControlButton
+                onClick={() => updateDevelopingOrganizer()}
+              >
+                Save
               </OrganizerControlButton>
               <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
                 Next

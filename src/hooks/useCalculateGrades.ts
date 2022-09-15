@@ -112,7 +112,7 @@ export const useCalculateGrades = ({
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
     )!
-
+  console.log(allSecondaryGrades)
   const responsibilityPoints =
     data?.findAllMarkingPeriodGrades.responsibilityPoints!.responsibilityPoints!
 
@@ -270,6 +270,7 @@ export const useCalculateGrades = ({
         return Math.round(Number(number) * 10) / 10
       }
 
+      console.log(allSecondaryGrades)
       return {
         grade: gradeTotal(secondaryGrade, rp),
         loading,

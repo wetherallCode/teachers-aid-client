@@ -46,7 +46,8 @@ export const ReadingGuideCheck = ({ essay }: ReadingGuideCheckProps) => {
     //     isHovering &&
     //       data.findReadingGuideByUserIdAndReadingSection.readingGuide?.graded
     //   ),
-    pollInterval: 1000,
+    // pollInterval: 1000,
+    fetchPolicy: 'network-only',
     onError: (error) => console.error(error),
   })
 
@@ -63,16 +64,21 @@ export const ReadingGuideCheck = ({ essay }: ReadingGuideCheckProps) => {
           onMouseEnter={() => !isHovering && setIsHovering(true)}
           onMouseOut={() => isHovering && setIsHovering(false)}
           to={
-            !readingGuideNeeded
-              ? `essay/toComplete/${essay._id!}`
-              : `reading-guide/toComplete/${data?.findReadingGuideByUserIdAndReadingSection.readingGuide?._id}`
+            `essay/toComplete/${essay._id!}`
+            // : `reading-guide/toComplete/${data?.findReadingGuideByUserIdAndReadingSection.readingGuide?._id}`
           }
+          // to={
+          //   !readingGuideNeeded
+          //     ? `essay/toComplete/${essay._id!}`
+          //     : `reading-guide/toComplete/${data?.findReadingGuideByUserIdAndReadingSection.readingGuide?._id}`
+          // }
           key={essay._id!}
         >
           {/* {essay.readings.readingSections} */}
-          {isHovering && readingGuideNeeded
+          {essay.readings.readingSections}
+          {/* {isHovering && readingGuideNeeded
             ? 'You need to complete the reading guide first! Click to start.'
-            : essay.readings.readingSections}
+            : essay.readings.readingSections} */}
         </AssignmentLink>
       }
     </>

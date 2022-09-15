@@ -19,6 +19,8 @@ import {
 import { Modal } from '../../../../../../animations'
 import { useStudentEssayContextProvider } from './state-and-styles/StudentEssayContext'
 import { responsibilityPointConverter } from '../../../../../../utils'
+import { useGradeCalculator } from '../../../../../../hooks/useGradeCalculator'
+import { useCalculateGrades } from '../../../../../../hooks/useCalculateGrades'
 
 export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
   mutation submitEssayFinalDraft($input: SubmitEssayFinalDraftInput!) {
@@ -40,19 +42,22 @@ export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
 export type SubmitEssayFinalDraftInput = {
   _id: string
   submittedFinalDraft: SubmittedFinalDraftsInput
-  // essay: findEssayById_findEssayById_essay
+  essay: findEssayById_findEssayById_essay
   response: boolean
-  grade: number
+  // grade: number
+  updateWorkingDraft: () => void
 }
 
 export const SubmitEssay = ({
   _id,
   submittedFinalDraft,
   response,
-  grade,
+  // grade,
+  updateWorkingDraft,
+  essay,
 }: SubmitEssayFinalDraftInput) => {
   const navigate = useNavigate()
-  const [, event] = useStudentEssayContextProvider()
+  const [state, event] = useStudentEssayContextProvider()
   const [submitToggle, setSubmitToggle] = useState(false)
   const [submitFinalDraft, { called }] = useMutation<
     submitEssayFinalDraft,
@@ -65,6 +70,12 @@ export const SubmitEssay = ({
     refetchQueries: ['findEssaysToComplete', 'findEssayById'],
   })
 
+  const { grade: currentGrade, loading: gradeLoading } = useCalculateGrades({
+    studentId: essay.hasOwner._id!,
+    markingPeriod: essay.markingPeriod,
+    polling: false,
+  })
+
   const handleSubmit = () => {
     if (!called) {
       submitFinalDraft({
@@ -75,7 +86,10 @@ export const SubmitEssay = ({
             submitTime: new Date().toLocaleString(),
             late: true, //server will change based on time submitted
             paperBased: false,
-            responsibilityPoints: responsibilityPointConverter(grade, 10),
+            responsibilityPoints: responsibilityPointConverter(
+              currentGrade,
+              10
+            ),
           },
         },
       })
@@ -85,16 +99,24 @@ export const SubmitEssay = ({
   return (
     <>
       {!submitToggle ? (
-        <EssaySubmitButton
-          color={'var(--blue)'}
-          submitFinal={submitToggle}
-          onClick={() => {
-            event({ type: 'PREVIOUS' })
-            event({ type: 'NEXT' })
-          }}
-        >
-          Go Back
-        </EssaySubmitButton>
+        <>
+          <EssaySubmitButton
+            color={'var(--blue)'}
+            submitFinal={submitToggle}
+            onClick={() => {
+              event({ type: 'PREVIOUS' })
+              event({ type: 'NEXT' })
+            }}
+          >
+            Go Back
+          </EssaySubmitButton>
+          <EssaySubmitButton
+            color={'var(--blue)'}
+            onClick={() => updateWorkingDraft()}
+          >
+            Save
+          </EssaySubmitButton>
+        </>
       ) : (
         <EssaySubmitButton
           color={'var(--red)'}
@@ -103,6 +125,7 @@ export const SubmitEssay = ({
           No
         </EssaySubmitButton>
       )}
+
       {submitToggle && <EssaySubmitCheck>Are you Sure?</EssaySubmitCheck>}
       {response && (
         <>
@@ -115,13 +138,15 @@ export const SubmitEssay = ({
               Submit
             </EssaySubmitButton>
           ) : (
-            <EssaySubmitButton
-              color={called ? 'var(--grey)' : 'var(--blue)'}
-              submitFinal={submitToggle}
-              onClick={handleSubmit}
-            >
-              {called ? 'Submiting' : 'Yes'}
-            </EssaySubmitButton>
+            !gradeLoading && (
+              <EssaySubmitButton
+                color={called ? 'var(--grey)' : 'var(--blue)'}
+                submitFinal={submitToggle}
+                onClick={handleSubmit}
+              >
+                {called ? 'Submiting' : 'Yes'}
+              </EssaySubmitButton>
+            )
           )}
         </>
       )}

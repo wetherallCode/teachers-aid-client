@@ -48,7 +48,7 @@ export const AssignedReadingGuideSelect: FC<
     variables: {
       input: { studentId: me._id! },
     },
-    pollInterval: 1000,
+    // pollInterval: 1000,
     // onCompleted: (data) =>
     //   console.log(data.findReadingGuidesToCompleteByStudentId),
     onError: (error) => console.error(error),

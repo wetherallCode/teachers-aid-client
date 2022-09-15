@@ -37,7 +37,7 @@ export const useGradeCalculator = ({
     variables: {
       input: { studentId },
     },
-    onCompleted: (data) => {},
+    onCompleted: (data) => console.log('polling'),
     pollInterval: polling ? pollInterval : 0,
     onError: (error) => console.error(error),
   })
@@ -52,8 +52,8 @@ export const useGradeCalculator = ({
     variables: {
       input: { studentId },
     },
-    pollInterval: 1000,
-    // onCompleted: (data) => console.log(data),
+    pollInterval: polling ? pollInterval : 0,
+    onCompleted: (data) => console.log('polling'),
     onError: (error) => console.error(error),
   })
 

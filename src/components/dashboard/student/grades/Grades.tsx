@@ -16,13 +16,20 @@ export const Grades = ({ me }: GradesProps) => {
   const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { currentMarkingPeriod } = markingPeriodState.context
 
-  const { grade, loading, primaryGrade, rp, secondaryGrade } =
-    useCalculateGrades({
-      studentId: me._id!,
-      markingPeriod: currentMarkingPeriod,
-      polling: true,
-      pollInterval: 1000,
-    })
+  // const { grade, loading, primaryGrade, rp, secondaryGrade } =
+  //   useCalculateGrades({
+  //     studentId: me._id!,
+  //     markingPeriod: currentMarkingPeriod,
+  //     polling: false,
+  //     pollInterval: 1000,
+  //   })
+
+  const { grade, loading } = useGradeCalculator({
+    studentId: me._id!,
+    markingPeriod: currentMarkingPeriod,
+    polling: false,
+    pollInterval: 1000,
+  })
 
   if (loading) return <div>loading</div>
   return (
@@ -30,7 +37,7 @@ export const Grades = ({ me }: GradesProps) => {
       <StudentGradeBreakdownContainerTitle>
         Grade Breakdown
       </StudentGradeBreakdownContainerTitle>
-      <GradeSectionContainer>
+      {/* <GradeSectionContainer>
         <SectionContainer>
           <div>Essay Grade</div>
           <div>{primaryGrade ? primaryGrade.toFixed(2) + '%' : 'No grade'}</div>
@@ -45,7 +52,7 @@ export const Grades = ({ me }: GradesProps) => {
           <div>Responsibility Point Grade</div>
           <div>{rp?.toFixed(2)}%</div>
         </SectionContainer>
-      </GradeSectionContainer>
+      </GradeSectionContainer> */}
       <StudentGradeBreakdownContainerTitle>
         Overall Grade: {grade}%
       </StudentGradeBreakdownContainerTitle>

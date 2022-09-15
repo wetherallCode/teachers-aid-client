@@ -24,7 +24,7 @@ export const useAssignmentsAllowedInClassCheck = (me: me_me_Student) => {
       input: { courseId: me.inCourses[0]._id! },
     },
     // onCompleted: (data) => console.log(data),
-    pollInterval: 1000,
+    // pollInterval: 1000,
     onError: (error) => console.error(error),
   })
 

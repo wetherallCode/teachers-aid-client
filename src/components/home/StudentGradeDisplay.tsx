@@ -10,9 +10,15 @@ export const StudentGradeDisplay = ({
   studentId,
 }: StudentGradeDisplayProps) => {
   const [currentMarkingPeriod] = useMarkingPeriodContextProvider()
-  const { grade, loading } = useCalculateGrades({
+  // const { grade, loading } = useCalculateGrades({
+  //   studentId,
+  //   polling: true,
+  //   pollInterval: 5000,
+  //   markingPeriod: currentMarkingPeriod.context.currentMarkingPeriod,
+  // })
+  const { grade, loading } = useGradeCalculator({
     studentId,
-    polling: true,
+    polling: false,
     pollInterval: 5000,
     markingPeriod: currentMarkingPeriod.context.currentMarkingPeriod,
   })

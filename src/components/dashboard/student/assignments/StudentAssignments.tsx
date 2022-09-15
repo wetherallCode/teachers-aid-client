@@ -92,7 +92,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
     variables: {
       input: { markingPeriod: currentMarkingPeriod, studentId: me._id! },
     },
-    pollInterval: 1000,
+    // pollInterval: 1000,
     // onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
