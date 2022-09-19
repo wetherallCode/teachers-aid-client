@@ -48,16 +48,24 @@ export const LessonDetails = ({ lesson }: LessonDetailsProps) => {
             <ol style={{ margin: 0 }}>
               <li>Read the assigned sections.</li>
               <li>
-                Reread the assigned sections and underline the important
-                information. For each paragraph you read:
+                Reread the assigned sections and underline the actions. For each
+                paragraph you read:
               </li>
               <ol>
                 <li>Number each paragraph that is assigned.</li>
-                <li>Put checkmarks next to things you understand.</li>
+                {/* <li>Put checkmarks next to things you understand.</li>
                 <li>Put question marks next to things you don't understand.</li>
                 <li>
                   Write the main idea of that paragraph (in your own words) in
                   your notes. Skip 3 or 4 lines for additional notes)
+                </li> */}
+                <li>
+                  Write Main Ideas based on the text structure that each
+                  paragraph presented.
+                </li>
+                <li>
+                  Don't forget to number the associated paragraph in the Daily
+                  Agenda
                 </li>
               </ol>
               <li>Answer the essential question.</li>

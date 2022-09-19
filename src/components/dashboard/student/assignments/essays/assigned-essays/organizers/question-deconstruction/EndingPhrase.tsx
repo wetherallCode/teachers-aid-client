@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { UnderlinedText } from '../../../../../../../../appStyles'
 import { useUserContextProvider } from '../../../../../../../../contexts/UserContext'
@@ -11,6 +11,8 @@ import {
   WritingLevelEnum,
   QuestionTypeEnum,
   QuestionWordEnum,
+  setRestatementVariables,
+  setRestatement,
 } from '../../../../../../../../schemaTypes'
 import {
   EndingPhraseOptionsContainer,
@@ -42,6 +44,13 @@ export type EndingPhraseAnswerTypes =
   | 'forACertainReason'
   | ''
 
+export const SET_RESTATEMENT_MUTATION = gql`
+  mutation setRestatement($input: SetRestatementInput!) {
+    setRestatement(input: $input) {
+      set
+    }
+  }
+`
 export const EndingPhrase = ({
   setState,
   question,
@@ -69,6 +78,14 @@ export const EndingPhrase = ({
       },
       onCompleted: (data) => console.log(data),
       refetchQueries: [''],
+    }
+  )
+
+  const [setRestatement] = useMutation<setRestatement, setRestatementVariables>(
+    SET_RESTATEMENT_MUTATION,
+    {
+      onCompleted: (data) => console.log(data),
+      refetchQueries: [],
     }
   )
 
@@ -120,6 +137,14 @@ export const EndingPhrase = ({
           event({
             type: 'SET_RESTATEMENT',
             payload: sentence.join(' ').replace('.', ' ') + ending,
+          })
+          setRestatement({
+            variables: {
+              input: {
+                essayId: state.context.essayId,
+                restatement: sentence.join(' ').replace('.', ' ') + ending,
+              },
+            },
           })
           event({ type: 'NEXT' })
           return () => clearTimeout(timer)

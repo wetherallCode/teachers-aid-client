@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../state-and-styles/StudentEssayContext'
 import { DevelopingOrganizer } from './developing/DevelopingOrganizer'
 import { gql, useMutation, useQuery } from '@apollo/client'
@@ -86,7 +86,7 @@ export const FIND_ESSAY_QUESTION_BY_ID_QUERY = gql`
   }
 `
 
-export const OrganizerInfo: FC<OrganizerInfoProps> = ({ organizer, topic }) => {
+export const OrganizerInfo = ({ organizer, topic }: OrganizerInfoProps) => {
   const [state] = useStudentEssayContextProvider()
 
   const { loading, data } = useQuery<

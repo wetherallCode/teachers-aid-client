@@ -867,6 +867,28 @@ export interface findEssayQuestionByIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: setRestatement
+// ====================================================
+
+export interface setRestatement_setRestatement {
+  __typename: "SetRestatementPayload";
+  set: boolean;
+}
+
+export interface setRestatement {
+  setRestatement: setRestatement_setRestatement;
+}
+
+export interface setRestatementVariables {
+  input: SetRestatementInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findReadingGuideByUserIdAndReadingSection
 // ====================================================
 
@@ -9415,6 +9437,11 @@ export interface SetCurrentMarkingPeriodInput {
 export interface SetOrganizerInput {
   essayId: string;
   writingLevel: WritingLevelEnum;
+}
+
+export interface SetRestatementInput {
+  essayId: string;
+  restatement: string;
 }
 
 export interface StartProtocolInput {

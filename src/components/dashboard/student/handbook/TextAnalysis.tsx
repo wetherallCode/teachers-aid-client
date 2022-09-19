@@ -34,6 +34,29 @@ export const TextAnalysis = ({}: TextAnalysisProps) => {
             </li>
           </ul>
         </IndividualContentContainer>
+        <IndividualContentContainer>
+          <ContentContainerTitle>Problem and Solution</ContentContainerTitle>
+          <ul>After reading the paragraphs and underlining the actions:</ul>
+          <ul>
+            <li>
+              If there is no obvious cause and effect, look for problems and/or
+              solutions.
+            </li>
+            <ul>
+              <li>
+                Problems are things that get in the way of people's goals.
+              </li>
+            </ul>
+            <li>
+              For your main idea, explain what is getting in the way of people's
+              goals
+            </li>
+            <li>
+              If you can (when the paragraph presents the information), include
+              the problem and solution.
+            </li>
+          </ul>
+        </IndividualContentContainer>
       </DoubleSidedContentContainer>
     </>
   )

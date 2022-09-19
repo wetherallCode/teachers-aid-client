@@ -52,11 +52,11 @@ export const UPDATE_DEVELOPING_ORGANIZER_MUTATION = gql`
   }
 `
 
-export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
+export const DevelopingOrganizer = ({
   topic,
   questionParts,
   organizer,
-}) => {
+}: DevelopingOrganizerProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
   const sentenceStructure = {
@@ -197,11 +197,11 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
               <div> {state.context.developingOrganizer.answer}</div>
             </AnswerOutput> */}
             <OrganizerControlButtonContainer>
-              <OrganizerControlButton
+              {/* <OrganizerControlButton
                 onClick={() => event({ type: 'PREVIOUS' })}
               >
                 Back
-              </OrganizerControlButton>
+              </OrganizerControlButton> */}
               <OrganizerControlButton
                 onClick={() => updateDevelopingOrganizer()}
               >
