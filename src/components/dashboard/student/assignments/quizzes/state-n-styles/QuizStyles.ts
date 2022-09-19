@@ -52,7 +52,7 @@ export const QuizQuestionAnswerLabelContainer = styled.label`
   grid-auto-flow: column;
 `
 export const QuizQuestionAnswerInput = styled.input`
-  display: grid;
+  /* display: grid; */
   justify-items: left;
   align-items: center;
   font-size: 3vh;
