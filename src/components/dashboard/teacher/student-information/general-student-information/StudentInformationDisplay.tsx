@@ -51,6 +51,7 @@ export const StudentInformationDisplay = ({
   // )!
   return (
     <StudentInformationDisplayContainer>
+      <div>Username: {student.userName}</div>
       {student && (
         <>
           <ResponsibilityPointsDisplay

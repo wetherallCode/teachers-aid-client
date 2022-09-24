@@ -5447,6 +5447,7 @@ export interface switchToNewCourse_switchToNewCourse_student {
   _id: string | null;
   firstName: string;
   lastName: string;
+  userName: string;
   inCourses: switchToNewCourse_switchToNewCourse_student_inCourses[];
 }
 
@@ -5736,6 +5737,7 @@ export interface findAllStudentsForStudentInformation_findAllStudents_students {
   _id: string | null;
   firstName: string;
   lastName: string;
+  userName: string;
   inCourses: findAllStudentsForStudentInformation_findAllStudents_students_inCourses[];
 }
 

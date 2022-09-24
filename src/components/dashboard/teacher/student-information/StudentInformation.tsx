@@ -24,6 +24,7 @@ export const FIND_ALL_STUDENTS_QUERY = gql`
         _id
         firstName
         lastName
+        userName
         inCourses {
           name
           _id

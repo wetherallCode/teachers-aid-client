@@ -23,6 +23,7 @@ export const SWITCH_TO_NEW_COURSE_MUTATION = gql`
         _id
         firstName
         lastName
+        userName
         inCourses {
           name
           _id
