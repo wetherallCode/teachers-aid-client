@@ -81,17 +81,18 @@ export const DevelopingOrganizer = ({
       },
     },
     onCompleted: (data) => {
-      console.log(data)
+      console.log(data.updateDevelopingOrganizer.essay._id)
     },
     onError: (error) => console.error(error),
     refetchQueries: ['findEssayById'],
   })
 
   useEffect(() => {
-    // updateDevelopingOrganizer()
-  }, [state.context.developingOrganizer])
+    updateDevelopingOrganizer()
+  }, [state.context.developingOrganizer.questionType])
 
   const handleNext = () => {
+    // updateDevelopingOrganizer({ onCompleted: () => event({ type: 'NEXT' }) })
     updateDevelopingOrganizer()
     event({ type: 'NEXT' })
   }
