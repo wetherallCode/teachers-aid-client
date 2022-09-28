@@ -9,6 +9,8 @@ import {
   updateLessonVariables,
   // me_me_Teacher,
 } from '../../../../../schemaTypes'
+import { BackContainer } from '../../assignments/create-assignments/state-and-styles/createAssignmentsStyles'
+import { Navigate, useNavigate } from 'react-router'
 // import { useUserContextProvider } from '../../../../../contexts/UserContext'
 export type LessonEditorProps = {
   course: string
@@ -30,7 +32,8 @@ export type updateLessonType = (
     | undefined
 ) => void
 
-export const LessonEditor: FC<LessonEditorProps> = ({ course }) => {
+export const LessonEditor = ({ course }: LessonEditorProps) => {
+  const navigate = useNavigate()
   // const me: me_me_Teacher = useUserContextProvider()
   const [state] = useLessonEditorContextProvider()
 
@@ -70,6 +73,9 @@ export const LessonEditor: FC<LessonEditorProps> = ({ course }) => {
   })
   return (
     <>
+      <BackContainer>
+        <div onClick={() => navigate('/dashboard/lessons')}>Back</div>
+      </BackContainer>
       <div>Lesson Editor</div>
       <UnitSelect course={course} />
       {state.matches('editor') && (

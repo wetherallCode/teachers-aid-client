@@ -8,8 +8,9 @@ export const BuilderContainer = styled.div`
 `
 
 export const Title = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  justify-items: center;
   align-items: center;
   font-size: 3rem;
   text-decoration: underline;

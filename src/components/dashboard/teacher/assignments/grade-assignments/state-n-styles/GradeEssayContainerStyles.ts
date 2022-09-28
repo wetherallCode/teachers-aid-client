@@ -15,7 +15,7 @@ export const CourseSelectContainer = styled.div`
   cursor: pointer;
   display: grid;
   border-top: 3px solid var(--white);
-  grid-template-rows: 5fr 1fr;
+  grid-template-rows: 1fr 5fr 1fr;
 `
 
 export const CourseSelect = styled.div`

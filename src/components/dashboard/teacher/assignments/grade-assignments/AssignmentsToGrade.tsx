@@ -12,10 +12,13 @@ import {
 } from './state-n-styles/GradeEssayContainerStyles'
 import { useToggle } from '../../../../../hooks'
 import { sortByLetter } from '../../../../../utils'
+import { BackContainer } from '../create-assignments/state-and-styles/createAssignmentsStyles'
+import { useNavigate } from 'react-router'
 
 export type AssignmentsToGradeProps = {}
 
-export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
+export const AssignmentsToGrade = ({}: AssignmentsToGradeProps) => {
+  const navigate = useNavigate()
   const [courseId, setCourseId] = useState('')
   const me: me_me_Teacher = useUserContextProvider()
   const { teachesCourses } = me
@@ -24,6 +27,9 @@ export const AssignmentsToGrade: FC<AssignmentsToGradeProps> = () => {
   return (
     <EssaysToGradeContainer>
       <CourseSelectContainer>
+        <BackContainer>
+          <div onClick={() => navigate('/dashboard/assignments')}>Back</div>
+        </BackContainer>
         <CourseSelect>
           <div>Select Course</div>
           {teachesCourses

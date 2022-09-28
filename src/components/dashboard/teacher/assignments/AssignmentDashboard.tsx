@@ -17,6 +17,7 @@ import { GradeEssayContainerContextProvider } from './grade-assignments/state-n-
 import { GrammarPractice } from '../development/grammar/GrammarPractice'
 import { CheckAssignments } from './check-assignments/CheckAssignments'
 import { useNavSync } from '../../../../hooks/useNavSync'
+import { AssignmentDashboardDisplay } from './AssignmentDashboardDisplay'
 
 export type AssignmentDashboardProps = {}
 
@@ -25,6 +26,7 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
   useNavSync(location, 'ASSIGNMENTS')
   return (
     <Routes>
+      <Route path='' element={<AssignmentDashboardDisplay />} />
       <Route
         path='create'
         element={

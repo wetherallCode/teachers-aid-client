@@ -9,7 +9,7 @@ import { useLessonFinderContextProvider } from './state-n-styles/LessonFinderCon
 
 export type LessonCalendarProps = {}
 
-export const LessonCalendar: FC<LessonCalendarProps> = () => {
+export const LessonCalendar = ({}: LessonCalendarProps) => {
   const [value, setValue] = useState(new Date())
   const [state, event] = useLessonFinderContextProvider()
 
@@ -32,7 +32,7 @@ export const LessonCalendar: FC<LessonCalendarProps> = () => {
   }
 
   return (
-    <div>
+    <>
       {state.matches('idle') && (
         <StyledCalendar
           className='react-calendar'
@@ -45,13 +45,13 @@ export const LessonCalendar: FC<LessonCalendarProps> = () => {
         />
       )}
       {state.matches('lessonDetails') && <LessonDetails />}
-    </div>
+    </>
   )
 }
 
 const StyledCalendar = styled(Calendar)`
   width: 100vw;
-  height: 100%;
-  border: 1px solid var(--blue);
+  /* height: 100%; */
+  /* border: 1px solid var(--blue); */
   background-color: var(--white);
 `

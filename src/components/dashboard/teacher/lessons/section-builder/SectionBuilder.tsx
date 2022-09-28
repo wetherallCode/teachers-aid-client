@@ -9,13 +9,19 @@ import { CreateTextSection } from './CreateTextSection'
 import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 import { SectionBuilderInfoDisplay } from './SectionBuilderInfoDisplay'
 import styled from 'styled-components'
+import { BackContainer } from '../../assignments/create-assignments/state-and-styles/createAssignmentsStyles'
+import { useNavigate } from 'react-router'
 
 export const SectionBuilder = () => {
+  const navigate = useNavigate()
   const [state, event] = useSectionBuilderContextProvider()
 
   return (
     <div>
       <Title>
+        <BackContainer>
+          <div onClick={() => navigate('/dashboard/lessons')}>Back</div>
+        </BackContainer>
         <div>Section Builder</div>
       </Title>
       {/* <DisplayInfoContainter> */}

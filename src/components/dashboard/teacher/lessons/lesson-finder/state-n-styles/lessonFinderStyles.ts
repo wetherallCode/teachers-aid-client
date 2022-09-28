@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const LessonFinderContainer = styled.div`
   height: 95vh;
-  display: grid;
+  /* display: grid; */
   background: var(--white);
 `
 

@@ -23,11 +23,14 @@ import {
   AssignmentTypeSelectorContainer,
   AssignmentCreatorContainer,
   AssignmentType,
+  BackContainer,
 } from './state-and-styles/createAssignmentsStyles'
+import { Navigate, useNavigate } from 'react-router'
 
 export type CreateAssignmentProps = {}
 
 export const CreateAssignment = ({}: CreateAssignmentProps) => {
+  const navigate = useNavigate()
   const [courseId, setCourseId] = useState('')
   const [state, event] = useCreateAssignmentContextPovider()
   const me: me_me_Teacher = useUserContextProvider()
@@ -56,6 +59,9 @@ export const CreateAssignment = ({}: CreateAssignmentProps) => {
               </CourseToSelect>
             ))}
         </CourseSelect>
+        <BackContainer>
+          <div onClick={() => navigate('/dashboard/assignments')}>Back</div>
+        </BackContainer>
       </CourseSelectContainer>
       <AssignmentCreatorContainer>
         <CreateAssignmentTitle>

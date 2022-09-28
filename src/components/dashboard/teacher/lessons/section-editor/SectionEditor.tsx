@@ -5,10 +5,13 @@ import { useSectionEditorContextProvider } from './state-n-styles/sectionEditorC
 import { EditorChapterSelect } from './EditorChapterSelect'
 import { TextSectionEditorDisplay } from './TextSectionEditorDisplay'
 import { EditorTextListLoader } from './EditorTextListLoader'
+import { useNavigate } from 'react-router'
+import { BackContainer } from '../../assignments/create-assignments/state-and-styles/createAssignmentsStyles'
 
 export type SectionEditorProps = {}
 
 export const SectionEditor = ({}: SectionEditorProps) => {
+  const navigate = useNavigate()
   const [state] = useSectionEditorContextProvider()
 
   return (
@@ -20,6 +23,9 @@ export const SectionEditor = ({}: SectionEditorProps) => {
       }}
     >
       <div>
+        <BackContainer>
+          <div onClick={() => navigate('/dashboard/lessons')}>Back</div>
+        </BackContainer>
         <div>Section Editor</div>
         <EditorTextListLoader />
         <EditorChapterSelect />

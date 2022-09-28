@@ -11,9 +11,7 @@ export type CourseLinkSelectProps = {
   linkedCourses: findCoursesById_findCoursesById_courses['_id'][]
 }
 
-export const CourseLinkSelect: FC<CourseLinkSelectProps> = ({
-  linkedCourses,
-}) => {
+export const CourseLinkSelect = ({ linkedCourses }: CourseLinkSelectProps) => {
   const me: me_me_Teacher = useUserContextProvider()
   const [, event] = useLessonEditorContextProvider()
   const [courseList, handleChange] = useCheckBox([])
@@ -22,7 +20,7 @@ export const CourseLinkSelect: FC<CourseLinkSelectProps> = ({
       event({ type: 'ASSIGN_TO_COURSES', payload: courseList })
     }
   }, [courseList])
-  console.log(courseList)
+
   return (
     <>
       <div>

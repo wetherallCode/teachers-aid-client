@@ -15,6 +15,12 @@ export const CourseSelectContainer = styled.div`
   border-top: 3px solid var(--white);
   grid-template-rows: 5fr 1fr;
 `
+
+export const BackContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+`
 export const AssignmentCreatorContainer = styled.div`
   display: grid;
   grid-template-rows: 1fr 5fr;

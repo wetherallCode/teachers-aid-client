@@ -138,7 +138,7 @@ export const CreateReadingGuide = ({
     },
     refetchQueries: [],
   })
-  console.log(state.context.readingGuide.maxPoints)
+
   return (
     <LessonInformationSelectContainer>
       <AssignedDateCheck courseId={courseId} lessonId={lesson._id!} />
