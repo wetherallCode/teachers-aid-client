@@ -8216,6 +8216,7 @@ export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
   isHidden: boolean;
+  checkReadingGuides: boolean;
 }
 
 export interface me_me_Teacher_teachesCourses {
@@ -8249,6 +8250,7 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
   isHidden: boolean;
+  checkReadingGuides: boolean;
 }
 
 export interface me_me_Student_inCourses {

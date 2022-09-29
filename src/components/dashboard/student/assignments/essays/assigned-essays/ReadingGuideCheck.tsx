@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client'
 import React, { useState } from 'react'
 import { useUserContextProvider } from '../../../../../../contexts/UserContext'
+import { useToggle } from '../../../../../../hooks'
 import {
   findEssaysToComplete_findEssaysToCompleteByStudentId_essays,
   findReadingGuideByUserIdAndReadingSection,
@@ -30,6 +31,7 @@ export const CHECK_READING_GUIDE_STATUS_QUERY = gql`
 export const ReadingGuideCheck = ({ essay }: ReadingGuideCheckProps) => {
   const me: me_me_Student = useUserContextProvider()
   const [isHovering, setIsHovering] = useState(false)
+  // const [readingGuideChecker, toggleReadingGuideChecker] = useToggle(true)
 
   const { loading, data } = useQuery<
     findReadingGuideByUserIdAndReadingSection,
@@ -57,30 +59,35 @@ export const ReadingGuideCheck = ({ essay }: ReadingGuideCheckProps) => {
     !data?.findReadingGuideByUserIdAndReadingSection.readingGuide?.graded
 
   if (loading) return <div>Loading </div>
-  return (
+  return me.inCourses[0].hasCourseInfo.checkReadingGuides ? (
     <>
       {
         <AssignmentLink
           onMouseEnter={() => !isHovering && setIsHovering(true)}
           onMouseOut={() => isHovering && setIsHovering(false)}
           to={
-            `essay/toComplete/${essay._id!}`
-            // : `reading-guide/toComplete/${data?.findReadingGuideByUserIdAndReadingSection.readingGuide?._id}`
+            !readingGuideNeeded
+              ? `essay/toComplete/${essay._id!}`
+              : `reading-guide/toComplete/${data?.findReadingGuideByUserIdAndReadingSection.readingGuide?._id}`
           }
-          // to={
-          //   !readingGuideNeeded
-          //     ? `essay/toComplete/${essay._id!}`
-          //     : `reading-guide/toComplete/${data?.findReadingGuideByUserIdAndReadingSection.readingGuide?._id}`
-          // }
           key={essay._id!}
         >
-          {/* {essay.readings.readingSections} */}
-          {essay.readings.readingSections}
-          {/* {isHovering && readingGuideNeeded
-            ? 'You need to complete the reading guide first! Click to start.'
-            : essay.readings.readingSections} */}
+          <>
+            {isHovering && readingGuideNeeded
+              ? 'You need to complete the reading guide first! Click to start.'
+              : essay.readings.readingSections}
+          </>
         </AssignmentLink>
       }
     </>
+  ) : (
+    <AssignmentLink
+      onMouseEnter={() => !isHovering && setIsHovering(true)}
+      onMouseOut={() => isHovering && setIsHovering(false)}
+      to={`essay/toComplete/${essay._id!}`}
+      key={essay._id!}
+    >
+      {essay.readings.readingSections}
+    </AssignmentLink>
   )
 }
