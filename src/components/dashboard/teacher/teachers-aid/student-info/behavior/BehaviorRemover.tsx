@@ -96,10 +96,11 @@ export const BehaviorRemover = ({
           {/* {data?.findBehaviorsByStudentIdAndDate.behaviors.map((behavior) => ( */}
           {studentBehaviors.map((behavior, i: number) => (
             <BehaviorItem key={i}>
-              <div>
+              <div style={{ overflowX: 'hidden' }}>
                 {phraseCapitalizer(
                   underscoreEliminator(behavior.behavior.behaviorName)
-                )}
+                ).slice(0, 15)}
+                ...
               </div>
               <RemoveBehaviorButton
                 onClick={() =>

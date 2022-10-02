@@ -73,6 +73,7 @@ export const DailyBehavior = ({
     refetchQueries: [
       'findStudentByIdForTeachersAid',
       'findBehaviorsByStudentIdAndDate',
+      'findResponsibilityPointsByStudentId',
     ],
   })
   const questionAndAnswerBehaviorList =

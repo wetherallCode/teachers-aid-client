@@ -165,13 +165,13 @@ export const BehaviorRemoverTitleContainer = styled.div`
 `
 export const BehaviorItemContainer = styled.div`
   display: grid;
-  grid-auto-rows: 10%;
+  grid-auto-rows: 15%;
 `
 
 export const BehaviorItem = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr;
-  margin: 1%;
+  margin-bottom: 1%;
 `
 export const RemoveBehaviorButton = styled.button`
   background-color: var(--blue);
