@@ -102,11 +102,20 @@ export const StudentInfo = ({}: StudentInfoProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  const { grade, loading: gradeLoading } = useCalculateGrades({
+  const { grade: oldGrade } = useCalculateGrades({
     studentId: state.context.studentId!,
     markingPeriod: markingPeriodState.context.currentMarkingPeriod,
     polling: true,
+    pollInterval: 1000,
   })
+  console.log(oldGrade)
+  const { grade, loading: gradeLoading } = useGradeCalculator({
+    studentId: state.context.studentId!,
+    markingPeriod: markingPeriodState.context.currentMarkingPeriod,
+    polling: false,
+    pollInterval: 1000,
+  })
+
   const [loadStudentInfo, { loading: studentInfoLoading, data }] = useLazyQuery<
     findStudentByIdForTeachersAid,
     findStudentByIdForTeachersAidVariables

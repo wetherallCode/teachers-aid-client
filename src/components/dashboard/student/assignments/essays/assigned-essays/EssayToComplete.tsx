@@ -178,6 +178,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
       variables: {
         input: { _id: essayToComplete! },
       },
+      fetchPolicy: 'network-only',
       onCompleted: (data) => {
         const draftToParse = JSON.parse(
           data.findEssayById.essay.workingDraft.draft
