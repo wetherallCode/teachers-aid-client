@@ -2279,6 +2279,7 @@ export interface findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft {
   __typename: "FinalDraftContainer";
   returned: boolean;
   submitted: boolean;
+  submitTime: any | null;
   submittedFinalDraft: findEssaysToGradeById_findEssaysToGradeById_essays_finalDraft_submittedFinalDraft[];
 }
 

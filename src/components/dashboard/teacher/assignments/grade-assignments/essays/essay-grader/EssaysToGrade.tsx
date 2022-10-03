@@ -58,6 +58,7 @@ export const FIND_ESSAYS_TO_GRADE_BY_ID_QUERY = gql`
         finalDraft {
           returned
           submitted
+          submitTime
           submittedFinalDraft {
             draftNumber
             graded
@@ -214,6 +215,7 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
                   <EssaySelect to={essay._id!} key={essay._id!}>
                     {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
                     {essay.readings.readingSections}
+                    {/* {essay.finalDraft?.submitTime} */}
                   </EssaySelect>
                 </EssayListItem>
               ))}
@@ -227,7 +229,8 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
                 <EssayListItem key={essay._id!}>
                   <EssaySelect to={essay._id!} key={essay._id!}>
                     {essay.hasOwner.lastName}, {essay.hasOwner.firstName}:{' '}
-                    {essay.readings.readingSections}
+                    {essay.readings.readingSections}{' '}
+                    {essay.finalDraft?.submitTime}
                   </EssaySelect>
                 </EssayListItem>
               ))}
