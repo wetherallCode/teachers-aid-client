@@ -95,3 +95,9 @@ export const CourseMenuItemBlockLink = styled(Link)`
     box-shadow: 2px 2px 2px var(--blue);
   }
 `
+export const AssignmentControlDisplayContainer = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 100%;
+`

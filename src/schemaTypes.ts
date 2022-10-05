@@ -3161,6 +3161,28 @@ export interface toggleAssignmentsAllowedInClassVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: toggleReadingGuideCheck
+// ====================================================
+
+export interface toggleReadingGuideCheck_toggleReadingGuideCheck {
+  __typename: "ToggleReadingGuideCheckPayload";
+  toggled: boolean;
+}
+
+export interface toggleReadingGuideCheck {
+  toggleReadingGuideCheck: toggleReadingGuideCheck_toggleReadingGuideCheck;
+}
+
+export interface toggleReadingGuideCheckVariables {
+  input: ToggleReadingGuideCheckInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: createCourseInfo
 // ====================================================
 
@@ -9539,6 +9561,10 @@ export interface TextSectionVocabInput {
 }
 
 export interface ToggleAssignmentsAllowedInClassInput {
+  courseId: string;
+}
+
+export interface ToggleReadingGuideCheckInput {
   courseId: string;
 }
 
