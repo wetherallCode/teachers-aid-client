@@ -83,8 +83,8 @@ export const useCalculateGrades = ({
       input: { markingPeriod, studentId },
     },
     pollInterval: polling ? pollInterval : 0,
-    // onCompleted: (data) =>
-    //   console.log(data.findAllMarkingPeriodGrades.responsibilityPoints),
+    onCompleted: (data) =>
+      console.log(data.findAllMarkingPeriodGrades.assignments),
     onError: (error) => console.error(error),
   })
 
@@ -112,7 +112,7 @@ export const useCalculateGrades = ({
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
     )!
-  console.log(allSecondaryGrades)
+
   const responsibilityPoints =
     data?.findAllMarkingPeriodGrades.responsibilityPoints!.responsibilityPoints!
 
@@ -144,43 +144,51 @@ export const useCalculateGrades = ({
   }
 
   if (!loading) {
+    // console.log(data?.findAllMarkingPeriodGrades.assignments)
     const onlyPrimaryAndSecondary =
+      data &&
       allEssays.length > 0 &&
       allSecondaryGrades.length > 0 &&
       !data?.findAllMarkingPeriodGrades.responsibilityPoints
     // console.log(onlyPrimaryAndSecondary)
 
     const onlyResponsibilityPoints =
+      data &&
       allEssays.length === 0 &&
       allSecondaryGrades.length === 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
-    console.log(allSecondaryGrades.length < 0)
+    // console.log(allSecondaryGrades.length < 0)
 
     const onlySecondary =
+      data &&
       allEssays.length === 0 &&
       allSecondaryGrades.length > 0 &&
       !data?.findAllMarkingPeriodGrades.responsibilityPoints
     // console.log(onlySecondary)
 
     const onlyPrimary =
+      data &&
       allEssays.length > 0 &&
       allSecondaryGrades.length === 0 &&
       !data?.findAllMarkingPeriodGrades.responsibilityPoints
     // console.log(onlyPrimary)
 
     const onlySecondaryAndResponsiblityPoints =
+      data &&
       allEssays.length === 0 &&
       allSecondaryGrades.length > 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
     // console.log(onlySecondaryAndResponsiblityPoints)
 
     const onlyPrimaryAndResponsibilityPoints =
+      data &&
       allEssays.length > 0 &&
       allSecondaryGrades.length === 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
     // console.log(onlyPrimaryAndResponsibilityPoints)
 
     const allGrades =
+      data &&
       allEssays.length > 0 &&
       allSecondaryGrades.length > 0 &&
       !!data?.findAllMarkingPeriodGrades.responsibilityPoints
@@ -288,7 +296,7 @@ export const useCalculateGrades = ({
       const totalGrade = Number(
         Number(primaryGrade) + Number(secondaryGrade) + Number(rp)
       ).toFixed(3)
-
+      console.log(handleScoring(allEssays, 100))
       return {
         grade: Math.round(Number(totalGrade) * 10) / 10,
         loading,
