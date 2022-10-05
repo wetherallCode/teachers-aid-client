@@ -40,9 +40,9 @@ export const UPDATE_ARTICLE_REVIEW_MUTATION = gql`
     }
   }
 `
-export const ArticleReviewToCompleteForm: FC<ArticleReviewToCompleteFormProps> = ({
-  articleReviewInfo,
-}) => {
+export const ArticleReviewToCompleteForm: FC<
+  ArticleReviewToCompleteFormProps
+> = ({ articleReviewInfo }) => {
   const [state, event] = useArticleReviewToCompleteContextProvider()
   const [updateArticleReview] = useMutation<
     updateArticleReview,

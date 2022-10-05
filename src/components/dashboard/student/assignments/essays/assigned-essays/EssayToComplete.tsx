@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { gql, useQuery, MutationFunctionOptions } from '@apollo/client'
 import { StudentEssayEditor } from './StudentEssayEditor'
@@ -128,6 +128,7 @@ export const FIND_ESSAY_BY_ID_QUERY = gql`
           questionType
           writingLevel
           essayQuestionId
+          questionType
         }
         lessonInfo {
           vocabList {
@@ -208,6 +209,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
               verb: organizer.developingSentenceStructure.verb,
             },
           })
+
           event({
             type: 'SET_BASIC_QUESTION_TYPE',
             payload: organizer.basicQuestionType!,

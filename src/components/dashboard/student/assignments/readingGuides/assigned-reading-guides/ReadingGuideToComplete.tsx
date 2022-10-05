@@ -35,6 +35,7 @@ import {
   AssignmentDetailsGoBackButton,
 } from '../../essays/assigned-essays/state-and-styles/assignedEssayStyles'
 import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
+import { useCalculateGrades } from '../../../../../../hooks/useCalculateGrades'
 
 export type ReadingGuideToCompleteProps = {}
 
@@ -168,10 +169,10 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
         startReadingGuide()
       }
     },
-    onError: (error) => console.error(error),
+    onError: (error) => console.error('findReadingGuideById' + error),
   })
 
-  const { grade, loading: gradeLoading } = useGradeCalculator({
+  const { grade, loading: gradeLoading } = useCalculateGrades({
     studentId: data?.findReadingGuideById.readingGuide.hasOwner._id!,
     markingPeriod: data?.findReadingGuideById.readingGuide.markingPeriod!,
     polling: false,

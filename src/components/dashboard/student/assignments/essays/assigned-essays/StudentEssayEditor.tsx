@@ -85,7 +85,6 @@ export const StudentEssayEditor = ({
   const renderLeaf = useCallback((props) => {
     return <Leaf {...props} />
   }, [])
-  console.log('in the right place')
 
   return (
     <EssayEditorBackgroundContainer>

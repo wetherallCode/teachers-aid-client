@@ -43,9 +43,7 @@ export type ArticleReviewSubmitButtonProps = {
   toggled: boolean
 }
 
-export const ArticleReviewSubmitButton = styled.button<
-  ArticleReviewSubmitButtonProps
->`
+export const ArticleReviewSubmitButton = styled.button<ArticleReviewSubmitButtonProps>`
   grid-row: 8/9;
   grid-column: 1/-1;
   background-color: ${({ toggled }) =>
