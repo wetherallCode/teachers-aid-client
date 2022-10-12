@@ -22,6 +22,8 @@ import {
   findCurrentSchoolDayVariables,
   findQuizzesByStudentId,
   findQuizzesByStudentIdVariables,
+  findStudentInfoByStudentIdForDesk,
+  findStudentInfoByStudentIdForDeskVariables,
   MarkingPeriodEnum,
   me_me,
   me_me_Student,
@@ -47,6 +49,7 @@ import { QuizToCompleteContextProvider } from './quizzes/state-n-styles/QuizToCo
 // import { ReadingGuideToComplete } from './readingGuides/ReadingGuideToComplete'
 import { ReadingGuideToCompleteContextProvider } from './readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { useAssignmentsAllowedInClassCheck } from '../../../../hooks/useAssignmentsAllowedInClassCheck'
+import { FIND_STUDENT_INFO_FOR_DESK_QUERY } from '../../teacher/teachers-aid/main-screen/seating-chart/Desk'
 
 export type StudentAssignmentsProps = {}
 
@@ -107,6 +110,20 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
     onError: (error) => console.error(error),
   })
 
+  const { data: absenceData } = useQuery<
+    findStudentInfoByStudentIdForDesk,
+    findStudentInfoByStudentIdForDeskVariables
+  >(FIND_STUDENT_INFO_FOR_DESK_QUERY, {
+    variables: {
+      input: { studentId: me._id! },
+    },
+    onError: (error) => console.error(error + 'desk'),
+  })
+
+  const isAbsent = absenceData?.findStudentById.student.hasAbsences.some(
+    (day) => day.dayAbsent
+  )
+  console.log(isAbsent)
   return (
     <AssignmentsToCompleteContainer>
       <AssignmentsTypeSelectorPanel>
