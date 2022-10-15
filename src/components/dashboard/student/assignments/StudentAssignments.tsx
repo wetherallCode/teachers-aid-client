@@ -121,7 +121,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
   })
 
   const isAbsent = absenceData?.findStudentById.student.hasAbsences.some(
-    (day) => day.dayAbsent
+    (day) => day.dayAbsent === new Date().toLocaleDateString()
   )
   console.log(isAbsent)
   return (
