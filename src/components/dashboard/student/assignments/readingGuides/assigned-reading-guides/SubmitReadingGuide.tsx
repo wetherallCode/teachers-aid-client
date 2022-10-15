@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
+  findReadingGuideById_findReadingGuideById_readingGuide,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   submitReadingGuide,
   submitReadingGuideVariables,
@@ -12,9 +13,10 @@ import {
   SubmitReadingGuideButton,
 } from '../state-and-styles/readingGuideStyles'
 import { responsibilityPointConverter } from '../../../../../../utils'
+import { useCalculateGrades } from '../../../../../../hooks/useCalculateGrades'
 
 export type SubmitReadingGuideProps = {
-  grade: number
+  readingGuideInfo: findReadingGuideById_findReadingGuideById_readingGuide
 }
 
 export const SUBMIT_READING_GUIDE_MUTATION = gql`
@@ -27,9 +29,17 @@ export const SUBMIT_READING_GUIDE_MUTATION = gql`
   }
 `
 
-export const SubmitReadingGuide = ({ grade }: SubmitReadingGuideProps) => {
+export const SubmitReadingGuide = ({
+  readingGuideInfo,
+}: SubmitReadingGuideProps) => {
   const navigate = useNavigate()
   const [state] = useReadingGuideToCompleteContextProvider()
+
+  const { grade, loading: gradeLoading } = useCalculateGrades({
+    studentId: readingGuideInfo.hasOwner._id!,
+    markingPeriod: readingGuideInfo.markingPeriod,
+    polling: false,
+  })
 
   const [submitReadingGuide] = useMutation<
     submitReadingGuide,

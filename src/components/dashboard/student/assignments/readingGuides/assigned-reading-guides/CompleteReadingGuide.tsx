@@ -55,7 +55,6 @@ import {
 
 export type CompleteReadingGuideProps = {
   readingGuideInfo: findReadingGuideById_findReadingGuideById_readingGuide
-  grade: number
 }
 
 export const UPDATE_READING_GUIDE_MUTATION = gql`
@@ -78,7 +77,6 @@ export type ReadingGuideStepsTypes =
 
 export const CompleteReadingGuide = ({
   readingGuideInfo,
-  grade,
 }: CompleteReadingGuideProps) => {
   const [state, event] = useReadingGuideToCompleteContextProvider()
   const [readingGuideSteps, setReadingGuideSteps] =
@@ -474,7 +472,7 @@ export const CompleteReadingGuide = ({
                   >
                     Back
                   </SmallNextButton>
-                  <SubmitReadingGuide grade={grade} />
+                  <SubmitReadingGuide readingGuideInfo={readingGuideInfo} />
                 </ButtonContainer>
               )}
             </SectionConsequencesContainer>

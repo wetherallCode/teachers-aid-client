@@ -172,11 +172,11 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
     onError: (error) => console.error('findReadingGuideById' + error),
   })
 
-  const { grade, loading: gradeLoading } = useCalculateGrades({
-    studentId: data?.findReadingGuideById.readingGuide.hasOwner._id!,
-    markingPeriod: data?.findReadingGuideById.readingGuide.markingPeriod!,
-    polling: false,
-  })
+  // const { grade, loading: gradeLoading } = useCalculateGrades({
+  //   studentId: data?.findReadingGuideById.readingGuide.hasOwner._id!,
+  //   markingPeriod: data?.findReadingGuideById.readingGuide.markingPeriod!,
+  //   polling: false,
+  // })
 
   useEffect(() => {
     if (classTime && !assignmentsAllowedInClass)
@@ -223,7 +223,6 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
             <ReadingGuideToCompleteContainer>
               <CompleteReadingGuide
                 readingGuideInfo={data?.findReadingGuideById.readingGuide!}
-                grade={grade}
               />
             </ReadingGuideToCompleteContainer>
 
