@@ -55,6 +55,10 @@ export const TextAnalysis = ({}: TextAnalysisProps) => {
               If you can (when the paragraph presents the information), include
               the problem and solution.
             </li>
+            <li>
+              If the paragraph only shows the solution, just explain the
+              solution.
+            </li>
           </ul>
         </IndividualContentContainer>
       </DoubleSidedContentContainer>
