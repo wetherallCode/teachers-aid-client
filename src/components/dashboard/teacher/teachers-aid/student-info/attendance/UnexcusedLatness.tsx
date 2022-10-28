@@ -62,29 +62,35 @@ export const UnexcusedLatness = ({
     }
   )
   const unexcusedLatenessCheck = student.hasLatnesses.find(
-    (late) => late.latenessType === LatenessTypeEnum.UNEXCUSED
+    (late) =>
+      late.latenessType === LatenessTypeEnum.UNEXCUSED &&
+      late.dayLate === new Date().toLocaleDateString()
   )
 
   const isExcused = student.hasLatnesses.find(
-    (late) => late.latenessType === LatenessTypeEnum.EXCUSED
+    (late) =>
+      late.latenessType === LatenessTypeEnum.EXCUSED &&
+      late.dayLate === new Date().toLocaleDateString()
   )!
-
+  const handleLatnessClick = () => {
+    if (absent) {
+      removeAbsence({ variables: { input: { _id: todaysAbsenceId } } })
+    }
+    if (isExcused) {
+      removeLateness({
+        variables: { input: { _id: isExcused._id! } },
+      })
+    }
+    createLateness()
+  }
   return (
     <>
       {!unexcusedLatenessCheck ? (
         <AttendanceButton
           lateButton={true}
           created={unexcusedLatenessCheck !== undefined}
-          onClick={() => {
-            if (absent) {
-              removeAbsence({ variables: { input: { _id: todaysAbsenceId } } })
-            }
-            if (isExcused) {
-              removeLateness({
-                variables: { input: { _id: isExcused._id! } },
-              })
-            }
-            createLateness()
+          onClick={
+            () => handleLatnessClick()
             // updateResponsibilityPoints({
             //   variables: {
             //     input: {
@@ -94,7 +100,7 @@ export const UnexcusedLatness = ({
             //     },
             //   },
             // })
-          }}
+          }
         >
           Create Unexcused Lateness
         </AttendanceButton>
