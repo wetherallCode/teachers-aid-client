@@ -21,7 +21,8 @@ const devLink = new HttpLink({
   credentials: 'include',
 })
 const prodLink = new HttpLink({
-  uri: 'https://teachers-aid-server.herokuapp.com/graphql',
+  // uri: 'https://teachers-aid-server.herokuapp.com/graphql',
+  uri: 'https://mrwetherall.org/graphql',
   credentials: 'include',
 })
 
