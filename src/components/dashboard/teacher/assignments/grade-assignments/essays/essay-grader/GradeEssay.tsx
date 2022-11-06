@@ -143,7 +143,7 @@ export const FIND_ESSAY_TO_GRADE_QUERY = gql`
   }
 `
 
-export const GradeEssay: FC<GradeEssayProps> = () => {
+export const GradeEssay = ({}: GradeEssayProps) => {
   const { essayId } = useParams()
   const navigate = useNavigate()
   const [state, event] = useGradeEssayContextProvider()
@@ -245,7 +245,7 @@ export const GradeEssay: FC<GradeEssayProps> = () => {
   })
 
   if (loading) return <div>Loading </div>
-  console.log(state.context.previousDraft.additionalComments)
+  // console.log(state.context.previousDraft.additionalComments)
   return (
     <EssayGraderContainer>
       {loadingDraft && (
