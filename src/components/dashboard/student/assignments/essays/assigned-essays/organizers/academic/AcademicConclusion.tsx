@@ -28,17 +28,17 @@ export type AcademicConclusionProps = {
   topic: findEssayById_findEssayById_essay_topic
 }
 
-export const AcademicConclusion: FC<AcademicConclusionProps> = ({
+export const AcademicConclusion = ({
   updateAcademicOrganizer,
   questionParts,
   auxilaryVerbCheck,
   topic,
-}) => {
+}: AcademicConclusionProps) => {
   const [state, event] = useStudentEssayContextProvider()
   const { subject, object, subjectCompliment } =
     state.context.academicOrganizer.academicSentenceStructure
   const { simplePredicate, helpingVerb } = questionParts
-  console.log(subjectCompliment)
+
   // const verbConverter = auxilaryVerbCheck
   //   ? verbsThatChangeInIngFormat(simplePredicate.split(' ')[0]) +
   //     ' ' +
@@ -70,8 +70,8 @@ export const AcademicConclusion: FC<AcademicConclusionProps> = ({
       <RestatementDirectionsContainer>
         <UnderlinedText>Directions</UnderlinedText>
         <div>
-          First start the conclusion this way: {conclusionSetup}, , ..." Then
-          put the consequence of this statement in place of the "...."
+          First start the conclusion this way: {conclusionSetup}, ..." Then put
+          the consequence of this statement in place of the "...."
         </div>
       </RestatementDirectionsContainer>
       {/* <RestatementTitle>Write your conclusion</RestatementTitle> */}
