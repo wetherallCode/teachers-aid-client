@@ -73,16 +73,11 @@ export const AcademicGradingTool = ({
     }
   })
 
-  // console.log('topicEntriesList: ' + JSON.stringify(topicEntriesList))
-  // console.log('answerEntriesList: ' + JSON.stringify(answerEntriesList))
-  // console.log('conclusionEntriesList: ' + JSON.stringify(conclusionEntriesList))
-  // console.log('overallEntriesList: ' + JSON.stringify(overallEntriesList))
-  // console.log(
-  //   'proofreadingEntriesList: ' + JSON.stringify(proofreadingEntriesList)
-  // )
   useEffect(() => {
     if (overallEntriesList.find((entry) => entry.score === 0)) {
-      if (!automaticZero) toggleAutomaticZero(true)
+      if (!automaticZero) {
+        toggleAutomaticZero(true)
+      }
     } else toggleAutomaticZero(false)
   }, [overallEntriesList, automaticZero])
 
@@ -114,14 +109,6 @@ export const AcademicGradingTool = ({
   const proofreadingScore = proofreadingEntriesList
     .map((entry) => entry.score)
     .reduce((a, b) => a + b, 0)
-  //  /
-  // overallEntriesList.length
-  // console.log(proofreadingScore * 1)
-
-  // console.log(
-  //   'totalScore without overall: ' +
-  //     (topicScore * 0.1 + answerScore * 0.6 + conclusionScore * 0.3)
-  // )
 
   const scoreBelowZero =
     topicScore * 0.1 +
@@ -153,7 +140,7 @@ export const AcademicGradingTool = ({
       type: 'SET_SCORE',
       payload: Number(weightedScore.toFixed(2)),
     })
-  }, [rubricList, averageScore])
+  }, [rubricList, weightedScore])
 
   useEffect(() => {
     event({
