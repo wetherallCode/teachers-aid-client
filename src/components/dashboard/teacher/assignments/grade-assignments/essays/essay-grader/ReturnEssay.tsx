@@ -48,7 +48,7 @@ export const ReturnEssay: FC<ReturnEssayProps> = ({ essay }) => {
     onCompleted: () => navigate('/dashboard/assignments/grade'),
     refetchQueries: ['findEssaysToGradeById'],
   })
-  console.log(state.context.draftToGrade)
+  // console.log(state.context.draftToGrade)
   return (
     <>
       <ReturnEssayButton
