@@ -8612,8 +8612,8 @@ export enum ReadingGuideReviewOptionsEnum {
 export enum RubricSectionEnum {
   ANSWER = "ANSWER",
   CONCLUSION = "CONCLUSION",
-  GENERAL = "GENERAL",
   OVERALL = "OVERALL",
+  PROOFREADING = "PROOFREADING",
   TOPIC = "TOPIC",
 }
 

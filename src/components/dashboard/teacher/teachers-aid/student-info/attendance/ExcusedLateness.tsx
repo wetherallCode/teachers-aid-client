@@ -63,15 +63,21 @@ export const ExcusedLateness = ({
   )
 
   const excusedLatenessCheck = student.hasLatnesses.find(
-    (late) => late.latenessType === LatenessTypeEnum.EXCUSED
+    (late) =>
+      late.latenessType === LatenessTypeEnum.EXCUSED &&
+      late.dayLate === new Date().toLocaleDateString()
   )
 
   const todaysExcusedLateness = student.hasLatnesses.find(
-    (late) => late.latenessType === LatenessTypeEnum.EXCUSED
+    (late) =>
+      late.latenessType === LatenessTypeEnum.EXCUSED &&
+      late.dayLate === new Date().toLocaleDateString()
   )!
 
   const isUnexcused = student.hasUnExcusedLatenesses.find(
-    (late) => late.latenessType === LatenessTypeEnum.UNEXCUSED
+    (late) =>
+      late.latenessType === LatenessTypeEnum.UNEXCUSED &&
+      late.dayLate === new Date().toLocaleDateString()
   )!
 
   return (

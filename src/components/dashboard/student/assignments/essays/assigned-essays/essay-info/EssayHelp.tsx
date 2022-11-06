@@ -178,9 +178,9 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
           'organizers.academicOrganizer.answer.problemSolution'
         ) && (
           <ul>
-            <EssaySectionOrganizationBodyEntry>
+            {/* <EssaySectionOrganizationBodyEntry>
               Since the verb of the question
-            </EssaySectionOrganizationBodyEntry>
+            </EssaySectionOrganizationBodyEntry> */}
             <EssaySectionOrganizationBodyEntry>
               Some of the answers may actually come from earlier parts of the
               text that aren't covered in the assigned sections, but have been

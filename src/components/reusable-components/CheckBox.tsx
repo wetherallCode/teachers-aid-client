@@ -57,6 +57,7 @@ export type CheckBoxProps = {
   labelWidth: number
   boxHeight: number
   boxWidth: number
+  fontWeight?: 200 | 300 | 400
 }
 
 const CheckBox = ({
@@ -67,6 +68,7 @@ const CheckBox = ({
   labelWidth,
   boxHeight,
   boxWidth,
+  fontWeight,
   ...props
 }: CheckBoxProps) => (
   <>
@@ -88,7 +90,7 @@ const CheckBox = ({
           </Icon>
         </StyledCheckbox>
       </CheckboxContainer>
-      <span style={{ marginLeft: '1%' }}>{label}</span>
+      <span style={{ marginLeft: '1%', fontWeight }}>{label}</span>
     </label>
   </>
 )
