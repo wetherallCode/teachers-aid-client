@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "downlevelIteration": true,
     "noEmit": true,
-    "jsx": "jsx",
+    "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": false
   },
   "include": ["src"]
