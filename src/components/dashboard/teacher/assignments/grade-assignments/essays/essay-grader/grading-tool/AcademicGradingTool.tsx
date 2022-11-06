@@ -17,22 +17,34 @@ import {
   RubricSectionEnumContainer,
   RubricTypeTitle,
 } from '../state-n-styles/EssaysToGradeStyles'
-import { sortByRubricEntryScore } from '../../../../../../../../utils'
+import {
+  capitalizer,
+  sortByRubricEntryScore,
+} from '../../../../../../../../utils'
 import CheckBox from '../../../../../../../reusable-components/CheckBox'
+import { createPortal } from 'react-dom'
+import { useToggle } from '../../../../../../../../hooks'
 
 export type AcademicGradingToolProps = {
   rubricEntries: findRubricEntries_findRubricEntries_rubricEntries[]
 }
 
-export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
+export const AcademicGradingTool = ({
   rubricEntries,
-}) => {
+}: AcademicGradingToolProps) => {
   const [state, event] = useGradeEssayContextProvider()
+  const [automaticZero, toggleAutomaticZero] = useState(false)
   const { rubricSectionEnum } = useEnumContextProvider()
   const [sectionSelector, setSectionSelector] = useState(0)
   const [rubricList, handleChange] = useCheckBox([])
   const rubricEntriesList: ReturnedRubricEntryInput[] = []
-  console.log(rubricList)
+
+  const topicEntriesList: ReturnedRubricEntryInput[] = []
+  const answerEntriesList: ReturnedRubricEntryInput[] = []
+  const conclusionEntriesList: ReturnedRubricEntryInput[] = []
+  const overallEntriesList: ReturnedRubricEntryInput[] = []
+  const proofreadingEntriesList: ReturnedRubricEntryInput[] = []
+
   rubricList.forEach((entry: string) => {
     const splitValues = entry.split(',')
 
@@ -43,11 +55,95 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
       howToImprove: splitValues[2],
     }
     rubricEntriesList.push(rubricEntryValues)
+
+    if (splitValues[3] === RubricSectionEnum.TOPIC) {
+      topicEntriesList.push(rubricEntryValues)
+    }
+    if (splitValues[3] === RubricSectionEnum.ANSWER) {
+      answerEntriesList.push(rubricEntryValues)
+    }
+    if (splitValues[3] === RubricSectionEnum.CONCLUSION) {
+      conclusionEntriesList.push(rubricEntryValues)
+    }
+    if (splitValues[3] === RubricSectionEnum.OVERALL) {
+      overallEntriesList.push(rubricEntryValues)
+    }
+    if (splitValues[3] === RubricSectionEnum.PROOFREADING) {
+      proofreadingEntriesList.push(rubricEntryValues)
+    }
   })
+
+  // console.log('topicEntriesList: ' + JSON.stringify(topicEntriesList))
+  // console.log('answerEntriesList: ' + JSON.stringify(answerEntriesList))
+  // console.log('conclusionEntriesList: ' + JSON.stringify(conclusionEntriesList))
+  // console.log('overallEntriesList: ' + JSON.stringify(overallEntriesList))
+  // console.log(
+  //   'proofreadingEntriesList: ' + JSON.stringify(proofreadingEntriesList)
+  // )
+  useEffect(() => {
+    if (overallEntriesList.find((entry) => entry.score === 0)) {
+      if (!automaticZero) toggleAutomaticZero(true)
+    } else toggleAutomaticZero(false)
+  }, [overallEntriesList, automaticZero])
+
+  const topicScore =
+    topicEntriesList.length > 0
+      ? topicEntriesList
+          .map((entry) => entry.score)
+          .reduce((a, b) => a + b, 0) / topicEntriesList.length
+      : 0
+
+  const answerScore =
+    answerEntriesList.length > 0
+      ? answerEntriesList
+          .map((entry) => entry.score)
+          .reduce((a, b) => a + b, 0) / answerEntriesList.length
+      : 0
+
+  const conclusionScore =
+    conclusionEntriesList.length > 0
+      ? conclusionEntriesList
+          .map((entry) => entry.score)
+          .reduce((a, b) => a + b, 0) / conclusionEntriesList.length
+      : 0
+
+  const overallScore = overallEntriesList
+    .map((entry) => entry.score)
+    .reduce((a, b) => a + b, 0)
+
+  const proofreadingScore = proofreadingEntriesList
+    .map((entry) => entry.score)
+    .reduce((a, b) => a + b, 0)
+  //  /
+  // overallEntriesList.length
+  // console.log(proofreadingScore * 1)
+
+  // console.log(
+  //   'totalScore without overall: ' +
+  //     (topicScore * 0.1 + answerScore * 0.6 + conclusionScore * 0.3)
+  // )
+
+  const scoreBelowZero =
+    topicScore * 0.1 +
+      answerScore * 0.6 +
+      conclusionScore * 0.3 -
+      overallScore * 0.1 -
+      proofreadingScore * 0.2 <
+    0
+
+  const weightedScore =
+    scoreBelowZero || automaticZero
+      ? 0
+      : topicScore * 0.1 +
+        answerScore * 0.5 +
+        conclusionScore * 0.4 -
+        overallScore * 0.1 -
+        proofreadingScore * 0.2
 
   const totalScore = rubricEntriesList
     .map((entry) => entry.score)
     .reduce((a, b) => a + b, 0)
+
   const averageScore =
     rubricEntriesList.length > 0 ? totalScore / rubricEntriesList.length : 0
 
@@ -55,7 +151,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
     event({ type: 'SET_RUBRIC_ENTRIES', payload: rubricEntriesList })
     event({
       type: 'SET_SCORE',
-      payload: Number(averageScore.toFixed(2)),
+      payload: Number(weightedScore.toFixed(2)),
     })
   }, [rubricList, averageScore])
 
@@ -86,7 +182,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
           >
             &lt;
           </div>
-          <span>{state.context.currentRubricSection}</span>
+          <span>{capitalizer(state.context.currentRubricSection)}</span>
           <div
             onClick={(e: any) => {
               if (
@@ -136,6 +232,7 @@ export const AcademicGradingTool: FC<AcademicGradingToolProps> = ({
                 leftMargin={5}
                 boxHeight={22}
                 boxWidth={22}
+                fontWeight={300}
                 value={[
                   entry.entry,
                   entry.score.toString(),
