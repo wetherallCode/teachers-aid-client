@@ -31,7 +31,7 @@ export const rubricBuilderMachine = Machine<
   initial: 'build',
   context: {
     writingLevels: [],
-    section: RubricSectionEnum.GENERAL,
+    section: RubricSectionEnum.PROOFREADING,
     entry: '',
     score: 0,
     howToImprove: '',
@@ -86,7 +86,7 @@ export const rubricBuilderMachine = Machine<
               entry: '',
               score: 0,
               writingLevels: [],
-              section: RubricSectionEnum.GENERAL,
+              section: RubricSectionEnum.PROOFREADING,
               howToImprove: '',
             }
           }),

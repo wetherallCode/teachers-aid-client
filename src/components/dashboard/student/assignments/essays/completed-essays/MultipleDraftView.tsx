@@ -143,7 +143,7 @@ export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
                   <RubricSectionTitle>General</RubricSectionTitle>
                   <ul>
                     {currentDraft!.rubricEntries
-                      .filter((r) => r.rubricSection === 'GENERAL')
+                      .filter((r) => r.rubricSection === 'PROOFREADING')
                       .map((entry, i: number) => (
                         <li key={i}>{entry.entry}</li>
                       ))}
