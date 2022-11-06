@@ -20,7 +20,7 @@ export type GradingToolProps = {
     | findEssayToGradeById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer
 }
 
-export const GradingTool: FC<GradingToolProps> = ({ organizer }) => {
+export const GradingTool = ({ organizer }: GradingToolProps) => {
   const [state] = useGradeEssayContextProvider()
 
   const { loading, data } = useQuery<findRubricEntries>(FIND_RUBRIC_ENTRIES, {
