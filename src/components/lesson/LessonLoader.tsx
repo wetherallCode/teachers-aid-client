@@ -57,8 +57,10 @@ export const FIND_LESSON_STATUS_QUERY = gql`
           activityType
           academicOutcomeTypes
           isActive
+          directions
           completed
         }
+        protocolCount
         beforeActivity {
           task
           activityType

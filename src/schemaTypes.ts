@@ -7587,6 +7587,7 @@ export interface findLessonStatus_findLessonStatus_lesson_duringActivities {
   activityType: ProtocolActivityTypes;
   academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
+  directions: string | null;
   completed: boolean;
 }
 
@@ -7618,6 +7619,7 @@ export interface findLessonStatus_findLessonStatus_lesson {
   objectives: string | null;
   essentialQuestion: string;
   duringActivities: findLessonStatus_findLessonStatus_lesson_duringActivities[];
+  protocolCount: number | null;
   beforeActivity: findLessonStatus_findLessonStatus_lesson_beforeActivity;
   afterActivity: findLessonStatus_findLessonStatus_lesson_afterActivity;
   dynamicLesson: DynamicLessonEnums;
@@ -7707,6 +7709,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duri
   academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
   completed: boolean;
+  directions: string | null;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity {
@@ -7736,6 +7739,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
   assignedSections: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedSections;
   objectives: string | null;
   essentialQuestion: string;
+  protocolCount: number | null;
   duringActivities: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_duringActivities[];
   beforeActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_beforeActivity;
   afterActivity: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity;
@@ -8878,6 +8882,7 @@ export interface CreateLessonInput {
   lessonName: string;
   lessonType: LessonTypeEnum;
   pageNumbers: PageNumbersInput;
+  protocolCount?: number | null;
   questionList: TextSectionQuestionsInput[];
   vocabList: TextSectionVocabInput[];
 }
@@ -9546,6 +9551,7 @@ export interface TextSectionProtocolsInput {
   academicOutcomeTypes: AcademicOutcomeTypes;
   activityType: ProtocolActivityTypes;
   completed: boolean;
+  directions?: string | null;
   isActive: boolean;
   task: string;
 }

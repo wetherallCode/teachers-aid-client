@@ -151,9 +151,10 @@ export const RubricSectionEnumContainer = styled.div`
 export const RubricCheckBoxContainer = styled.div`
   grid-row: 3/-1;
   grid-column: 1/-1;
-  overflow-y: scroll;
-  font-size: 1.5vw;
+  font-size: 2vh;
   display: grid;
+  height: 50vh;
+  overflow: scroll;
   align-items: center;
   justify-items: start;
 `

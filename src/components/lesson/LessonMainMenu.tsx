@@ -79,12 +79,14 @@ export const FIND_LESSON_QUERY = gql`
         }
         objectives
         essentialQuestion
+        protocolCount
         duringActivities {
           task
           activityType
           academicOutcomeTypes
           isActive
           completed
+          directions
         }
         beforeActivity {
           task

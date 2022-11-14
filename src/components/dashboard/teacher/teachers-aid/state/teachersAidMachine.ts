@@ -144,6 +144,7 @@ export const teachersAidMachine = Machine<
       academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
       activityType: ProtocolActivityTypes.INDIVIDUAL,
       task: '',
+      directions: '',
       isActive: false,
       completed: false,
     },

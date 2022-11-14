@@ -17,7 +17,7 @@ export type ProtocolsProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
 }
 
-export const Protocols: FC<ProtocolsProps> = ({ lesson }) => {
+export const Protocols = ({ lesson }: ProtocolsProps) => {
   const me: me_me = useUserContextProvider()
   const [protocol] = lesson.duringActivities.filter(
     (protocol) => protocol.isActive
@@ -27,10 +27,12 @@ export const Protocols: FC<ProtocolsProps> = ({ lesson }) => {
   return (
     <>
       <ProtocolTypeContainer>
-        <div>{phraseCapitalizer(protocols)}</div>
+        {/* <div>{phraseCapitalizer(protocols)}</div> */}
+        <div>{lesson.protocolCount! + 1}</div>
       </ProtocolTypeContainer>
 
       <ProtocolTaskContainer>
+        <ProtocolTask>{protocol.directions}</ProtocolTask>
         <ProtocolTask>{protocol.task}</ProtocolTask>
       </ProtocolTaskContainer>
 

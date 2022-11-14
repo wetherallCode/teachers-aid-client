@@ -12,11 +12,14 @@ export type dailyAgendaMachineEvent =
   | { type: 'TODAYS_LESSON' }
   | { type: 'GET_LESSON' }
   | { type: 'POLLING' }
-  | { type: 'SET_STATIC_LESSON_TYPE'; payload: DynamicLessonEnums }
+  | {
+      type: 'SET_STATIC_LESSON_TYPE'
+      payload: DynamicLessonEnums | 'TEXT_ANALYSIS'
+    }
 
 export type dailyAgendaMachineContext = {
   polling: boolean
-  staticLessonTypes: DynamicLessonEnums
+  staticLessonTypes: DynamicLessonEnums | 'TEXT_ANALYSIS'
 }
 
 export const dailyAgendaMachine = Machine<
