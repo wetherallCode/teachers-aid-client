@@ -22,6 +22,9 @@ import { LessonDetails } from '../lesson-components/LessonDetails'
 import { Vocab } from '../lesson-components/Vocab'
 import { ExitActivity } from '../lesson-components/ExitActivity'
 import { useNavigate } from 'react-router'
+import { TextAnalysis } from '../../dashboard/student/handbook/TextAnalysis'
+import { HandbookInformationDisplayContainer } from '../../dashboard/student/handbook/handbookStyles'
+import { TextAnalysisForStudentLesson } from '../lesson-components/TextAnalysisForStudentLesson'
 
 export type StaticLessonProps = {
   lesson: findLessonStatus_findLessonStatus_lesson
@@ -61,6 +64,9 @@ export const StaticLesson = ({ lesson, courseToLoad }: StaticLessonProps) => {
         {state.context.staticLessonTypes === 'EXIT_ACTIVITY' && (
           <ExitActivity lesson={lesson} />
         )}
+        {state.context.staticLessonTypes === 'TEXT_ANALYSIS' && (
+          <TextAnalysisForStudentLesson />
+        )}
       </LessonMainScreen>
       <LessonComponentTypeContainer>
         <LessonComponentTypeStyle
@@ -81,7 +87,7 @@ export const StaticLesson = ({ lesson, courseToLoad }: StaticLessonProps) => {
             })
           }
         >
-          Lesson Details
+          Daily Agenda
         </LessonComponentTypeStyle>
         <LessonComponentTypeStyle
           onClick={() =>
@@ -93,26 +99,29 @@ export const StaticLesson = ({ lesson, courseToLoad }: StaticLessonProps) => {
         >
           Vocab
         </LessonComponentTypeStyle>
-        {/* <LessonComponentTypeStyle
-          onClick={() =>
-            event({
-              type: 'SET_STATIC_LESSON_TYPE',
-              payload: DynamicLessonEnums.PROTOCOLS,
-            })
-          }
-        >
-          Protocols
-        </LessonComponentTypeStyle> */}
-        <LessonComponentTypeStyle
-          onClick={() =>
-            event({
-              type: 'SET_STATIC_LESSON_TYPE',
-              payload: DynamicLessonEnums.EXIT_ACTIVITY,
-            })
-          }
-        >
-          Exit Ticket
-        </LessonComponentTypeStyle>
+        {lesson.lessonType === 'REINFORCEMENT' ? (
+          <LessonComponentTypeStyle
+            onClick={() =>
+              event({
+                type: 'SET_STATIC_LESSON_TYPE',
+                payload: DynamicLessonEnums.PROTOCOLS,
+              })
+            }
+          >
+            Protocols
+          </LessonComponentTypeStyle>
+        ) : (
+          <LessonComponentTypeStyle
+            onClick={() =>
+              event({
+                type: 'SET_STATIC_LESSON_TYPE',
+                payload: 'TEXT_ANALYSIS',
+              })
+            }
+          >
+            Help
+          </LessonComponentTypeStyle>
+        )}
       </LessonComponentTypeContainer>
     </LessonPageContainer>
   )

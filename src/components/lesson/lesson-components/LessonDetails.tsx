@@ -17,19 +17,23 @@ export type LessonDetailsProps = {
 }
 
 export const LessonDetails = ({ lesson }: LessonDetailsProps) => {
+  const multiPageSection =
+    lesson.pageNumbers.endingPage !== lesson.pageNumbers.startingPage
   return (
     <>
       <LessonComponentTitleContainer>
-        <div>Lesson Details</div>
+        <div>Daily Agenda</div>
       </LessonComponentTitleContainer>
       <LessonDetailsContainer>
         {/* <LessonDetailCenter>
           Lesson Name: {lesson.lessonName}
         </LessonDetailCenter> */}
         <LessonDetailCenter>
-          Read page {lesson.pageNumbers.startingPage}-
-          {lesson.pageNumbers.endingPage}:{' '}
-          {lesson.assignedSections.startingSection}
+          Today's Section: Page{multiPageSection && 's'}{' '}
+          {lesson.pageNumbers.startingPage}
+          {multiPageSection
+            ? ' - ' + lesson.pageNumbers.endingPage
+            : null}: {lesson.assignedSections.startingSection}
           {lesson.assignedSections.endingSection !==
             lesson.assignedSections.startingSection &&
             ' - ' + lesson.assignedSections.endingSection}
@@ -43,29 +47,21 @@ export const LessonDetails = ({ lesson }: LessonDetailsProps) => {
             <LessonDetailCenter
               style={{ fontSize: '3vh', textDecoration: 'underline' }}
             >
-              Reading Instructions
+              Text Analysis Instructions
             </LessonDetailCenter>
-            <ol style={{ margin: 0 }}>
-              <li>Read the assigned sections.</li>
-              <li>
-                Reread the assigned sections and underline the actions. For each
-                paragraph you read:
-              </li>
+            <ol style={{ margin: 0, fontSize: '3vh' }}>
+              <li>Read each paragraph in the assigned section.</li>
+              <li>After each paragraph:</li>
               <ol>
-                <li>Number each paragraph that is assigned.</li>
-                {/* <li>Put checkmarks next to things you understand.</li>
-                <li>Put question marks next to things you don't understand.</li>
+                <li>Number the paragraph.</li>
+                <li>Underline the actions and questions if there are any.</li>
                 <li>
-                  Write the main idea of that paragraph (in your own words) in
-                  your notes. Skip 3 or 4 lines for additional notes)
-                </li> */}
+                  Put question marks next to things you don't understand.{' '}
+                </li>
+                <li>Circle words you don't know.</li>
                 <li>
                   Write Main Ideas based on the text structure that each
-                  paragraph presented.
-                </li>
-                <li>
-                  Don't forget to number the associated paragraph in the Daily
-                  Agenda
+                  paragraph presented. Use the help section if needed.
                 </li>
               </ol>
               <li>Answer the essential question.</li>

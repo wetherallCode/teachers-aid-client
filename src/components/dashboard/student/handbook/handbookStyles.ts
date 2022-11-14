@@ -74,3 +74,9 @@ export const ContentContainerTitle = styled.div`
   text-align: center;
   font-size: 2.5vh;
 `
+export const TextAnalysisForStudentLessonContainer = styled.div`
+  grid-row: 1/-1;
+  grid-column: 1/-1;
+
+  display: grid;
+`
