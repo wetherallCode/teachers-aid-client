@@ -104,11 +104,11 @@ export const StaticLesson = ({ lesson, courseToLoad }: StaticLessonProps) => {
             onClick={() =>
               event({
                 type: 'SET_STATIC_LESSON_TYPE',
-                payload: DynamicLessonEnums.PROTOCOLS,
+                payload: DynamicLessonEnums.EXIT_ACTIVITY,
               })
             }
           >
-            Protocols
+            Exit Ticket
           </LessonComponentTypeStyle>
         ) : (
           <LessonComponentTypeStyle
