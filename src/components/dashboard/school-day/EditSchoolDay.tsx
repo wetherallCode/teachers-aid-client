@@ -66,6 +66,7 @@ export const EditSchoolDay = ({ schoolDay }: EditSchoolDayProps) => {
         <div>School Day Length?</div>
         <select
           style={{ background: 'transparent', fontSize: '1.6vh' }}
+          value={state.context.currentSchoolDay.schoolDayLength}
           onChange={(e: any) => {
             updateSchoolDay({
               variables: {
