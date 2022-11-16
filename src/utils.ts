@@ -349,6 +349,9 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'admit') {
     return 'admitted'
   }
+  if (lowerCaseVerb === 'rebel') {
+    return 'rebelled'
+  }
   if (lowerCaseVerb === 'deter') {
     return 'deterred'
   }
