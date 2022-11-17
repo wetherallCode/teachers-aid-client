@@ -28,7 +28,7 @@ export const Protocols = ({ lesson }: ProtocolsProps) => {
     <>
       <ProtocolTypeContainer>
         {/* <div>{phraseCapitalizer(protocols)}</div> */}
-        <div>{lesson.protocolCount! + 1}</div>
+        <div>Protocol {lesson.protocolCount! + 1}</div>
       </ProtocolTypeContainer>
 
       <ProtocolTaskContainer>
