@@ -15,10 +15,9 @@ export const TextAnalysisForStudentLesson =
       <TextAnalysisForStudentLessonContainer>
         <DisplayTitle>Text Analysis Help</DisplayTitle>
 
-        <DoubleSidedContentContainer style={{ fontSize: '2vh' }}>
+        <DoubleSidedContentContainer style={{ fontSize: '2.8vh' }}>
           <div>
             <ContentContainerTitle>Cause and Effect</ContentContainerTitle>
-
             <ul>
               <li>
                 For each action, ask your self: Why did that action happen? If
@@ -85,6 +84,7 @@ export const TextAnalysisForStudentLesson =
                 </li>
                 <li>Label solutions with an S.</li>
               </ul>
+              <br />
               <li>
                 Look for key words to show problem and solution: problem,
                 solution, compromise, issue...{' '}

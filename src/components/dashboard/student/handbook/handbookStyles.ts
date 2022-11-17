@@ -72,11 +72,11 @@ export const IndividualContentContainer = styled.div`
 `
 export const ContentContainerTitle = styled.div`
   text-align: center;
-  font-size: 2.5vh;
+  font-size: 3.5vh;
 `
 export const TextAnalysisForStudentLessonContainer = styled.div`
   grid-row: 1/-1;
   grid-column: 1/-1;
-
+  font-size: 2.5vh;
   display: grid;
 `
