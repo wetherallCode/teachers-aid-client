@@ -18,7 +18,7 @@ export type WarmUpProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
 }
 
-export const WarmUp: FC<WarmUpProps> = ({ lesson }) => {
+export const WarmUp = ({ lesson }: WarmUpProps) => {
   // const [response, setResponse] = useState('')
   // const [protocol, setProtocol] = useState<
   //   findStudentProtocol_findStudentById_student_hasProtocols
