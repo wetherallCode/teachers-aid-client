@@ -140,7 +140,7 @@ export const ProtocolTaskContainer = styled.div`
 `
 
 export const ProtocolTask = styled.div`
-  font-size: 3vh;
+  font-size: 3.5vh;
 `
 
 export const ProtocolResponseContainer = styled.div`
@@ -202,7 +202,7 @@ export const LessonComponentDetailsContainer = styled.div`
 `
 
 export const LessonComponentDetailsStyle = styled.div`
-  font-size: 3vh;
+  font-size: 3.5vh;
 `
 
 export const LessonDetailsContainer = styled.div`
