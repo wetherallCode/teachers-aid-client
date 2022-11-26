@@ -65,14 +65,14 @@ export const StudentControlPanelDisplay = ({
         />
       ) : (
         <StudentControlPanelContainer>
-          <StudentControlButtonContainer>
-            {/* <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
+          {/* <StudentControlButtonContainer> */}
+          {/* <ControlButtons onClick={() => setControllerState('ATTENDANCE')}>
                 Attendance
               </ControlButtons>
               <ControlButtons onClick={() => setControllerState('BEHAVIOR')}>
                 Behavior
               </ControlButtons> */}
-          </StudentControlButtonContainer>
+          {/* </StudentControlButtonContainer> */}
           {student && state.context.studentInfoSelector === 'ATTENDANCE' && (
             <DailyAttendance student={student} absenceCheck={absenceCheck} />
           )}

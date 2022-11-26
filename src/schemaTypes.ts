@@ -5244,6 +5244,13 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   maxPoints: number;
 }
 
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment {
   __typename: "SpecialAssignment";
   _id: string | null;
@@ -5253,7 +5260,9 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  assignedDate: string;
   gradeType: GradeTypeEnum;
+  hasOwner: findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_hasOwner;
   markingPeriod: MarkingPeriodEnum;
 }
 
@@ -5266,6 +5275,13 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   __typename: "Score";
   earnedPoints: number;
   maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft_rubricEntries {
@@ -5296,7 +5312,9 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  assignedDate: string;
   gradeType: GradeTypeEnum;
+  hasOwner: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_hasOwner;
   markingPeriod: MarkingPeriodEnum;
   finalDraft: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft | null;
 }
@@ -5310,6 +5328,13 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   __typename: "Score";
   earnedPoints: number;
   maxPoints: number;
+}
+
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_readingGuideFinal {
@@ -5326,7 +5351,9 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  assignedDate: string;
   gradeType: GradeTypeEnum;
+  hasOwner: findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide_hasOwner;
   markingPeriod: MarkingPeriodEnum;
   completed: boolean;
   graded: boolean;
@@ -5344,6 +5371,13 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   maxPoints: number;
 }
 
+export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz {
   __typename: "Quiz";
   _id: string | null;
@@ -5353,9 +5387,13 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   exempt: boolean;
   dueDate: string;
   dueTime: string;
+  assignedDate: string;
   gradeType: GradeTypeEnum;
+  hasOwner: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz_hasOwner;
   markingPeriod: MarkingPeriodEnum;
   finishedQuiz: boolean;
+  isActive: boolean;
+  startedQuiz: boolean;
 }
 
 export type findAssignmentByStudentId_findAssignmentByStudentId_assignments = findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay | findAssignmentByStudentId_findAssignmentByStudentId_assignments_ReadingGuide | findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz;
@@ -5390,6 +5428,87 @@ export interface findAssignmentByStudentId {
 
 export interface findAssignmentByStudentIdVariables {
   input: FindAssignmentByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findStudentAbsencesAndLatenesses
+// ====================================================
+
+export interface findStudentAbsencesAndLatenesses_findStudentById_student_hasLatnesses {
+  __typename: "StudentLateness";
+  dayLate: string;
+  latenessType: LatenessTypeEnum;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findStudentAbsencesAndLatenesses_findStudentById_student_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+  markingPeriod: MarkingPeriodEnum;
+}
+
+export interface findStudentAbsencesAndLatenesses_findStudentById_student {
+  __typename: "Student";
+  _id: string | null;
+  hasLatnesses: findStudentAbsencesAndLatenesses_findStudentById_student_hasLatnesses[];
+  hasAbsences: findStudentAbsencesAndLatenesses_findStudentById_student_hasAbsences[];
+}
+
+export interface findStudentAbsencesAndLatenesses_findStudentById {
+  __typename: "FindStudentByIdPayload";
+  student: findStudentAbsencesAndLatenesses_findStudentById_student;
+}
+
+export interface findStudentAbsencesAndLatenesses {
+  findStudentById: findStudentAbsencesAndLatenesses_findStudentById;
+}
+
+export interface findStudentAbsencesAndLatenessesVariables {
+  input: FindStudentByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findStudentOutOfClassByStudentIdAndMarkingPeriod
+// ====================================================
+
+export interface findStudentOutOfClassByStudentIdAndMarkingPeriod_findStudentOutOfClassByStudentIdAndMarkingPeriod_studentOutOfClassListForMarkingPeriod_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findStudentOutOfClassByStudentIdAndMarkingPeriod_findStudentOutOfClassByStudentIdAndMarkingPeriod_studentOutOfClassListForMarkingPeriod {
+  __typename: "StudentOutOfClass";
+  student: findStudentOutOfClassByStudentIdAndMarkingPeriod_findStudentOutOfClassByStudentIdAndMarkingPeriod_studentOutOfClassListForMarkingPeriod_student;
+  date: string;
+  departTime: string;
+  hasReturned: boolean;
+  outOfClassDestination: OutOfClassDestinationEnum;
+  returnTime: string;
+}
+
+export interface findStudentOutOfClassByStudentIdAndMarkingPeriod_findStudentOutOfClassByStudentIdAndMarkingPeriod {
+  __typename: "FindStudentOutOfClassByStudentIdAndMarkingPeriodPayload";
+  studentOutOfClassListForMarkingPeriod: findStudentOutOfClassByStudentIdAndMarkingPeriod_findStudentOutOfClassByStudentIdAndMarkingPeriod_studentOutOfClassListForMarkingPeriod[];
+}
+
+export interface findStudentOutOfClassByStudentIdAndMarkingPeriod {
+  findStudentOutOfClassByStudentIdAndMarkingPeriod: findStudentOutOfClassByStudentIdAndMarkingPeriod_findStudentOutOfClassByStudentIdAndMarkingPeriod;
+}
+
+export interface findStudentOutOfClassByStudentIdAndMarkingPeriodVariables {
+  input: FindStudentOutOfClassByStudentIdAndMarkingPeriodInput;
 }
 
 /* tslint:disable */
@@ -7019,9 +7138,15 @@ export interface removeStudentBehaviorVariables {
 // GraphQL mutation operation: createStudentBehavior
 // ====================================================
 
+export interface createStudentBehavior_createStudentBehavior_studentBehavior_student {
+  __typename: "Student";
+  firstName: string;
+}
+
 export interface createStudentBehavior_createStudentBehavior_studentBehavior {
   __typename: "StudentBehavior";
   _id: string | null;
+  student: createStudentBehavior_createStudentBehavior_studentBehavior_student;
 }
 
 export interface createStudentBehavior_createStudentBehavior {
@@ -8476,6 +8601,7 @@ export enum BehaviorCategoryEnum {
   INDEPENDENT_WORK = "INDEPENDENT_WORK",
   NEGATIVE_BEHAVIOR = "NEGATIVE_BEHAVIOR",
   POSITIVE_BEHAVIOR = "POSITIVE_BEHAVIOR",
+  PREPAREDNESS = "PREPAREDNESS",
   QUESTION_AND_ANSWER = "QUESTION_AND_ANSWER",
 }
 
@@ -8486,6 +8612,7 @@ export enum BehaviorQualityEnum {
 }
 
 export enum ContactTypeEnum {
+  CONFERENCE = "CONFERENCE",
   EMAIL = "EMAIL",
   PHONE = "PHONE",
   VIDEO = "VIDEO",
@@ -8561,10 +8688,10 @@ export enum NounTypeEnum {
 }
 
 export enum OutOfClassDestinationEnum {
-  BAND = "BAND",
+  BAND_CHOIR = "BAND_CHOIR",
   BATHROOM = "BATHROOM",
-  CHOIR = "CHOIR",
   GUIDANCE = "GUIDANCE",
+  LOCKER = "LOCKER",
   NURSE = "NURSE",
   OFFICE = "OFFICE",
   OTHER_CLASS = "OTHER_CLASS",
@@ -8882,7 +9009,6 @@ export interface CreateLessonInput {
   lessonName: string;
   lessonType: LessonTypeEnum;
   pageNumbers: PageNumbersInput;
-  protocolCount?: number | null;
   questionList: TextSectionQuestionsInput[];
   vocabList: TextSectionVocabInput[];
 }
@@ -9239,6 +9365,11 @@ export interface FindStudentOutOfClassByPeriodNameAndDateInput {
   date: string;
 }
 
+export interface FindStudentOutOfClassByStudentIdAndMarkingPeriodInput {
+  markingPeriod: MarkingPeriodEnum;
+  studentId: string;
+}
+
 export interface FindStudentQuestionsInput {
   courseId: string;
   date: string;
@@ -9544,6 +9675,7 @@ export interface SubmittedFinalDraftsInput {
 
 export interface SwitchToNewCourseInput {
   newCourseId: string;
+  oldCourseId: string;
   studentId: string;
 }
 

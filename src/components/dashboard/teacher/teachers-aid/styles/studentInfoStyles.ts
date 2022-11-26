@@ -4,7 +4,7 @@ export const StudentControlPanelContainer = styled.div`
   background-color: var(--grey);
   color: var(--white);
   display: grid;
-  grid-template-rows: 1fr 10fr;
+  /* grid-template-rows: 1fr 10fr; */
 `
 
 export const StudentControlButtonContainer = styled.div`
@@ -130,10 +130,24 @@ export const AssessorButton = styled.button<AssessorButtonProps>`
   justify-self: center;
   border-radius: 5px;
 `
+
+export const StudentBehaviorContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  height: 100%;
+`
+
 export const StudentBehaviorButtonContainer = styled.div`
   display: grid;
   justify-items: center;
   align-items: center;
+`
+
+export const StudentBehaviorTitle = styled.div`
+  color: var(--blue);
+  font-size: 3.5vh;
+  justify-self: center;
+  align-self: center;
 `
 
 export type StudentBehaviorButtonProps = {
@@ -147,8 +161,8 @@ export const StudentBehaviorButton = styled.button<StudentBehaviorButtonProps>`
   color: var(--white);
   border-radius: 5px;
   width: 75%;
-  height: 7vh;
-  font-size: 100%;
+  /* height: 7vh; */
+  font-size: 2vh;
 `
 
 export const BehaviorRemoverContainer = styled.div`

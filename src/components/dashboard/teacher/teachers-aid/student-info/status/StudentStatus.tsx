@@ -6,10 +6,15 @@ import {
   createStudentOutOfClass,
   MarkingPeriodEnum,
   findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
+  studentReturnedToClassVariables,
+  studentReturnedToClass,
 } from '../../../../../../schemaTypes'
+import { STUDENT_RETURNED_MUTATION } from '../../main-screen/status/Status'
 import {
   StudentBehaviorButton,
   StudentBehaviorButtonContainer,
+  StudentBehaviorContainer,
+  StudentBehaviorTitle,
 } from '../../styles/studentInfoStyles'
 
 export type StudentStatusProps = {
@@ -38,41 +43,68 @@ export const StudentStatus = ({
     createStudentOutOfClassVariables
   >(CREATE_STUDENT_OUT_OF_CLASS_MUTATION, {
     onCompleted: (data) => console.log(data),
-    refetchQueries: [],
+    refetchQueries: ['findStudentByIdForTeachersAid'],
+  })
+  const [studentReturnedToClass] = useMutation<
+    studentReturnedToClass,
+    studentReturnedToClassVariables
+  >(STUDENT_RETURNED_MUTATION, {
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['findStudentByIdForTeachersAid'],
   })
   const isStudentOutOfClass = student.hasStatus.filter(
     (status) => !status.hasReturned
   )
   const studentOutOfClass = isStudentOutOfClass.length === 1
+  const outOfClassObject = student.hasStatus.find(
+    (status) => !status.hasReturned
+  )
+  console.log(outOfClassObject)
   return (
-    <>
-      {!studentOutOfClass && (
-        <>
-          <div>Student Status</div>
-          <StudentBehaviorButtonContainer>
-            {outOfClassDestinationEnum.map((destination: any) => (
-              <StudentBehaviorButton
-                goodBehavior={true}
-                key={destination}
-                onClick={() =>
-                  createStudentOutOfClass({
-                    variables: {
-                      input: {
-                        date: new Date().toLocaleDateString(),
-                        markingPeriod,
-                        outOfClassDestination: destination,
-                        studentId: student._id!,
-                      },
+    <StudentBehaviorContainer>
+      <StudentBehaviorTitle>Student Status</StudentBehaviorTitle>
+      {!studentOutOfClass ? (
+        <StudentBehaviorButtonContainer>
+          {outOfClassDestinationEnum.map((destination: any) => (
+            <StudentBehaviorButton
+              goodBehavior={true}
+              key={destination}
+              onClick={() =>
+                createStudentOutOfClass({
+                  variables: {
+                    input: {
+                      date: new Date().toLocaleDateString(),
+                      markingPeriod,
+                      outOfClassDestination: destination,
+                      studentId: student._id!,
                     },
-                  })
-                }
-              >
-                {destination}
-              </StudentBehaviorButton>
-            ))}
-          </StudentBehaviorButtonContainer>
-        </>
+                  },
+                })
+              }
+            >
+              {destination}
+            </StudentBehaviorButton>
+          ))}
+        </StudentBehaviorButtonContainer>
+      ) : (
+        <StudentBehaviorButtonContainer>
+          <StudentBehaviorButton
+            goodBehavior={true}
+            // key={destination}
+            onClick={() =>
+              studentReturnedToClass({
+                variables: {
+                  input: {
+                    outOfClassId: outOfClassObject?._id!,
+                  },
+                },
+              })
+            }
+          >
+            Returned
+          </StudentBehaviorButton>
+        </StudentBehaviorButtonContainer>
       )}
-    </>
+    </StudentBehaviorContainer>
   )
 }
