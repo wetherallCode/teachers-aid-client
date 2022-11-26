@@ -38,6 +38,9 @@ export const CREATE_BEHAVIOR_MUTATION = gql`
     createStudentBehavior(input: $input) {
       studentBehavior {
         _id
+        student {
+          firstName
+        }
       }
     }
   }
@@ -60,7 +63,7 @@ export const DailyBehavior = ({
   const { loading, data } = useQuery<findAllBehaviorTypes>(
     FIND_ALL_BEHAVIOR_TYPES_QUERY,
     {
-      onCompleted: (data) => console.log(data),
+      // onCompleted: (data) => console.log(data),
       onError: (error) => console.error(error),
     }
   )
@@ -84,21 +87,28 @@ export const DailyBehavior = ({
     (b) => b.behaviorCategory === BehaviorCategoryEnum.NEGATIVE_BEHAVIOR
   )!
 
-  const independentBehaviorList = studentBehaviors.find(
-    (b) =>
-      b.date === new Date().toLocaleDateString() &&
-      b.behavior.behaviorName === 'Unprepared'
+  const preparedAndReady = data?.findAllBehaviorTypes.behaviorTypes.find(
+    (b) => b._id === '62a33f0c2c8c161570b3c258'
+  )!
+
+  const preparednessBehaviorList = studentBehaviors.find(
+    (b) => b.behavior._id === preparedAndReady._id
   )
     ? data?.findAllBehaviorTypes.behaviorTypes.filter(
         (b) =>
-          b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK &&
-          b.behaviorName !== 'Unprepared'
+          b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
+          b.behaviorName !== 'Prepared and Ready'
       )!
     : data?.findAllBehaviorTypes.behaviorTypes.filter(
         (b) =>
-          b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK &&
-          b.behaviorName !== 'Prepared and Ready'
+          b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
+          b.behaviorName === 'Prepared and Ready'
       )!
+
+  const independentBehaviorList =
+    data?.findAllBehaviorTypes.behaviorTypes.filter(
+      (b) => b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK
+    )!
 
   // const behaviorPoints = (behavior: BehaviorEnum) => {
   //   if (behavior === BehaviorEnum.ANSWERED_QUESTION)
@@ -130,6 +140,36 @@ export const DailyBehavior = ({
       {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
         <StudentBehaviorButtonContainer>
           {questionAndAnswerBehaviorList.map((behavior, i: number) => (
+            <StudentBehaviorButton
+              key={i}
+              goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
+              onClick={() =>
+                createStudentBehavior({
+                  variables: {
+                    input: {
+                      behaviorTypeId: behavior._id!,
+                      studentId,
+                      markingPeriod: currentMarkingPeriod,
+                      responsibilityPoints:
+                        behavior.points > 0
+                          ? responsibilityPointConverter(grade, behavior.points)
+                          : behavior.points,
+                      date: new Date().toLocaleDateString(),
+                    },
+                  },
+                })
+              }
+            >
+              {behavior.points > 0 && gradeLoading
+                ? 'loading'
+                : behavior.behaviorName}
+            </StudentBehaviorButton>
+          ))}
+        </StudentBehaviorButtonContainer>
+      )}
+      {state.context.studentInfoSelector === 'PREPAREDNESS' && (
+        <StudentBehaviorButtonContainer>
+          {preparednessBehaviorList.map((behavior, i: number) => (
             <StudentBehaviorButton
               key={i}
               goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
