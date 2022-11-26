@@ -8,6 +8,7 @@ import {
 export type StudentInfoSelectorProps = {}
 export type StudentInfoSelectorTypes =
   | 'QUESTION_AND_ANSWER'
+  | 'PREPAREDNESS'
   | 'NEGATIVE_BEHAVIOR'
   | 'ATTENDANCE'
   | 'TASK_CHECK'
@@ -24,6 +25,11 @@ export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
     <StudentInfoSelectorContainer>
       <StudentInfoSelectorButton onClick={() => handleSelection('ATTENDANCE')}>
         A
+      </StudentInfoSelectorButton>
+      <StudentInfoSelectorButton
+        onClick={() => handleSelection('PREPAREDNESS')}
+      >
+        P
       </StudentInfoSelectorButton>
       <StudentInfoSelectorButton onClick={() => handleSelection('STATUS')}>
         S
