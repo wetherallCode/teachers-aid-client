@@ -44,7 +44,11 @@ export const SwitchCourse = ({ student }: SwitchCourseProps) => {
     switchToNewCourseVariables
   >(SWITCH_TO_NEW_COURSE_MUTATION, {
     variables: {
-      input: { newCourseId: courseToChangeTo!, studentId: student._id! },
+      input: {
+        newCourseId: courseToChangeTo!,
+        studentId: student._id!,
+        oldCourseId: student.inCourses[0]._id!,
+      },
     },
     onCompleted: (data) => {
       event({ type: 'UPDATE_STUDENT', payload: data.switchToNewCourse.student })

@@ -17,6 +17,7 @@ export type studentInformationMachineSchema = {
           }
         }
         protocols: {}
+        conduct: {}
         contacts: {}
       }
     }
@@ -26,6 +27,7 @@ export type studentInformationMachineEvent =
   | { type: 'STUDENT_INFO' }
   | { type: 'ASSIGNMENTS' }
   | { type: 'PROTOCOLS' }
+  | { type: 'CONDUCT' }
   | { type: 'CONTACTS' }
   | { type: 'READING_GUIDES' }
   | { type: 'ESSAYS' }
@@ -77,6 +79,7 @@ export const studentInformationMachine = Machine<
             ASSIGNMENTS: 'assignments',
             CONTACTS: 'contacts',
             PROTOCOLS: 'protocols',
+            CONDUCT: 'conduct',
             UPDATE_STUDENT: {
               actions: assign((ctx, evt) => {
                 return {
@@ -95,6 +98,7 @@ export const studentInformationMachine = Machine<
                 STUDENT_INFO: '#studentInformation.information.studentInfo',
                 CONTACTS: '#studentInformation.information.contacts',
                 PROTOCOLS: '#studentInformation.information.protocols',
+                CONDUCT: '#studentInformation.information.conduct',
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
                 QUIZZES: 'quizzes',
@@ -106,6 +110,7 @@ export const studentInformationMachine = Machine<
                 STUDENT_INFO: '#studentInformation.information.studentInfo',
                 CONTACTS: '#studentInformation.information.contacts',
                 PROTOCOLS: '#studentInformation.information.protocols',
+                CONDUCT: '#studentInformation.information.conduct',
                 ESSAYS: 'essays',
                 ARTICLE_REVIEWS: 'articleReviews',
                 QUIZZES: 'quizzes',
@@ -117,6 +122,7 @@ export const studentInformationMachine = Machine<
                 STUDENT_INFO: '#studentInformation.information.studentInfo',
                 CONTACTS: '#studentInformation.information.contacts',
                 PROTOCOLS: '#studentInformation.information.protocols',
+                CONDUCT: '#studentInformation.information.conduct',
                 READING_GUIDES: 'readingGuides',
                 ESSAYS: 'essays',
                 QUIZZES: 'quizzes',
@@ -128,6 +134,7 @@ export const studentInformationMachine = Machine<
                 STUDENT_INFO: '#studentInformation.information.studentInfo',
                 CONTACTS: '#studentInformation.information.contacts',
                 PROTOCOLS: '#studentInformation.information.protocols',
+                CONDUCT: '#studentInformation.information.conduct',
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
                 ESSAYS: 'essays',
@@ -139,6 +146,7 @@ export const studentInformationMachine = Machine<
                 STUDENT_INFO: '#studentInformation.information.studentInfo',
                 CONTACTS: '#studentInformation.information.contacts',
                 PROTOCOLS: '#studentInformation.information.protocols',
+                CONDUCT: '#studentInformation.information.conduct',
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
                 ESSAYS: 'essays',
@@ -152,6 +160,15 @@ export const studentInformationMachine = Machine<
             ASSIGNMENTS: 'assignments',
             STUDENT_INFO: 'studentInfo',
             CONTACTS: 'contacts',
+            CONDUCT: 'conduct',
+          },
+        },
+        conduct: {
+          on: {
+            ASSIGNMENTS: 'assignments',
+            STUDENT_INFO: 'studentInfo',
+            CONTACTS: 'contacts',
+            PROTOCOLS: 'protocols',
           },
         },
         contacts: {
@@ -159,6 +176,7 @@ export const studentInformationMachine = Machine<
             ASSIGNMENTS: 'assignments',
             STUDENT_INFO: 'studentInfo',
             PROTOCOLS: 'protocols',
+            CONDUCT: 'conduct',
           },
         },
       },

@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client'
+import { create } from 'domain'
 import React, { useState } from 'react'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import { useUserContextProvider } from '../../../../../contexts/UserContext'
@@ -7,6 +8,7 @@ import {
   createParentContactVariables,
   createParentContact,
   me_me_Teacher,
+  CreateParentContactInput,
 } from '../../../../../schemaTypes'
 import { dateConverter } from '../../../../../utils'
 import { CREATE_PARENT_CONTACT_MUTATION } from '../../parent-contact/create-contacts/CreateContact'
@@ -19,23 +21,35 @@ export const CreateContactForm = ({ studentId }: CreateContactFormProps) => {
   const [contactType, setContactType] = useState(contactTypeEnum.EMAIL)
   const [date, setDate] = useState('')
   const [contentOfContact, setContentOfContact] = useState('')
+  const [createParentContactInputs, setcreateParentContactInputs] =
+    useState<CreateParentContactInput>({
+      contactType: ContactTypeEnum.EMAIL,
+      contentOfContact: '',
+      date: new Date().toLocaleDateString(),
+      studentId,
+      teacherId: me._id!,
+    })
 
   const [createParentContact] = useMutation<
     createParentContact,
     createParentContactVariables
   >(CREATE_PARENT_CONTACT_MUTATION, {
     variables: {
-      input: {
-        contactType,
-        date,
-        studentId,
-        teacherId: me._id!,
-        contentOfContact,
-      },
+      input: createParentContactInputs,
     },
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findContactsByStudentId'],
   })
+
+  const handleCreateContact = () => {
+    setcreateParentContactInputs({
+      ...createParentContactInputs,
+      contactType: ContactTypeEnum.EMAIL,
+      contentOfContact: '',
+      date: new Date().toLocaleDateString(),
+    })
+    createParentContact()
+  }
 
   return (
     <>
@@ -44,14 +58,20 @@ export const CreateContactForm = ({ studentId }: CreateContactFormProps) => {
         <input
           type='date'
           onChange={(e: any) => {
-            setDate(dateConverter(e.target.value))
+            setcreateParentContactInputs({
+              ...createParentContactInputs,
+              date: dateConverter(e.target.value),
+            })
           }}
         />
         <div>Contact Type</div>
         <select
           onChange={(e: any) => {
             if (e.target.value !== 'none') {
-              setContactType(e.target.value)
+              setcreateParentContactInputs({
+                ...createParentContactInputs,
+                contactType: e.target.value,
+              })
             }
           }}
         >
@@ -64,20 +84,24 @@ export const CreateContactForm = ({ studentId }: CreateContactFormProps) => {
         </select>
         <input
           type='checkbox'
-          onChange={() => setContentOfContact('Emailed Progress Report')}
+          onChange={() =>
+            setcreateParentContactInputs({
+              ...createParentContactInputs,
+              contentOfContact: 'Emailed Progress Report',
+            })
+          }
         />
         <span>Emailed Progress Report</span>
         <div>Contact Notes</div>
-        <textarea onChange={(e: any) => setContentOfContact(e.target.value)} />
-        <button
-          type='reset'
-          onClick={() => {
-            setContactType(contactTypeEnum.EMAIL)
-            setDate(new Date().toLocaleDateString())
-            setContentOfContact('')
-            createParentContact()
-          }}
-        >
+        <textarea
+          onChange={(e: any) =>
+            setcreateParentContactInputs({
+              ...createParentContactInputs,
+              contentOfContact: e.target.value,
+            })
+          }
+        />
+        <button type='reset' onClick={() => handleCreateContact()}>
           Create Contact
         </button>
       </form>

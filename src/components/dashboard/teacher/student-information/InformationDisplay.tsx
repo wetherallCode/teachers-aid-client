@@ -5,7 +5,7 @@ import {
 } from '../../../../schemaTypes'
 import { MarkingPeriodSelectorSwitch } from '../../../reusable-components/MarkingPeriodSelectorSwitch'
 import { TemporaryTaskDisplay } from '../courses/temporary-tasks/state-n-styles/temporaryTaskStyles'
-import { AssignmentInformation } from './AssignmentInformation'
+import { AssignmentInformation } from './assignments/AssignmentInformation'
 import { ParentContacts } from './contact-info/ParentContacts'
 import { useStudentInformationContextProvider } from './state-n-styles/StudentInformationContext'
 import {
@@ -17,6 +17,7 @@ import {
 } from './state-n-styles/studentInformationStyles'
 import { StudentInformationDisplay } from './general-student-information/StudentInformationDisplay'
 import { TemporaryTasksInformation } from './TemporaryTasksInformation'
+import { ConductHome } from './conduct/ConductHome'
 
 export type InformationDisplayProps = {}
 
@@ -53,6 +54,12 @@ export const InformationDisplay = ({}: InformationDisplayProps) => {
           <div>Protocols</div>
         </InformationTypeTab>
         <InformationTypeTab
+          onClick={() => event({ type: 'CONDUCT' })}
+          selected={state.matches('information.conduct')}
+        >
+          <div>Conduct</div>
+        </InformationTypeTab>
+        <InformationTypeTab
           onClick={() => event({ type: 'CONTACTS' })}
           selected={state.matches('information.contacts')}
         >
@@ -73,6 +80,12 @@ export const InformationDisplay = ({}: InformationDisplayProps) => {
         />
       )}
       {state.matches('information.protocols') && <TemporaryTasksInformation />}
+      {state.matches('information.conduct') && (
+        <ConductHome
+          studentId={student?._id!}
+          selectedMarkingPeriod={selectedMarkingPeriod}
+        />
+      )}
       {state.matches('information.contacts') && (
         <ParentContacts studentId={student?._id!} />
       )}

@@ -100,6 +100,10 @@ export const InformationPageOutline = styled.div`
 `
 
 export const ProtocolInformationContainer = styled(InformationPageOutline)``
+export const ConductInformationContainer = styled(InformationPageOutline)`
+  display: grid;
+  grid-template-rows: 1fr 8fr;
+`
 export const StudentInformationDisplayContainer = styled(
   InformationPageOutline
 )``
@@ -119,7 +123,8 @@ export const MarkingPeriodSelectorSwitchContainer = styled(
 
 export const AssignmentInformationAssignmentSwitchContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
 `
 
 export type AssignmentSwitchProps = {
