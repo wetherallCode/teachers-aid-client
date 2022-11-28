@@ -7135,39 +7135,6 @@ export interface removeStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createStudentBehavior
-// ====================================================
-
-export interface createStudentBehavior_createStudentBehavior_studentBehavior_student {
-  __typename: "Student";
-  firstName: string;
-}
-
-export interface createStudentBehavior_createStudentBehavior_studentBehavior {
-  __typename: "StudentBehavior";
-  _id: string | null;
-  student: createStudentBehavior_createStudentBehavior_studentBehavior_student;
-}
-
-export interface createStudentBehavior_createStudentBehavior {
-  __typename: "CreateStudentBehaviorPayload";
-  studentBehavior: createStudentBehavior_createStudentBehavior_studentBehavior;
-}
-
-export interface createStudentBehavior {
-  createStudentBehavior: createStudentBehavior_createStudentBehavior;
-}
-
-export interface createStudentBehaviorVariables {
-  input: CreateStudentBehaviorInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -8574,6 +8541,39 @@ export interface findAllMarkingPeriodGrades {
 
 export interface findAllMarkingPeriodGradesVariables {
   input: FindAllMarkingPeriodGradesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: createStudentBehavior
+// ====================================================
+
+export interface createStudentBehavior_createStudentBehavior_studentBehavior_student {
+  __typename: "Student";
+  firstName: string;
+}
+
+export interface createStudentBehavior_createStudentBehavior_studentBehavior {
+  __typename: "StudentBehavior";
+  _id: string | null;
+  student: createStudentBehavior_createStudentBehavior_studentBehavior_student;
+}
+
+export interface createStudentBehavior_createStudentBehavior {
+  __typename: "CreateStudentBehaviorPayload";
+  studentBehavior: createStudentBehavior_createStudentBehavior_studentBehavior;
+}
+
+export interface createStudentBehavior {
+  createStudentBehavior: createStudentBehavior_createStudentBehavior;
+}
+
+export interface createStudentBehaviorVariables {
+  input: CreateStudentBehaviorInput;
 }
 
 /* tslint:disable */

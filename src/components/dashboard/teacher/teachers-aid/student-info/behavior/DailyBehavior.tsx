@@ -79,6 +79,7 @@ export const DailyBehavior = ({
       'findResponsibilityPointsByStudentId',
     ],
   })
+  if (loading) return <div>Loading </div>
   const questionAndAnswerBehaviorList =
     data?.findAllBehaviorTypes.behaviorTypes.filter(
       (b) => b.behaviorCategory === BehaviorCategoryEnum.QUESTION_AND_ANSWER
@@ -91,19 +92,19 @@ export const DailyBehavior = ({
     (b) => b._id === '62a33f0c2c8c161570b3c258'
   )!
 
-  const preparednessBehaviorList = studentBehaviors.find(
-    (b) => b.behavior._id === preparedAndReady._id
-  )
-    ? data?.findAllBehaviorTypes.behaviorTypes.filter(
-        (b) =>
-          b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
-          b.behaviorName !== 'Prepared and Ready'
-      )!
-    : data?.findAllBehaviorTypes.behaviorTypes.filter(
-        (b) =>
-          b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
-          b.behaviorName === 'Prepared and Ready'
-      )!
+  const preparednessBehaviorList =
+    preparedAndReady &&
+    studentBehaviors.find((b) => b.behavior._id === preparedAndReady._id)
+      ? data?.findAllBehaviorTypes.behaviorTypes.filter(
+          (b) =>
+            b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
+            b.behaviorName !== 'Prepared and Ready'
+        )!
+      : data?.findAllBehaviorTypes.behaviorTypes.filter(
+          (b) =>
+            b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
+            b.behaviorName === 'Prepared and Ready'
+        )!
 
   const independentBehaviorList =
     data?.findAllBehaviorTypes.behaviorTypes.filter(
@@ -134,7 +135,6 @@ export const DailyBehavior = ({
     behavior: findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes
   ) => {}
 
-  if (loading) return <div>Loading </div>
   return (
     <>
       {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
