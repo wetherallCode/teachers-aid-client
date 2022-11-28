@@ -50,6 +50,7 @@ export const QuizSelect = ({}: QuizSelectProps) => {
       },
     },
     pollInterval: 1000,
+    fetchPolicy: 'network-only',
     onCompleted: (data) => console.log(data.findQuizzesByStudentId.quizzes),
     onError: (error) => console.error(error),
   })
