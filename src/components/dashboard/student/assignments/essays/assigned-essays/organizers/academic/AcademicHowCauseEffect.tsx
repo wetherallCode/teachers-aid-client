@@ -77,7 +77,7 @@ export const AcademicHowCauseEffect = ({
         ? verb + 'd'
         : verb + 'ed'
       : irregularVerbCheck
-
+  console.log(questionParts)
   return (
     <>
       <OrganizerTitleContainer>
@@ -94,9 +94,10 @@ export const AcademicHowCauseEffect = ({
           <div>How Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>
+          <div>What were elections like before political parties?</div>
+          {/* <div>
             What was {object} like before {subject} {verb} it?
-          </div>
+          </div> */}
           <PartInput
             value={state.context.academicOrganizer.answer.howCauseEffect.before}
             onChange={(e: any) => {
@@ -111,9 +112,10 @@ export const AcademicHowCauseEffect = ({
           />
         </AnswerTypeContainter>
         <AnswerTypeContainter>
-          <div>
+          <div>How did political parties change elections?</div>
+          {/* <div>
             How was {object} different because of {subject}?
-          </div>
+          </div> */}
           <PartInput
             value={state.context.academicOrganizer.answer.howCauseEffect.after}
             onChange={(e: any) => {
