@@ -151,8 +151,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
     variables: {
       input: { studentId },
     },
-    // onCompleted: (data) =>
-    //   console.log(data.findSGOEssaysByStudentId.essays),
+    onCompleted: (data) => console.log(data.findSGOEssaysByStudentId.essays),
     onError: (error) => console.error(error),
   })
   const { data: allEssays } = useQuery<

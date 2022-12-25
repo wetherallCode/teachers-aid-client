@@ -126,6 +126,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     // pollInterval: 1000,
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
+      console.log(data.findStudentByIdForTeachersAid.student.firstName)
       if (
         data?.findStudentByIdForTeachersAid.student.hasProtocols.some(
           (protocol) => protocol.isActive
