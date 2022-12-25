@@ -2557,7 +2557,7 @@ export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignmen
 }
 
 export interface findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz {
-  __typename: "Quiz" | "SpecialAssignment";
+  __typename: "Quiz" | "SpecialAssignment" | "TextAnalysis";
   _id: string | null;
   markingPeriod: MarkingPeriodEnum;
   readings: findStudentsByCourse_findStudentsByCourse_students_hasAssignments_Quiz_readings;
@@ -2645,7 +2645,7 @@ export interface findAssignmentById_findAssignmentById_assignment_Quiz_readings 
 }
 
 export interface findAssignmentById_findAssignmentById_assignment_Quiz {
-  __typename: "Quiz" | "SpecialAssignment";
+  __typename: "Quiz" | "SpecialAssignment" | "TextAnalysis";
   _id: string | null;
   hasOwner: findAssignmentById_findAssignmentById_assignment_Quiz_hasOwner;
   late: boolean;
@@ -2930,7 +2930,7 @@ export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments
 }
 
 export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment" | "TextAnalysis";
   _id: string | null;
   score: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments_score;
   readings: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner_hasAssignments_readings;
@@ -2952,7 +2952,7 @@ export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments
 }
 
 export interface findAssignmentsByCourseId_findAssignmentsByCourseId_assignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment" | "TextAnalysis";
   hasOwner: findAssignmentsByCourseId_findAssignmentsByCourseId_assignments_hasOwner;
 }
 
@@ -3078,7 +3078,7 @@ export interface findAssignmentByStudentIdForSecondary_findAssignmentByStudentId
 }
 
 export interface findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment" | "TextAnalysis";
   _id: string | null;
   assigned: boolean;
   missing: boolean;
@@ -3781,7 +3781,7 @@ export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assigned
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student_hasAssignments {
-  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment" | "TextAnalysis";
 }
 
 export interface findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats_student {
@@ -5252,7 +5252,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment {
-  __typename: "SpecialAssignment";
+  __typename: "SpecialAssignment" | "TextAnalysis";
   _id: string | null;
   assigned: boolean;
   readings: findAssignmentByStudentId_findAssignmentByStudentId_assignments_SpecialAssignment_readings;
@@ -7135,6 +7135,39 @@ export interface removeStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createStudentBehavior
+// ====================================================
+
+export interface createStudentBehavior_createStudentBehavior_studentBehavior_student {
+  __typename: "Student";
+  firstName: string;
+}
+
+export interface createStudentBehavior_createStudentBehavior_studentBehavior {
+  __typename: "StudentBehavior";
+  _id: string | null;
+  student: createStudentBehavior_createStudentBehavior_studentBehavior_student;
+}
+
+export interface createStudentBehavior_createStudentBehavior {
+  __typename: "CreateStudentBehaviorPayload";
+  studentBehavior: createStudentBehavior_createStudentBehavior_studentBehavior;
+}
+
+export interface createStudentBehavior {
+  createStudentBehavior: createStudentBehavior_createStudentBehavior;
+}
+
+export interface createStudentBehaviorVariables {
+  input: CreateStudentBehaviorInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -8522,7 +8555,23 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score;
 }
 
-export type findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments = findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment;
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis {
+  __typename: "TextAnalysis";
+  markingPeriod: MarkingPeriodEnum;
+  dueDate: string;
+  dueTime: string;
+  exempt: boolean;
+  gradeType: GradeTypeEnum;
+  score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_score;
+}
+
+export type findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments = findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment | findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis;
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_responsibilityPoints {
   __typename: "ResponsibilityPoints";
@@ -8541,39 +8590,6 @@ export interface findAllMarkingPeriodGrades {
 
 export interface findAllMarkingPeriodGradesVariables {
   input: FindAllMarkingPeriodGradesInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: createStudentBehavior
-// ====================================================
-
-export interface createStudentBehavior_createStudentBehavior_studentBehavior_student {
-  __typename: "Student";
-  firstName: string;
-}
-
-export interface createStudentBehavior_createStudentBehavior_studentBehavior {
-  __typename: "StudentBehavior";
-  _id: string | null;
-  student: createStudentBehavior_createStudentBehavior_studentBehavior_student;
-}
-
-export interface createStudentBehavior_createStudentBehavior {
-  __typename: "CreateStudentBehaviorPayload";
-  studentBehavior: createStudentBehavior_createStudentBehavior_studentBehavior;
-}
-
-export interface createStudentBehavior {
-  createStudentBehavior: createStudentBehavior_createStudentBehavior;
-}
-
-export interface createStudentBehaviorVariables {
-  input: CreateStudentBehaviorInput;
 }
 
 /* tslint:disable */

@@ -32,6 +32,7 @@ export type paperBasedMachineEvent =
         | 'Essay'
         | 'ReadingGuide'
         | 'SpecialAssignment'
+        | 'TextAnalysis'
     }
   | {
       type: 'SET_ASSIGNMENT_INFO'
@@ -69,6 +70,7 @@ export type paperBasedMachineContext = {
     | 'Essay'
     | 'ReadingGuide'
     | 'SpecialAssignment'
+    | 'TextAnalysis'
 
   student: { firstName: string; lastName: string }
   readings: { readingPages: number; readingSections: string }

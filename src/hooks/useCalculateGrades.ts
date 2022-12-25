@@ -61,6 +61,13 @@ export const FIND_STUDENT_GRADES_QUERY = gql`
             maxPoints
           }
         }
+        ... on TextAnalysis {
+          gradeType
+          score {
+            earnedPoints
+            maxPoints
+          }
+        }
       }
       responsibilityPoints {
         responsibilityPoints
