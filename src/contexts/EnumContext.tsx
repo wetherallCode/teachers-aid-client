@@ -138,6 +138,11 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    TextAnalysisCompletionEnum: __type(name: "TextAnalysisCompletionEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -251,6 +256,10 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
         )!,
         outOfClassDestinationEnum:
           data?.OutOfClassDestinationEnum?.enumValues?.map(
+            (value: any) => value.name
+          )!,
+        textAnalysisCompletionEnum:
+          data?.TextAnalysisCompletionEnum?.enumValues?.map(
             (value: any) => value.name
           )!,
       }}
