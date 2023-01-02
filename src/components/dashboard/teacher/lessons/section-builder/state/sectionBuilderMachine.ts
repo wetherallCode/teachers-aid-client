@@ -42,6 +42,7 @@ export type sectionBuilderMachineContext = {
   hasVocab: TextSectionVocabInput[]
   header: string
   pageNumbers: PageNumbersInput
+  numberOfParagraphs: number
 }
 
 export const sectionBuilderMachine = Machine<
@@ -63,6 +64,7 @@ export const sectionBuilderMachine = Machine<
     hasProtocols: [],
     hasQuestions: [],
     hasVocab: [],
+    numberOfParagraphs: 0,
   },
   states: {
     text: {

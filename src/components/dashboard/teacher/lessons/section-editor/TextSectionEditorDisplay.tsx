@@ -185,6 +185,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
         hasProtocols: state.context.hasProtocols,
         hasVocab: state.context.hasVocab,
         orderNumber: state.context.orderNumber,
+        numberOfParagraphs: state.context.numberOfParagraphs,
       },
     },
     // onCompleted: (updateData) => console.log(updateData),

@@ -46,6 +46,7 @@ export type sectionEditorMachineEvent =
   | { type: 'SET_CHAPTER_ID'; payload: string }
   | { type: 'SET_HEADER'; header: string }
   | { type: 'SET_ORDER_NUMBER'; payload: null | number }
+  | { type: 'SET_NUMBER_OF_PARAGRAPHS'; payload: number }
   | { type: 'SET_PAGE_NUMBERS'; payload: PageNumbersInput }
   | { type: 'SET_VOCAB_LIST'; payload: TextSectionVocabInput[] }
   | {
@@ -103,7 +104,7 @@ export type sectionEditorMachineContext = {
   addItem: boolean
   quizQuestion: CreateQuizQuestionInput
   orderNumber: null | number
-  // quizQuestion:
+  numberOfParagraphs: number
 }
 
 export const sectionEditorMachine = Machine<
@@ -121,6 +122,7 @@ export const sectionEditorMachine = Machine<
     sectionId: '',
     header: '',
     orderNumber: null,
+    numberOfParagraphs: 0,
     pageNumbers: {
       startingPage: 0,
       endingPage: 0,
@@ -191,6 +193,14 @@ export const sectionEditorMachine = Machine<
             return {
               ...ctx,
               orderNumber: evt.payload,
+            }
+          }),
+        },
+        SET_NUMBER_OF_PARAGRAPHS: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              numberOfParagraphs: evt.payload,
             }
           }),
         },

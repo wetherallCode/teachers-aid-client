@@ -33,6 +33,7 @@ export const CreateTextSection = () => {
         hasProtocols: state.context.hasProtocols,
         hasQuestions: state.context.hasQuestions,
         hasVocab: state.context.hasVocab,
+        numberOfParagraphs: state.context.numberOfParagraphs,
       },
     },
     onCompleted: () => {
