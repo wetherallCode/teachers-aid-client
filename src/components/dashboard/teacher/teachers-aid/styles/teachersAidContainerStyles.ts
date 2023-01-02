@@ -15,5 +15,6 @@ export const TeachersAidContainer = styled.div<TeachersAideContainerProps>`
     'SeatingChart SeatingChart SeatingChart StudentInfo '
     'SeatingChart SeatingChart SeatingChart StudentInfo '
     'CommandPanel CommandPanel CommandPanel StudentInfo ';
-  height: ${({ width }) => (width === 1024 ? '88vh' : '95vh')};
+  /* height: ${({ width }) => (width === 1024 ? '88vh' : '95vh')}; */
+  height: 95vh;
 `

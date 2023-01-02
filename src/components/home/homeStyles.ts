@@ -149,22 +149,22 @@ export const StudentOptionsLinkButton = styled.button`
 `
 
 export const GetStartedButton = styled.button`
-  ${media.macBookPro16} {
-    width: 10rem;
-    height: 3rem;
-    font-size: ${fontSize}vh;
-    color: var(--white);
-    background-color: var(--blue);
-    box-shadow: 3px 3px 3px var(--grey);
-    justify-self: center;
-  }
-  ${media.iPhone} {
+  /* ${media.macBookPro16} { */
+  width: 15vh;
+  height: 5vh;
+  font-size: ${fontSize}vh;
+  color: var(--white);
+  background-color: var(--blue);
+  box-shadow: 3px 3px 3px var(--grey);
+  justify-self: center;
+  /* } */
+  /* ${media.iPhone} {
     width: 7rem;
     height: 2rem;
     font-size: 1.1vw;
     color: var(--white);
     background-color: var(--blue);
-  }
+  } */
 `
 
 export const StyledLink = styled(Link)`
