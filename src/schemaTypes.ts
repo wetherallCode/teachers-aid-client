@@ -7168,6 +7168,28 @@ export interface createStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: checkTextAnalysis
+// ====================================================
+
+export interface checkTextAnalysis_checkTextAnalysis {
+  __typename: "CheckTextAnalysisPayload";
+  checked: boolean;
+}
+
+export interface checkTextAnalysis {
+  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
+}
+
+export interface checkTextAnalysisVariables {
+  input: CheckTextAnalysisInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -7236,6 +7258,19 @@ export interface createStudentOutOfClassVariables {
 // ====================================================
 // GraphQL query operation: findStudentByIdForTeachersAid
 // ====================================================
+
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_Essay {
+  __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
+}
+
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis {
+  __typename: "TextAnalysis";
+  _id: string | null;
+  textAnalysisCompletion: TextAnalysisCompletionEnum;
+  exempt: boolean;
+}
+
+export type findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments = findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_Essay | findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis;
 
 export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAbsences {
   __typename: "StudentAbsence";
@@ -7331,6 +7366,7 @@ export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_stu
   _id: string | null;
   firstName: string;
   lastName: string;
+  hasAssignments: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments[];
   hasAbsences: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAbsences[];
   hasLatnesses: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasLatnesses[];
   hasUnExcusedLatenesses: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasUnExcusedLatenesses[];
@@ -8259,6 +8295,16 @@ export interface enumValues_OutOfClassDestinationEnum {
   enumValues: enumValues_OutOfClassDestinationEnum_enumValues[] | null;
 }
 
+export interface enumValues_TextAnalysisCompletionEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_TextAnalysisCompletionEnum {
+  __typename: "__Type";
+  enumValues: enumValues_TextAnalysisCompletionEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -8286,6 +8332,7 @@ export interface enumValues {
   BehaviorQualityEnum: enumValues_BehaviorQualityEnum | null;
   BehaviorCategoryEnum: enumValues_BehaviorCategoryEnum | null;
   OutOfClassDestinationEnum: enumValues_OutOfClassDestinationEnum | null;
+  TextAnalysisCompletionEnum: enumValues_TextAnalysisCompletionEnum | null;
 }
 
 /* tslint:disable */
@@ -8782,6 +8829,14 @@ export enum StudentCohortEnum {
   WHITE = "WHITE",
 }
 
+export enum TextAnalysisCompletionEnum {
+  MAIN_IDEAS_AND_MARKUP = "MAIN_IDEAS_AND_MARKUP",
+  MAIN_IDEAS_ONLY = "MAIN_IDEAS_ONLY",
+  MARKUP_ONLY = "MARKUP_ONLY",
+  NOT_COMPLETE = "NOT_COMPLETE",
+  PARTIAL_COMPLETION = "PARTIAL_COMPLETION",
+}
+
 export enum TimeOfDay {
   AFTER_SCHOOL = "AFTER_SCHOOL",
   BEFORE_CLASS = "BEFORE_CLASS",
@@ -8921,6 +8976,11 @@ export interface CheckAssignmentsAllowedInClassInput {
 
 export interface CheckQuizQuestionsForTextSectionsInput {
   textSectionIds: string[];
+}
+
+export interface CheckTextAnalysisInput {
+  textAnalysisCompletion: TextAnalysisCompletionEnum;
+  textAnalysisId: string;
 }
 
 export interface ControlCoolDownInput {
@@ -9122,6 +9182,8 @@ export interface CreateTextSectionInput {
   hasQuestions: TextSectionQuestionsInput[];
   hasVocab: TextSectionVocabInput[];
   header: string;
+  numberOfParagraphs: number;
+  orderNumber?: number | null;
   pageNumbers: PageNumbersInput;
 }
 
@@ -9873,6 +9935,7 @@ export interface UpdateTextSectionInput {
   hasQuestions: TextSectionQuestionsInput[];
   hasVocab: TextSectionVocabInput[];
   header: string;
+  numberOfParagraphs: number;
   orderNumber?: number | null;
   pageNumbers: PageNumbersInput;
 }

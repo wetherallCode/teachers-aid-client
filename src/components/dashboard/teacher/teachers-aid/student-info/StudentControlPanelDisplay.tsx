@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react'
 import {
   findStudentByIdForTeachersAidVariables,
   findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments,
+  findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis,
   findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors,
   MarkingPeriodEnum,
 } from '../../../../../schemaTypes'
@@ -29,6 +31,9 @@ export type StudentControlPanelDisplayProps = {
   gradeLoading: boolean
   studentBehaviors: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors[]
   markingPeriod: MarkingPeriodEnum
+  textAnalysis:
+    | findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis
+    | undefined
 }
 
 export const StudentControlPanelDisplay = ({
@@ -39,6 +44,7 @@ export const StudentControlPanelDisplay = ({
   grade,
   gradeLoading,
   studentBehaviors,
+  textAnalysis,
 }: StudentControlPanelDisplayProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [controllerState, setControllerState] = useState<
@@ -87,6 +93,7 @@ export const StudentControlPanelDisplay = ({
                 grade={grade}
                 gradeLoading={gradeLoading}
                 studentBehaviors={studentBehaviors}
+                textAnalysis={textAnalysis}
               />
             )}
         </StudentControlPanelContainer>

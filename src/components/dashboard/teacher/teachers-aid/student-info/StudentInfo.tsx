@@ -28,6 +28,13 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
         _id
         firstName
         lastName
+        hasAssignments {
+          ... on TextAnalysis {
+            _id
+            textAnalysisCompletion
+            exempt
+          }
+        }
         hasAbsences {
           _id
           dayAbsent
@@ -126,7 +133,6 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     // pollInterval: 1000,
     fetchPolicy: 'network-only',
     onCompleted: (data) => {
-      console.log(data.findStudentByIdForTeachersAid.student.firstName)
       if (
         data?.findStudentByIdForTeachersAid.student.hasProtocols.some(
           (protocol) => protocol.isActive
@@ -190,6 +196,16 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         <StudentControlPanelContainer></StudentControlPanelContainer>
       </>
     )
+  const textAnalysisToFind =
+    data?.findStudentByIdForTeachersAid.student.hasAssignments.find(
+      (a) => a.__typename === 'TextAnalysis'
+    )!
+  console.log(textAnalysisToFind)
+
+  const textAnalysis =
+    textAnalysisToFind && textAnalysisToFind.__typename === 'TextAnalysis'
+      ? textAnalysisToFind
+      : undefined
 
   return (
     <>
@@ -211,6 +227,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
         gradeLoading={gradeLoading}
         studentBehaviors={studentBehaviors}
         markingPeriod={markingPeriodState.context.currentMarkingPeriod}
+        textAnalysis={textAnalysis}
       />
     </>
   )
