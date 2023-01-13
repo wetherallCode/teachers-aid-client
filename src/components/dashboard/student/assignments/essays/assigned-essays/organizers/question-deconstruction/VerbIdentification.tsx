@@ -71,7 +71,7 @@ export const VerbIdentification = ({
 
   const irregularVerbCheck = irregularPastTenseVerbList(text)
 
-  const congugatedVerb = (verb: string) => {
+  const conjugatedVerb = (verb: string) => {
     return verb !== specialVerbsInPastTense(verb)
       ? specialVerbsInPastTense(verb)
       : verb === irregularVerbCheck
@@ -87,7 +87,7 @@ export const VerbIdentification = ({
   //     auxilaryVerbCheck &&
   //     question.object !== null
   // )
-  // console.log(congugatedVerb(question.simplePredicate))
+  // console.log(conjugatedVerb(question.simplePredicate))
   useEffect(() => {
     if (correctSimplePredicate && text) {
       setEnabled(false)
@@ -96,7 +96,7 @@ export const VerbIdentification = ({
       //   irregularPastTenseVerbList(text) === text
       //     ? text + 'ed'
       //     : irregularPastTenseVerbList(text)
-      const pastTenseVerb = congugatedVerb(text)
+      const pastTenseVerb = conjugatedVerb(text)
 
       setTimeout(() => {
         question.helpingVerb === 'did' &&
@@ -105,7 +105,7 @@ export const VerbIdentification = ({
               .join(' ')
               .replace(
                 question.simplePredicate,
-                congugatedVerb(question.simplePredicate)
+                conjugatedVerb(question.simplePredicate)
                 // irregularPastTenseVerbList(question.simplePredicate) ===
                 //   question.simplePredicate
                 //   ? question.simplePredicate + 'ed'
@@ -137,7 +137,7 @@ export const VerbIdentification = ({
             type: 'SET_ACADEMIC_SENTENCE_STRUCTURE_VERB',
             payload:
               question.helpingVerb === 'did'
-                ? congugatedVerb(question.simplePredicate)
+                ? conjugatedVerb(question.simplePredicate)
                 : question.simplePredicate,
           })
           console.log(question.helpingVerb === 'did' || auxilaryVerbCheck)
@@ -264,7 +264,7 @@ export const VerbIdentification = ({
                     {question.helpingVerb !== 'did'
                       ? `it is already past tense and doesn't change.`
                       : irregularPastTenseVerbList(text) === text
-                      ? `it gets changed to its past tense form: ${congugatedVerb(
+                      ? `it gets changed to its past tense form: ${conjugatedVerb(
                           text
                         )}`
                       : `it is an irregular verb and gets changed to ${irregularPastTenseVerbList(
