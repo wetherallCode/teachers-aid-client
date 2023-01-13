@@ -61,7 +61,13 @@ export const AcademicConclusion = ({
       ? questionParts.subjectCompliment
       : ''
   }`
-
+  console.log(
+    object
+      ? object
+      : subjectCompliment !== null
+      ? questionParts.subjectCompliment
+      : ''
+  )
   return (
     <>
       <OrganizerTitleContainer>

@@ -20,6 +20,7 @@ export function findPreposition(word: string) {
     'for',
     'from',
     'in',
+    'into',
     'like',
     'next to',
     'of',

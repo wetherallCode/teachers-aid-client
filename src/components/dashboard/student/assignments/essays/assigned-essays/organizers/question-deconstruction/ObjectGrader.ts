@@ -20,10 +20,21 @@ export function objectGrader({
   simplePredicate,
   questionToModify,
 }: ObjectGraderProps) {
+  // const conjugatedVerb =
+  //   irregularPastTenseVerbList(simplePredicate) === simplePredicate
+  //     ? simplePredicate + 'ed'
+  //     : irregularPastTenseVerbList(simplePredicate)
+
+  const irregularVerbCheck = irregularPastTenseVerbList(simplePredicate)
+
   const conjugatedVerb =
-    irregularPastTenseVerbList(simplePredicate) === simplePredicate
-      ? simplePredicate + 'ed'
-      : irregularPastTenseVerbList(simplePredicate)
+    simplePredicate === irregularVerbCheck
+      ? irregularVerbCheck
+          .charAt(irregularVerbCheck.length - 1)
+          .toLowerCase() === 'e'
+        ? simplePredicate + 'd'
+        : simplePredicate + 'ed'
+      : irregularVerbCheck
 
   const nonContextSentence =
     completeSubject + ' ' + conjugatedVerb + ' ' + correctObject
@@ -66,6 +77,9 @@ export function objectGrader({
     ? findPreposition(correctObject.trim())
     : false
 
+  if (givenObject.trim() === correctObject)
+    return { correctObject: true, correctMessage: 'Good Job!' }
+
   for (const wordInSelection of givenObject
     .trim()
     .split(' ')
@@ -99,6 +113,7 @@ export function objectGrader({
       howToFix: `Look to the right of the separator line to find the object.`,
     }
   }
+
   if (
     givenObject.trim() !== '' &&
     givenObject.trim().includes(conjugatedVerb)
@@ -109,6 +124,7 @@ export function objectGrader({
       howToFix: `Objects are nouns and nouns can be modified by adjective, so look for the person, place, thing, or idea that the ${simpleSubject} ${conjugatedVerb} and any adjective that would come before it.`,
     }
   }
+
   if (
     givenObject.trim() !== '' &&
     findPreposition(givenObject.trim()) &&
@@ -121,6 +137,7 @@ export function objectGrader({
       ${simplePredicate}? The answer should come directly after the verb`,
     }
   }
+
   if (givenObject.trim() !== '' && givenObject.trim() === correctObject + '.') {
     return { correctObject: true, correctMessage: 'Good Job' }
   }
@@ -158,6 +175,7 @@ export function objectGrader({
         howToFix: `Select only one word`,
       }
     }
+
     if (
       givenObject.trim().split(' ').length < correctObject.split(' ').length
     ) {
@@ -167,13 +185,11 @@ export function objectGrader({
         howToFix: `Select the whole phrase, not just part of it.`,
       }
     }
-
-    return {
-      correctObject: false,
-      message: 'Your selection is not the object.',
-      howToFix: `Ask yourself: What did ${completeSubject}
-      ${simplePredicate}? The answer should come directly after the verb`,
-    }
   }
-  return { correctObject: true, correctMessage: 'Good Job!' }
+  return {
+    correctObject: false,
+    message: 'Your selection is not the object.',
+    howToFix: `Ask yourself: What did ${completeSubject}
+    ${simplePredicate}? The answer should come directly after the verb`,
+  }
 }

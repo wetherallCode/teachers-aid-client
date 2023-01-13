@@ -82,11 +82,11 @@ export const VerbIdentification = ({
         : verb + 'ed'
       : irregularVerbCheck
   }
-  console.log(
-    question.helpingVerb !== 'did' &&
-      auxilaryVerbCheck &&
-      question.object !== null
-  )
+  // console.log(
+  //   question.helpingVerb !== 'did' &&
+  //     auxilaryVerbCheck &&
+  //     question.object !== null
+  // )
   // console.log(congugatedVerb(question.simplePredicate))
   useEffect(() => {
     if (correctSimplePredicate && text) {

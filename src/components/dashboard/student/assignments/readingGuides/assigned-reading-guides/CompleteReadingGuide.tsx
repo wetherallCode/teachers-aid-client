@@ -318,7 +318,7 @@ export const CompleteReadingGuide = ({
             </ReadingGuideReasonForBiggestProblemContainer>
           )}
           {readingGuideSteps === 'importantPeople' && (
-            <ImportantPeopleContainer>
+            <ImportantPeopleContainer onSubmit={(e) => e.preventDefault()}>
               <Title>
                 Who are the most important people discussed in{' '}
                 {multipleSections ? 'these sections' : 'this section'}?
