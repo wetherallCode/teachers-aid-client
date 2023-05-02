@@ -94,7 +94,7 @@ export const AcademicHowCauseEffect = ({
           <div>How Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>What were elections like before political parties?</div>
+          <div>What were things like before the expansion of suffrage</div>
           {/* <div>
             What was {object} like before {subject} {verb} it?
           </div> */}
@@ -112,7 +112,7 @@ export const AcademicHowCauseEffect = ({
           />
         </AnswerTypeContainter>
         <AnswerTypeContainter>
-          <div>How did political parties change elections?</div>
+          <div>How did the expansion of suffrage change things?</div>
           {/* <div>
             How was {object} different because of {subject}?
           </div> */}
