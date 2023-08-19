@@ -143,6 +143,11 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    ReadingGuideMetricEnum: __type(name: "ReadingGuideMetricEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -262,6 +267,9 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
           data?.TextAnalysisCompletionEnum?.enumValues?.map(
             (value: any) => value.name
           )!,
+        readingGuideMetricEnum: data?.ReadingGuideMetricEnum?.enumValues?.map(
+          (value: any) => value.name
+        )!,
       }}
     >
       {children}

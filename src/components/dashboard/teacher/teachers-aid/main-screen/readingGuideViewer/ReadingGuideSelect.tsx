@@ -35,11 +35,11 @@ export const ReadingGuideSelect = ({
         &lt;
       </ReadingGuideControlArrowContainer>
       <div>
-        <IndividualReadingGuideReviewDisplay
+        {/* <IndividualReadingGuideReviewDisplay
           readingGuide={
             completedReadingGuides[state.context.currentReadingGuideIndex]
           }
-        />
+        /> */}
       </div>
       <ReadingGuideControlArrowContainer
         onClick={() =>

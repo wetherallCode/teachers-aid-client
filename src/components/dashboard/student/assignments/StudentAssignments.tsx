@@ -1,4 +1,3 @@
-import React, { FC, useEffect } from 'react'
 import { AssignedEssaySelect } from './essays/assigned-essays/AssignedEssaySelect'
 import { CompletedEssaySelect } from './essays/completed-essays/CompletedEssaySelect'
 import { AssignedReadingGuideSelect } from './readingGuides/assigned-reading-guides/AssignedReadingGuideSelect'
@@ -123,7 +122,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
   const isAbsent = absenceData?.findStudentById.student.hasAbsences.some(
     (day) => day.dayAbsent === new Date().toLocaleDateString()
   )
-  console.log(isAbsent)
+
   return (
     <AssignmentsToCompleteContainer>
       <AssignmentsTypeSelectorPanel>

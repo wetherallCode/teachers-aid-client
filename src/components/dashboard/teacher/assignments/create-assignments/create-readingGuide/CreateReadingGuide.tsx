@@ -90,10 +90,7 @@ export const CreateReadingGuide = ({
   )
 
   const sortedCourses = me.teachesCourses.slice(2)
-  // .sort(sortByLetter)
-  // .filter(
-  //   (course) => course.name.charAt(0) === currentCourseInfo.name.charAt(0)
-  // )
+  console.log()
   const currentCourseIndex = sortedCourses.findIndex(
     (course) => course._id === courseId
   )
@@ -144,7 +141,7 @@ export const CreateReadingGuide = ({
       <AssignedDateCheck courseId={courseId} lessonId={lesson._id!} />
       <ReadingGuideInformationSelectContainer>
         <SelectorTitle>
-          <div>Create Reading Guide</div>
+          <div style={{ textAlign: 'center' }}>Create Reading Guide</div>
           <div>
             {lesson.assignedSections.startingSection}-
             {lesson.assignedSections.endingSection}
@@ -180,6 +177,7 @@ export const CreateReadingGuide = ({
               }}
             />
           </DateAssignItemContainer>
+
           <DateAssignItemContainer>
             <div>Time: </div>
             <DateAssignSelect

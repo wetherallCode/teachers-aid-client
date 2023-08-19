@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {
@@ -36,6 +36,7 @@ import {
 } from '../../essays/assigned-essays/state-and-styles/assignedEssayStyles'
 import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
 import { useCalculateGrades } from '../../../../../../hooks/useCalculateGrades'
+import { CompleteReadingGuideNew } from './CompleteReadingGuideNew'
 
 export type ReadingGuideToCompleteProps = {}
 
@@ -64,12 +65,17 @@ export const FIND_READING_GUIDE_BY_ID_QUERY = gql`
           # majorSolution
           # clarifyingQuestions
           # majorIssueSolved
-          problems
-          biggestProblem
-          reasonForBiggestProblem
-          importantPeople
-          howArePeopleInvolvedInProblems
-          sectionConsequences
+          # problems
+          # biggestProblem
+          # reasonForBiggestProblem
+          # importantPeople
+          # howArePeopleInvolvedInProblems
+          # sectionConsequences
+          submitted
+          readingGuideQuestions {
+            answer
+            questionType
+          }
         }
         markingPeriod
         hasOwner {
@@ -118,56 +124,59 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
       input: { readingGuideId: readingGuideToComplete! },
     },
     onCompleted: (data) => {
-      event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete! })
-      if (data.findReadingGuideById.readingGuide.readingGuideFinal)
-        event({
-          type: 'SET_READING_GUIDE_INPUTS',
-
-          payload: {
-            readingGuideId: readingGuideToComplete!,
-            problems:
-              data.findReadingGuideById.readingGuide.readingGuideFinal.problems,
-            biggestProblem:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .biggestProblem,
-            reasonForBiggestProblem:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .reasonForBiggestProblem,
-            importantPeople:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .importantPeople,
-            howArePeopleInvolvedInProblems:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .howArePeopleInvolvedInProblems,
-            sectionConsequences:
-              data.findReadingGuideById.readingGuide.readingGuideFinal
-                .sectionConsequences,
-          },
-          // payload: {
-          //   clarifyingQuestions:
-          //     data.findReadingGuideById.readingGuide.readingGuideFinal
-          //       .clarifyingQuestions,
-          //   majorIssue:
-          //     data.findReadingGuideById.readingGuide.readingGuideFinal
-          //       .majorIssue,
-          //   howIsSectionOrganized:
-          //     data.findReadingGuideById.readingGuide.readingGuideFinal
-          //       .howIsSectionOrganized,
-          //   majorSolution:
-          //     data.findReadingGuideById.readingGuide.readingGuideFinal
-          //       .majorSolution,
-          //   whyWasSectionOrganized:
-          //     data.findReadingGuideById.readingGuide.readingGuideFinal
-          //       .whyWasSectionOrganized!,
-          //   majorIssueSolved:
-          //     data.findReadingGuideById.readingGuide.readingGuideFinal
-          //       .majorIssueSolved,
-          //   readingGuideId: readingGuideToComplete,
-          // },
-        })
-      if (!data?.findReadingGuideById.readingGuide.readingGuideFinal) {
+      if (!data.findReadingGuideById.readingGuide.readingGuideFinal) {
         startReadingGuide()
       }
+
+      event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete! })
+      // if (data.findReadingGuideById.readingGuide.readingGuideFinal)
+      //   if (!data?.findReadingGuideById.readingGuide.readingGuideFinal) {
+      // event({
+      //   type: 'SET_READING_GUIDE_INPUTS',
+      //   payload: {
+      //     readingGuideId: readingGuideToComplete!,
+      // problems:
+      //   data.findReadingGuideById.readingGuide.readingGuideFinal.problems,
+      // biggestProblem:
+      //   data.findReadingGuideById.readingGuide.readingGuideFinal
+      //     .biggestProblem,
+      // reasonForBiggestProblem:
+      //   data.findReadingGuideById.readingGuide.readingGuideFinal
+      //     .reasonForBiggestProblem,
+      // importantPeople:
+      //   data.findReadingGuideById.readingGuide.readingGuideFinal
+      //     .importantPeople,
+      // howArePeopleInvolvedInProblems:
+      //   data.findReadingGuideById.readingGuide.readingGuideFinal
+      //     .howArePeopleInvolvedInProblems,
+      // sectionConsequences:
+      //   data.findReadingGuideById.readingGuide.readingGuideFinal
+      //     .sectionConsequences,
+      // },
+      // payload: {
+      //   clarifyingQuestions:
+      //     data.findReadingGuideById.readingGuide.readingGuideFinal
+      //       .clarifyingQuestions,
+      //   majorIssue:
+      //     data.findReadingGuideById.readingGuide.readingGuideFinal
+      //       .majorIssue,
+      //   howIsSectionOrganized:
+      //     data.findReadingGuideById.readingGuide.readingGuideFinal
+      //       .howIsSectionOrganized,
+      //   majorSolution:
+      //     data.findReadingGuideById.readingGuide.readingGuideFinal
+      //       .majorSolution,
+      //   whyWasSectionOrganized:
+      //     data.findReadingGuideById.readingGuide.readingGuideFinal
+      //       .whyWasSectionOrganized!,
+      //   majorIssueSolved:
+      //     data.findReadingGuideById.readingGuide.readingGuideFinal
+      //       .majorIssueSolved,
+      //   readingGuideId: readingGuideToComplete,
+      // },
+      // })
+
+      // }
     },
     onError: (error) => console.error('findReadingGuideById' + error),
   })
@@ -184,7 +193,6 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
   }, [classTime, navigate, assignmentsAllowedInClass])
 
   if (loading) return <div>Loading </div>
-
   return (
     <>
       {state.context.updateReadingGuideInputs.readingGuideId && (
@@ -207,8 +215,9 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
               </AssignmentDetailsPartContainers>
               <AssignmentDetailsPartContainers>
                 <AssignmentDetailsDueDate>
-                  Essay due: {data?.findReadingGuideById.readingGuide.dueDate}{' '}
-                  at {data?.findReadingGuideById.readingGuide.dueTime}
+                  Reading Guide due:{' '}
+                  {data?.findReadingGuideById.readingGuide.dueDate} at{' '}
+                  {data?.findReadingGuideById.readingGuide.dueTime}
                 </AssignmentDetailsDueDate>
               </AssignmentDetailsPartContainers>
               <AssignmentDetailsGoBackButtonContainer>
@@ -220,8 +229,9 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
               </AssignmentDetailsGoBackButtonContainer>
             </AssignmentDetailsContainer>
 
+            {/* This is the actual Question and Answer Section */}
             <ReadingGuideToCompleteContainer>
-              <CompleteReadingGuide
+              <CompleteReadingGuideNew
                 readingGuideInfo={data?.findReadingGuideById.readingGuide!}
               />
             </ReadingGuideToCompleteContainer>

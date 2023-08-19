@@ -1,9 +1,7 @@
 import React, { useState, FC, useEffect } from 'react'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
-import { Modal } from './animations'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useUserContextProvider } from './contexts/UserContext'
 import { Dashboard } from './components/dashboard/Dashboard'
-import { Home } from './components/home/Home'
 import { Login } from './components/home/Login'
 import { Nav } from './navigation/Nav'
 import { useToggle } from './hooks'
@@ -17,7 +15,6 @@ import {
   HomePageContainer,
   HomeScreenTitle,
   LoginContainer,
-  LoginToggle,
 } from './components/home/homeStyles'
 import { capitalizer, date } from './utils'
 import styled from 'styled-components'
@@ -31,11 +28,7 @@ import {
   findCurrentSchoolDay,
   findCurrentSchoolDayVariables,
   me_me,
-  me_me_Student,
 } from './schemaTypes'
-import { UpdateUserActivity } from './components/home/UpdateUserActivity'
-import { TodaysLessonPlan } from './components/lesson/TodaysLessonPlan'
-import { StudentBehavior } from './components/dashboard/student/behavior/StudentBehavior'
 import { useLocation } from 'react-router'
 
 export type LoginToggleProps = {
@@ -60,7 +53,7 @@ function App() {
 
   const [, event] = useSchoolDayContextProvider()
   const [, setCurrentSchoolDay] = useSchoolDayContextProvider()
-  // console.log(me.isActive)
+
   const { data, loading } = useQuery<
     findCurrentSchoolDay,
     findCurrentSchoolDayVariables

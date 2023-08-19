@@ -1,4 +1,4 @@
-import React, { createContext, FC, ReactNode, useContext } from 'react'
+import { createContext, ReactNode, useContext } from 'react'
 import { me } from '../schemaTypes'
 import { useQuery, gql } from '@apollo/client'
 
@@ -51,6 +51,16 @@ export const ME_QUERY = gql`
             checkReadingGuides
           }
         }
+        hasProgressTracker {
+          readingGuideProgressTracker {
+            levelPoints
+            readingGuideLevel
+          }
+          writingProgressTracker {
+            levelPoints
+            overallWritingLevel
+          }
+        }
         hasWritingMetrics {
           overallWritingMetric {
             levelPoints
@@ -72,6 +82,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
     // onCompleted: (data) => console.log(data),
     onError: (error) => error && <div>Things went wrong, please refresh!</div>,
   })
+
   if (loading)
     return (
       <div
@@ -98,6 +109,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
 
 export function useUserContextProvider() {
   const context = useContext(UserContext)
+
   if (context === undefined) {
     throw new Error(
       'useUserContextProvider must be used within a UserContextProvider'

@@ -48,12 +48,11 @@ export const FIND_READING_GUIDES_BY_MARKING_PERIOD_QUERY = gql`
         }
         dueDate
         readingGuideFinal {
-          problems
-          biggestProblem
-          reasonForBiggestProblem
-          importantPeople
-          howArePeopleInvolvedInProblems
-          sectionConsequences
+          readingGuideQuestions {
+            answer
+            questionType
+          }
+          submitted
         }
       }
     }

@@ -60,7 +60,6 @@ export const SwitchCourse = ({ student }: SwitchCourseProps) => {
     setCourseToChangeTo(e.target.value)
     toggleConfirm()
   }
-  console.log(state.context.student)
   return (
     <>
       <div>Switch Course</div>

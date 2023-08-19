@@ -127,10 +127,10 @@ export const ReadingGuideSelect = styled.select`
 `
 
 export const ReadingGuideQuestion = styled.div`
+  display: grid;
   grid-row: 2/-2;
   grid-column: 2/-2;
   font-size: 3vh;
-  display: grid;
 `
 
 export const ReadingGuideProblemsQuestionContainer = styled.form`
@@ -310,7 +310,41 @@ export const ClarifyingQuestionsSubmittedQuestionTitle = styled.div`
 `
 
 export const SubmitReadingGuideContainer = styled(SubmitEssayContainer)`
-  grid-row: 8/9;
+  grid-row: 2/-2;
   grid-column: 2/-2;
+  display: grid;
+  grid-template-rows: 4fr 1fr;
 `
 export const SubmitReadingGuideButton = styled(OrganizerControlButton)``
+
+export const ReadingGuideButtonArea = styled.div`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  justify-items: center;
+  align-items: center;
+`
+
+export const ReadingGuideQuestionNavButtons = styled.button`
+  width: 75%;
+  height: 100%;
+  font-size: 2vh;
+  color: var(--white);
+  background-color: var(--blue);
+  border-radius: 5px;
+`
+export const ReadingGuideQuestionReviewTitle = styled.div`
+  font-size: 2.5vh;
+  text-align: center;
+`
+export const ReadingGuideQuestionReview = styled.div`
+  display: grid;
+  height: 50vh;
+  overflow: scroll;
+`
+export const ReadingGuideAnswerBlock = styled.div`
+  cursor: pointer;
+`
+export const ReadingGuideQuestionReviewAnswer = styled.div`
+  padding-left: 5%;
+`

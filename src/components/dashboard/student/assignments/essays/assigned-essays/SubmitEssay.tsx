@@ -143,6 +143,7 @@ export const SubmitEssay = ({
                 color={called ? 'var(--grey)' : 'var(--blue)'}
                 submitFinal={submitToggle}
                 onClick={handleSubmit}
+                disabled={called ? true : false}
               >
                 {called ? 'Submiting' : 'Yes'}
               </EssaySubmitButton>

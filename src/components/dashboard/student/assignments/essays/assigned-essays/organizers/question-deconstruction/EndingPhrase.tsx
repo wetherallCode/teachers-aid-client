@@ -161,7 +161,7 @@ export const EndingPhrase = ({
   const questionTypeChecker =
     writingLevel === WritingLevelEnum.ACADEMIC &&
     state.context.academicOrganizer.questionType !== null
-
+  console.log(questionTypeChecker)
   const handleQuestionTypeSelector = (
     questionType: QuestionTypeEnum,
     questionWord: QuestionWordEnum

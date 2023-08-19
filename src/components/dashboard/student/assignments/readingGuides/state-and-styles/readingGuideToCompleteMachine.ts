@@ -84,12 +84,12 @@ export const readingGuideToCompleteMachine = Machine<
       // majorIssueSolved: true,
       // majorSolution: '',
       // clarifyingQuestions: [],
-      problems: [],
-      biggestProblem: '',
-      reasonForBiggestProblem: '',
-      importantPeople: [],
-      howArePeopleInvolvedInProblems: '',
-      sectionConsequences: '',
+      // problems: [],
+      // biggestProblem: '',
+      // reasonForBiggestProblem: '',
+      // importantPeople: [],
+      // howArePeopleInvolvedInProblems: '',
+      // sectionConsequences: '',
     },
     submitReadingGuideInputs: {
       readingGuideId: '',
@@ -153,21 +153,21 @@ export const readingGuideToCompleteMachine = Machine<
             }
           }),
         },
-        REMOVE_PROBLEM: {
-          actions: assign((ctx, evt) => {
-            const problemList = [
-              ...ctx.updateReadingGuideInputs.problems.slice(0, evt.payload),
-              ...ctx.updateReadingGuideInputs.problems.slice(evt.payload + 1),
-            ]
-            return {
-              ...ctx,
-              updateReadingGuideInputs: {
-                ...ctx.updateReadingGuideInputs,
-                problems: problemList,
-              },
-            }
-          }),
-        },
+        // REMOVE_PROBLEM: {
+        //   actions: assign((ctx, evt) => {
+        //     const problemList = [
+        //       ...ctx.updateReadingGuideInputs.problems.slice(0, evt.payload),
+        //       ...ctx.updateReadingGuideInputs.problems.slice(evt.payload + 1),
+        //     ]
+        //     return {
+        //       ...ctx,
+        //       updateReadingGuideInputs: {
+        //         ...ctx.updateReadingGuideInputs,
+        //         problems: problemList,
+        //       },
+        //     }
+        //   }),
+        // },
         SET_IMPORTANT_PEOPLE_LIST: {
           actions: assign((ctx, evt) => {
             return {
@@ -179,26 +179,26 @@ export const readingGuideToCompleteMachine = Machine<
             }
           }),
         },
-        REMOVE_IMPORTANT_PEOPLE: {
-          actions: assign((ctx, evt) => {
-            const importantPersonList = [
-              ...ctx.updateReadingGuideInputs.importantPeople.slice(
-                0,
-                evt.payload
-              ),
-              ...ctx.updateReadingGuideInputs.importantPeople.slice(
-                evt.payload + 1
-              ),
-            ]
-            return {
-              ...ctx,
-              updateReadingGuideInputs: {
-                ...ctx.updateReadingGuideInputs,
-                importantPeople: importantPersonList,
-              },
-            }
-          }),
-        },
+        // REMOVE_IMPORTANT_PEOPLE: {
+        //   actions: assign((ctx, evt) => {
+        //     const importantPersonList = [
+        //       ...ctx.updateReadingGuideInputs.importantPeople.slice(
+        //         0,
+        //         evt.payload
+        //       ),
+        //       ...ctx.updateReadingGuideInputs.importantPeople.slice(
+        //         evt.payload + 1
+        //       ),
+        //     ]
+        //     return {
+        //       ...ctx,
+        //       updateReadingGuideInputs: {
+        //         ...ctx.updateReadingGuideInputs,
+        //         importantPeople: importantPersonList,
+        //       },
+        //     }
+        //   }),
+        // },
         // SET_HOW_IS_ORGANIZED: {
         //   actions: assign((ctx, evt) => {
         //     return {

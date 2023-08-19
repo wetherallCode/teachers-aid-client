@@ -303,7 +303,7 @@ export const useCalculateGrades = ({
       const totalGrade = Number(
         Number(primaryGrade) + Number(secondaryGrade) + Number(rp)
       ).toFixed(3)
-      console.log(handleScoring(allEssays, 100))
+      // console.log(handleScoring(allEssays, 100))
       return {
         grade: Math.round(Number(totalGrade) * 10) / 10,
         loading,

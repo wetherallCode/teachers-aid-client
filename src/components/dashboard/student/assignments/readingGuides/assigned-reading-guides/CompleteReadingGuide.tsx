@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
   findReadingGuideById_findReadingGuideById_readingGuide,
@@ -6,32 +6,12 @@ import {
   updateReadingGuideVariables,
 } from '../../../../../../schemaTypes'
 import { useReadingGuideToCompleteContextProvider } from '../state-and-styles/ReadingGuideToCompleteContext'
-import { useCheckBox } from '../../../../../../hooks/useCheckBox'
-import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
+
 import { SubmitReadingGuide } from './SubmitReadingGuide'
 import {
-  SectionOrganizationContainer,
   ReadingGuideHeader,
-  MajorSolutionContainer,
-  ReasonForOrganizationContainer,
-  MajorIssueContainer,
-  MajorIssueSolvedContainer,
-  ClarifyingQuestionsContainer,
-  SubmitReadingGuideContainer,
-  SectionOrganizationBodyContainer,
   ReadingGuideInput,
   ReadingGuideTextArea,
-  ReadingGuideSelect,
-  ClarifyingQuestionsForm,
-  ClarifyingQuestionsTextArea,
-  ClarifyingQuestionsAddButton,
-  ClarifyingQuestionsSubmittedQuestionsDisplay,
-  ClarifyingQuestionsSubmittedQuestionTitle,
-  SubmitReadingGuideButton,
-  ClarifyingQuestionsTitle,
-  ClarifyingQuestionsSubmittedQuestion,
-  ClarifyingQuestionsBlock,
-  Required,
   ReadingGuideProblemsQuestionContainer,
   InputAndButtonContainer,
   BlueButton,
@@ -40,7 +20,6 @@ import {
   BiggestProblemListItem,
   ReadingGuideReasonForBiggestProblemContainer,
   Title,
-  SmallBlueButton,
   ImportantPeopleContainer,
   HowAreImportantPeopleContectedContainer,
   SectionConsequencesContainer,
@@ -83,30 +62,8 @@ export const CompleteReadingGuide = ({
     useState<ReadingGuideStepsTypes>('problems')
 
   const [problem, setProblem] = useState('')
-  const [problemList, setProblemList] = useState(
-    state.context.updateReadingGuideInputs.problems
-  )
+
   const [importantPeople, setImportantPeople] = useState('')
-  const [importantPeopleList, setImportantPeopleList] = useState(
-    state.context.updateReadingGuideInputs.importantPeople
-  )
-
-  // const { informationStructureEnum } = useEnumContextProvider()
-  // const [infoStructureList, handleChecks] = useCheckBox(
-  //   state.context.updateReadingGuideInputs.howIsSectionOrganized!
-  // )
-
-  // const [questionToClarify, setQuestionToClarify] = useState('')
-  // const [clarifyingQuestions, setClarifyingQuestions] = useState<string[]>(
-  //   state.context.updateReadingGuideInputs.clarifyingQuestions
-  // )
-
-  // const handleDelete = (index: number) => {
-  //   setClarifyingQuestions((list) => [
-  //     ...list.slice(0, index),
-  //     ...list.slice(index + 1),
-  //   ])
-  // }
 
   const [updateReadingGuide] = useMutation<
     updateReadingGuide,
@@ -121,48 +78,28 @@ export const CompleteReadingGuide = ({
     updateReadingGuide()
   }, [state.context.updateReadingGuideInputs])
 
-  // useEffect(() => {
-  //   event({ type: 'SET_HOW_IS_ORGANIZED', payload: infoStructureList })
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [infoStructureList])
-
-  // useEffect(() => {
-  //   event({ type: 'SET_CLARIFYING_QUESTION', payload: clarifyingQuestions })
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [clarifyingQuestions])
-
   const multipleSections =
     readingGuideInfo.lessonInfo!.assignedSectionIdList.length > 1
   const handleFinishProblemList = () => {
-    // event({
-    // 	type: 'SET_READING_GUIDE_PROPERTIES',
-    // 	keyName: 'problems',
-    // 	payload: problemList,
-    // })
     setReadingGuideSteps('biggestProblem')
   }
   const handleFinishImportantPeopleList = () => {
-    // event({
-    // 	type: 'SET_READING_GUIDE_PROPERTIES',
-    // 	keyName: 'importantPeople',
-    // 	payload: importantPeopleList,
-    // })
     setReadingGuideSteps('howArePeopleInvolvedInProblems')
   }
 
-  const handleDeleteProblem = (problem: string) => {
-    const index = state.context.updateReadingGuideInputs.problems.findIndex(
-      (i) => i === problem
-    )
-    event({ type: 'REMOVE_PROBLEM', payload: index })
-  }
-  const handleDeleteImportantPeople = (person: string) => {
-    const index =
-      state.context.updateReadingGuideInputs.importantPeople.findIndex(
-        (i) => i === person
-      )
-    event({ type: 'REMOVE_IMPORTANT_PEOPLE', payload: index })
-  }
+  // const handleDeleteProblem = (problem: string) => {
+  //   const index = state.context.updateReadingGuideInputs.problems.findIndex(
+  //     (i) => i === problem
+  //   )
+  //   event({ type: 'REMOVE_PROBLEM', payload: index })
+  // }
+  // const handleDeleteImportantPeople = (person: string) => {
+  //   const index =
+  //     state.context.updateReadingGuideInputs.importantPeople.findIndex(
+  //       (i) => i === person
+  //     )
+  //   event({ type: 'REMOVE_IMPORTANT_PEOPLE', payload: index })
+  // }
 
   return (
     <>
@@ -214,7 +151,7 @@ export const CompleteReadingGuide = ({
                 ) : (
                   <div></div>
                 )}
-                <div>
+                {/* <div>
                   {state.context.updateReadingGuideInputs.problems.map(
                     (problem: string, i: number) => (
                       <ProblemsListItem
@@ -225,7 +162,7 @@ export const CompleteReadingGuide = ({
                       </ProblemsListItem>
                     )
                   )}
-                </div>
+                </div> */}
               </ProblemsListContainer>
 
               <ButtonContainer>
@@ -358,7 +295,7 @@ export const CompleteReadingGuide = ({
                 ) : (
                   <div></div>
                 )}
-                <div>
+                {/* <div>
                   {state.context.updateReadingGuideInputs.importantPeople.map(
                     (person: string, i: number) => (
                       <ProblemsListItem
@@ -369,7 +306,7 @@ export const CompleteReadingGuide = ({
                       </ProblemsListItem>
                     )
                   )}
-                </div>
+                </div> */}
               </ProblemsListContainer>
               {state.context.updateReadingGuideInputs.importantPeople.length >
                 0 && (
@@ -472,7 +409,7 @@ export const CompleteReadingGuide = ({
                   >
                     Back
                   </SmallNextButton>
-                  <SubmitReadingGuide readingGuideInfo={readingGuideInfo} />
+                  {/* <SubmitReadingGuide readingGuideInfo={readingGuideInfo} /> */}
                 </ButtonContainer>
               )}
             </SectionConsequencesContainer>

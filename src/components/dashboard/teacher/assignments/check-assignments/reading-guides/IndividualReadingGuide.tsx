@@ -27,9 +27,8 @@ export const IndividualReadingGuide = ({
   readingGuidesToCheck,
 }: IndividualReadingGuideProps) => {
   const { readingGuideReviewOptionsEnum } = useEnumContextProvider()
-  type NewType = ReadingGuideReviewOptionsEnum
 
-  const [effort, setEffort] = useState<NewType>(
+  const [effort, setEffort] = useState<ReadingGuideReviewOptionsEnum>(
     readingGuideReviewOptionsEnum.GOOD_EFFORT
   )
 
@@ -44,14 +43,8 @@ export const IndividualReadingGuide = ({
     refetchQueries: ['findReadingGuidesByMarkingPeriod'],
   })
 
-  const {
-    problems,
-    biggestProblem,
-    reasonForBiggestProblem,
-    importantPeople,
-    howArePeopleInvolvedInProblems,
-    sectionConsequences,
-  } = readingGuide.readingGuideFinal!
+  const { readingGuideQuestions } = readingGuide.readingGuideFinal!
+
   return (
     <>
       <div>
@@ -60,36 +53,13 @@ export const IndividualReadingGuide = ({
         </div>
         <div>Reading Guide: {readingGuide.readings.readingSections}</div>
         <div>
-          <div>Problems</div>
-          <div>
-            {problems.map((p, i: number) => (
-              <div key={i}>{p}</div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div>Biggest Problem</div>
-          <div>{biggestProblem}</div>
-        </div>
-        <div>
-          <div>Why is this the biggest problem?</div>
-          <div>{reasonForBiggestProblem}</div>
-        </div>
-        <div>
-          <div>Important People</div>
-          <div>
-            {importantPeople.map((p, i: number) => (
-              <div key={i}>{p}</div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div>How are these people involved?</div>
-          <div>{howArePeopleInvolvedInProblems}</div>
-        </div>
-        <div>
-          <div>Consequences</div>
-          <div>{sectionConsequences}</div>
+          {readingGuideQuestions?.map((q) => (
+            <div key={q.questionType}>
+              <div>{q.questionType}</div>
+              <br />
+              <div>{q.answer}</div>
+            </div>
+          ))}
         </div>
         <div>Effort: {readingGuide.effort}</div>
         <div>

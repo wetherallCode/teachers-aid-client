@@ -1427,6 +1427,33 @@ export interface updateReadingGuideVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: updateReadingGuideNew
+// ====================================================
+
+export interface updateReadingGuideNew_updateReadingGuide_readingGuide {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface updateReadingGuideNew_updateReadingGuide {
+  __typename: "UpdateReadingGuidePayload";
+  readingGuide: updateReadingGuideNew_updateReadingGuide_readingGuide;
+}
+
+export interface updateReadingGuideNew {
+  updateReadingGuide: updateReadingGuideNew_updateReadingGuide;
+}
+
+export interface updateReadingGuideNewVariables {
+  input: UpdateReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findReadingGuideById
 // ====================================================
 
@@ -1448,14 +1475,16 @@ export interface findReadingGuideById_findReadingGuideById_readingGuide_lessonIn
   assignedSectionIdList: string[];
 }
 
+export interface findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal_readingGuideQuestions {
+  __typename: "ReadingGuideQuestion";
+  answer: string;
+  questionType: string;
+}
+
 export interface findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
-  problems: string[];
-  biggestProblem: string;
-  reasonForBiggestProblem: string;
-  importantPeople: string[];
-  howArePeopleInvolvedInProblems: string;
-  sectionConsequences: string;
+  submitted: boolean;
+  readingGuideQuestions: findReadingGuideById_findReadingGuideById_readingGuide_readingGuideFinal_readingGuideQuestions[] | null;
 }
 
 export interface findReadingGuideById_findReadingGuideById_readingGuide_hasOwner {
@@ -1959,14 +1988,16 @@ export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeri
   readingSections: string;
 }
 
+export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readingGuideFinal_readingGuideQuestions {
+  __typename: "ReadingGuideQuestion";
+  answer: string;
+  questionType: string;
+}
+
 export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
-  problems: string[];
-  biggestProblem: string;
-  reasonForBiggestProblem: string;
-  importantPeople: string[];
-  howArePeopleInvolvedInProblems: string;
-  sectionConsequences: string;
+  readingGuideQuestions: findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides_readingGuideFinal_readingGuideQuestions[] | null;
+  submitted: boolean;
 }
 
 export interface findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides {
@@ -5612,37 +5643,43 @@ export interface switchToNewCourseVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findWritingMetrics
+// GraphQL query operation: findStudentByIdForWritingMetrics
 // ====================================================
 
-export interface findWritingMetrics_findWritingMetrics_writingMetrics_student {
-  __typename: "Student";
-  firstName: string;
-}
-
-export interface findWritingMetrics_findWritingMetrics_writingMetrics_overallWritingMetric {
-  __typename: "OverallWritingMetric";
-  overallWritingLevel: WritingLevelEnum;
+export interface findStudentByIdForWritingMetrics_findStudentById_student_hasProgressTracker_writingProgressTracker {
+  __typename: "WritingMetric";
   levelPoints: number;
+  overallWritingLevel: WritingLevelEnum;
 }
 
-export interface findWritingMetrics_findWritingMetrics_writingMetrics {
-  __typename: "WritingMetrics";
-  student: findWritingMetrics_findWritingMetrics_writingMetrics_student;
-  overallWritingMetric: findWritingMetrics_findWritingMetrics_writingMetrics_overallWritingMetric;
+export interface findStudentByIdForWritingMetrics_findStudentById_student_hasProgressTracker_readingGuideProgressTracker {
+  __typename: "ReadingGuideMetric";
+  levelPoints: number;
+  readingGuideLevel: ReadingGuideMetricEnum;
 }
 
-export interface findWritingMetrics_findWritingMetrics {
-  __typename: "FindWritingMetricsPayload";
-  writingMetrics: findWritingMetrics_findWritingMetrics_writingMetrics;
+export interface findStudentByIdForWritingMetrics_findStudentById_student_hasProgressTracker {
+  __typename: "ProgressTracker";
+  writingProgressTracker: findStudentByIdForWritingMetrics_findStudentById_student_hasProgressTracker_writingProgressTracker;
+  readingGuideProgressTracker: findStudentByIdForWritingMetrics_findStudentById_student_hasProgressTracker_readingGuideProgressTracker;
 }
 
-export interface findWritingMetrics {
-  findWritingMetrics: findWritingMetrics_findWritingMetrics;
+export interface findStudentByIdForWritingMetrics_findStudentById_student {
+  __typename: "Student";
+  hasProgressTracker: findStudentByIdForWritingMetrics_findStudentById_student_hasProgressTracker;
 }
 
-export interface findWritingMetricsVariables {
-  input: FindWritingMetricsInput;
+export interface findStudentByIdForWritingMetrics_findStudentById {
+  __typename: "FindStudentByIdPayload";
+  student: findStudentByIdForWritingMetrics_findStudentById_student;
+}
+
+export interface findStudentByIdForWritingMetrics {
+  findStudentById: findStudentByIdForWritingMetrics_findStudentById;
+}
+
+export interface findStudentByIdForWritingMetricsVariables {
+  input: FindStudentByIdInput;
 }
 
 /* tslint:disable */
@@ -6533,12 +6570,7 @@ export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByC
 
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides_readingGuideFinal {
   __typename: "ReadingGuideFinalContainer";
-  problems: string[];
-  biggestProblem: string;
-  importantPeople: string[];
-  howArePeopleInvolvedInProblems: string;
-  reasonForBiggestProblem: string;
-  sectionConsequences: string;
+  submitted: boolean;
 }
 
 export interface findReadingGuidesByCourseIdAndAssignedDate_findReadingGuidesByCourseIdAndAssignedDate_readingGuides {
@@ -8305,6 +8337,16 @@ export interface enumValues_TextAnalysisCompletionEnum {
   enumValues: enumValues_TextAnalysisCompletionEnum_enumValues[] | null;
 }
 
+export interface enumValues_ReadingGuideMetricEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_ReadingGuideMetricEnum {
+  __typename: "__Type";
+  enumValues: enumValues_ReadingGuideMetricEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -8333,6 +8375,7 @@ export interface enumValues {
   BehaviorCategoryEnum: enumValues_BehaviorCategoryEnum | null;
   OutOfClassDestinationEnum: enumValues_OutOfClassDestinationEnum | null;
   TextAnalysisCompletionEnum: enumValues_TextAnalysisCompletionEnum | null;
+  ReadingGuideMetricEnum: enumValues_ReadingGuideMetricEnum | null;
 }
 
 /* tslint:disable */
@@ -8459,6 +8502,24 @@ export interface me_me_Student_inCourses {
   hasCourseInfo: me_me_Student_inCourses_hasCourseInfo;
 }
 
+export interface me_me_Student_hasProgressTracker_readingGuideProgressTracker {
+  __typename: "ReadingGuideMetric";
+  levelPoints: number;
+  readingGuideLevel: ReadingGuideMetricEnum;
+}
+
+export interface me_me_Student_hasProgressTracker_writingProgressTracker {
+  __typename: "WritingMetric";
+  levelPoints: number;
+  overallWritingLevel: WritingLevelEnum;
+}
+
+export interface me_me_Student_hasProgressTracker {
+  __typename: "ProgressTracker";
+  readingGuideProgressTracker: me_me_Student_hasProgressTracker_readingGuideProgressTracker;
+  writingProgressTracker: me_me_Student_hasProgressTracker_writingProgressTracker;
+}
+
 export interface me_me_Student_hasWritingMetrics_overallWritingMetric {
   __typename: "OverallWritingMetric";
   levelPoints: number;
@@ -8479,6 +8540,7 @@ export interface me_me_Student {
   _id: string | null;
   hasIEP: boolean | null;
   inCourses: me_me_Student_inCourses[];
+  hasProgressTracker: me_me_Student_hasProgressTracker;
   hasWritingMetrics: me_me_Student_hasWritingMetrics;
 }
 
@@ -8794,6 +8856,14 @@ export enum QuizQuestionDifficultyLevelEnum {
 export enum QuizQuestionTypeEnum {
   MULTIPLE_CHOICE = "MULTIPLE_CHOICE",
   TRUE_FALSE = "TRUE_FALSE",
+}
+
+export enum ReadingGuideMetricEnum {
+  ACADEMIC = "ACADEMIC",
+  ADVANCED = "ADVANCED",
+  BASIC = "BASIC",
+  DEVELOPING = "DEVELOPING",
+  MASTER = "MASTER",
 }
 
 export enum ReadingGuideReviewOptionsEnum {
@@ -9482,10 +9552,6 @@ export interface FindUserDataInput {
   _id: string;
 }
 
-export interface FindWritingMetricsInput {
-  studentId: string;
-}
-
 export interface FinishProtocolInput {
   assignedDate: any;
   lessonId: string;
@@ -9895,13 +9961,9 @@ export interface UpdateProblemSolutionInput {
 }
 
 export interface UpdateReadingGuideInput {
-  biggestProblem: string;
-  howArePeopleInvolvedInProblems: string;
-  importantPeople: string[];
-  problems: string[];
+  answer?: string | null;
+  questionType?: string | null;
   readingGuideId: string;
-  reasonForBiggestProblem: string;
-  sectionConsequences: string;
 }
 
 export interface UpdateResponsibilityPointsInput {

@@ -31,14 +31,14 @@ export const IndividualReadingGuideReviewDisplay = ({
   // const [effort, setEffort] = useState<ReadingGuideReviewOptionsEnum>(
   //   readingGuideReviewOptionsEnum.GOOD_EFFORT
   // )
-  const {
-    biggestProblem,
-    problems,
-    howArePeopleInvolvedInProblems,
-    importantPeople,
-    reasonForBiggestProblem,
-    sectionConsequences,
-  } = readingGuide.readingGuideFinal!
+  // const {
+  //   biggestProblem,
+  //   problems,
+  //   howArePeopleInvolvedInProblems,
+  //   importantPeople,
+  //   reasonForBiggestProblem,
+  //   sectionConsequences,
+  // } = readingGuide.readingGuideFinal!
   const [reviewReadingGuides] = useMutation<
     reviewReadingGuides,
     reviewReadingGuidesVariables
@@ -49,64 +49,64 @@ export const IndividualReadingGuideReviewDisplay = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findReadingGuidesByCourseIdAndAssignedDate'],
   })
-  return (
-    <div>
-      <div>
-        {readingGuide.hasOwner.firstName} {readingGuide.hasOwner.lastName}
-      </div>
-      <div>
-        <div>Problems</div>
-        <div>
-          {problems.map((p, i: number) => (
-            <div key={i}>{p}</div>
-          ))}
-        </div>
-      </div>
-      <div>
-        <div>Biggest Problem</div>
-        <div>{biggestProblem}</div>
-      </div>
-      <div>
-        <div>Why is this the biggest problem?</div>
-        <div>{reasonForBiggestProblem}</div>
-      </div>
-      <div>
-        <div>Important People</div>
-        <div>
-          {importantPeople.map((p, i: number) => (
-            <div key={i}>{p}</div>
-          ))}
-        </div>
-      </div>
-      <div>
-        <div>How are these people involved?</div>
-        <div>{howArePeopleInvolvedInProblems}</div>
-      </div>
-      <div>
-        <div>Consequences</div>
-        <div>{sectionConsequences}</div>
-      </div>
-      <div>
-        {readingGuideReviewOptionsEnum.map(
-          (review: ReadingGuideReviewOptionsEnum) => (
-            <button
-              key={review}
-              onClick={() =>
-                reviewReadingGuides({
-                  variables: {
-                    input: {
-                      effort: review,
-                      readingGuideId: readingGuide._id!,
-                    },
-                  },
-                })
-              }
-            >
-              {phraseCapitalizer(underscoreEliminator(review))}
-            </button>
-          )
-        )}
-      </div>
-    </div>
-  )
+  // return (
+  //   <div>
+  //     <div>
+  //       {readingGuide.hasOwner.firstName} {readingGuide.hasOwner.lastName}
+  //     </div>
+  //     <div>
+  //       <div>Problems</div>
+  //       <div>
+  //         {problems.map((p, i: number) => (
+  //           <div key={i}>{p}</div>
+  //         ))}
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <div>Biggest Problem</div>
+  //       <div>{biggestProblem}</div>
+  //     </div>
+  //     <div>
+  //       <div>Why is this the biggest problem?</div>
+  //       <div>{reasonForBiggestProblem}</div>
+  //     </div>
+  //     <div>
+  //       <div>Important People</div>
+  //       <div>
+  //         {importantPeople.map((p, i: number) => (
+  //           <div key={i}>{p}</div>
+  //         ))}
+  //       </div>
+  //     </div>
+  //     <div>
+  //       <div>How are these people involved?</div>
+  //       <div>{howArePeopleInvolvedInProblems}</div>
+  //     </div>
+  //     <div>
+  //       <div>Consequences</div>
+  //       <div>{sectionConsequences}</div>
+  //     </div>
+  //     <div>
+  //       {readingGuideReviewOptionsEnum.map(
+  //         (review: ReadingGuideReviewOptionsEnum) => (
+  //           <button
+  //             key={review}
+  //             onClick={() =>
+  //               reviewReadingGuides({
+  //                 variables: {
+  //                   input: {
+  //                     effort: review,
+  //                     readingGuideId: readingGuide._id!,
+  //                   },
+  //                 },
+  //               })
+  //             }
+  //           >
+  //             {phraseCapitalizer(underscoreEliminator(review))}
+  //           </button>
+  //         )
+  //       )}
+  //     </div>
+  //   </div>
+  // )
 }

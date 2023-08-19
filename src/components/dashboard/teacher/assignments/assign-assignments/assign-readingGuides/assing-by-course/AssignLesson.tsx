@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { useAssignReadingGuideByCourseContextProvider } from './state/AssignReadingGuideByCourseContext'
 import {
@@ -6,7 +6,6 @@ import {
   findReadingGuidesByAssociatedLessonAndCourseIdVariables,
 } from '../../../../../../../schemaTypes'
 import { AssignReadingGuide } from './AssignReadingGuide'
-import { time } from '../../../../../../../utils'
 
 export type AssignLessonProps = {
   lessonId: string
@@ -51,9 +50,10 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
         data.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides
           .length > 0
       ) {
-        const studentIds: string[] = data.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides.map(
-          (readingGuide) => readingGuide.hasOwner._id!
-        )
+        const studentIds: string[] =
+          data.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides.map(
+            (readingGuide) => readingGuide.hasOwner._id!
+          )
         const assignedDate: string =
           data.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides[0]
             .assignedDate

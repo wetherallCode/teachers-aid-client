@@ -1,23 +1,26 @@
 import { gql, useQuery } from '@apollo/client'
-import React from 'react'
+
 import {
-  findWritingMetrics,
-  findWritingMetricsVariables,
+  findStudentByIdForWritingMetrics,
+  findStudentByIdForWritingMetricsVariables,
 } from '../../../../../schemaTypes'
 import { capitalizer } from '../../../../../utils'
 
 export type WritingMetricsProps = { studentId: string }
 
 export const WRITING_METRICS_QUERY = gql`
-  query findWritingMetrics($input: FindWritingMetricsInput!) {
-    findWritingMetrics(input: $input) {
-      writingMetrics {
-        student {
-          firstName
-        }
-        overallWritingMetric {
-          overallWritingLevel
-          levelPoints
+  query findStudentByIdForWritingMetrics($input: FindStudentByIdInput!) {
+    findStudentById(input: $input) {
+      student {
+        hasProgressTracker {
+          writingProgressTracker {
+            levelPoints
+            overallWritingLevel
+          }
+          readingGuideProgressTracker {
+            levelPoints
+            readingGuideLevel
+          }
         }
       }
     }
@@ -26,8 +29,8 @@ export const WRITING_METRICS_QUERY = gql`
 
 export const WritingMetrics = ({ studentId }: WritingMetricsProps) => {
   const { loading, data } = useQuery<
-    findWritingMetrics,
-    findWritingMetricsVariables
+    findStudentByIdForWritingMetrics,
+    findStudentByIdForWritingMetricsVariables
   >(WRITING_METRICS_QUERY, {
     variables: {
       input: { studentId },
@@ -36,22 +39,22 @@ export const WritingMetrics = ({ studentId }: WritingMetricsProps) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
+
+  const { readingGuideProgressTracker, writingProgressTracker } =
+    data?.findStudentById.student.hasProgressTracker!
+
   return (
     <>
       <div>
-        Writing Level:{' '}
-        {capitalizer(
-          data?.findWritingMetrics.writingMetrics.overallWritingMetric
-            .overallWritingLevel!
-        )}
+        Writing Level: {capitalizer(writingProgressTracker.overallWritingLevel)}
       </div>
+      <div>Level Points: {writingProgressTracker.levelPoints}</div>
+      <br />
       <div>
-        Level Points:{' '}
-        {
-          data?.findWritingMetrics.writingMetrics.overallWritingMetric
-            .levelPoints
-        }
+        ReadingGuide Level:{' '}
+        {capitalizer(readingGuideProgressTracker.readingGuideLevel)}
       </div>
+      <div>Level Points: {readingGuideProgressTracker.levelPoints}</div>
     </>
   )
 }

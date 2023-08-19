@@ -92,6 +92,7 @@ export const SubmitRedoneEssay: FC<SubmitEssayFinalDraftInput> = ({
               onClick={() => {
                 resubmitFinalDraft()
               }}
+              disabled={called ? true : false}
             >
               {called ? 'Submiting' : 'Yes'}
             </EssaySubmitButton>

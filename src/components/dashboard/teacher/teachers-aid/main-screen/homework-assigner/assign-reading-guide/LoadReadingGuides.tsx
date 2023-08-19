@@ -35,12 +35,13 @@ export const FIND_READING_GUIDES_BY_COURSE_ID_AND_ASSIGNED_DATE_QUERY = gql`
           readingSections
         }
         readingGuideFinal {
-          problems
-          biggestProblem
-          importantPeople
-          howArePeopleInvolvedInProblems
-          reasonForBiggestProblem
-          sectionConsequences
+          #problems
+          #biggestProblem
+          #importantPeople
+          #howArePeopleInvolvedInProblems
+          #reasonForBiggestProblem
+          #sectionConsequences
+          submitted
         }
       }
     }
