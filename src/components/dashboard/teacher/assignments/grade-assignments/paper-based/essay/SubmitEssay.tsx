@@ -18,7 +18,7 @@ export type SubmitEssayProps = {
   essay: findAssignmentById_findAssignmentById_assignment_Essay
 }
 
-export const SubmitEssay: FC<SubmitEssayProps> = ({ essay }) => {
+export const SubmitEssay = ({ essay }: SubmitEssayProps) => {
   const [state] = usePaperBasedContextProvider()
 
   const navigate = useNavigate()
@@ -65,7 +65,7 @@ export const SubmitEssay: FC<SubmitEssayProps> = ({ essay }) => {
         submitTime: new Date().toLocaleString(),
         submittedFinalDraft: submittedFinalDraft,
         paperBased: true,
-        responsibilityPoints: 10,
+        responsibilityPoints: 5,
       },
     },
     onCompleted: () => navigate(`/dashboard/assignments/grade/${essay._id}`),
