@@ -55,12 +55,18 @@ export const NavButtons = ({
             Save
           </ReadingGuideQuestionNavButtons>
           <ReadingGuideQuestionNavButtons
+            style={
+              answer === ''
+                ? { background: 'var(--red)' }
+                : { background: 'var(--blue)' }
+            }
             onClick={() => {
               setCurrentIndex((c) => c + 1)
               updateReadingGuideNew()
             }}
+            disabled={answer === '' ? true : false}
           >
-            Next
+            {answer === '' ? 'No Answer' : 'Next'}
           </ReadingGuideQuestionNavButtons>
         </ReadingGuideButtonArea>
       ) : (
@@ -79,12 +85,18 @@ export const NavButtons = ({
             Save
           </ReadingGuideQuestionNavButtons>
           <ReadingGuideQuestionNavButtons
+            style={
+              answer === ''
+                ? { background: 'var(--red)' }
+                : { background: 'var(--blue)' }
+            }
             onClick={() => {
               setCurrentIndex((c) => c + 1)
               updateReadingGuideNew()
             }}
+            disabled={answer === '' ? true : false}
           >
-            Next
+            {answer === '' ? 'No Answer' : 'Next'}
           </ReadingGuideQuestionNavButtons>
         </ReadingGuideButtonArea>
       )}
