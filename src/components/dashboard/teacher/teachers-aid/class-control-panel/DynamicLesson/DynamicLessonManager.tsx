@@ -1,12 +1,9 @@
-import React, { FC } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
   updateDynamicLesson,
   updateDynamicLessonVariables,
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
   DynamicLessonEnums,
-  createStudentBehavior,
-  createStudentBehaviorVariables,
   createBatchStudentBehavior,
   createBatchStudentBehaviorVariables,
 } from '../../../../../../schemaTypes'
