@@ -21,7 +21,7 @@ import { WarmUp } from '../../../../../lesson/lesson-components/WarmUp'
 import { CoolDownManager } from '../coolDown-manager/CoolDownManager'
 import { StudentInfoSelector } from '../center-console/StudentInfoSelector'
 import { CREATE_BEHAVIOR_MUTATION } from '../../student-info/behavior/DailyBehavior'
-import { WarmUpManager } from '../warmUp-Manager/WarmUpManager'
+import { WarmUpManager } from './WarmUpManager'
 
 export type DynamicLessonManagerProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
