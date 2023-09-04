@@ -144,27 +144,39 @@ export const ProtocolTask = styled.div`
 `
 
 export const ProtocolResponseContainer = styled.div`
-  grid-row: 6/8;
+  grid-row: 2/8;
   grid-column: 3/-3;
   display: grid;
-  grid-template-rows: 1fr 14fr;
+  grid-template-rows: 5fr 1fr 5fr;
 `
-
+export const ProtocolResponseTaskContainer = styled.div`
+  font-size: 3vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+`
 export const ProtocolResponse = styled.div`
   justify-self: center;
   align-self: center;
+  font-size: 3vh;
 `
 
 export const ProtocolResponseHeader = styled.div`
   justify-self: center;
   align-self: center;
-  font-size: 1.2rem;
+  font-size: 2vh;
 `
 export const ProtocolResponseArea = styled.textarea`
-  width: 80%;
+  width: 100%;
   height: 70%;
   justify-self: center;
   align-self: center;
+  background-color: transparent;
+  color: var(--blue);
+  font-family: inherit;
+  font-size: 2vh;
+  border: 1px solid var(--blue);
+  border-radius: 5px;
 `
 
 export const ProtocolResponseButtonContainer = styled.div`
@@ -181,6 +193,7 @@ export const ProtocolResponseButton = styled.button`
   font-size: 1.6rem;
   background-color: var(--blue);
   color: var(--white);
+  border-radius: 5px;
 `
 
 export const LessonComponentTitleContainer = styled.div`
@@ -211,7 +224,7 @@ export const LessonDetailsContainer = styled.div`
   display: grid;
   /* justify-items: center;
   align-items: center; */
-  grid-template-rows: 1fr 1fr 1fr 6fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 6fr;
   font-size: 2vw;
 `
 export const LessonDetailCenter = styled.div`

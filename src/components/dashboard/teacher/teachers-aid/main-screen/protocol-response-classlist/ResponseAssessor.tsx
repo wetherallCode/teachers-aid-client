@@ -1,27 +1,14 @@
-import { gql, useMutation } from '@apollo/client'
-import React, { FC, useEffect, useState } from 'react'
-import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
-import { useMarkingPeriodContextProvider } from '../../../../../../contexts/markingPeriod/MarkingPeriodContext'
+import { gql } from '@apollo/client'
 import {
-  assessIndividualProtocols,
-  assessIndividualProtocolsVariables,
-  assessStudentProtocol,
-  assessStudentProtocolVariables,
   findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols,
-  MarkingPeriodEnum,
-  ProtocolActivityTypes,
   ProtocolAssessmentEnum,
 } from '../../../../../../schemaTypes'
-import { todaysLocaleDate } from '../../../../../../utils'
-import { ASSESS_PROTOCOL_MUTATION } from '../../student-info/protocols/AssessProtocol'
 import {
-  AssessmentButton,
-  CancelAssessmentButton,
   NameOfResponder,
   ResponseButtonContainer,
-  ResponseContainer,
   ResponseRowContainer,
 } from '../../styles/responseAssessorStyle'
+import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
 
 export type ResponseAssessorProps = {
   protocol: findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols
@@ -31,88 +18,41 @@ export const ASSESS_INDIVIDITUAL_PROTOCOLS_MUTATION = gql`
     assessIndividualProtocols(input: $input) {
       protocol {
         _id
+        response
       }
     }
   }
 `
 
 export const ResponseAssessor = ({ protocol }: ResponseAssessorProps) => {
-  const [MarkingPeriodState] = useMarkingPeriodContextProvider()
-  const { protocolAssessmentEnum } = useEnumContextProvider()
-  // const [assessment, setAssessment] = useState<ProtocolAssessmentEnum | null>(
-  //   null
-  // )
+  const [state, event] = useTeachersAidContextProvider()
 
-  const [assessProtocol] = useMutation<
-    assessIndividualProtocols,
-    assessIndividualProtocolsVariables
-  >(ASSESS_INDIVIDITUAL_PROTOCOLS_MUTATION, {
-    // variables: {
-    //   input: {
-    //     protocolId: protocol._id!,
-    //     assessment: assessment,
-    //     markingPeriod: MarkingPeriodState.context.currentMarkingPeriod,
-    //   },
-    // },
-    onCompleted: (data) => console.log(data),
-    refetchQueries: ['findActiveProtocolsByCourse'],
-  })
-  // useEffect(() => {
-  //   if (protocol._id) {
-  //     assessProtocol()
-  //   }
-  // }, [assessment])
-
+  // const [assessProtocol] = useMutation<
+  //   assessIndividualProtocols,
+  //   assessIndividualProtocolsVariables
+  // >(ASSESS_INDIVIDITUAL_PROTOCOLS_MUTATION, {
+  //   onCompleted: (data) => console.log(data),
+  //   refetchQueries: ['findActiveProtocolsByCourse'],
+  // })
+  console.log(protocol)
   return (
-    <ResponseRowContainer>
+    <ResponseRowContainer
+      onClick={() =>
+        event({ type: 'SET_STUDENT_ID', payload: protocol.student._id! })
+      }
+      style={
+        protocol.assessment !== ProtocolAssessmentEnum.REFUSED_TO_WORK
+          ? { color: 'var(--blue)' }
+          : { color: 'var(--red)' }
+      }
+    >
       <NameOfResponder>
         <div>
           {protocol.student.lastName}, {protocol.student.firstName}
         </div>
       </NameOfResponder>
       <ResponseButtonContainer>
-        {protocolAssessmentEnum
-          .slice(2)
-          .map((assessment: ProtocolAssessmentEnum) => {
-            return (
-              <AssessmentButton
-                key={assessment}
-                assessed={protocol.assessment === assessment}
-                onClick={() => {
-                  assessProtocol({
-                    variables: {
-                      input: {
-                        protocolId: protocol._id!,
-                        assessment: assessment,
-                        markingPeriod:
-                          MarkingPeriodState.context.currentMarkingPeriod,
-                        responsibilityPoints: 2,
-                      },
-                    },
-                  })
-                }}
-              >
-                {assessment}
-              </AssessmentButton>
-            )
-          })}
-        <CancelAssessmentButton
-          onClick={() => {
-            assessProtocol({
-              variables: {
-                input: {
-                  protocolId: protocol._id!,
-                  assessment: null,
-                  markingPeriod:
-                    MarkingPeriodState.context.currentMarkingPeriod,
-                  responsibilityPoints: 2,
-                },
-              },
-            })
-          }}
-        >
-          Cancel
-        </CancelAssessmentButton>
+        {<div>{protocol.response}</div>}
       </ResponseButtonContainer>
     </ResponseRowContainer>
   )

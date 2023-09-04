@@ -3,6 +3,7 @@ import { useTeachersAidContextProvider } from '../state/TeachersAidContext'
 import { gql, useLazyQuery } from '@apollo/client'
 import {
   DiscussionTypesEnum,
+  OutOfClassDestinationEnum,
   findStudentByIdForTeachersAid,
   findStudentByIdForTeachersAidVariables,
 } from '../../../../../schemaTypes'
@@ -200,7 +201,6 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     data?.findStudentByIdForTeachersAid.student.hasAssignments.find(
       (a) => a.__typename === 'TextAnalysis'
     )!
-  console.log(textAnalysisToFind)
 
   const textAnalysis =
     textAnalysisToFind && textAnalysisToFind.__typename === 'TextAnalysis'
@@ -215,8 +215,19 @@ export const StudentInfo = ({}: StudentInfoProps) => {
           <div>{data?.findStudentByIdForTeachersAid.student.lastName}</div>
           <div>{rp && rp.toFixed(2)}</div>
           {!gradeLoading ? <div>{grade}%</div> : <div>Loading </div>}
+          <div style={{ fontSize: '2vh' }}>
+            Bathroom Use:{' '}
+            {
+              data?.findStudentByIdForTeachersAid.student.hasStatus.filter(
+                (s) =>
+                  s.outOfClassDestination ===
+                    OutOfClassDestinationEnum.BATHROOM &&
+                  s.markingPeriod ===
+                    markingPeriodState.context.currentMarkingPeriod
+              ).length
+            }
+          </div>
         </StudentNameContainer>
-        {/* <div>{responsibilityPoints.responsibilityPoints}</div> */}
       </StudentInfoDisplay>
 
       <StudentControlPanelDisplay

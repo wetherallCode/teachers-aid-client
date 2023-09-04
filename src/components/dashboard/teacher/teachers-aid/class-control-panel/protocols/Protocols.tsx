@@ -18,7 +18,7 @@ export const Protocols = ({
   presentStudentList,
 }: ProtocolsProps) => {
   const [state, event] = useTeachersAidContextProvider()
-  console.log(protocols.some((protocol) => protocol.isActive))
+
   return (
     <>
       {lesson && protocols && (

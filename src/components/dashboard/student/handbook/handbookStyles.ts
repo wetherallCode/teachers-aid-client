@@ -54,7 +54,9 @@ export const DisplayTitle = styled.div`
   font-size: 4vh;
 `
 export const ContentContainer = styled.div`
-  font-size: 3vh;
+  font-size: 2vh;
+  height: 50vh;
+  overflow: scroll;
 `
 export const DoubleSidedContentContainer = styled(ContentContainer)`
   display: grid;

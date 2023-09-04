@@ -34,17 +34,15 @@ export type ActivatedProtocolDisplayProps = {
 export const FINISH_STUDENT_PROTOCOL_MUTATION = gql`
   mutation finishStudentProtocol($input: FinishProtocolInput!) {
     finishProtocol(input: $input) {
-      protocols {
-        _id
-      }
+      finished
     }
   }
 `
 
-export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
+export const ActivatedProtocolDisplay = ({
   lessonId,
   presentStudentList,
-}) => {
+}: ActivatedProtocolDisplayProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [finishStudentProtocol] = useMutation<
     finishStudentProtocol,
@@ -59,10 +57,13 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
       },
     },
     onCompleted: (data) => {
-      console.log(data)
       event({ type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' })
     },
-    refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
+    refetchQueries: [
+      'findLessonByCourseAndDate',
+      'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
+    ],
   })
 
   const [back] = useMutation<
@@ -81,7 +82,11 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
     onCompleted: (data) => {
       console.log(data)
     },
-    refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
+    refetchQueries: [
+      'findLessonByCourseAndDate',
+      'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
+    ],
   })
 
   const outcomeType = underscoreEliminator(
@@ -111,7 +116,7 @@ export const ActivatedProtocolDisplay: FC<ActivatedProtocolDisplayProps> = ({
         <ProtocolControllerButton onClick={handleMainScreenSwitch}>
           {!state.context.mainScreenVirtualProtocolResponses
             ? 'Responses'
-            : 'Other'}
+            : 'Seating Chart'}
         </ProtocolControllerButton>
         {state.context.selectedProtocol.completed ? (
           <ProtocolControllerButton

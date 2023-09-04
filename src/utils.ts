@@ -32,13 +32,13 @@ export const responsibilityPointConverter = (
   pointTotal: number
 ) => {
   if (grade < 60) {
-    return pointTotal * 1.5
+    return pointTotal * 1
   } else if (grade >= 60 && grade < 70) {
-    return pointTotal * 0.8
-  } else if (grade >= 70 && grade < 80) {
     return pointTotal * 0.75
-  } else if (grade >= 80 && grade < 90) {
+  } else if (grade >= 70 && grade < 80) {
     return pointTotal * 0.5
+  } else if (grade >= 80 && grade < 90) {
+    return pointTotal * 0.4
   } else if (grade >= 90 && grade < 100) {
     return pointTotal * 0.25
   } else return pointTotal * 0.1
@@ -367,8 +367,14 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'do') {
     return 'did'
   }
+  if (lowerCaseVerb === 'grow') {
+    return 'grew'
+  }
   if (lowerCaseVerb === 'become') {
     return 'became'
+  }
+  if (lowerCaseVerb === 'forbid') {
+    return 'forbade'
   }
   if (lowerCaseVerb === 'choose') {
     return 'chose'

@@ -1,28 +1,18 @@
-import React from 'react'
 import { useMarkingPeriodContextProvider } from '../../../../contexts/markingPeriod/MarkingPeriodContext'
-import { useCalculateGrades } from '../../../../hooks/useCalculateGrades'
 import { useGradeCalculator } from '../../../../hooks/useGradeCalculator'
 import { me_me_Student } from '../../../../schemaTypes'
 import {
-  GradeSectionContainer,
-  SectionContainer,
+  DisclaimerContainer,
   StudentGradeBreakdownContainer,
   StudentGradeBreakdownContainerTitle,
 } from './studentGradeBreakdownStyles'
+import { AssignmentFinder } from './assignment-grades/AssignmentFinder'
 
 export type GradesProps = { me: me_me_Student }
 
 export const Grades = ({ me }: GradesProps) => {
   const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { currentMarkingPeriod } = markingPeriodState.context
-
-  // const { grade, loading, primaryGrade, rp, secondaryGrade } =
-  //   useCalculateGrades({
-  //     studentId: me._id!,
-  //     markingPeriod: currentMarkingPeriod,
-  //     polling: false,
-  //     pollInterval: 1000,
-  //   })
 
   const { grade, loading } = useGradeCalculator({
     studentId: me._id!,
@@ -32,30 +22,27 @@ export const Grades = ({ me }: GradesProps) => {
   })
 
   if (loading) return <div>loading</div>
+
   return (
     <StudentGradeBreakdownContainer>
       <StudentGradeBreakdownContainerTitle>
         Grade Breakdown
       </StudentGradeBreakdownContainerTitle>
-      {/* <GradeSectionContainer>
-        <SectionContainer>
-          <div>Essay Grade</div>
-          <div>{primaryGrade ? primaryGrade.toFixed(2) + '%' : 'No grade'}</div>
-        </SectionContainer>
-        <SectionContainer>
-          <div>Quiz and Reading Guide Grade</div>
-          <div>
-            {secondaryGrade ? secondaryGrade.toFixed(2) + '%' : 'No grade'}
-          </div>
-        </SectionContainer>
-        <SectionContainer>
-          <div>Responsibility Point Grade</div>
-          <div>{rp?.toFixed(2)}%</div>
-        </SectionContainer>
-      </GradeSectionContainer> */}
+
+      <AssignmentFinder me={me} currentMarkingPeriod={currentMarkingPeriod} />
+
       <StudentGradeBreakdownContainerTitle>
         Overall Grade: {grade}%
       </StudentGradeBreakdownContainerTitle>
+      <DisclaimerContainer>
+        <div>Your grades are constantly changing. Look at your averages and find
+        where you can make improvements.</div>
+        <br />
+        <div>
+          These grades are more up to date than Genesis grades. Though I update
+          Genesis everyday, they won't always be accurate as the grades on this website.
+        </div>
+      </DisclaimerContainer>
     </StudentGradeBreakdownContainer>
   )
 }

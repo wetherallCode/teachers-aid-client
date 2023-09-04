@@ -93,12 +93,14 @@ export const FIND_LESSON_QUERY = gql`
           activityType
           academicOutcomeTypes
           isActive
+          completed
         }
         afterActivity {
           task
           activityType
           academicOutcomeTypes
           isActive
+          completed
         }
         dynamicLesson
         lessonType
@@ -138,7 +140,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
   // const classTime = useClassTimeIndicator()
   const { dateTime } = useTime()
 
-  const { data: schoolDayData } = useQuery<
+  const { data: schoolDayData, loading: schoolDayLoading } = useQuery<
     findCurrentSchoolDay,
     findCurrentSchoolDayVariables
   >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
@@ -148,6 +150,18 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+  const [loadLesson, { loading, data, startPolling, stopPolling }] =
+    useLazyQuery<findLessonByCourseAndDate, findLessonByCourseAndDateVariables>(
+      FIND_LESSON_QUERY,
+      {
+        onCompleted: (data) => {
+          data
+            ? console.log(data.findLessonByCourseAndDate.lesson)
+            : console.log('No class yet')
+        },
+        onError: (error) => console.error(error),
+      }
+    )
 
   const schoolDayType =
     schoolDayData?.findSchoolDayByDate.schoolDay?.currentSchoolDayType!
@@ -205,26 +219,6 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
               )
         )
 
-  // console.dir(courseToLoad)
-  // const [fakeCourse] =
-  //   me.__typename === 'Teacher'
-  //     ? me.teachesCourses.filter((course) => course.name === 'Cohort Class')
-  //     : me.__typename === 'Student' &&
-  //       me.inCourses.filter((course) => course.name === 'Cohort Class')
-
-  const [loadLesson, { loading, data, startPolling, stopPolling }] =
-    useLazyQuery<findLessonByCourseAndDate, findLessonByCourseAndDateVariables>(
-      FIND_LESSON_QUERY,
-      {
-        onCompleted: (data) => {
-          data
-            ? console.log(data.findLessonByCourseAndDate.lesson)
-            : console.log('No class yet')
-        },
-        onError: (error) => console.error(error),
-      }
-    )
-
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id
   )
@@ -261,6 +255,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
       refetchQueries: ['studentSignedInCheck', 'me'],
     }
   )
+
   const useFake = false
   useEffect(() => {
     if (useFake) {

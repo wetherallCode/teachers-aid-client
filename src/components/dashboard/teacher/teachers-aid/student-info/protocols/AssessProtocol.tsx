@@ -40,6 +40,7 @@ export type AssessProtocolProps = {
   ) => void
   student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   grade: number
+  toggleSwitch: () => void
 }
 
 export const ASSESS_PROTOCOL_MUTATION = gql`
@@ -62,6 +63,7 @@ export const AssessProtocol = ({
   student,
   loadStudentInfo,
   grade,
+  toggleSwitch,
 }: AssessProtocolProps) => {
   const [selectedStudents, setSelectedStudents] = useState<
     findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_assignedSeats[]
@@ -74,23 +76,17 @@ export const AssessProtocol = ({
   const [currentActiveProtocol] = protocols.filter(
     (protocol) => protocol.isActive
   )
-
+  console.log(currentActiveProtocol)
   const [assessStudentProtocol] = useMutation<
     assessStudentProtocol,
     assessStudentProtocolVariables
   >(ASSESS_PROTOCOL_MUTATION, {
-    variables: { input: state.context.studentProtocolAssessment },
-    // onCompleted: (data) => {
-    //   console.log('assessed')
-    // },
+    // variables: { input: state.context.studentProtocolAssessment },
+    onCompleted: (data) => {
+      console.log('assessed')
+    },
     refetchQueries: ['findStudentByIdForTeachersAid'],
   })
-
-  useEffect(() => {
-    if (state.context.studentProtocolAssessment.partnerIds) {
-      assessStudentProtocol()
-    }
-  }, [state.context.studentProtocolAssessment])
 
   const partnerList: string[] = []
 
@@ -122,7 +118,20 @@ export const AssessProtocol = ({
 
   return (
     <ProtocolDisplayContainer>
-      <ProtocolTitle>Protocol Grader</ProtocolTitle>
+      <div style={{ display: 'grid', gridTemplateColumns: '4fr 1fr' }}>
+        <ProtocolTitle>Protocol Grader</ProtocolTitle>
+        <div
+          onClick={() => toggleSwitch()}
+          style={{
+            display: 'grid',
+            justifySelf: 'center',
+            alignSelf: 'center',
+            fontSize: '3vh',
+          }}
+        >
+          {'<->'}
+        </div>
+      </div>
       <GroupProtocolAssessorContainer>
         {currentActiveProtocol.protocolActivityType !== 'INDIVIDUAL' && (
           <PartnerContainer>
@@ -241,8 +250,8 @@ export const AssessProtocol = ({
         <AssessmentContainer>
           <CenteredTitle>Assessment</CenteredTitle>
           {protocolAssessmentEnum.map((assessment: ProtocolAssessmentEnum) => {
-            const selected =
-              state.context.studentProtocolAssessment.assessment === assessment
+            const protocol = student.hasProtocols.find((p) => p.isActive)
+            const selected = protocol?.assessment === assessment
 
             return (
               <AssessorButton
@@ -250,9 +259,21 @@ export const AssessProtocol = ({
                 value={assessment}
                 selected={selected}
                 onClick={(e: any) => {
-                  event({
-                    type: 'PROTOCOL_ASSESSMENT',
-                    payload: e.target.value,
+                  assessStudentProtocol({
+                    variables: {
+                      input: {
+                        // ...state.context.studentProtocolAssessment,
+                        markingPeriod: currentActiveProtocol.markingPeriod,
+                        protocolActivityType:
+                          currentActiveProtocol.protocolActivityType,
+                        responsibilityPoints: 2,
+                        studentId: currentActiveProtocol.student._id!,
+                        task: currentActiveProtocol.task,
+                        assignedDate: currentActiveProtocol.assignedDate,
+                        partnerIds: [],
+                        assessment: e.target.value,
+                      },
+                    },
                   })
                 }}
               >

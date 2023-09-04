@@ -99,9 +99,11 @@ export const DailyBehavior = ({
   const behaviorsForTeachersAid =
     data?.findAllBehaviorTypes.behaviorTypes.filter((b) => b.forTeachersAid)
 
-  const questionAndAnswerBehaviorList = behaviorsForTeachersAid!.filter(
-    (b) => b.behaviorCategory === BehaviorCategoryEnum.QUESTION_AND_ANSWER
-  )!
+  const questionAndAnswerBehaviorList = [
+    ...behaviorsForTeachersAid!.filter(
+      (b) => b.behaviorCategory === BehaviorCategoryEnum.QUESTION_AND_ANSWER
+    )!,
+  ]
   const negativeBehaviorList = behaviorsForTeachersAid!.filter(
     (b) => b.behaviorCategory === BehaviorCategoryEnum.NEGATIVE_BEHAVIOR
   )!
@@ -156,32 +158,39 @@ export const DailyBehavior = ({
     <>
       {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
         <StudentBehaviorButtonContainer>
-          {questionAndAnswerBehaviorList.map((behavior, i: number) => (
-            <StudentBehaviorButton
-              key={i}
-              goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
-              onClick={() =>
-                createStudentBehavior({
-                  variables: {
-                    input: {
-                      behaviorTypeId: behavior._id!,
-                      studentId,
-                      markingPeriod: currentMarkingPeriod,
-                      responsibilityPoints:
-                        behavior.points > 0
-                          ? responsibilityPointConverter(grade, behavior.points)
-                          : behavior.points,
-                      date: new Date().toLocaleDateString(),
-                    },
-                  },
-                })
-              }
-            >
-              {behavior.points > 0 && gradeLoading
-                ? 'loading'
-                : behavior.behaviorName}
-            </StudentBehaviorButton>
-          ))}
+          {questionAndAnswerBehaviorList
+            .sort((a, b) => b.points - a.points)
+            .map((behavior, i: number) => {
+              return (
+                <StudentBehaviorButton
+                  key={i}
+                  goodBehavior={behavior.behaviorQuality === 'POSITIVE'}
+                  onClick={() =>
+                    createStudentBehavior({
+                      variables: {
+                        input: {
+                          behaviorTypeId: behavior._id!,
+                          studentId,
+                          markingPeriod: currentMarkingPeriod,
+                          responsibilityPoints:
+                            behavior.points > 0
+                              ? responsibilityPointConverter(
+                                  grade,
+                                  behavior.points
+                                )
+                              : behavior.points,
+                          date: new Date().toLocaleDateString(),
+                        },
+                      },
+                    })
+                  }
+                >
+                  {behavior.points > 0 && gradeLoading
+                    ? 'loading'
+                    : behavior.behaviorName}
+                </StudentBehaviorButton>
+              )
+            })}
         </StudentBehaviorButtonContainer>
       )}
       {state.context.studentInfoSelector === 'PREPAREDNESS' && (

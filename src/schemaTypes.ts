@@ -6090,14 +6090,14 @@ export interface findCourseInfoByCourseIdVariables {
 // GraphQL mutation operation: controlCoolDown
 // ====================================================
 
-export interface controlCoolDown_controlCoolDown_lesson {
-  __typename: "Lesson";
+export interface controlCoolDown_controlCoolDown_protocols {
+  __typename: "Protocol";
   _id: string | null;
 }
 
 export interface controlCoolDown_controlCoolDown {
   __typename: "ControlCoolDownPayload";
-  lesson: controlCoolDown_controlCoolDown_lesson;
+  protocols: controlCoolDown_controlCoolDown_protocols[];
 }
 
 export interface controlCoolDown {
@@ -6172,14 +6172,9 @@ export interface createBatchStudentBehaviorVariables {
 // GraphQL mutation operation: finishStudentProtocol
 // ====================================================
 
-export interface finishStudentProtocol_finishProtocol_protocols {
-  __typename: "Protocol";
-  _id: string | null;
-}
-
 export interface finishStudentProtocol_finishProtocol {
   __typename: "FinishProtocolPayload";
-  protocols: finishStudentProtocol_finishProtocol_protocols[];
+  finished: boolean;
 }
 
 export interface finishStudentProtocol {
@@ -6356,19 +6351,14 @@ export interface createStudentProtocolVariables {
 // GraphQL mutation operation: controlWarmUp
 // ====================================================
 
-export interface controlWarmUp_controlWarmUp_lesson_beforeActivity {
-  __typename: "TextSectionProtocols";
-  isActive: boolean;
-}
-
-export interface controlWarmUp_controlWarmUp_lesson {
-  __typename: "Lesson";
-  beforeActivity: controlWarmUp_controlWarmUp_lesson_beforeActivity;
+export interface controlWarmUp_controlWarmUp_protocols {
+  __typename: "Protocol";
+  _id: string | null;
 }
 
 export interface controlWarmUp_controlWarmUp {
   __typename: "ControlWarmUpPayload";
-  lesson: controlWarmUp_controlWarmUp_lesson;
+  protocols: controlWarmUp_controlWarmUp_protocols[];
 }
 
 export interface controlWarmUp {
@@ -6675,7 +6665,9 @@ export interface findActiveProtocolsByCourse_findActiveProtocolsByCourse_protoco
   __typename: "Protocol";
   _id: string | null;
   student: findActiveProtocolsByCourse_findActiveProtocolsByCourse_protocols_student;
+  response: string | null;
   assessment: ProtocolAssessmentEnum | null;
+  activityTime: ActivityTimeEnum;
 }
 
 export interface findActiveProtocolsByCourse_findActiveProtocolsByCourse {
@@ -6697,12 +6689,58 @@ export interface findActiveProtocolsByCourseVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findProtocolsByDate
+// ====================================================
+
+export interface findProtocolsByDate_findProtocolsByDate_protocols_student {
+  __typename: "Student";
+  _id: string | null;
+  schoolId: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findProtocolsByDate_findProtocolsByDate_protocols {
+  __typename: "Protocol";
+  _id: string | null;
+  student: findProtocolsByDate_findProtocolsByDate_protocols_student;
+  response: string | null;
+  assessment: ProtocolAssessmentEnum | null;
+  activityTime: ActivityTimeEnum;
+  task: string;
+  lessonId: string;
+  markingPeriod: MarkingPeriodEnum;
+  protocolActivityType: ProtocolActivityTypes;
+  assignedDate: string;
+  academicOutcomeType: AcademicOutcomeTypes;
+}
+
+export interface findProtocolsByDate_findProtocolsByDate {
+  __typename: "FindProtocolResponsesPayload";
+  protocols: findProtocolsByDate_findProtocolsByDate_protocols[];
+}
+
+export interface findProtocolsByDate {
+  findProtocolsByDate: findProtocolsByDate_findProtocolsByDate;
+}
+
+export interface findProtocolsByDateVariables {
+  input: FindProtocolResponsesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assessIndividualProtocols
 // ====================================================
 
 export interface assessIndividualProtocols_assessIndividualProtocols_protocol {
   __typename: "Protocol";
   _id: string | null;
+  response: string | null;
 }
 
 export interface assessIndividualProtocols_assessIndividualProtocols {
@@ -7620,44 +7658,6 @@ export interface updateUserActiveVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findStudentProtocol
-// ====================================================
-
-export interface findStudentProtocol_findStudentById_student_hasProtocols {
-  __typename: "Protocol";
-  _id: string | null;
-  completed: boolean;
-  assignedDate: string;
-  academicOutcomeType: AcademicOutcomeTypes;
-  task: string;
-  isActive: boolean;
-  response: string | null;
-}
-
-export interface findStudentProtocol_findStudentById_student {
-  __typename: "Student";
-  hasProtocols: findStudentProtocol_findStudentById_student_hasProtocols[];
-}
-
-export interface findStudentProtocol_findStudentById {
-  __typename: "FindStudentByIdPayload";
-  student: findStudentProtocol_findStudentById_student;
-}
-
-export interface findStudentProtocol {
-  findStudentById: findStudentProtocol_findStudentById;
-}
-
-export interface findStudentProtocolVariables {
-  input: FindStudentByIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findActiveProtocolByStudent
 // ====================================================
 
@@ -7697,6 +7697,7 @@ export interface findActiveProtocolByStudentVariables {
 export interface respondToProtocol_respondToProtocol_protocol {
   __typename: "Protocol";
   _id: string | null;
+  response: string | null;
 }
 
 export interface respondToProtocol_respondToProtocol {
@@ -7790,6 +7791,7 @@ export interface findLessonStatus_findLessonStatus_lesson_beforeActivity {
   activityType: ProtocolActivityTypes;
   academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
+  completed: boolean;
 }
 
 export interface findLessonStatus_findLessonStatus_lesson_afterActivity {
@@ -7798,6 +7800,7 @@ export interface findLessonStatus_findLessonStatus_lesson_afterActivity {
   activityType: ProtocolActivityTypes;
   academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
+  completed: boolean;
 }
 
 export interface findLessonStatus_findLessonStatus_lesson {
@@ -7911,6 +7914,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_befo
   activityType: ProtocolActivityTypes;
   academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
+  completed: boolean;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afterActivity {
@@ -7919,6 +7923,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_afte
   activityType: ProtocolActivityTypes;
   academicOutcomeTypes: AcademicOutcomeTypes;
   isActive: boolean;
+  completed: boolean;
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
@@ -8347,6 +8352,16 @@ export interface enumValues_ReadingGuideMetricEnum {
   enumValues: enumValues_ReadingGuideMetricEnum_enumValues[] | null;
 }
 
+export interface enumValues_ActivityTimeEnum_enumValues {
+  __typename: "__EnumValue";
+  name: string;
+}
+
+export interface enumValues_ActivityTimeEnum {
+  __typename: "__Type";
+  enumValues: enumValues_ActivityTimeEnum_enumValues[] | null;
+}
+
 export interface enumValues {
   MarkingPeriod: enumValues_MarkingPeriod | null;
   WritingLevelEnum: enumValues_WritingLevelEnum | null;
@@ -8376,6 +8391,7 @@ export interface enumValues {
   OutOfClassDestinationEnum: enumValues_OutOfClassDestinationEnum | null;
   TextAnalysisCompletionEnum: enumValues_TextAnalysisCompletionEnum | null;
   ReadingGuideMetricEnum: enumValues_ReadingGuideMetricEnum | null;
+  ActivityTimeEnum: enumValues_ActivityTimeEnum | null;
 }
 
 /* tslint:disable */
@@ -8587,20 +8603,33 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   maxPoints: number;
 }
 
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz {
   __typename: "Quiz";
   markingPeriod: MarkingPeriodEnum;
   dueDate: string;
   dueTime: string;
   exempt: boolean;
+  missing: boolean;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_score;
   gradeType: GradeTypeEnum;
+  readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_readings;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_topic {
   __typename: "Topic";
   essayQuestionId: string;
   question: string;
+}
+
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_score {
@@ -8620,7 +8649,9 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueDate: string;
   dueTime: string;
   exempt: boolean;
+  missing: boolean;
   topic: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_topic;
+  readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_readings;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_score;
   finalDraft: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_finalDraft | null;
@@ -8637,15 +8668,23 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   maxPoints: number;
 }
 
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_readingGuideFinal {
+  __typename: "ReadingGuideFinalContainer";
+  submitted: boolean;
+}
+
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide {
   __typename: "ReadingGuide";
   markingPeriod: MarkingPeriodEnum;
   dueDate: string;
   dueTime: string;
   exempt: boolean;
+  missing: boolean;
   readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_readings;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_score;
+  effort: ReadingGuideReviewOptionsEnum;
+  readingGuideFinal: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_readingGuideFinal | null;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score {
@@ -8660,6 +8699,7 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueDate: string;
   dueTime: string;
   exempt: boolean;
+  missing: boolean;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score;
 }
@@ -8676,6 +8716,7 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueDate: string;
   dueTime: string;
   exempt: boolean;
+  missing: boolean;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_score;
 }
@@ -8715,6 +8756,12 @@ export enum AcademicOutcomeTypes {
   LOGIC_BUILDING = "LOGIC_BUILDING",
   SCHEMA_BUIDING = "SCHEMA_BUIDING",
   SOCRATIC_QUESTIONS = "SOCRATIC_QUESTIONS",
+}
+
+export enum ActivityTimeEnum {
+  AFTER = "AFTER",
+  BEFORE = "BEFORE",
+  DURING = "DURING",
 }
 
 export enum BasicQuestionEnum {
@@ -8829,8 +8876,8 @@ export enum ProtocolActivityTypes {
 }
 
 export enum ProtocolAssessmentEnum {
+  NO_EFFORT = "NO_EFFORT",
   REFUSED_TO_WORK = "REFUSED_TO_WORK",
-  SLOW_TO_GET_STARTED = "SLOW_TO_GET_STARTED",
   WORKED_POORLY = "WORKED_POORLY",
   WORKED_VERY_WELL = "WORKED_VERY_WELL",
   WORKED_WELL = "WORKED_WELL",
@@ -9054,13 +9101,25 @@ export interface CheckTextAnalysisInput {
 }
 
 export interface ControlCoolDownInput {
+  academicOutcomeType: AcademicOutcomeTypes;
+  activityTime: ActivityTimeEnum;
   isActive: boolean;
   lessonId: string;
+  markingPeriod: MarkingPeriodEnum;
+  protocolActivityType: ProtocolActivityTypes;
+  studentIds: string[];
+  task: string;
 }
 
 export interface ControlWarmUpInput {
+  academicOutcomeType: AcademicOutcomeTypes;
+  activityTime: ActivityTimeEnum;
   isActive: boolean;
   lessonId: string;
+  markingPeriod: MarkingPeriodEnum;
+  protocolActivityType: ProtocolActivityTypes;
+  studentIds: string[];
+  task: string;
 }
 
 export interface CreateAbsenceInput {
@@ -9169,6 +9228,8 @@ export interface CreateParentContactInput {
 
 export interface CreateProtocolInput {
   academicOutcomeType: AcademicOutcomeTypes;
+  activityTime: ActivityTimeEnum;
+  lessonId: string;
   markingPeriod: MarkingPeriodEnum;
   protocolActivityType: ProtocolActivityTypes;
   studentIds: string[];
@@ -9428,6 +9489,11 @@ export interface FindLessonsByUnitInput {
 
 export interface FindParentContactsByTeacherIdInput {
   teacherId: string;
+}
+
+export interface FindProtocolResponsesInput {
+  courseId: string;
+  date: string;
 }
 
 export interface FindQuizByIdInput {

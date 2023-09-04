@@ -40,8 +40,15 @@ export const Procedures = ({}: ProceduresProps) => {
           <ContentContainerTitle>During Class</ContentContainerTitle>
           <ul>
             <li>
-              If you need to get a drink or go to the bathroom, you must ask me.
-              My policy is one boy and one girl out at a time.
+              You must get a drink of water before class, not during class
+              unless you absolutely need a drink.
+            </li>
+            <br />
+            <li>
+              You are allowed 4 trips to the bathroom a marking period. Expect
+              me to say no if you ask to help you keep your 4 emergencies open
+              when emergencies arise. No matter what, only one person can go to
+              the bathroom at a time.
             </li>
             <br />
             <li>
@@ -76,7 +83,7 @@ export const Procedures = ({}: ProceduresProps) => {
           <ul>
             <li>
               Don't pack up until I tell you (probably around 2-3 minutes before
-              the bell)
+              the bell).
             </li>
             <br />
             <li>Don't get up to leave until the bell rings.</li>

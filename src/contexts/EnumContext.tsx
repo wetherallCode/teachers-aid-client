@@ -148,6 +148,11 @@ export const ENUM_VALUES = gql`
         name
       }
     }
+    ActivityTimeEnum: __type(name: "ActivityTimeEnum") {
+      enumValues {
+        name
+      }
+    }
   }
 `
 
@@ -268,6 +273,9 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
             (value: any) => value.name
           )!,
         readingGuideMetricEnum: data?.ReadingGuideMetricEnum?.enumValues?.map(
+          (value: any) => value.name
+        )!,
+        activityTimeEnum: data?.activityTimeEnum?.enumValues?.map(
           (value: any) => value.name
         )!,
       }}

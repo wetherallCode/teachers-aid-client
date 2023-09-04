@@ -1,17 +1,20 @@
-import React, { FC } from 'react'
+import React, { useEffect } from 'react'
 import { findLessonByCourseAndDate_findLessonByCourseAndDate_lesson } from '../../../schemaTypes'
 import {
   LessonComponentTitleContainer,
-  LessonComponentDetailsContainer,
   VocabWordContainer,
   VocabWordStyle,
 } from '../state-n-styles/lessonStyles'
 
 export type VocabProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
+  setPolling: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const Vocab: FC<VocabProps> = ({ lesson }) => {
+export const Vocab = ({ lesson, setPolling }: VocabProps) => {
+  useEffect(() => {
+    setPolling(2000)
+  })
   return (
     <>
       <LessonComponentTitleContainer>Vocab</LessonComponentTitleContainer>

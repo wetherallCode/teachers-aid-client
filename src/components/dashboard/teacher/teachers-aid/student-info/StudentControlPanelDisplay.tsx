@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   findStudentByIdForTeachersAidVariables,
   findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student,
@@ -18,6 +18,7 @@ import {
 } from '../styles/studentInfoStyles'
 import { DailyBehavior } from './behavior/DailyBehavior'
 import { StudentStatus } from './status/StudentStatus'
+import { useToggle } from '../../../../../hooks'
 
 export type StudentControlPanelDisplayProps = {
   student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
@@ -47,27 +48,35 @@ export const StudentControlPanelDisplay = ({
   textAnalysis,
 }: StudentControlPanelDisplayProps) => {
   const [state, event] = useTeachersAidContextProvider()
+
+  const [behaviorSwitch, toggleSwitch] = useToggle(
+    student?.hasProtocols.some((protocol) => protocol.isActive)
+  )
   const [controllerState, setControllerState] = useState<
     'ATTENDANCE' | 'BEHAVIOR'
   >('ATTENDANCE')
 
   useEffect(() => {
     if (student?.hasProtocols.some((protocol) => protocol.isActive)) {
-      event({ type: 'ASSESS_PROTOCOL_DISPLAY' })
+      //   event({ type: 'ASSESS_PROTOCOL_DISPLAY' })
+      // toggleSwitch()
     }
   }, [student])
 
   const protocols = student?.hasProtocols
+  const activeProtocol = student?.hasProtocols.some(
+    (protocol) => protocol.isActive
+  )
 
   return (
     <>
-      {!absenceCheck &&
-      student?.hasProtocols.some((protocol) => protocol.isActive) ? (
+      {!absenceCheck && activeProtocol && behaviorSwitch ? (
         <AssessProtocol
           loadStudentInfo={loadStudentInfo}
           protocols={protocols}
           student={student}
           grade={grade}
+          toggleSwitch={toggleSwitch}
         />
       ) : (
         <StudentControlPanelContainer>
@@ -79,6 +88,26 @@ export const StudentControlPanelDisplay = ({
                 Behavior
               </ControlButtons> */}
           {/* </StudentControlButtonContainer> */}
+          <div
+            onClick={() => {
+              if (activeProtocol) toggleSwitch()
+            }}
+            style={{
+              color: 'var(--blue)',
+              display: 'grid',
+              justifyItems: 'center',
+              alignItems: 'center',
+              fontSize: '3vh',
+            }}
+          >
+            {activeProtocol ? (
+              <div>
+                {'<'} Protocol Switch {'>'}
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
           {student && state.context.studentInfoSelector === 'ATTENDANCE' && (
             <DailyAttendance student={student} absenceCheck={absenceCheck} />
           )}

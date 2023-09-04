@@ -42,10 +42,10 @@ export const FIND_ACTIVE_PROTOCOLS_QUERY = gql`
     }
   }
 `
-export const DeleteProtocols: FC<DeleteProtocolsProps> = ({
+export const DeleteProtocols = ({
   lessonId,
   presentStudentList,
-}) => {
+}: DeleteProtocolsProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
@@ -81,7 +81,11 @@ export const DeleteProtocols: FC<DeleteProtocolsProps> = ({
       },
     },
     onCompleted: (data) => console.log(data),
-    refetchQueries: ['findLessonByCourseAndDate', 'findStudentInfoByStudentId'],
+    refetchQueries: [
+      'findLessonByCourseAndDate',
+      'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
+    ],
   })
   // if (loading) return <div>Loading </div>
   return (

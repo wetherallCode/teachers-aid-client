@@ -9,10 +9,7 @@ import {
   AssignmentTypeContainer,
   NoWorkContainer,
 } from './state-n-styles/assignmentsStyles'
-import {
-  StudentAssignmentContextProvider,
-  useStudentAssignmentContextProvider,
-} from './state-n-styles/StudentAssignmentContext'
+import { useStudentAssignmentContextProvider } from './state-n-styles/StudentAssignmentContext'
 import { ArticleReviewSelect } from './articleReviews/ArticleReviewSelect'
 import { MarkingPeriodSelector } from './MarkingPeriodSelector'
 import { useMarkingPeriodContextProvider } from '../../../../contexts/markingPeriod/MarkingPeriodContext'
@@ -23,32 +20,16 @@ import {
   findQuizzesByStudentIdVariables,
   findStudentInfoByStudentIdForDesk,
   findStudentInfoByStudentIdForDeskVariables,
-  MarkingPeriodEnum,
-  me_me,
   me_me_Student,
-  SchoolDayLengthEnum,
 } from '../../../../schemaTypes'
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { gql, useQuery } from '@apollo/client'
 import { QuizSelect } from './quizzes/QuizSelect'
-import { timeFinder } from '../../../../utils'
-import { useTime } from '../../../../hooks/useTime'
-import { useSchoolDayContextProvider } from '../../school-day/state/SchoolDayContext'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../school-day/SchoolDay'
 import { useClassTimeIndicator } from '../../../../hooks/useClassTimeIndicator'
-import { Route, Routes } from 'react-router'
-import { ArticleReviewToComplete } from './articleReviews/ArticleReviewToComplete'
-import { ArticleReviewToCompleteContextProvider } from './articleReviews/state-styles/ArticleReviewToCompleteContext'
-import { EssayToComplete } from './essays/assigned-essays/EssayToComplete'
-import { StudentEssayContextProvider } from './essays/assigned-essays/state-and-styles/StudentEssayContext'
-import { CompletedEssay } from './essays/completed-essays/CompletedEssay'
-import { CompletedEssayContextProvider } from './essays/completed-essays/state/CompletedEssayContext'
-import { QuizToComplete } from './quizzes/QuizToComplete'
-import { QuizToCompleteContextProvider } from './quizzes/state-n-styles/QuizToCompleteContext'
-// import { ReadingGuideToComplete } from './readingGuides/ReadingGuideToComplete'
-import { ReadingGuideToCompleteContextProvider } from './readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { useAssignmentsAllowedInClassCheck } from '../../../../hooks/useAssignmentsAllowedInClassCheck'
 import { FIND_STUDENT_INFO_FOR_DESK_QUERY } from '../../teacher/teachers-aid/main-screen/seating-chart/Desk'
+import { AllAssignments } from './allAssignments/AllAssignments'
 
 export type StudentAssignmentsProps = {}
 
@@ -80,7 +61,7 @@ export const MARK_EXEMPT_MUTATION = gql`
 export const StudentAssignments = ({}: StudentAssignmentsProps) => {
   const me: me_me_Student = useUserContextProvider()
   const { classTime } = useClassTimeIndicator(me)
-  // const { assignmentsInClassAllowed } = me.inCourses[0].hasCourseInfo!
+
   const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
   const [state, event] = useStudentAssignmentContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
@@ -160,6 +141,12 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
         >
           Article Reviews to Complete
         </AssignmentsTypeStyle> */}
+        <AssignmentsTypeStyle
+          selected={state.matches('allAssignments')}
+          onClick={() => event({ type: 'ALL_ASSIGNMENTS' })}
+        >
+          All Assignments
+        </AssignmentsTypeStyle>
       </AssignmentsTypeSelectorPanel>
 
       <AssignmentTypeContainer>
@@ -174,6 +161,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
             )}
           </>
         )}
+        {state.matches('allAssignments') && <AllAssignments />}
         {state.matches('completedEssays') && <CompletedEssaySelect />}
         {state.matches('readingGuidesToComplete') && (
           <>

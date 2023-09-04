@@ -28,16 +28,22 @@ import { ExitActivity } from '../lesson-components/ExitActivity'
 import { StudentQuestionPrompt } from '../student-lesson/StudentQuestionPrompt'
 import { useUserContextProvider } from '../../../contexts/UserContext'
 import { AssignedSeating } from '../lesson-components/AssignedSeating'
+import { StudentProtocolResponse } from '../lesson-components/StudentProtocolResponse'
 
 export type DynamicLessonProps = {
   lesson: findLessonStatus_findLessonStatus_lesson
   courseToLoad?: me_me_Teacher_teachesCourses
   fakeCourse?: me_me_Teacher_teachesCourses
+  setPolling: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const DynamicLesson = ({ lesson, courseToLoad }: DynamicLessonProps) => {
+export const DynamicLesson = ({
+  lesson,
+  courseToLoad,
+  setPolling,
+}: DynamicLessonProps) => {
   const me: me_me = useUserContextProvider()
-  const [, event] = useDailyAgendaContextProvider()
+  // const [, event] = useDailyAgendaContextProvider()
   const { dynamicLesson } = lesson
 
   return (
@@ -51,38 +57,37 @@ export const DynamicLesson = ({ lesson, courseToLoad }: DynamicLessonProps) => {
       <StopLessonContainer></StopLessonContainer>
 
       {lesson.duringActivities.some((protocol) => protocol.isActive) ? (
-        <ProtocolsContainer>
-          <Protocols lesson={lesson} />
-        </ProtocolsContainer>
+        <>
+          {me.__typename === 'Teacher' && (
+            <ProtocolsContainer>
+              <Protocols lesson={lesson} />
+            </ProtocolsContainer>
+          )}
+          {me.__typename === 'Student' && (
+            <ProtocolsContainer>
+              <StudentProtocolResponse me={me} setPolling={setPolling} />
+            </ProtocolsContainer>
+          )}
+        </>
       ) : (
         <LessonMainScreen>
-          {dynamicLesson === 'WARM_UP' && <WarmUp lesson={lesson} />}
-          {dynamicLesson === 'LESSON_DETAILS' && (
-            <LessonDetails lesson={lesson} />
+          {dynamicLesson === 'WARM_UP' && (
+            <WarmUp me={me} lesson={lesson} setPolling={setPolling} />
           )}
-          {dynamicLesson === 'VOCAB' && <Vocab lesson={lesson} />}
+          {dynamicLesson === 'LESSON_DETAILS' && (
+            <LessonDetails lesson={lesson} setPolling={setPolling} />
+          )}
+          {dynamicLesson === 'VOCAB' && (
+            <Vocab lesson={lesson} setPolling={setPolling} />
+          )}
           {dynamicLesson === 'EXIT_ACTIVITY' && (
-            <ExitActivity lesson={lesson} />
+            <ExitActivity lesson={lesson} me={me} setPolling={setPolling} />
           )}
           {dynamicLesson === 'ASSIGNED_SEATING' && (
             <AssignedSeating lesson={lesson} />
           )}
         </LessonMainScreen>
       )}
-
-      <LessonComponentTypeContainer>
-        {/* <LessonComponentTypeStyle>
-          {me.__typename === 'Student' ? (
-            <StudentQuestionPrompt
-              courseToLoad={courseToLoad!}
-              // fakeCourse={fakeCourse!}
-            />
-          ) : (
-            // 'Class is Live'
-            ''
-          )}
-        </LessonComponentTypeStyle> */}
-      </LessonComponentTypeContainer>
     </LessonPageContainer>
   )
 }

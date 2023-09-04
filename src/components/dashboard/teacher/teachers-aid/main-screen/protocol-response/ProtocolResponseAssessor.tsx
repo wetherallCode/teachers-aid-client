@@ -1,4 +1,3 @@
-import React, { FC, useState } from 'react'
 import {
   assessStudentProtocol,
   assessStudentProtocolVariables,
@@ -22,10 +21,10 @@ export type ProtocolResponseAssessorProps = {
   i: number
 }
 
-export const ProtocolResponseAssessor: FC<ProtocolResponseAssessorProps> = ({
+export const ProtocolResponseAssessor = ({
   response,
   i,
-}) => {
+}: ProtocolResponseAssessorProps) => {
   const [assessProtocol] = useMutation<
     assessStudentProtocol,
     assessStudentProtocolVariables

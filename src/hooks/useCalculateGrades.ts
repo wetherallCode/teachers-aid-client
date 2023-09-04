@@ -23,17 +23,25 @@ export const FIND_STUDENT_GRADES_QUERY = gql`
         dueDate
         dueTime
         exempt
+        missing
         ... on Quiz {
           score {
             earnedPoints
             maxPoints
           }
           gradeType
+          readings {
+            readingSections
+          }
         }
         ... on Essay {
           topic {
             essayQuestionId
             question
+          }
+          readings {
+            readingPages
+            readingSections
           }
           gradeType
           score {
@@ -52,6 +60,10 @@ export const FIND_STUDENT_GRADES_QUERY = gql`
           score {
             earnedPoints
             maxPoints
+          }
+          effort
+          readingGuideFinal {
+            submitted
           }
         }
         ... on SpecialAssignment {

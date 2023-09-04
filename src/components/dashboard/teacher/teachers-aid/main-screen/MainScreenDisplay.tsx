@@ -7,6 +7,9 @@ import { HomeworkAssigner } from './homework-assigner/HomeworkAssigner'
 import { findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student } from '../../../../../schemaTypes'
 import { Status } from './status/Status'
 
+import { ProtocolResponse } from '../../../../lesson/state-n-styles/lessonStyles'
+import { ProtocolResponseManager } from './protocol-response-manager/ProtocolResponseManager'
+
 export type MainScreenDisplayProps = {
   presentStudentList: string[]
   students: (findCourseByIdForTeachersAid_findCourseById_course_hasCourseInfo_assignedSeats_student | null)[]
@@ -33,13 +36,10 @@ export const MainScreenDisplay = ({
       )}
 
       {state.context.mainScreenVirtualProtocolResponses && (
-        <>
-          {/* {<VirtualProtocolResponse />} */}
-          {<ProtocolResponseClassList />}
-        </>
+        <>{<ProtocolResponseClassList />} </>
       )}
-      {state.context.mainScreenVirtualQuestionViewer && (
-        <StudentQuestionViewer />
+      {state.context.mainScreenWarmUpExitTicketViewer && (
+        <ProtocolResponseManager />
       )}
       {state.context.mainScreenHomeworkAssigner && (
         <HomeworkAssigner presentStudentList={presentStudentList} />

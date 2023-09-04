@@ -10,6 +10,7 @@ import {
   AssessStudentProtocolInput,
   ProtocolAssessmentEnum,
   DiscussionTypesEnum,
+  ActivityTimeEnum,
 } from '../../../../../schemaTypes'
 import { StudentInfoSelectorTypes } from '../class-control-panel/center-console/StudentInfoSelector'
 
@@ -63,7 +64,7 @@ export type teachersAidMachineEvent =
   | { type: 'CHANGE_MAIN_SCREEN_SEATING_CHART' }
   | { type: 'CHANGE_MAIN_SCREEN_STUDENT_STATUS' }
   | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_PROTOCOL_RESPONSES' }
-  | { type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' }
+  | { type: 'CHANGE_MAIN_SCREEN_WARMUP_EXIT_TICKET_VIEWER' }
   | { type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' }
   | {
       type: 'UPDATE_COURSE_INFO'
@@ -92,11 +93,11 @@ export type teachersAidMachineContext = {
   mainScreenSeatingChart: boolean
   mainScreenStudentStatus: boolean
   mainScreenVirtualProtocolResponses: boolean
-  mainScreenVirtualQuestionViewer: boolean
+  mainScreenWarmUpExitTicketViewer: boolean
   mainScreenHomeworkAssigner: boolean
   currentMainScreenView:
     | 'SEATING_CHART'
-    | 'QUESTIONS'
+    | 'WARMUP_EXIT_TICKET_RESPONSES'
     | 'PROTOCOL_RESPONSES'
     | 'STUDENT_STATUS'
     | 'HOMEWORK'
@@ -154,10 +155,12 @@ export const teachersAidMachine = Machine<
       protocolActivityType: ProtocolActivityTypes.INDIVIDUAL,
       studentIds: [],
       task: '',
+      lessonId: '',
+      activityTime: ActivityTimeEnum.DURING,
     },
     studentProtocolAssessment: {
       studentId: '',
-      assessment: ProtocolAssessmentEnum.WORKED_WELL,
+      assessment: ProtocolAssessmentEnum.REFUSED_TO_WORK,
       task: '',
       assignedDate: '',
       discussionLevel: DiscussionTypesEnum.NOT_REQUIRED,
@@ -169,7 +172,7 @@ export const teachersAidMachine = Machine<
     mainScreenSeatingChart: true,
     mainScreenStudentStatus: false,
     mainScreenVirtualProtocolResponses: false,
-    mainScreenVirtualQuestionViewer: false,
+    mainScreenWarmUpExitTicketViewer: false,
     mainScreenHomeworkAssigner: false,
     currentMainScreenView: 'SEATING_CHART',
     currentReadingGuideIndex: 0,
@@ -253,12 +256,13 @@ export const teachersAidMachine = Machine<
             },
             CHANGE_MAIN_SCREEN_SEATING_CHART: {
               actions: assign((ctx) => {
+                console.log('activated')
                 return {
                   ...ctx,
                   mainScreenSeatingChart: true,
                   mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
-                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenWarmUpExitTicketViewer: false,
                   mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'SEATING_CHART',
                 }
@@ -271,7 +275,7 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: false,
                   mainScreenStudentStatus: true,
                   mainScreenVirtualProtocolResponses: false,
-                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenWarmUpExitTicketViewer: false,
                   mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'STUDENT_STATUS',
                 }
@@ -284,22 +288,22 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: false,
                   mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: true,
-                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenWarmUpExitTicketViewer: false,
                   mainScreenHomeworkAssigner: false,
                   currentMainScreenView: 'PROTOCOL_RESPONSES',
                 }
               }),
             },
-            CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER: {
+            CHANGE_MAIN_SCREEN_WARMUP_EXIT_TICKET_VIEWER: {
               actions: assign((ctx) => {
                 return {
                   ...ctx,
                   mainScreenSeatingChart: false,
                   mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
-                  mainScreenVirtualQuestionViewer: true,
+                  mainScreenWarmUpExitTicketViewer: true,
                   mainScreenHomeworkAssigner: false,
-                  currentMainScreenView: 'QUESTIONS',
+                  currentMainScreenView: 'WARMUP_EXIT_TICKET_RESPONSES',
                 }
               }),
             },
@@ -310,7 +314,7 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: false,
                   mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
-                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenWarmUpExitTicketViewer: false,
                   mainScreenHomeworkAssigner: true,
                   currentMainScreenView: 'HOMEWORK',
                 }
@@ -376,7 +380,7 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: true,
                   mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: false,
-                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenWarmUpExitTicketViewer: false,
                   currentMainScreenView: 'SEATING_CHART',
                 }
               }),
@@ -388,7 +392,7 @@ export const teachersAidMachine = Machine<
                   mainScreenSeatingChart: false,
                   mainScreenStudentStatus: false,
                   mainScreenVirtualProtocolResponses: true,
-                  mainScreenVirtualQuestionViewer: false,
+                  mainScreenWarmUpExitTicketViewer: false,
                   currentMainScreenView: 'PROTOCOL_RESPONSES',
                 }
               }),

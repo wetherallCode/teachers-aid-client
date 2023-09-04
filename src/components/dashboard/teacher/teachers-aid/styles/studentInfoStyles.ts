@@ -4,7 +4,7 @@ export const StudentControlPanelContainer = styled.div`
   background-color: var(--grey);
   color: var(--white);
   display: grid;
-  /* grid-template-rows: 1fr 10fr; */
+  grid-template-rows: 1fr 10fr;
 `
 
 export const StudentControlButtonContainer = styled.div`

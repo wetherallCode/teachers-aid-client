@@ -1,14 +1,12 @@
-import React, { FC, useState } from 'react'
+import { useState } from 'react'
 import {
   me_me,
-  findStudentProtocol,
-  findStudentProtocolVariables,
   respondToProtocol,
   respondToProtocolVariables,
-  findStudentProtocol_findStudentById_student_hasProtocols,
   AcademicOutcomeTypes,
   findActiveProtocolByStudent,
   findActiveProtocolByStudentVariables,
+  findActiveProtocolByStudent_findActiveProtocolByStudent_protocol,
 } from '../../../schemaTypes'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import {
@@ -18,28 +16,13 @@ import {
   ProtocolResponseArea,
   ProtocolResponseHeader,
   ProtocolResponse,
+  ProtocolResponseTaskContainer,
 } from '../state-n-styles/lessonStyles'
 
 export type StudentProtocolResponseProps = {
   me: me_me
+  setPolling: React.Dispatch<React.SetStateAction<number>>
 }
-export const FIND_STUDENT_PROTOCOL_QUERY = gql`
-  query findStudentProtocol($input: FindStudentByIdInput!) {
-    findStudentById(input: $input) {
-      student {
-        hasProtocols {
-          _id
-          completed
-          assignedDate
-          academicOutcomeType
-          task
-          isActive
-          response
-        }
-      }
-    }
-  }
-`
 
 export const FIND_ACTIVE_STUDENT_PROTOCOL_QUERY = gql`
   query findActiveProtocolByStudent($input: FindActiveProtocolByStudentInput!) {
@@ -62,16 +45,19 @@ export const RESPOND_TO_PROTOCOL_MUTATION = gql`
     respondToProtocol(input: $input) {
       protocol {
         _id
+        response
       }
     }
   }
 `
-export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
+export const StudentProtocolResponse = ({
   me,
-}) => {
+  setPolling,
+}: StudentProtocolResponseProps) => {
   const [response, setResponse] = useState('')
+
   const [protocol, setProtocol] =
-    useState<findStudentProtocol_findStudentById_student_hasProtocols>({
+    useState<findActiveProtocolByStudent_findActiveProtocolByStudent_protocol>({
       __typename: 'Protocol',
       _id: '',
       academicOutcomeType: AcademicOutcomeTypes.LOGIC_BUILDING,
@@ -81,60 +67,49 @@ export const StudentProtocolResponse: FC<StudentProtocolResponseProps> = ({
       task: '',
       response: null,
     })
-  const { data: activeProtocol } = useQuery<
-    findActiveProtocolByStudent,
-    findActiveProtocolByStudentVariables
-  >(FIND_ACTIVE_STUDENT_PROTOCOL_QUERY, {
-    variables: {
-      input: { studentId: me._id! },
-    },
-    onCompleted: (data) => console.log(data),
-    onError: (error) => console.error(error),
-  })
 
-  const { loading, data } = useQuery<
-    findStudentProtocol,
-    findStudentProtocolVariables
-  >(FIND_STUDENT_PROTOCOL_QUERY, {
-    variables: {
-      input: { studentId: me._id! },
-    },
-    onCompleted: (data) => {
-      const [protocol] = data.findStudentById.student.hasProtocols.filter(
-        (protocol) => protocol.isActive
-      )
-      setProtocol(protocol)
-    },
-    pollInterval: 1000,
-    onError: (error) => console.error(error),
-  })
+  useQuery<findActiveProtocolByStudent, findActiveProtocolByStudentVariables>(
+    FIND_ACTIVE_STUDENT_PROTOCOL_QUERY,
+    {
+      variables: {
+        input: { studentId: me._id! },
+      },
+      fetchPolicy: 'network-only',
+      onCompleted: (data) => {
+        console.log(data)
+        setProtocol(data.findActiveProtocolByStudent.protocol)
+        setPolling(5000)
+      },
+      onError: (error) => console.error(error),
+    }
+  )
 
   const [respond] = useMutation<respondToProtocol, respondToProtocolVariables>(
     RESPOND_TO_PROTOCOL_MUTATION,
     {
       variables: { input: { protocolId: protocol._id!, response } },
-      onCompleted: (data) => console.log(data),
-      refetchQueries: ['findStudentProtocol', 'findVirtualResponses'],
+      onCompleted: (data) => {
+        setProtocol({
+          ...protocol,
+          response: data.respondToProtocol.protocol.response,
+        })
+      },
+      refetchQueries: ['findActiveProtocolByStudent'],
     }
   )
 
-  const isProtocolRespondedTo = data?.findStudentById.student.hasProtocols
-    .filter((protocol) => protocol.isActive)
-    .some((protocol) => protocol.response)
-
-  const protocolResponse = data?.findStudentById.student.hasProtocols
-    .filter((protocol) => protocol.isActive)
-    .map((protocol) => protocol.response)
-
   return (
     <>
-      {isProtocolRespondedTo ? (
+      {protocol.response ? (
         <ProtocolResponseContainer>
-          <ProtocolResponse>{protocolResponse}</ProtocolResponse>
+          <ProtocolResponse>{protocol.response}</ProtocolResponse>
         </ProtocolResponseContainer>
       ) : (
         <>
           <ProtocolResponseContainer>
+            <ProtocolResponseTaskContainer>
+              {protocol.task}
+            </ProtocolResponseTaskContainer>
             <ProtocolResponseHeader>
               Respond to this Task
             </ProtocolResponseHeader>

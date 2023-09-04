@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import { gql, useQuery } from '@apollo/client'
 import {
@@ -24,7 +24,6 @@ import {
   GradeDetailsSelectorContainer,
   GradeDetailsSelector,
 } from './state-n-styles/EssaysToGradeStyles'
-import { OrganizerContainer } from '../../../../../student/assignments/essays/assigned-essays/state-and-styles/assignedEssayStyles'
 import { PreviousEssayViewer } from './PreviousEssayViewer'
 import { EssayToGradeOrganizer } from './EssayToGradeOrganizer'
 

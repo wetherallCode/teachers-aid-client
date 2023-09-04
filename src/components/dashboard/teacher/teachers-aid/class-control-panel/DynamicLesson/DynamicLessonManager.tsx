@@ -20,10 +20,11 @@ import {
   DynamicLessonButtonContainer,
 } from '../../styles/classControlPanelStyles'
 import { WarmUp } from '../../../../../lesson/lesson-components/WarmUp'
-import { WarmUpManager } from '../warmup-manager/WarmUpManager'
+
 import { CoolDownManager } from '../coolDown-manager/CoolDownManager'
 import { StudentInfoSelector } from '../center-console/StudentInfoSelector'
 import { CREATE_BEHAVIOR_MUTATION } from '../../student-info/behavior/DailyBehavior'
+import { WarmUpManager } from '../warmUp-Manager/WarmUpManager'
 
 export type DynamicLessonManagerProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -59,7 +60,7 @@ export const DynamicLessonManager = ({
   lesson,
   presentStudentList,
 }: DynamicLessonManagerProps) => {
-  const [updateDynamicLeson] = useMutation<
+  const [updateDynamicLesson] = useMutation<
     updateDynamicLesson,
     updateDynamicLessonVariables
   >(UPDATE_DYNAMIC_LESSON_MUTATION, {
@@ -75,7 +76,7 @@ export const DynamicLessonManager = ({
       input: {
         behaviorTypeId: '62a33f0c2c8c161570b3c258'!,
         markingPeriod: lesson.assignedMarkingPeriod,
-        responsibilityPoints: 2,
+        responsibilityPoints: 1,
         studentIds: presentStudentList,
       },
     },
@@ -84,7 +85,7 @@ export const DynamicLessonManager = ({
   })
 
   const handleClick = (dynamicLessonSetting: DynamicLessonEnums) => {
-    updateDynamicLeson({
+    updateDynamicLesson({
       variables: {
         input: {
           lessonId: lesson._id!,
@@ -107,7 +108,7 @@ export const DynamicLessonManager = ({
       {lesson.dynamicLesson === 'OFF' ? (
         <DynamicLessonOnButton
           // currentLessonSetting={}
-          onClick={() => handleClick(DynamicLessonEnums.ON)}
+          onClick={() => handleClick(DynamicLessonEnums.LESSON_DETAILS)}
         >
           Start Lesson
         </DynamicLessonOnButton>
@@ -115,14 +116,24 @@ export const DynamicLessonManager = ({
         <>
           <DynamicLessonButtonContainer>
             {lesson.dynamicLesson === 'WARM_UP' ? (
-              <WarmUpManager lesson={lesson} />
+              <WarmUpManager
+                lesson={lesson}
+                presentStudentList={presentStudentList}
+                updateDynamicLesson={updateDynamicLesson}
+              />
             ) : (
-              <DynamicLessonButton
-                // currentLessonSetting={lesson.dynamicLesson === 'WARM_UP'}
-                onClick={() => handleClick(DynamicLessonEnums.WARM_UP)}
-              >
-                Warm Up
-              </DynamicLessonButton>
+              <>
+                {!lesson.beforeActivity.completed ? (
+                  <DynamicLessonButton
+                    // currentLessonSetting={lesson.dynamicLesson === 'WARM_UP'}
+                    onClick={() => handleClick(DynamicLessonEnums.WARM_UP)}
+                  >
+                    Warm Up
+                  </DynamicLessonButton>
+                ) : (
+                  <div>Completed</div>
+                )}
+              </>
             )}
           </DynamicLessonButtonContainer>
           <DynamicLessonButton
@@ -139,14 +150,26 @@ export const DynamicLessonManager = ({
           </DynamicLessonButton>
           <DynamicLessonButtonContainer>
             {lesson.dynamicLesson === 'EXIT_ACTIVITY' ? (
-              <CoolDownManager lesson={lesson} />
+              <CoolDownManager
+                lesson={lesson}
+                presentStudentList={presentStudentList}
+                updateDynamicLesson={updateDynamicLesson}
+              />
             ) : (
-              <DynamicLessonButton
-                // currentLessonSetting={lesson.dynamicLesson === 'EXIT_ACTIVITY'}
-                onClick={() => handleClick(DynamicLessonEnums.EXIT_ACTIVITY)}
-              >
-                Cool Down
-              </DynamicLessonButton>
+              <>
+                {!lesson.afterActivity.completed ? (
+                  <DynamicLessonButton
+                    // currentLessonSetting={lesson.dynamicLesson === 'EXIT_ACTIVITY'}
+                    onClick={() =>
+                      handleClick(DynamicLessonEnums.EXIT_ACTIVITY)
+                    }
+                  >
+                    Cool Down
+                  </DynamicLessonButton>
+                ) : (
+                  <div>Completed</div>
+                )}
+              </>
             )}
           </DynamicLessonButtonContainer>
           <DynamicLessonOffButtonContainer>

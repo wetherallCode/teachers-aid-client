@@ -52,13 +52,7 @@ export const Absence = ({
       'findCourseByIdForTeachersAid',
     ],
   })
-  // console.log(
-  //   new Date().toLocaleDateString(),
-  //   student.hasAbsences.some(
-  //     (absence) => absence.dayAbsent === new Date().toLocaleDateString()
-  //   )
-  // )
-  // console.log(absenceCheck)
+
   return (
     <>
       {!absenceCheck ? (

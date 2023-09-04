@@ -7,7 +7,7 @@ export const FAQ = ({}: FAQProps) => {
   return (
     <>
       <DisplayTitle>FAQs</DisplayTitle>
-      <ContentContainer style={{ fontSize: '2vh' }}>
+      <ContentContainer>
         <ul>
           <li>Do I have to do homework?</li>
           <ul>
@@ -20,8 +20,9 @@ export const FAQ = ({}: FAQProps) => {
           <li>Is it hard?</li>
           <ul>
             <li>
-              Anything is hard if you don't put effort into it. So it depends on
-              you.
+              No, but it is challenging which can be easily confused for hard.
+              You don't grow with out challenge, and I'm here to help you with
+              that growth.
             </li>
           </ul>
           <br />
@@ -49,6 +50,15 @@ export const FAQ = ({}: FAQProps) => {
             </li>
             <li>Two: The more you learn, the easier learning becomes.</li>
           </ul>
+          <br />
+          <li>Do I give detentions?</li>
+          <ul>
+            <li>
+              Yes. Lateness, disruptions, and negative behaviors will earn you a
+              detention. They start at 2:20 and end at 2:40.{' '}
+            </li>
+          </ul>
+
           {/* <br />
           <li></li>
           <ul>

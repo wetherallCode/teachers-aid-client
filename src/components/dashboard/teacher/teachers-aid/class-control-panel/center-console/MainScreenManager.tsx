@@ -1,7 +1,5 @@
 import { useMutation } from '@apollo/client'
-import React, { FC } from 'react'
 import {
-  DynamicLessonEnums,
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
   updateDynamicLesson,
   updateDynamicLessonVariables,
@@ -15,7 +13,7 @@ export type MainScreenManagerProps = {
 }
 
 export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
-  const [state, event] = useTeachersAidContextProvider()
+  const [, event] = useTeachersAidContextProvider()
 
   const [updateDynamicLeson] = useMutation<
     updateDynamicLesson,
@@ -24,7 +22,7 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
     onCompleted: (data) => console.log(data.UpdateDynamicLesson),
     refetchQueries: ['findLessonByCourseAndDate'],
   })
-  // console.log(state.context.attendanceToggle)
+
   return (
     <>
       <MainScreenControlButton
@@ -39,25 +37,12 @@ export const MainScreenManager = ({ lesson }: MainScreenManagerProps) => {
         Student Status
       </MainScreenControlButton>
       <MainScreenControlButton
-      // onClick={() =>
-      // event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' })
-      // updateDynamicLeson({
-      //   variables: {
-      //     input: {
-      //       lessonId: lesson._id!,
-      //       dynamicLessonUpdate: DynamicLessonEnums.ASSIGNED_SEATING,
-      //     },
-      //   },
-      // })
-      // }
-      ></MainScreenControlButton>
-      {/* <MainScreenControlButton
         onClick={() =>
-          event({ type: 'CHANGE_MAIN_SCREEN_VIRTUAL_QUESTION_VIEWER' })
+          event({ type: 'CHANGE_MAIN_SCREEN_WARMUP_EXIT_TICKET_VIEWER' })
         }
       >
-        Questions
-      </MainScreenControlButton> */}
+        Protocol Responses
+      </MainScreenControlButton>
       <MainScreenControlButton
         onClick={() => event({ type: 'CHANGE_MAIN_SCREEN_HOMEWORK_ASSIGNER' })}
       >

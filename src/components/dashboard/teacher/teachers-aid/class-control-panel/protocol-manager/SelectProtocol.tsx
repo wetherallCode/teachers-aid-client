@@ -13,6 +13,7 @@ import {
   createStudentProtocolVariables,
   MarkingPeriodEnum,
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
+  ActivityTimeEnum,
 } from '../../../../../../schemaTypes'
 import { date } from '../../../../../../utils'
 import {
@@ -66,11 +67,11 @@ export const CREATE__PROTOCOL_MUTATION = gql`
   }
 `
 
-export const SelectProtocol: FC<SelectProtocolProps> = ({
+export const SelectProtocol = ({
   lessonId,
   lesson,
   presentStudentList,
-}) => {
+}: SelectProtocolProps) => {
   const [state, event] = useTeachersAidContextProvider()
 
   const [createStudentProtocol] = useMutation<
@@ -85,11 +86,14 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
         markingPeriod: lesson.assignedMarkingPeriod,
         protocolActivityType: state.context.selectedProtocol.activityType,
         task: state.context.selectedProtocol.task,
+        lessonId,
+        activityTime: ActivityTimeEnum.DURING,
       },
     },
     onCompleted: (data) => console.log(data),
     refetchQueries: [
       'findStudentInfoByStudentId',
+      'findStudentByIdForTeachersAid',
       'findLessonByCourseAndDate',
       'findActiveProtocolsByCourse',
     ],
@@ -109,6 +113,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
       refetchQueries: [
         'findStudentInfoByStudentId',
         'findLessonByCourseAndDate',
+        'findStudentByIdForTeachersAid',
       ],
     }
   )
@@ -123,7 +128,7 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
         task: state.context.selectedProtocol.task,
         isActive: true,
         assignedDate: date,
-        studentIds: state.context.presentStudentsIds,
+        studentIds: presentStudentList,
       },
     },
     onCompleted: (data) => {
@@ -133,9 +138,10 @@ export const SelectProtocol: FC<SelectProtocolProps> = ({
       'findLessonByCourseAndDate',
       'findStudentInfoByStudentId',
       'findActiveProtocolsByCourseForProtocolRemoval',
+      'findStudentByIdForTeachersAid',
     ],
   })
-  console.log(presentStudentList)
+
   return (
     <ProtocolSelectorContainer>
       {!state.context.selectedProtocol.completed ? (

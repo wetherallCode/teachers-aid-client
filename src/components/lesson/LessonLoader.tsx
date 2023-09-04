@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client'
-import React from 'react'
+import React, { useState } from 'react'
 import {
   findLessonStatus,
   findLessonStatusVariables,
@@ -66,12 +66,14 @@ export const FIND_LESSON_STATUS_QUERY = gql`
           activityType
           academicOutcomeTypes
           isActive
+          completed
         }
         afterActivity {
           task
           activityType
           academicOutcomeTypes
           isActive
+          completed
         }
         dynamicLesson
         lessonType
@@ -81,6 +83,8 @@ export const FIND_LESSON_STATUS_QUERY = gql`
   }
 `
 export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
+  const [polling, setPolling] = useState<number>(2000)
+  console.log(polling)
   const { loading, data } = useQuery<
     findLessonStatus,
     findLessonStatusVariables
@@ -89,11 +93,11 @@ export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
       input: { lessonId },
     },
     onCompleted: (data) => console.log(data.findLessonStatus.lesson),
-    pollInterval: 500,
+    pollInterval: polling,
     onError: (error) => console.error(error),
   })
 
-  if (loading) return <div>Loading </div>
+  if (loading) return <div>Loading stuff</div>
   return (
     <>
       {data?.findLessonStatus.lesson!.dynamicLesson !== 'OFF' ? (
@@ -102,6 +106,7 @@ export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
             lesson={data?.findLessonStatus.lesson!}
             // stopPolling={stopPolling!}
             courseToLoad={courseToLoad}
+            setPolling={setPolling}
             // fakeCourse={fakeCourse}
           />
         </>
@@ -109,6 +114,7 @@ export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
         <StaticLesson
           lesson={data?.findLessonStatus.lesson!}
           courseToLoad={courseToLoad}
+          setPolling={setPolling}
         />
       )}
     </>

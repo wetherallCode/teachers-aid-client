@@ -141,3 +141,53 @@ export const PendingAssignmentLinkLi = styled.li`
 
   color: var(--grey);
 `
+
+export const AllAssignmentsMainContainer = styled.div`
+  grid-row: 1/-1;
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-rows: 1fr 2fr 13fr;
+`
+export const AssignmentDisplayContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 15fr;
+  padding: 1vh;
+`
+export const AssignmentDisplayTitle = styled.div`
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  font-size: 3vh;
+`
+export const AssignmentTypeSelect = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  align-items: center;
+  font-size: 2vh;
+`
+
+export const AssignmentDisplayCategoryDisplay = styled.div`
+  color: var(--white);
+  background-color: var(--blue);
+  display: grid;
+  font-size: 2vh;
+  align-items: center;
+  grid-auto-flow: column;
+  padding-left: 2vh;
+`
+export const AssignmentsContainer = styled.div`
+  border: 3px solid var(--blue);
+  display: grid;
+  font-size: 1.5vh;
+  height: 55vh;
+  overflow: scroll;
+`
+export const IndividualAssignment = styled.div`
+  display: grid;
+  justify-items: start;
+  align-items: center;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  padding-left: 2vh;
+`

@@ -31,7 +31,7 @@ export const dailyAgendaMachine = Machine<
   initial: 'getLesson',
   context: {
     polling: false,
-    staticLessonTypes: DynamicLessonEnums.WARM_UP,
+    staticLessonTypes: DynamicLessonEnums.LESSON_DETAILS,
   },
   states: {
     getLesson: {

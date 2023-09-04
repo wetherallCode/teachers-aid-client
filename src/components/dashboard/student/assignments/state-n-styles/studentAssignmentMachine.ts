@@ -8,6 +8,7 @@ export type studentAssignmentMachineSchema = {
     readingGuidesToComplete: {}
     articleReviewsToComplete: {}
     quizzes: {}
+    allAssignments: {}
   }
 }
 export type studentAssignmentMachineEvent =
@@ -17,6 +18,7 @@ export type studentAssignmentMachineEvent =
   | { type: 'READING_GUIDES' }
   | { type: 'ARTICLE_REVIEWS' }
   | { type: 'QUIZZES' }
+  | { type: 'ALL_ASSIGNMENTS' }
   | { type: 'SET_MARKING_PERIOD'; payload: MarkingPeriodEnum }
 
 export type studentAssignmentMachineContext = {
@@ -40,6 +42,7 @@ export const studentAssignmentMachine = Machine<
         READING_GUIDES: 'readingGuidesToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
         QUIZZES: 'quizzes',
+        ALL_ASSIGNMENTS: 'allAssignments',
         SET_MARKING_PERIOD: {
           actions: assign((ctx, evt) => {
             return {
@@ -56,6 +59,7 @@ export const studentAssignmentMachine = Machine<
         READING_GUIDES: 'readingGuidesToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
         QUIZZES: 'quizzes',
+        ALL_ASSIGNMENTS: 'allAssignments',
         SET_MARKING_PERIOD: {
           actions: assign((ctx, evt) => {
             return {
@@ -72,6 +76,7 @@ export const studentAssignmentMachine = Machine<
         ESSAYS_TO_COMPLETE: 'essaysToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
         QUIZZES: 'quizzes',
+        ALL_ASSIGNMENTS: 'allAssignments',
         SET_MARKING_PERIOD: {
           actions: assign((ctx, evt) => {
             return {
@@ -88,6 +93,7 @@ export const studentAssignmentMachine = Machine<
         COMPLETED_ESSAYS: 'completedEssays',
         READING_GUIDES: 'readingGuidesToComplete',
         QUIZZES: 'quizzes',
+        ALL_ASSIGNMENTS: 'allAssignments',
         SET_MARKING_PERIOD: {
           actions: assign((ctx, evt) => {
             return {
@@ -104,6 +110,24 @@ export const studentAssignmentMachine = Machine<
         COMPLETED_ESSAYS: 'completedEssays',
         READING_GUIDES: 'readingGuidesToComplete',
         ARTICLE_REVIEWS: 'articleReviewsToComplete',
+        ALL_ASSIGNMENTS: 'allAssignments',
+        SET_MARKING_PERIOD: {
+          actions: assign((ctx, evt) => {
+            return {
+              ...ctx,
+              selectedMarkingPeriod: evt.payload,
+            }
+          }),
+        },
+      },
+    },
+    allAssignments: {
+      on: {
+        ESSAYS_TO_COMPLETE: 'essaysToComplete',
+        COMPLETED_ESSAYS: 'completedEssays',
+        READING_GUIDES: 'readingGuidesToComplete',
+        ARTICLE_REVIEWS: 'articleReviewsToComplete',
+        QUIZZES: 'quizzes',
         SET_MARKING_PERIOD: {
           actions: assign((ctx, evt) => {
             return {

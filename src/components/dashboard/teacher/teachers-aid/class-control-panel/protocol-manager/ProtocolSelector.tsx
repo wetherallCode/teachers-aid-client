@@ -18,10 +18,10 @@ export type ProtocolSelectorProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
   presentStudentList: string[]
 }
-export const ProtocolSelector: FC<ProtocolSelectorProps> = ({
+export const ProtocolSelector = ({
   lesson,
   presentStudentList,
-}) => {
+}: ProtocolSelectorProps) => {
   const [state, event] = useTeachersAidContextProvider()
 
   return (

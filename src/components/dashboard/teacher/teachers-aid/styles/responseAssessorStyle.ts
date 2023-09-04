@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ResponseTitle = styled.div`
-  font-size: 3vw;
+  font-size: 4vh;
   text-decoration: underline;
   text-align: center;
   margin-bottom: 2vh;
@@ -9,7 +9,7 @@ export const ResponseTitle = styled.div`
 
 export const ResponseContainer = styled.div`
   display: grid;
-  grid-auto-rows: 4vh;
+  grid-auto-rows: 8vh;
   grid-row-gap: 2vh;
   overflow: scroll;
   height: 55vh;
@@ -17,7 +17,7 @@ export const ResponseContainer = styled.div`
 
 export const ResponseRowContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 4fr 4fr;
 `
 export const NameOfResponder = styled.div`
   display: grid;
@@ -27,9 +27,9 @@ export const NameOfResponder = styled.div`
 `
 export const ResponseButtonContainer = styled.div`
   display: grid;
-  grid-gap: 1vw;
-  grid-auto-flow: column;
-  justify-self: center;
+  align-self: center;
+  justify-self: start;
+  text-align: center;
 `
 
 export type AssessmentButtonType = {
@@ -40,11 +40,23 @@ export const AssessmentButton = styled.button<AssessmentButtonType>`
   background-color: ${({ assessed }) => {
     return assessed ? 'var(--blue)' : 'var(--grey)'
   }};
-  color: ${({ assessed }) => (assessed ? 'var(--white)' : 'var(--blue)')}; ;
+  color: ${({ assessed }) => (assessed ? 'var(--white)' : 'var(--blue)')};
 `
-
+export const AssessmentManagerButton = styled.button`
+  height: 50%;
+`
 export const CancelAssessmentButton = styled.button`
   background-color: var(--red);
   color: var(--white);
   width: 15vw;
 `
+export const ResponseAssessorCategoriesContainer = styled.div`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  justify-items: center;
+  align-items: center;
+  font-size: 2vh;
+  cursor: pointer;
+`
+export const ResponseAssessorCategoriesSelectables = styled.div``

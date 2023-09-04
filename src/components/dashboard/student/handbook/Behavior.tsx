@@ -26,7 +26,7 @@ export const Behavior = ({}: BehaviorProps) => {
             <br />
             <li>Getting Quiz Questions correct</li>
             <br />
-            <li>Answering questions (verbal and written)</li>
+            <li>Answering and asking questions (verbal and written)</li>
             <br />
             <li>Going above and beyond helping others</li>
           </ul>

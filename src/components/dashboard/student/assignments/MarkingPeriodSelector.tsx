@@ -12,7 +12,7 @@ import { useStudentAssignmentContextProvider } from './state-n-styles/StudentAss
 
 export type MarkingPeriodSelectorProps = {}
 
-export const MarkingPeriodSelector: FC<MarkingPeriodSelectorProps> = () => {
+export const MarkingPeriodSelector = ({}: MarkingPeriodSelectorProps) => {
   const [state, event] = useStudentAssignmentContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()

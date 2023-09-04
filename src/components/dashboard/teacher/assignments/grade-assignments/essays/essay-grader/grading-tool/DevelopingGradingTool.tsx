@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useGradeEssayContextProvider } from '../state-n-styles/GradeEssayContext'
 import {
   findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer,
@@ -27,9 +27,9 @@ export type DevelopingGradingToolProps = {
   organizer?: findEssayToGradeById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer
 }
 
-export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
+export const DevelopingGradingTool = ({
   rubricEntries,
-}) => {
+}: DevelopingGradingToolProps) => {
   const [state, event] = useGradeEssayContextProvider()
   const { rubricSectionEnum } = useEnumContextProvider()
   const [sectionSelector, setSectionSelector] = useState(0)
@@ -42,12 +42,13 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
 
   rubricList.forEach((entry: string) => {
     const splitValues = entry.split(',')
-
+    console.log(splitValues[4])
     const rubricEntryValues: ReturnedRubricEntryInput = {
       entry: splitValues[0],
       rubricSection: splitValues[3] as RubricSectionEnum,
       score: Number(splitValues[1]),
       howToImprove: splitValues[2],
+      _id: splitValues[4],
     }
     rubricEntriesList.push(rubricEntryValues)
   })
@@ -139,6 +140,7 @@ export const DevelopingGradingTool: FC<DevelopingGradingToolProps> = ({
                     entry.score.toString(),
                     entry.howToImprove!,
                     entry.rubricSection,
+                    entry._id,
                   ]}
                 />
               )
