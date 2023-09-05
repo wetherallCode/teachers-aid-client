@@ -61,11 +61,11 @@ export const ME_QUERY = gql`
             overallWritingLevel
           }
         }
-        hasWritingMetrics {
-          overallWritingMetric {
-            levelPoints
-          }
-        }
+        #hasWritingMetrics {
+        # overallWritingMetric {
+        #  levelPoints
+        #}
+        #}
       }
     }
   }
