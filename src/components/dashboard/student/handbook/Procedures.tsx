@@ -51,6 +51,8 @@ export const Procedures = ({}: ProceduresProps) => {
               the bathroom at a time.
             </li>
             <br />
+            <li>Don't get out of your seat without permission.</li>
+            <br />
             <li>
               Handraising is only required if someone is already talking. Do
               your best to not interupt.

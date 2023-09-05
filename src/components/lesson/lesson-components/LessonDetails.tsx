@@ -50,7 +50,7 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
           <div
             style={{
               textAlign: 'center',
-              fontSize: '3vh',
+              fontSize: '2.5vh',
               textDecoration: 'underline',
             }}
           >
@@ -63,12 +63,13 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
             <div
               style={{
                 textAlign: 'center',
+                fontSize: '2.5vh',
               }}
             >
               Instructions
             </div>
 
-            <ol style={{ margin: 0, fontSize: '3vh' }}>
+            <ol style={{ margin: 0, fontSize: '2.5vh' }}>
               <li>
                 Number each paragraph before reading. Indentations start new
                 paragraphs.
