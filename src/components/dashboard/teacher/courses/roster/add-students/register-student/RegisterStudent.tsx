@@ -57,17 +57,17 @@ export const FIND_USERS_QUERY = gql`
 
 export const RegisterStudent = ({}: RegisterStudentProps) => {
   const [state, event] = useAddStudentsContextProvider()
-
+  console.log(state.context.studentToRegister.hasIEP)
   const [addToCourseToggle, setAddToCourseToggle] = useState(false)
   const [addIdFinished, setAddIdFinished] = useState(false)
 
   const { loading, data } = useQuery<findAllUsers>(FIND_USERS_QUERY, {
-    onCompleted: (data) =>
-      console.log(
-        data.findAllUsers.users.map(
-          (u) => u.__typename === 'Student' && u.userName
-        )
-      ),
+    // onCompleted: (data) =>
+    // console.log(
+    //   data.findAllUsers.users.map(
+    //     (u) => u.__typename === 'Student' && u.userName
+    //   )
+    // ),
     onError: (error) => console.error(error),
   })
 
