@@ -81,9 +81,10 @@ export const Grading = ({}: GradingProps) => {
             </li>
             <br />
             <li>
-              You start at 10 points on your grade, and you should be adding as
-              many points to your overall grade as you can (this is the only
-              extra credit that I offer).
+              For every 10 responsibility points you earn 1 grade point extra
+              credit as long as your over 100 points. You should be adding as
+              many points to your overall grade as you can because this is the
+              only extra credit that I offer.
             </li>
           </ul>
         </IndividualContentContainer>
