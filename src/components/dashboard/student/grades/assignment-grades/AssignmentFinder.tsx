@@ -47,7 +47,21 @@ export const AssignmentFinder = ({
     (a) => a.gradeType === GradeTypeEnum.PRIMARY && a.__typename === 'Essay'
   )!
 
-  if (loading) return <div>Loading...</div>
+  if (loading)
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gridAutoFlow: 'column',
+          justifyItems: 'center',
+          alignItems: 'center',
+          fontSize: '3vh',
+          textAlign: 'center',
+        }}
+      >
+        Loading...
+      </div>
+    )
   return (
     <div
       style={{
