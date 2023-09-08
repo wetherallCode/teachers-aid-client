@@ -30,10 +30,12 @@ export const Grading = ({}: GradingProps) => {
             <li>They will be completed and submitted on this website.</li>
             <br />
             <li>
-              Most will be done for homeowork, but a few will be done in class.
+              Most will be done for homework, but a few will be done in class.
             </li>
             <br />
-            <li>They are not as hard as you think.</li>
+            <li>
+              They are leveled and wil get more complex as the year goes on.
+            </li>
           </ul>
         </IndividualContentContainer>
         <IndividualContentContainer>
@@ -41,8 +43,18 @@ export const Grading = ({}: GradingProps) => {
           <ul style={{ textAlign: 'center' }}>Reading Guides and Quizzes</ul>
           <ul>
             <li>
+              Reading Guides and Quizzes will be averaged together to get your
+              Processes grade (40%).
+            </li>
+            <br />
+            <li>
               Reading Guides will need to be completed before you start the
               essay.
+            </li>
+            <br />
+            <li>
+              Reading Guides are leveled and will get more complex and in depth
+              as the year goes on.
             </li>
             <br />
             <li>
@@ -55,11 +67,6 @@ export const Grading = ({}: GradingProps) => {
                 longer if you get the questions wrong.
               </li>
             </ul>
-            <br />
-            <li>
-              Reading Guides and Quizzes will be averaged together to get your
-              Processes grade (40%).
-            </li>
             <br />
           </ul>
         </IndividualContentContainer>

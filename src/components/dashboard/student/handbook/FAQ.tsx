@@ -44,9 +44,9 @@ export const FAQ = ({}: FAQProps) => {
           <li>Why do I need this?</li>
           <ul>
             <li>
-              One: Because I'm teaching you how our country works (and the
-              world). If you don't like the way things are, you'll never be able
-              to change it without knowing how it works.
+              One: Because I'm teaching you how our country works (and the world
+              around us). If you don't like the way things are, you'll never be
+              able to change it without knowing how it works.
             </li>
             <li>Two: The more you learn, the easier learning becomes.</li>
           </ul>
