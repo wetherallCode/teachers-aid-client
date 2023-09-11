@@ -60,6 +60,9 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
 
         {lesson.lessonType === 'INTRODUCTORY' ? (
           <>
+            <LessonDetailCenter style={{ fontSize: '3vh' }}>
+              Questioning and Thinking Practice
+            </LessonDetailCenter>
             <div
               style={{
                 textAlign: 'center',
