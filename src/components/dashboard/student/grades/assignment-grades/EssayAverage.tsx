@@ -11,23 +11,34 @@ export const EssayAverage = ({ essays }: EssayAverageProps) => {
         !assignment.exempt &&
         assignment.finalDraft?.returned &&
         Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)) ||
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)) ||
       (assignment.__typename === 'Essay' &&
         !assignment.exempt &&
         !assignment.finalDraft &&
         // assignment.markingPeriod === markingPeriod &&
         Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
   )
+  if (essayList.length > 0) {
+    const earnedPointsAverage = essayList
+      .map((e) => e.score.earnedPoints)
+      .reduce((a, i) => a + i, 0)
+    const maxPointsAverage = essayList
+      .map((e) => e.score.maxPoints)
+      .reduce((a, i) => a + i, 0)
+    const essayAverage = earnedPointsAverage / maxPointsAverage
 
-  const earnedPointsAverage = essayList.map(e => e.score.earnedPoints).reduce((a, i) => a + i, 0)
-  const maxPointsAverage = essayList.map(e => e.score.maxPoints).reduce((a, i) => a + i, 0)
-  const essayAverage = (earnedPointsAverage / maxPointsAverage)
-
-  return (
-    <div>
-      <div>Essay Average</div>
-      <div>{essayAverage.toFixed(2)}%</div>
-    </div>
-  )
+    return (
+      <div>
+        <div>Essay Average</div>
+        <div>{essayAverage.toFixed(2)}%</div>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <div>Essay Average</div>
+      </div>
+    )
+  }
 }

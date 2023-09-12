@@ -9,18 +9,30 @@ export const QuizAverage = ({ quizzes }: QuizAverageProps) => {
     (assignment) =>
       !assignment.exempt &&
       Date.parse(new Date().toLocaleString()) >
-      Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
   )
 
-  const earnedPoints = quizList.map(q => q.score.earnedPoints).reduce((a, i) => a + i)
-  const maxPoints = quizList.map(q => q.score.maxPoints).reduce((a, i) => a + i)
+  if (quizList.length > 0) {
+    const earnedPoints = quizList
+      .map((q) => q.score.earnedPoints)
+      .reduce((a, i) => a + i)
+    const maxPoints = quizList
+      .map((q) => q.score.maxPoints)
+      .reduce((a, i) => a + i)
 
-  const quizPointAverage = (earnedPoints / maxPoints).toFixed(2)
+    const quizPointAverage = (earnedPoints / maxPoints).toFixed(2)
 
-  return (
-    <div>
-      <div>Quiz Average</div>
-      <div>{quizPointAverage}%</div>
-    </div>
-  )
+    return (
+      <div>
+        <div>Quiz Average</div>
+        <div>{quizPointAverage}%</div>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <div>Quiz Average</div>
+      </div>
+    )
+  }
 }

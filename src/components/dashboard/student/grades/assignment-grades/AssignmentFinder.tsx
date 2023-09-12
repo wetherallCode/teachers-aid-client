@@ -62,6 +62,7 @@ export const AssignmentFinder = ({
         Loading...
       </div>
     )
+
   return (
     <div
       style={{
