@@ -20,7 +20,7 @@ export const QuizAverage = ({ quizzes }: QuizAverageProps) => {
       .map((q) => q.score.maxPoints)
       .reduce((a, i) => a + i)
 
-    const quizPointAverage = (earnedPoints / maxPoints).toFixed(2)
+    const quizPointAverage = ((earnedPoints / maxPoints) * 100).toFixed(2)
 
     return (
       <div>

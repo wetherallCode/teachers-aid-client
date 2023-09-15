@@ -1379,6 +1379,9 @@ export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStuden
   readings: findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId_readingGuides_readings;
   markingPeriod: MarkingPeriodEnum;
   assigned: boolean;
+  completed: boolean;
+  dueDate: string;
+  dueTime: string;
 }
 
 export interface findReadingGuidesToComplete_findReadingGuidesToCompleteByStudentId {
@@ -6169,6 +6172,33 @@ export interface createBatchStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: controlWarmUp
+// ====================================================
+
+export interface controlWarmUp_controlWarmUp_protocols {
+  __typename: "Protocol";
+  _id: string | null;
+}
+
+export interface controlWarmUp_controlWarmUp {
+  __typename: "ControlWarmUpPayload";
+  protocols: controlWarmUp_controlWarmUp_protocols[];
+}
+
+export interface controlWarmUp {
+  controlWarmUp: controlWarmUp_controlWarmUp;
+}
+
+export interface controlWarmUpVariables {
+  input: ControlWarmUpInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: finishStudentProtocol
 // ====================================================
 
@@ -6340,33 +6370,6 @@ export interface createStudentProtocol {
 
 export interface createStudentProtocolVariables {
   input: CreateProtocolInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: controlWarmUp
-// ====================================================
-
-export interface controlWarmUp_controlWarmUp_protocols {
-  __typename: "Protocol";
-  _id: string | null;
-}
-
-export interface controlWarmUp_controlWarmUp {
-  __typename: "ControlWarmUpPayload";
-  protocols: controlWarmUp_controlWarmUp_protocols[];
-}
-
-export interface controlWarmUp {
-  controlWarmUp: controlWarmUp_controlWarmUp;
-}
-
-export interface controlWarmUpVariables {
-  input: ControlWarmUpInput;
 }
 
 /* tslint:disable */
@@ -8536,16 +8539,6 @@ export interface me_me_Student_hasProgressTracker {
   writingProgressTracker: me_me_Student_hasProgressTracker_writingProgressTracker;
 }
 
-export interface me_me_Student_hasWritingMetrics_overallWritingMetric {
-  __typename: "OverallWritingMetric";
-  levelPoints: number;
-}
-
-export interface me_me_Student_hasWritingMetrics {
-  __typename: "WritingMetrics";
-  overallWritingMetric: me_me_Student_hasWritingMetrics_overallWritingMetric;
-}
-
 export interface me_me_Student {
   __typename: "Student";
   userName: string;
@@ -8557,7 +8550,6 @@ export interface me_me_Student {
   hasIEP: boolean | null;
   inCourses: me_me_Student_inCourses[];
   hasProgressTracker: me_me_Student_hasProgressTracker;
-  hasWritingMetrics: me_me_Student_hasWritingMetrics;
 }
 
 export type me_me = me_me_StudentForTeachersAid | me_me_Teacher | me_me_Student;

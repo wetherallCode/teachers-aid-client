@@ -21,14 +21,14 @@ export const ReadingGuideAverage = ({
       .map((rg) => rg.score.maxPoints)
       .reduce((a, i) => a + i)
 
-    const readingGuideAverage = (earnedPoints / maxPoints).toFixed(2)
+    const readingGuideAverage = ((earnedPoints / maxPoints) * 100).toFixed(2)
 
     return (
       <>
         {readingGuideList.length > 0 && (
           <div>
             <div>Reading Guide Average</div>
-            <div>{readingGuideAverage}</div>
+            <div>{readingGuideAverage}%</div>
           </div>
         )}
       </>

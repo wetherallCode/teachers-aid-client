@@ -31,6 +31,9 @@ export const READING_GUIDES_TO_COMPLETE_QUERY = gql`
         }
         markingPeriod
         assigned
+        completed
+        dueDate
+        dueTime
       }
     }
   }
@@ -49,8 +52,8 @@ export const AssignedReadingGuideSelect =
       },
       fetchPolicy: 'network-only',
       // pollInterval: 1000,
-      // onCompleted: (data) =>
-      //   console.log(data.findReadingGuidesToCompleteByStudentId),
+      onCompleted: (data) =>
+        console.log(data.findReadingGuidesToCompleteByStudentId),
       onError: (error) => console.error(error),
     })
     const readingGuidesForMarkingPeriod =
@@ -61,7 +64,15 @@ export const AssignedReadingGuideSelect =
     const allReadingGuidesComplete =
       readingGuidesForMarkingPeriod &&
       readingGuidesForMarkingPeriod.length > 0 &&
-      readingGuidesForMarkingPeriod.every((rg) => rg.graded && !rg.assigned)
+      readingGuidesForMarkingPeriod
+        .filter(
+          (rg) =>
+            Date.parse(new Date().toLocaleString()) >
+            Date.parse(`${rg.dueDate}, ${rg.dueTime}`)
+        )
+        .every((rg) => rg.completed)
+
+    console.log(allReadingGuidesComplete)
 
     const noReadingGuidesAssigned =
       (readingGuidesForMarkingPeriod &&

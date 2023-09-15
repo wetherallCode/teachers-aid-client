@@ -9,9 +9,10 @@ export const EssayAverage = ({ essays }: EssayAverageProps) => {
     (assignment) =>
       (assignment.__typename === 'Essay' &&
         !assignment.exempt &&
-        assignment.finalDraft?.returned &&
-        Date.parse(new Date().toLocaleString()) >
-          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)) ||
+        assignment.finalDraft?.returned) ||
+      // &&
+      // Date.parse(new Date().toLocaleString()) >
+      //   Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
       (assignment.__typename === 'Essay' &&
         !assignment.exempt &&
         !assignment.finalDraft &&
@@ -19,6 +20,7 @@ export const EssayAverage = ({ essays }: EssayAverageProps) => {
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
   )
+
   if (essayList.length > 0) {
     const earnedPointsAverage = essayList
       .map((e) => e.score.earnedPoints)
@@ -26,7 +28,7 @@ export const EssayAverage = ({ essays }: EssayAverageProps) => {
     const maxPointsAverage = essayList
       .map((e) => e.score.maxPoints)
       .reduce((a, i) => a + i, 0)
-    const essayAverage = earnedPointsAverage / maxPointsAverage
+    const essayAverage = (earnedPointsAverage / maxPointsAverage) * 100
 
     return (
       <div>
@@ -38,6 +40,7 @@ export const EssayAverage = ({ essays }: EssayAverageProps) => {
     return (
       <div>
         <div>Essay Average</div>
+        <div>No Essays Yet </div>
       </div>
     )
   }

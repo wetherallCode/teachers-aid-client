@@ -44,7 +44,7 @@ export const MyGradesResponsibilityPoints = ({
   return (
     <div style={{}}>
       <div>Responsibility Points</div>
-      <div>{points.responsibilityPoints}</div>
+      <div>{points.responsibilityPoints.toFixed(2)}</div>
     </div>
   )
 }

@@ -36,7 +36,6 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
       <LessonPlanSectionTitles>
         {state.context.lesson && (
           <>
-            {' '}
             <div>{lessonTitle}</div>
             <div>{phraseCapitalizer(lessonType)} Lesson</div>
           </>
@@ -121,7 +120,10 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
           <>
             <div>Exit ticket</div>
             <ul>
-              <li>{afterActivity.task}</li>
+              <li>
+                Students will respond to a prompt that will ask them to
+                summarize what was covered in the lesson.
+              </li>
             </ul>
           </>
         )}

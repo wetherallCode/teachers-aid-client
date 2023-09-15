@@ -45,14 +45,23 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
 
   const assignments = [...data?.findAllMarkingPeriodGrades.assignments!]
   const essays = assignments.filter(
-    (assignment) => assignment.__typename === 'Essay'
+    (assignment) =>
+      (assignment.__typename === 'Essay' &&
+        Date.parse(new Date().toLocaleString()) >
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) &&
+        !assignment.exempt) ||
+      (assignment.__typename === 'Essay' && assignment.finalDraft?.returned)
   )
   const readingGuides = assignments.filter(
-    (assignment) => assignment.__typename === 'ReadingGuide'
+    (assignment) =>
+      assignment.__typename === 'ReadingGuide' &&
+      Date.parse(new Date().toLocaleString()) >
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) &&
+      !assignment.exempt
   )
 
   const quizzes = assignments.filter(
-    (assignment) => assignment.__typename === 'Quiz'
+    (assignment) => assignment.__typename === 'Quiz' && !assignment.exempt
   )
   const dateSort = (a: any, b: any) => (a.dueDate > b.dueDate ? 1 : 0)
   const contractedTitle = (str: string, length: number) =>
@@ -180,6 +189,7 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
           {categoryState === 'Quiz' && (
             <AssignmentsContainer>
               {quizzes.sort(dateSort).map((quiz, i: number) => {
+                console.log(quiz)
                 return (
                   <IndividualAssignment
                     style={
@@ -201,7 +211,8 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
                     ) : (
                       <div>
                         {(
-                          quiz.score.earnedPoints / quiz.score.maxPoints
+                          (quiz.score.earnedPoints / quiz.score.maxPoints) *
+                          100
                         ).toFixed(2)}
                         %
                       </div>
