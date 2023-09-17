@@ -259,7 +259,8 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
         <CompletedEssayDetailsPartContainers>
           <AssignmentDetailsReadingInfo>
             Overall Score: {data?.findEssayById.essay.score.earnedPoints} /{' '}
-            {data?.findEssayById.essay.score.maxPoints} ({gradePercent * 100}%)
+            {data?.findEssayById.essay.score.maxPoints} (
+            {(gradePercent * 100).toFixed(1)}%)
           </AssignmentDetailsReadingInfo>
         </CompletedEssayDetailsPartContainers>
         <CompletedEssayDetailsPartContainers>

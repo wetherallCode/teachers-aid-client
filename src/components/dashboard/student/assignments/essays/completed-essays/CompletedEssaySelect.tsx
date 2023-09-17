@@ -90,7 +90,12 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
                     <CompletedAssignmentAssignmentAndScoreContainer>
                       <div>{essay.readings.readingSections}</div>
                       <AssignmentScore>
-                        {essay.score.earnedPoints} / {essay.score.maxPoints}
+                        {/* {essay.score.earnedPoints} / {essay.score.maxPoints}{' '} */}
+                        {(
+                          (essay.score.earnedPoints / essay.score.maxPoints) *
+                          100
+                        ).toFixed(1)}
+                        %
                       </AssignmentScore>
                     </CompletedAssignmentAssignmentAndScoreContainer>
                   </AssignmentLink>

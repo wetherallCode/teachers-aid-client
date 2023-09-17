@@ -51,6 +51,7 @@ export const DynamicLesson = ({
       <ClassInfoContainer>
         <ClassInfoStyle>
           <div>{courseToLoad?.name}</div>
+          <br />
           <div>{date}</div>
         </ClassInfoStyle>
       </ClassInfoContainer>

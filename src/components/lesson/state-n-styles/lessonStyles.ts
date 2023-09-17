@@ -67,7 +67,7 @@ export const ClassInfoStyle = styled.div`
   align-items: center;
   align-self: auto;
   margin-top: 20%;
-  font-size: 1.5rem;
+  font-size: 4vh;
 `
 export const StopLessonContainer = styled.div`
   grid-row: -2/-1;
@@ -112,6 +112,7 @@ export const LessonComponentTypeStyle = styled.div`
   width: 80%;
   height: 80%;
   display: grid;
+  justify-items: center;
 `
 
 export const ProtocolsContainer = styled.div`
@@ -224,7 +225,7 @@ export const LessonDetailsContainer = styled.div`
   display: grid;
   /* justify-items: center;
   align-items: center; */
-  grid-template-rows: 1fr 1fr 1fr 1fr 6fr;
+  /* grid-template-rows: 1fr 1fr 1fr 1fr 6fr; */
   font-size: 2vw;
 `
 export const LessonDetailCenter = styled.div`
@@ -312,4 +313,9 @@ export const AssignedSeatsStudentListItem = styled(
   grid-auto-flow: column;
   background-color: ${({ indexNumber }) =>
     indexNumber % 2 ? 'var(--white)' : 'var(--grey)'};
+`
+
+export const LessonInstrcutionContainer = styled.div`
+  height: 30vh;
+  overflow: scroll;
 `

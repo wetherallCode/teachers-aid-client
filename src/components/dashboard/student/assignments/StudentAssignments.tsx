@@ -145,7 +145,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
           selected={state.matches('allAssignments')}
           onClick={() => event({ type: 'ALL_ASSIGNMENTS' })}
         >
-          All Assignments
+          Assignments Grades
         </AssignmentsTypeStyle>
       </AssignmentsTypeSelectorPanel>
 
