@@ -3065,6 +3065,62 @@ export interface findEssaysByAssociatedLessonIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findEssaysByCourseIdAndTitle
+// ====================================================
+
+export interface findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  schoolId: string | null;
+}
+
+export interface findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_score {
+  __typename: "Score";
+  earnedPoints: number;
+}
+
+export interface findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_finalDraft {
+  __typename: "FinalDraftContainer";
+  returned: boolean;
+  submitted: boolean;
+}
+
+export interface findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays {
+  __typename: "Essay";
+  _id: string | null;
+  readings: findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_readings;
+  hasOwner: findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_hasOwner;
+  score: findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_score;
+  finalDraft: findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays_finalDraft | null;
+  exempt: boolean;
+}
+
+export interface findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle {
+  __typename: "FindEssaysByCourseIdAndTitlePayload";
+  essays: findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle_essays[];
+}
+
+export interface findEssaysByCourseIdAndTitle {
+  findEssaysByCourseIdAndTitle: findEssaysByCourseIdAndTitle_findEssaysByCourseIdAndTitle;
+}
+
+export interface findEssaysByCourseIdAndTitleVariables {
+  input: FindEssaysByCourseIdAndTitleInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findResponsibilityPointsByCourse
 // ====================================================
 
@@ -9431,6 +9487,11 @@ export interface FindEssaysByAssociatedLessonIdAndCourseIdInput {
 
 export interface FindEssaysByAssociatedLessonIdInput {
   associatedLessonId: string;
+}
+
+export interface FindEssaysByCourseIdAndTitleInput {
+  courseId: string;
+  essayTitle: string;
 }
 
 export interface FindEssaysByStudentIdInput {

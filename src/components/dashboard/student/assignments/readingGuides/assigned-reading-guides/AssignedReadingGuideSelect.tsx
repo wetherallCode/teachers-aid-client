@@ -60,17 +60,17 @@ export const AssignedReadingGuideSelect =
       data?.findReadingGuidesToCompleteByStudentId.readingGuides.filter(
         (guide) => guide.markingPeriod === state.context.selectedMarkingPeriod
       )!
-
-    const allReadingGuidesComplete =
-      readingGuidesForMarkingPeriod &&
-      readingGuidesForMarkingPeriod.length > 0 &&
-      readingGuidesForMarkingPeriod
-        .filter(
-          (rg) =>
-            Date.parse(new Date().toLocaleString()) >
-            Date.parse(`${rg.dueDate}, ${rg.dueTime}`)
-        )
-        .every((rg) => rg.completed)
+    console.log(readingGuidesForMarkingPeriod)
+    const allReadingGuidesComplete = false
+    // readingGuidesForMarkingPeriod && readingGuidesForMarkingPeriod.length > 0
+    // &&
+    // readingGuidesForMarkingPeriod
+    //   .filter(
+    //     (rg) =>
+    //       Date.parse(new Date().toLocaleString()) >
+    //       Date.parse(`${rg.dueDate}, ${rg.dueTime}`)
+    //   )
+    //   .every((rg) => rg.completed)
 
     console.log(allReadingGuidesComplete)
 
