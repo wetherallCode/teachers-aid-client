@@ -64,7 +64,7 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
             <LessonDetailCenter
               style={{ fontSize: '3vh', textAlign: 'center' }}
             >
-              Questioning and Thinking Practice
+              Text Analysis
             </LessonDetailCenter>
             <div
               style={{
@@ -79,6 +79,8 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
                 style={{
                   margin: 0,
                   fontSize: '2.5vh',
+                  height: '30vh',
+                  overflow: 'scroll',
                 }}
               >
                 <li>
@@ -134,6 +136,8 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
                 style={{
                   margin: 0,
                   fontSize: '2.5vh',
+                  height: '30vh',
+                  overflow: 'scroll',
                 }}
               >
                 <li>
