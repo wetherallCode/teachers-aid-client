@@ -247,6 +247,10 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
 
   if (loading) return <div>Loading </div>
 
+  const isAbsent =
+    me.hasAbsences.length > 0 &&
+    me.hasAbsences.find((a) => a.dayAbsent === new Date().toLocaleDateString())
+
   return (
     <EssayContainer>
       <CompletedEssayDetailsContainer>
@@ -295,7 +299,8 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
             )}
             {state.matches('reviewEssay') &&
               classTime &&
-              assignmentsAllowedInClass && (
+              assignmentsAllowedInClass &&
+              !isAbsent && (
                 <CompletedEssayControlButton
                   onClick={() => {
                     event({ type: 'NEXT' })

@@ -61,6 +61,9 @@ export const ME_QUERY = gql`
             overallWritingLevel
           }
         }
+        hasAbsences {
+          dayAbsent
+        }
         #hasWritingMetrics {
         # overallWritingMetric {
         #  levelPoints

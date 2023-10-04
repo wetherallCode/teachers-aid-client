@@ -6,6 +6,8 @@ import { useUserContextProvider } from '../../../../../../../contexts/UserContex
 import {
   findEssaysByAssociatedLessonId,
   findEssaysByAssociatedLessonIdVariables,
+  findEssaysByCourseIdAndTitle,
+  findEssaysByCourseIdAndTitleVariables,
   findLessonsByUnit,
   findLessonsByUnitVariables,
   findUnits,
@@ -46,13 +48,42 @@ export const FIND_ESSAYS_BY_LESSON_ID_QUERY = gql`
     }
   }
 `
+export const FIND_ESSAYS_BY_COURSE_ID_AND_TITLE_QUERY = gql`
+  query findEssaysByCourseIdAndTitle(
+    $input: FindEssaysByCourseIdAndTitleInput!
+  ) {
+    findEssaysByCourseIdAndTitle(input: $input) {
+      essays {
+        _id
+        readings {
+          readingSections
+        }
+        hasOwner {
+          _id
+          firstName
+          lastName
+          schoolId
+        }
+        score {
+          earnedPoints
+        }
+        finalDraft {
+          returned
+          submitted
+        }
+        exempt
+      }
+    }
+  }
+`
 
-export const Essays: FC<EssaysProps> = () => {
+export const Essays = ({}: EssaysProps) => {
   const { course } = useParams()
   const me: me_me_Teacher = useUserContextProvider()
   const [courseName] = me.teachesCourses.filter(
     (courseToFind) => courseToFind._id === course
   )
+  const [essayName, setEssayName] = useState<string>('')
   const [assignmentList, setAssignmentList] = useState<any[]>([])
   const [createCSVToggle, setCreateCSVToggle] = useState(false)
   const headers = [
@@ -95,11 +126,19 @@ export const Essays: FC<EssaysProps> = () => {
   const essayTitle = essays?.findEssaysByAssociatedLessonId.essays.map(
     (essay) => essay.readings.readingSections
   )
-  console.log(
-    essays?.findEssaysByAssociatedLessonId.essays.length === 0
-      ? 'No Essays Assigned For this Lesson'
-      : 'Essays were assigned'
-  )
+
+  const { data: essayNameData } = useQuery<
+    findEssaysByCourseIdAndTitle,
+    findEssaysByCourseIdAndTitleVariables
+  >(FIND_ESSAYS_BY_COURSE_ID_AND_TITLE_QUERY, {
+    variables: {
+      input: { courseId: course!, essayTitle: essayName },
+    },
+    onCompleted: (data) =>
+      console.log(data.findEssaysByCourseIdAndTitle.essays),
+    onError: (error) => console.error(error),
+  })
+  console.log(course!, essayName)
   if (loading) return <div>Loading </div>
 
   return (
@@ -122,14 +161,21 @@ export const Essays: FC<EssaysProps> = () => {
         <select
           onChange={(e: any) => {
             if (e.target.value !== 'none')
-              event({ type: 'SET_LESSON_ID', payload: e.target.value })
+              event({
+                type: 'SET_LESSON_ID',
+                payload: e.target.value.split(',')[0],
+              })
+            setEssayName(e.target.value.split(',')[1])
           }}
         >
           <option value='none'>Select a Lesson</option>
           {lessons?.findLessonsByUnit.lessons
             .filter((l) => l.lessonType === 'REINFORCEMENT')
             .map((lesson) => (
-              <option key={lesson._id!} value={lesson._id!}>
+              <option
+                key={lesson._id!}
+                value={[lesson._id!, lesson.lessonName]}
+              >
                 {lesson.lessonName}
               </option>
             ))}
@@ -174,20 +220,22 @@ export const Essays: FC<EssaysProps> = () => {
           Download
         </CSVLink>
       )}
-      {essays && (
+      {essayNameData?.findEssaysByCourseIdAndTitle.essays && (
         <>
           {loading ? (
             <div>loading</div>
           ) : (
             <div>
-              {essays.findEssaysByAssociatedLessonId.essays.map((essay) => (
-                <EssayRows
-                  key={essay._id}
-                  essay={essay}
-                  setAssignmentList={setAssignmentList}
-                  createCSVToggle={createCSVToggle}
-                />
-              ))}
+              {essayNameData?.findEssaysByCourseIdAndTitle.essays.map(
+                (essay) => (
+                  <EssayRows
+                    key={essay._id}
+                    essay={essay}
+                    setAssignmentList={setAssignmentList}
+                    createCSVToggle={createCSVToggle}
+                  />
+                )
+              )}
             </div>
           )}
         </>

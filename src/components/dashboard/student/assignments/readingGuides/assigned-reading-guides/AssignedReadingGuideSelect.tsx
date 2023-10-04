@@ -60,7 +60,7 @@ export const AssignedReadingGuideSelect =
       data?.findReadingGuidesToCompleteByStudentId.readingGuides.filter(
         (guide) => guide.markingPeriod === state.context.selectedMarkingPeriod
       )!
-    console.log(readingGuidesForMarkingPeriod)
+
     const allReadingGuidesComplete = false
     // readingGuidesForMarkingPeriod && readingGuidesForMarkingPeriod.length > 0
     // &&
@@ -71,8 +71,6 @@ export const AssignedReadingGuideSelect =
     //       Date.parse(`${rg.dueDate}, ${rg.dueTime}`)
     //   )
     //   .every((rg) => rg.completed)
-
-    console.log(allReadingGuidesComplete)
 
     const noReadingGuidesAssigned =
       (readingGuidesForMarkingPeriod &&

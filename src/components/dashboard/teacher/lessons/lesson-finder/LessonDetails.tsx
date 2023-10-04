@@ -42,8 +42,15 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
         )}
       </LessonPlanSectionTitles>
       <div>
-        <div>Grouping: individual/whole</div>{' '}
-        <div>Depth of Knowledge: Levels 3 </div>
+        <div>Grouping: Small Groups & Whole Class</div>
+        <ul>
+          <li>
+            Small groups are grouped by students participation to match students
+            who aren't normal participators with students who are more likely to
+            participate.
+          </li>
+        </ul>
+        <div>Depth of Knowledge: Levels 2 and 3</div>
         <br />
         <LessonPlanSectionTitles>Essential Question</LessonPlanSectionTitles>
         <div>{essentialQuestion}</div>
@@ -53,8 +60,11 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
         </LessonPlanSectionTitles>{' '}
         {lessonType === 'INTRODUCTORY' ? (
           <div>
-            Students will start off with a quiz to determine the level of
-            content aquisition each student achieved.
+            <div>
+              Students will start off with a quiz to determine the level of
+              content aquisition each student achieved.
+            </div>
+            <div>Students will complete a SEL Check in on PBIS</div>
           </div>
         ) : (
           <>
@@ -75,20 +85,20 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
         </div>
         {lessonType === 'INTRODUCTORY' ? (
           <div>
-            Students will work individually on annotating text and finding the
+            Students will work in small groups to annotate text and find the
             main ideas presented in the material in the aforementioned sections.
-            The main ideas and annotations will be used as a way to
-            independently introduce themselves to the text and prepare for going
-            in depth for the next day's lesson.
+            The main ideas and annotations will be used as a way to introduce
+            themselves to the text and prepare for going in depth for the next
+            day's lesson.
           </div>
         ) : (
           <div>
-            Students will read a paragraph and respond to a critical thinking
-            question that will help them strengthen their schemas, have them
-            think logically, ask them to evaluate decisions made in the past, or
-            think of possible consequences to the actions of the people we
-            discuss with a brief class dicussion for most paragraphs in the
-            reading.
+            Students will work in small groups to read a paragraph and respond
+            to a critical thinking question that will help them strengthen their
+            schemas, have them think logically, ask them to evaluate decisions
+            made in the past, or think of possible consequences to the actions
+            of the people we discuss with a brief group dicussion for most
+            paragraphs in the reading.
           </div>
         )}
         <br />

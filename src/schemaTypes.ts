@@ -8595,6 +8595,11 @@ export interface me_me_Student_hasProgressTracker {
   writingProgressTracker: me_me_Student_hasProgressTracker_writingProgressTracker;
 }
 
+export interface me_me_Student_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
 export interface me_me_Student {
   __typename: "Student";
   userName: string;
@@ -8606,6 +8611,7 @@ export interface me_me_Student {
   hasIEP: boolean | null;
   inCourses: me_me_Student_inCourses[];
   hasProgressTracker: me_me_Student_hasProgressTracker;
+  hasAbsences: me_me_Student_hasAbsences[];
 }
 
 export type me_me = me_me_StudentForTeachersAid | me_me_Teacher | me_me_Student;

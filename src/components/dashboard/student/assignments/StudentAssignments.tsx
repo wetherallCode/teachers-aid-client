@@ -90,19 +90,22 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
     onError: (error) => console.error(error),
   })
 
-  const { data: absenceData } = useQuery<
-    findStudentInfoByStudentIdForDesk,
-    findStudentInfoByStudentIdForDeskVariables
-  >(FIND_STUDENT_INFO_FOR_DESK_QUERY, {
-    variables: {
-      input: { studentId: me._id! },
-    },
-    onError: (error) => console.error(error + 'desk'),
-  })
+  // const { data: absenceData } = useQuery<
+  //   findStudentInfoByStudentIdForDesk,
+  //   findStudentInfoByStudentIdForDeskVariables
+  // >(FIND_STUDENT_INFO_FOR_DESK_QUERY, {
+  //   variables: {
+  //     input: { studentId: me._id! },
+  //   },
+  //   onError: (error) => console.error(error + 'desk'),
+  // })
 
-  const isAbsent = absenceData?.findStudentById.student.hasAbsences.some(
-    (day) => day.dayAbsent === new Date().toLocaleDateString()
-  )
+  // const isAbsent = absenceData?.findStudentById.student.hasAbsences.some(
+  //   (day) => day.dayAbsent === new Date().toLocaleDateString()
+  // )
+  const isAbsent =
+    me.hasAbsences.length > 0 &&
+    me.hasAbsences.find((a) => a.dayAbsent === new Date().toLocaleDateString())
 
   return (
     <AssignmentsToCompleteContainer>
@@ -152,7 +155,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
       <AssignmentTypeContainer>
         {state.matches('essaysToComplete') && (
           <>
-            {classTime && !assignmentsAllowedInClass ? (
+            {classTime && !assignmentsAllowedInClass && !isAbsent ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
@@ -165,7 +168,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
         {state.matches('completedEssays') && <CompletedEssaySelect />}
         {state.matches('readingGuidesToComplete') && (
           <>
-            {classTime && !assignmentsAllowedInClass ? (
+            {classTime && !assignmentsAllowedInClass && !isAbsent ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
@@ -176,7 +179,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
         )}
         {state.matches('articleReviewsToComplete') && (
           <>
-            {classTime ? (
+            {classTime && !isAbsent ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
