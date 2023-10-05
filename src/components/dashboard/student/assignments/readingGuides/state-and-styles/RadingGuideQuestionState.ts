@@ -44,17 +44,17 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   },
   {
     questionType: 'WHAT_DID_SUBJECT_DO',
-    question: 'What did the subject of the readings do?',
+    question: 'What did the person/people you wrote in the last answer do?',
     directions: '',
   },
   {
     questionType: 'WHY_DID_SUBJECT_DO_IT',
-    question: 'Why did the subject of the readings do what they did?',
+    question: 'Why did they do what they did?',
     directions: '',
   },
   {
     questionType: 'HOW_DID_SUBJECT_DO_IT',
-    question: 'How did the subject of the readings do it?',
+    question: 'How did they do it?',
     directions: '',
   },
   {
