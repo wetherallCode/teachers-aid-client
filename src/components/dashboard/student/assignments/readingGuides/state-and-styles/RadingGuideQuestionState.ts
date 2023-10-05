@@ -39,7 +39,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   {
     questionType: 'SUBJECT_OF_SECTION',
     question:
-      'Who or what are the readings about? Your answer can be individuals or groups of people or things. Write as many as you think are important.',
+      'Who are the readings about? Your answer can be individuals or groups of people or things if the text does not discuss people. Write as many as you think are important.',
     directions: '',
   },
   {
