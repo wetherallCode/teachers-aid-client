@@ -328,6 +328,9 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'make') {
     return 'made'
   }
+  if (lowerCaseVerb === 'lead') {
+    return 'led'
+  }
   if (lowerCaseVerb === 'lose') {
     return 'lost'
   }
