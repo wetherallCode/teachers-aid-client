@@ -36,8 +36,10 @@ export const GenericQuestionBlank = ({
           (q) => q.questionType === questionObject.questionType
         )![0].answer
 
-  const [answer, setAnswer] = useState<string>(previousAnswer!)
-
+  const [answer, setAnswer] = useState<string>(
+    previousAnswer! ? previousAnswer : ''
+  )
+  console.log(answer)
   return (
     <ReadingGuideQuestion style={{ height: '50vh' }}>
       <div style={{ gridTemplateRows: '1fr 2fr', display: 'grid' }}>

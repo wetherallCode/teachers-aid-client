@@ -61,6 +61,7 @@ export const CompleteReadingGuideNew = ({
     'SUMMARY',
     'WHAT_WAS_LEARNED',
   ]
+
   const developingState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
     'WHAT_DID_SUBJECT_DO',

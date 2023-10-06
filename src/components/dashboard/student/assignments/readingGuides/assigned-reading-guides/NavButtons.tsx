@@ -64,9 +64,9 @@ export const NavButtons = ({
               setCurrentIndex((c) => c + 1)
               updateReadingGuideNew()
             }}
-            disabled={answer === '' ? true : false}
+            disabled={!answer ? true : false}
           >
-            {answer === '' ? 'No Answer' : 'Next'}
+            {!answer ? 'No Answer' : 'Next'}
           </ReadingGuideQuestionNavButtons>
         </ReadingGuideButtonArea>
       ) : (
@@ -94,9 +94,9 @@ export const NavButtons = ({
               setCurrentIndex((c) => c + 1)
               updateReadingGuideNew()
             }}
-            disabled={answer === '' ? true : false}
+            disabled={!answer ? true : false}
           >
-            {answer === '' ? 'No Answer' : 'Next'}
+            {!answer ? 'No Answer' : 'Next'}
           </ReadingGuideQuestionNavButtons>
         </ReadingGuideButtonArea>
       )}
