@@ -215,7 +215,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     textAnalysisToFind && textAnalysisToFind.__typename === 'TextAnalysis'
       ? textAnalysisToFind
       : undefined
-  console.log(data?.findStudentByIdForTeachersAid.student.hasStatuses)
+
   return (
     <>
       <StudentInfoDisplay absent={absenceCheck}>

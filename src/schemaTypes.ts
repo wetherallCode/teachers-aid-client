@@ -7490,6 +7490,17 @@ export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_stu
   returnTime: string;
 }
 
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasStatuses {
+  __typename: "StudentOutOfClass";
+  _id: string | null;
+  date: string;
+  departTime: string;
+  hasReturned: boolean;
+  markingPeriod: MarkingPeriodEnum;
+  outOfClassDestination: OutOfClassDestinationEnum;
+  returnTime: string;
+}
+
 export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student {
   __typename: "StudentForTeachersAid";
   _id: string | null;
@@ -7504,6 +7515,7 @@ export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_stu
   hasProtocols: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasProtocols[];
   hasBehaviors: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasBehaviors[];
   hasStatus: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasStatus[];
+  hasStatuses: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasStatuses[];
 }
 
 export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid {
