@@ -101,6 +101,15 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
           outOfClassDestination
           returnTime
         }
+        hasStatuses {
+          _id
+          date
+          departTime
+          hasReturned
+          markingPeriod
+          outOfClassDestination
+          returnTime
+        }
       }
     }
   }
@@ -206,7 +215,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     textAnalysisToFind && textAnalysisToFind.__typename === 'TextAnalysis'
       ? textAnalysisToFind
       : undefined
-
+  console.log(data?.findStudentByIdForTeachersAid.student.hasStatuses)
   return (
     <>
       <StudentInfoDisplay absent={absenceCheck}>
@@ -218,7 +227,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
           <div style={{ fontSize: '2vh' }}>
             Bathroom Use:{' '}
             {
-              data?.findStudentByIdForTeachersAid.student.hasStatus.filter(
+              data?.findStudentByIdForTeachersAid.student.hasStatuses.filter(
                 (s) =>
                   s.outOfClassDestination ===
                     OutOfClassDestinationEnum.BATHROOM &&
