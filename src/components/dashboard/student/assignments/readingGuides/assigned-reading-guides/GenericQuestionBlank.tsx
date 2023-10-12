@@ -39,18 +39,24 @@ export const GenericQuestionBlank = ({
   const [answer, setAnswer] = useState<string>(
     previousAnswer! ? previousAnswer : ''
   )
-  console.log(answer)
+
   return (
     <ReadingGuideQuestion style={{ height: '50vh' }}>
       <div style={{ gridTemplateRows: '1fr 2fr', display: 'grid' }}>
-        <div
-          style={{
-            display: 'grid',
-            alignContent: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {questionObject.question}
+        <div>
+          <div
+            style={{
+              display: 'grid',
+              alignContent: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {questionObject.question}
+          </div>
+          <br />
+          <div style={{ fontSize: '2vh', textAlign: 'center' }}>
+            {questionObject.directions}
+          </div>
         </div>
         <ClarifyingQuestionsTextArea
           value={answer}
