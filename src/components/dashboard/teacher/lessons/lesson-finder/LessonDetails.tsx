@@ -75,6 +75,7 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
             </div>
             <ul>
               <li>Task: {beforeActivity.task}</li>
+              <div>Students will complete a SEL Check in on PBIS</div>
             </ul>
           </>
         )}
@@ -85,20 +86,35 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
         </div>
         {lessonType === 'INTRODUCTORY' ? (
           <div>
-            Students will work in small groups to annotate text and find the
-            main ideas presented in the material in the aforementioned sections.
-            The main ideas and annotations will be used as a way to introduce
-            themselves to the text and prepare for going in depth for the next
-            day's lesson.
+            {' '}
+            <div>
+              Students will work in small groups to annotate text and find the
+              main ideas presented in the material in the aforementioned
+              sections. The main ideas and annotations will be used as a way to
+              introduce themselves to the text and prepare for going in depth
+              for the next day's lesson. Students will use
+              https://mrwetherall.org as a reference for the lesson material and
+              for directions.
+            </div>
+            <div>
+              Students will be earning PBIS points throughout class based on the
+              standards set by the administation.
+            </div>
           </div>
         ) : (
           <div>
-            Students will work in small groups to read a paragraph and respond
-            to a critical thinking question that will help them strengthen their
-            schemas, have them think logically, ask them to evaluate decisions
-            made in the past, or think of possible consequences to the actions
-            of the people we discuss with a brief group dicussion for most
-            paragraphs in the reading.
+            <div>
+              Students will work in small groups to read a paragraph and respond
+              to a critical thinking question that will help them strengthen
+              their schemas, have them think logically, ask them to evaluate
+              decisions made in the past, or think of possible consequences to
+              the actions of the people we discuss with a brief group dicussion
+              for most paragraphs in the reading.
+            </div>
+            <div>
+              Students will be earning PBIS points throughout class based on the
+              standards set by the administation.
+            </div>
           </div>
         )}
         <br />
@@ -109,6 +125,10 @@ export const LessonDetails = ({}: LessonDetailsProps) => {
             <LessonPlanSectionTitles>
               Deep Thinking Questions
             </LessonPlanSectionTitles>
+            <div>
+              Students will use https://mrwetherall.org to complete their deep
+              thinking questions
+            </div>
             <ul>
               {duringActivities.map((question, i: number) => (
                 <li key={i}>{question.task}</li>
