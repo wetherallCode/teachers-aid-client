@@ -8980,10 +8980,13 @@ export enum ReadingGuideMetricEnum {
 }
 
 export enum ReadingGuideReviewOptionsEnum {
+  DID_NOT_ANSWER_QUESTIONS_CORRECTLY = "DID_NOT_ANSWER_QUESTIONS_CORRECTLY",
   GOOD_EFFORT = "GOOD_EFFORT",
   LITTLE_EFFORT = "LITTLE_EFFORT",
   NO_EFFORT = "NO_EFFORT",
+  OFF_TOPIC = "OFF_TOPIC",
   SOME_EFFORT = "SOME_EFFORT",
+  USED_OUTSIDE_INFO = "USED_OUTSIDE_INFO",
 }
 
 export enum RubricSectionEnum {
