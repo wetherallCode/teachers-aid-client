@@ -2065,19 +2065,19 @@ export interface createEssayVariables {
 // GraphQL query operation: findWritingLevelsForCourse
 // ====================================================
 
-export interface findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics_overallWritingMetric {
-  __typename: "OverallWritingMetric";
+export interface findWritingLevelsForCourse_findStudentsByCourse_students_hasProgressTracker_writingProgressTracker {
+  __typename: "WritingMetric";
   overallWritingLevel: WritingLevelEnum;
 }
 
-export interface findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics {
-  __typename: "WritingMetrics";
-  overallWritingMetric: findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics_overallWritingMetric;
+export interface findWritingLevelsForCourse_findStudentsByCourse_students_hasProgressTracker {
+  __typename: "ProgressTracker";
+  writingProgressTracker: findWritingLevelsForCourse_findStudentsByCourse_students_hasProgressTracker_writingProgressTracker;
 }
 
 export interface findWritingLevelsForCourse_findStudentsByCourse_students {
   __typename: "Student";
-  hasWritingMetrics: findWritingLevelsForCourse_findStudentsByCourse_students_hasWritingMetrics;
+  hasProgressTracker: findWritingLevelsForCourse_findStudentsByCourse_students_hasProgressTracker;
 }
 
 export interface findWritingLevelsForCourse_findStudentsByCourse {

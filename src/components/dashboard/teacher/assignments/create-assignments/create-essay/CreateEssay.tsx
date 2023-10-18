@@ -83,8 +83,8 @@ export const FIND_WRITING_LEVELS_QUERY = gql`
   query findWritingLevelsForCourse($input: FindStudentsByCourseInput!) {
     findStudentsByCourse(input: $input) {
       students {
-        hasWritingMetrics {
-          overallWritingMetric {
+        hasProgressTracker {
+          writingProgressTracker {
             overallWritingLevel
           }
         }
@@ -127,7 +127,7 @@ export const CreateEssay = ({
   const writingLevels = writingLevelData?.findStudentsByCourse.students
     .map(
       (student) =>
-        student.hasWritingMetrics.overallWritingMetric.overallWritingLevel
+        student.hasProgressTracker.writingProgressTracker.overallWritingLevel
     )
     .reduce(
       (accum: string[], cValue) =>
