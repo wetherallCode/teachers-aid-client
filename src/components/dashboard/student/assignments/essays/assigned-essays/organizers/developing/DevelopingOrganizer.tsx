@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, SyntheticEvent, useEffect } from 'react'
 import { gql, MutationFunctionOptions, useMutation } from '@apollo/client'
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -189,6 +189,9 @@ export const DevelopingOrganizer = ({
             </OrganizerSectionDirectionsContainer>
             <AnswerInput
               autoFocus={true}
+              onPaste={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
               value={state.context.developingOrganizer.answer}
               onChange={(e: any) =>
                 event({ type: 'SET_ANSWER', payload: e.target.value })
@@ -230,6 +233,9 @@ export const DevelopingOrganizer = ({
             </OrganizerSectionDirectionsContainer>
             <AnswerInput
               autoFocus={true}
+              onPaste={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
               value={state.context.developingOrganizer.conclusion}
               onChange={(e: any) =>
                 event({ type: 'SET_CONCLUSION', payload: e.target.value })
