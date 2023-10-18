@@ -29,24 +29,10 @@ export const AssignmentFinder = ({
     variables: {
       input: { markingPeriod: currentMarkingPeriod, studentId: me._id! },
     },
-    // onCompleted: (data) =>
-    //   console.log(data.findAllMarkingPeriodGrades.assignments),
+    onCompleted: (data) =>
+      console.log(data.findAllMarkingPeriodGrades.assignments),
     onError: (error) => console.error(error),
   })
-
-  const quizzes = data?.findAllMarkingPeriodGrades.assignments.filter(
-    (a) => a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'Quiz'
-  )!
-
-  const readingGuides = data?.findAllMarkingPeriodGrades.assignments.filter(
-    (a) =>
-      a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'ReadingGuide'
-  )!
-
-  const essays = data?.findAllMarkingPeriodGrades.assignments.filter(
-    (a) => a.gradeType === GradeTypeEnum.PRIMARY && a.__typename === 'Essay'
-  )!
-
   if (loading)
     return (
       <div
@@ -62,6 +48,19 @@ export const AssignmentFinder = ({
         Loading...
       </div>
     )
+
+  const quizzes = data?.findAllMarkingPeriodGrades.assignments.filter(
+    (a) => a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'Quiz'
+  )!
+
+  const readingGuides = data?.findAllMarkingPeriodGrades.assignments.filter(
+    (a) =>
+      a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'ReadingGuide'
+  )!
+
+  const essays = data?.findAllMarkingPeriodGrades.assignments.filter(
+    (a) => a.gradeType === GradeTypeEnum.PRIMARY && a.__typename === 'Essay'
+  )!
 
   return (
     <div
