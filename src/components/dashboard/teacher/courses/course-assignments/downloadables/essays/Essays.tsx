@@ -123,6 +123,7 @@ export const Essays = ({}: EssaysProps) => {
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+
   const essayTitle = essays?.findEssaysByAssociatedLessonId.essays.map(
     (essay) => essay.readings.readingSections
   )
