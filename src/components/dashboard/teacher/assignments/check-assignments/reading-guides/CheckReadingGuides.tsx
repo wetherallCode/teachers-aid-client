@@ -25,6 +25,7 @@ import {
   ReadingGuideToSelectNameContainer,
 } from '../state-n-styles/CheckAssignmentsStyles'
 import { IndividualReadingGuide } from './IndividualReadingGuide'
+import { ReadingGuideQuestionReview } from '../../../../student/assignments/readingGuides/state-and-styles/readingGuideStyles'
 
 export type CheckReadingGuidesProps = {}
 
@@ -93,7 +94,7 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
     data?.findReadingGuidesByMarkingPeriod.readingGuides.filter(
       (rg) => !rg.exempt && !rg.reviewed && rg.completed
     )!
-
+  console.log(readingGuideToReview)
   return (
     <ReadingGuideCheckContainer>
       <div>Reading Guides</div>

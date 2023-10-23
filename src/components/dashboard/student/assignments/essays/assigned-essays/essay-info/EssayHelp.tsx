@@ -8,7 +8,7 @@ import { useStudentEssayContextProvider } from '../state-and-styles/StudentEssay
 
 export type EssayHelpProps = {}
 
-export const EssayHelp: FC<EssayHelpProps> = () => {
+export const EssayHelp = ({}: EssayHelpProps) => {
   const [state] = useStudentEssayContextProvider()
 
   return (
@@ -207,7 +207,7 @@ export const EssayHelp: FC<EssayHelpProps> = () => {
               The ultimate cause is a little different than the proximate cause.
               To find the ultimate cause, figure out the reason your proximate
               cause happened. Think of it as links on a chain; events in the
-              word are linked the same way.
+              past are linked the same way.
             </EssaySectionOrganizationBodyEntry>{' '}
             <EssaySectionOrganizationBodyEntry>
               The ultimate cause may come from the assigned text, but it is also

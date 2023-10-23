@@ -14,6 +14,8 @@ import {
   WhyCauseEffectOrganizerAnswer,
 } from '../../state-and-styles/assignedEssayStyles'
 import { EssayOrganizerType } from './EssayOrganizer'
+import { AcademicProblemSolutionOrganizerDisplay } from './AcademicProblemSolutionOrganizerDisplay'
+import { AcademicEssayWhyCauseAndEffectOrganizerDisplay } from './AcademicEssayWhyCauseAndEffectOrganizerDisplay'
 
 export type AcademicEssayOrganizerProps = {
   organizer: EssayOrganizerType
@@ -24,7 +26,7 @@ export const AcademicEssayOrganizer = ({
 }: AcademicEssayOrganizerProps) => {
   const essayOrganizer =
     organizer.__typename === 'AcademicOrganizer' ? organizer : null
-  // console.log(essayOrganizer)
+
   const { verb, subject, object } = essayOrganizer?.academicSentenceStructure!
   const linkingVerbCheck =
     organizer.restatement.split(' ').includes('were') ||
@@ -41,7 +43,9 @@ export const AcademicEssayOrganizer = ({
         </EssayOrganizerPartBody>
       </EssayOrganizerRestatement>
       <AcademicEssayOrganizerAnswer>
-        <EssayOrganizerPartHeader>Answer</EssayOrganizerPartHeader>
+        <EssayOrganizerPartHeader style={{ textAlign: 'center' }}>
+          Answer
+        </EssayOrganizerPartHeader>
         <>
           {essayOrganizer?.answerType?.__typename ===
             'HowCauseEffectAnswerType' && (
@@ -91,106 +95,15 @@ export const AcademicEssayOrganizer = ({
           )}
           {essayOrganizer?.answerType?.__typename ===
             'ProblemSolutionAnswerType' && (
-            <HowProblemSolutionOrganizerAnswer>
-              <AcademicEssayOrganizerAnswerBlock
-                style={{
-                  borderTop: '1px solid var(--blue)',
-                  borderRight: '1px solid var(--blue)',
-                  borderBottom: '1px solid var(--blue)',
-                }}
-              >
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  What was the Problem?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.answerType.problem}
-                </AcademicEssayOrganizerAnswerBlockBody>
-              </AcademicEssayOrganizerAnswerBlock>
-              <AcademicEssayOrganizerAnswerBlock
-                style={{
-                  borderTop: '1px solid var(--blue)',
-                  borderBottom: '1px solid var(--blue)',
-                }}
-              >
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  Why was it a Problem?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.answerType.reasonForProblem}
-                </AcademicEssayOrganizerAnswerBlockBody>
-              </AcademicEssayOrganizerAnswerBlock>
-              <AcademicEssayOrganizerAnswerBlock
-                style={{
-                  borderRight: '1px solid var(--blue)',
-                }}
-              >
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  How was the Problem Solved?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.answerType.solvedBy}
-                </AcademicEssayOrganizerAnswerBlockBody>
-              </AcademicEssayOrganizerAnswerBlock>
-              <AcademicEssayOrganizerAnswerBlock>
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  Why did the Solution Solve the Problem?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.answerType.whySolutionSolved}
-                </AcademicEssayOrganizerAnswerBlockBody>
-              </AcademicEssayOrganizerAnswerBlock>
-            </HowProblemSolutionOrganizerAnswer>
+            <AcademicProblemSolutionOrganizerDisplay
+              essayOrganizer={essayOrganizer}
+            />
           )}
           {essayOrganizer?.answerType?.__typename ===
             'WhyCauseEffectAnswerType' && (
-            <WhyCauseEffectOrganizerAnswer>
-              <AcademicEssayOrganizerAnswerBlock
-                style={{
-                  borderTop: '1px solid var(--blue)',
-                  borderRight: '1px solid var(--blue)',
-                }}
-              >
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  What was the Ultimate Cause?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.answerType.ultimateCause}
-                </AcademicEssayOrganizerAnswerBlockBody>
-              </AcademicEssayOrganizerAnswerBlock>
-              <AcademicEssayOrganizerAnswerBlock
-                style={{
-                  borderTop: '1px solid var(--blue)',
-                  borderRight: '1px solid var(--blue)',
-                }}
-              >
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  What was the Proximate Cause?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                <AcademicEssayOrganizerAnswerBlockBody>
-                  {essayOrganizer.answerType.proximateCause}
-                </AcademicEssayOrganizerAnswerBlockBody>
-              </AcademicEssayOrganizerAnswerBlock>
-              {/* <AcademicEssayOrganizerAnswerBlock
-                style={{
-                  borderTop: '1px solid var(--blue)',
-                  // borderRight: '1px solid var(--blue)',
-                }}
-              >
-                <AcademicEssayOrganizerAnswerBlockHeader>
-                  What was the Final Effect?
-                </AcademicEssayOrganizerAnswerBlockHeader>
-                {!linkingVerbCheck ? (
-                  <AcademicEssayOrganizerAnswerBlockBody>
-                    {essayOrganizer.academicSentenceStructure.subject}{' '}
-                    {essayOrganizer.academicSentenceStructure.verb}ed
-                  </AcademicEssayOrganizerAnswerBlockBody>
-                ) : (
-                  <AcademicEssayOrganizerAnswerBlockBody>
-                    {subject} {linkingVerb} {verb} {object}
-                  </AcademicEssayOrganizerAnswerBlockBody>
-                )}
-              </AcademicEssayOrganizerAnswerBlock> */}
-            </WhyCauseEffectOrganizerAnswer>
+            <AcademicEssayWhyCauseAndEffectOrganizerDisplay
+              essayOrganizer={essayOrganizer}
+            />
           )}
         </>
       </AcademicEssayOrganizerAnswer>

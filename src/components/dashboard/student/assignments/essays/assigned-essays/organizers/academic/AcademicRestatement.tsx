@@ -15,11 +15,11 @@ export type AcademicRestatementProps = {
   questionParts: findEssayQuestionById_findEssayQuestionById_essayQuestion_questionParts
 }
 
-export const AcademicRestatement: FC<AcademicRestatementProps> = ({
+export const AcademicRestatement = ({
   updateAcademicOrganizer,
   topic,
   questionParts,
-}) => {
+}: AcademicRestatementProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
   useEffect(() => {

@@ -149,6 +149,21 @@ export const PartInput = styled.input`
     border-bottom: 1px solid var(--blue);
   }
 `
+export const PartTextArea = styled.textarea`
+  justify-self: left;
+  border: 1px solid var(--white);
+  font-size: 1.5vh;
+  font-family: inherit;
+  color: var(--blue);
+  background-color: var(--white);
+  color: var(--blue);
+  border-bottom: 1px solid var(--blue);
+  width: 100%;
+  :enabled {
+    border: 1px solid var(--white);
+    border-bottom: 1px solid var(--blue);
+  }
+`
 
 export const OrganizerControlButtonContainer = styled.div`
   grid-row: -2/-1;
@@ -525,8 +540,8 @@ export const EssayOrganizerAnswer = styled.div`
 export const DevelopingOrganizerAnswerBod = styled.div``
 
 export const AcademicEssayOrganizerAnswer = styled(EssayOrganizerAnswer)`
-  display: grid;
-  grid-template-rows: 1fr 5fr;
+  /* display: grid; */
+  /* grid-template-rows: 1fr 5fr; */
   border-left: 1px solid var(--blue);
   border-right: 1px solid var(--blue);
 `
@@ -619,3 +634,9 @@ export const SubmitEssayModalSubmitButton = styled.button`
   background-color: var(--blue);
   color: var(--white);
 `
+
+export const AdvancedOrganizerTabNameContainer = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+`
+export const AdvancedOrganizerTabItem = styled.div``

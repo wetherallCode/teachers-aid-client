@@ -19,6 +19,7 @@ import {
   OrganizerTitleContainer,
   OrganizerTitleStyle,
   RestatementDirectionsContainer,
+  PartTextArea,
 } from '../../state-and-styles/assignedEssayStyles'
 import {
   irregularPastTenseVerbList,
@@ -47,7 +48,7 @@ export const AcademicProblemSolution = ({
   topic,
 }: AcademicProblemSolutionProps) => {
   const [state, event] = useStudentEssayContextProvider()
-
+  console.log(state)
   const { subject, verb, object } =
     state.context.academicOrganizer.academicSentenceStructure
   const irregularVerbCheck = irregularPastTenseVerbList(verb)
@@ -145,7 +146,7 @@ export const AcademicProblemSolution = ({
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
           <div>What is the problem for {questionParts.simpleSubject}?</div>
-          <PartInput
+          <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution.problem
             }
@@ -162,7 +163,7 @@ export const AcademicProblemSolution = ({
             Why is this {questionParts.simpleSubject}
             {properNameEndsInS ? `'` : `'s`} problem?
           </div>
-          <PartInput
+          <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution
                 .reasonForProblem
@@ -180,7 +181,7 @@ export const AcademicProblemSolution = ({
         </AnswerTypeContainter>
         <AnswerTypeContainter>
           <div>How did {questionParts.simpleSubject} solve the problem?</div>
-          <PartInput
+          <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution.solvedBy
             }
@@ -197,7 +198,7 @@ export const AcademicProblemSolution = ({
             Why did the solution solve {questionParts.simpleSubject}
             {properNameEndsInS ? `'` : `'s`} problem?
           </div>
-          <PartInput
+          <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution
                 .whySolutionSolved

@@ -20,6 +20,7 @@ import {
   OrganizerTitleStyle,
   QuestionContainer,
   QuestionStyle,
+  PartTextArea,
 } from '../../state-and-styles/assignedEssayStyles'
 import { irregularPastTenseVerbList } from '../../../../../../../../utils'
 
@@ -125,8 +126,7 @@ export const AcademicWhyCauseEffect = ({
               Why {verb} {questionParts.simpleSubject} {object}?
             </div>
           )}
-          <PartInput
-            type='text'
+          <PartTextArea
             placeholder='Proximate Cause...'
             value={
               state.context.academicOrganizer.answer.whyCauseEffect
@@ -142,8 +142,7 @@ export const AcademicWhyCauseEffect = ({
         </AnswerTypeContainter>
         <AnswerTypeContainter>
           <div>Why did your Proximate Cause happen?</div>
-          <PartInput
-            type='text'
+          <PartTextArea
             placeholder='Ultimate Cause...'
             value={
               state.context.academicOrganizer.answer.whyCauseEffect

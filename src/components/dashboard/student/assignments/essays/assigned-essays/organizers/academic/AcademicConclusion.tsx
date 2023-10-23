@@ -52,7 +52,9 @@ export const AcademicConclusion = ({
     updateAcademicOrganizer()
   }, [state.context.academicOrganizer.conclusion, updateAcademicOrganizer])
 
-  const conclusionSetup = `As a result of ${subject}
+  const conclusionSetup = `As a result of ${
+    subject.charAt(0).toLowerCase() + subject.slice(1)
+  }
   ${verbConverter} 
   ${
     object
@@ -76,7 +78,7 @@ export const AcademicConclusion = ({
       <RestatementDirectionsContainer>
         <UnderlinedText>Directions</UnderlinedText>
         <div>
-          First start the conclusion this way: {conclusionSetup}, ..." Then put
+          First start the conclusion this way: {conclusionSetup}, ...." Then put
           the consequence of this statement in place of the "...."
         </div>
       </RestatementDirectionsContainer>
