@@ -28,7 +28,9 @@ export const DevelopingEssayOrganizer = ({
         </EssayOrganizerPartBody>
       </EssayOrganizerRestatement>
       <AcademicEssayOrganizerAnswer>
-        <EssayOrganizerPartHeader>Answer</EssayOrganizerPartHeader>
+        <EssayOrganizerPartHeader style={{ textAlign: 'center' }}>
+          Answer
+        </EssayOrganizerPartHeader>
         <DevelopingEssayOrganizerPartBody>
           {essayOrganizer?.answer}
         </DevelopingEssayOrganizerPartBody>
