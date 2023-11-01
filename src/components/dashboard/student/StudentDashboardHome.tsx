@@ -65,7 +65,15 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           <HomeScreenContainer>
             <HomeScreenTitle>
               <div></div>
-              <Greetings phrase={me.firstName} />
+              <div style={{ textAlign: 'center' }}>
+                <Greetings phrase={me.firstName} />
+                <br />
+                <br />
+                <div style={{ fontSize: '2vh' }}>
+                  All work for the first marking period is due 11/20/2023 at
+                  8:00AM. No work will be graded after that time.
+                </div>
+              </div>
               <div></div>
             </HomeScreenTitle>
 
