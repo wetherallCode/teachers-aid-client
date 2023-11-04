@@ -67,14 +67,11 @@ export const CompleteReadingGuideNew = ({
     'WHAT_DID_SUBJECT_DO',
     'HOW_DID_SUBJECT_DO_IT',
     'WHY_DID_SUBJECT_DO_IT',
-    'WHAT_WAS_LEARNED',
   ]
   const academicState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
-    'WHAT_DID_SUBJECT_DO',
     'PROBLEM',
     'SOLUTION',
-    'WHAT_WAS_LEARNED',
   ]
   const advancedState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
@@ -82,7 +79,6 @@ export const CompleteReadingGuideNew = ({
     'SOLUTION',
     'SOLUTIONS_REACTIONS',
     'MAIN_IDEA',
-    'WHAT_WAS_LEARNED',
   ]
   const masterState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
@@ -92,7 +88,6 @@ export const CompleteReadingGuideNew = ({
     'SOLUTIONS_REACTIONS',
     'ASSUMPTIONS',
     'MAIN_IDEA',
-    'WHAT_WAS_LEARNED',
   ]
 
   const readingGuideLevel =

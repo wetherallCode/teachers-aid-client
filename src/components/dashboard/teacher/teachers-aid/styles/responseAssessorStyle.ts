@@ -9,10 +9,10 @@ export const ResponseTitle = styled.div`
 
 export const ResponseContainer = styled.div`
   display: grid;
-  grid-auto-rows: 8vh;
+  /* grid-auto-rows: 8vh; */
   grid-row-gap: 2vh;
   overflow: scroll;
-  height: 55vh;
+  height: 50vh;
 `
 
 export const ResponseRowContainer = styled.div`

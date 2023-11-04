@@ -66,7 +66,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   },
   {
     questionType: 'PROBLEM',
-    question: 'What problem is being faced by the main characters?',
+    question: 'What problem is being faced by the people in the readings?',
     directions:
       'Only use the assigned readings. Use of google will result in partial or no credit.',
   },

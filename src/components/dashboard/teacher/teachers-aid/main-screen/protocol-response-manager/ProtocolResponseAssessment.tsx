@@ -40,7 +40,7 @@ export const ProtocolResponseAssessment = ({
     },
     refetchQueries: ['findStudentByIdForTeachersAid'],
   })
-  console.log(protocol)
+
   return (
     <ResponseRowContainer
       onClick={() =>
