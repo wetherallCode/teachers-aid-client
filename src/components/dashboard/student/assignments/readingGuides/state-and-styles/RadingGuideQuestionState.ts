@@ -54,7 +54,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   },
   {
     questionType: 'WHY_DID_SUBJECT_DO_IT',
-    question: 'Why did they do what they did?',
+    question: 'Why did they do it?',
     directions:
       'Only use the assigned readings. Use of google will result in partial or no credit.',
   },
