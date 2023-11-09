@@ -39,11 +39,6 @@ export const AcademicConclusion = ({
     state.context.academicOrganizer.academicSentenceStructure
   const { simplePredicate, helpingVerb } = questionParts
 
-  // const verbConverter = auxilaryVerbCheck
-  //   ? verbsThatChangeInIngFormat(simplePredicate.split(' ')[0]) +
-  //     ' ' +
-  //     simplePredicate.split(' ')[1]
-  //   : verbsThatChangeInIngFormat(simplePredicate).replace('ed', '')
   const verbConverter = auxilaryVerbCheck
     ? 'being ' + simplePredicate
     : verbsThatChangeInIngFormat(simplePredicate).replace('ed', '')
@@ -56,20 +51,8 @@ export const AcademicConclusion = ({
     subject.charAt(0).toLowerCase() + subject.slice(1)
   }
   ${verbConverter} 
-  ${
-    object
-      ? object
-      : subjectCompliment !== null
-      ? questionParts.subjectCompliment
-      : ''
-  }`
-  console.log(
-    object
-      ? object
-      : subjectCompliment !== null
-      ? questionParts.subjectCompliment
-      : ''
-  )
+  ${object ? object : subjectCompliment ? subjectCompliment : ''}`
+
   return (
     <>
       <OrganizerTitleContainer>

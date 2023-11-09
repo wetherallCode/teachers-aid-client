@@ -33,8 +33,11 @@ import {
   OrganizerControlButtonContainerIdentifications,
   OrganizerControlButtonMessageContainer,
   OrganizerSectionDirectionsContainer,
+  RestatementDirectionsContainer,
 } from '../../state-and-styles/assignedEssayStyles'
 import { QuestionDeconstruction } from '../question-deconstruction/QuestionDeconstruction'
+import { verbsThatChangeInIngFormat } from '../../../../../../../../utils'
+import { UnderlinedText } from '../../../../../../../../appStyles'
 
 export type DevelopingOrganizerProps = {
   topic: findEssayById_findEssayById_essay_topic
@@ -59,10 +62,23 @@ export const DevelopingOrganizer = ({
 }: DevelopingOrganizerProps) => {
   const [state, event] = useStudentEssayContextProvider()
 
+  const auxilaryVerbCheck =
+    (questionParts.helpingVerb !== 'did' &&
+      questionParts.simplePredicate.split(' ').length > 1 &&
+      questionParts.simplePredicate
+        .split(' ')
+        .includes(questionParts.helpingVerb)) ||
+    (questionParts.helpingVerb !== 'did' && !questionParts.subjectCompliment)
+
   const sentenceStructure = {
     subject:
       state.context.developingOrganizer.developingSentenceStructure.subject,
     verb: state.context.developingOrganizer.developingSentenceStructure.verb,
+    object:
+      state.context.developingOrganizer.developingSentenceStructure.object,
+    subjectCompliment:
+      state.context.developingOrganizer.developingSentenceStructure
+        .subjectCompliment,
   }
 
   const [updateDevelopingOrganizer] = useMutation<
@@ -96,6 +112,18 @@ export const DevelopingOrganizer = ({
     updateDevelopingOrganizer()
     event({ type: 'NEXT' })
   }
+
+  const { subject, object, subjectCompliment } =
+    state.context.developingOrganizer.developingSentenceStructure
+  const { simplePredicate, helpingVerb } = questionParts
+
+  const verbConverter = auxilaryVerbCheck
+    ? 'being ' + simplePredicate
+    : verbsThatChangeInIngFormat(simplePredicate).replace('ed', '')
+
+  const conclusionSetup = `${subject.charAt(0).toLowerCase() + subject.slice(1)}
+${verbConverter} 
+${object ? object : subjectCompliment ? subjectCompliment : ''}`
 
   return (
     <>
@@ -148,32 +176,6 @@ export const DevelopingOrganizer = ({
               questionParts={questionParts}
               topic={topic}
             />
-            {/* <RestatementTitle>
-              <div>
-                Restate the question in the form of a statement with the correct
-                ending:
-              </div>
-            </RestatementTitle>
-            <RestatementInput
-              autoFocus={true}
-              value={state.context.developingOrganizer.restatement}
-              onChange={(e: any) =>
-                event({ type: 'SET_RESTATEMENT', payload: e.target.value })
-              }
-            />
-            <RestatementOutput>
-              <div> {state.context.developingOrganizer.restatement}</div>
-            </RestatementOutput>
-            <OrganizerControlButtonContainer>
-              <OrganizerControlButton
-                onClick={() => event({ type: 'PREVIOUS' })}
-              >
-                Back
-              </OrganizerControlButton>
-              <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
-                Next
-              </OrganizerControlButton>
-            </OrganizerControlButtonContainer> */}
           </>
         )}
         {state.matches('organizers.developingOrganizer.answer') && (
@@ -197,15 +199,8 @@ export const DevelopingOrganizer = ({
                 event({ type: 'SET_ANSWER', payload: e.target.value })
               }
             />
-            {/* <AnswerOutput>
-              <div> {state.context.developingOrganizer.answer}</div>
-            </AnswerOutput> */}
+
             <OrganizerControlButtonContainer>
-              {/* <OrganizerControlButton
-                onClick={() => event({ type: 'PREVIOUS' })}
-              >
-                Back
-              </OrganizerControlButton> */}
               <OrganizerControlButton
                 onClick={() => updateDevelopingOrganizer()}
               >
@@ -220,17 +215,17 @@ export const DevelopingOrganizer = ({
         {state.matches('organizers.developingOrganizer.conclusion') && (
           <>
             <OrganizerTitleContainer>
-              <OrganizerTitleStyle>Add a Conclusion</OrganizerTitleStyle>
+              <OrganizerTitleStyle>Think of a Conclusion</OrganizerTitleStyle>
             </OrganizerTitleContainer>
-            <QuestionContainer>
-              <QuestionStyle>
-                {state.context.developingOrganizer.restatement}
-              </QuestionStyle>
-            </QuestionContainer>
-            <OrganizerSectionDirectionsContainer>
-              Write your conclusion by giving a consequence or direct result of
-              your topic sentence.
-            </OrganizerSectionDirectionsContainer>
+            <RestatementDirectionsContainer>
+              <UnderlinedText>Directions</UnderlinedText>
+              <div>
+                Conclusions should show the consequence of the topic, so think
+                of a result of {conclusionSetup} that makes sense with what you
+                wrote in your answer. Be careful not to give a result of your
+                answer.
+              </div>
+            </RestatementDirectionsContainer>
             <AnswerInput
               autoFocus={true}
               onPaste={(e: SyntheticEvent) => {
