@@ -39,7 +39,7 @@ export const Rubrics: FC<RubricsProps> = () => {
                     and be set up according to the directions in the organizer.
                   </EssaySectionOrganizationBodyEntry>
                   <EssaySectionOrganizationBodyEntry>
-                    Use only material from the assigned text.
+                    Only use material from the assigned text.
                   </EssaySectionOrganizationBodyEntry>
                 </>
               </EssaySectionOrganizationBodyEntry>
@@ -60,7 +60,7 @@ export const Rubrics: FC<RubricsProps> = () => {
                   Conclusion must be a consequence of the subject's actions.
                 </EssaySectionOrganizationBodyEntry>
                 <EssaySectionOrganizationBodyEntry>
-                  Use only material from the assigned text.
+                  Only use material from the assigned text.
                 </EssaySectionOrganizationBodyEntry>
               </EssaySectionOrganizationBodyEntry>
             )}
