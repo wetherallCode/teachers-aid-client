@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { EssayOrganizerType } from './EssayOrganizer'
 import {
   EssayOrganizerRestatement,
@@ -31,13 +31,21 @@ export const DevelopingEssayOrganizer = ({
         <EssayOrganizerPartHeader style={{ textAlign: 'center' }}>
           Answer
         </EssayOrganizerPartHeader>
-        <DevelopingEssayOrganizerPartBody>
+        <DevelopingEssayOrganizerPartBody
+          onCopy={(e: SyntheticEvent) => {
+            e.preventDefault()
+          }}
+        >
           {essayOrganizer?.answer}
         </DevelopingEssayOrganizerPartBody>
       </AcademicEssayOrganizerAnswer>
       <EssayOrganizerConclusion>
         <EssayOrganizerPartHeader>Conclusion</EssayOrganizerPartHeader>
-        <EssayOrganizerPartBody>
+        <EssayOrganizerPartBody
+          onCopy={(e: SyntheticEvent) => {
+            e.preventDefault()
+          }}
+        >
           {essayOrganizer?.conclusion}
         </EssayOrganizerPartBody>
       </EssayOrganizerConclusion>

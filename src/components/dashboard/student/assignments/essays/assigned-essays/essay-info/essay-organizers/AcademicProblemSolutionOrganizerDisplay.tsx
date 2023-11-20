@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import { findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer } from '../../../../../../../../schemaTypes'
 import {
   HowProblemSolutionOrganizerAnswer,
@@ -120,7 +120,11 @@ export const AcademicProblemSolutionOrganizerDisplay = ({
           <>
             <div style={{ textAlign: 'center' }}>What was the Problem?</div>
             <br />
-            <div>
+            <div
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+            >
               {essayOrganizer?.answerType?.__typename ===
                 'ProblemSolutionAnswerType' &&
                 essayOrganizer.answerType.problem}
@@ -133,7 +137,11 @@ export const AcademicProblemSolutionOrganizerDisplay = ({
           <>
             <div style={{ textAlign: 'center' }}>Why was it a Problem?</div>
             <br />
-            <div>
+            <div
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+            >
               {essayOrganizer?.answerType?.__typename ===
                 'ProblemSolutionAnswerType' &&
                 essayOrganizer.answerType.reasonForProblem}
@@ -152,7 +160,11 @@ export const AcademicProblemSolutionOrganizerDisplay = ({
               How was the Problem Solved?
             </div>
             <br />
-            <div>
+            <div
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+            >
               {essayOrganizer?.answerType?.__typename ===
                 'ProblemSolutionAnswerType' &&
                 essayOrganizer.answerType.solvedBy}
@@ -167,7 +179,11 @@ export const AcademicProblemSolutionOrganizerDisplay = ({
               Why did the Solution Solve the Problem?
             </div>
             <br />
-            <div>
+            <div
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+            >
               {essayOrganizer?.answerType?.__typename ===
                 'ProblemSolutionAnswerType' &&
                 essayOrganizer.answerType.whySolutionSolved}

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, SyntheticEvent } from 'react'
 import {
   EssayOrganizerRestatement,
   EssayOrganizerPartBody,
@@ -109,7 +109,11 @@ export const AcademicEssayOrganizer = ({
       </AcademicEssayOrganizerAnswer>
       <EssayOrganizerConclusion>
         <EssayOrganizerPartHeader>Conclusion</EssayOrganizerPartHeader>
-        <EssayOrganizerPartBody>
+        <EssayOrganizerPartBody
+          onCopy={(e: SyntheticEvent) => {
+            e.preventDefault()
+          }}
+        >
           {essayOrganizer?.conclusion}
         </EssayOrganizerPartBody>
       </EssayOrganizerConclusion>

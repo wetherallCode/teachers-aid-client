@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import { findEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer } from '../../../../../../../../schemaTypes'
 import {
   WhyCauseEffectOrganizerAnswer,
@@ -76,7 +76,11 @@ export const AcademicEssayWhyCauseAndEffectOrganizerDisplay = ({
               What was the Ultimate Cause?
             </AcademicEssayOrganizerAnswerBlockHeader>
             <br />
-            <AcademicEssayOrganizerAnswerBlockBody>
+            <AcademicEssayOrganizerAnswerBlockBody
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+            >
               {essayOrganizer?.answerType?.__typename ===
                 'WhyCauseEffectAnswerType' &&
                 essayOrganizer.answerType.ultimateCause}
@@ -89,7 +93,11 @@ export const AcademicEssayWhyCauseAndEffectOrganizerDisplay = ({
               What was the Proximate Cause?
             </AcademicEssayOrganizerAnswerBlockHeader>
             <br />
-            <AcademicEssayOrganizerAnswerBlockBody>
+            <AcademicEssayOrganizerAnswerBlockBody
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+            >
               {essayOrganizer?.answerType?.__typename ===
                 'WhyCauseEffectAnswerType' &&
                 essayOrganizer.answerType.proximateCause}
