@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, SyntheticEvent, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { UpdateAcademicOrganizerType } from './AcademicOrganizer'
 import {
@@ -68,6 +68,12 @@ export const AcademicConclusion = ({
       {/* <RestatementTitle>Write your conclusion</RestatementTitle> */}
       <AnswerInput
         // type='text'
+        onPaste={(e: SyntheticEvent) => {
+          e.preventDefault()
+        }}
+        onCopy={(e: SyntheticEvent) => {
+          e.preventDefault()
+        }}
         value={state.context.academicOrganizer.conclusion}
         onChange={(e: any) => {
           event({ type: 'SET_CONCLUSION', payload: e.target.value })

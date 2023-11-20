@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, SyntheticEvent, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { useMutation, gql } from '@apollo/client'
 import {
@@ -132,6 +132,12 @@ export const AcademicWhyCauseEffect = ({
               state.context.academicOrganizer.answer.whyCauseEffect
                 .proximateCause
             }
+            onPaste={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
+            onCopy={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
             onChange={(e: any) => {
               event({
                 type: 'SET_WHY_CAUSE_EFFECT',
@@ -148,6 +154,12 @@ export const AcademicWhyCauseEffect = ({
               state.context.academicOrganizer.answer.whyCauseEffect
                 .ultimateCause
             }
+            onPaste={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
+            onCopy={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
             onChange={(e: any) => {
               event({
                 type: 'SET_WHY_CAUSE_EFFECT',

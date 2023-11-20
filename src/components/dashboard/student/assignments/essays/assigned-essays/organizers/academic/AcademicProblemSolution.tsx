@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, SyntheticEvent, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { useMutation, gql } from '@apollo/client'
 import {
@@ -150,6 +150,12 @@ export const AcademicProblemSolution = ({
             value={
               state.context.academicOrganizer.answer.problemSolution.problem
             }
+            onPaste={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
+            onCopy={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
             onChange={(e: any) => {
               event({
                 type: 'SET_PROBLEM_SOLUTION',
@@ -168,6 +174,12 @@ export const AcademicProblemSolution = ({
               state.context.academicOrganizer.answer.problemSolution
                 .reasonForProblem
             }
+            onPaste={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
+            onCopy={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
             onChange={(e: any) => {
               event({
                 type: 'SET_PROBLEM_SOLUTION',
@@ -185,6 +197,12 @@ export const AcademicProblemSolution = ({
             value={
               state.context.academicOrganizer.answer.problemSolution.solvedBy
             }
+            onPaste={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
+            onCopy={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
             onChange={(e: any) => {
               event({
                 type: 'SET_PROBLEM_SOLUTION',
@@ -203,6 +221,12 @@ export const AcademicProblemSolution = ({
               state.context.academicOrganizer.answer.problemSolution
                 .whySolutionSolved
             }
+            onPaste={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
+            onCopy={(e: SyntheticEvent) => {
+              e.preventDefault()
+            }}
             onChange={(e: any) => {
               event({
                 type: 'SET_PROBLEM_SOLUTION',

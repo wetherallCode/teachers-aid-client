@@ -194,6 +194,9 @@ ${object ? object : subjectCompliment ? subjectCompliment : ''}`
               onPaste={(e: SyntheticEvent) => {
                 e.preventDefault()
               }}
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
               value={state.context.developingOrganizer.answer}
               onChange={(e: any) =>
                 event({ type: 'SET_ANSWER', payload: e.target.value })
@@ -229,6 +232,9 @@ ${object ? object : subjectCompliment ? subjectCompliment : ''}`
             <AnswerInput
               autoFocus={true}
               onPaste={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
+              onCopy={(e: SyntheticEvent) => {
                 e.preventDefault()
               }}
               value={state.context.developingOrganizer.conclusion}
