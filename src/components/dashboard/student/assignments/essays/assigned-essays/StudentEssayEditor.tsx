@@ -113,6 +113,9 @@ export const StudentEssayEditor = ({
               onPaste={(e: SyntheticEvent) => {
                 e.preventDefault()
               }}
+              onCopy={(e: SyntheticEvent) => {
+                e.preventDefault()
+              }}
               placeholder={`Your essay goes here; your first sentence is the restatement.`}
               onKeyDown={(e) => {
                 // e.preventDefault()
