@@ -70,8 +70,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <br />
                 <br />
                 <div style={{ fontSize: '2vh' }}>
-                  All work for the first marking period is due 11/20/2023 at
-                  8:00AM. No work will be graded after that time.
+                  Half-Days Tuesday, Wednesday, and Thursday this week!
                 </div>
               </div>
               <div></div>
