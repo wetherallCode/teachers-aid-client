@@ -69,8 +69,10 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <Greetings phrase={me.firstName} />
                 <br />
                 <br />
-                <div style={{ fontSize: '2vh' }}>
-                  Half-Days Tuesday, Wednesday, and Thursday this week!
+                <div style={{ fontSize: '2.5vh' }}>
+                  I'm not going to be in today, so start with the reading guide
+                  I'm assigning you in class. Then, work on missing work, essay
+                  redos, or other classes' work. Also, no quiz!
                 </div>
               </div>
               <div></div>
