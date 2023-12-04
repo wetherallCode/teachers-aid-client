@@ -70,9 +70,8 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <br />
                 <br />
                 <div style={{ fontSize: '2.5vh' }}>
-                  I'm not going to be in today, so start with the reading guide
-                  I'm assigning you in class. Then, work on missing work, essay
-                  redos, or other classes' work. Also, no quiz!
+                  Interim Reports are going out soon, so have all of your
+                  missing work and redone essays in by Wednesday 12/13/2023!
                 </div>
               </div>
               <div></div>
