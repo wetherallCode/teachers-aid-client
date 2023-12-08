@@ -152,7 +152,7 @@ export const PartInput = styled.input`
 export const PartTextArea = styled.textarea`
   justify-self: left;
   border: 1px solid var(--white);
-  font-size: 1.5vh;
+  font-size: 2.5vh;
   font-family: inherit;
   color: var(--blue);
   background-color: var(--white);
