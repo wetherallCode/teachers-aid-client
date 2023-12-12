@@ -74,7 +74,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <Greetings phrase={me.firstName} />
                 <br />
                 <br />
-                {courseName ? (
+                {/* {courseName ? (
                   <div style={{ fontSize: '2.5vh' }}>
                     I'm in a meeting this morning, so read the assigned text and
                     complete the reading guide for the assigned lesson today. If
@@ -85,7 +85,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                     Interim Reports are going out soon, so have all of your
                     missing work and redone essays in by Wednesday 12/13/2023!
                   </div>
-                )}
+                )} */}
               </div>
               <div></div>
             </HomeScreenTitle>
