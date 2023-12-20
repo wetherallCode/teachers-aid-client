@@ -73,7 +73,7 @@ export const DynamicLessonManager = ({
       input: {
         behaviorTypeId: '62a33f0c2c8c161570b3c258'!,
         markingPeriod: lesson.assignedMarkingPeriod,
-        responsibilityPoints: 1,
+        responsibilityPoints: 2,
         studentIds: presentStudentList,
       },
     },
