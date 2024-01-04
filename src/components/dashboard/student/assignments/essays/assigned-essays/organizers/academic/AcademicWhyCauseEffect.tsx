@@ -75,12 +75,12 @@ export const AcademicWhyCauseEffect = ({
   })
 
   useEffect(() => {
-    updateWhyCauseEffect()
+    // updateWhyCauseEffect()
   }, [whyCauseEffect, updateWhyCauseEffect])
 
   const verbPhraseCheck = verb.split(' ').length > 1
   const verbPhraseSplitter = verb.split(' ')
-  console.log(auxilaryVerbCheck)
+  console.log(state.value)
   // const irregularVerbCheck = irregularPastTenseVerbList(verbPhraseSplitter[0])
 
   // const congugatedVerb =
@@ -139,6 +139,7 @@ export const AcademicWhyCauseEffect = ({
               e.preventDefault()
             }}
             onChange={(e: any) => {
+              updateWhyCauseEffect()
               event({
                 type: 'SET_WHY_CAUSE_EFFECT',
                 payload: { ...whyCauseEffect, proximateCause: e.target.value },
@@ -174,6 +175,7 @@ export const AcademicWhyCauseEffect = ({
           onClick={() => {
             event({ type: 'PREVIOUS' })
             event({ type: 'SET_PRE_LOADED', payload: false })
+            updateWhyCauseEffect()
           }}
         >
           Back
@@ -181,6 +183,7 @@ export const AcademicWhyCauseEffect = ({
         <OrganizerControlButton
           onClick={() => {
             event({ type: 'NEXT' })
+            updateWhyCauseEffect()
           }}
         >
           Next

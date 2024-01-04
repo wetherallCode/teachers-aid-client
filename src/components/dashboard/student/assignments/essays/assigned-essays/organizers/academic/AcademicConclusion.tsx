@@ -1,18 +1,13 @@
-import React, { FC, SyntheticEvent, useEffect } from 'react'
+import React, { SyntheticEvent, useEffect } from 'react'
 import { useStudentEssayContextProvider } from '../../state-and-styles/StudentEssayContext'
 import { UpdateAcademicOrganizerType } from './AcademicOrganizer'
 import {
-  RestatementTitle,
-  RestatementInput,
-  RestatementOutput,
-  OrganizerControlButtonContainer,
-  OrganizerControlButton,
-  AcademicConclusionInput,
-  AcademicConclusionOutput,
-  OrganizerTitleStyle,
-  OrganizerTitleContainer,
-  RestatementDirectionsContainer,
   AnswerInput,
+  OrganizerControlButton,
+  OrganizerControlButtonContainer,
+  OrganizerTitleContainer,
+  OrganizerTitleStyle,
+  RestatementDirectionsContainer,
 } from '../../state-and-styles/assignedEssayStyles'
 import { UnderlinedText } from '../../../../../../../../appStyles'
 import { verbsThatChangeInIngFormat } from '../../../../../../../../utils'
@@ -44,7 +39,7 @@ export const AcademicConclusion = ({
     : verbsThatChangeInIngFormat(simplePredicate).replace('ed', '')
 
   useEffect(() => {
-    updateAcademicOrganizer()
+    // updateAcademicOrganizer()
   }, [state.context.academicOrganizer.conclusion, updateAcademicOrganizer])
 
   const conclusionSetup = `As a result of ${
@@ -83,10 +78,20 @@ export const AcademicConclusion = ({
         <div> {state.context.academicOrganizer.conclusion}</div>
       </AcademicConclusionOutput> */}
       <OrganizerControlButtonContainer>
-        <OrganizerControlButton onClick={() => event({ type: 'PREVIOUS' })}>
+        <OrganizerControlButton
+          onClick={() => {
+            updateAcademicOrganizer()
+            event({ type: 'PREVIOUS' })
+          }}
+        >
           Back
         </OrganizerControlButton>
-        <OrganizerControlButton onClick={() => event({ type: 'NEXT' })}>
+        <OrganizerControlButton
+          onClick={() => {
+            updateAcademicOrganizer()
+            event({ type: 'NEXT' })
+          }}
+        >
           Next
         </OrganizerControlButton>
       </OrganizerControlButtonContainer>
