@@ -28,7 +28,7 @@ export type UpdateAdvancedOrganizerType = (
         updateAdvancedOrganizer,
         updateAdvancedOrganizerVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({
@@ -47,12 +47,8 @@ export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({
     })
 
     if (advancedOrganizer.questionType === 'HOW_PROBLEM_SOLUTION') {
-      const {
-        problem,
-        reasonForProblem,
-        solvedBy,
-        whySolutionSolved,
-      } = advancedOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType
+      const { problem, reasonForProblem, solvedBy, whySolutionSolved } =
+        advancedOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType
       event({
         type: 'SET_PROBLEM_SOLUTION',
         payload: {
@@ -64,21 +60,16 @@ export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({
       })
     }
     if (advancedOrganizer.questionType === 'HOW_CAUSE_EFFECT') {
-      const {
-        before,
-        cause,
-        after,
-      } = advancedOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType
+      const { before, cause, after } =
+        advancedOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType
       event({
         type: 'SET_HOW_CAUSE_EFFECT',
         payload: { before: before, cause: cause, after: after },
       })
     }
     if (advancedOrganizer.questionType === 'WHY_CAUSE_EFFECT') {
-      const {
-        ultimateCause,
-        proximateCause,
-      } = advancedOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType
+      const { ultimateCause, proximateCause } =
+        advancedOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType
       event({
         type: 'SET_WHY_CAUSE_EFFECT',
         payload: {

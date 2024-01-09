@@ -139,7 +139,7 @@ export type SectionSelectorOptionProps = {
   selected: boolean
 }
 export const SectionSelectorOption = styled(
-  LessonPlannerListSelectorOption
+  LessonPlannerListSelectorOption,
 )<SectionSelectorOptionProps>`
   color: ${({ selected }) => (selected ? 'var(--grey)' : 'var(--blue)')};
 `
@@ -153,7 +153,7 @@ export const SectionSelectorOptionAddButton = styled(LessonPlannerButton)`
   height: 50%;
 `
 export const SectionPickerButtonContainer = styled(
-  LessonPlannerButtonContainer
+  LessonPlannerButtonContainer,
 )`
   grid-auto-flow: column;
 `
@@ -166,7 +166,7 @@ export type UnitSelectorOptionsProps = {
   selected: boolean
 }
 export const UnitSelectorOption = styled(
-  LessonPlannerListSelectorOption
+  LessonPlannerListSelectorOption,
 )<UnitSelectorOptionsProps>`
   color: ${({ selected }) => (selected ? 'var(--grey)' : 'var(--blue)')};
 `

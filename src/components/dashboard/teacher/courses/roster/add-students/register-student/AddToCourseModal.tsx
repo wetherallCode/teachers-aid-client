@@ -15,7 +15,7 @@ export type AddToCourseModalProps = {
   registerStudent: (
     options?:
       | MutationFunctionOptions<registerStudent, registerStudentVariables>
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -50,11 +50,11 @@ export const AddToCourseModal: FC<AddToCourseModalProps> = ({
   }
   return (
     <>
-      <BottomButton type='button' onClick={handleAddToCourse}>
+      <BottomButton type="button" onClick={handleAddToCourse}>
         Add to Course?
       </BottomButton>
       <BottomButton
-        type='reset'
+        type="reset"
         onClick={() => {
           event({
             type: 'RESET_REGISTER_INPUTS',

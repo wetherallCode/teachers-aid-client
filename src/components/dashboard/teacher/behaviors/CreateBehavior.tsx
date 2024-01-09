@@ -63,8 +63,8 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
         e.target.value > 0
           ? BehaviorQualityEnum.POSITIVE
           : e.target.value < 0
-          ? BehaviorQualityEnum.NEGATIVE
-          : BehaviorQualityEnum.NEUTRAL,
+            ? BehaviorQualityEnum.NEGATIVE
+            : BehaviorQualityEnum.NEUTRAL,
     })
   }
 
@@ -77,7 +77,7 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
       <div>Create Behavior</div>
       <div>Behavior Name</div>
       <input
-        type='text'
+        type="text"
         value={behaviorValues.behaviorName}
         onChange={(e) =>
           setBehaviorValues({ ...behaviorValues, behaviorName: e.target.value })
@@ -99,7 +99,7 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
       </select>
       <div>Behavior Points</div>
       <input
-        type='number'
+        type="number"
         value={behaviorValues.points}
         onChange={(e: any) => handlePointsAllocation(e)}
       />
@@ -113,12 +113,12 @@ export const CreateBehavior = ({}: CreateBehaviorProps) => {
           })
         }
       >
-        <option value='true'>True</option>
-        <option value='false'>False</option>
+        <option value="true">True</option>
+        <option value="false">False</option>
       </select>
       <div></div>
       <button
-        type='reset'
+        type="reset"
         onClick={() => {
           createBehavior()
           setBehaviorValues({

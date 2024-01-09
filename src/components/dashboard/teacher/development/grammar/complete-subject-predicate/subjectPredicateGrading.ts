@@ -79,8 +79,8 @@ SubjectPredicateGraderProps) => {
         (verbType === 'action'
           ? `action word`
           : verbType === 'being'
-          ? `being word (was or were)`
-          : 'feeling word'),
+            ? `being word (was or were)`
+            : 'feeling word'),
       correct: false,
     }
   }

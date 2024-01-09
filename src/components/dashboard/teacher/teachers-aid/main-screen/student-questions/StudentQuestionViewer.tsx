@@ -53,7 +53,7 @@ export const StudentQuestionViewer: FC<StudentQuestionViewerProps> = () => {
           <Fragment key={i}>
             <StudentQuestion question={question} />
           </Fragment>
-        )
+        ),
       )}
     </>
   )

@@ -62,7 +62,7 @@ export const EndingPhrase = ({
   const [questionTypeCorrect, setQuestionTypeCorrect] = useState(false)
   const [questionTypeEnabled, setQuestionTypeEnabled] = useState(true)
   const [questionTypeMessage, setQuestionTypeMessage] = useState<null | string>(
-    null
+    null,
   )
 
   const [enabled, setEnabled] = useState(true)
@@ -78,7 +78,7 @@ export const EndingPhrase = ({
       },
       onCompleted: (data) => console.log(data),
       refetchQueries: [''],
-    }
+    },
   )
 
   const [setRestatement] = useMutation<setRestatement, setRestatementVariables>(
@@ -86,7 +86,7 @@ export const EndingPhrase = ({
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: [],
-    }
+    },
   )
 
   const sentenceJoiner = (sentence: string[]) => {
@@ -164,7 +164,7 @@ export const EndingPhrase = ({
   console.log(questionTypeChecker)
   const handleQuestionTypeSelector = (
     questionType: QuestionTypeEnum,
-    questionWord: QuestionWordEnum
+    questionWord: QuestionWordEnum,
   ) => {
     if (question.questionType === questionType) {
       setQuestionTypeMessage('Correct!')
@@ -196,13 +196,13 @@ export const EndingPhrase = ({
 
       if (shouldBeHowProblemSolution || shouoldBeHowCauseAndEffect)
         setQuestionTypeMessage(
-          'Nope: If the verb is affect, change, evolve, influence, or shape, it is a How: Cause and Effect Question. Otherwise, the sentence is a Problem and Solution question. '
+          'Nope: If the verb is affect, change, evolve, influence, or shape, it is a How: Cause and Effect Question. Otherwise, the sentence is a Problem and Solution question. ',
         )
 
       if (shouldBeWhyQuestion || shouldBeHowQuestion) {
         setQuestionTypeMessage(
           // 'Nope: If the verb is affect, affect, change, evolve, influence, or shape, it is a How: Cause and Effect Question. If the verb
-          'Try again! Look at the question word again.'
+          'Try again! Look at the question word again.',
         )
       }
       setQuestionTypeCorrect(false)
@@ -291,7 +291,7 @@ export const EndingPhrase = ({
                       questionTypeEnabled &&
                         handleQuestionTypeSelector(
                           QuestionTypeEnum.HOW_PROBLEM_SOLUTION,
-                          QuestionWordEnum.HOW
+                          QuestionWordEnum.HOW,
                         )
                     }}
                   >
@@ -302,7 +302,7 @@ export const EndingPhrase = ({
                       questionTypeEnabled &&
                         handleQuestionTypeSelector(
                           QuestionTypeEnum.HOW_CAUSE_EFFECT,
-                          QuestionWordEnum.HOW
+                          QuestionWordEnum.HOW,
                         )
                     }}
                   >
@@ -313,7 +313,7 @@ export const EndingPhrase = ({
                       questionTypeEnabled &&
                         handleQuestionTypeSelector(
                           QuestionTypeEnum.WHY_CAUSE_EFFECT,
-                          QuestionWordEnum.WHY
+                          QuestionWordEnum.WHY,
                         )
                     }}
                   >

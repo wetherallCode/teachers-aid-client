@@ -13,9 +13,9 @@ type ArticleReviewToCompleteContextProps = {
   children: ReactNode
 }
 
-export const ArticleReviewToCompleteContextProvider: FC<ArticleReviewToCompleteContextProps> = ({
-  children,
-}) => {
+export const ArticleReviewToCompleteContextProvider: FC<
+  ArticleReviewToCompleteContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(articleReviewToCompleteMachine)
   return (
     <ArticleReviewToCompleteContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useArticleReviewToCompleteContextProvider() {
   const context = useContext(ArticleReviewToCompleteContext)
   if (context === undefined) {
     throw new Error(
-      'useArticleReviewToCompleteContextProvider must be used within a ArticleReviewToCompleteContextProvider'
+      'useArticleReviewToCompleteContextProvider must be used within a ArticleReviewToCompleteContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useArticleReviewToCompleteContextProvider() {
       any,
       any
     >,
-    (event: articleReviewToCompleteMachineEvent) => void
+    (event: articleReviewToCompleteMachineEvent) => void,
   ]
 }

@@ -117,8 +117,8 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       // }
       console.log(
         data.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
-          (student) => student.hasProtocols
-        )
+          (student) => student.hasProtocols,
+        ),
       )
     },
     pollInterval: 1000,
@@ -128,7 +128,7 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
   useEffect(() => {
     const students =
       data?.findCourseInfoByCourseId.courseInfo.course.hasStudents.filter(
-        (student) => student.hasProtocols
+        (student) => student.hasProtocols,
         // .filter((protocol) => protocol.isActive)
         // .filter((protocol) => protocol.response)
       )
@@ -136,16 +136,16 @@ export const VirtualProtocolResponse: FC<VirtualProtocolResponseProps> = () => {
       for (const student of students!) {
         if (
           student.hasProtocols.filter(
-            (protocol) => protocol.isActive && protocol.response
+            (protocol) => protocol.isActive && protocol.response,
           ).length > 0
         ) {
           const [responded] = student.hasProtocols.filter(
-            (protocol) => protocol.isActive && protocol.response
+            (protocol) => protocol.isActive && protocol.response,
           )
 
           if (
             responseList.some(
-              (response) => response.studentId === responded.student._id!
+              (response) => response.studentId === responded.student._id!,
             )
             // || responseList.length === 0
           ) {

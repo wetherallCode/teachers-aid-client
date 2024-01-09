@@ -23,7 +23,7 @@ export const NextSteps = ({}: NextStepsProps) => {
       <CourseTitleButton
         onClick={() => {
           navigate(
-            `/dashboard/courses/${state.context.courseInfo.courseId}/roster`
+            `/dashboard/courses/${state.context.courseInfo.courseId}/roster`,
           )
         }}
       >

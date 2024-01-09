@@ -87,17 +87,18 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
 
   const protocolList: TextSectionProtocolsInput[] = []
 
-  data?.findTextSectionsById.textSections.forEach((section) =>
-    section.hasProtocols?.forEach((protocol) => {
-      const protocolItem = {
-        academicOutcomeTypes: protocol.academicOutcomeTypes,
-        activityType: protocol.activityType,
-        task: protocol.task,
-        isActive: false,
-        completed: false,
-      }
-      protocolList.push(protocolItem)
-    })
+  data?.findTextSectionsById.textSections.forEach(
+    (section) =>
+      section.hasProtocols?.forEach((protocol) => {
+        const protocolItem = {
+          academicOutcomeTypes: protocol.academicOutcomeTypes,
+          activityType: protocol.activityType,
+          task: protocol.task,
+          isActive: false,
+          completed: false,
+        }
+        protocolList.push(protocolItem)
+      }),
   )
 
   const questionsList: TextSectionQuestionsInput[] = []
@@ -127,8 +128,8 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
                 activity === 'BEFORE'
                   ? setActivity('AFTER')
                   : activity === 'DURING'
-                  ? setActivity('BEFORE')
-                  : setActivity('DURING')
+                    ? setActivity('BEFORE')
+                    : setActivity('DURING')
               }
             >
               &lt;
@@ -137,16 +138,16 @@ export const LessonPlanInfo: FC<LessonPlanInfoProps> = () => {
               {activity === 'BEFORE'
                 ? 'Before Activity'
                 : activity === 'DURING'
-                ? 'During Activities'
-                : 'After Activity'}
+                  ? 'During Activities'
+                  : 'After Activity'}
             </div>
             <div
               onClick={() =>
                 activity === 'BEFORE'
                   ? setActivity('DURING')
                   : activity === 'DURING'
-                  ? setActivity('AFTER')
-                  : setActivity('BEFORE')
+                    ? setActivity('AFTER')
+                    : setActivity('BEFORE')
               }
             >
               &gt;

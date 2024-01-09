@@ -28,7 +28,7 @@ export const PasswordCheck = ({ me, setPasswordCheck }: PasswordCheckProps) => {
         } else setPasswordCheck(false)
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
   useEffect(() => {
     if (me) {

@@ -18,9 +18,9 @@ export type LessonPlannerChapterSelectProps = {
   text: string
 }
 
-export const LessonPlannerChapterSelect: FC<LessonPlannerChapterSelectProps> = ({
-  text,
-}) => {
+export const LessonPlannerChapterSelect: FC<
+  LessonPlannerChapterSelectProps
+> = ({ text }) => {
   const [state, event] = useLessonPlannerContextProvider()
   const { loading, error, data } = useQuery<
     findChaptersInText,

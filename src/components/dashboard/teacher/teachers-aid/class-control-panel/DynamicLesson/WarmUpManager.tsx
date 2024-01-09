@@ -28,7 +28,7 @@ export type WarmUpManagerProps = {
           DefaultContext,
           ApolloCache<any>
         >
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -56,7 +56,7 @@ export const WarmUpManager = ({
         'findLessonByCourseAndDate',
         'findStudentByIdForTeachersAid',
       ],
-    }
+    },
   )
 
   const { isActive, academicOutcomeTypes, activityType, task } =

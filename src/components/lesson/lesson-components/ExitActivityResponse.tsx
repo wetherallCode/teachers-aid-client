@@ -73,7 +73,7 @@ export const ExitActivityResponse = ({
         // setPolling(2000)
       },
       refetchQueries: ['findActiveProtocolByStudent'],
-    }
+    },
   )
 
   return (

@@ -58,7 +58,7 @@ export const AssignedReadingGuideSelect =
     })
     const readingGuidesForMarkingPeriod =
       data?.findReadingGuidesToCompleteByStudentId.readingGuides.filter(
-        (guide) => guide.markingPeriod === state.context.selectedMarkingPeriod
+        (guide) => guide.markingPeriod === state.context.selectedMarkingPeriod,
       )!
 
     const allReadingGuidesComplete = false
@@ -75,7 +75,7 @@ export const AssignedReadingGuideSelect =
     const noReadingGuidesAssigned =
       (readingGuidesForMarkingPeriod &&
         readingGuidesForMarkingPeriod.every(
-          (rg) => !rg.graded && !rg.assigned
+          (rg) => !rg.graded && !rg.assigned,
         )) ||
       (readingGuidesForMarkingPeriod &&
         readingGuidesForMarkingPeriod.length === 0)
@@ -111,7 +111,7 @@ export const AssignedReadingGuideSelect =
                       (readingGuide) =>
                         !readingGuide.paperBased &&
                         !readingGuide.graded &&
-                        readingGuide.assigned
+                        readingGuide.assigned,
                     )
                     .map((readingGuide) => (
                       <ul key={readingGuide._id!}>

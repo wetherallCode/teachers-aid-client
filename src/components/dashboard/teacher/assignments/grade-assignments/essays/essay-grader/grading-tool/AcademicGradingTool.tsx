@@ -189,7 +189,7 @@ export const AcademicGradingTool = ({
             .filter(
               (entry) =>
                 entry.rubricWritingLevels.includes(WritingLevelEnum.ACADEMIC) &&
-                entry.rubricSection === state.context.currentRubricSection
+                entry.rubricSection === state.context.currentRubricSection,
             )
             .sort(sortByRubricEntryScore)
             .map((entry) => (
@@ -211,7 +211,7 @@ export const AcademicGradingTool = ({
               <CheckBox
                 key={entry._id}
                 checked={state.context.draftToGrade.rubricEntries.some(
-                  (entries) => entries.entry === entry.entry
+                  (entries) => entries.entry === entry.entry,
                 )}
                 onChange={handleChange}
                 label={entry.entry}

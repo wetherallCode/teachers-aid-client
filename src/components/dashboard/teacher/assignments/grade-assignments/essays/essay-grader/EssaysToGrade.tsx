@@ -79,7 +79,8 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
   const { markingPeriodEnum } = useEnumContextProvider()
 
   const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
-    markingPeriodState.context.currentMarkingPeriod
+    // markingPeriodState.context.currentMarkingPeriod
+    MarkingPeriodEnum.FIRST,
   )
 
   const [resubmittedEssayList, setResubmittedEssayList] = useState<
@@ -105,15 +106,15 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
       data?.findEssaysToGradeById.essays.filter(
         (essay) =>
           essay.hasOwner.inCourses.some((course) => course._id === courseId) &&
-          essay.finalDraft?.submittedFinalDraft.length! === 1
-      )!
+          essay.finalDraft?.submittedFinalDraft.length! === 1,
+      )!,
     )
     setResubmittedEssayList(
       data?.findEssaysToGradeById.essays.filter(
         (essay) =>
           essay.hasOwner.inCourses.some((course) => course._id === courseId) &&
-          essay.finalDraft?.submittedFinalDraft.length! > 1
-      )!
+          essay.finalDraft?.submittedFinalDraft.length! > 1,
+      )!,
     )
   }, [data, courseId])
 
@@ -129,29 +130,29 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
     essayList !== undefined &&
     essayList.filter(
       (essay) =>
-        essay.late === false && essay.markingPeriod === markingPeriodToGrade
+        essay.late === false && essay.markingPeriod === markingPeriodToGrade,
     )
   const onTimeEssaysToGrade =
     essayList !== undefined &&
     essayList.some(
-      (essay) => !essay.late && essay.markingPeriod === markingPeriodToGrade
+      (essay) => !essay.late && essay.markingPeriod === markingPeriodToGrade,
     )
 
   const lateEssays =
     essayList !== undefined &&
     essayList.filter(
       (essay) =>
-        essay.late === true && essay.markingPeriod === markingPeriodToGrade
+        essay.late === true && essay.markingPeriod === markingPeriodToGrade,
     )
 
   const lateEssaysToGrade =
     essayList !== undefined &&
     essayList.some(
-      (essay) => essay.late && essay.markingPeriod === markingPeriodToGrade
+      (essay) => essay.late && essay.markingPeriod === markingPeriodToGrade,
     )
 
   const index = markingPeriodEnum.findIndex(
-    (c: MarkingPeriodEnum) => c === markingPeriodToGrade
+    (c: MarkingPeriodEnum) => c === markingPeriodToGrade,
   )
 
   return (

@@ -13,9 +13,9 @@ type GradeEssayContainerContextProps = {
   children: ReactNode
 }
 
-export const GradeEssayContainerContextProvider: FC<GradeEssayContainerContextProps> = ({
-  children,
-}) => {
+export const GradeEssayContainerContextProvider: FC<
+  GradeEssayContainerContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(gradeEssayContainerMachine)
   return (
     <GradeEssayContainerContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useGradeEssayContainerContextProvider() {
   const context = useContext(GradeEssayContainerContext)
   if (context === undefined) {
     throw new Error(
-      'useGradeEssayContainerContextProvider must be used within a GradeEssayContainerContextProvider'
+      'useGradeEssayContainerContextProvider must be used within a GradeEssayContainerContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useGradeEssayContainerContextProvider() {
       any,
       any
     >,
-    (event: gradeEssayContainerMachineEvent) => void
+    (event: gradeEssayContainerMachineEvent) => void,
   ]
 }

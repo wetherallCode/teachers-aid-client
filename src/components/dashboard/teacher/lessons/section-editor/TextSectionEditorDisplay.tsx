@@ -78,7 +78,7 @@ export const TEXT_SECTION_UPDATER_MUTATION = gql`
 export type UpdateTextSectionMutationProps = (
   options?:
     | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-    | undefined
+    | undefined,
 ) => void
 
 export type EditorTabsProps =
@@ -101,7 +101,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
     completed: false,
   })
   const [questionsItem, setQuestionsItem] = useState<TextSectionQuestionsInput>(
-    { question: '', questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT }
+    { question: '', questionType: QuestionTypeEnum.WHY_CAUSE_EFFECT },
   )
 
   const [showVocabItemInputs, toggleVocabItemInputs] = useState(false)
@@ -139,7 +139,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
             (word) => ({
               word: word.word,
               definition: word.definition,
-            })
+            }),
           ),
         })
       data.findTextSectionById.textSection.hasQuestions &&
@@ -149,7 +149,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
             (question) => ({
               question: question.question,
               questionType: question.questionType,
-            })
+            }),
           ),
         })
       data.findTextSectionById.textSection.hasProtocols &&
@@ -162,7 +162,7 @@ export const TextSectionEditorDisplay = ({}: TextSectionEditorDisplayProps) => {
               task: protocol.task,
               isActive: false,
               completed: false,
-            })
+            }),
           ),
         })
     },

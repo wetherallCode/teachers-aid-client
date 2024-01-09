@@ -15,7 +15,9 @@ import {
 
 type LessonPlannerTextListLoaderProps = {}
 
-export const LessonPlannerTextListLoader: FC<LessonPlannerTextListLoaderProps> = () => {
+export const LessonPlannerTextListLoader: FC<
+  LessonPlannerTextListLoaderProps
+> = () => {
   const me = useUserContextProvider()
   const [, event] = useLessonPlannerContextProvider()
 

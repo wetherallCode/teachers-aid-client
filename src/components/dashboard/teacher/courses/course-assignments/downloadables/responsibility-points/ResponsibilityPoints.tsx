@@ -42,7 +42,7 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
   const me: me_me_Teacher = useUserContextProvider()
 
   const [courseName] = me.teachesCourses.filter(
-    (courseToFind) => courseToFind._id === course
+    (courseToFind) => courseToFind._id === course,
   )
 
   const [markingPeriodSelect, setMarkingPeriodSelect] = useState<
@@ -65,7 +65,7 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
   if (loading) return <div>Loading </div>
   const responsibilityPointList =
     data?.findResponsibilityPointsByCourse.responsibilityPointList.filter(
-      (rp) => rp.markingPeriod === markingPeriodSelect
+      (rp) => rp.markingPeriod === markingPeriodSelect,
     )
   const title = 'responsibility_points'
   const headers = [
@@ -96,7 +96,7 @@ export const ResponsibilityPoints: FC<ResponsibilityPointsProps> = () => {
           data={rosterList}
           headers={headers}
           filename={title + '_' + courseName.name}
-          target='_blank'
+          target="_blank"
           style={{
             marginRight: '2%',
             textDecoration: 'none',

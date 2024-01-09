@@ -36,7 +36,7 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = ({
       },
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findEssayById'],
-    }
+    },
   )
   useEffect(() => {
     if (!state.context.advancedOrganizer.answer.preLoaded) {
@@ -77,14 +77,14 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = ({
                   {question === 'HOW_PROBLEM_SOLUTION'
                     ? 'How: Problem and Solution'
                     : question === 'HOW_CAUSE_EFFECT'
-                    ? 'How: Cause and Effect'
-                    : 'Why: Cause and Effect'}
+                      ? 'How: Cause and Effect'
+                      : 'Why: Cause and Effect'}
                 </option>
               ))}
             </select>
             <div>Restatement</div>
             <input
-              type='text'
+              type="text"
               value={state.context.advancedOrganizer.restatement}
               onChange={(e: any) =>
                 event({

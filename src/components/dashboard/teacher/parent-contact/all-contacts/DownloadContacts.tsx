@@ -60,7 +60,7 @@ export const DownloadContacts: FC<DownloadContactsProps> = ({ contacts }) => {
             //   alignItems: 'center',
             textDecoration: 'none',
           }}
-          target='_blank'
+          target="_blank"
           onClick={() => {}}
         >
           Download

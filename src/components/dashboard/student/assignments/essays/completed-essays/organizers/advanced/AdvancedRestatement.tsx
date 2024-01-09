@@ -65,7 +65,7 @@ export const AdvancedRestatement: FC<AdvancedRestatementProps> = ({
       </span>
       <div>Restatement</div>
       <input
-        type='text'
+        type="text"
         value={state.context.advancedOrganizer.restatement}
         onChange={(e: any) =>
           event({

@@ -24,7 +24,7 @@ export const LessonsHome = () => {
   return (
     <Routes>
       <Route
-        path='lesson-planner/:date/*'
+        path="lesson-planner/:date/*"
         element={
           <LessonPlannerContextProvider>
             <LessonPlanner />
@@ -32,7 +32,7 @@ export const LessonsHome = () => {
         }
       />
       <Route
-        path=''
+        path=""
         element={
           <LessonFinderContextProvider>
             <LessonFinder />
@@ -40,7 +40,7 @@ export const LessonsHome = () => {
         }
       />
       <Route
-        path='section-builder'
+        path="section-builder"
         element={
           <SectionBuilderContextProvider>
             <SectionBuilder />
@@ -48,7 +48,7 @@ export const LessonsHome = () => {
         }
       />
       <Route
-        path='section-editor'
+        path="section-editor"
         element={
           <SectionEditorContextProvider>
             <SectionEditor />
@@ -56,7 +56,7 @@ export const LessonsHome = () => {
         }
       />
       <Route
-        path='essay-question'
+        path="essay-question"
         element={
           <BuildEssayQuestionContextProvider>
             <Questions />
@@ -64,7 +64,7 @@ export const LessonsHome = () => {
         }
       />
       <Route
-        path='create-quiz/:date/*'
+        path="create-quiz/:date/*"
         element={
           <CreateQuizContextProvider>
             <CreateQuiz />

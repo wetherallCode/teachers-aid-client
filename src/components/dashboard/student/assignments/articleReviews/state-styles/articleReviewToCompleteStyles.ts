@@ -32,11 +32,11 @@ export const ArticleReviewDetalisContainer = styled(AssignmentDetailsContainer)`
   grid-template-rows: 1fr 1fr;
 `
 export const ArticleReviewInfoSwitchButtonContainer = styled(
-  ReadingGuideInfoSwitchButtonContainer
+  ReadingGuideInfoSwitchButtonContainer,
 )``
 
 export const ArticleReviewToCompleteContainer = styled(
-  ReadingGuideToCompleteContainer
+  ReadingGuideToCompleteContainer,
 )``
 
 export type ArticleReviewSubmitButtonProps = {
@@ -57,7 +57,7 @@ export const ArticleReviewSubmitButton = styled.button<ArticleReviewSubmitButton
 `
 export const ArticleReviewHeader = styled(ReadingGuideHeader)``
 export const ArticleReviewToCompleteInformationContainer = styled(
-  Standard7x12Container
+  Standard7x12Container,
 )`
   grid-row: 2/8;
   grid-column: 1/-1;

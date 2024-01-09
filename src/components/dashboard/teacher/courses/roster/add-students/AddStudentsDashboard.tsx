@@ -9,7 +9,7 @@ export const AddStudentsDashboard: FC<AddStudentsProps> = () => {
   return (
     <>
       <Routes>
-        <Route path='add-student' element={<AddStudents />} />
+        <Route path="add-student" element={<AddStudents />} />
       </Routes>
     </>
   )

@@ -18,16 +18,16 @@ export const LessonNav: FC<TeacherNavProps> = ({
           </Link>
         </motion.li>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/lessons/lesson-finder'>Lesson Finder</Link>
+          <Link to="dashboard/lessons/lesson-finder">Lesson Finder</Link>
         </motion.li>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/lessons/section-builder'>Section Builder</Link>
+          <Link to="dashboard/lessons/section-builder">Section Builder</Link>
         </motion.li>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/lessons/section-editor'>Section Editor</Link>
+          <Link to="dashboard/lessons/section-editor">Section Editor</Link>
         </motion.li>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/lessons/essay-question'>Essay Questions</Link>
+          <Link to="dashboard/lessons/essay-question">Essay Questions</Link>
         </motion.li>
         <motion.li variants={liVariants}>
           <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />

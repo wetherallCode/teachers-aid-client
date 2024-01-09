@@ -52,7 +52,7 @@ export const Nav: FC<NavProps> = ({
   return (
     <MenuNav
       variants={window.screen.width < 700 ? moblieVariants : variants}
-      initial='closed'
+      initial="closed"
       animate={isNavOpen ? 'open' : 'closed'}
       transition={{ damping: 500 }}
       ref={ref}

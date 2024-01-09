@@ -34,7 +34,7 @@ export const CustomEditor = {
     Transforms.setNodes(
       editor,
       { bold: isActive ? null : true },
-      { match: (n) => Text.isText(n), split: true }
+      { match: (n) => Text.isText(n), split: true },
     )
   },
   toggleStrikeThrough(editor: Editor) {
@@ -42,7 +42,7 @@ export const CustomEditor = {
     Transforms.setNodes(
       editor,
       { strikeThrough: isActive ? null : true },
-      { match: (n) => Text.isText(n), split: true }
+      { match: (n) => Text.isText(n), split: true },
     )
   },
   toggleUnderline(editor: Editor) {
@@ -50,7 +50,7 @@ export const CustomEditor = {
     Transforms.setNodes(
       editor,
       { underline: isActive ? null : true },
-      { match: (n) => Text.isText(n), split: true }
+      { match: (n) => Text.isText(n), split: true },
     )
   },
   // toggleRedPen(editor: Editor, nodes: Node) {

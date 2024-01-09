@@ -25,12 +25,12 @@ export const QuestionsInfo = () => {
   console.log(questionInfo)
   const [, event] = useSectionBuilderContextProvider()
   const { loading, error, data } = useQuery<questionTypeEnum>(
-    QUESTION_TYPE_ENUM_QUERY
+    QUESTION_TYPE_ENUM_QUERY,
   )
   if (loading) return <div>Loading </div>
   if (error) console.error(error)
   const questionTypes = data?.QuestionTypeEnum?.enumValues?.map(
-    (value) => value.name
+    (value) => value.name,
   )
 
   return (
@@ -42,7 +42,7 @@ export const QuestionsInfo = () => {
       <div>Questions</div>
       <div>Question: </div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           setQuestionInfo({ ...questionInfo, question: e.target.value })
         }

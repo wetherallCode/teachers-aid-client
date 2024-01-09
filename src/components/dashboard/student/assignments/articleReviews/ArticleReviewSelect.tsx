@@ -53,7 +53,7 @@ export const ArticleReviewSelect: FC<ArticleReviewSelectProps> = () => {
     data?.findArticleReviewsByStudent.articleReviews.filter(
       (articleReview) =>
         articleReview.markingPeriod === state.context.selectedMarkingPeriod &&
-        !articleReview.submitted
+        !articleReview.submitted,
     )
 
   return (

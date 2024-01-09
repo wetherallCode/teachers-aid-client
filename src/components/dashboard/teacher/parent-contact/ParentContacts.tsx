@@ -14,11 +14,11 @@ export const ParentContacts: FC<ParentContactsProps> = () => {
   return (
     <>
       <Routes>
-        <Route path='contacts' element={<AllContacts />} />
+        <Route path="contacts" element={<AllContacts />} />
       </Routes>
       <Routes>
         <Route
-          path='create-contact'
+          path="create-contact"
           element={
             <CreateContactContextProvider>
               <CreateContact />

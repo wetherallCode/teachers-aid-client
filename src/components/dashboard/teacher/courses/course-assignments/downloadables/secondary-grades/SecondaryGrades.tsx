@@ -67,11 +67,11 @@ export const SecondaryGrades = ({}: SecondaryGradesProps) => {
   })
 
   const [assignmentList, setAssignmentList] = useState<AssignmentTypeProps[]>(
-    []
+    [],
   )
 
   const [courseName] = me.teachesCourses.filter(
-    (courseToFind) => courseToFind._id === course
+    (courseToFind) => courseToFind._id === course,
   )
 
   const [markingPeriodSelect, setMarkingPeriodSelect] = useState<
@@ -143,7 +143,7 @@ export const SecondaryGrades = ({}: SecondaryGradesProps) => {
                   alignItems: 'center',
                   textDecoration: 'none',
                 }}
-                target='_blank'
+                target="_blank"
                 onClick={() => {
                   event({ type: 'IDLE' })
                   event({ type: 'RESET_ESSAYS' })

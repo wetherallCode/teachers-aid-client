@@ -9,7 +9,7 @@ export type DuringActivitiesProps = {
 export const DuringActivities: FC<DuringActivitiesProps> = ({ protocols }) => {
   const [state, event] = useLessonEditorContextProvider()
   const [protocolList, setprotocolList] = useState<TextSectionProtocolsInput[]>(
-    []
+    [],
   )
 
   return (

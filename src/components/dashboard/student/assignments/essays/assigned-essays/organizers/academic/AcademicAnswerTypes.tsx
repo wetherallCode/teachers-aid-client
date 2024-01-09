@@ -72,7 +72,7 @@ export const AcademicAnswerTypes = ({
       },
       onCompleted: (data) => console.log(data),
       refetchQueries: [''],
-    }
+    },
   )
 
   useEffect(() => {
@@ -134,8 +134,8 @@ export const AcademicAnswerTypes = ({
                     {question === 'HOW_PROBLEM_SOLUTION'
                       ? 'How: Problem and Solution'
                       : question === 'HOW_CAUSE_EFFECT'
-                      ? 'How: Cause and Effect'
-                      : 'Why: Cause and Effect'}
+                        ? 'How: Cause and Effect'
+                        : 'Why: Cause and Effect'}
                   </option>
                 ))}
               </AcademicQuestionTypeSelect>
@@ -145,7 +145,7 @@ export const AcademicAnswerTypes = ({
                 <div>Restatement</div>
               </AcademicRestatementTitle>
               <AcademicRestatementInput
-                type='text'
+                type="text"
                 value={state.context.academicOrganizer.restatement}
                 onChange={(e: any) =>
                   event({

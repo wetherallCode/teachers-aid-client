@@ -31,7 +31,7 @@ export const LoadTasks: FC<LoadTasksProps> = ({ courseId, dateIssued }) => {
         .reduce(
           (acc: number[], i: number) =>
             acc.includes(i) ? [...acc] : [...acc, i],
-          []
+          [],
         )!
 
       event({
@@ -55,7 +55,7 @@ export const LoadTasks: FC<LoadTasksProps> = ({ courseId, dateIssued }) => {
         .reduce(
           (acc: number[], i: number) =>
             acc.includes(i) ? [...acc] : [...acc, i],
-          []
+          [],
         )
 
       for (const taskNumber of taskNumberListArr) {

@@ -59,7 +59,7 @@ export const ReviewTasks: FC<ReviewTasksProps> = ({ courseId }) => {
     <ReviewTasksContainer>
       <TasksToSelectContainer>
         <input
-          type='date'
+          type="date"
           value={state.context.dateToReview}
           onChange={(e: any) =>
             event({ type: 'SET_DATE_TO_REVIEW', payload: e.target.value })

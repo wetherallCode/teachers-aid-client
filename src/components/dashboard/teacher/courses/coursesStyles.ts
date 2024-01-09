@@ -27,7 +27,7 @@ export type IndividualCourseBlockContainerProps = {
 }
 
 export const IndividualCourseBlockContainer = styled(
-  Link
+  Link,
 )<IndividualCourseBlockContainerProps>`
   display: grid;
   grid-template-rows: 1fr 1fr;

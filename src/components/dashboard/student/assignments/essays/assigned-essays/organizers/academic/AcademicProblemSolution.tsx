@@ -107,7 +107,7 @@ export const AcademicProblemSolution = ({
   const properNameEndsInS =
     properNoun &&
     questionParts.simpleSubject.charAt(
-      questionParts.simpleSubject.length - 1
+      questionParts.simpleSubject.length - 1,
     ) === 's'
 
   const verbInIngFormat =

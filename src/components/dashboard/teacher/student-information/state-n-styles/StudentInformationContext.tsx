@@ -13,9 +13,9 @@ type StudentInformationContextProps = {
   children: ReactNode
 }
 
-export const StudentInformationContextProvider: FC<StudentInformationContextProps> = ({
-  children,
-}) => {
+export const StudentInformationContextProvider: FC<
+  StudentInformationContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(studentInformationMachine)
   return (
     <StudentInformationContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useStudentInformationContextProvider() {
   const context = useContext(StudentInformationContext)
   if (context === undefined) {
     throw new Error(
-      'useStudentInformationContextProvider must be used within a StudentInformationContextProvider'
+      'useStudentInformationContextProvider must be used within a StudentInformationContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useStudentInformationContextProvider() {
       any,
       any
     >,
-    (event: studentInformationMachineEvent) => void
+    (event: studentInformationMachineEvent) => void,
   ]
 }

@@ -23,10 +23,8 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
 
   const { whyCauseEffect } = state.context.academicOrganizer.answer
 
-  const {
-    subject,
-    verb,
-  } = state.context.academicOrganizer.academicSentenceStructure
+  const { subject, verb } =
+    state.context.academicOrganizer.academicSentenceStructure
 
   const [updateWhyCauseEffect] = useMutation<
     updateWhyCauseEffect,
@@ -63,8 +61,8 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
             Why did {subject} {verb}?
           </div>
           <PartInput
-            type='text'
-            placeholder='Proximate Cause...'
+            type="text"
+            placeholder="Proximate Cause..."
             value={
               state.context.academicOrganizer.answer.whyCauseEffect
                 .proximateCause
@@ -80,8 +78,8 @@ export const AcademicWhyCauseEffect: FC<AcademicWhyCauseEffectProps> = () => {
         <AnswerTypeContainter>
           <div>Why did your Proximate Cause happen?</div>
           <PartInput
-            type='text'
-            placeholder='Ultimate Cause...'
+            type="text"
+            placeholder="Ultimate Cause..."
             value={
               state.context.academicOrganizer.answer.whyCauseEffect
                 .ultimateCause

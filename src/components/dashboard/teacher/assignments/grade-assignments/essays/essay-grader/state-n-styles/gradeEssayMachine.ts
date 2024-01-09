@@ -288,10 +288,10 @@ export const gradeEssayMachine = Machine<
                       // ...ctx.draftToGrade.additionalComments,
                       ...ctx.draftToGrade.additionalComments!.slice(
                         0,
-                        evt.payload
+                        evt.payload,
                       ),
                       ...ctx.draftToGrade.additionalComments!.slice(
-                        evt.payload + 1
+                        evt.payload + 1,
                       ),
                     ],
                   },
@@ -390,10 +390,10 @@ export const gradeEssayMachine = Machine<
                       // ...ctx.draftToGrade.additionalComments,
                       ...ctx.draftToGrade.additionalComments!.slice(
                         0,
-                        evt.payload
+                        evt.payload,
                       ),
                       ...ctx.draftToGrade.additionalComments!.slice(
-                        evt.payload + 1
+                        evt.payload + 1,
                       ),
                     ],
                   },
@@ -492,10 +492,10 @@ export const gradeEssayMachine = Machine<
                       // ...ctx.draftToGrade.additionalComments,
                       ...ctx.draftToGrade.additionalComments!.slice(
                         0,
-                        evt.payload
+                        evt.payload,
                       ),
                       ...ctx.draftToGrade.additionalComments!.slice(
-                        evt.payload + 1
+                        evt.payload + 1,
                       ),
                     ],
                   },

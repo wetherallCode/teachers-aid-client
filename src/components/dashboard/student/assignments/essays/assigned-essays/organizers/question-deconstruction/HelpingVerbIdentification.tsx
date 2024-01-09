@@ -40,7 +40,7 @@ export const HelpingVerbIdentification = ({
 
   const removeDidHandler = (word: string) => {
     const index = questionToModify.findIndex(
-      (wordToFind) => wordToFind === word
+      (wordToFind) => wordToFind === word,
     )
     const sentenceToModify = questionToModify
       .join(' ')
@@ -61,11 +61,11 @@ export const HelpingVerbIdentification = ({
   const moveBeingWord = (word: string) => {
     if (word === 'was' || word === 'were') {
       const index = questionToModify.findIndex(
-        (wordToFind) => wordToFind === word
+        (wordToFind) => wordToFind === word,
       )
 
       const predicateIndex = questionToModify.findIndex(
-        (i) => i === question.completePredicate.split(' ')[0]
+        (i) => i === question.completePredicate.split(' ')[0],
       )
 
       const sentenceToModify = questionToModify
@@ -121,7 +121,7 @@ export const HelpingVerbIdentification = ({
           setEnabled(true)
         },
         // attempts === 0 ? 3000 : 3000 + 1000 * attempts
-        3000
+        3000,
       )
       return () => clearTimeout(timer)
     }

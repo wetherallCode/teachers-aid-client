@@ -98,7 +98,7 @@ export const UserContextProvider = ({ children }: UserContextProps) => {
       >
         <div style={{ justifySelf: 'center', alignSelf: 'center' }}>
           <span>Starting the Server </span>
-          <span aria-label='🚀🚀🚀' role='img'>
+          <span aria-label="🚀🚀🚀" role="img">
             🚀🚀🚀
           </span>
         </div>
@@ -115,7 +115,7 @@ export function useUserContextProvider() {
 
   if (context === undefined) {
     throw new Error(
-      'useUserContextProvider must be used within a UserContextProvider'
+      'useUserContextProvider must be used within a UserContextProvider',
     )
   }
   return context

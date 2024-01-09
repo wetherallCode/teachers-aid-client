@@ -138,7 +138,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
           {quizQuestionDifficultyLevelEnum.map(
             (difficultyLevel: QuizQuestionDifficultyLevelEnum) => (
               <option key={difficultyLevel}>{difficultyLevel}</option>
-            )
+            ),
           )}
         </select>
         {state.context.quizQuestion.questionType ===
@@ -193,7 +193,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
               </>
             )}
             <button
-              type='reset'
+              type="reset"
               onClick={() => {
                 event({
                   type: 'SET_QUIZ_QUESTION_INPUT',
@@ -291,7 +291,7 @@ export const AddQuizQuestion = ({}: AddQuizQuestionProps) => {
           ))}
         </div>
         <button
-          type='reset'
+          type="reset"
           onClick={() => {
             const multipleChoiceReady =
               state.context.quizQuestion.questionType ===

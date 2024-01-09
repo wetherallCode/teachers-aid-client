@@ -28,11 +28,11 @@ export function useRubricEditorContextProvider() {
   const context = useContext(RubricEditorContext)
   if (context === undefined) {
     throw new Error(
-      'useRubricEditorContextProvider must be used within a RubricEditorContextProvider'
+      'useRubricEditorContextProvider must be used within a RubricEditorContextProvider',
     )
   }
   return context as [
     State<rubricEditorMachineContext, rubricEditorMachineEvent, any, any>,
-    (event: rubricEditorMachineEvent) => void
+    (event: rubricEditorMachineEvent) => void,
   ]
 }

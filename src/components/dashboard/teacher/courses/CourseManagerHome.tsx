@@ -98,14 +98,16 @@ export const CourseManagerHome = ({ course }: CourseManagerHomeProps) => {
             </button>
           </AssignmentControlDisplayContainer>
         </CourseMenuItemBlock>
-        <CourseMenuItemBlockLink to='assignment-manager'>
+        <CourseMenuItemBlockLink to="assignment-manager">
           Grade Download
         </CourseMenuItemBlockLink>
-        <CourseMenuItemBlockLink to='roster'>Roster</CourseMenuItemBlockLink>
-        <CourseMenuItemBlockLink to='edit-course'>
+        <CourseMenuItemBlockLink to="roster">Roster</CourseMenuItemBlockLink>
+        <CourseMenuItemBlockLink to="edit-course">
           Edit Course
         </CourseMenuItemBlockLink>
-        <CourseMenuItemBlock></CourseMenuItemBlock>
+        <CourseMenuItemBlockLink to="course-info">
+          Course Information
+        </CourseMenuItemBlockLink>
         <CourseMenuItemBlock></CourseMenuItemBlock>
       </CourseMenuContainer>
     </CourseManagerHomeContainer>

@@ -169,19 +169,19 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
     {
       // onCompleted: (data) => console.log(data.findAllQuestions.questions),
       onError: (error) => console.error(error),
-    }
+    },
   )
   const essayTotal = 40
   const sgoEssaysList = sgoEssays?.findSGOEssaysByStudentId.essays.slice(
     0,
-    essayTotal
+    essayTotal,
   )!
 
   const allEssayList = allEssays?.findEssaysByStudentId
     .essays!.filter(
       (essay) =>
         // essay.finalDraft &&
-        essay.markingPeriod !== 'FIRST'
+        essay.markingPeriod !== 'FIRST',
       //  &&
       // essay.score.earnedPoints !== 0
     )
@@ -203,7 +203,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
 
   const questionList = allQuestionsData?.findAllQuestions.questions.slice(
     16,
-    allQuestionsData.findAllQuestions.questions.length - 1
+    allQuestionsData.findAllQuestions.questions.length - 1,
   )
 
   const answerEntries: RubricEntries = []
@@ -229,7 +229,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
   if (!loading) {
     let i: number = 1
     const allCompletedEssays = allEssayList!.filter(
-      (essay) => essay.finalDraft && essay.score.earnedPoints !== 0
+      (essay) => essay.finalDraft && essay.score.earnedPoints !== 0,
     )
 
     if (allCompletedEssays.length > 25) {
@@ -237,7 +237,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
         const studentName =
           essay.hasOwner.firstName + ' ' + essay.hasOwner.lastName
         const questionNo = questionList?.findIndex(
-          (i) => i === essay.topic.question
+          (i) => i === essay.topic.question,
         )!
 
         const essayToSort = [...essay.finalDraft?.submittedFinalDraft!]
@@ -267,7 +267,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
 
             // answerScoreContainer.push(entry.score > 4 ? 4 : entry.score)
             answerScoreContainer.push(
-              entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+              entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1,
             )
           }
 
@@ -282,7 +282,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
             })
             // conclusionScoreContainer.push(entry.score > 4 ? 4 : entry.score)
             conclusionScoreContainer.push(
-              entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+              entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1,
             )
           }
         }
@@ -309,30 +309,30 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               conclusionEntries: conclusionEntryList,
             })
           : answerScoreContainer.length === 1
-          ? essayEntryList.push({
-              answerScore: answerScoreContainer[0],
-              conclusionScore: conclusionScoreContainer[0],
-              draft: bestEssay.draft,
-              number: i,
-              question: essay.topic.question,
-              questionNumber: questionNo + 1,
-              readingSection: essay.readings.readingSections,
-              studentName,
-              answerEntries: answerEntryList,
-              conclusionEntries: conclusionEntryList,
-            })
-          : essayEntryList.push({
-              answerScore: 0,
-              conclusionScore: 0,
-              draft: bestEssay.draft,
-              number: i,
-              question: essay.topic.question,
-              questionNumber: questionNo + 1,
-              readingSection: essay.readings.readingSections,
-              studentName,
-              answerEntries: answerEntryList,
-              conclusionEntries: conclusionEntryList,
-            })
+            ? essayEntryList.push({
+                answerScore: answerScoreContainer[0],
+                conclusionScore: conclusionScoreContainer[0],
+                draft: bestEssay.draft,
+                number: i,
+                question: essay.topic.question,
+                questionNumber: questionNo + 1,
+                readingSection: essay.readings.readingSections,
+                studentName,
+                answerEntries: answerEntryList,
+                conclusionEntries: conclusionEntryList,
+              })
+            : essayEntryList.push({
+                answerScore: 0,
+                conclusionScore: 0,
+                draft: bestEssay.draft,
+                number: i,
+                question: essay.topic.question,
+                questionNumber: questionNo + 1,
+                readingSection: essay.readings.readingSections,
+                studentName,
+                answerEntries: answerEntryList,
+                conclusionEntries: conclusionEntryList,
+              })
 
         answerScoreContainer.length > 1
           ? answerEntryScore.push({
@@ -342,18 +342,18 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               questionNumber: questionNo + 1,
             })
           : answerScoreContainer.length === 1
-          ? answerEntryScore.push({
-              number: i,
-              readingSection: essay.readings.readingSections,
-              score: answerScoreContainer[0],
-              questionNumber: questionNo + 1,
-            })
-          : answerEntryScore.push({
-              number: i,
-              readingSection: essay.readings.readingSections,
-              score: 0,
-              questionNumber: questionNo + 1,
-            })
+            ? answerEntryScore.push({
+                number: i,
+                readingSection: essay.readings.readingSections,
+                score: answerScoreContainer[0],
+                questionNumber: questionNo + 1,
+              })
+            : answerEntryScore.push({
+                number: i,
+                readingSection: essay.readings.readingSections,
+                score: 0,
+                questionNumber: questionNo + 1,
+              })
 
         conclusionScoreContainer.length > 1
           ? conclusionEntryScore.push({
@@ -363,18 +363,18 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               questionNumber: questionNo + 1,
             })
           : conclusionScoreContainer.length === 1
-          ? conclusionEntryScore.push({
-              number: i,
-              readingSection: essay.readings.readingSections,
-              score: conclusionScoreContainer[0],
-              questionNumber: questionNo + 1,
-            })
-          : conclusionEntryScore.push({
-              number: i,
-              readingSection: essay.readings.readingSections,
-              score: 0,
-              questionNumber: questionNo + 1,
-            })
+            ? conclusionEntryScore.push({
+                number: i,
+                readingSection: essay.readings.readingSections,
+                score: conclusionScoreContainer[0],
+                questionNumber: questionNo + 1,
+              })
+            : conclusionEntryScore.push({
+                number: i,
+                readingSection: essay.readings.readingSections,
+                score: 0,
+                questionNumber: questionNo + 1,
+              })
         i = i + 1
       }
       console.log(answerEntryScore)
@@ -384,7 +384,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
         const studentName =
           essay.hasOwner.firstName + ' ' + essay.hasOwner.lastName
         const questionNo = questionList?.findIndex(
-          (i) => i === essay.topic.question
+          (i) => i === essay.topic.question,
         )!
 
         if (essay.finalDraft) {
@@ -415,7 +415,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
 
               // answerScoreContainer.push(entry.score > 4 ? 4 : entry.score)
               answerScoreContainer.push(
-                entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+                entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1,
               )
             }
 
@@ -430,7 +430,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
               })
               // conclusionScoreContainer.push(entry.score > 4 ? 4 : entry.score)
               conclusionScoreContainer.push(
-                entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1
+                entry.score === 0 ? 0 : entry.score === 1 ? 1 : entry.score - 1,
               )
             }
 
@@ -459,30 +459,30 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 conclusionEntries: conclusionEntryList,
               })
             : answerScoreContainer.length === 1
-            ? essayEntryList.push({
-                answerScore: answerScoreContainer[0],
-                conclusionScore: conclusionScoreContainer[0],
-                draft: bestEssay.draft,
-                number: i,
-                question: essay.topic.question,
-                questionNumber: questionNo + 1,
-                readingSection: essay.readings.readingSections,
-                studentName,
-                answerEntries: answerEntryList,
-                conclusionEntries: conclusionEntryList,
-              })
-            : essayEntryList.push({
-                answerScore: 0,
-                conclusionScore: 0,
-                draft: bestEssay.draft,
-                number: i,
-                question: essay.topic.question,
-                questionNumber: questionNo + 1,
-                readingSection: essay.readings.readingSections,
-                studentName,
-                answerEntries: answerEntryList,
-                conclusionEntries: conclusionEntryList,
-              })
+              ? essayEntryList.push({
+                  answerScore: answerScoreContainer[0],
+                  conclusionScore: conclusionScoreContainer[0],
+                  draft: bestEssay.draft,
+                  number: i,
+                  question: essay.topic.question,
+                  questionNumber: questionNo + 1,
+                  readingSection: essay.readings.readingSections,
+                  studentName,
+                  answerEntries: answerEntryList,
+                  conclusionEntries: conclusionEntryList,
+                })
+              : essayEntryList.push({
+                  answerScore: 0,
+                  conclusionScore: 0,
+                  draft: bestEssay.draft,
+                  number: i,
+                  question: essay.topic.question,
+                  questionNumber: questionNo + 1,
+                  readingSection: essay.readings.readingSections,
+                  studentName,
+                  answerEntries: answerEntryList,
+                  conclusionEntries: conclusionEntryList,
+                })
 
           answerScoreContainer.length > 1
             ? answerEntryScore.push({
@@ -492,18 +492,18 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 questionNumber: questionNo + 1,
               })
             : answerScoreContainer.length === 1
-            ? answerEntryScore.push({
-                number: i,
-                readingSection: essay.readings.readingSections,
-                score: answerScoreContainer[0],
-                questionNumber: questionNo + 1,
-              })
-            : answerEntryScore.push({
-                number: i,
-                readingSection: essay.readings.readingSections,
-                score: 0,
-                questionNumber: questionNo + 1,
-              })
+              ? answerEntryScore.push({
+                  number: i,
+                  readingSection: essay.readings.readingSections,
+                  score: answerScoreContainer[0],
+                  questionNumber: questionNo + 1,
+                })
+              : answerEntryScore.push({
+                  number: i,
+                  readingSection: essay.readings.readingSections,
+                  score: 0,
+                  questionNumber: questionNo + 1,
+                })
 
           conclusionScoreContainer.length > 1
             ? conclusionEntryScore.push({
@@ -513,18 +513,18 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
                 questionNumber: questionNo + 1,
               })
             : conclusionScoreContainer.length === 1
-            ? conclusionEntryScore.push({
-                number: i,
-                readingSection: essay.readings.readingSections,
-                score: conclusionScoreContainer[0],
-                questionNumber: questionNo + 1,
-              })
-            : conclusionEntryScore.push({
-                number: i,
-                readingSection: essay.readings.readingSections,
-                score: 0,
-                questionNumber: questionNo + 1,
-              })
+              ? conclusionEntryScore.push({
+                  number: i,
+                  readingSection: essay.readings.readingSections,
+                  score: conclusionScoreContainer[0],
+                  questionNumber: questionNo + 1,
+                })
+              : conclusionEntryScore.push({
+                  number: i,
+                  readingSection: essay.readings.readingSections,
+                  score: 0,
+                  questionNumber: questionNo + 1,
+                })
         } else {
           answerEntries.push({
             __typename: 'RubricEntry',
@@ -577,11 +577,11 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
 
     const answerData = answerEntryScore.map(
       // (entry) => entry.score + ' (' + entry.questionNumber + ')'
-      (entry) => entry.score
+      (entry) => entry.score,
     )
     const conclusionData = conclusionEntryScore.map(
       // (entry) => entry.score + ' (' + entry.questionNumber + ')'
-      (entry) => entry.score
+      (entry) => entry.score,
     )
     // const individualEssayIds = answerEntryScore.map((i) => i.essayId)
 

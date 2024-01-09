@@ -83,10 +83,10 @@ export const subjectPredicateGrading = ({
         (verbType === VerbTypeEnum.ACTION
           ? `action word isn't in the subject.`
           : verbType === VerbTypeEnum.BEING
-          ? `being word (${helpingVerb}) isn't in the subject.`
-          : verbType === VerbTypeEnum.HAVING
-          ? `word have or had isn't in the subject.`
-          : `feeling word isn't in the subject.`),
+            ? `being word (${helpingVerb}) isn't in the subject.`
+            : verbType === VerbTypeEnum.HAVING
+              ? `word have or had isn't in the subject.`
+              : `feeling word isn't in the subject.`),
       correct: false,
     }
   }

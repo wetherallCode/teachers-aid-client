@@ -93,7 +93,7 @@ export const SubjectIdentification = ({
           setEnabled(true)
           console.log(timeToComplete)
         },
-        attempts === 0 ? 6000 : 6000 + 1000 * attempts
+        attempts === 0 ? 6000 : 6000 + 1000 * attempts,
       )
       return () => {
         clearTimeout(timer)

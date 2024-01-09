@@ -69,7 +69,7 @@ export const BeforeActivitySelect: FC<BeforeActivitySelectProps> = ({
           }
         }}
       >
-        <option value='none'>Select Activity Type</option>
+        <option value="none">Select Activity Type</option>
         {protocolActivityTypes.map((type: ProtocolActivityTypes) => {
           const normalizedType = underscoreEliminator(type)
           return (

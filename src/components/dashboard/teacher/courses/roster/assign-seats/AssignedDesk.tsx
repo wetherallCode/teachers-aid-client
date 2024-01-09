@@ -22,7 +22,7 @@ export type AssignedDeskProps = {
   assignSeats: (
     options?:
       | MutationFunctionOptions<assignRegularSeats, assignRegularSeatsVariables>
-      | undefined
+      | undefined,
   ) => void
   studentsInCourse: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents[]
   assignedSeats: findCourseByIdForStudentRegistration_findCourseById_course_hasCourseInfo_assignedSeats[]

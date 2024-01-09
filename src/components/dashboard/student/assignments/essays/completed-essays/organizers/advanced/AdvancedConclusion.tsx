@@ -19,7 +19,7 @@ export const AdvancedConclusion: FC<AdvancedConclusionProps> = ({
     <>
       <div>Conclusion</div>
       <input
-        type='text'
+        type="text"
         value={state.context.advancedOrganizer.conclusion}
         onChange={(e: any) =>
           event({ type: 'SET_CONCLUSION', payload: e.target.value })

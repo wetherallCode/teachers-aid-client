@@ -13,9 +13,9 @@ type AssignEssayByCourseContextProps = {
   children: ReactNode
 }
 
-export const AssignEssayByCourseContextProvider: FC<AssignEssayByCourseContextProps> = ({
-  children,
-}) => {
+export const AssignEssayByCourseContextProvider: FC<
+  AssignEssayByCourseContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(assignEssayByCourseMachine)
   return (
     <AssignEssayByCourseContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useAssignEssayByCourseContextProvider() {
   const context = useContext(AssignEssayByCourseContext)
   if (context === undefined) {
     throw new Error(
-      'useAssignEssayByCourseContextProvider must be used within a AssignEssayByCourseContextProvider'
+      'useAssignEssayByCourseContextProvider must be used within a AssignEssayByCourseContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useAssignEssayByCourseContextProvider() {
       any,
       any
     >,
-    (event: assignEssayByCourseMachineEvent) => void
+    (event: assignEssayByCourseMachineEvent) => void,
   ]
 }

@@ -11,17 +11,16 @@ export type GrammarPracticeProps = {}
 
 export const GrammarPractice = ({}: GrammarPracticeProps) => {
   const [sentence, setSentence] = useState(
-    'A good player with high reputation respects their team.'
+    'A good player with high reputation respects their team.',
   )
-  const [state, setState] =
-    useState<
-      | 'idle'
-      | 'subjectPredicate'
-      | 'simpleSubjectPredicate'
-      | 'adjectivesAndPrepositions'
-      | 'objects'
-      | 'questionDeconstruction'
-    >('idle')
+  const [state, setState] = useState<
+    | 'idle'
+    | 'subjectPredicate'
+    | 'simpleSubjectPredicate'
+    | 'adjectivesAndPrepositions'
+    | 'objects'
+    | 'questionDeconstruction'
+  >('idle')
 
   return (
     <div

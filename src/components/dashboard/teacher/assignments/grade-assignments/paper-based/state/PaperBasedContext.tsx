@@ -28,11 +28,11 @@ export function usePaperBasedContextProvider() {
   const context = useContext(PaperBasedContext)
   if (context === undefined) {
     throw new Error(
-      'usePaperBasedContextProvider must be used within a PaperBasedContextProvider'
+      'usePaperBasedContextProvider must be used within a PaperBasedContextProvider',
     )
   }
   return context as [
     State<paperBasedMachineContext, paperBasedMachineEvent, any, any>,
-    (event: paperBasedMachineEvent) => void
+    (event: paperBasedMachineEvent) => void,
   ]
 }

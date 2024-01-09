@@ -42,7 +42,7 @@ export const QuizQuestionDisplay = ({
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: [],
-    }
+    },
   )
   const onFocus = () => {
     activateQuiz({
@@ -97,11 +97,11 @@ export const QuizQuestionDisplay = ({
 
   const quizQuestions = questions.filter(
     (section) =>
-      section.associatedTextSectionId === state.context.currentQuizzableSection
+      section.associatedTextSectionId === state.context.currentQuizzableSection,
   )!
 
   const [currentQuizQuestion] = quizQuestions.filter(
-    (question) => question.difficultyLevel === difficultyState
+    (question) => question.difficultyLevel === difficultyState,
   )!
 
   const answers = me.hasIEP
@@ -112,7 +112,7 @@ export const QuizQuestionDisplay = ({
     return array.sort(() => Math.random() - 0.5)
   }
   const randomizedAnswers = shuffleAnswerList(
-    answers
+    answers,
   ) as findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList[]
 
   return (

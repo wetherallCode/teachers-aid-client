@@ -26,8 +26,8 @@ export const PeriodSelect = ({}: PeriodSelectProps) => {
           {state.context.courseSelectVisible
             ? 'Select A Class'
             : !state.context.courseInfo!.course.name
-            ? 'Select A Class'
-            : state.context.courseInfo!.course.name}
+              ? 'Select A Class'
+              : state.context.courseInfo!.course.name}
         </PeriodDisplay>
         <div onClick={() => event({ type: 'NEXT' })}>
           {!state.context.courseSelectVisible &&

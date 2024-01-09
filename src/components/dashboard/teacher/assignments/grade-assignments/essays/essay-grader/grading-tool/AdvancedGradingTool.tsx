@@ -108,13 +108,13 @@ export const AdvancedGradingTool: FC<AdvancedGradingToolProps> = ({
             .filter(
               (entry) =>
                 entry.rubricWritingLevels.includes(WritingLevelEnum.ACADEMIC) &&
-                entry.rubricSection === state.context.currentRubricSection
+                entry.rubricSection === state.context.currentRubricSection,
             )
             .sort(sortByRubricEntryScore)
             .map((entry) => (
               <div key={entry._id!}>
                 <RubricCheckBoxInput
-                  type='checkbox'
+                  type="checkbox"
                   value={[
                     entry.entry,
                     entry.score.toString(),

@@ -49,9 +49,9 @@ export const AddChapter: FC<AddChapterProps> = () => {
     <div>
       <div>Add a New Chapter</div>
       <div>Title</div>
-      <input type='text' name='title' onChange={setValues} />
+      <input type="text" name="title" onChange={setValues} />
       <div>Number: </div>
-      <input type='text' name='number' onChange={setValues} />
+      <input type="text" name="number" onChange={setValues} />
       <button onClick={() => addNewChapter()}>Add Chapter</button>
     </div>
   )

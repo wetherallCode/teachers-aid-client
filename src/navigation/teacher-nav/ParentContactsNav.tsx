@@ -17,12 +17,12 @@ export const ParentContactsNav: FC<ParentContactsNavProps> = ({
     <>
       <motion.ul variants={ulVariants}>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/parentContacts/create-contact'>
+          <Link to="dashboard/parentContacts/create-contact">
             Create Contact
           </Link>
         </motion.li>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/parentContacts/contacts'>Contacts</Link>
+          <Link to="dashboard/parentContacts/contacts">Contacts</Link>
         </motion.li>
         <motion.li variants={liVariants}>
           <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />

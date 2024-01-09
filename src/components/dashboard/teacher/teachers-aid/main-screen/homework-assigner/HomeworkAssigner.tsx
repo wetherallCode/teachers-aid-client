@@ -76,7 +76,7 @@ export const HomeworkAssigner = ({
   >(
     data?.findQuizzesForCourseByAssignedDate.quizzes.length! > 0
       ? 'quiz'
-      : 'homework'
+      : 'homework',
   )
 
   if (loading) return <div>Loading </div>

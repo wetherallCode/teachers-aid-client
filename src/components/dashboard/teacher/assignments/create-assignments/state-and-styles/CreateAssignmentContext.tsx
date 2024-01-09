@@ -13,9 +13,9 @@ export type CreateAssignmentContextProps = {
 
 const CreateAssignmentContext = createContext<any>(undefined)
 
-export const CreateAssignmentContextProvider: FC<CreateAssignmentContextProps> = ({
-  children,
-}) => {
+export const CreateAssignmentContextProvider: FC<
+  CreateAssignmentContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(createAssignmentMachine)
   return (
     <CreateAssignmentContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useCreateAssignmentContextPovider() {
   const context = useContext(CreateAssignmentContext)
   if (context === undefined) {
     throw new Error(
-      'useCreateAssignmentContextPovider must be used within a CreateAssignmentContextProvider'
+      'useCreateAssignmentContextPovider must be used within a CreateAssignmentContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useCreateAssignmentContextPovider() {
       any,
       any
     >,
-    (event: createAssignmentMachineEvent) => void
+    (event: createAssignmentMachineEvent) => void,
   ]
 }

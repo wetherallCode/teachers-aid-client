@@ -24,7 +24,7 @@ export const ResetStudentPassword = ({ userId }: ResetStudentPasswordProps) => {
       variables: { input: { userId } },
       onCompleted: (data) => console.log(data),
       refetchQueries: [],
-    }
+    },
   )
   const handleReset = () => {
     resetPassword()

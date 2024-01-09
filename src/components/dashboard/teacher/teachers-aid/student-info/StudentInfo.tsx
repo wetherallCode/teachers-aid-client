@@ -145,15 +145,15 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     onCompleted: (data) => {
       if (
         data?.findStudentByIdForTeachersAid.student.hasProtocols.some(
-          (protocol) => protocol.isActive
+          (protocol) => protocol.isActive,
         )
       ) {
         const [protocol] =
           data?.findStudentByIdForTeachersAid.student.hasProtocols.filter(
-            (protocol) => protocol.isActive
+            (protocol) => protocol.isActive,
           )
         const partnerList = protocol.partners?.map(
-          (partner) => partner._id
+          (partner) => partner._id,
         ) as string[]
         event({
           type: 'UPDATE_STUDENT_PROTOCOL',
@@ -179,7 +179,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
 
   const studentBehaviors =
     data?.findStudentByIdForTeachersAid.student.hasBehaviors.filter(
-      (b) => b.date === new Date().toLocaleDateString()
+      (b) => b.date === new Date().toLocaleDateString(),
     )!
 
   useEffect(() => {
@@ -193,7 +193,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
 
   const absenceCheck =
     data?.findStudentByIdForTeachersAid.student.hasAbsences.some(
-      (absence) => absence.dayAbsent === new Date().toLocaleDateString()
+      (absence) => absence.dayAbsent === new Date().toLocaleDateString(),
     )!
   const rp = currentResponsibilityPoints?.responsibilityPoints
 
@@ -208,7 +208,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
     )
   const textAnalysisToFind =
     data?.findStudentByIdForTeachersAid.student.hasAssignments.find(
-      (a) => a.__typename === 'TextAnalysis'
+      (a) => a.__typename === 'TextAnalysis',
     )!
 
   const textAnalysis =
@@ -232,7 +232,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
                   s.outOfClassDestination ===
                     OutOfClassDestinationEnum.BATHROOM &&
                   s.markingPeriod ===
-                    markingPeriodState.context.currentMarkingPeriod
+                    markingPeriodState.context.currentMarkingPeriod,
               ).length
             }
           </div>

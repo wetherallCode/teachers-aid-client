@@ -13,21 +13,22 @@ type BuildEssayQuestionContextProps = {
   children: ReactNode
 }
 
-export const BuildEssayQuestionContextProvider: FC<BuildEssayQuestionContextProps> =
-  ({ children }) => {
-    const [state, event] = useMachine(buildEssayQuestionMachine)
-    return (
-      <BuildEssayQuestionContext.Provider value={[state, event]}>
-        {children}
-      </BuildEssayQuestionContext.Provider>
-    )
-  }
+export const BuildEssayQuestionContextProvider: FC<
+  BuildEssayQuestionContextProps
+> = ({ children }) => {
+  const [state, event] = useMachine(buildEssayQuestionMachine)
+  return (
+    <BuildEssayQuestionContext.Provider value={[state, event]}>
+      {children}
+    </BuildEssayQuestionContext.Provider>
+  )
+}
 
 export function useBuildEssayQuestionContextProvider() {
   const context = useContext(BuildEssayQuestionContext)
   if (context === undefined) {
     throw new Error(
-      'useBuildEssayQuestionContextProvider must be used within a BuildEssayQuestionContextProvider'
+      'useBuildEssayQuestionContextProvider must be used within a BuildEssayQuestionContextProvider',
     )
   }
   return context as [
@@ -37,6 +38,6 @@ export function useBuildEssayQuestionContextProvider() {
       any,
       any
     >,
-    (event: buildEssayQuestionMachineEvent) => void
+    (event: buildEssayQuestionMachineEvent) => void,
   ]
 }

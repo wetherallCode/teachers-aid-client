@@ -20,7 +20,7 @@ type AddVocabWordProps = {
   updateTextSection: (
     options?:
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -47,7 +47,7 @@ export const AddVocabWord = ({
     <form>
       <div>Word</div>
       <input
-        type='text'
+        type="text"
         autoFocus
         onChange={(e: any) =>
           setVocabWord({ ...vocabWord, word: e.target.value })
@@ -55,7 +55,7 @@ export const AddVocabWord = ({
       />
       <div>Defintion</div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           setVocabWord({
             ...vocabWord,
@@ -66,7 +66,7 @@ export const AddVocabWord = ({
       <>
         <button onClick={() => event({ type: 'IDLE' })}>Cancel</button>
         <button
-          type='reset'
+          type="reset"
           onClick={() => {
             event({
               type: 'SET_VOCAB_LIST',

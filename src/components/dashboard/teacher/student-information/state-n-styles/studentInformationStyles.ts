@@ -105,7 +105,7 @@ export const ConductInformationContainer = styled(InformationPageOutline)`
   grid-template-rows: 1fr 8fr;
 `
 export const StudentInformationDisplayContainer = styled(
-  InformationPageOutline
+  InformationPageOutline,
 )``
 export const ContactInformationContainer = styled(InformationPageOutline)``
 export const AssignmentInformationContainer = styled(InformationPageOutline)`
@@ -113,7 +113,7 @@ export const AssignmentInformationContainer = styled(InformationPageOutline)`
   grid-template-rows: 1fr 8fr;
 `
 export const MarkingPeriodSelectorSwitchContainer = styled(
-  InformationPageOutline
+  InformationPageOutline,
 )`
   border-bottom: 1px solid var(--blue);
   display: grid;

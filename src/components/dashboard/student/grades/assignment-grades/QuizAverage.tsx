@@ -9,7 +9,7 @@ export const QuizAverage = ({ quizzes }: QuizAverageProps) => {
     (assignment) =>
       !assignment.exempt &&
       Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
   )
 
   if (quizList.length > 0) {

@@ -100,7 +100,7 @@ export const CreateCourseInfo = ({}: CreateCourseInfoProps) => {
       variables: { input: { courseId: state.context.courseInfo.courseId } },
       onCompleted: (data) => console.log(data),
       refetchQueries: [],
-    }
+    },
   )
   const handleCreate = () => {
     createCourseInfo()
@@ -117,7 +117,7 @@ export const CreateCourseInfo = ({}: CreateCourseInfoProps) => {
             <div>Add Starting Time</div>
 
             <TimeSelectionInput
-              type='time'
+              type="time"
               onChange={(e: any) => {
                 event({
                   type: 'ADD_STARTING_TIME',
@@ -129,7 +129,7 @@ export const CreateCourseInfo = ({}: CreateCourseInfoProps) => {
           <TimeSelectionContainer>
             <div>Add Ending Time</div>
             <TimeSelectionInput
-              type='time'
+              type="time"
               onChange={(e: any) => {
                 event({
                   type: 'ADD_ENDING_TIME',
@@ -141,7 +141,7 @@ export const CreateCourseInfo = ({}: CreateCourseInfoProps) => {
           <TimeSelectionContainer>
             <div>Add Half-Day Starting Time</div>
             <TimeSelectionInput
-              type='time'
+              type="time"
               onChange={(e: any) => {
                 event({
                   type: 'ADD_STARTING_HALFDAY_TIME',
@@ -153,7 +153,7 @@ export const CreateCourseInfo = ({}: CreateCourseInfoProps) => {
           <TimeSelectionContainer>
             <div>Add Half-Day Ending Time</div>
             <TimeSelectionInput
-              type='time'
+              type="time"
               onChange={(e: any) => {
                 event({
                   type: 'ADD_ENDING_HALFDAY_TIME',

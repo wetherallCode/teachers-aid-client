@@ -28,11 +28,11 @@ export function useTemporaryTasksContextProvider() {
   const context = useContext(TemporaryTasksContext)
   if (context === undefined) {
     throw new Error(
-      'useTemporaryTasksContextProvider must be used within a TemporaryTasksContextProvider'
+      'useTemporaryTasksContextProvider must be used within a TemporaryTasksContextProvider',
     )
   }
   return context as [
     State<temporaryTasksMachineContext, temporaryTasksMachineEvent, any, any>,
-    (event: temporaryTasksMachineEvent) => void
+    (event: temporaryTasksMachineEvent) => void,
   ]
 }

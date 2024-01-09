@@ -3229,6 +3229,221 @@ export interface findStudentsByCourseForSecondaryGradeFinderVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findCourseInfoByCourseIdForCourseInfo
+// ====================================================
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAbsences {
+  __typename: "StudentAbsence";
+  dayAbsent: any;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Quiz {
+  __typename: "Quiz" | "SpecialAssignment" | "TextAnalysis";
+  dueDate: string;
+  missing: boolean;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  graded: boolean;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submitted: boolean;
+  submittedFinalDraft: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay_finalDraft_submittedFinalDraft[];
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay {
+  __typename: "Essay";
+  dueDate: string;
+  missing: boolean;
+  _id: string | null;
+  finalDraft: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay_finalDraft | null;
+  hasOwner: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay_hasOwner;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_ReadingGuide_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_ReadingGuide {
+  __typename: "ReadingGuide";
+  dueDate: string;
+  missing: boolean;
+  completed: boolean;
+  hasOwner: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_ReadingGuide_hasOwner;
+}
+
+export type findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments = findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Quiz | findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_Essay | findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments_ReadingGuide;
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Quiz {
+  __typename: "Quiz" | "SpecialAssignment" | "TextAnalysis";
+  missing: boolean;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  graded: boolean;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submitted: boolean;
+  submittedFinalDraft: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay_finalDraft_submittedFinalDraft[];
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay {
+  __typename: "Essay";
+  missing: boolean;
+  _id: string | null;
+  finalDraft: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay_finalDraft | null;
+  hasOwner: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay_hasOwner;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_ReadingGuide_hasOwner {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_ReadingGuide {
+  __typename: "ReadingGuide";
+  missing: boolean;
+  completed: boolean;
+  hasOwner: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_ReadingGuide_hasOwner;
+}
+
+export type findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments = findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Quiz | findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_Essay | findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments_ReadingGuide;
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysBehaviors_behavior {
+  __typename: "BehaviorType";
+  behaviorCategory: BehaviorCategoryEnum;
+  behaviorName: string;
+  behaviorQuality: BehaviorQualityEnum;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysBehaviors_student {
+  __typename: "Student";
+  _id: string | null;
+  lastName: string;
+  firstName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysBehaviors {
+  __typename: "StudentBehavior";
+  behavior: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysBehaviors_behavior;
+  responsibilityPoints: number;
+  student: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysBehaviors_student;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasBehaviors_behavior {
+  __typename: "BehaviorType";
+  behaviorCategory: BehaviorCategoryEnum;
+  behaviorName: string;
+  behaviorQuality: BehaviorQualityEnum;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasBehaviors_student {
+  __typename: "Student";
+  _id: string | null;
+  lastName: string;
+  firstName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasBehaviors {
+  __typename: "StudentBehavior";
+  behavior: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasBehaviors_behavior;
+  responsibilityPoints: number;
+  student: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasBehaviors_student;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysProtocols_student {
+  __typename: "Student";
+  _id: string | null;
+  lastName: string;
+  firstName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysProtocols {
+  __typename: "Protocol";
+  completed: boolean;
+  student: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysProtocols_student;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols_student {
+  __typename: "Student";
+  _id: string | null;
+  lastName: string;
+  firstName: string;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols {
+  __typename: "Protocol";
+  completed: boolean;
+  student: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols_student;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents {
+  __typename: "Student";
+  _id: string | null;
+  hasAbsences: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAbsences[];
+  hasAssignments: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAssignments[];
+  hasTodaysAssignments: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysAssignments[];
+  hasTodaysBehaviors: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysBehaviors[];
+  hasBehaviors: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasBehaviors[];
+  hasTodaysProtocols: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasTodaysProtocols[];
+  hasProtocols: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols[];
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course {
+  __typename: "Course";
+  name: string;
+  hasStudents: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course_hasStudents[];
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo {
+  __typename: "CourseInfo";
+  course: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo_course;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId {
+  __typename: "FindCourseInfoByCourseIdPayload";
+  courseInfo: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId_courseInfo;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfo {
+  findCourseInfoByCourseId: findCourseInfoByCourseIdForCourseInfo_findCourseInfoByCourseId;
+}
+
+export interface findCourseInfoByCourseIdForCourseInfoVariables {
+  input: FindCourseInfoByCourseIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: toggleAssignmentsAllowedInClass
 // ====================================================
 
@@ -6033,21 +6248,6 @@ export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_co
   dayAbsent: any;
 }
 
-export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols_student {
-  __typename: "Student";
-  _id: string | null;
-  firstName: string;
-  lastName: string;
-}
-
-export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols {
-  __typename: "Protocol";
-  _id: string | null;
-  student: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols_student;
-  isActive: boolean;
-  response: string | null;
-}
-
 export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents {
   __typename: "Student";
   _id: string | null;
@@ -6056,7 +6256,6 @@ export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_co
   lastName: string;
   cohort: StudentCohortEnum;
   hasAbsences: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasAbsences[];
-  hasProtocols: findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course_hasStudents_hasProtocols[];
 }
 
 export interface findCourseInfoByCourseId_findCourseInfoByCourseId_courseInfo_course {

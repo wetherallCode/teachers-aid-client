@@ -1,5 +1,4 @@
 import { AssignedEssaySelect } from './essays/assigned-essays/AssignedEssaySelect'
-import { CompletedEssaySelect } from './essays/completed-essays/CompletedEssaySelect'
 import { AssignedReadingGuideSelect } from './readingGuides/assigned-reading-guides/AssignedReadingGuideSelect'
 import {
   AssignmentsToCompleteContainer,
@@ -30,6 +29,7 @@ import { useClassTimeIndicator } from '../../../../hooks/useClassTimeIndicator'
 import { useAssignmentsAllowedInClassCheck } from '../../../../hooks/useAssignmentsAllowedInClassCheck'
 import { FIND_STUDENT_INFO_FOR_DESK_QUERY } from '../../teacher/teachers-aid/main-screen/seating-chart/Desk'
 import { AllAssignments } from './allAssignments/AllAssignments'
+import { CompletedEssaySelect } from './essays/completed-essays/CompletedEssaySelect'
 
 export type StudentAssignmentsProps = {}
 

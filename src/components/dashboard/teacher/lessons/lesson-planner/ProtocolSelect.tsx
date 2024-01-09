@@ -25,7 +25,7 @@ export const ProtocolSelect: FC<ProtocolSelectProps> = ({
       <DuringActivityBody>
         {protocolList.map((item, i) => {
           const selected = protocolSelectList.some(
-            (protocol) => protocol.task === item.task
+            (protocol) => protocol.task === item.task,
           )
 
           return (
@@ -38,7 +38,7 @@ export const ProtocolSelect: FC<ProtocolSelectProps> = ({
                 }
                 if (selected) {
                   const index = protocolSelectList.findIndex(
-                    (items) => items.task === item.task
+                    (items) => items.task === item.task,
                   )
                   setProtocolSelectList([
                     ...protocolSelectList.slice(0, index),

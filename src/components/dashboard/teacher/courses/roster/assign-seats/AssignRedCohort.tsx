@@ -24,7 +24,7 @@ export const AssignRedCohort: FC<AssignRedCohortProps> = ({
   removeAssignedSeat,
 }) => {
   const assignedSeats = course.hasCourseInfo?.assignedSeats.filter(
-    (seat) => seat.redCohortStudent?._id
+    (seat) => seat.redCohortStudent?._id,
   )
 
   const assign = (deskNumber: number, studentId: string) =>
@@ -54,13 +54,13 @@ export const AssignRedCohort: FC<AssignRedCohortProps> = ({
     })
 
   const deskNumber = (
-    student: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents
+    student: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents,
   ) => {
     const [deskNumber] = course.hasCourseInfo?.assignedSeats
       .filter(
         (seat) =>
           seat.redCohortStudent?._id === student._id &&
-          seat.redCohortStudent?._id
+          seat.redCohortStudent?._id,
       )
       .map((seat) => seat.deskNumber)!
     return deskNumber
@@ -142,7 +142,7 @@ export const AssignRedCohort: FC<AssignRedCohortProps> = ({
                         !course.hasCourseInfo?.assignedSeats
                           .map(
                             (assignedStudent) =>
-                              assignedStudent.redCohortStudent?._id
+                              assignedStudent.redCohortStudent?._id,
                           )
                           .includes(student._id) &&
                         student.cohort === StudentCohortEnum.RED

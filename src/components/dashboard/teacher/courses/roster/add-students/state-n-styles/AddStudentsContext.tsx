@@ -28,11 +28,11 @@ export function useAddStudentsContextProvider() {
   const context = useContext(AddStudentsContext)
   if (context === undefined) {
     throw new Error(
-      'useAddStudentsContextProvider must be used within a AddStudentsContextProvider'
+      'useAddStudentsContextProvider must be used within a AddStudentsContextProvider',
     )
   }
   return context as [
     State<addStudentsMachineContext, addStudentsMachineEvent, any, any>,
-    (event: addStudentsMachineEvent) => void
+    (event: addStudentsMachineEvent) => void,
   ]
 }

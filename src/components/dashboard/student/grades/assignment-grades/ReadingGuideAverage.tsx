@@ -11,7 +11,7 @@ export const ReadingGuideAverage = ({
     (assignment) =>
       !assignment.exempt &&
       Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
   )
   if (readingGuideList.length > 0) {
     const earnedPoints = readingGuideList

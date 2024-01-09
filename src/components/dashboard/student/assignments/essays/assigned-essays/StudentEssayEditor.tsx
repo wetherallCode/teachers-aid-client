@@ -199,8 +199,8 @@ export const Leaf = (props: any) => {
         textDecoration: props.leaf.strikeThrough
           ? 'line-through'
           : props.leaf.underline
-          ? 'underline'
-          : 'none',
+            ? 'underline'
+            : 'none',
       }}
     >
       {props.children}

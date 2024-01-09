@@ -43,7 +43,7 @@ export const StudentInformation = ({}: StudentInformationProps) => {
     {
       onCompleted: (data) => {},
       onError: (error) => console.error(error),
-    }
+    },
   )
   const studentSearchList = data?.findAllStudents.students.filter((student) => {
     return (

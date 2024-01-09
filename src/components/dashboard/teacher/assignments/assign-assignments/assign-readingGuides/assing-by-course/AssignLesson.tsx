@@ -52,7 +52,7 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
       ) {
         const studentIds: string[] =
           data.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides.map(
-            (readingGuide) => readingGuide.hasOwner._id!
+            (readingGuide) => readingGuide.hasOwner._id!,
           )
         const assignedDate: string =
           data.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides[0]
@@ -94,7 +94,7 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
             }
           </div>
           {data?.findReadingGuidesByAssociatedLessonAndCourseId.readingGuides.some(
-            (readingGuide) => readingGuide.assigned === false
+            (readingGuide) => readingGuide.assigned === false,
           ) ? (
             <AssignReadingGuide />
           ) : (

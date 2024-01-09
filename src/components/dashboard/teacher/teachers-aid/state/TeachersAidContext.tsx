@@ -28,11 +28,11 @@ export function useTeachersAidContextProvider() {
   const context = useContext(TeachersAidContext)
   if (context === undefined) {
     throw new Error(
-      'useTeachersAidContextProvider must be used within a TeachersAidContextProvider'
+      'useTeachersAidContextProvider must be used within a TeachersAidContextProvider',
     )
   }
   return context as [
     State<teachersAidMachineContext, teachersAidMachineEvent, any, any>,
-    (event: teachersAidMachineEvent) => void
+    (event: teachersAidMachineEvent) => void,
   ]
 }

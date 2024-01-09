@@ -11,8 +11,8 @@ export const Greetings = ({ phrase }: GreetingsProps) => {
       {Date.parse(time) < Date.parse(noon)
         ? 'Good Morning'
         : Date.parse(time) > Date.parse(evening)
-        ? 'Good Evening'
-        : 'Good Afternoon'}
+          ? 'Good Evening'
+          : 'Good Afternoon'}
       {' ' + phrase}
     </>
   )

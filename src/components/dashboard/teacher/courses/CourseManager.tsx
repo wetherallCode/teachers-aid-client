@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useParams, Routes, Route } from 'react-router'
 import { LessonEditor } from '../lessons/lesson-editor/LessonEditor'
 import { LessonEditorContextProvider } from '../lessons/lesson-editor/LessonEditorContext'
@@ -13,8 +13,8 @@ import { TemporaryTasks } from './temporary-tasks/TemporaryTasks'
 import { TemporaryTasksContextProvider } from './temporary-tasks/state-n-styles/TemporaryTasksContext'
 import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { me_me_Teacher } from '../../../../schemaTypes'
-import { gql } from '@apollo/client'
 import { CourseManagerHome } from './CourseManagerHome'
+import { CourseInfoHome } from './course-info/CourseInfoHome'
 
 export type CourseManagerProps = {}
 
@@ -22,24 +22,24 @@ export const CourseManager = ({}: CourseManagerProps) => {
   const me: me_me_Teacher = useUserContextProvider()
   const { course } = useParams()
   const courseManager = me.teachesCourses.filter(
-    (courses) => courses._id === course
+    (courses) => courses._id === course,
   )[0]
 
   return (
     <>
       <Routes>
-        <Route path='' element={<CourseManagerHome course={courseManager} />} />
+        <Route path="" element={<CourseManagerHome course={courseManager} />} />
         <Route
-          path='lesson-editor'
+          path="lesson-editor"
           element={
             <LessonEditorContextProvider>
               <LessonEditor course={course!} />
             </LessonEditorContextProvider>
           }
         />
-        <Route path='assign-assignments' element={<AssignAssignments />} />
+        <Route path="assign-assignments" element={<AssignAssignments />} />
         <Route
-          path='assignment-manager'
+          path="assignment-manager"
           element={
             <AssignmentManagerContextProvider>
               <AssignmentManager courseId={course!} />
@@ -47,7 +47,7 @@ export const CourseManager = ({}: CourseManagerProps) => {
           }
         />
         <Route
-          path='tasks/*'
+          path="tasks/*"
           element={
             <TemporaryTasksContextProvider>
               <TemporaryTasks />
@@ -55,7 +55,7 @@ export const CourseManager = ({}: CourseManagerProps) => {
           }
         />
         <Route
-          path='roster/*'
+          path="roster/*"
           element={
             <RosterDashboard
               courseName={courseManager.name}
@@ -63,15 +63,19 @@ export const CourseManager = ({}: CourseManagerProps) => {
             />
           }
         />
-        <Route path='view-reading-guide-data' element={<ReadingGuideData />} />
+        <Route path="view-reading-guide-data" element={<ReadingGuideData />} />
 
         <Route
-          path='edit-course'
+          path="edit-course"
           element={
             <EditCourseContextProvider>
               <EditCourse />
             </EditCourseContextProvider>
           }
+        />
+        <Route
+          path="course-info"
+          element={<CourseInfoHome courseId={course!} />}
         />
       </Routes>
     </>

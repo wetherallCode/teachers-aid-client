@@ -29,7 +29,7 @@ export const TeacherNav: FC<TeacherNavProps> = ({
           variants={liVariants}
           onClick={() => event({ type: 'DASHBOARD' })}
         >
-          <Link to='/dashboard'>Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </motion.li>
         {state.matches('dashboard') && (
           <>
@@ -37,49 +37,49 @@ export const TeacherNav: FC<TeacherNavProps> = ({
               variants={liVariants}
               onClick={() => event({ type: 'LESSONS' })}
             >
-              <Link to='dashboard/lessons'>Lessons</Link>
+              <Link to="dashboard/lessons">Lessons</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'ASSIGNMENTS' })}
             >
-              <Link to='dashboard/assignments'>Assignments</Link>
+              <Link to="dashboard/assignments">Assignments</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'RUBRICS' })}
             >
-              <Link to='dashboard/rubrics'>Rubrics</Link>
+              <Link to="dashboard/rubrics">Rubrics</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'COURSES' })}
             >
-              <Link to='dashboard/courses'>Courses</Link>
+              <Link to="dashboard/courses">Courses</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'STUDENT_INFORMATION' })}
             >
-              <Link to='dashboard/studentInformation'>Student Information</Link>
+              <Link to="dashboard/studentInformation">Student Information</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'PARENT_CONTACTS' })}
             >
-              <Link to='dashboard/parentContacts'>Parent Contacts</Link>
+              <Link to="dashboard/parentContacts">Parent Contacts</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'BEHAVIOR' })}
             >
-              <Link to='dashboard/behavior/edit-behavior'>Behavior</Link>
+              <Link to="dashboard/behavior/edit-behavior">Behavior</Link>
             </motion.li>
             <motion.li
               variants={liVariants}
               onClick={() => event({ type: 'DEVELOPMENT' })}
             >
-              <Link to='dashboard/development'>Development</Link>
+              <Link to="dashboard/development">Development</Link>
             </motion.li>
             <motion.li variants={liVariants}>
               <Logout toggleLogin={toggleLogin} setIsNavOpen={setIsNavOpen} />

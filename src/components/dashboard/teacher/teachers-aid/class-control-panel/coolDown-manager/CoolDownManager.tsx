@@ -29,7 +29,7 @@ export type CoolDownManagerProps = {
           DefaultContext,
           ApolloCache<any>
         >
-      | undefined
+      | undefined,
   ) => void
 }
 

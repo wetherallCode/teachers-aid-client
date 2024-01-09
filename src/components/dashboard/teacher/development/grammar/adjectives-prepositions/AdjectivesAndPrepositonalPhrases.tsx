@@ -6,13 +6,12 @@ export type AdjectivesAndPrepositonalPhrasesProps = {}
 export const AdjectivesAndPrepositonalPhrases =
   ({}: AdjectivesAndPrepositonalPhrasesProps) => {
     const [select, text, reset] = useSelectedText()
-    const [state, setState] =
-      useState<
-        | 'subject-adjectives'
-        | 'subject-prepositions'
-        | 'predicate-adjectives'
-        | 'predicate-prepositions'
-      >('subject-adjectives')
+    const [state, setState] = useState<
+      | 'subject-adjectives'
+      | 'subject-prepositions'
+      | 'predicate-adjectives'
+      | 'predicate-prepositions'
+    >('subject-adjectives')
     const testSentence =
       'A good player with high reputation | respects their team.'
     const testCompleteSubject = testSentence.split('|')[0]

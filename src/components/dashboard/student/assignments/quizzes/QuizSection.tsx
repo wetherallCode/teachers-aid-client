@@ -48,7 +48,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
 
   const [difficultyState, setDifficultyState] =
     useState<QuizQuestionDifficultyLevelEnum>(
-      QuizQuestionDifficultyLevelEnum.DIFFICULT
+      QuizQuestionDifficultyLevelEnum.DIFFICULT,
     )
 
   const { loading, data } = useQuery<
@@ -80,7 +80,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
         return () => clearTimeout(timer)
       },
       refetchQueries: ['findQuizById'],
-    }
+    },
   )
 
   useEffect(() => {

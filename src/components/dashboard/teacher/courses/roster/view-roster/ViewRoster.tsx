@@ -81,8 +81,8 @@ export const ViewRoster: FC<ViewRosterProps> = () => {
     onCompleted: (data) =>
       console.log(
         data.findCourseById.course.hasCourseInfo?.assignedSeats.filter(
-          (seat) => seat.student
-        )
+          (seat) => seat.student,
+        ),
       ),
     onError: (error) => console.error(error),
   })
@@ -90,12 +90,12 @@ export const ViewRoster: FC<ViewRosterProps> = () => {
 
   const students =
     data?.findCourseById.course.hasCourseInfo?.assignedSeats.filter(
-      (seat) => seat.student!
+      (seat) => seat.student!,
     )
 
   const sortByLetter = (
     a: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats,
-    b: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats
+    b: findRosterByCourse_findCourseById_course_hasCourseInfo_assignedSeats,
   ) => {
     let nameA = a.student?.lastName.toUpperCase()
     let nameB = b.student?.lastName.toUpperCase()

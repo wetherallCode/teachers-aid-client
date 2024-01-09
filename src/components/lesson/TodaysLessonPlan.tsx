@@ -56,18 +56,18 @@ export const TodaysLessonPlan = ({
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
-                    : course.hasCourseInfo?.startsAt!
-                )
+                    : course.hasCourseInfo?.startsAt!,
+                ),
               ) &&
             Date.parse(dateTime) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
-                    : course.hasCourseInfo?.endsAt!
-                )
+                    : course.hasCourseInfo?.endsAt!,
+                ),
               ) &&
-            course.hasCourseInfo?.schoolDayType === schoolDayType
+            course.hasCourseInfo?.schoolDayType === schoolDayType,
         )
       : me.inCourses.filter(
           (course) =>
@@ -76,17 +76,17 @@ export const TodaysLessonPlan = ({
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
-                    : course.hasCourseInfo?.startsAt!
-                )
+                    : course.hasCourseInfo?.startsAt!,
+                ),
               ) &&
             Date.parse(dateTime) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
-                    : course.hasCourseInfo?.endsAt!
-                )
-              )
+                    : course.hasCourseInfo?.endsAt!,
+                ),
+              ),
         )
 
   const [loadLesson, { loading, data, startPolling, stopPolling }] =
@@ -95,7 +95,7 @@ export const TodaysLessonPlan = ({
       {
         onCompleted: (data) => console.log(data),
         onError: (error) => console.error(error),
-      }
+      },
     )
   // const [loadLesson, { loading, data, startPolling, stopPolling }] =
   //   useLazyQuery<findLessonByCourseAndDate, findLessonByCourseAndDateVariables>(
@@ -107,7 +107,7 @@ export const TodaysLessonPlan = ({
   //   )
 
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
-    (course) => course._id === courseToLoad?._id
+    (course) => course._id === courseToLoad?._id,
   )
 
   const useFake = false
@@ -133,6 +133,6 @@ export const TodaysLessonPlan = ({
       setHasLessonNow!(true)
   }, [courseToLoad, data])
 
-  if (!me) return <Navigate to='/' />
+  if (!me) return <Navigate to="/" />
   return null
 }

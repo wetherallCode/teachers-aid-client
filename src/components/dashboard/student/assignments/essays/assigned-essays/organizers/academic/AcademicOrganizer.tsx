@@ -43,7 +43,7 @@ export type UpdateAcademicOrganizerType = (
         updateAcademicOrganizer,
         updateAcademicOrganizerVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({

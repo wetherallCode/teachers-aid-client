@@ -48,7 +48,7 @@ export const IndividualQuizControl = ({
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: [],
-    }
+    },
   )
   const [unAssignQuiz] = useMutation<
     unAssignQuizByQuizId,
@@ -73,7 +73,7 @@ export const IndividualQuizControl = ({
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findQuizzesForCourseByAssignedDate'],
-    }
+    },
   )
 
   useEffect(() => {

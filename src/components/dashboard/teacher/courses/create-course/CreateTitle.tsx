@@ -49,7 +49,7 @@ export const CreateTitle = ({}: CreateTitleProps) => {
     {
       onCompleted: (data) => console.log(data),
       onError: (error) => console.error(error),
-    }
+    },
   )
 
   const [createCourse, { error }] = useMutation<

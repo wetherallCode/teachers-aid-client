@@ -19,20 +19,20 @@ export const VocabInfo = () => {
       <div>Vocab</div>
       <div>Word: </div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           setVocabWordInfo({ ...vocabWordInfo, word: e.target.value })
         }
       />
       <div>Definition: </div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           setVocabWordInfo({ ...vocabWordInfo, definition: e.target.value })
         }
       />
       <button
-        type='reset'
+        type="reset"
         onClick={() =>
           event({ type: 'SET_VOCAB_LIST', payload: vocabWordInfo })
         }

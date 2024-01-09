@@ -28,11 +28,11 @@ export function useCreateCourseContextProvider() {
   const context = useContext(CreateCourseContext)
   if (context === undefined) {
     throw new Error(
-      'useCreateCourseContextProvider must be used within a CreateCourseContextProvider'
+      'useCreateCourseContextProvider must be used within a CreateCourseContextProvider',
     )
   }
   return context as [
     State<createCourseMachineContext, createCourseMachineEvent, any, any>,
-    (event: createCourseMachineEvent) => void
+    (event: createCourseMachineEvent) => void,
   ]
 }

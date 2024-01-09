@@ -29,7 +29,7 @@ export const UPDATE_LESSON_MUTATION = gql`
 export type updateLessonType = (
   options?:
     | MutationFunctionOptions<updateLesson, updateLessonVariables>
-    | undefined
+    | undefined,
 ) => void
 
 export const LessonEditor = ({ course }: LessonEditorProps) => {

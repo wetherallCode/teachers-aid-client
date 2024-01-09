@@ -1,4 +1,3 @@
-import React, { FC } from 'react'
 import { gql, useLazyQuery } from '@apollo/client'
 import {
   findCourseInfoByCourseId,
@@ -29,16 +28,16 @@ export const GET_COURSE_INFO_QUERY = gql`
             hasAbsences {
               dayAbsent
             }
-            hasProtocols {
-              _id
-              student {
-                _id
-                firstName
-                lastName
-              }
-              isActive
-              response
-            }
+            # hasProtocols {
+            #  _id
+            # student {
+            #  _id
+            # firstName
+            #lastName
+            # }
+            # isActive
+            #response
+            #}
           }
         }
         endsAt

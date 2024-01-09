@@ -29,15 +29,15 @@ export const GenericQuestionBlank = ({
   // filter for the appropriate answer by questionType. IF questionType doesn't exist return empty string
   const previousAnswer =
     previousAnswers?.filter(
-      (q) => q.questionType === questionObject.questionType
+      (q) => q.questionType === questionObject.questionType,
     ).length === 0
       ? ''
       : previousAnswers?.filter(
-          (q) => q.questionType === questionObject.questionType
+          (q) => q.questionType === questionObject.questionType,
         )![0].answer
 
   const [answer, setAnswer] = useState<string>(
-    previousAnswer! ? previousAnswer : ''
+    previousAnswer! ? previousAnswer : '',
   )
 
   return (

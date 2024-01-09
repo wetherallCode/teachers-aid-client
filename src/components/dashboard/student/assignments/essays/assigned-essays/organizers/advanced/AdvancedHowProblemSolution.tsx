@@ -10,7 +10,9 @@ import { UPDATE_PROBLEM_SOLUTION_MUTATION } from '../academic/AcademicProblemSol
 
 export type AdvancedHowProblemSolutionProps = {}
 
-export const AdvancedHowProblemSolution: FC<AdvancedHowProblemSolutionProps> = () => {
+export const AdvancedHowProblemSolution: FC<
+  AdvancedHowProblemSolutionProps
+> = () => {
   const [state, event] = useStudentEssayContextProvider()
   const { subject } = state.context.advancedOrganizer.advancedSentenceStructure
   const { problemSolution } = state.context.advancedOrganizer.answer

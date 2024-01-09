@@ -43,8 +43,8 @@ export const MarkLessonForSGO = ({ sectionIds }: MarkLessonForSGOProps) => {
     onCompleted: (data) =>
       console.log(
         data.findEssayQuestionsForLesson.essayQuestions.map(
-          (q) => q.sgoQuestion
-        )
+          (q) => q.sgoQuestion,
+        ),
       ),
     onError: (error) => console.error(error),
   })

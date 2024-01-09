@@ -34,7 +34,7 @@ export type UpdateAcademicOrganizerType = (
         updateAcademicOrganizer,
         updateAcademicOrganizerVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
@@ -53,12 +53,8 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
     })
 
     if (academicOrganizer.questionType === 'HOW_PROBLEM_SOLUTION') {
-      const {
-        problem,
-        reasonForProblem,
-        solvedBy,
-        whySolutionSolved,
-      } = academicOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType
+      const { problem, reasonForProblem, solvedBy, whySolutionSolved } =
+        academicOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType
       event({
         type: 'SET_PROBLEM_SOLUTION',
         payload: {
@@ -70,21 +66,16 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
       })
     }
     if (academicOrganizer.questionType === 'HOW_CAUSE_EFFECT') {
-      const {
-        before,
-        cause,
-        after,
-      } = academicOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType
+      const { before, cause, after } =
+        academicOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType
       event({
         type: 'SET_HOW_CAUSE_EFFECT',
         payload: { before: before, cause: cause, after: after },
       })
     }
     if (academicOrganizer.questionType === 'WHY_CAUSE_EFFECT') {
-      const {
-        ultimateCause,
-        proximateCause,
-      } = academicOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType
+      const { ultimateCause, proximateCause } =
+        academicOrganizer.answerType as findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType
       event({
         type: 'SET_WHY_CAUSE_EFFECT',
         payload: {
@@ -129,7 +120,7 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
       </QuestionContainer>
 
       {state.matches(
-        'reviewOrganizer.organizers.academicOrganizer.restatement'
+        'reviewOrganizer.organizers.academicOrganizer.restatement',
       ) && (
         <AcademicRestatement
           updateAcademicOrganizer={updateAcademicOrganizer}
@@ -141,7 +132,7 @@ export const AcademicOrganizer: FC<AcademicOrganizerProps> = ({
       )}
 
       {state.matches(
-        'reviewOrganizer.organizers.academicOrganizer.conclusion'
+        'reviewOrganizer.organizers.academicOrganizer.conclusion',
       ) && (
         <AcademicConclusion updateAcademicOrganizer={updateAcademicOrganizer} />
       )}

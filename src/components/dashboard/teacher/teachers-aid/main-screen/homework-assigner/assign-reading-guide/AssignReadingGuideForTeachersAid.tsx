@@ -26,13 +26,9 @@ export const ASSIGN_READING_GUIDE_FOR_TEACHERS_AID_MUTATION = gql`
   }
 `
 
-export const AssignReadingGuideForTeachersAid: FC<AssignReadingGuideForTeachersAidProps> = ({
-  lessonId,
-  dueDate,
-  studentIds,
-  finished,
-  loading,
-}) => {
+export const AssignReadingGuideForTeachersAid: FC<
+  AssignReadingGuideForTeachersAidProps
+> = ({ lessonId, dueDate, studentIds, finished, loading }) => {
   const [assignReadingGuide, { called, data }] = useMutation<
     assignReadingGuidesForTeachersAid,
     assignReadingGuidesForTeachersAidVariables

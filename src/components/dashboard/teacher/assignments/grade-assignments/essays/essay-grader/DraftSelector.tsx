@@ -15,7 +15,7 @@ export const DraftSelector: FC<DraftSelectorProps> = ({ essay }) => {
 
   useEffect(() => {
     const [currentDraft] = essay.finalDraft?.submittedFinalDraft.filter(
-      (draft) => draft.draftNumber === state.context.draftSelector
+      (draft) => draft.draftNumber === state.context.draftSelector,
     ) as any
 
     event({

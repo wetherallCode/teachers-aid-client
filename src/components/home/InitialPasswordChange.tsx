@@ -39,14 +39,14 @@ export const InitialPasswordChange = ({ me }: InitialPasswordChangeProps) => {
       },
       onCompleted: (data) => navigate('/'),
       refetchQueries: ['me'],
-    }
+    },
   )
   return (
     <PasswordChangeContainer>
       <PasswordChangeItemContainers>
         <div>Change your password!</div>
         <NewPasswordInput
-          type='password'
+          type="password"
           autoFocus
           onChange={(e: any) => {
             if (e.target.value !== '') {
@@ -58,7 +58,7 @@ export const InitialPasswordChange = ({ me }: InitialPasswordChangeProps) => {
       <PasswordChangeItemContainers>
         <div>Type your password in again to double check!</div>
         <NewPasswordInput
-          type='password'
+          type="password"
           onChange={(e: any) => {
             if (e.target.value !== '') {
               setPasswordDoubleCheck(e.target.value)

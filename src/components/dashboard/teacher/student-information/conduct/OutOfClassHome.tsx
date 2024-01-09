@@ -80,7 +80,7 @@ export const OutOfClassHome = ({
           destination: outOfClassDestination,
           timeGone: totalTimeString,
         }
-      }
+      },
     )!
   return (
     <>

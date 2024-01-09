@@ -66,7 +66,7 @@ export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
 
   const essaysForMarkingPeriod =
     data?.findCompletedEssaysByStudentId.essays.filter(
-      (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
+      (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod,
     )
 
   if (loading)

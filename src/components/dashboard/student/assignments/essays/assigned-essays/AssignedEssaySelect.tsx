@@ -60,7 +60,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
 
   const essaysForMarkingPeriod = data?.findEssaysToCompleteByStudentId.essays
     .filter(
-      (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod
+      (essay) => essay.markingPeriod === state.context.selectedMarkingPeriod,
     )
     .filter((essay) => !essay.exempt)!
 
@@ -72,7 +72,7 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
   const noEssaysHaveBeenAssigned =
     (essaysForMarkingPeriod &&
       essaysForMarkingPeriod.every(
-        (essay) => essay.missing && !essay.assigned
+        (essay) => essay.missing && !essay.assigned,
       )) ||
     (essaysForMarkingPeriod && essaysForMarkingPeriod.length === 0)
 

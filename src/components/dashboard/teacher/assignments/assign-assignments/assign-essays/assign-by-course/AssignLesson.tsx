@@ -47,9 +47,10 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
     },
     onCompleted: (data) => {
       if (data.findEssaysByAssociatedLessonIdAndCourseId.essays.length > 0) {
-        const studentIds: string[] = data.findEssaysByAssociatedLessonIdAndCourseId.essays.map(
-          (essay) => essay.hasOwner._id!
-        )
+        const studentIds: string[] =
+          data.findEssaysByAssociatedLessonIdAndCourseId.essays.map(
+            (essay) => essay.hasOwner._id!,
+          )
         const assignedDate: string =
           data.findEssaysByAssociatedLessonIdAndCourseId.essays[0].assignedDate
         const dueDate: string =
@@ -88,7 +89,7 @@ export const AssignLesson: FC<AssignLessonProps> = ({ lessonId, courseId }) => {
             }
           </div>
           {data?.findEssaysByAssociatedLessonIdAndCourseId.essays.some(
-            (essay) => essay.assigned === false
+            (essay) => essay.assigned === false,
           ) ? (
             <AssignEssay />
           ) : (

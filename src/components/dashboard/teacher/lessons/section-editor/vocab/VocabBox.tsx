@@ -19,7 +19,7 @@ type VocabBoxProps = {
   updateTextSection: (
     options?:
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -62,7 +62,7 @@ export const VocabBox: FC<VocabBoxProps> = ({
                 <ListItem
                   onClick={() => {
                     const vocabWordIndex = state.context.hasVocab.findIndex(
-                      (vocabWord) => vocabWord.word === word.word
+                      (vocabWord) => vocabWord.word === word.word,
                     )
                     event({
                       type: 'SET_VOCAB_WORD_TO_EDIT',

@@ -27,7 +27,7 @@ export const SectionBuilderContextProvider: FC<SectionBuilderContextProps> = ({
             any,
             any
           >,
-          (event: sectionBuilderMachineEvent) => void
+          (event: sectionBuilderMachineEvent) => void,
         ]
       }
     >
@@ -41,11 +41,11 @@ export function useSectionBuilderContextProvider() {
 
   if (context === undefined) {
     throw new Error(
-      'useSectionBuilderContextProvider must be used within a SectionBuilderContextProvider Component'
+      'useSectionBuilderContextProvider must be used within a SectionBuilderContextProvider Component',
     )
   }
   return context as [
     State<sectionBuilderMachineContext, sectionBuilderMachineEvent, any, any>,
-    (event: sectionBuilderMachineEvent) => void
+    (event: sectionBuilderMachineEvent) => void,
   ]
 }

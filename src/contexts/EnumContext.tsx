@@ -187,96 +187,96 @@ export const EnumContextProvider: FC<EnumContextProps> = ({ children }) => {
     <EnumContext.Provider
       value={{
         markingPeriodEnum: data?.MarkingPeriod?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         writingLevelEnum: data?.WritingLevelEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         questionTypeEnum: data?.QuestionTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         rubricSectionEnum: data?.RubricSectionEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         timeOfDayEnum: data?.TimeOfDay?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         informationStructureEnum:
           data?.InformationStructureEnum?.enumValues?.map(
-            (value: any) => value.name
+            (value: any) => value.name,
           )!,
         discussionTypesEnum: data?.DiscussionTypesEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         protocolAssessmentEnum: data?.ProtocolAssessmentEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         courseMaxSizeEnum: data?.CourseMaxSizeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         courseTypeEnum: data?.CourseTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         schoolDayType: data?.SchoolDayType?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         schoolDayLengthEnum: data?.SchoolDayLengthEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         academicOutcomeTypes: data?.AcademicOutcomeTypes?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         protocolActivityTypes: data?.ProtocolActivityTypes?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         contactTypeEnum: data?.ContactTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         nounTypeEnum: data?.NounTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         verbTypeEnum: data?.VerbTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         questionWordEnum: data?.QuestionWordEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         lessonTypeEnum: data?.LessonTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         behaviorEnum: data?.BehaviorEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         quizQuestionDifficultyLevelEnum:
           data?.QuizQuestionDifficultyLevelEnum?.enumValues?.map(
-            (value: any) => value.name
+            (value: any) => value.name,
           )!,
         quizQuestionTypeEnum: data?.QuizQuestionTypeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         readingGuideReviewOptionsEnum:
           data?.ReadingGuideReviewOptionsEnum?.enumValues?.map(
-            (value: any) => value.name
+            (value: any) => value.name,
           )!,
         behaviorQualityEnum: data?.BehaviorQualityEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         behaviorCategoryEnum: data?.BehaviorCategoryEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         outOfClassDestinationEnum:
           data?.OutOfClassDestinationEnum?.enumValues?.map(
-            (value: any) => value.name
+            (value: any) => value.name,
           )!,
         textAnalysisCompletionEnum:
           data?.TextAnalysisCompletionEnum?.enumValues?.map(
-            (value: any) => value.name
+            (value: any) => value.name,
           )!,
         readingGuideMetricEnum: data?.ReadingGuideMetricEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
         activityTimeEnum: data?.activityTimeEnum?.enumValues?.map(
-          (value: any) => value.name
+          (value: any) => value.name,
         )!,
       }}
     >
@@ -290,7 +290,7 @@ export function useEnumContextProvider() {
 
   if (context === undefined) {
     throw new Error(
-      'useEnumContextProvider must be used within a EnumContextProvider'
+      'useEnumContextProvider must be used within a EnumContextProvider',
     )
   }
 

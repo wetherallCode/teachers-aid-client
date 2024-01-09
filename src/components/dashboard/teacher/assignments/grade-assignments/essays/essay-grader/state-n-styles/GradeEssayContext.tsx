@@ -28,11 +28,11 @@ export function useGradeEssayContextProvider() {
   const context = useContext(GradeEssayContext)
   if (context === undefined) {
     throw new Error(
-      'useGradeEssayContextProvider must be used within a GradeEssayContextProvider'
+      'useGradeEssayContextProvider must be used within a GradeEssayContextProvider',
     )
   }
   return context as [
     State<gradeEssayMachineContext, gradeEssayMachineEvent, any, any>,
-    (event: gradeEssayMachineEvent) => void
+    (event: gradeEssayMachineEvent) => void,
   ]
 }

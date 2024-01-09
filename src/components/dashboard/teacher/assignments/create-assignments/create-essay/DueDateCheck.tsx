@@ -22,13 +22,13 @@ export const DueDateCheck = ({ courseId, lessonId }: DueDateCheckProps) => {
         const [assignedLesson] = data?.findLessonByCourse.lessons.filter(
           (lesson) => {
             if (lesson._id) return lesson._id === lessonId
-          }
+          },
         )!
 
         const lessonIndex = data?.findLessonByCourse.lessons.findIndex(
           (lesson) => {
             if (assignedLesson) return lesson._id === assignedLesson._id
-          }
+          },
         )!
 
         const sortedLessons = data?.findLessonByCourse.lessons
@@ -45,11 +45,11 @@ export const DueDateCheck = ({ courseId, lessonId }: DueDateCheckProps) => {
         }
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
   function sortByDate(
     a: findLessonsByCourse_findLessonByCourse_lessons,
-    b: findLessonsByCourse_findLessonByCourse_lessons
+    b: findLessonsByCourse_findLessonByCourse_lessons,
   ) {
     let dateA = new Date(a.assignedDate).getTime()
 

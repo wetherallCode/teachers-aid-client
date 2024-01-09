@@ -33,7 +33,7 @@ export const QuizInfo = ({ quiz, i, numberOfQuizzesTotal }: QuizInfoProps) => {
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findAssignmentByStudentId'],
-    }
+    },
   )
   const [assignQuizzes] = useMutation<
     assignQuizzesByStudentIdsAndDate,
@@ -57,7 +57,7 @@ export const QuizInfo = ({ quiz, i, numberOfQuizzesTotal }: QuizInfoProps) => {
           <div>
             {quiz.score.earnedPoints}/{quiz.score.maxPoints}{' '}
             {((quiz.score.earnedPoints / quiz.score.maxPoints) * 100).toFixed(
-              2
+              2,
             )}
             %
           </div>

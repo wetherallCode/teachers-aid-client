@@ -28,7 +28,7 @@ export const CourseLinkSelect = ({ linkedCourses }: CourseLinkSelectProps) => {
           return (
             <span key={course._id!}>
               <input
-                type='checkbox'
+                type="checkbox"
                 value={course._id!}
                 checked={linkedCourses.includes(course._id)}
                 onChange={handleChange}

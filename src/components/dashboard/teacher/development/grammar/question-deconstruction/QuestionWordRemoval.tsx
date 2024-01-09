@@ -26,7 +26,7 @@ export const QuestionWordRemoval = ({
 
   const handleQuestionWordRemove = (word: string) => {
     const index = questionToModify.findIndex(
-      (wordToFind) => wordToFind === word
+      (wordToFind) => wordToFind === word,
     )
     setQuestionToModify([
       ...questionToModify.slice(0, index),

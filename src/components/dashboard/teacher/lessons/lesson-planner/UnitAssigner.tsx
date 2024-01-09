@@ -56,7 +56,7 @@ export const UnitAssigner: FC<UnitAssignerProps> = () => {
       variables: { input: { unitName } },
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findUnits'],
-    }
+    },
   )
 
   return (

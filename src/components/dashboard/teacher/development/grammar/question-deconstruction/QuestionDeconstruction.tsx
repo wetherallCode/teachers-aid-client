@@ -85,14 +85,14 @@ export const QuestionDeconstruction = ({}: QuestionDeconstructionProps) => {
   // const question = howDidPrepositionQuestion
   const question = whyWasQuestion
   const [questionToModify, setQuestionToModify] = useState(
-    splitSentenceByWord(question.original)
+    splitSentenceByWord(question.original),
   )
   const [subject, setSubject] = useState<string | null>(null)
   const [verb, setVerb] = useState<string | null>(null)
   const [object, setObject] = useState<string | null>(null)
 
   const [state, setState] = useState<QuestionDeconstructProps>(
-    'question-word-removal'
+    'question-word-removal',
   )
 
   return (

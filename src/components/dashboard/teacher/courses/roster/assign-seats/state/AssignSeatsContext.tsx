@@ -28,11 +28,11 @@ export function useAssignSeatsContextProvider() {
   const context = useContext(AssignSeatsContext)
   if (context === undefined) {
     throw new Error(
-      'useAssignSeatsContextProvider must be used within a AssignSeatsContextProvider'
+      'useAssignSeatsContextProvider must be used within a AssignSeatsContextProvider',
     )
   }
   return context as [
     State<assignSeatsMachineContext, assignSeatsMachineEvent, any, any>,
-    (event: assignSeatsMachineEvent) => void
+    (event: assignSeatsMachineEvent) => void,
   ]
 }

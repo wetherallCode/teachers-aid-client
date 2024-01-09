@@ -20,7 +20,7 @@ export type ProtocolsProps = {
 export const Protocols = ({ lesson }: ProtocolsProps) => {
   const me: me_me = useUserContextProvider()
   const [protocol] = lesson.duringActivities.filter(
-    (protocol) => protocol.isActive
+    (protocol) => protocol.isActive,
   )
 
   const protocols = underscoreEliminator(protocol.academicOutcomeTypes)

@@ -35,12 +35,12 @@ export const LessonCalendar = ({}: LessonCalendarProps) => {
     <>
       {state.matches('idle') && (
         <StyledCalendar
-          className='react-calendar'
-          calendarType='US'
+          className="react-calendar"
+          calendarType="US"
           value={value}
-          tileClassName='tiles'
+          tileClassName="tiles"
           tileContent={(date) => <Lesson date={date} />}
-          view='month'
+          view="month"
           formatShortWeekday={(locale, date) => formatDate('dd', date)}
         />
       )}

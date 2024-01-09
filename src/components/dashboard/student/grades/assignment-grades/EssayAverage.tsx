@@ -18,7 +18,7 @@ export const EssayAverage = ({ essays }: EssayAverageProps) => {
         !assignment.finalDraft &&
         // assignment.markingPeriod === markingPeriod &&
         Date.parse(new Date().toLocaleString()) >
-          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
   )
 
   if (essayList.length > 0) {

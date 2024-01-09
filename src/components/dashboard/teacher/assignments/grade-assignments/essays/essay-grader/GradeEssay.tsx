@@ -235,7 +235,7 @@ export const GradeEssay = ({}: GradeEssayProps) => {
 
       const previousComments =
         data.findEssayById.essay.finalDraft?.submittedFinalDraft.map(
-          (draft) => draft.additionalComments
+          (draft) => draft.additionalComments,
         )
 
       setloadingDraft(true)
@@ -342,16 +342,14 @@ export const GradeEssay = ({}: GradeEssayProps) => {
                   {state.context.previousRubricEntries.map(
                     (entry, i: number) => (
                       <div key={i}>{entry.entry}</div>
-                    )
+                    ),
                   )}
                 </div>
               )}
               {gradeDetailState === 'comments' && (
                 <div>
                   {state.context.previousDraft.additionalComments?.map(
-                    (comment, i: number) => (
-                      <span key={i}>{comment}</span>
-                    )
+                    (comment, i: number) => <span key={i}>{comment}</span>,
                   )}
                 </div>
               )}

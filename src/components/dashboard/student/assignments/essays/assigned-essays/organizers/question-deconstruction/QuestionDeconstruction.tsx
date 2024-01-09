@@ -39,10 +39,10 @@ export const QuestionDeconstruction = ({
   topic,
 }: DevelopingQuestionReconstructionProps) => {
   const [state, setState] = useState<QuestionDecontstructionStateProps>(
-    'question-word-removal'
+    'question-word-removal',
   )
   const [questionToModify, setQuestionToModify] = useState(
-    splitSentenceByWord(questionParts.originalQuestion)
+    splitSentenceByWord(questionParts.originalQuestion),
   )
 
   const [subject, setSubject] = useState<string | null>(null)

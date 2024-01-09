@@ -49,16 +49,16 @@ export const LoadEssays: FC<LoadEssaysProps> = () => {
     onError: (error) => console.error(error),
   })
   const dueDate = data?.findEssaysByAssociatedLessonId.essays!.map(
-    (essay) => essay.dueDate
+    (essay) => essay.dueDate,
   )
   const studentIds = data?.findEssaysByAssociatedLessonId.essays.map(
-    (essay) => essay.hasOwner._id
+    (essay) => essay.hasOwner._id,
   ) as string[]
   const finished = data?.findEssaysByAssociatedLessonId.essays
     .map((essay) => essay.assigned === true)
     .includes(true)!
   const assignmentTitle = data?.findEssaysByAssociatedLessonId.essays.map(
-    (essay) => essay.readings
+    (essay) => essay.readings,
   )!
 
   return (

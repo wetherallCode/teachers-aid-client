@@ -87,7 +87,7 @@ export const EssayLessonInfo = ({ me, courseId }: EssayLessonInfoProps) => {
         })
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
   if (loading) return <div>Loading </div>
 

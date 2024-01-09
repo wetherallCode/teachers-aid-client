@@ -29,11 +29,11 @@ export function useSectionEditorContextProvider() {
   const context = useContext(SectionEditorContext)
   if (context === undefined) {
     throw new Error(
-      'useSectionBuilderContextProvider must be used within a SectionEditorContextProvider component'
+      'useSectionBuilderContextProvider must be used within a SectionEditorContextProvider component',
     )
   }
   return context as [
     State<sectionEditorMachineContext, sectionEditorMachineEvent, any, any>,
-    (event: sectionEditorMachineEvent) => void
+    (event: sectionEditorMachineEvent) => void,
   ]
 }

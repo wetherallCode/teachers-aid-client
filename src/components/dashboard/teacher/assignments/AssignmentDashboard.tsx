@@ -26,9 +26,9 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
   useNavSync(location, 'ASSIGNMENTS')
   return (
     <Routes>
-      <Route path='' element={<AssignmentDashboardDisplay />} />
+      <Route path="" element={<AssignmentDashboardDisplay />} />
       <Route
-        path='create'
+        path="create"
         element={
           <CreateAssignmentContextProvider>
             <CreateAssignment />
@@ -36,18 +36,18 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
         }
       />
       <Route
-        path='article-reviews'
+        path="article-reviews"
         element={
           <ArticleReviewContextProvider>
             <ArticleReviewManager />
           </ArticleReviewContextProvider>
         }
       />
-      <Route path='edit' element={<EditAssignments />} />
-      <Route path='check/*' element={<CheckAssignments />} />
+      <Route path="edit" element={<EditAssignments />} />
+      <Route path="check/*" element={<CheckAssignments />} />
       {/* <GradeEssayContextProvider> */}
       <Route
-        path='grade/*'
+        path="grade/*"
         element={
           <GradeEssayContainerContextProvider>
             <AssignmentsToGrade />
@@ -55,7 +55,7 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
         }
       />
       <Route
-        path='grade/:essayId'
+        path="grade/:essayId"
         element={
           <GradeEssayContextProvider>
             <GradeEssay />
@@ -64,14 +64,14 @@ export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
       />
       {/* </GradeEssayContextProvider> */}
       <Route
-        path='grade/paper-based/:assignmentId'
+        path="grade/paper-based/:assignmentId"
         element={
           <PaperBasedContextProvider>
             <GradePaperBasedAssignment />
           </PaperBasedContextProvider>
         }
       />
-      <Route path='assign/*' element={<AssignAssignments />} />
+      <Route path="assign/*" element={<AssignAssignments />} />
     </Routes>
   )
 }

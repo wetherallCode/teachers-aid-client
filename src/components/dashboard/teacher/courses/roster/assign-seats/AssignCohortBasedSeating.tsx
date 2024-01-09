@@ -56,7 +56,7 @@ export type RemoveAssignedSeatType = (
         removeCohortBasedSeat,
         removeCohortBasedSeatVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export type AssignSeatType = (
@@ -65,14 +65,14 @@ export type AssignSeatType = (
         assignCohortBasedSeats,
         assignCohortBasedSeatsVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const AssignCohortBasedSeating: FC<AssignCohortBasedSeatingProps> = ({
   course,
 }) => {
   const [cohortSelect, setCohortSelect] = useState<StudentCohortEnum>(
-    StudentCohortEnum.RED
+    StudentCohortEnum.RED,
   )
   const [assignSeats] = useMutation<
     assignCohortBasedSeats,

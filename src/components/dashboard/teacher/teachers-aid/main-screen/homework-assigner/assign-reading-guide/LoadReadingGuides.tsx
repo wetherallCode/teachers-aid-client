@@ -66,15 +66,15 @@ export const LoadReadingGuides: FC<LoadReadingGuidesProps> = () => {
   if (loading) return <div>Loading </div>
   const dueDate =
     data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides!.map(
-      (rg) => rg.dueDate
+      (rg) => rg.dueDate,
     )
   const lessonId =
     data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides!.map(
-      (rg) => rg.associatedLessonId
+      (rg) => rg.associatedLessonId,
     ) as string[]
   const studentIds =
     data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
-      (rg) => rg.hasOwner._id
+      (rg) => rg.hasOwner._id,
     ) as string[]
   const finished =
     data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides
@@ -82,7 +82,7 @@ export const LoadReadingGuides: FC<LoadReadingGuidesProps> = () => {
       .includes(true)!
   const assignmentTitle =
     data?.findReadingGuidesByCourseIdAndAssignedDate.readingGuides.map(
-      (rg) => rg.readings
+      (rg) => rg.readings,
     )!
   return (
     <AssignmentBlockContainer>

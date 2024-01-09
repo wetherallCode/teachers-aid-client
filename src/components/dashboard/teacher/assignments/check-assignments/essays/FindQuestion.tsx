@@ -10,7 +10,7 @@ export const FindQuestion = ({}: FindQuestionProps) => {
     FIND_TEXTS_QUERY,
     {
       onError: (error) => console.error(error),
-    }
+    },
   )
 
   return (

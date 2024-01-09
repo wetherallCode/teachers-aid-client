@@ -16,7 +16,7 @@ export const AssignedDate: FC<AssignedDateProps> = ({ date }) => {
       <div>Change Assigned Date</div>
       <div>Assigned Date: {date}</div>
       <input
-        type='date'
+        type="date"
         onChange={(e: any) =>
           event({
             type: 'SET_ASSIGNED_DATE',

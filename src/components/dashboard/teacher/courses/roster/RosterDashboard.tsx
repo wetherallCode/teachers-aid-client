@@ -30,13 +30,13 @@ export const RosterDashboard = ({
           Back to Menu
         </RosterNavLink>
         <CourseName>{courseName}</CourseName>
-        <RosterNavLink to='add-students'>Add Students to Course</RosterNavLink>
-        <RosterNavLink to='assign-seats'>Assign Seats</RosterNavLink>
-        <RosterNavLink to='view-roster'>View Roster</RosterNavLink>
+        <RosterNavLink to="add-students">Add Students to Course</RosterNavLink>
+        <RosterNavLink to="assign-seats">Assign Seats</RosterNavLink>
+        <RosterNavLink to="view-roster">View Roster</RosterNavLink>
       </RosterNavigationContainer>
       <Routes>
         <Route
-          path='add-students'
+          path="add-students"
           element={
             <AddStudentsContextProvider>
               <AddStudents />
@@ -44,14 +44,14 @@ export const RosterDashboard = ({
           }
         />
         <Route
-          path='assign-seats'
+          path="assign-seats"
           element={
             <AssignSeatsContextProvider>
               <AssignSeats />
             </AssignSeatsContextProvider>
           }
         />
-        <Route path='view-roster' element={<ViewRoster />} />
+        <Route path="view-roster" element={<ViewRoster />} />
       </Routes>
     </RosterDashboardContainer>
   )

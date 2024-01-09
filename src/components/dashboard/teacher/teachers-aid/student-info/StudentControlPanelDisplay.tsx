@@ -25,7 +25,7 @@ export type StudentControlPanelDisplayProps = {
   loadStudentInfo: (
     options?:
       | QueryLazyOptions<findStudentByIdForTeachersAidVariables>
-      | undefined
+      | undefined,
   ) => void
   absenceCheck: boolean
   grade: number
@@ -50,7 +50,7 @@ export const StudentControlPanelDisplay = ({
   const [state, event] = useTeachersAidContextProvider()
 
   const [behaviorSwitch, toggleSwitch] = useToggle(
-    student?.hasProtocols.some((protocol) => protocol.isActive)
+    student?.hasProtocols.some((protocol) => protocol.isActive),
   )
   const [controllerState, setControllerState] = useState<
     'ATTENDANCE' | 'BEHAVIOR'
@@ -65,7 +65,7 @@ export const StudentControlPanelDisplay = ({
 
   const protocols = student?.hasProtocols
   const activeProtocol = student?.hasProtocols.some(
-    (protocol) => protocol.isActive
+    (protocol) => protocol.isActive,
   )
 
   return (

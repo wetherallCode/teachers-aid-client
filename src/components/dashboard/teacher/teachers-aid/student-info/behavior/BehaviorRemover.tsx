@@ -98,7 +98,7 @@ export const BehaviorRemover = ({
             <BehaviorItem key={i}>
               <div style={{ overflowX: 'hidden' }}>
                 {phraseCapitalizer(
-                  underscoreEliminator(behavior.behavior.behaviorName)
+                  underscoreEliminator(behavior.behavior.behaviorName),
                 ).slice(0, 15)}
                 ...
               </div>

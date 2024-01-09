@@ -29,7 +29,7 @@ export const IndividualReadingGuide = ({
   const { readingGuideReviewOptionsEnum } = useEnumContextProvider()
 
   const [effort, setEffort] = useState<ReadingGuideReviewOptionsEnum>(
-    readingGuideReviewOptionsEnum.GOOD_EFFORT
+    readingGuideReviewOptionsEnum.GOOD_EFFORT,
   )
 
   const [reviewReadingGuides] = useMutation<
@@ -38,7 +38,7 @@ export const IndividualReadingGuide = ({
   >(REVIEW_READING_GUIDE_MUTATION, {
     onCompleted: () =>
       setReadingGuideToReview(
-        readingGuidesToCheck[readingGuidesToCheck.length - 2]
+        readingGuidesToCheck[readingGuidesToCheck.length - 2],
       ),
     refetchQueries: ['findReadingGuidesByMarkingPeriod'],
   })
@@ -53,8 +53,8 @@ export const IndividualReadingGuide = ({
         </div>
         <div>Reading Guide: {readingGuide.readings.readingSections}</div>
         <div>
-          {readingGuideQuestions?.map((q) => (
-            <div key={q.questionType}>
+          {readingGuideQuestions?.map((q, i: number) => (
+            <div key={i}>
               <div>{q.questionType}</div>
               <br />
               <div>{q.answer}</div>
@@ -80,7 +80,7 @@ export const IndividualReadingGuide = ({
               >
                 {phraseCapitalizer(underscoreEliminator(review))}
               </button>
-            )
+            ),
           )}
         </div>
       </div>

@@ -118,8 +118,8 @@ export const DevelopingGradingTool = ({
             .filter(
               (entry) =>
                 entry.rubricWritingLevels.includes(
-                  WritingLevelEnum.DEVELOPING
-                ) && entry.rubricSection === state.context.currentRubricSection
+                  WritingLevelEnum.DEVELOPING,
+                ) && entry.rubricSection === state.context.currentRubricSection,
             )
             .sort(sortByRubricEntryScore)
             .map((entry) => {
@@ -127,7 +127,7 @@ export const DevelopingGradingTool = ({
                 <CheckBox
                   key={entry._id}
                   checked={state.context.draftToGrade.rubricEntries.some(
-                    (entries) => entries.entry === entry.entry
+                    (entries) => entries.entry === entry.entry,
                   )}
                   onChange={handleChange}
                   label={entry.entry}

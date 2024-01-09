@@ -115,7 +115,7 @@ export const OrganizerInfo = ({ organizer, topic }: OrganizerInfoProps) => {
       },
       onError: (error) => console.error(error),
       refetchQueries: ['findEssayById'],
-    }
+    },
   )
 
   useEffect(() => {

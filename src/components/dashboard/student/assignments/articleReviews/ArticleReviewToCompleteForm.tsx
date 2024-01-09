@@ -118,8 +118,8 @@ export const ArticleReviewToCompleteForm: FC<
               state.context.articleReviewToComplete.bias === null
                 ? 'none'
                 : state.context.articleReviewToComplete.bias
-                ? 'true'
-                : 'false'
+                  ? 'true'
+                  : 'false'
             }
             onChange={(e: any) =>
               event({
@@ -128,8 +128,8 @@ export const ArticleReviewToCompleteForm: FC<
                   e.target.value === 'true'
                     ? true
                     : e.target.value === 'none'
-                    ? null
-                    : false,
+                      ? null
+                      : false,
               })
             }
           >

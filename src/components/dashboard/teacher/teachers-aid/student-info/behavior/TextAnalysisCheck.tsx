@@ -62,7 +62,7 @@ export const TextAnalysisCheck = ({ textAnalysis }: TextAnalysisCheckProps) => {
             >
               {underscoreEliminator(phraseCapitalizer(check))}
             </StudentBehaviorButton>
-          )
+          ),
         )}
       </StudentBehaviorButtonContainer>
     </StudentBehaviorButtonContainer>

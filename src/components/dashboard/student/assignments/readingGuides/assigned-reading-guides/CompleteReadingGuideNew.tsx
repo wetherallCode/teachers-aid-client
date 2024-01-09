@@ -46,7 +46,7 @@ export type updateReadingGuideNewType = (
         DefaultContext,
         ApolloCache<any>
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const CompleteReadingGuideNew = ({
@@ -97,12 +97,12 @@ export const CompleteReadingGuideNew = ({
     readingGuideLevel === ReadingGuideMetricEnum.BASIC
       ? basicState
       : readingGuideLevel === ReadingGuideMetricEnum.DEVELOPING
-      ? developingState
-      : readingGuideLevel === ReadingGuideMetricEnum.ACADEMIC
-      ? academicState
-      : readingGuideLevel === ReadingGuideMetricEnum.ADVANCED
-      ? advancedState
-      : masterState
+        ? developingState
+        : readingGuideLevel === ReadingGuideMetricEnum.ACADEMIC
+          ? academicState
+          : readingGuideLevel === ReadingGuideMetricEnum.ADVANCED
+            ? advancedState
+            : masterState
 
   return (
     <>
@@ -125,7 +125,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -139,7 +139,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -153,7 +153,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -167,7 +167,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -181,7 +181,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -195,7 +195,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -209,7 +209,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -223,7 +223,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -237,7 +237,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -251,7 +251,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -265,7 +265,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}
@@ -279,7 +279,7 @@ export const CompleteReadingGuideNew = ({
             currentIndex={currentIndex}
             questionObject={
               readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex]
+                (q) => q.questionType === currentState[currentIndex],
               )!
             }
             previousAnswers={questions}

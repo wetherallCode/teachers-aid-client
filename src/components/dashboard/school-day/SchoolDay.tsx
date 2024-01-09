@@ -81,7 +81,7 @@ export const SchoolDay = ({}: SchoolDayProps) => {
   const todaysCourses = me.teachesCourses.filter(
     (course) =>
       course.hasCourseInfo?.schoolDayType ===
-      data?.findSchoolDayByDate.schoolDay?.currentSchoolDayType
+      data?.findSchoolDayByDate.schoolDay?.currentSchoolDayType,
   )
 
   const hasSignInSheets =

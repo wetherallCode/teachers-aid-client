@@ -74,7 +74,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
 
   const assignedSeats =
     data?.findCourseById.course.hasCourseInfo?.assignedSeats.filter(
-      (seat) => seat.student
+      (seat) => seat.student,
     )
 
   const unAssignSeat = (deskNumber: number) =>
@@ -106,7 +106,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
     })
 
   const deskNumber = (
-    student: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents
+    student: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents,
   ) => {
     const [deskNumber] =
       data?.findCourseById.course.hasCourseInfo?.assignedSeats
@@ -225,7 +225,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
                             return !data.findCourseById.course.hasCourseInfo?.assignedSeats
                               .map(
                                 (assignedStudent) =>
-                                  assignedStudent.student?._id
+                                  assignedStudent.student?._id,
                               )
                               .includes(student._id)
                           })
@@ -238,7 +238,7 @@ export const RegularSeating: FC<RegularSeatingProps> = () => {
                     </div>
                   )}
                 </Fragment>
-              )
+              ),
             )}
           </div>
         )}

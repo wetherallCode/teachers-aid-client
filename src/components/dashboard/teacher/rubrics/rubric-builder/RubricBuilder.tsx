@@ -81,7 +81,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
         <div key={level}>
           <span>
             <input
-              type='checkbox'
+              type="checkbox"
               checked={writingLevels.includes(level)}
               value={level}
               onChange={handleChange}
@@ -92,7 +92,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
       ))}
       <div>Entry</div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           event({ type: 'SET_ENTRY', payload: e.target.value })
         }
@@ -121,7 +121,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
       </button>
       <div>How to Improve</div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           event({ type: 'SET_HOW_TO_IMPROVE', payload: e.target.value })
         }
@@ -138,7 +138,7 @@ export const RubricBuilder: FC<RubricBuilderProps> = () => {
           <div key={level}>{level}</div>
         ))}
         <button
-          type='reset'
+          type="reset"
           onClick={(e: any) => {
             buildRubricEntry()
             event({ type: 'RESET' })

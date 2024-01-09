@@ -120,8 +120,8 @@ export const MarkCompleteButton = styled.button<MarkCompleteButtonProps>`
     !studentPresent
       ? 'var(--white)'
       : answered
-      ? 'var(--white)'
-      : 'var(--blue)'};
+        ? 'var(--white)'
+        : 'var(--blue)'};
   font-size: 1.6vh;
   width: 12vh;
 `

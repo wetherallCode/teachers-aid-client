@@ -13,9 +13,9 @@ type AssignmentManagerContextProps = {
   children: ReactNode
 }
 
-export const AssignmentManagerContextProvider: FC<AssignmentManagerContextProps> = ({
-  children,
-}) => {
+export const AssignmentManagerContextProvider: FC<
+  AssignmentManagerContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(AssignmentManagerMachine)
   return (
     <AssignmentManagerContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useAssignmentManagerContextProvider() {
   const context = useContext(AssignmentManagerContext)
   if (context === undefined) {
     throw new Error(
-      'useAssignmentManagerContextProvider must be used within a AssignmentManagerContextProvider'
+      'useAssignmentManagerContextProvider must be used within a AssignmentManagerContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useAssignmentManagerContextProvider() {
       any,
       any
     >,
-    (event: AssignmentManagerMachineEvent) => void
+    (event: AssignmentManagerMachineEvent) => void,
   ]
 }

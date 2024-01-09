@@ -50,7 +50,10 @@ export const EssayToRedo = ({ essay }: EssayToRedoProps) => {
       })
       event({ type: 'SET_ANSWER', payload: developingOrganizer.answer })
 
-      event({ type: 'SET_CONCLUSION', payload: developingOrganizer.conclusion })
+      event({
+        type: 'SET_CONCLUSION',
+        payload: developingOrganizer.conclusion,
+      })
     }
 
     if (essay.workingDraft.organizer?.__typename === 'AcademicOrganizer') {

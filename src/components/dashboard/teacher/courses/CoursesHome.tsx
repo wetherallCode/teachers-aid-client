@@ -13,10 +13,10 @@ export const CoursesHome = ({}: CoursesHomeProps) => {
   useNavSync(location, 'COURSES')
   return (
     <Routes>
-      <Route path='' element={<CourseDirectory />} />
-      <Route path=':course/*' element={<CourseManager />} />
+      <Route path="" element={<CourseDirectory />} />
+      <Route path=":course/*" element={<CourseManager />} />
       <Route
-        path='create-course'
+        path="create-course"
         element={
           <CreateCourseContextProvider>
             <CreateCourse />

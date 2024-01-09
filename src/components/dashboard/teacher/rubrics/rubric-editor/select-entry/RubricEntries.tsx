@@ -14,7 +14,7 @@ export const RubricEntries: FC<RubricEntryDisplayProps> = ({
   const filteredEntryList = rubricEntries.filter(
     (entry) =>
       entry.rubricWritingLevels.includes(state.context.writingLevel) &&
-      entry.rubricSection === state.context.rubricSection
+      entry.rubricSection === state.context.rubricSection,
   )
 
   return (

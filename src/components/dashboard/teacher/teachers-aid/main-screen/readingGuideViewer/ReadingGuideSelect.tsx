@@ -17,7 +17,7 @@ export const ReadingGuideSelect = ({
   const [state, event] = useTeachersAidContextProvider()
 
   const completedReadingGuides = readingGuides.filter(
-    (guide) => guide.graded && !guide.exempt
+    (guide) => guide.graded && !guide.exempt,
   )
   return (
     <ReadingGuideReviewContainer>

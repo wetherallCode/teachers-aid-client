@@ -29,11 +29,11 @@ export function useTeacherNavContextProvider() {
   const context = useContext(TeacherNavContext)
   if (context === undefined) {
     throw new Error(
-      'useSectionBuilderContextProvider must be used within a SectionBuilderContextProvider Component'
+      'useSectionBuilderContextProvider must be used within a SectionBuilderContextProvider Component',
     )
   }
   return context as [
     State<teacherNavMachineContext, teacherNavMachineEvent, any, any>,
-    (event: teacherNavMachineEvent) => void
+    (event: teacherNavMachineEvent) => void,
   ]
 }

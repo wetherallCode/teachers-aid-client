@@ -90,10 +90,10 @@ export const ActivatedProtocolDisplay = ({
   })
 
   const outcomeType = underscoreEliminator(
-    state.context.selectedProtocol.academicOutcomeTypes
+    state.context.selectedProtocol.academicOutcomeTypes,
   )
   const activityTypes = underscoreEliminator(
-    state.context.selectedProtocol.activityType
+    state.context.selectedProtocol.activityType,
   )
 
   const handleMainScreenSwitch = () =>

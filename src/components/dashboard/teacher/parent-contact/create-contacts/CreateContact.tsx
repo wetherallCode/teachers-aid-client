@@ -71,7 +71,7 @@ export const CreateContact: FC<CreateContactProps> = () => {
           <div>{state.context.studentName}</div>
           <div>Date: </div>
           <input
-            type='date'
+            type="date"
             onChange={(e: any) => {
               event({
                 type: 'SET_DATE',
@@ -95,7 +95,7 @@ export const CreateContact: FC<CreateContactProps> = () => {
             ))}
           </select>
           <input
-            type='checkbox'
+            type="checkbox"
             onChange={() =>
               event({ type: 'SET_CONTENT', payload: 'Emailed Progress Report' })
             }
@@ -108,7 +108,7 @@ export const CreateContact: FC<CreateContactProps> = () => {
             }
           />
           <button
-            type='reset'
+            type="reset"
             onClick={() => {
               createParentContact()
               event({ type: 'RESET' })

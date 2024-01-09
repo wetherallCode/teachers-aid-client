@@ -28,11 +28,11 @@ export function useArticleReviewContextProvider() {
   const context = useContext(ArticleReviewContext)
   if (context === undefined) {
     throw new Error(
-      'useArticleReviewContextProvider must be used within a ArticleReviewContextProvider'
+      'useArticleReviewContextProvider must be used within a ArticleReviewContextProvider',
     )
   }
   return context as [
     State<articleReviewMachineContext, articleReviewMachineEvent, any, any>,
-    (event: articleReviewMachineEvent) => void
+    (event: articleReviewMachineEvent) => void,
   ]
 }

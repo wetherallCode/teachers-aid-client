@@ -66,12 +66,12 @@ export const Status = ({ courseId, students }: StatusProps) => {
 
   const studentsCurrentlyOutOfClass =
     data?.findStudentOutOfClassByPeriodNameAndDate.studentsOutOfClass.filter(
-      (outOfClassInstance) => !outOfClassInstance.hasReturned
+      (outOfClassInstance) => !outOfClassInstance.hasReturned,
     )!
 
   const studentsReturnedToClass =
     data?.findStudentOutOfClassByPeriodNameAndDate.studentsOutOfClass.filter(
-      (outOfClassInstance) => outOfClassInstance.hasReturned
+      (outOfClassInstance) => outOfClassInstance.hasReturned,
     )!
   if (loading) return <div>Loading </div>
   return (

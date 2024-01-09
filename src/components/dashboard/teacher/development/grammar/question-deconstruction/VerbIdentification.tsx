@@ -60,9 +60,9 @@ export const VerbIdentification = ({
                 irregularPastTenseVerbList(question.simplePredicate) ===
                   question.simplePredicate
                   ? question.simplePredicate + 'ed'
-                  : irregularPastTenseVerbList(question.simplePredicate)
+                  : irregularPastTenseVerbList(question.simplePredicate),
               )
-              .split(' ')
+              .split(' '),
           )
           setState('object-identification')
         } else setState('ending-phrase')

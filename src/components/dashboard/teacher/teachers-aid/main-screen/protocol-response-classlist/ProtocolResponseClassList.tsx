@@ -92,7 +92,7 @@ export const ProtocolResponseClassList =
             (protocol) =>
               protocol.response && (
                 <ResponseAssessor key={protocol._id} protocol={protocol} />
-              )
+              ),
           )}
         </ResponseContainer>
       </>

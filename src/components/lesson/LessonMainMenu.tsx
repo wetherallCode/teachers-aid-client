@@ -160,7 +160,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
             : console.log('No class yet')
         },
         onError: (error) => console.error(error),
-      }
+      },
     )
 
   const schoolDayType =
@@ -179,9 +179,9 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
                     : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
-                    ? course.hasCourseInfo.hourDelayStartsAt
-                    : course.hasCourseInfo?.startsAt!
-                )
+                      ? course.hasCourseInfo.hourDelayStartsAt
+                      : course.hasCourseInfo?.startsAt!,
+                ),
               ) &&
             Date.parse(dateTime) <
               Date.parse(
@@ -189,11 +189,11 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
                     : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
-                    ? course.hasCourseInfo.hourDelayEndsAt
-                    : course.hasCourseInfo?.endsAt!
-                )
+                      ? course.hasCourseInfo.hourDelayEndsAt
+                      : course.hasCourseInfo?.endsAt!,
+                ),
               ) &&
-            course.hasCourseInfo?.schoolDayType === schoolDayType
+            course.hasCourseInfo?.schoolDayType === schoolDayType,
         )
       : me.inCourses.filter(
           (course) =>
@@ -203,9 +203,9 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
                     : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
-                    ? course.hasCourseInfo.hourDelayStartsAt
-                    : course.hasCourseInfo?.startsAt!
-                )
+                      ? course.hasCourseInfo.hourDelayStartsAt
+                      : course.hasCourseInfo?.startsAt!,
+                ),
               ) &&
             Date.parse(dateTime) <
               Date.parse(
@@ -213,21 +213,23 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
                     : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
-                    ? course.hasCourseInfo.hourDelayEndsAt
-                    : course.hasCourseInfo?.endsAt!
-                )
-              )
+                      ? course.hasCourseInfo.hourDelayEndsAt
+                      : course.hasCourseInfo?.endsAt!,
+                ),
+              ),
         )
 
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
-    (course) => course._id === courseToLoad?._id
+    (course) => course._id === courseToLoad?._id,
   )
+  console.log(course)
 
   const handleSignInCheck = (_id: string) => {
     const check = course?.some((stuff) => {
       if (
-        stuff.hasSignInSheets.some((sheet) =>
-          sheet.studentsSignInlog?.some((signIn) => signIn._id === _id)
+        stuff.hasSignInSheets.some(
+          (sheet) =>
+            sheet.studentsSignInlog?.some((signIn) => signIn._id === _id),
         )
       ) {
         return true
@@ -253,7 +255,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
         event({ type: 'POLLING' })
       },
       refetchQueries: ['studentSignedInCheck', 'me'],
-    }
+    },
   )
 
   const useFake = false
@@ -276,7 +278,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
     }
   }, [courseToLoad, dateTime])
 
-  if (!me) return <Navigate to='/' />
+  if (!me) return <Navigate to="/" />
   return (
     <>
       {state.matches('getLesson') && (

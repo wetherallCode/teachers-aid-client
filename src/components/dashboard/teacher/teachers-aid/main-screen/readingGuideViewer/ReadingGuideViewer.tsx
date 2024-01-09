@@ -27,7 +27,7 @@ export const ReadingGuideViewer = ({}: ReadingGuideViewerProps) => {
     <div>
       <div>Reading Guide Viewer</div>
       <input
-        type='date'
+        type="date"
         onChange={(e) =>
           getReadingGuides({
             variables: {

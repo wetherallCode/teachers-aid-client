@@ -29,7 +29,7 @@ export const QuestionBlank = ({
           return (
             <label key={i}>
               <input
-                type='radio'
+                type="radio"
                 checked={answerValue === answer}
                 onChange={() => setAnswerValue(answer)}
               />
@@ -38,7 +38,7 @@ export const QuestionBlank = ({
           )
         })}
       </div>
-      <button type='submit' onClick={handleSubmit}>
+      <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
     </form>

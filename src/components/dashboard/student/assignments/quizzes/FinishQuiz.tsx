@@ -53,7 +53,7 @@ export const FinishQuiz = ({
           // responsibilityPoints: state.context.responsibilityPoints,
           responsibilityPoints: responsibilityPointConverter(
             grade,
-            state.context.responsibilityPoints
+            state.context.responsibilityPoints,
           ),
         },
       },
@@ -64,7 +64,7 @@ export const FinishQuiz = ({
         return () => clearTimeout(timer)
       },
       refetchQueries: ['findQuizById'],
-    }
+    },
   )
   let score =
     state.context.earnedPoints / state.context.quizzableSections.length

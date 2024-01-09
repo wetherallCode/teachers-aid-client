@@ -23,7 +23,7 @@ export const AdditionalComments: FC<AdditionalCommentsProps> = () => {
           }
         />
         <AddCommentButton
-          type='reset'
+          type="reset"
           onClick={() => {
             event({
               type: 'ADD_ADDITIONAL_COMMENT',
@@ -47,7 +47,7 @@ export const AdditionalComments: FC<AdditionalCommentsProps> = () => {
                 </span>
               </div>
             )
-          }
+          },
         )}
       </Comments>
     </AdditionalCommentsContainer>

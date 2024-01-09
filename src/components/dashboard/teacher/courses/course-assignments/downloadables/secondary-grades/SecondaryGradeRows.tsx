@@ -66,7 +66,7 @@ export const SecondaryGradeRows = ({
     .filter(
       (grade) =>
         Date.parse(new Date().toLocaleString()) >
-        Date.parse(grade.dueDate + ', ' + grade.dueTime)
+        Date.parse(grade.dueDate + ', ' + grade.dueTime),
     )
     .filter((a) => !a.exempt)
     .filter((a) => a.markingPeriod === markingPeriodSelect)!
@@ -74,16 +74,16 @@ export const SecondaryGradeRows = ({
   const totalMaxPoints = secondaryGrades?.reduce(
     (
       arr: number,
-      i: findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments
+      i: findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments,
     ) => i.score.maxPoints + arr,
-    0
+    0,
   )
   const totalEarnedPoints = secondaryGrades?.reduce(
     (
       arr: number,
-      i: findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments
+      i: findAssignmentByStudentIdForSecondary_findAssignmentByStudentId_assignments,
     ) => i.score.earnedPoints + arr,
-    0
+    0,
   )
   const secondaryGradeScore = (totalEarnedPoints / totalMaxPoints) * 100
 

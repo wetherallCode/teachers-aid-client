@@ -72,7 +72,7 @@ export const RegisterStudent = ({}: RegisterStudentProps) => {
   })
 
   const userNamesInUse = data?.findAllUsers.users.map(
-    (user) => user.__typename === 'Student' && user.userName
+    (user) => user.__typename === 'Student' && user.userName,
   )!
 
   const [registerStudent] = useMutation<
@@ -223,7 +223,7 @@ export const RegisterStudent = ({}: RegisterStudentProps) => {
         {/* <RegisterUserNameAndPassword userNamesInUse={userNamesInUse!} /> */}
         {!addToCourseToggle &&
           userNamesInUse?.includes(
-            state.context.studentToRegister.userName
+            state.context.studentToRegister.userName,
           ) && (
             <>
               <div>Username is already in use, please use another username</div>
@@ -248,10 +248,10 @@ export const RegisterStudent = ({}: RegisterStudentProps) => {
                 addIdFinished={addIdFinished}
               /> */}
               <>
-                <BottomButton type='button' onClick={handleAddToCourse}>
+                <BottomButton type="button" onClick={handleAddToCourse}>
                   Add to Course?
                 </BottomButton>
-                <BottomButton type='reset' onClick={handleAnotherStudent}>
+                <BottomButton type="reset" onClick={handleAnotherStudent}>
                   Add Another Student
                 </BottomButton>
               </>
@@ -259,7 +259,7 @@ export const RegisterStudent = ({}: RegisterStudentProps) => {
           ) : (
             <BottomButtonContainer>
               <BottomButton
-                type='button'
+                type="button"
                 onClick={() => event({ type: 'IDLE' })}
               >
                 Back
@@ -267,7 +267,7 @@ export const RegisterStudent = ({}: RegisterStudentProps) => {
               {state.context.studentToRegister.firstName &&
                 state.context.studentToRegister.lastName && (
                   <BottomButton
-                    type='button'
+                    type="button"
                     onClick={() => {
                       setAddToCourseToggle(true)
                     }}

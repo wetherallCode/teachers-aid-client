@@ -28,11 +28,11 @@ export function useLessonEditorContextProvider() {
   const context = useContext(LessonEditorContext)
   if (context === undefined) {
     throw new Error(
-      'useLessonEditorContextProvider must be used within a LessonEditorContextProvider'
+      'useLessonEditorContextProvider must be used within a LessonEditorContextProvider',
     )
   }
   return context as [
     State<lessonEditorMachineContext, lessonEditorMachineEvent, any, any>,
-    (event: lessonEditorMachineEvent) => void
+    (event: lessonEditorMachineEvent) => void,
   ]
 }

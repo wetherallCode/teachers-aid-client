@@ -90,13 +90,13 @@ export const SubjectPredicateSplit = ({
                         textUnderlinePosition: 'under',
                       }
                     : i === 2
-                    ? {
-                        cursor: 'pointer',
-                        textDecoration: 'underline',
-                        textDecorationStyle: 'double',
-                        textUnderlinePosition: 'under',
-                      }
-                    : { cursor: 'pointer' }
+                      ? {
+                          cursor: 'pointer',
+                          textDecoration: 'underline',
+                          textDecorationStyle: 'double',
+                          textUnderlinePosition: 'under',
+                        }
+                      : { cursor: 'pointer' }
                 }
                 onClick={() => {
                   if (part === separator) {

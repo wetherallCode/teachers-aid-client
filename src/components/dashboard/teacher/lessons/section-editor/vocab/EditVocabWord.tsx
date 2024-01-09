@@ -15,7 +15,7 @@ export const EditVocabWord = ({}: EditVocabWordProps) => {
     <form>
       <div>Word</div>
       <input
-        type='text'
+        type="text"
         value={state.context.vocabWordToEdit?.word}
         onChange={(e: any) => {
           event({
@@ -29,7 +29,7 @@ export const EditVocabWord = ({}: EditVocabWordProps) => {
       />
       <div>Defintion</div>
       <input
-        type='text'
+        type="text"
         value={state.context.vocabWordToEdit?.definition}
         onChange={(e: any) => {
           event({
@@ -42,7 +42,7 @@ export const EditVocabWord = ({}: EditVocabWordProps) => {
         }}
       />
       <button
-        type='reset'
+        type="reset"
         onClick={() => {
           event({
             type: 'SET_VOCAB_LIST',

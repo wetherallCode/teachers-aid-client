@@ -25,7 +25,7 @@ export type ThirtySeatPairSeatingChartProps = {
   assignSeats: (
     options?:
       | MutationFunctionOptions<assignRegularSeats, assignRegularSeatsVariables>
-      | undefined
+      | undefined,
   ) => void
   studentsInCourse: findCourseByIdForStudentRegistration_findCourseById_course_hasStudents[]
 }

@@ -30,7 +30,7 @@ export const EditorTextListLoader = ({}: TextListLoaderProps) => {
     {
       onCompleted: () => console.log(data),
       onError: (err) => console.error(err),
-    }
+    },
   )
 
   const texts = data?.findTexts.texts.filter((text) => text.ownerId === me._id)

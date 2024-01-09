@@ -37,7 +37,7 @@ export const Desk = ({ deskNumber }: DeskProps) => {
   const [cohortSwitch, setcohortSwitch] = useState(false)
 
   const [desk] = state.context.courseInfo!.assignedSeats.filter(
-    (seat) => seat.deskNumber === deskNumber
+    (seat) => seat.deskNumber === deskNumber,
   )
 
   const { loading, data } = useQuery<
@@ -54,7 +54,7 @@ export const Desk = ({ deskNumber }: DeskProps) => {
   })
 
   const isAbsent = data?.findStudentById.student.hasAbsences.some(
-    (absence) => absence.dayAbsent === new Date().toLocaleDateString()
+    (absence) => absence.dayAbsent === new Date().toLocaleDateString(),
   )
 
   const redWeek = schoolDayState.context.currentSchoolDay.cohortWeek === 'RED'

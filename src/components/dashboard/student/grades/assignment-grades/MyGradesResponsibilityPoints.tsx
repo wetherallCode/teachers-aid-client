@@ -39,7 +39,7 @@ export const MyGradesResponsibilityPoints = ({
   })
   const [points] =
     data?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-      (p) => p.markingPeriod === currentMarkingPeriod
+      (p) => p.markingPeriod === currentMarkingPeriod,
     )!
   return (
     <div style={{}}>

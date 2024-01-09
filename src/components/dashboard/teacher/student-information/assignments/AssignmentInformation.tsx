@@ -117,25 +117,25 @@ export const AssignmentInformation = ({
   const essays = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
       assignment.__typename === 'Essay' &&
-      assignment.markingPeriod === selectedMarkingPeriod
+      assignment.markingPeriod === selectedMarkingPeriod,
   )!
   const readingGuides = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
       assignment.__typename === 'ReadingGuide' &&
-      assignment.markingPeriod === selectedMarkingPeriod
+      assignment.markingPeriod === selectedMarkingPeriod,
   )!
   const quizzes = data?.findAssignmentByStudentId.assignments.filter(
     (assignment) =>
       assignment.__typename === 'Quiz' &&
-      assignment.markingPeriod === selectedMarkingPeriod
+      assignment.markingPeriod === selectedMarkingPeriod,
   )! as findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz[]
 
   const articleReviews = data?.findAssignmentByStudentId.articleReviews.filter(
-    (review) => review.markingPeriod === selectedMarkingPeriod
+    (review) => review.markingPeriod === selectedMarkingPeriod,
   )!
 
   const completedEssays = data?.findAssignmentByStudentId.assignments.filter(
-    (assignment) => assignment.__typename === 'Essay' && assignment.finalDraft
+    (assignment) => assignment.__typename === 'Essay' && assignment.finalDraft,
   )!
 
   const allEssays = data?.findAssignmentByStudentId.assignments.filter(
@@ -146,7 +146,7 @@ export const AssignmentInformation = ({
         !assignment.finalDraft &&
         assignment.assigned &&
         Date.parse(new Date().toLocaleString()) >
-          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
   )
 
   const allEssaysEarnedPointTotal =
@@ -163,7 +163,7 @@ export const AssignmentInformation = ({
 
   const overallEssayScoreCalculator = (
     earnedPoints: number,
-    maxPoints: number
+    maxPoints: number,
   ) => {
     if (earnedPoints === 0 && maxPoints === 0) {
       return 0
@@ -173,7 +173,7 @@ export const AssignmentInformation = ({
 
   const overallEssayScore = overallEssayScoreCalculator(
     allEssaysEarnedPointTotal ? allEssaysEarnedPointTotal : 0,
-    allEssaysMaxPointTotal ? allEssaysMaxPointTotal : 0
+    allEssaysMaxPointTotal ? allEssaysMaxPointTotal : 0,
   )
   // console.log(state.value)
   if (loading) return <div>Loading </div>

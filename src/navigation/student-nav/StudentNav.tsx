@@ -17,10 +17,10 @@ export const StudentNav: FC<StudentNavProps> = ({
     <>
       <motion.ul variants={ulVariants}>
         <motion.li variants={liVariants}>
-          <Link to='/dashboard'>Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </motion.li>
         <motion.li variants={liVariants}>
-          <Link to='dashboard/assignments'>Assignments</Link>
+          <Link to="dashboard/assignments">Assignments</Link>
         </motion.li>
         {/* <motion.li variants={liVariants}>
           <Link to='dashboard/grades'>Grades</Link>

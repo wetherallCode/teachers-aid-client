@@ -59,10 +59,10 @@ export const QuizSelect = ({}: QuizSelectProps) => {
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: [],
-    }
+    },
   )
   const quizToTake = data?.findQuizzesByStudentId.quizzes.filter(
-    (quiz) => quiz.assigned
+    (quiz) => quiz.assigned,
   )!
 
   return (

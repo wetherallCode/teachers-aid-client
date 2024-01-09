@@ -30,7 +30,7 @@ export const QuestionWordRemoval = ({
 
   const handleQuestionWordRemove = (word: string) => {
     const index = questionToModify.findIndex(
-      (wordToFind) => wordToFind === word
+      (wordToFind) => wordToFind === word,
     )
     setQuestionToModify([
       ...questionToModify.slice(0, index),
@@ -60,7 +60,7 @@ export const QuestionWordRemoval = ({
           reset()
           setEnabled(true)
         },
-        attempts === 0 ? 5000 : 5000 + 1000 * attempts
+        attempts === 0 ? 5000 : 5000 + 1000 * attempts,
       )
       return () => clearTimeout(timer)
     }

@@ -46,18 +46,18 @@ export const useGetCurrentCourse = () => {
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
-                    : course.hasCourseInfo?.startsAt!
-                )
+                    : course.hasCourseInfo?.startsAt!,
+                ),
               ) &&
             Date.parse(dateTime) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
-                    : course.hasCourseInfo?.endsAt!
-                )
+                    : course.hasCourseInfo?.endsAt!,
+                ),
               ) &&
-            course.hasCourseInfo?.schoolDayType === schoolDayType
+            course.hasCourseInfo?.schoolDayType === schoolDayType,
         )
       : me.inCourses.filter(
           (course) =>
@@ -66,17 +66,17 @@ export const useGetCurrentCourse = () => {
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
-                    : course.hasCourseInfo?.startsAt!
-                )
+                    : course.hasCourseInfo?.startsAt!,
+                ),
               ) &&
             Date.parse(dateTime) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayEndsAt!
-                    : course.hasCourseInfo?.endsAt!
-                )
-              )
+                    : course.hasCourseInfo?.endsAt!,
+                ),
+              ),
         )
   if (courseToLoad) {
     return courseToLoad

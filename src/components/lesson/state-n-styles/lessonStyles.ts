@@ -307,7 +307,7 @@ export const AssignedSeatsStudentListItemHeaders = styled.div`
 `
 
 export const AssignedSeatsStudentListItem = styled(
-  AssignedSeatsStudentListItemHeaders
+  AssignedSeatsStudentListItemHeaders,
 )<AssignedSeatsStudentListItemProps>`
   border-top: 1px solid var(--blue);
   grid-auto-flow: column;

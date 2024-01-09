@@ -127,12 +127,12 @@ export const CreateEssay = ({
   const writingLevels = writingLevelData?.findStudentsByCourse.students
     .map(
       (student) =>
-        student.hasProgressTracker.writingProgressTracker.overallWritingLevel
+        student.hasProgressTracker.writingProgressTracker.overallWritingLevel,
     )
     .reduce(
       (accum: string[], cValue) =>
         accum.includes(cValue) ? [...accum] : [...accum, cValue],
-      []
+      [],
     )
 
   const [createEssay, { called, data }] = useMutation<
@@ -166,13 +166,13 @@ export const CreateEssay = ({
     .filter((c) => c.name !== 'Unenrolled')
 
   const selectedDevelopingEssays = state.context.essay.topicList.filter(
-    (essay) => essay.writingLevel === 'DEVELOPING'
+    (essay) => essay.writingLevel === 'DEVELOPING',
   )
   const selectedAcademicEssays = state.context.essay.topicList.filter(
-    (essay) => essay.writingLevel === 'ACADEMIC'
+    (essay) => essay.writingLevel === 'ACADEMIC',
   )
   const selectedAdvancedEssays = state.context.essay.topicList.filter(
-    (essay) => essay.writingLevel === 'ADVANCED'
+    (essay) => essay.writingLevel === 'ADVANCED',
   )
 
   return (
@@ -184,7 +184,7 @@ export const CreateEssay = ({
           <DateAssignItemContainer>
             <div>Assigned Date: </div>
             <DateAssignInput
-              type='date'
+              type="date"
               value={dateInputConverter(state.context.essay.assignedDate)}
               onChange={(e: any) =>
                 event({
@@ -197,7 +197,7 @@ export const CreateEssay = ({
           <DateAssignItemContainer>
             <div>Due Date: </div>
             <DateAssignInput
-              type='date'
+              type="date"
               value={
                 state.context.essay.dueDate
                   ? dateInputConverter(state.context.essay.dueDate)
@@ -227,10 +227,10 @@ export const CreateEssay = ({
                   {time === 'BEFORE_SCHOOL'
                     ? 'Before School'
                     : time === 'BEFORE_CLASS'
-                    ? 'Before Class'
-                    : time === 'END_OF_CLASS'
-                    ? 'After Class'
-                    : 'After School'}
+                      ? 'Before Class'
+                      : time === 'END_OF_CLASS'
+                        ? 'After Class'
+                        : 'After School'}
                 </option>
               ))}
             </DateAssignSelect>
@@ -256,7 +256,7 @@ export const CreateEssay = ({
             <MaxPointSelectorContainer>
               <div>Max Points</div>
               <GeneralInput
-                type='text'
+                type="text"
                 value={state.context.essay.maxPoints}
                 onChange={(e: any) =>
                   event({
@@ -318,7 +318,7 @@ export const CreateEssay = ({
               </AddQuestionLevelSelect>
               <SelectButton
                 style={{ fontSize: '2vh', height: '65%' }}
-                type='reset'
+                type="reset"
                 onClick={() =>
                   event({
                     type: 'SET_TOPIC_QUESTION_LIST',
@@ -351,7 +351,7 @@ export const CreateEssay = ({
                       onClick={() => {
                         const topicIndex =
                           state.context.essay.topicList.findIndex(
-                            (topic) => topic.question === question.question
+                            (topic) => topic.question === question.question,
                           )
 
                         event({
@@ -381,7 +381,7 @@ export const CreateEssay = ({
                       onClick={() => {
                         const topicIndex =
                           state.context.essay.topicList.findIndex(
-                            (topic) => topic.question === question.question
+                            (topic) => topic.question === question.question,
                           )
 
                         event({
@@ -411,7 +411,7 @@ export const CreateEssay = ({
                       onClick={() => {
                         const topicIndex =
                           state.context.essay.topicList.findIndex(
-                            (topic) => topic.question === question.question
+                            (topic) => topic.question === question.question,
                           )
 
                         event({

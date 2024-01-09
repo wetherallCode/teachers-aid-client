@@ -27,7 +27,7 @@ export const AcademicConclusion: FC<AcademicConclusionProps> = ({
     <>
       <RestatementTitle>Write your conclusion</RestatementTitle>
       <AcademicConclusionInput
-        type='text'
+        type="text"
         value={state.context.academicOrganizer.conclusion}
         onChange={(e: any) => {
           event({ type: 'SET_CONCLUSION', payload: e.target.value })

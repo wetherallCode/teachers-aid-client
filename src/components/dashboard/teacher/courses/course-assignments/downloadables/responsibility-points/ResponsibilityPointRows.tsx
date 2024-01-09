@@ -10,18 +10,16 @@ export const ResponsibilityPointRows: FC<ResponsibilityPointRowsProps> = ({
   student,
   setRosterList,
 }) => {
-  const [
-    studentResponsibilityPoints,
-    setStudentResponsibilityPoints,
-  ] = useState({
-    NAME: student.student.lastName + ', ' + student.student.firstName,
-    STUDENTID: student.student.schoolId,
-    GRADE: student.responsibilityPoints,
-    ABSENT: '',
-    EXEMPT: '',
-    INCOMPLETE: '',
-    MISSING: '',
-  })
+  const [studentResponsibilityPoints, setStudentResponsibilityPoints] =
+    useState({
+      NAME: student.student.lastName + ', ' + student.student.firstName,
+      STUDENTID: student.student.schoolId,
+      GRADE: student.responsibilityPoints,
+      ABSENT: '',
+      EXEMPT: '',
+      INCOMPLETE: '',
+      MISSING: '',
+    })
   useEffect(() => {
     setRosterList((list) => [...list, studentResponsibilityPoints])
   }, [studentResponsibilityPoints])

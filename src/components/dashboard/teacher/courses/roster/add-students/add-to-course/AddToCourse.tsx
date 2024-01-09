@@ -94,7 +94,7 @@ export const AddToCourse = ({ course }: AddToCourseProps) => {
       for (const student of state.context.addStudentToCourse.studentIds) {
         const studentIndex =
           state.context.addStudentToCourse.studentIds.findIndex(
-            (i) => i === student
+            (i) => i === student,
           )
         console.log(studentIndex)
         event({ type: 'REMOVE_STUDENT_IDS', payload: studentIndex })
@@ -121,11 +121,11 @@ export const AddToCourse = ({ course }: AddToCourseProps) => {
   if (loading) return <div>Loading </div>
 
   const studentsNotInCourse = data?.findAllStudents.students.filter(
-    (student) => student.inCourses.length === 0
+    (student) => student.inCourses.length === 0,
   )!
 
   const studentsToAdd = data?.findAllStudents.students.filter((student) =>
-    state.context.addStudentToCourse.studentIds.includes(student._id!)
+    state.context.addStudentToCourse.studentIds.includes(student._id!),
   )
 
   // console.log(studentsToAdd)
@@ -154,7 +154,7 @@ export const AddToCourse = ({ course }: AddToCourseProps) => {
             event({ type: 'ADD_STUDENT_IDS', payload: e.target.value })
           }
         >
-          <option value='none'>Select a Student</option>
+          <option value="none">Select a Student</option>
           {studentsNotInCourse?.map((student) => (
             <option key={student._id!} value={student._id!}>
               {student.lastName}, {student.firstName}

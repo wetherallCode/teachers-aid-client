@@ -48,7 +48,7 @@ export const QuizToComplete = ({}: QuizToCompleteProps) => {
       },
       pollInterval: 1000,
       onError: (error) => console.error(error),
-    }
+    },
   )
   // console.log(data?.findQuizById.quiz)
   if (loading) return <div>Loading </div>

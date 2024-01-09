@@ -207,7 +207,7 @@ export const BiggestProblemListItem = styled.div<BiggestProblemListItemProps>`
 `
 
 export const ReadingGuideReasonForBiggestProblemContainer = styled(
-  ReadingGuideQuestion
+  ReadingGuideQuestion,
 )`
   grid-template-rows: 1fr 2fr 1fr;
 `
@@ -221,11 +221,11 @@ export const SmallNextButton = styled(SmallBlueButton)`
 `
 
 export const ImportantPeopleContainer = styled(
-  ReadingGuideProblemsQuestionContainer
+  ReadingGuideProblemsQuestionContainer,
 )``
 
 export const HowAreImportantPeopleContectedContainer = styled(
-  ReadingGuideQuestion
+  ReadingGuideQuestion,
 )`
   grid-template-rows: 1fr 2fr 3fr 1fr;
 `

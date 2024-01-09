@@ -53,11 +53,11 @@ export const StudentStatus = ({
     refetchQueries: ['findStudentByIdForTeachersAid'],
   })
   const isStudentOutOfClass = student.hasStatus.filter(
-    (status) => !status.hasReturned
+    (status) => !status.hasReturned,
   )
   const studentOutOfClass = isStudentOutOfClass.length === 1
   const outOfClassObject = student.hasStatus.find(
-    (status) => !status.hasReturned
+    (status) => !status.hasReturned,
   )
   console.log(outOfClassObject)
   return (

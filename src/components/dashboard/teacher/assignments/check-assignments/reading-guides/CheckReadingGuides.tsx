@@ -65,13 +65,13 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
   const { markingPeriodEnum } = useEnumContextProvider()
   const [readingGuideToReview, setReadingGuideToReview] =
     useState<null | findReadingGuidesByMarkingPeriod_findReadingGuidesByMarkingPeriod_readingGuides>(
-      null
+      null,
     )
   const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
-    markingPeriodState.context.currentMarkingPeriod
+    markingPeriodState.context.currentMarkingPeriod,
   )
   const index = markingPeriodEnum.findIndex(
-    (c: MarkingPeriodEnum) => c === markingPeriodToGrade
+    (c: MarkingPeriodEnum) => c === markingPeriodToGrade,
   )
   const { loading, data } = useQuery<
     findReadingGuidesByMarkingPeriod,
@@ -83,8 +83,8 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
     onCompleted: (data) =>
       console.log(
         data.findReadingGuidesByMarkingPeriod.readingGuides.filter(
-          (rg) => !rg.exempt && !rg.reviewed && rg.completed
-        )
+          (rg) => !rg.exempt && !rg.reviewed && rg.completed,
+        ),
       ),
     onError: (error) => console.error(error),
   })
@@ -92,7 +92,7 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
 
   const readingGuidesToCheck =
     data?.findReadingGuidesByMarkingPeriod.readingGuides.filter(
-      (rg) => !rg.exempt && !rg.reviewed && rg.completed
+      (rg) => !rg.exempt && !rg.reviewed && rg.completed,
     )!
   console.log(readingGuideToReview)
   return (
@@ -147,7 +147,7 @@ export const CheckReadingGuides = ({}: CheckReadingGuidesProps) => {
                 setReadingGuideToReview={setReadingGuideToReview}
                 readingGuidesToCheck={
                   data?.findReadingGuidesByMarkingPeriod.readingGuides.filter(
-                    (rg) => !rg.exempt && !rg.reviewed && rg.completed
+                    (rg) => !rg.exempt && !rg.reviewed && rg.completed,
                   )!
                 }
               />

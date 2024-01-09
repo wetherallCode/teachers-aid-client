@@ -26,13 +26,13 @@ export const AddText: FC<AddTextProps> = () => {
       variables: { input: { textTitle, ownerId: me._id } },
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findTexts'],
-    }
+    },
   )
   return (
     <div>
       <div>Add New Text</div>
       <input
-        type='text'
+        type="text"
         value={textTitle}
         onChange={(e: any) => setTextTitle(e.target.value)}
       />

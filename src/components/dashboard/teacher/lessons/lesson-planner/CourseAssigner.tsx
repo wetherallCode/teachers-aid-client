@@ -71,7 +71,7 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
         {realCourseList.sort(sortByLetter).map((course) => (
           <CourseToAssignContainer key={course._id!}>
             <AssignCourseCheckBox
-              type='checkbox'
+              type="checkbox"
               value={course._id!}
               onChange={handleChange}
             />

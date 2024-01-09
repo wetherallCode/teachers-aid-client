@@ -74,43 +74,43 @@ export const TeacherDashboardHome = () => {
               <SchoolDay />
             </TeacherDirectoryOptions>
             <TeacherDirectoryOptionsLink
-              to='assignments'
+              to="assignments"
               onClick={() => event({ type: 'ASSIGNMENTS' })}
             >
               Assignments
             </TeacherDirectoryOptionsLink>
             <TeacherDirectoryOptionsLink
-              to='courses'
+              to="courses"
               onClick={() => event({ type: 'COURSES' })}
             >
               Courses
             </TeacherDirectoryOptionsLink>
             <TeacherDirectoryOptionsLink
-              to='lessons'
+              to="lessons"
               onClick={() => event({ type: 'LESSONS' })}
             >
               Lessons
             </TeacherDirectoryOptionsLink>
             <TeacherDirectoryOptionsLink
-              to='studentInformation'
+              to="studentInformation"
               onClick={() => event({ type: 'STUDENT_INFORMATION' })}
             >
               Student Information
             </TeacherDirectoryOptionsLink>
             <TeacherDirectoryOptionsLink
-              to='parentContacts'
+              to="parentContacts"
               onClick={() => event({ type: 'PARENT_CONTACTS' })}
             >
               Parent Contacts
             </TeacherDirectoryOptionsLink>
             <TeacherDirectoryOptionsLink
-              to='behavior/edit-behavior'
+              to="behavior/edit-behavior"
               onClick={() => event({ type: 'BEHAVIOR' })}
             >
               Behaviors
             </TeacherDirectoryOptionsLink>
             <TeacherDirectoryOptionsLink
-              to='rubrics'
+              to="rubrics"
               onClick={() => event({ type: 'RUBRICS' })}
             >
               Rubrics
@@ -122,23 +122,23 @@ export const TeacherDashboardHome = () => {
         </TeacherDashboardContainer>
       )}
       <Routes>
-        <Route path='schoolDay/*' element={<SchoolDay />} />
+        <Route path="schoolDay/*" element={<SchoolDay />} />
       </Routes>
       <Routes>
-        <Route path='lessons/*' element={<LessonsHome />} />
+        <Route path="lessons/*" element={<LessonsHome />} />
       </Routes>
       <Routes>
-        <Route path='assignments/*' element={<AssignmentDashboard />} />
+        <Route path="assignments/*" element={<AssignmentDashboard />} />
       </Routes>
       <Routes>
-        <Route path='rubrics/*' element={<RubricsDashboard />} />
+        <Route path="rubrics/*" element={<RubricsDashboard />} />
       </Routes>
       <Routes>
-        <Route path='courses/*' element={<CoursesHome />} />
+        <Route path="courses/*" element={<CoursesHome />} />
       </Routes>
       <Routes>
         <Route
-          path='teachers-aid'
+          path="teachers-aid"
           element={
             <TeachersAidContextProvider>
               <TeachersAid />
@@ -149,7 +149,7 @@ export const TeacherDashboardHome = () => {
       {/* {pathname === '/dashboard' && <SchoolDay />} */}
       <Routes>
         <Route
-          path='studentInformation/*'
+          path="studentInformation/*"
           element={
             <StudentInformationContextProvider>
               <StudentInformation />
@@ -158,13 +158,13 @@ export const TeacherDashboardHome = () => {
         />
       </Routes>
       <Routes>
-        <Route path='parentContacts/*' element={<ParentContacts />} />
+        <Route path="parentContacts/*" element={<ParentContacts />} />
       </Routes>
       <Routes>
-        <Route path='behavior/*' element={<BehaviorHome />} />
+        <Route path="behavior/*" element={<BehaviorHome />} />
       </Routes>
       <Routes>
-        <Route path='development/*' element={<DevelopmentHome />} />
+        <Route path="development/*" element={<DevelopmentHome />} />
       </Routes>
     </>
   )

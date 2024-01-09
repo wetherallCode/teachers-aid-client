@@ -49,7 +49,7 @@ export const ObjectIdentification = ({
   const [, event] = useStudentEssayContextProvider()
   const [select, text, reset] = useSelectedText()
   const [step, setStep] = useState<'checkForObject' | 'identifyObject'>(
-    'checkForObject'
+    'checkForObject',
   )
   const [attempts, setAttempts] = useState(0)
   const [enabled, setEnabled] = useState(true)
@@ -144,7 +144,7 @@ export const ObjectIdentification = ({
           setEnabled(true)
           console.log(timeToComplete)
         },
-        attempts < 1 ? 7000 : 7000 + attempts * 1000
+        attempts < 1 ? 7000 : 7000 + attempts * 1000,
       )
       return () => clearTimeout(timer)
     }
@@ -183,7 +183,7 @@ export const ObjectIdentification = ({
                 if (hasObject) {
                   setCorrect(true)
                   setTransitiveQuestionMessage(
-                    'Correct! This verb is transitive in this case and takes an object, and we are going to find it!'
+                    'Correct! This verb is transitive in this case and takes an object, and we are going to find it!',
                   )
                   const timer = setTimeout(() => {
                     setStep('identifyObject')
@@ -195,19 +195,19 @@ export const ObjectIdentification = ({
                     (question.helpingVerb === 'were' && !auxilaryVerbCheck)
                   ) {
                     setTransitiveQuestionMessage(
-                      `Since the helping verb is ${question.helpingVerb} there is no object. ${question.helpingVerb} is a linking verb, and linking verbs and they don't take objects. `
+                      `Since the helping verb is ${question.helpingVerb} there is no object. ${question.helpingVerb} is a linking verb, and linking verbs and they don't take objects. `,
                     )
                   } else {
                     setTransitiveQuestionMessage(
-                      `Since the helping verb is ${question.helpingVerb} there is no object. ${question.helpingVerb} is an auxilary verb with an action verb that it is helping, and linking verbs and they never take objects. `
+                      `Since the helping verb is ${question.helpingVerb} there is no object. ${question.helpingVerb} is an auxilary verb with an action verb that it is helping, and linking verbs and they never take objects. `,
                     )
                   }
                   setTransitiveQuestionMessage(
                     question.helpingVerb === 'did'
                       ? `Not this time. The verb doesn't take an object.`
                       : auxilaryVerbCheck
-                      ? `Auxillary verbs and the main verb like "${question.simplePredicate}" never take objects.`
-                      : null
+                        ? `Auxillary verbs and the main verb like "${question.simplePredicate}" never take objects.`
+                        : null,
                   )
                   const timer = setTimeout(() => {
                     setTransitiveQuestionMessage(null)
@@ -223,7 +223,7 @@ export const ObjectIdentification = ({
               onClick={() => {
                 if (hasObject) {
                   setTransitiveQuestionMessage(
-                    'Incorrect, the verb has an object. Now we are going to find it!'
+                    'Incorrect, the verb has an object. Now we are going to find it!',
                   )
                   const timer = setTimeout(() => {
                     setStep('identifyObject')
@@ -235,19 +235,19 @@ export const ObjectIdentification = ({
                     if (!auxilaryVerbCheck) {
                       setTransitiveQuestionMessage(
                         `${capitalizer(
-                          question.helpingVerb
-                        )} is a linking verb and never takes an object.`
+                          question.helpingVerb,
+                        )} is a linking verb and never takes an object.`,
                       )
                     } else {
                       setTransitiveQuestionMessage(
                         `${capitalizer(
-                          question.helpingVerb
-                        )} is an auxilary verb and never takes an object.`
+                          question.helpingVerb,
+                        )} is an auxilary verb and never takes an object.`,
                       )
                     }
                   }
                   setTransitiveQuestionMessage(
-                    'You are correct! This verb is intransitive and has no object.'
+                    'You are correct! This verb is intransitive and has no object.',
                   )
                   const timer = setTimeout(() => {
                     // setStep('identifyObject')

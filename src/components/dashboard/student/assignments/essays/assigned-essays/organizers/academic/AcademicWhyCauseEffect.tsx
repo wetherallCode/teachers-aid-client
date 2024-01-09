@@ -127,7 +127,7 @@ export const AcademicWhyCauseEffect = ({
             </div>
           )}
           <PartTextArea
-            placeholder='Proximate Cause...'
+            placeholder="Proximate Cause..."
             value={
               state.context.academicOrganizer.answer.whyCauseEffect
                 .proximateCause
@@ -150,7 +150,7 @@ export const AcademicWhyCauseEffect = ({
         <AnswerTypeContainter>
           <div>Why did your Proximate Cause happen?</div>
           <PartTextArea
-            placeholder='Ultimate Cause...'
+            placeholder="Ultimate Cause..."
             value={
               state.context.academicOrganizer.answer.whyCauseEffect
                 .ultimateCause

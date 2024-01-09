@@ -28,11 +28,11 @@ export function useEditCourseContextProvider() {
   const context = useContext(EditCourseContext)
   if (context === undefined) {
     throw new Error(
-      'useEditCourseContextProvider must be used within a EditCourseContextProvider'
+      'useEditCourseContextProvider must be used within a EditCourseContextProvider',
     )
   }
   return context as [
     State<editCourseMachineContext, editCourseMachineEvent, any, any>,
-    (event: editCourseMachineEvent) => void
+    (event: editCourseMachineEvent) => void,
   ]
 }

@@ -84,7 +84,7 @@ export const FIND_LESSON_STATUS_QUERY = gql`
 `
 export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
   const [polling, setPolling] = useState<number>(2000)
-  console.log(polling)
+
   const { loading, data } = useQuery<
     findLessonStatus,
     findLessonStatusVariables

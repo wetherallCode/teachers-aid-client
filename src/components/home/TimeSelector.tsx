@@ -25,15 +25,8 @@ export const useTimeSelector = () => {
 }
 
 export const TimeSelector: FC<TimeSelectorProps> = ({ setTimeSelect }) => {
-  const {
-    time,
-    setTime,
-    hours,
-    minutes,
-    seconds,
-    mortem,
-    returnTime,
-  } = useTimeSelector()
+  const { time, setTime, hours, minutes, seconds, mortem, returnTime } =
+    useTimeSelector()
 
   useEffect(() => {
     setTimeSelect(returnTime)
@@ -43,7 +36,7 @@ export const TimeSelector: FC<TimeSelectorProps> = ({ setTimeSelect }) => {
     <>
       <span>
         <select
-          title='hours'
+          title="hours"
           onChange={(e: any) => setTime({ ...time, hours: e.target.value })}
         >
           {hours.map((hour: string) => (
@@ -54,7 +47,7 @@ export const TimeSelector: FC<TimeSelectorProps> = ({ setTimeSelect }) => {
       </span>
       <span>
         <select
-          title='minutes'
+          title="minutes"
           onChange={(e: any) => setTime({ ...time, minutes: e.target.value })}
         >
           {minutes.map((min) => (
@@ -65,7 +58,7 @@ export const TimeSelector: FC<TimeSelectorProps> = ({ setTimeSelect }) => {
       </span>
       <span>
         <select
-          title='seconds'
+          title="seconds"
           onChange={(e: any) => setTime({ ...time, minutes: e.target.value })}
         >
           {seconds.map((sec) => (

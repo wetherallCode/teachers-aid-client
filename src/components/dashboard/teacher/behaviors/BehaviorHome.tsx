@@ -23,8 +23,8 @@ export const BehaviorHome = ({}: BehaviorHomeProps) => {
   return (
     <BehaviorHomeContainer>
       <BehaviorLinksContainer>
-        <BehaviorLink to='create-behavior'>Create</BehaviorLink>
-        <BehaviorLink to='edit-behavior'>Edit</BehaviorLink>
+        <BehaviorLink to="create-behavior">Create</BehaviorLink>
+        <BehaviorLink to="edit-behavior">Edit</BehaviorLink>
         <div></div>
       </BehaviorLinksContainer>
       <BehaviorHomeDisplay>
@@ -32,8 +32,8 @@ export const BehaviorHome = ({}: BehaviorHomeProps) => {
           <div>Behaviors</div>
         </BehaviorHomeTitleDiv>
         <Routes>
-          <Route path='create-behavior' element={<CreateBehavior />} />
-          <Route path='edit-behavior' element={<BehaviorTypeList />} />
+          <Route path="create-behavior" element={<CreateBehavior />} />
+          <Route path="edit-behavior" element={<BehaviorTypeList />} />
         </Routes>
       </BehaviorHomeDisplay>
     </BehaviorHomeContainer>

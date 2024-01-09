@@ -15,7 +15,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
       <EssayInfoTitle>Help with Your Essay</EssayInfoTitle>
       <EssayInfoBody>
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.identifications'
+          'reviewOrganizer.organizers.developingOrganizer.identifications',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -39,7 +39,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.restatement'
+          'reviewOrganizer.organizers.developingOrganizer.restatement',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -61,7 +61,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.answer'
+          'reviewOrganizer.organizers.developingOrganizer.answer',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -81,7 +81,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.conclusion'
+          'reviewOrganizer.organizers.developingOrganizer.conclusion',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -95,7 +95,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.academicOrganizer.restatement'
+          'reviewOrganizer.organizers.academicOrganizer.restatement',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -118,7 +118,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.academicOrganizer.answer.questionType'
+          'reviewOrganizer.organizers.academicOrganizer.answer.questionType',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -171,7 +171,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.academicOrganizer.answer.problemSolution'
+          'reviewOrganizer.organizers.academicOrganizer.answer.problemSolution',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -198,7 +198,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.academicOrganizer.answer.whyCauseEffect'
+          'reviewOrganizer.organizers.academicOrganizer.answer.whyCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -220,7 +220,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.academicOrganizer.answer.howCauseEffect'
+          'reviewOrganizer.organizers.academicOrganizer.answer.howCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -244,7 +244,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.academicOrganizer.conclusion'
+          'reviewOrganizer.organizers.academicOrganizer.conclusion',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -265,7 +265,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.advancedOrganizer.restatement'
+          'reviewOrganizer.organizers.advancedOrganizer.restatement',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -274,7 +274,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.advancedOrganizer.answer.questionType'
+          'reviewOrganizer.organizers.advancedOrganizer.answer.questionType',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -283,7 +283,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.advancedOrganizer.answer.problemSolution'
+          'reviewOrganizer.organizers.advancedOrganizer.answer.problemSolution',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -292,7 +292,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.advancedOrganizer.answer.whyCauseEffect'
+          'reviewOrganizer.organizers.advancedOrganizer.answer.whyCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -301,7 +301,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.advancedOrganizer.answer.howCauseEffect'
+          'reviewOrganizer.organizers.advancedOrganizer.answer.howCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -310,7 +310,7 @@ export const RedoEssayOrganizerHelp: FC<RedoEssayOrganizerHelpProps> = () => {
           </ul>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.advancedOrganizer.conclusion'
+          'reviewOrganizer.organizers.advancedOrganizer.conclusion',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>

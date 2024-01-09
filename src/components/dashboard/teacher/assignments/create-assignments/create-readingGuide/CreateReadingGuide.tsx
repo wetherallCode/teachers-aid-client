@@ -86,13 +86,13 @@ export const CreateReadingGuide = ({
     .filter((c) => c.name !== 'Unenrolled')
 
   const [currentCourseInfo] = me.teachesCourses.filter(
-    (course) => course._id === courseId
+    (course) => course._id === courseId,
   )
 
   const sortedCourses = me.teachesCourses.slice(2)
   console.log()
   const currentCourseIndex = sortedCourses.findIndex(
-    (course) => course._id === courseId
+    (course) => course._id === courseId,
   )
 
   const { loading, data: quizQuestionIdData } = useQuery<
@@ -151,9 +151,9 @@ export const CreateReadingGuide = ({
           <DateAssignItemContainer>
             <div>Assigned Date: </div>
             <DateAssignInput
-              type='date'
+              type="date"
               value={dateInputConverter(
-                state.context.readingGuide.assignedDate
+                state.context.readingGuide.assignedDate,
               )}
               onChange={(e: any) => {
                 event({
@@ -167,7 +167,7 @@ export const CreateReadingGuide = ({
           <DateAssignItemContainer>
             <div>Due Date: </div>
             <DateAssignInput
-              type='date'
+              type="date"
               value={dateInputConverter(state.context.readingGuide.dueDate)}
               onChange={(e: any) => {
                 event({
@@ -195,10 +195,10 @@ export const CreateReadingGuide = ({
                     {time === 'BEFORE_SCHOOL'
                       ? 'Before School'
                       : time === 'BEFORE_CLASS'
-                      ? 'Before Class'
-                      : time === 'END_OF_CLASS'
-                      ? 'After Class'
-                      : 'After School'}
+                        ? 'Before Class'
+                        : time === 'END_OF_CLASS'
+                          ? 'After Class'
+                          : 'After School'}
                   </option>
                 )
               })}
@@ -228,7 +228,7 @@ export const CreateReadingGuide = ({
             <MaxPointSelectorContainer>
               <div>Max Points</div>
               <GeneralInput
-                type='text'
+                type="text"
                 value={
                   loading ? 'loading' : state.context.readingGuide.maxPoints
                 }

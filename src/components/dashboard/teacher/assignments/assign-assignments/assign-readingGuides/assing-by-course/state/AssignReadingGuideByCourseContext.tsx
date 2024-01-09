@@ -13,9 +13,9 @@ type AssignReadingGuideByCourseContextProps = {
   children: ReactNode
 }
 
-export const AssignReadingGuideByCourseContextProvider: FC<AssignReadingGuideByCourseContextProps> = ({
-  children,
-}) => {
+export const AssignReadingGuideByCourseContextProvider: FC<
+  AssignReadingGuideByCourseContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(assignReadingGuideByCourseMachine)
   return (
     <AssignReadingGuideByCourseContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useAssignReadingGuideByCourseContextProvider() {
   const context = useContext(AssignReadingGuideByCourseContext)
   if (context === undefined) {
     throw new Error(
-      'useAssignReadingGuideByCourseContextProvider must be used within a AssignReadingGuideByCourseContextProvider'
+      'useAssignReadingGuideByCourseContextProvider must be used within a AssignReadingGuideByCourseContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useAssignReadingGuideByCourseContextProvider() {
       any,
       any
     >,
-    (event: assignReadingGuideByCourseMachineEvent) => void
+    (event: assignReadingGuideByCourseMachineEvent) => void,
   ]
 }

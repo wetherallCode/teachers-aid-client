@@ -60,7 +60,7 @@ export const Login = ({ toggleLogin }: LoginProps) => {
       onError: () => {
         setInValid(true)
       },
-    }
+    },
   )
   const [updateUserActive] = useMutation<
     updateUserActive,
@@ -103,8 +103,8 @@ export const Login = ({ toggleLogin }: LoginProps) => {
         <LoginRow>
           <div>UserName: </div>
           <input
-            type='text'
-            name='userName'
+            type="text"
+            name="userName"
             autoFocus
             value={values.userName}
             onChange={handleChange}
@@ -113,15 +113,15 @@ export const Login = ({ toggleLogin }: LoginProps) => {
         <LoginRow>
           <div>Password: </div>
           <input
-            name='password'
-            type='password'
+            name="password"
+            type="password"
             value={values.password}
             onChange={handleChange}
           />
         </LoginRow>
         <ButtonContainer>
           <Button
-            type='submit'
+            type="submit"
             onClick={() => {
               loginMutation()
             }}

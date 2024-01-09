@@ -12,7 +12,6 @@ export type EditQuestionProps = {}
 export const EditQuestion = ({}: EditQuestionProps) => {
   const [state, event] = useSectionEditorContextProvider()
   const { questionTypeEnum } = useEnumContextProvider()
-
   const questionToReplace = [
     ...state.context.hasQuestions.slice(0, state.context.questionToEditIndex!),
     state.context.questionToEdit!,
@@ -46,7 +45,7 @@ export const EditQuestion = ({}: EditQuestionProps) => {
         </select>
         <div>Question</div>
         <input
-          type='text'
+          type="text"
           value={state.context.questionToEdit?.question}
           onChange={(e: any) =>
             event({
@@ -59,7 +58,7 @@ export const EditQuestion = ({}: EditQuestionProps) => {
           }
         />
         <button
-          type='reset'
+          type="reset"
           onClick={() => {
             event({
               type: 'SET_QUESTIONS_LIST',

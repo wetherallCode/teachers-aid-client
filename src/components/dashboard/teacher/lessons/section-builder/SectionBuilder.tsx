@@ -55,8 +55,8 @@ export const SectionBuilder = () => {
             <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
             <div>Header:</div>
             <input
-              type='text'
-              name='header'
+              type="text"
+              name="header"
               onChange={(e: any) => {
                 if (e.target.value !== '') {
                   event({ type: 'SET_HEADER', header: e.target.value })
@@ -72,8 +72,8 @@ export const SectionBuilder = () => {
               <button onClick={() => event({ type: 'PREVIOUS' })}>Back</button>
               <div>Pages:</div>
               <input
-                type='text'
-                name='startingPage'
+                type="text"
+                name="startingPage"
                 onChange={(e) => {
                   if (Number(e.target.value) > 0) {
                     event({
@@ -89,8 +89,8 @@ export const SectionBuilder = () => {
             </div>
             <div>
               <input
-                type='text'
-                name='endingPage'
+                type="text"
+                name="endingPage"
                 onChange={(e: any) => {
                   if (Number(e.target.value) > 0) {
                     event({

@@ -27,48 +27,51 @@ export const FIND_TEMPORARY_TASKS_BY_STUDENT_ID_QUERY = gql`
   }
 `
 
-export const TemporaryTasksInformation = ({}: TemporaryTasksInformationProps) => {
-  const [state] = useStudentInformationContextProvider()
-  const [markingPeriodState] = useMarkingPeriodContextProvider()
-  const { markingPeriodEnum } = useEnumContextProvider()
+export const TemporaryTasksInformation =
+  ({}: TemporaryTasksInformationProps) => {
+    const [state] = useStudentInformationContextProvider()
+    const [markingPeriodState] = useMarkingPeriodContextProvider()
+    const { markingPeriodEnum } = useEnumContextProvider()
 
-  const [markingPeriodToReview, setMarkingPeriodToReview] = useState(
-    markingPeriodState.context.currentMarkingPeriod
-  )
-  const { loading, data } = useQuery<
-    findTemporaryTasksByStudentId,
-    findTemporaryTasksByStudentIdVariables
-  >(FIND_TEMPORARY_TASKS_BY_STUDENT_ID_QUERY, {
-    variables: {
-      input: { studentId: state.context.student?._id! },
-    },
-    onCompleted: (data) => console.log(data),
-    onError: (error) => console.error(error),
-  })
+    const [markingPeriodToReview, setMarkingPeriodToReview] = useState(
+      markingPeriodState.context.currentMarkingPeriod,
+    )
+    const { loading, data } = useQuery<
+      findTemporaryTasksByStudentId,
+      findTemporaryTasksByStudentIdVariables
+    >(FIND_TEMPORARY_TASKS_BY_STUDENT_ID_QUERY, {
+      variables: {
+        input: { studentId: state.context.student?._id! },
+      },
+      onCompleted: (data) => console.log(data),
+      onError: (error) => console.error(error),
+    })
 
-  const totalTasks = data?.findTemporaryTasksByStudentId.temporaryTasks.filter(
-    (tasks) =>
-      tasks.studentPresent && tasks.markingPeriod === markingPeriodToReview
-  )
+    const totalTasks =
+      data?.findTemporaryTasksByStudentId.temporaryTasks.filter(
+        (tasks) =>
+          tasks.studentPresent && tasks.markingPeriod === markingPeriodToReview,
+      )
 
-  const completedTasks = data?.findTemporaryTasksByStudentId.temporaryTasks.filter(
-    (tasks) =>
-      tasks.answered &&
-      tasks.studentPresent &&
-      tasks.markingPeriod === markingPeriodToReview
-  )
+    const completedTasks =
+      data?.findTemporaryTasksByStudentId.temporaryTasks.filter(
+        (tasks) =>
+          tasks.answered &&
+          tasks.studentPresent &&
+          tasks.markingPeriod === markingPeriodToReview,
+      )
 
-  const completionRate =
-    data && Math.round((100 * completedTasks!.length) / totalTasks!.length)
+    const completionRate =
+      data && Math.round((100 * completedTasks!.length) / totalTasks!.length)
 
-  if (loading) return <div>Loading </div>
+    if (loading) return <div>Loading </div>
 
-  return (
-    <ProtocolInformationContainer>
-      <div>
-        Tasks Completed: {completedTasks!.length}/{totalTasks!.length}
-      </div>
-      <div>Completion Rate: {completionRate}%</div>
-    </ProtocolInformationContainer>
-  )
-}
+    return (
+      <ProtocolInformationContainer>
+        <div>
+          Tasks Completed: {completedTasks!.length}/{totalTasks!.length}
+        </div>
+        <div>Completion Rate: {completionRate}%</div>
+      </ProtocolInformationContainer>
+    )
+  }

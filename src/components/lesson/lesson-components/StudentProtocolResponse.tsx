@@ -81,7 +81,7 @@ export const StudentProtocolResponse = ({
         setPolling(5000)
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
 
   const [respond] = useMutation<respondToProtocol, respondToProtocolVariables>(
@@ -95,7 +95,7 @@ export const StudentProtocolResponse = ({
         })
       },
       refetchQueries: ['findActiveProtocolByStudent'],
-    }
+    },
   )
 
   return (

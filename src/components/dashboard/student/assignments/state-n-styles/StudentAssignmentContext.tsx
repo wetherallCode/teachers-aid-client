@@ -13,21 +13,22 @@ type StudentAssignmentContextProps = {
   children: ReactNode
 }
 
-export const StudentAssignmentContextProvider: FC<StudentAssignmentContextProps> =
-  ({ children }) => {
-    const [state, event] = useMachine(studentAssignmentMachine)
-    return (
-      <StudentAssignmentContext.Provider value={[state, event]}>
-        {children}
-      </StudentAssignmentContext.Provider>
-    )
-  }
+export const StudentAssignmentContextProvider: FC<
+  StudentAssignmentContextProps
+> = ({ children }) => {
+  const [state, event] = useMachine(studentAssignmentMachine)
+  return (
+    <StudentAssignmentContext.Provider value={[state, event]}>
+      {children}
+    </StudentAssignmentContext.Provider>
+  )
+}
 
 export function useStudentAssignmentContextProvider() {
   const context = useContext(StudentAssignmentContext)
   if (context === undefined) {
     throw new Error(
-      'useStudentAssignmentContextProvider must be used within a StudentAssignmentContextProvider'
+      'useStudentAssignmentContextProvider must be used within a StudentAssignmentContextProvider',
     )
   }
   return context as [
@@ -37,6 +38,6 @@ export function useStudentAssignmentContextProvider() {
       any,
       any
     >,
-    (event: studentAssignmentMachineEvent) => void
+    (event: studentAssignmentMachineEvent) => void,
   ]
 }

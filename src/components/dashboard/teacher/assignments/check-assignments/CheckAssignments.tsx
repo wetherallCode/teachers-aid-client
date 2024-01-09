@@ -11,13 +11,13 @@ export const CheckAssignments = ({}: CheckAssignmentsProps) => {
     <>
       <div>Check Assignments</div>
       <div>
-        <Link to='essays'>Essays</Link>
+        <Link to="essays">Essays</Link>
         <br />
-        <Link to='readingGuides'>Reading Guides</Link>
+        <Link to="readingGuides">Reading Guides</Link>
       </div>
       <Routes>
-        <Route path='essays' element={<CheckEssays />} />
-        <Route path='readingGuides' element={<CheckReadingGuides />} />
+        <Route path="essays" element={<CheckEssays />} />
+        <Route path="readingGuides" element={<CheckReadingGuides />} />
       </Routes>
     </>
   )

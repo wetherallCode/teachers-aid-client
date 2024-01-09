@@ -38,7 +38,7 @@ export const PreviousEssayViewer: FC<PreviousEssayViewerProps> = () => {
   // )
   console.log(state.context.previousDraft.gradingDraft)
   const parsedGradingDraft = JSON.parse(
-    state.context.previousDraft.gradingDraft
+    state.context.previousDraft.gradingDraft,
   )
   const [value, setValue] = useState(parsedGradingDraft)
   useEffect(() => {
@@ -106,7 +106,7 @@ export const PreviousEssayViewer: FC<PreviousEssayViewerProps> = () => {
           onCopy={() => false}
           renderLeaf={renderLeaf}
           autoFocus
-          placeholder='Start by indenting the topic statement....'
+          placeholder="Start by indenting the topic statement...."
           onKeyDown={(e) => {
             // updateWorkingDraft()
 
@@ -122,7 +122,7 @@ export const PreviousEssayViewer: FC<PreviousEssayViewerProps> = () => {
                 Transforms.setNodes(
                   editor,
                   { type: match ? 'paragraph' : 'code' },
-                  { match: (n) => Editor.isBlock(editor, n) }
+                  { match: (n) => Editor.isBlock(editor, n) },
                 )
                 break
               }
@@ -168,8 +168,8 @@ export const Leaf = (props: any) => {
         textDecoration: props.leaf.strikeThrough
           ? 'line-through'
           : props.leaf.underline
-          ? 'underline'
-          : 'none',
+            ? 'underline'
+            : 'none',
       }}
     >
       {props.children}

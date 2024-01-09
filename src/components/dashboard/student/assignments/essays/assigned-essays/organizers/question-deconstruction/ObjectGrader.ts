@@ -45,16 +45,16 @@ export function objectGrader({
       : completePredicate
           .split(' ')
           .slice(
-            simplePredicate.split(' ').length + correctObject.split(' ').length
+            simplePredicate.split(' ').length + correctObject.split(' ').length,
           )
           .join(' ')
 
   const questionWords = questionToModify.filter(
-    (word) => word !== '' && word !== '|'
+    (word) => word !== '' && word !== '|',
   )
   const questionWordsExceptLast = questionWords.slice(
     0,
-    questionWords.length - 1
+    questionWords.length - 1,
   )
 
   const lastWordInQuestion = questionToModify

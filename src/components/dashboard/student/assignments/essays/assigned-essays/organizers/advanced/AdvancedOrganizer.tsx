@@ -39,7 +39,7 @@ export type UpdateAdvancedOrganizerType = (
         updateAdvancedOrganizer,
         updateAdvancedOrganizerVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const AdvancedOrganizer: FC<AdvancedOrganizerProps> = ({

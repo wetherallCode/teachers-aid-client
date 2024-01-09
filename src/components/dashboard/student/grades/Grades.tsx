@@ -35,12 +35,15 @@ export const Grades = ({ me }: GradesProps) => {
         Overall Grade: {grade}%
       </StudentGradeBreakdownContainerTitle>
       <DisclaimerContainer>
-        <div>Your grades are constantly changing. Look at your averages and find
-        where you can make improvements.</div>
+        <div>
+          Your grades are constantly changing. Look at your averages and find
+          where you can make improvements.
+        </div>
         <br />
         <div>
           These grades are more up to date than Genesis grades. Though I update
-          Genesis everyday, they won't always be accurate as the grades on this website.
+          Genesis everyday, they won't always be accurate as the grades on this
+          website.
         </div>
       </DisclaimerContainer>
     </StudentGradeBreakdownContainer>

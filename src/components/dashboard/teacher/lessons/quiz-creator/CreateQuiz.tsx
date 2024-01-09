@@ -82,9 +82,9 @@ export const CreateQuiz = ({}: CreateQuizProps) => {
       <div style={{ textAlign: 'center' }}>
         When?{' '}
         <input
-          type='date'
+          type="date"
           value={dateInputConverter(
-            state.context.createQuizInputs.assignedDate
+            state.context.createQuizInputs.assignedDate,
           )}
           onChange={(e) => {
             // console.log(new Date(e.target.value).toLocaleDateString())

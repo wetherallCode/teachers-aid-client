@@ -24,7 +24,7 @@ export type InformationDisplayProps = {}
 export const InformationDisplay = ({}: InformationDisplayProps) => {
   const [state, event] = useStudentInformationContextProvider()
   const [selectedMarkingPeriod, setSelectedMarkingPeriod] = useState(
-    MarkingPeriodEnum.FIRST
+    MarkingPeriodEnum.FIRST,
   )
   const { student } = state.context
   return (

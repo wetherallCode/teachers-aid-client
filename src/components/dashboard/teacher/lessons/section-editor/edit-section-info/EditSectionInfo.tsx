@@ -17,7 +17,7 @@ export const EditSectionInfo = ({ textSection }: EditSectionInfoProps) => {
         {!header ? (
           <div>{textSection.header}</div>
         ) : (
-          <label htmlFor='set header'>
+          <label htmlFor="set header">
             <input
               autoFocus={true}
               onBlur={toggleHeader}
@@ -26,7 +26,7 @@ export const EditSectionInfo = ({ textSection }: EditSectionInfoProps) => {
                   toggleHeader()
                 }
               }}
-              type='text'
+              type="text"
               value={state.context.header}
               onChange={(e: any) => {
                 event({ type: 'SET_HEADER', header: e.target.value })
@@ -48,9 +48,9 @@ export const EditSectionInfo = ({ textSection }: EditSectionInfoProps) => {
       </div>
       <div>Pages: </div>
       <div>Starting Page:</div>
-      <label htmlFor='set page numbers'>
+      <label htmlFor="set page numbers">
         <input
-          type='text'
+          type="text"
           onChange={(e: any) =>
             event({
               type: 'SET_PAGE_NUMBERS',
@@ -63,9 +63,9 @@ export const EditSectionInfo = ({ textSection }: EditSectionInfoProps) => {
         />
       </label>
       <div>Ending Page: </div>
-      <label htmlFor='set page numbers'>
+      <label htmlFor="set page numbers">
         <input
-          type='text'
+          type="text"
           onChange={(e: any) =>
             event({
               type: 'SET_PAGE_NUMBERS',

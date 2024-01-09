@@ -52,10 +52,10 @@ export const DuringActivityBuilder = ({
       protocolSelectList.some((protocol) => protocol.task === i.task)
         ? [...acc]
         : [...acc, i],
-    []
+    [],
   )
   const selectedProtocolList = protocolList.filter((protocol) =>
-    protocolSelectList.some((p) => p.task === protocol.task)
+    protocolSelectList.some((p) => p.task === protocol.task),
   )
 
   useEffect(() => {
@@ -97,21 +97,21 @@ export const DuringActivityBuilder = ({
                         selected={
                           selected ||
                           protocolSelectList.some(
-                            (protocol) => protocol.task === item.task
+                            (protocol) => protocol.task === item.task,
                           )
                         }
                         onClick={() => {
                           const protocolListIndexIndex = protocolList.findIndex(
-                            (index) => index.task === item.task
+                            (index) => index.task === item.task,
                           )
                           const protocolSelectListIndex =
                             protocolSelectList.findIndex(
-                              (index) => index.task === item.task
+                              (index) => index.task === item.task,
                             )
 
                           if (!selected) {
                             setProtocolToAdd(
-                              protocolList[protocolListIndexIndex]
+                              protocolList[protocolListIndexIndex],
                             )
                           }
                           if (selected) {
@@ -123,7 +123,7 @@ export const DuringActivityBuilder = ({
                               setProtocolToAdd(null)
                             } else {
                               const index = protocolSelectList.findIndex(
-                                (items) => items.task === item.task
+                                (items) => items.task === item.task,
                               )
                               setProtocolSelectList([
                                 ...protocolSelectList.slice(0, index),
@@ -156,7 +156,7 @@ export const DuringActivityBuilder = ({
                           }
                         }}
                       >
-                        <option value='none'>Select Activity Type</option>
+                        <option value="none">Select Activity Type</option>
                         {protocolActivityTypes.map(
                           (type: ProtocolActivityTypes) => {
                             const normalizedType = underscoreEliminator(type)
@@ -165,14 +165,14 @@ export const DuringActivityBuilder = ({
                                 {phraseCapitalizer(normalizedType)}
                               </option>
                             )
-                          }
+                          },
                         )}
                       </ActivityCategorySelect>
                     </ProtocolConstructorInfoContainer>
                     <AddProtocolButton
                       onClick={() => {
                         const protocolIndex = protocolList.findIndex(
-                          (index) => index.task === protocolToAdd.task
+                          (index) => index.task === protocolToAdd.task,
                         )
                         console.log(protocolIndex)
                         setProtocolSelectList([
@@ -195,7 +195,7 @@ export const DuringActivityBuilder = ({
                       key={i}
                       onClick={() => {
                         const index = protocolSelectList.findIndex(
-                          (items) => items.task === item.task
+                          (items) => items.task === item.task,
                         )
                         setProtocolSelectList([
                           ...protocolSelectList.slice(0, index),

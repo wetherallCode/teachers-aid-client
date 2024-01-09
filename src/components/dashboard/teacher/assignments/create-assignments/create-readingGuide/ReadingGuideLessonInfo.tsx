@@ -62,7 +62,7 @@ export const ReadingGuideLessonInfo = ({
         })
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
   const courseIdList = data?.findLessonById.lesson.assignedCourses!
   const lesson = data?.findLessonById.lesson!

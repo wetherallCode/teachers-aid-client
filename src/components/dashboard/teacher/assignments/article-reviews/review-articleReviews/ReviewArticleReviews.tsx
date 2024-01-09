@@ -26,10 +26,10 @@ export const ReviewArticleReviews: FC<ReviewArticleReviewsProps> = () => {
   const [state, event] = useArticleReviewContextProvider()
 
   const courses = me.teachesCourses.filter(
-    (course) => course.name !== 'Cohort Class'
+    (course) => course.name !== 'Cohort Class',
   )
   const fakeCourse = me.teachesCourses.filter(
-    (course) => course.name === 'Cohort Class'
+    (course) => course.name === 'Cohort Class',
   )
 
   return (

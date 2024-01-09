@@ -132,8 +132,8 @@ export const EditBehaviors = ({ behavior }: EditBehaviorsProps) => {
                 })
               }
             >
-              <option value='true'>True</option>
-              <option value='false'>False</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
             </select>
           </>
         ) : (
@@ -144,7 +144,7 @@ export const EditBehaviors = ({ behavior }: EditBehaviorsProps) => {
         <span>Points: </span>
         {editToggle ? (
           <input
-            type='number'
+            type="number"
             value={behaviorValues.points}
             // placeholder={behaviorValues.points}
             onChange={(e: any) =>
@@ -155,8 +155,8 @@ export const EditBehaviors = ({ behavior }: EditBehaviorsProps) => {
                   e.target.value > 0
                     ? BehaviorQualityEnum.POSITIVE
                     : e.target.value < 0
-                    ? BehaviorQualityEnum.NEGATIVE
-                    : BehaviorQualityEnum.NEUTRAL,
+                      ? BehaviorQualityEnum.NEGATIVE
+                      : BehaviorQualityEnum.NEUTRAL,
               })
             }
           />

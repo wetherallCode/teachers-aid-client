@@ -50,16 +50,17 @@ export const AssignmentFinder = ({
     )
 
   const quizzes = data?.findAllMarkingPeriodGrades.assignments.filter(
-    (a) => a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'Quiz'
+    (a) => a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'Quiz',
   )!
 
   const readingGuides = data?.findAllMarkingPeriodGrades.assignments.filter(
     (a) =>
-      a.gradeType === GradeTypeEnum.SECONDARY && a.__typename === 'ReadingGuide'
+      a.gradeType === GradeTypeEnum.SECONDARY &&
+      a.__typename === 'ReadingGuide',
   )!
 
   const essays = data?.findAllMarkingPeriodGrades.assignments.filter(
-    (a) => a.gradeType === GradeTypeEnum.PRIMARY && a.__typename === 'Essay'
+    (a) => a.gradeType === GradeTypeEnum.PRIMARY && a.__typename === 'Essay',
   )!
 
   return (

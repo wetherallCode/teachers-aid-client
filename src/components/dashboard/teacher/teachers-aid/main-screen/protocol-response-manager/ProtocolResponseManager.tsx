@@ -22,7 +22,7 @@ export const ProtocolResponseManager = ({}: ProtocolResponseManagerProps) => {
   const [state] = useTeachersAidContextProvider()
   const { activityTimeEnum } = useEnumContextProvider()
   const [activityTimeState, setActivityTimeState] = useState<ActivityTimeEnum>(
-    ActivityTimeEnum.BEFORE
+    ActivityTimeEnum.BEFORE,
   )
 
   const { loading, data } = useQuery<
@@ -42,7 +42,7 @@ export const ProtocolResponseManager = ({}: ProtocolResponseManagerProps) => {
   if (loading) return <div>Loading </div>
 
   const protocols = data?.findProtocolsByDate.protocols.filter(
-    (p) => p.activityTime === activityTimeState
+    (p) => p.activityTime === activityTimeState,
   )
 
   return (
@@ -89,7 +89,7 @@ export const ProtocolResponseManager = ({}: ProtocolResponseManagerProps) => {
                 key={protocol._id}
                 protocol={protocol}
               />
-            )
+            ),
         )}
       </ResponseContainer>
     </>

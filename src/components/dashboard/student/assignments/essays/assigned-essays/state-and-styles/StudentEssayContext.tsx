@@ -28,11 +28,11 @@ export function useStudentEssayContextProvider() {
   const context = useContext(StudentEssayContext)
   if (context === undefined) {
     throw new Error(
-      'useStudentEssayContextProvider must be used within a StudentEssayContextProvider'
+      'useStudentEssayContextProvider must be used within a StudentEssayContextProvider',
     )
   }
   return context as [
     State<studentEssayMachineContext, studentEssayMachineEvent, any, any>,
-    (event: studentEssayMachineEvent) => void
+    (event: studentEssayMachineEvent) => void,
   ]
 }

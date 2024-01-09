@@ -50,18 +50,18 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) &&
         !assignment.exempt) ||
-      (assignment.__typename === 'Essay' && assignment.finalDraft?.returned)
+      (assignment.__typename === 'Essay' && assignment.finalDraft?.returned),
   )
   const readingGuides = assignments.filter(
     (assignment) =>
       assignment.__typename === 'ReadingGuide' &&
       Date.parse(new Date().toLocaleString()) >
         Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) &&
-      !assignment.exempt
+      !assignment.exempt,
   )
 
   const quizzes = assignments.filter(
-    (assignment) => assignment.__typename === 'Quiz' && !assignment.exempt
+    (assignment) => assignment.__typename === 'Quiz' && !assignment.exempt,
   )
   const dateSort = (a: any, b: any) => (a.dueDate > b.dueDate ? 1 : 0)
   const contractedTitle = (str: string, length: number) =>

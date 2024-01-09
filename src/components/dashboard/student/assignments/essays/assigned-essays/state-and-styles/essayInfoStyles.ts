@@ -8,7 +8,7 @@ import {
 } from '../../../readingGuides/state-and-styles/readingGuideStyles'
 
 export const EssayInfoSwitchButtonContainer = styled(
-  ReadingGuideInfoSwitchButtonContainer
+  ReadingGuideInfoSwitchButtonContainer,
 )``
 
 export const EssayInfoSwitchButton = styled(ReadingGuideInfoSwitchButton)`
@@ -21,7 +21,7 @@ export const EssayInfoTitle = styled(ReadingGuideInfoTitle)``
 export const EssayInfoBody = styled(ReadingGuideInfoBody)``
 
 export const EssaySectionOrganizationBodyEntry = styled(
-  SectionOrganizationBodyEntry
+  SectionOrganizationBodyEntry,
 )`
   padding-bottom: 10%;
 `

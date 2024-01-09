@@ -11,9 +11,9 @@ export const LessonFinder: FC<LessonFinderProps> = () => {
     <LessonFinderContainer>
       <LessonCalendar />
       <OptionsContainer>
-        <OptionsLink to='section-builder'>Section Builder</OptionsLink>
-        <OptionsLink to='section-editor'>Section Editor</OptionsLink>
-        <OptionsLink to='essay-question'>Essay Builder</OptionsLink>
+        <OptionsLink to="section-builder">Section Builder</OptionsLink>
+        <OptionsLink to="section-editor">Section Editor</OptionsLink>
+        <OptionsLink to="essay-question">Essay Builder</OptionsLink>
       </OptionsContainer>
     </LessonFinderContainer>
   )

@@ -46,7 +46,7 @@ export const QuestionBlank = ({
   const { quizQuestionDifficultyLevelEnum } = useEnumContextProvider()
   const [answerValue, setAnswerValue] =
     useState<findQuizQuestionsByQuizzableSections_findQuizQuestionsByQuizzableSections_quizQuestions_answerList | null>(
-      null
+      null,
     )
 
   const handleFinished = () => {
@@ -60,7 +60,7 @@ export const QuestionBlank = ({
           difficultyLevel:
             quizQuestionDifficultyLevelEnum.findIndex(
               (i: QuizQuestionDifficultyLevelEnum) =>
-                i === currentQuizQuestion!.difficultyLevel
+                i === currentQuizQuestion!.difficultyLevel,
             ) + 1,
         })
 
@@ -86,7 +86,7 @@ export const QuestionBlank = ({
           }
         } else {
           const currentDifficulty = quizQuestionDifficultyLevelEnum.findIndex(
-            (i: QuizQuestionDifficultyLevelEnum) => i === difficultyState
+            (i: QuizQuestionDifficultyLevelEnum) => i === difficultyState,
           )
           if (currentDifficulty === 0) {
             if (
@@ -104,7 +104,7 @@ export const QuestionBlank = ({
           } else {
             setAnswerValue(null)
             setDifficultyState(
-              quizQuestionDifficultyLevelEnum[currentDifficulty - 1]
+              quizQuestionDifficultyLevelEnum[currentDifficulty - 1],
             )
           }
         }
@@ -116,7 +116,7 @@ export const QuestionBlank = ({
           difficultyLevel:
             quizQuestionDifficultyLevelEnum.findIndex(
               (i: QuizQuestionDifficultyLevelEnum) =>
-                i === currentQuizQuestion!.difficultyLevel
+                i === currentQuizQuestion!.difficultyLevel,
             ) + 1,
         })
 
@@ -142,7 +142,7 @@ export const QuestionBlank = ({
           }
         } else {
           const currentDifficulty = quizQuestionDifficultyLevelEnum.findIndex(
-            (i: QuizQuestionDifficultyLevelEnum) => i === difficultyState
+            (i: QuizQuestionDifficultyLevelEnum) => i === difficultyState,
           )
           if (currentDifficulty === 0) {
             if (
@@ -160,7 +160,7 @@ export const QuestionBlank = ({
           } else {
             setAnswerValue(null)
             setDifficultyState(
-              quizQuestionDifficultyLevelEnum[currentDifficulty - 1]
+              quizQuestionDifficultyLevelEnum[currentDifficulty - 1],
             )
           }
         }
@@ -181,7 +181,7 @@ export const QuestionBlank = ({
                 return (
                   <QuizQuestionAnswerLabelContainer key={answer.answer}>
                     <QuizQuestionAnswerInput
-                      type='radio'
+                      type="radio"
                       checked={answerValue === answer}
                       value={answer.answer}
                       onChange={() => setAnswerValue(answer)}
@@ -200,7 +200,7 @@ export const QuestionBlank = ({
                   return (
                     <QuizQuestionAnswerLabelContainer key={i}>
                       <QuizQuestionAnswerInput
-                        type='radio'
+                        type="radio"
                         checked={answerValue === answer}
                         onChange={() => setAnswerValue(answer)}
                       />
@@ -211,7 +211,7 @@ export const QuestionBlank = ({
             </QuizQuestionAnswersContainer>
           )}
           <QuizQuestionSubmitContainer>
-            <SubmitButton type='submit' onClick={handleSubmit}>
+            <SubmitButton type="submit" onClick={handleSubmit}>
               Submit
             </SubmitButton>
           </QuizQuestionSubmitContainer>

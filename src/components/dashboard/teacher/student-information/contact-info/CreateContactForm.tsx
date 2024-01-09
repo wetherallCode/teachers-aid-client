@@ -56,7 +56,7 @@ export const CreateContactForm = ({ studentId }: CreateContactFormProps) => {
       <form onSubmit={(e: any) => e.preventDefault()}>
         <div>Date: </div>
         <input
-          type='date'
+          type="date"
           onChange={(e: any) => {
             setcreateParentContactInputs({
               ...createParentContactInputs,
@@ -83,7 +83,7 @@ export const CreateContactForm = ({ studentId }: CreateContactFormProps) => {
           ))}
         </select>
         <input
-          type='checkbox'
+          type="checkbox"
           onChange={() =>
             setcreateParentContactInputs({
               ...createParentContactInputs,
@@ -101,7 +101,7 @@ export const CreateContactForm = ({ studentId }: CreateContactFormProps) => {
             })
           }
         />
-        <button type='reset' onClick={() => handleCreateContact()}>
+        <button type="reset" onClick={() => handleCreateContact()}>
           Create Contact
         </button>
       </form>

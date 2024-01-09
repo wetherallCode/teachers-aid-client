@@ -11,14 +11,14 @@ export const copyToClipBoard = (text: string) => {
 }
 export const primaryGradeCalculator = (
   earnedPoints: number,
-  maxPoints: number
+  maxPoints: number,
 ) => {
   return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 50
 }
 
 export const secondaryGradeCalculator = (
   earnedPoints: number,
-  maxPoints: number
+  maxPoints: number,
 ) => {
   return (Math.round(1000 * (earnedPoints / maxPoints)) / 1000) * 40
 }
@@ -29,7 +29,7 @@ export const supportiveGradeCalculator = (points: number) => {
 
 export const responsibilityPointConverter = (
   grade: number,
-  pointTotal: number
+  pointTotal: number,
 ) => {
   if (grade < 60) {
     return pointTotal * 1
@@ -47,10 +47,10 @@ export const responsibilityPointConverter = (
 export const totalGrade = (
   primaryGrade: number,
   secondaryGrade: number,
-  supportiveGrade: number
+  supportiveGrade: number,
 ) => {
   const number = Number(
-    Number(primaryGrade) + Number(secondaryGrade) + Number(supportiveGrade)
+    Number(primaryGrade) + Number(secondaryGrade) + Number(supportiveGrade),
   ).toFixed(3)
 
   return Math.round(Number(number) * 10) / 10
@@ -108,7 +108,7 @@ export const timeAFunction = (startTime: string, endTime: string) => {
 
 export const sortByRubricEntryScore = (
   a: RubricEntryInput,
-  b: RubricEntryInput
+  b: RubricEntryInput,
 ) => {
   if (a.score < b.score) {
     return 1
@@ -213,7 +213,7 @@ export const splitSentenceByWord = (originalSentence: string) => {
     .slice(
       0,
       splitOriginalSentence[splitOriginalSentence.length - 1].split('').length -
-        1
+        1,
     )
     .join('')
 
@@ -482,8 +482,8 @@ export const verbsThatChangeInIngFormat = (word: string) => {
   return verbsThatChangeInIngFormList(word) !== word
     ? verbsThatChangeInIngFormList(word)
     : word.charAt(word.length - 1) === 'e'
-    ? word.slice(0, word.length - 1) + 'ing'
-    : word + 'ing'
+      ? word.slice(0, word.length - 1) + 'ing'
+      : word + 'ing'
 }
 
 export const isLetterUpperCase = (letter: string) => /^[A-Z]*$/.test(letter)

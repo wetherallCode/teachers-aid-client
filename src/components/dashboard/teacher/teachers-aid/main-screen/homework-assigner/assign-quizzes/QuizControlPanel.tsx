@@ -50,13 +50,26 @@ export const QuizControlPanel = ({
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findQuizzesForCourseByAssignedDate'],
-    }
+    },
   )
+  const totalEarnedPoints = quizzes
+    .filter((q) => q.finishedQuiz)
+    .map((q) => q.score.earnedPoints)
+    .reduce((a, i) => a + i)
+  const totalMaxPoints = quizzes
+    .filter((q) => q.finishedQuiz)
+    .map((q) => q.score.maxPoints)
+    .reduce((a, i) => a + i)
+  const totalScore = totalEarnedPoints / totalMaxPoints
 
   return (
     <QuizControlPanelContainer>
       <QuizNameContainer>
-        <div>{quizzes[0].readings.readingSections + ' '}</div>
+        <div>
+          {quizzes[0].readings.readingSections + ' '} <br />
+          Quiz Average:
+          {' ' + (totalScore * 100).toFixed(2)}%
+        </div>
         <AssignAllQuizzesButton
           onClick={() =>
             assignQuizzes({

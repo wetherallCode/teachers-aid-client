@@ -8,19 +8,16 @@ import { useSectionBuilderContextProvider } from './state/SectionBuilderContext'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 
 export const ProtocolsInfo = () => {
-  const {
-    academicOutcomeTypes,
-    protocolActivityTypes,
-  } = useEnumContextProvider()
-  const [protocolValues, setProtocolValues] = useState<
-    TextSectionProtocolsInput
-  >({
-    academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
-    activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
-    task: '',
-    isActive: false,
-    completed: false,
-  })
+  const { academicOutcomeTypes, protocolActivityTypes } =
+    useEnumContextProvider()
+  const [protocolValues, setProtocolValues] =
+    useState<TextSectionProtocolsInput>({
+      academicOutcomeTypes: AcademicOutcomeTypes.LOGIC_BUILDING,
+      activityType: ProtocolActivityTypes.THINK_PAIR_SHARE,
+      task: '',
+      isActive: false,
+      completed: false,
+    })
   const [, event] = useSectionBuilderContextProvider()
 
   return (
@@ -60,13 +57,13 @@ export const ProtocolsInfo = () => {
       </select>
       <div>Task: </div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           setProtocolValues({ ...protocolValues, task: e.target.value })
         }
       />
       <button
-        type='reset'
+        type="reset"
         onClick={() =>
           event({ type: 'SET_PROTOCOLS_LIST', payload: protocolValues })
         }

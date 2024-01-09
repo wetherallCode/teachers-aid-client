@@ -27,7 +27,7 @@ export const BehaviorTypeList = ({}: BehaviorTypeListProps) => {
     {
       onCompleted: (data) => console.log(data),
       onError: (error) => console.error(error),
-    }
+    },
   )
 
   if (loading) return <div>Loading </div>

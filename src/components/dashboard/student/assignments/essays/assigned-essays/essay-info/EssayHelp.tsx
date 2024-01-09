@@ -175,7 +175,7 @@ export const EssayHelp = ({}: EssayHelpProps) => {
           </ul>
         )}
         {state.matches(
-          'organizers.academicOrganizer.answer.problemSolution'
+          'organizers.academicOrganizer.answer.problemSolution',
         ) && (
           <ul>
             {/* <EssaySectionOrganizationBodyEntry>
@@ -195,7 +195,7 @@ export const EssayHelp = ({}: EssayHelpProps) => {
           </ul>
         )}
         {state.matches(
-          'organizers.academicOrganizer.answer.whyCauseEffect'
+          'organizers.academicOrganizer.answer.whyCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -217,7 +217,7 @@ export const EssayHelp = ({}: EssayHelpProps) => {
           </ul>
         )}
         {state.matches(
-          'organizers.academicOrganizer.answer.howCauseEffect'
+          'organizers.academicOrganizer.answer.howCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -274,7 +274,7 @@ export const EssayHelp = ({}: EssayHelpProps) => {
           </ul>
         )}
         {state.matches(
-          'organizers.advancedOrganizer.answer.problemSolution'
+          'organizers.advancedOrganizer.answer.problemSolution',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -283,7 +283,7 @@ export const EssayHelp = ({}: EssayHelpProps) => {
           </ul>
         )}
         {state.matches(
-          'organizers.advancedOrganizer.answer.whyCauseEffect'
+          'organizers.advancedOrganizer.answer.whyCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>
@@ -292,7 +292,7 @@ export const EssayHelp = ({}: EssayHelpProps) => {
           </ul>
         )}
         {state.matches(
-          'organizers.advancedOrganizer.answer.howCauseEffect'
+          'organizers.advancedOrganizer.answer.howCauseEffect',
         ) && (
           <ul>
             <EssaySectionOrganizationBodyEntry>

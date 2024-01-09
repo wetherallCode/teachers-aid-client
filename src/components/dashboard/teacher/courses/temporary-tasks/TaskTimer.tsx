@@ -15,7 +15,7 @@ export type TaskTimerProps = {}
 export const TaskTimer: FC<TaskTimerProps> = () => {
   const [state] = useTemporaryTasksContextProvider()
   const [presetMinuteValue, setPresetMinuteValue] = useState(
-    state.context.taskNumber === 0 ? 10 : 5
+    state.context.taskNumber === 0 ? 10 : 5,
   )
   const [startTimer, setStartTimer] = useState(false)
 

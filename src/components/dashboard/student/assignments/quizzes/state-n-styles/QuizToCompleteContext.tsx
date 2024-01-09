@@ -28,11 +28,11 @@ export function useQuizToCompleteContextProvider() {
   const context = useContext(QuizToCompleteContext)
   if (context === undefined) {
     throw new Error(
-      'useQuizToCompleteContextProvider must be used within a QuizToCompleteContextProvider'
+      'useQuizToCompleteContextProvider must be used within a QuizToCompleteContextProvider',
     )
   }
   return context as [
     State<quizToCompleteMachineContext, quizToCompleteMachineEvent, any, any>,
-    (event: quizToCompleteMachineEvent) => void
+    (event: quizToCompleteMachineEvent) => void,
   ]
 }

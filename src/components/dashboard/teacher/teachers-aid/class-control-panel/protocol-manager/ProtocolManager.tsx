@@ -22,7 +22,7 @@ export const ProtocolManager: FC<ProtocolManagerProps> = ({
   const [state, event] = useTeachersAidContextProvider()
 
   const currentActiveProtocolIndex = protocols.findIndex(
-    (protocol) => protocol.isActive
+    (protocol) => protocol.isActive,
   )
 
   useEffect(() => {

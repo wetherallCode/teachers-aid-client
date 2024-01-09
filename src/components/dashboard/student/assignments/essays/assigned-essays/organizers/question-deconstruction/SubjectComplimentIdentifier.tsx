@@ -84,7 +84,7 @@ export const SubjectComplimentIdentifier = ({
           setEnabled(true)
           console.log(timeToComplete)
         },
-        attempts < 1 ? 4000 : 4000 + attempts * 1000
+        attempts < 1 ? 4000 : 4000 + attempts * 1000,
         // 4000
       )
       return () => clearTimeout(timer)

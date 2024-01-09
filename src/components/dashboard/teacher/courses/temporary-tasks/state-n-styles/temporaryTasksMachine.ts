@@ -92,7 +92,7 @@ export const temporaryTasksMachine = Machine<
         ADD_TO_ABSENT_LIST: {
           actions: assign((ctx, evt) => {
             const listToModify = ctx.absentList.findIndex(
-              (i) => i.taskNumber === evt.payload.taskNumber
+              (i) => i.taskNumber === evt.payload.taskNumber,
             )
             ctx.absentList[listToModify].tasks.push(evt.payload.studentIdToAdd)
 
@@ -102,13 +102,13 @@ export const temporaryTasksMachine = Machine<
         DELETE_FROM_ABSENT_LIST: {
           actions: assign((ctx, evt) => {
             const listToModify = ctx.absentList.findIndex(
-              (i) => i.taskNumber === evt.payload.taskNumber
+              (i) => i.taskNumber === evt.payload.taskNumber,
             )
 
             const studentToDelete = ctx.absentList[
               listToModify
             ].tasks.findIndex(
-              (index) => index === evt.payload.studentIdToDelete
+              (index) => index === evt.payload.studentIdToDelete,
             )
 
             ctx.absentList[listToModify] = {
@@ -116,7 +116,7 @@ export const temporaryTasksMachine = Machine<
               tasks: [
                 ...ctx.absentList[listToModify].tasks.slice(0, studentToDelete),
                 ...ctx.absentList[listToModify].tasks.slice(
-                  studentToDelete + 1
+                  studentToDelete + 1,
                 ),
               ],
             }

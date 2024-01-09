@@ -11,8 +11,8 @@ import {
 } from '../../../../../../../schemaTypes'
 import { useMutation } from '@apollo/client'
 import { usePaperBasedContextProvider } from '../state/PaperBasedContext'
-import { RESUBMIT_ESSAY_FINAL_DRAFT_MUTATION } from '../../../../../student/assignments/essays/completed-essays/SubmitRedoneEssay'
 import { useNavigate, Navigate } from 'react-router'
+import { RESUBMIT_ESSAY_FINAL_DRAFT_MUTATION } from '../../../../../student/assignments/essays/completed-essays/SubmitRedoneEssay'
 
 export type SubmitEssayProps = {
   essay: findAssignmentById_findAssignmentById_assignment_Essay

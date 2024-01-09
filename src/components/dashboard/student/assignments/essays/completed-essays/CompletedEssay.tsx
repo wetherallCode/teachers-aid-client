@@ -227,16 +227,16 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
         timeFinder(
           schoolDayLength === SchoolDayLengthEnum.HALF
             ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
-            : me.inCourses[0].hasCourseInfo?.startsAt!
-        )
+            : me.inCourses[0].hasCourseInfo?.startsAt!,
+        ),
       ) &&
     Date.parse(dateTime) <
       Date.parse(
         timeFinder(
           schoolDayLength === SchoolDayLengthEnum.HALF
             ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
-            : me.inCourses[0].hasCourseInfo?.endsAt!
-        )
+            : me.inCourses[0].hasCourseInfo?.endsAt!,
+        ),
       )
 
   useEffect(() => {

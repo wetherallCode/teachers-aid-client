@@ -124,7 +124,7 @@ export const TeacherEssayEditor: FC<TeacherEssayEditorProps> = () => {
                 Transforms.setNodes(
                   editor,
                   { type: match ? 'paragraph' : 'code' },
-                  { match: (n) => Editor.isBlock(editor, n) }
+                  { match: (n) => Editor.isBlock(editor, n) },
                 )
                 break
               }
@@ -175,13 +175,13 @@ export const Leaf = ({ setCommentNumber, ...props }: any) => {
         color: props.leaf.strikeThrough
           ? 'var(--red)'
           : props.leaf.underline
-          ? 'gray'
-          : 'var(--blue)',
+            ? 'gray'
+            : 'var(--blue)',
         textDecoration: props.leaf.strikeThrough
           ? 'line-through'
           : props.leaf.underline
-          ? 'underline'
-          : 'none',
+            ? 'underline'
+            : 'none',
       }}
     >
       {props.children}

@@ -13,9 +13,9 @@ type ReadingGuideToCompleteContextProps = {
   children: ReactNode
 }
 
-export const ReadingGuideToCompleteContextProvider: FC<ReadingGuideToCompleteContextProps> = ({
-  children,
-}) => {
+export const ReadingGuideToCompleteContextProvider: FC<
+  ReadingGuideToCompleteContextProps
+> = ({ children }) => {
   const [state, event] = useMachine(readingGuideToCompleteMachine)
   return (
     <ReadingGuideToCompleteContext.Provider value={[state, event]}>
@@ -28,7 +28,7 @@ export function useReadingGuideToCompleteContextProvider() {
   const context = useContext(ReadingGuideToCompleteContext)
   if (context === undefined) {
     throw new Error(
-      'useReadingGuideToCompleteContextProvider must be used within a ReadingGuideToCompleteContextProvider'
+      'useReadingGuideToCompleteContextProvider must be used within a ReadingGuideToCompleteContextProvider',
     )
   }
   return context as [
@@ -38,6 +38,6 @@ export function useReadingGuideToCompleteContextProvider() {
       any,
       any
     >,
-    (event: readingGuideToCompleteMachineEvent) => void
+    (event: readingGuideToCompleteMachineEvent) => void,
   ]
 }

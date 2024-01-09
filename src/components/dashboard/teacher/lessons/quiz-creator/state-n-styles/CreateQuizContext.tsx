@@ -28,11 +28,11 @@ export function useCreateQuizContextProvider() {
   const context = useContext(CreateQuizContext)
   if (context === undefined) {
     throw new Error(
-      'useCreateQuizContextProvider must be used within a CreateQuizContextProvider'
+      'useCreateQuizContextProvider must be used within a CreateQuizContextProvider',
     )
   }
   return context as [
     State<createQuizMachineContext, createQuizMachineEvent, any, any>,
-    (event: createQuizMachineEvent) => void
+    (event: createQuizMachineEvent) => void,
   ]
 }

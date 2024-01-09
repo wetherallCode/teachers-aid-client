@@ -4,7 +4,6 @@ import { StudentAssignments } from './assignments/StudentAssignments'
 import { EssayToComplete } from './assignments/essays/assigned-essays/EssayToComplete'
 import { StudentEssayContextProvider } from './assignments/essays/assigned-essays/state-and-styles/StudentEssayContext'
 import { CompletedEssay } from './assignments/essays/completed-essays/CompletedEssay'
-import { CompletedEssayContextProvider } from './assignments/essays/completed-essays/state/CompletedEssayContext'
 // import { ReadingGuideToComplete } from '../assignments/readingGuides/ReadingGuideToComplete'
 import { ReadingGuideToCompleteContextProvider } from './assignments/readingGuides/state-and-styles/ReadingGuideToCompleteContext'
 import { LessonMainMenu } from '../../lesson/LessonMainMenu'
@@ -38,6 +37,7 @@ import { PasswordCheck } from '../../home/PasswordCheck'
 import { usePasswordCheck } from '../../../hooks/usePasswordCheck'
 import { InitialPasswordChange } from '../../home/InitialPasswordChange'
 import { Handbook } from './handbook/Handbook'
+import { CompletedEssayContextProvider } from './assignments/essays/completed-essays/state/CompletedEssayContext'
 
 export type StudentDashboardHomeProps = {
   me: me_me_Student
@@ -74,18 +74,18 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <Greetings phrase={me.firstName} />
                 <br />
                 <br />
-                {/* {courseName ? (
-                  <div style={{ fontSize: '2.5vh' }}>
-                    I'm in a meeting this morning, so read the assigned text and
-                    complete the reading guide for the assigned lesson today. If
-                    you have time, do makeup work.
-                  </div>
-                ) : (
-                  <div style={{ fontSize: '2.5vh' }}>
-                    Interim Reports are going out soon, so have all of your
-                    missing work and redone essays in by Wednesday 12/13/2023!
-                  </div>
-                )} */}
+                {/*{courseName ? (*/}
+                {/*  <div style={{ fontSize: "2.5vh" }}>*/}
+                {/*    I'm in a meeting this morning, so read the assigned text and*/}
+                {/*    complete the reading guide for the assigned lesson today. If*/}
+                {/*    you have time, do makeup work.*/}
+                {/*  </div>*/}
+                {/*) : (*/}
+                {/*  <div style={{ fontSize: "2.5vh" }}>*/}
+                {/*    Interim Reports are going out soon, so have all of your*/}
+                {/*    missing work and redone essays in by Wednesday 12/13/2023!*/}
+                {/*  </div>*/}
+                {/*)}*/}
               </div>
               <div></div>
             </HomeScreenTitle>
@@ -109,21 +109,21 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
         </StyledLink> 
                 </StudentHomeScreenOptions>*/}
 
-                  <StudentHomeScreenOptions to='/dashboard/assignments'>
+                  <StudentHomeScreenOptions to="/dashboard/assignments">
                     <OptionTitle>Get Assignments</OptionTitle>
                     {/* <StyledLink to='/dashboard/assignments'>
           <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
         </StyledLink> */}
                   </StudentHomeScreenOptions>
-                  <StudentHomeScreenOptions to='grades'>
+                  <StudentHomeScreenOptions to="grades">
                     {me && me.__typename === 'Student' && (
                       <StudentGradeDisplay studentId={me._id!} />
                     )}
                   </StudentHomeScreenOptions>
-                  <StudentHomeScreenOptions to='behavior-home'>
+                  <StudentHomeScreenOptions to="behavior-home">
                     <OptionTitle>How did I do Today?</OptionTitle>
                   </StudentHomeScreenOptions>
-                  <StudentHomeScreenOptions to='handbook'>
+                  <StudentHomeScreenOptions to="handbook">
                     <OptionTitle>Student Handbook</OptionTitle>
                   </StudentHomeScreenOptions>
                   <LogoutOption onClick={() => logoutMutation()}>
@@ -137,7 +137,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
       )}
       <Routes>
         <Route
-          path='assignments/*'
+          path="assignments/*"
           element={
             <StudentAssignmentContextProvider>
               <StudentAssignments />{' '}
@@ -145,7 +145,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           }
         />
         <Route
-          path='assignments/essay/toComplete/:essayToComplete'
+          path="assignments/essay/toComplete/:essayToComplete"
           element={
             <StudentEssayContextProvider>
               <EssayToComplete />
@@ -153,7 +153,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           }
         />
         <Route
-          path='assignments/essay/completed/:completedEssay'
+          path="assignments/essay/completed/:completedEssay"
           element={
             <CompletedEssayContextProvider>
               <CompletedEssay />
@@ -161,7 +161,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           }
         />
         <Route
-          path='assignments/reading-guide/toComplete/:readingGuideToComplete'
+          path="assignments/reading-guide/toComplete/:readingGuideToComplete"
           element={
             <ReadingGuideToCompleteContextProvider>
               <ReadingGuideToComplete />
@@ -169,7 +169,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           }
         />
         <Route
-          path='assignments/articleReview/toComplete/:articleReviewToComplete'
+          path="assignments/articleReview/toComplete/:articleReviewToComplete"
           element={
             <ArticleReviewToCompleteContextProvider>
               <ArticleReviewToComplete />
@@ -177,7 +177,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           }
         />
         <Route
-          path='assignments/quiz/toComplete/:quizToComplete'
+          path="assignments/quiz/toComplete/:quizToComplete"
           element={
             <QuizToCompleteContextProvider>
               <QuizToComplete />
@@ -186,7 +186,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
         />
 
         <Route
-          path='/lesson-home'
+          path="/lesson-home"
           element={
             <DailyAgendaContextProvider>
               <LessonMainMenu />
@@ -194,9 +194,9 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
           }
         />
 
-        <Route path='behavior-home' element={<StudentBehavior me={me} />} />
-        <Route path='grades' element={<Grades me={me} />} />
-        <Route path='handbook' element={<Handbook me={me} />} />
+        <Route path="behavior-home" element={<StudentBehavior me={me} />} />
+        <Route path="grades" element={<Grades me={me} />} />
+        <Route path="handbook" element={<Handbook me={me} />} />
       </Routes>
       {/* <Routes></Routes> */}
     </>

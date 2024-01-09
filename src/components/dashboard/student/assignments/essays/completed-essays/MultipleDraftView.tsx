@@ -30,7 +30,7 @@ export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
   const [state, event] = useCompletedEssayContextProvider()
   const [organizerView, setOrganizerView] = useState(false)
   const [draftSelector, setDraftSelector] = useState(
-    essay.finalDraft?.submittedFinalDraft.length! - 1
+    essay.finalDraft?.submittedFinalDraft.length! - 1,
   )
   const currentDraft = essay.finalDraft?.submittedFinalDraft[draftSelector]
 
@@ -191,7 +191,7 @@ export const MultipleDraftView = ({ essay }: MultipleDraftViewProps) => {
                   {currentDraft!.additionalComments!.map(
                     (comment, i: number) => (
                       <li key={i}>{comment}</li>
-                    )
+                    ),
                   )}
                 </ul>
               </div>

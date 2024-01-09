@@ -88,7 +88,7 @@ export const SubmitEssay = ({
             paperBased: false,
             responsibilityPoints: responsibilityPointConverter(
               currentGrade,
-              10
+              10,
             ),
           },
         },

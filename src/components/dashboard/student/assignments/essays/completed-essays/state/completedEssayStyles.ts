@@ -15,10 +15,10 @@ import {
 
 export const EssayViewContainer = styled(OrganizerContainer)``
 export const CompletedEssayDetailsContainer = styled(
-  AssignmentDetailsContainer
+  AssignmentDetailsContainer,
 )``
 export const CompletedEssayDetailsPartContainers = styled(
-  AssignmentDetailsPartContainers
+  AssignmentDetailsPartContainers,
 )``
 
 export const DraftSelectorContainer = styled.div`

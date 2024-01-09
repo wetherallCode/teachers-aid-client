@@ -39,7 +39,7 @@ export type ErrorFallbackProps = { error: any }
 
 export const ErrorFallback: FC<ErrorFallbackProps> = ({ error }) => {
   return (
-    <div role='alert'>
+    <div role="alert">
       <p>Something went wrong:</p>
       <pre style={{ color: 'red' }}>{error.message}</pre>
     </div>
@@ -83,7 +83,7 @@ function App() {
     <AppContainer>
       <Header>
         {/* {me && <UpdateUserActivity userId={me._id!} />} */}
-        <HomeLink to='/dashboard'>
+        <HomeLink to="/dashboard">
           {location.pathname.includes('/dashboard') &&
           location.pathname !== '/dashboard'
             ? `←Back to Home Screen`
@@ -118,7 +118,7 @@ function App() {
 
       <Routes>
         <Route
-          path=''
+          path=""
           element={
             <HomePageContainer>
               <HomeScreenTitle>
@@ -134,13 +134,13 @@ function App() {
             </HomePageContainer>
           }
         />
-        <Route path='dashboard/*' element={<Dashboard />} />
+        <Route path="dashboard/*" element={<Dashboard />} />
         {/* {!me ? (
           <Navigate to='/' />
         ) : ( */}
         {me && (
           <Route
-            path='lesson-home'
+            path="lesson-home"
             element={
               <DailyAgendaContextProvider>
                 <LessonMainMenu />
@@ -152,7 +152,7 @@ function App() {
           <Route path='behavior-home' element={<StudentBehavior me={me} />} />
         )} */}
         <Route
-          path='/problem-solution-guide/*'
+          path="/problem-solution-guide/*"
           element={<ProblemAndSolutionGuide />}
         />
       </Routes>

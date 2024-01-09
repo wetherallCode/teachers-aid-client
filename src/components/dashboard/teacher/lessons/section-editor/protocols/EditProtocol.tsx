@@ -63,7 +63,7 @@ export const EditProtocol = ({}: EditProtocolProps) => {
         </select>
         <div>Task: </div>
         <input
-          type='text'
+          type="text"
           value={state.context.protocolToEdit?.task}
           onChange={(e: any) =>
             event({
@@ -76,7 +76,7 @@ export const EditProtocol = ({}: EditProtocolProps) => {
           }
         />
         <button
-          type='reset'
+          type="reset"
           onClick={() => {
             event({
               type: 'SET_PROTOCOLS_LIST',

@@ -75,12 +75,12 @@ export const VerbIdentification = ({
     return verb !== specialVerbsInPastTense(verb)
       ? specialVerbsInPastTense(verb)
       : verb === irregularVerbCheck
-      ? irregularVerbCheck
-          .charAt(irregularVerbCheck.length - 1)
-          .toLowerCase() === 'e'
-        ? verb + 'd'
-        : verb + 'ed'
-      : irregularVerbCheck
+        ? irregularVerbCheck
+            .charAt(irregularVerbCheck.length - 1)
+            .toLowerCase() === 'e'
+          ? verb + 'd'
+          : verb + 'ed'
+        : irregularVerbCheck
   }
 
   useEffect(() => {
@@ -100,13 +100,13 @@ export const VerbIdentification = ({
               .join(' ')
               .replace(
                 question.simplePredicate,
-                conjugatedVerb(question.simplePredicate)
+                conjugatedVerb(question.simplePredicate),
                 // irregularPastTenseVerbList(question.simplePredicate) ===
                 //   question.simplePredicate
                 //   ? question.simplePredicate + 'ed'
                 //   : irregularPastTenseVerbList(question.simplePredicate)
               )
-              .split(' ')
+              .split(' '),
           )
 
         if (writingLevel === WritingLevelEnum.DEVELOPING) {
@@ -116,8 +116,8 @@ export const VerbIdentification = ({
               question.helpingVerb === 'did'
                 ? pastTenseVerb
                 : auxilaryVerbCheck
-                ? question.helpingVerb + ' ' + question.simplePredicate
-                : question.simplePredicate,
+                  ? question.helpingVerb + ' ' + question.simplePredicate
+                  : question.simplePredicate,
           })
           if (question.helpingVerb === 'did' || auxilaryVerbCheck)
             setState('object-identification')
@@ -183,7 +183,7 @@ export const VerbIdentification = ({
           setEnabled(true)
           console.log(timeToComplete)
         },
-        attempts < 1 ? 7000 : 7000 + attempts * 1000
+        attempts < 1 ? 7000 : 7000 + attempts * 1000,
         // 3000
       )
       return () => clearTimeout(timer)
@@ -259,12 +259,12 @@ export const VerbIdentification = ({
                     {question.helpingVerb !== 'did'
                       ? `it is already past tense and doesn't change.`
                       : irregularPastTenseVerbList(text) === text
-                      ? `it gets changed to its past tense form: ${conjugatedVerb(
-                          text
-                        )}`
-                      : `it is an irregular verb and gets changed to ${irregularPastTenseVerbList(
-                          text
-                        )}`}
+                        ? `it gets changed to its past tense form: ${conjugatedVerb(
+                            text,
+                          )}`
+                        : `it is an irregular verb and gets changed to ${irregularPastTenseVerbList(
+                            text,
+                          )}`}
                   </div>
                 </RestatementFeedBackContainerMessageContainer>
               ) : (

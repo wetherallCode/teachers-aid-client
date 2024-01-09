@@ -59,18 +59,18 @@ export const UnexcusedLatness = ({
       },
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findStudentByIdForTeachersAid'],
-    }
+    },
   )
   const unexcusedLatenessCheck = student.hasLatnesses.find(
     (late) =>
       late.latenessType === LatenessTypeEnum.UNEXCUSED &&
-      late.dayLate === new Date().toLocaleDateString()
+      late.dayLate === new Date().toLocaleDateString(),
   )
 
   const isExcused = student.hasLatnesses.find(
     (late) =>
       late.latenessType === LatenessTypeEnum.EXCUSED &&
-      late.dayLate === new Date().toLocaleDateString()
+      late.dayLate === new Date().toLocaleDateString(),
   )!
   const handleLatnessClick = () => {
     if (absent) {

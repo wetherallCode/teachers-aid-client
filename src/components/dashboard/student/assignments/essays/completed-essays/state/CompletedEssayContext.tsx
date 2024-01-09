@@ -28,11 +28,11 @@ export function useCompletedEssayContextProvider() {
   const context = useContext(CompletedEssayContext)
   if (context === undefined) {
     throw new Error(
-      'useCompletedEssayContextProvider must be used within a CompletedEssayContextProvider'
+      'useCompletedEssayContextProvider must be used within a CompletedEssayContextProvider',
     )
   }
   return context as [
     State<completedEssayMachineContext, completedEssayMachineEvent, any, any>,
-    (event: completedEssayMachineEvent) => void
+    (event: completedEssayMachineEvent) => void,
   ]
 }

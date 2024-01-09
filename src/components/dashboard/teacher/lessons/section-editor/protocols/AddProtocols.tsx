@@ -23,7 +23,7 @@ export type AddProtocolsProps = {
   updateTextSection: (
     options?:
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -35,10 +35,8 @@ export const AddProtocols = ({
   currentIndexForItem,
   updateTextSection,
 }: AddProtocolsProps) => {
-  const {
-    academicOutcomeTypes,
-    protocolActivityTypes,
-  } = useEnumContextProvider()
+  const { academicOutcomeTypes, protocolActivityTypes } =
+    useEnumContextProvider()
 
   useEffect(() => {
     updateTextSection()
@@ -85,7 +83,7 @@ export const AddProtocols = ({
         </select>
         <div>Task: </div>
         <input
-          type='text'
+          type="text"
           onChange={(e: any) =>
             setProtocolItem({
               ...protocolItem,
@@ -96,7 +94,7 @@ export const AddProtocols = ({
         <>
           <button onClick={() => event({ type: 'IDLE' })}>Cancel</button>
           <button
-            type='reset'
+            type="reset"
             onClick={() => {
               event({
                 type: 'SET_PROTOCOLS_LIST',

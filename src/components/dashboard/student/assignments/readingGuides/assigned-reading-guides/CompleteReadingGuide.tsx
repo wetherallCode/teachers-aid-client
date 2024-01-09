@@ -124,7 +124,7 @@ export const CompleteReadingGuide = ({
                 />
                 {problem.length > 0 ? (
                   <BlueButton
-                    type='reset'
+                    type="reset"
                     onClick={() => {
                       // setProblemList([...problemList, problem])
                       event({
@@ -198,7 +198,7 @@ export const CompleteReadingGuide = ({
                     >
                       {problem}
                     </BiggestProblemListItem>
-                  )
+                  ),
                 )}
               </ProblemsToSelectContainer>
               {state.context.updateReadingGuideInputs.biggestProblem && (
@@ -267,7 +267,7 @@ export const CompleteReadingGuide = ({
                 />
                 {importantPeople.length > 0 ? (
                   <BlueButton
-                    type='reset'
+                    type="reset"
                     onClick={() => {
                       // setImportantPeopleList([...importantPeopleList, importantPeople])
                       event({
@@ -347,7 +347,7 @@ export const CompleteReadingGuide = ({
                 {state.context.updateReadingGuideInputs.importantPeople.map(
                   (importantPeople: string, i: number) => (
                     <div key={i}>{importantPeople}</div>
-                  )
+                  ),
                 )}
               </Title>
               <ReadingGuideTextArea

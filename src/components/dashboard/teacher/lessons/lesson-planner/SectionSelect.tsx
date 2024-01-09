@@ -94,7 +94,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
                     key={section._id!}
                     // selected={section._id === state.context.currentSection[0]}
                     selected={state.context.textSectionList.includes(
-                      section._id!
+                      section._id!,
                     )}
                     onClick={() => {
                       // event({
@@ -109,7 +109,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
                   >
                     {section.header}
                   </SectionSelectorOption>
-                )
+                ),
               )}
             {data?.findTextSectionsByChapter.textSections
               .filter((a) => !a.orderNumber)
@@ -122,7 +122,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
                     key={section._id!}
                     // selected={section._id === state.context.currentSection[0]}
                     selected={state.context.textSectionList.includes(
-                      section._id!
+                      section._id!,
                     )}
                     onClick={() => {
                       // event({
@@ -137,7 +137,7 @@ export const SectionSelect: FC<SectionSelectProps> = () => {
                   >
                     {section.header}
                   </SectionSelectorOption>
-                )
+                ),
               )}
           </div>
           {/* <SectionSelectorOptionAddButtonContainer>

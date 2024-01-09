@@ -28,11 +28,11 @@ export function useSchoolDayContextProvider() {
   const context = useContext(SchoolDayContext)
   if (context === undefined) {
     throw new Error(
-      'useSchoolDayContextProvider must be used within a SchoolDayContextProvider'
+      'useSchoolDayContextProvider must be used within a SchoolDayContextProvider',
     )
   }
   return context as [
     State<schoolDayMachineContext, schoolDayMachineEvent, any, any>,
-    (event: schoolDayMachineEvent) => void
+    (event: schoolDayMachineEvent) => void,
   ]
 }

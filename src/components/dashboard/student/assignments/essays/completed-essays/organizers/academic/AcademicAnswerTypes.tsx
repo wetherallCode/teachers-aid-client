@@ -48,13 +48,13 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = ({
       // onCompleted: (data) => console.log(data),
 
       refetchQueries: [''],
-    }
+    },
   )
 
   return (
     <>
       {state.matches(
-        'reviewOrganizer.organizers.academicOrganizer.answer.questionType'
+        'reviewOrganizer.organizers.academicOrganizer.answer.questionType',
       ) && (
         <>
           <AcademicQuestionTypeContainer>
@@ -87,8 +87,8 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = ({
                     {question === 'HOW_PROBLEM_SOLUTION'
                       ? 'How: Problem and Solution'
                       : question === 'HOW_CAUSE_EFFECT'
-                      ? 'How: Cause and Effect'
-                      : 'Why: Cause and Effect'}
+                        ? 'How: Cause and Effect'
+                        : 'Why: Cause and Effect'}
                   </option>
                 ))}
               </AcademicQuestionTypeSelect>
@@ -98,7 +98,7 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = ({
                 <div>Restatement</div>
               </AcademicRestatementTitle>
               <AcademicRestatementInput
-                type='text'
+                type="text"
                 value={state.context.academicOrganizer.restatement}
                 onChange={(e: any) =>
                   event({
@@ -137,17 +137,17 @@ export const AcademicAnswerTypes: FC<AcademicAnswerTypesProps> = ({
       )}
 
       {state.matches(
-        'reviewOrganizer.organizers.academicOrganizer.answer.problemSolution'
+        'reviewOrganizer.organizers.academicOrganizer.answer.problemSolution',
       ) &&
         state.context.academicOrganizer.questionType ===
           QuestionTypeEnum.HOW_PROBLEM_SOLUTION && <AcademicProblemSolution />}
       {state.matches(
-        'reviewOrganizer.organizers.academicOrganizer.answer.howCauseEffect'
+        'reviewOrganizer.organizers.academicOrganizer.answer.howCauseEffect',
       ) &&
         state.context.academicOrganizer.questionType ===
           QuestionTypeEnum.HOW_CAUSE_EFFECT && <AcademicHowCauseEffect />}
       {state.matches(
-        'reviewOrganizer.organizers.academicOrganizer.answer.whyCauseEffect'
+        'reviewOrganizer.organizers.academicOrganizer.answer.whyCauseEffect',
       ) &&
         state.context.academicOrganizer.questionType ===
           QuestionTypeEnum.WHY_CAUSE_EFFECT && <AcademicWhyCauseEffect />}

@@ -25,7 +25,7 @@ export const MarkingPeriodSelectorSwitch = ({
   const { currentMarkingPeriod } = markingPeriodState.context
 
   const markingPeriodNumber = markingPeriodEnum.findIndex(
-    (element: MarkingPeriodEnum) => element === currentMarkingPeriod
+    (element: MarkingPeriodEnum) => element === currentMarkingPeriod,
   )
 
   const [markingPeriodIndex, setMarkingPeriodIndex] =

@@ -23,11 +23,11 @@ export const AssignedDateCheck = ({
       },
       onCompleted: (data) => {
         const [assignedLesson] = data?.findLessonByCourse.lessons.filter(
-          (lesson) => lesson._id === lessonId
+          (lesson) => lesson._id === lessonId,
         )!
 
         const lessonIndex = data?.findLessonByCourse.lessons.findIndex(
-          (lesson) => lesson._id === assignedLesson._id
+          (lesson) => lesson._id === assignedLesson._id,
         )!
 
         const sortedLessons = data?.findLessonByCourse.lessons
@@ -46,11 +46,11 @@ export const AssignedDateCheck = ({
         })
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
   function sortByDate(
     a: findLessonsByCourse_findLessonByCourse_lessons,
-    b: findLessonsByCourse_findLessonByCourse_lessons
+    b: findLessonsByCourse_findLessonByCourse_lessons,
   ) {
     let dateA = new Date(a.assignedDate).getTime()
 

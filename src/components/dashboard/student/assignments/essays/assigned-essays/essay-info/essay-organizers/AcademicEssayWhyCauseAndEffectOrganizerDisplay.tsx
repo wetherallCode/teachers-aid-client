@@ -15,7 +15,7 @@ export const AcademicEssayWhyCauseAndEffectOrganizerDisplay = ({
   essayOrganizer,
 }: AcademicEssayWhyCauseAndEffectOrganizerDisplayProps) => {
   const [organizerTab, setOrganizerTab] = useState<'PROXIMATE' | 'ULTIMATE'>(
-    'PROXIMATE'
+    'PROXIMATE',
   )
   return (
     <div style={{ overflowWrap: 'break-word' }}>

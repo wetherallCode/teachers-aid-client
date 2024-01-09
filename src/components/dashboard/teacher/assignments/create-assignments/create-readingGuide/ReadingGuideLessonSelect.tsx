@@ -40,8 +40,8 @@ export const ReadingGuideLessonSelect = ({
   if (loading) return <div>Loading </div>
   console.log(
     data?.findLessonsByUnit.lessons.filter(
-      (lesson) => lesson.lessonType === 'INTRODUCTORY'
-    )
+      (lesson) => lesson.lessonType === 'INTRODUCTORY',
+    ),
   )
   return (
     <LessonInformationSelectContainer>

@@ -135,10 +135,10 @@ export const DeskDisplay = styled.div<DeskDisplayProps>`
     !assigned
       ? 'var(--grey)'
       : absent
-      ? 'var(--red)'
-      : active
-      ? 'var(--white)'
-      : 'var(--blue)'};
+        ? 'var(--red)'
+        : active
+          ? 'var(--white)'
+          : 'var(--blue)'};
 
   text-decoration: ${({ picked }) => (picked ? 'underline' : 'none')};
 

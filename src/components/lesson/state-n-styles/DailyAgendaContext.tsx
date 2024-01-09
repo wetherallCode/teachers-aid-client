@@ -28,11 +28,11 @@ export function useDailyAgendaContextProvider() {
   const context = useContext(DailyAgendaContext)
   if (context === undefined) {
     throw new Error(
-      'useDailyAgendaContextProvider must be used within a DailyAgendaContextProvider'
+      'useDailyAgendaContextProvider must be used within a DailyAgendaContextProvider',
     )
   }
   return context as [
     State<dailyAgendaMachineContext, dailyAgendaMachineEvent, any, any>,
-    (event: dailyAgendaMachineEvent) => void
+    (event: dailyAgendaMachineEvent) => void,
   ]
 }

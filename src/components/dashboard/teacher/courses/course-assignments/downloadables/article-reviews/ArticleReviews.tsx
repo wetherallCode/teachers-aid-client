@@ -23,12 +23,12 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
   const [currentMarkingPeriod] = useMarkingPeriodContextProvider()
   const { markingPeriodEnum } = useEnumContextProvider()
   const [markingPeriod, setMarkingPeriod] = useState(
-    currentMarkingPeriod.context.currentMarkingPeriod
+    currentMarkingPeriod.context.currentMarkingPeriod,
   )
   const [dateFilter, setDateFilter] = useState('')
 
   const [courseName] = me.teachesCourses.filter(
-    (courseToFind) => courseToFind._id === course
+    (courseToFind) => courseToFind._id === course,
   )
   const [assignmentList, setAssignmentList] = useState<any[]>([])
   const [createCSVToggle, setCreateCSVToggle] = useState(false)
@@ -60,11 +60,11 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
     .reduce(
       (accum: string[], cValue) =>
         accum.includes(cValue) ? [...accum] : [...accum, cValue],
-      []
+      [],
     )
 
   const articleReviews = data?.findArticleReviewsByCourse.articleReviews.filter(
-    (review) => review.assignedDate === dateFilter
+    (review) => review.assignedDate === dateFilter,
   )!
 
   if (loading) return <div>Loading </div>
@@ -124,7 +124,7 @@ export const ArticleReviews: FC<ArticleReviewsProps> = () => {
             alignItems: 'center',
             textDecoration: 'none',
           }}
-          target='_blank'
+          target="_blank"
           onClick={() => {
             setCreateCSVToggle(false)
             setAssignmentList([])

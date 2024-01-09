@@ -26,10 +26,10 @@ export const simplePredicateGrader = ({
     verbType === VerbTypeEnum.ACTION
       ? 'action word'
       : verbType === VerbTypeEnum.BEING
-      ? 'being word'
-      : verbType === VerbTypeEnum.HAVING
-      ? 'having word'
-      : 'feeling word'
+        ? 'being word'
+        : verbType === VerbTypeEnum.HAVING
+          ? 'having word'
+          : 'feeling word'
 
   const lastWordInQuestion = questionToModify
     .slice(questionToModify.length - 1)

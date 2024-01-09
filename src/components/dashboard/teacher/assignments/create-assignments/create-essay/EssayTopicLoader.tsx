@@ -55,8 +55,8 @@ export const EssayTopicLoader = ({ ids }: EssayTopicLoaderProps) => {
             question.questionParts.originalQuestion,
             question.questionParts.questionType,
             question._id,
-          ])
-        )
+          ]),
+        ),
       )
       const questionList = data.findTextSectionsById.textSections
         .map((section) =>
@@ -64,17 +64,17 @@ export const EssayTopicLoader = ({ ids }: EssayTopicLoaderProps) => {
             question.questionParts.originalQuestion,
             question.questionParts.questionType,
             question._id,
-          ])
+          ]),
         )
         .reduce(
           (
             acc: findTextSectionsByIdForEssayQuestionLoader_findTextSectionsById_textSections_hasEssayQuestions_questionParts[],
-            i: any
+            i: any,
           ) => {
             console.log(i)
             return acc.includes(i) ? [...acc] : [...i]
           },
-          []
+          [],
         )!
       console.log(questionList)
       event({

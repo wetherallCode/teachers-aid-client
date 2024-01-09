@@ -50,11 +50,11 @@ export const SubjectPredicateSplit = ({
     newSentence[2].split(' ').length > 1
       ? newSentence[2]
       : newSentence[2].split('').includes('.')
-      ? newSentence[2]
-          .split('')
-          .filter((letters) => letters !== '.')
-          .join('')
-      : newSentence[2]
+        ? newSentence[2]
+            .split('')
+            .filter((letters) => letters !== '.')
+            .join('')
+        : newSentence[2]
 
   const { message, correct, whatWentWrong, howToFix } = subjectPredicateGrading(
     {
@@ -71,7 +71,7 @@ export const SubjectPredicateSplit = ({
       verb: question.simplePredicate,
       verbType: question.verbType,
       helpingVerb: question.helpingVerb,
-    }
+    },
   )
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export const SubjectPredicateSplit = ({
         const endTime = new Date().toISOString()
         const timeToComplete = timeAFunction(startTime, endTime)
       },
-      attempt < 1 ? 6000 : 6000 + attempt * 1000
+      attempt < 1 ? 6000 : 6000 + attempt * 1000,
     )
     return () => {
       clearTimeout(timer)
@@ -133,13 +133,13 @@ export const SubjectPredicateSplit = ({
                           textUnderlinePosition: 'under',
                         }
                       : i === 2
-                      ? {
-                          cursor: 'pointer',
-                          textDecoration: 'underline',
-                          textDecorationStyle: 'double',
-                          textUnderlinePosition: 'under',
-                        }
-                      : { cursor: 'pointer' }
+                        ? {
+                            cursor: 'pointer',
+                            textDecoration: 'underline',
+                            textDecorationStyle: 'double',
+                            textUnderlinePosition: 'under',
+                          }
+                        : { cursor: 'pointer' }
                   }
                 >
                   {newSentence[0] === part

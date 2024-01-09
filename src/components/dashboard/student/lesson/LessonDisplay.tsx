@@ -118,7 +118,7 @@ export const LessonDisplay = ({
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <StyledLink to='/lesson-home'>
+            <StyledLink to="/lesson-home">
               <StudentOptionsLinkButton>Go</StudentOptionsLinkButton>
             </StyledLink>
           )}

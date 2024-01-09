@@ -92,7 +92,7 @@ export const EssayQuestionInformation = ({}: EssayQuestionInformationProps) => {
     }
     if (
       state.context.essayQuestionInfo.questionPartsInput.originalQuestion.split(
-        ' '
+        ' ',
       )[0] === 'How'
     ) {
       event({
@@ -102,7 +102,7 @@ export const EssayQuestionInformation = ({}: EssayQuestionInformationProps) => {
       })
     } else if (
       state.context.essayQuestionInfo.questionPartsInput.originalQuestion.split(
-        ' '
+        ' ',
       )[0] === 'Why'
     ) {
       event({

@@ -66,20 +66,21 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
   if (loading) return <div>Loading </div>
 
   const [student] = data?.findStudentsByCourse.students!.filter(
-    (student) => student._id === studentId
+    (student) => student._id === studentId,
   )!
   console.log(
     student &&
       student.hasAssignments.filter(
-        (assignment) => assignment.__typename === 'Essay'
-      ).length
+        (assignment) => assignment.__typename === 'Essay',
+      ).length,
   )
   console.log(
     student &&
       student.hasAssignments.filter(
         (assignment) =>
-          assignment.__typename === 'Essay' && !assignment.finalDraft?.submitted
-      ).length
+          assignment.__typename === 'Essay' &&
+          !assignment.finalDraft?.submitted,
+      ).length,
   )
   return (
     <PaperBasedContainer>
@@ -114,7 +115,7 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
                 .filter(
                   (assignment) =>
                     assignment.__typename === 'Essay' &&
-                    !assignment.finalDraft?.submitted
+                    !assignment.finalDraft?.submitted,
                 )
                 .map((assignment) => (
                   <option key={assignment._id!} value={assignment._id!}>
@@ -141,7 +142,7 @@ export const FindAssignmentByStudent: FC<FindAssignmentByStudentProps> = ({
                   (assignment) =>
                     assignment.__typename === 'ReadingGuide' &&
                     !assignment.readingGuideFinal?.submitted &&
-                    !assignment.graded
+                    !assignment.graded,
                 )
                 .map((assignment) => (
                   <option key={assignment._id!} value={assignment._id!}>

@@ -12,10 +12,8 @@ export type AdvancedWhyCauseEffectProps = {}
 
 export const AdvancedWhyCauseEffect: FC<AdvancedWhyCauseEffectProps> = () => {
   const [state, event] = useCompletedEssayContextProvider()
-  const {
-    subject,
-    verb,
-  } = state.context.advancedOrganizer.advancedSentenceStructure
+  const { subject, verb } =
+    state.context.advancedOrganizer.advancedSentenceStructure
   const { whyCauseEffect } = state.context.advancedOrganizer.answer
 
   const [updateWhyCauseEffect] = useMutation<
@@ -46,7 +44,7 @@ export const AdvancedWhyCauseEffect: FC<AdvancedWhyCauseEffectProps> = () => {
         Why did {subject} {verb}?
       </div>
       <input
-        type='text'
+        type="text"
         value={
           state.context.advancedOrganizer.answer.whyCauseEffect.proximateCause
         }
@@ -59,7 +57,7 @@ export const AdvancedWhyCauseEffect: FC<AdvancedWhyCauseEffectProps> = () => {
       />
       <div>Why did that happen?</div>
       <input
-        type='text'
+        type="text"
         value={
           state.context.advancedOrganizer.answer.whyCauseEffect.ultimateCause
         }

@@ -22,7 +22,7 @@ type AddVocabWordProps = {
   updateTextSection: (
     options?:
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -40,7 +40,7 @@ export const AddQuestion = ({
   }, [state.context.hasQuestions])
 
   const { loading, error, data } = useQuery<questionTypeEnum>(
-    QUESTION_TYPE_ENUM_QUERY
+    QUESTION_TYPE_ENUM_QUERY,
   )
   if (loading) return <div>Loading </div>
   if (error) console.error(error)
@@ -69,7 +69,7 @@ export const AddQuestion = ({
       </select>
       <div>Question</div>
       <input
-        type='text'
+        type="text"
         onChange={(e: any) =>
           setQuestionsItem({
             ...questionsItem,
@@ -80,7 +80,7 @@ export const AddQuestion = ({
       <>
         <button onClick={() => event({ type: 'IDLE' })}>Cancel</button>
         <button
-          type='reset'
+          type="reset"
           onClick={() => {
             event({
               type: 'SET_QUESTIONS_LIST',

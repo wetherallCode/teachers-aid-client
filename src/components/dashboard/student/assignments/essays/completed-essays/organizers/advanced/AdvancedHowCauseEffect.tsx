@@ -12,11 +12,8 @@ export type AdvancedHowCauseEffectProps = {}
 
 export const AdvancedHowCauseEffect: FC<AdvancedHowCauseEffectProps> = () => {
   const [state, event] = useCompletedEssayContextProvider()
-  const {
-    subject,
-    verb,
-    object,
-  } = state.context.advancedOrganizer.advancedSentenceStructure
+  const { subject, verb, object } =
+    state.context.advancedOrganizer.advancedSentenceStructure
   const { howCauseEffect } = state.context.advancedOrganizer.answer
 
   const [updateHowCauseEffect] = useMutation<

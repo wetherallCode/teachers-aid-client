@@ -92,8 +92,8 @@ export const TeachersAid = ({}: TeachersAidProps) => {
           (student) =>
             (student._id && student.hasAbsences.length === 0) ||
             student.hasAbsences.some(
-              (absence) => absence.dayAbsent !== todaysLocaleDate
-            )
+              (absence) => absence.dayAbsent !== todaysLocaleDate,
+            ),
         )
         .map((student) => student._id) as string[]
       event({
@@ -104,6 +104,7 @@ export const TeachersAid = ({}: TeachersAidProps) => {
     pollInterval: 1000,
     onError: (error) => console.error(error),
   })
+  if (loading) return <div>Loading </div>
   const students = data?.findCourseById.course.hasCourseInfo?.assignedSeats
     .filter((seat) => seat.student !== null)
     .map((seat) => seat.student)!
@@ -136,13 +137,13 @@ export const TeachersAid = ({}: TeachersAidProps) => {
           // (student && student.hasAbsences.length === 0) ||
           student &&
           !student.hasAbsences.some(
-            (absence) => absence.dayAbsent === new Date().toLocaleDateString()
+            (absence) => absence.dayAbsent === new Date().toLocaleDateString(),
           ) &&
-          student.hasStatus.filter((status) => !status.hasReturned).length === 0
+          student.hasStatus.filter((status) => !status.hasReturned).length ===
+            0,
       )
       .map((student) => student?._id)! as string[]
 
-  if (loading) return <div>Loading </div>
   return (
     <>
       <TeachersAidContainer width={window.outerWidth}>

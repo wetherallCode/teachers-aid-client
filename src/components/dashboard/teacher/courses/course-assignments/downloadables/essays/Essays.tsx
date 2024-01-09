@@ -81,7 +81,7 @@ export const Essays = ({}: EssaysProps) => {
   const { course } = useParams()
   const me: me_me_Teacher = useUserContextProvider()
   const [courseName] = me.teachesCourses.filter(
-    (courseToFind) => courseToFind._id === course
+    (courseToFind) => courseToFind._id === course,
   )
   const [essayName, setEssayName] = useState<string>('')
   const [assignmentList, setAssignmentList] = useState<any[]>([])
@@ -125,7 +125,7 @@ export const Essays = ({}: EssaysProps) => {
   })
 
   const essayTitle = essays?.findEssaysByAssociatedLessonId.essays.map(
-    (essay) => essay.readings.readingSections
+    (essay) => essay.readings.readingSections,
   )
 
   const { data: essayNameData } = useQuery<
@@ -151,7 +151,7 @@ export const Essays = ({}: EssaysProps) => {
           }
         }}
       >
-        <option value='none'>Select a Unit</option>
+        <option value="none">Select a Unit</option>
         {units?.findUnits.units.map((unit) => (
           <option key={unit._id!} value={unit._id!}>
             {unit.unitName}
@@ -169,7 +169,7 @@ export const Essays = ({}: EssaysProps) => {
             setEssayName(e.target.value.split(',')[1])
           }}
         >
-          <option value='none'>Select a Lesson</option>
+          <option value="none">Select a Lesson</option>
           {lessons?.findLessonsByUnit.lessons
             .filter((l) => l.lessonType === 'REINFORCEMENT')
             .map((lesson) => (
@@ -212,7 +212,7 @@ export const Essays = ({}: EssaysProps) => {
             alignItems: 'center',
             textDecoration: 'none',
           }}
-          target='_blank'
+          target="_blank"
           onClick={() => {
             event({ type: 'IDLE' })
             event({ type: 'RESET_ESSAYS' })
@@ -235,7 +235,7 @@ export const Essays = ({}: EssaysProps) => {
                     setAssignmentList={setAssignmentList}
                     createCSVToggle={createCSVToggle}
                   />
-                )
+                ),
               )}
             </div>
           )}

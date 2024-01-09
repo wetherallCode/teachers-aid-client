@@ -13,7 +13,7 @@ export const RubricsDashboard: FC<RubricsDashboardProps> = () => {
   return (
     <Routes>
       <Route
-        path='build'
+        path="build"
         element={
           <>
             <RubricBuilder />
@@ -21,7 +21,7 @@ export const RubricsDashboard: FC<RubricsDashboardProps> = () => {
         }
       />
       <Route
-        path='edit'
+        path="edit"
         element={
           <RubricEditorContextProvider>
             <RubricEditor />

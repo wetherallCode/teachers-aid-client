@@ -80,7 +80,7 @@ export const DailyBehavior = ({
     {
       // onCompleted: (data) => console.log(data),
       onError: (error) => console.error(error),
-    }
+    },
   )
 
   const [createStudentBehavior] = useMutation<
@@ -101,15 +101,15 @@ export const DailyBehavior = ({
 
   const questionAndAnswerBehaviorList = [
     ...behaviorsForTeachersAid!.filter(
-      (b) => b.behaviorCategory === BehaviorCategoryEnum.QUESTION_AND_ANSWER
+      (b) => b.behaviorCategory === BehaviorCategoryEnum.QUESTION_AND_ANSWER,
     )!,
   ]
   const negativeBehaviorList = behaviorsForTeachersAid!.filter(
-    (b) => b.behaviorCategory === BehaviorCategoryEnum.NEGATIVE_BEHAVIOR
+    (b) => b.behaviorCategory === BehaviorCategoryEnum.NEGATIVE_BEHAVIOR,
   )!
 
   const preparedAndReady = data?.findAllBehaviorTypes.behaviorTypes.find(
-    (b) => b._id === '62a33f0c2c8c161570b3c258'
+    (b) => b._id === '62a33f0c2c8c161570b3c258',
   )!
 
   const preparednessBehaviorList =
@@ -118,16 +118,16 @@ export const DailyBehavior = ({
       ? data?.findAllBehaviorTypes.behaviorTypes.filter(
           (b) =>
             b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
-            b.behaviorName !== 'Prepared and Ready'
+            b.behaviorName !== 'Prepared and Ready',
         )!
       : data?.findAllBehaviorTypes.behaviorTypes.filter(
           (b) =>
             b.behaviorCategory === BehaviorCategoryEnum.PREPAREDNESS &&
-            b.behaviorName === 'Prepared and Ready'
+            b.behaviorName === 'Prepared and Ready',
         )!
 
   const independentBehaviorList = behaviorsForTeachersAid!.filter(
-    (b) => b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK
+    (b) => b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK,
   )!
 
   // const behaviorPoints = (behavior: BehaviorEnum) => {
@@ -151,7 +151,7 @@ export const DailyBehavior = ({
   // const taskBehaviors = behaviorEnum.slice(2, 6)
 
   const negativeNumberDeterminer = (
-    behavior: findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes
+    behavior: findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes,
   ) => {}
 
   return (
@@ -176,7 +176,7 @@ export const DailyBehavior = ({
                             behavior.points > 0
                               ? responsibilityPointConverter(
                                   grade,
-                                  behavior.points
+                                  behavior.points,
                                 )
                               : behavior.points,
                           date: new Date().toLocaleDateString(),
@@ -278,7 +278,7 @@ export const DailyBehavior = ({
                             behavior.points > 0
                               ? responsibilityPointConverter(
                                   grade,
-                                  behavior.points
+                                  behavior.points,
                                 )
                               : behavior.points,
                           date: new Date().toLocaleDateString(),

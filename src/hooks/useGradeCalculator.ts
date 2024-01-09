@@ -70,7 +70,7 @@ export const useGradeCalculator = ({
         !assignment.finalDraft &&
         assignment.markingPeriod === markingPeriod &&
         Date.parse(new Date().toLocaleString()) >
-          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
   )!
 
   // const applicableArticleReviews =
@@ -85,12 +85,12 @@ export const useGradeCalculator = ({
       assignment.markingPeriod === markingPeriod &&
       !assignment.exempt &&
       Date.parse(new Date().toLocaleString()) >
-        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
   )
 
   const applicableCurrentMarkingPeriodResponsiblityPoints =
     responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
-      (points) => points.markingPeriod === markingPeriod
+      (points) => points.markingPeriod === markingPeriod,
     )!
 
   if (!assignmentLoading && !responsibilityPointsLoading) {
@@ -112,7 +112,7 @@ export const useGradeCalculator = ({
               !assignment.finalDraft &&
               assignment.markingPeriod === markingPeriod &&
               Date.parse(new Date().toLocaleString()) >
-                Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+                Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
         )
 
       const essayEarnedPoints = applicableEssays
@@ -131,7 +131,7 @@ export const useGradeCalculator = ({
             assignment.markingPeriod === markingPeriod &&
             !assignment.exempt &&
             Date.parse(new Date().toLocaleString()) >
-              Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+              Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
         )
 
       const secondaryGradesEarnedPoints = secondaryGradeAssignments
@@ -153,12 +153,12 @@ export const useGradeCalculator = ({
 
       const secondary = secondaryGrade(
         secondaryGradesEarnedPoints,
-        secondaryGradesMaxPoints
+        secondaryGradesMaxPoints,
       )
 
       const gradeTotal = (primaryGrade: number, secondaryGrade: number) => {
         const number = Number(
-          Number(primaryGrade) + Number(secondaryGrade)
+          Number(primaryGrade) + Number(secondaryGrade),
         ).toFixed(2)
 
         return Math.round(Number(number) * 10) / 10
@@ -180,7 +180,7 @@ export const useGradeCalculator = ({
       console.log('Only ResponsibilityPoints')
       const currentMarkingPeriodResponsiblityPoints =
         responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-          (points) => points.markingPeriod === markingPeriod
+          (points) => points.markingPeriod === markingPeriod,
         )!
 
       const points =
@@ -207,7 +207,7 @@ export const useGradeCalculator = ({
             assignment.markingPeriod === markingPeriod &&
             !assignment.exempt &&
             Date.parse(new Date().toLocaleString()) >
-              Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+              Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
         )
 
       const secondaryGradesEarnedPoints = secondaryGradeAssignments
@@ -241,7 +241,7 @@ export const useGradeCalculator = ({
       return {
         grade: +secondaryGrade(
           secondaryGradesEarnedPoints,
-          secondaryGradesMaxPoints
+          secondaryGradesMaxPoints,
         ).toFixed(2),
         loading: assignmentLoading || responsibilityPointsLoading,
         noGrade: false,
@@ -258,7 +258,7 @@ export const useGradeCalculator = ({
 
       const currentMarkingPeriodResponsiblityPoints =
         responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-          (points) => points.markingPeriod === markingPeriod
+          (points) => points.markingPeriod === markingPeriod,
         )!
 
       const { responsibilityPoints } =
@@ -290,7 +290,7 @@ export const useGradeCalculator = ({
             assignment.markingPeriod === markingPeriod &&
             !assignment.exempt &&
             Date.parse(new Date().toLocaleString()) >
-              Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+              Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
         )
       console.log(secondaryGradeAssignments)
       const secondaryGradesEarnedPoints = secondaryGradeAssignments
@@ -307,12 +307,12 @@ export const useGradeCalculator = ({
 
       const secondary = secondaryGrade(
         secondaryGradesEarnedPoints,
-        secondaryGradesMaxPoints
+        secondaryGradesMaxPoints,
       )
 
       const gradeTotal = (supportive: number, secondaryGrade: number) => {
         const number = Number(
-          Number(supportive) + Number(secondaryGrade)
+          Number(supportive) + Number(secondaryGrade),
         ).toFixed(2)
 
         return Math.round(Number(number) * 10) / 10
@@ -343,7 +343,7 @@ export const useGradeCalculator = ({
               !assignment.finalDraft &&
               assignment.markingPeriod === markingPeriod &&
               Date.parse(new Date().toLocaleString()) >
-                Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+                Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
         )
 
       const essayEarnedPoints = applicableEssays
@@ -364,7 +364,7 @@ export const useGradeCalculator = ({
 
       const currentMarkingPeriodResponsiblityPoints =
         responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-          (points) => points.markingPeriod === markingPeriod
+          (points) => points.markingPeriod === markingPeriod,
         )!
 
       const { responsibilityPoints } =
@@ -375,7 +375,7 @@ export const useGradeCalculator = ({
 
       const gradeTotal = (primaryGrade: number, supportiveGrade: number) => {
         const number = Number(
-          Number(primaryGrade) + Number(supportiveGrade)
+          Number(primaryGrade) + Number(supportiveGrade),
         ).toFixed(2)
 
         return Math.round(Number(number) * 10) / 10
@@ -406,7 +406,7 @@ export const useGradeCalculator = ({
           !assignment.finalDraft &&
           assignment.markingPeriod === markingPeriod &&
           Date.parse(new Date().toLocaleString()) >
-            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
     )
     const secondaryGradeAssignments =
       data?.findAssignmentByStudentId.assignments.filter(
@@ -415,7 +415,7 @@ export const useGradeCalculator = ({
           assignment.markingPeriod === markingPeriod &&
           !assignment.exempt &&
           Date.parse(new Date().toLocaleString()) >
-            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+            Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
       )
 
     const essayEarnedPoints = applicableEssays
@@ -455,18 +455,18 @@ export const useGradeCalculator = ({
     // console.log(secondaryGradeAssignments!)
     const secondary = secondaryGradeCalculator(
       secondaryGradesEarnedPoints,
-      secondaryGradesMaxPoints
+      secondaryGradesMaxPoints,
     )
 
     const currentMarkingPeriodResponsiblityPoints =
       responsibilityPointsData?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
-        (points) => points.markingPeriod === markingPeriod
+        (points) => points.markingPeriod === markingPeriod,
       )!
 
     const responsibilityPointGrade =
       currentMarkingPeriodResponsiblityPoints &&
       supportiveGradeCalculator(
-        currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints
+        currentMarkingPeriodResponsiblityPoints[0].responsibilityPoints,
       )
     // console.log(essayGrade, articleReviewGrade, responsibilityPointGrade)
     const grade = totalGrade(essayGrade, secondary, responsibilityPointGrade)

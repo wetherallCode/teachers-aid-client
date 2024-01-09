@@ -21,7 +21,7 @@ export const AssignedSeating = ({ lesson }: AssignedSeatingProps) => {
     lesson.assignedCourses[0].hasCourseInfo?.assignedSeats.map((seat) => seat)
   const sortAssignedSeats = (
     a: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasCourseInfo_assignedSeats,
-    b: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasCourseInfo_assignedSeats
+    b: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson_assignedCourses_hasCourseInfo_assignedSeats,
   ) => {
     let aName = a.student?.lastName.toUpperCase()!
     let bName = b.student?.lastName.toUpperCase()!

@@ -36,11 +36,8 @@ export const AcademicHowCauseEffect: FC<AcademicHowCauseEffectProps> = () => {
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findEssayById'],
   })
-  const {
-    subject,
-    verb,
-    object,
-  } = state.context.academicOrganizer.academicSentenceStructure
+  const { subject, verb, object } =
+    state.context.academicOrganizer.academicSentenceStructure
   const { howCauseEffect } = state.context.academicOrganizer.answer
 
   useEffect(() => {

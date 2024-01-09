@@ -9,15 +9,15 @@ import { TextSelect } from './TextSelect'
 export type EssayQuestionBuilderProps = {}
 
 export const EssayQuestionBuilder = ({}: EssayQuestionBuilderProps) => {
-	const [state, event] = useBuildEssayQuestionContextProvider()
+  const [state, event] = useBuildEssayQuestionContextProvider()
 
-	return (
-		<>
-			<div>Essay Questions</div>
-			{state.matches('sections.text') && <TextSelect />}
-			{state.matches('sections.chapter') && <ChapterSelect />}
-			{state.matches('sections.sectionList') && <SectionSelect />}
-			{state.matches('questionInfo') && <EssayQuestionInformation />}
-		</>
-	)
+  return (
+    <>
+      <div>Essay Questions</div>
+      {state.matches('sections.text') && <TextSelect />}
+      {state.matches('sections.chapter') && <ChapterSelect />}
+      {state.matches('sections.sectionList') && <SectionSelect />}
+      {state.matches('questionInfo') && <EssayQuestionInformation />}
+    </>
+  )
 }

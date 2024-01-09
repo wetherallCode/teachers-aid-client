@@ -66,17 +66,18 @@ export const LessonBuilder = ({}: LessonBuilderProps) => {
   })
   const protocolList: TextSectionProtocolsInput[] = []
 
-  data?.findTextSectionsById.textSections.forEach((section) =>
-    section.hasProtocols?.forEach((protocol) => {
-      const protocolItem = {
-        academicOutcomeTypes: protocol.academicOutcomeTypes,
-        activityType: protocol.activityType,
-        task: protocol.task,
-        isActive: false,
-        completed: false,
-      }
-      protocolList.push(protocolItem)
-    })
+  data?.findTextSectionsById.textSections.forEach(
+    (section) =>
+      section.hasProtocols?.forEach((protocol) => {
+        const protocolItem = {
+          academicOutcomeTypes: protocol.academicOutcomeTypes,
+          activityType: protocol.activityType,
+          task: protocol.task,
+          isActive: false,
+          completed: false,
+        }
+        protocolList.push(protocolItem)
+      }),
   )
 
   return (
@@ -90,12 +91,12 @@ export const LessonBuilder = ({}: LessonBuilderProps) => {
               activity === 'LESSON_TYPE'
                 ? setActivity('AFTER_ACTIVITY')
                 : activity === 'AFTER_ACTIVITY'
-                ? setActivity('DURING_ACTIVITY')
-                : activity === 'DURING_ACTIVITY'
-                ? setActivity('BEFORE_ACTIVITY')
-                : activity === 'BEFORE_ACTIVITY'
-                ? setActivity('ESSENTIAL_QUESTION')
-                : setActivity('LESSON_TYPE')
+                  ? setActivity('DURING_ACTIVITY')
+                  : activity === 'DURING_ACTIVITY'
+                    ? setActivity('BEFORE_ACTIVITY')
+                    : activity === 'BEFORE_ACTIVITY'
+                      ? setActivity('ESSENTIAL_QUESTION')
+                      : setActivity('LESSON_TYPE')
             }
           >
             &lt;
@@ -106,12 +107,12 @@ export const LessonBuilder = ({}: LessonBuilderProps) => {
               activity === 'ESSENTIAL_QUESTION'
                 ? setActivity('BEFORE_ACTIVITY')
                 : activity === 'BEFORE_ACTIVITY'
-                ? setActivity('DURING_ACTIVITY')
-                : activity === 'DURING_ACTIVITY'
-                ? setActivity('AFTER_ACTIVITY')
-                : activity === 'AFTER_ACTIVITY'
-                ? setActivity('LESSON_TYPE')
-                : setActivity('ESSENTIAL_QUESTION')
+                  ? setActivity('DURING_ACTIVITY')
+                  : activity === 'DURING_ACTIVITY'
+                    ? setActivity('AFTER_ACTIVITY')
+                    : activity === 'AFTER_ACTIVITY'
+                      ? setActivity('LESSON_TYPE')
+                      : setActivity('ESSENTIAL_QUESTION')
             }
           >
             &gt;

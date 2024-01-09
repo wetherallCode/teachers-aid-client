@@ -121,8 +121,8 @@ export const DateToReview = styled.div<DateToReviewProps>`
     selected
       ? 'var(--grey)'
       : needsGradingIndicator
-      ? 'var(--red)'
-      : 'var(--blue)'};
+        ? 'var(--red)'
+        : 'var(--blue)'};
 `
 export const ReviewListContainer = styled.div`
   margin-top: 5%;

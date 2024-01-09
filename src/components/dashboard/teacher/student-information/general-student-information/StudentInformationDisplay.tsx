@@ -41,7 +41,7 @@ export const StudentInformationDisplay = ({
 
   const responsibilityPointsCheck =
     data?.findResponsibilityPointsByStudentId.responsibilityPoints.some(
-      (points) => points.markingPeriod === selectedMarkingPeriod
+      (points) => points.markingPeriod === selectedMarkingPeriod,
     )!
 
   // const [
@@ -62,7 +62,8 @@ export const StudentInformationDisplay = ({
               responsibilityPointsCheck
                 ? +data?.findResponsibilityPointsByStudentId
                     .responsibilityPoints!.filter(
-                      (points) => points.markingPeriod === selectedMarkingPeriod
+                      (points) =>
+                        points.markingPeriod === selectedMarkingPeriod,
                     )[0]
                     .responsibilityPoints.toFixed(1)!
                 : 0

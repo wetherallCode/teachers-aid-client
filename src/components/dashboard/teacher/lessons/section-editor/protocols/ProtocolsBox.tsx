@@ -54,7 +54,7 @@ export const ProtocolsBox: FC<ProtocolsBoxProps> = ({
                 <ListItem
                   onClick={() => {
                     const protocolIndex = state.context.hasProtocols.findIndex(
-                      (protocol) => protocol.task === p.task
+                      (protocol) => protocol.task === p.task,
                     )
                     event({
                       type: 'SET_PROTOCOL_TO_EDIT',

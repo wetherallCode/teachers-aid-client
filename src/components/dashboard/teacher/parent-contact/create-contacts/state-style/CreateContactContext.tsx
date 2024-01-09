@@ -28,11 +28,11 @@ export function useCreateContactContextProvider() {
   const context = useContext(CreateContactContext)
   if (context === undefined) {
     throw new Error(
-      'useCreateContactContextProvider must be used within a CreateContactContextProvider'
+      'useCreateContactContextProvider must be used within a CreateContactContextProvider',
     )
   }
   return context as [
     State<createContactMachineContext, createContactMachineEvent, any, any>,
-    (event: createContactMachineEvent) => void
+    (event: createContactMachineEvent) => void,
   ]
 }

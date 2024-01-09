@@ -33,7 +33,7 @@ export type UpdateDevelopingOrganizerType = (
         updateDevelopingOrganizer,
         updateDevelopingOrganizerVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
@@ -71,14 +71,14 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
       </QuestionContainer>
       <>
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.identifications'
+          'reviewOrganizer.organizers.developingOrganizer.identifications',
         ) && (
           <DevelopingRestatement
             updateDevelopingOrganizer={updateDevelopingOrganizer}
           />
         )}
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.restatement'
+          'reviewOrganizer.organizers.developingOrganizer.restatement',
         ) && (
           <>
             <RestatementTitle>
@@ -110,14 +110,14 @@ export const DevelopingOrganizer: FC<DevelopingOrganizerProps> = ({
           </>
         )}
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.answer'
+          'reviewOrganizer.organizers.developingOrganizer.answer',
         ) && (
           <DevelopingAnswer
             updateDevelopingOrganizer={updateDevelopingOrganizer}
           />
         )}
         {state.matches(
-          'reviewOrganizer.organizers.developingOrganizer.conclusion'
+          'reviewOrganizer.organizers.developingOrganizer.conclusion',
         ) && (
           <DevelopingConclusion
             updateDevelopingOrganizer={updateDevelopingOrganizer}

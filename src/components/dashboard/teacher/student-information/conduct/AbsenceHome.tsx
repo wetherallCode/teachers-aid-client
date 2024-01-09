@@ -47,17 +47,17 @@ export const AbsenceHome = ({
   if (loading) return <div>Loading </div>
 
   const absences = data?.findStudentById.student.hasAbsences.filter(
-    (abs) => abs.markingPeriod === selectedMarkingPeriod
+    (abs) => abs.markingPeriod === selectedMarkingPeriod,
   )!
   const excusedLatenesses = data?.findStudentById.student.hasLatnesses.filter(
     (abs) =>
       abs.markingPeriod === selectedMarkingPeriod &&
-      abs.latenessType === LatenessTypeEnum.EXCUSED
+      abs.latenessType === LatenessTypeEnum.EXCUSED,
   )!
   const unexcusedLatenesses = data?.findStudentById.student.hasLatnesses.filter(
     (abs) =>
       abs.markingPeriod === selectedMarkingPeriod &&
-      abs.latenessType === LatenessTypeEnum.UNEXCUSED
+      abs.latenessType === LatenessTypeEnum.UNEXCUSED,
   )!
   return (
     <div>

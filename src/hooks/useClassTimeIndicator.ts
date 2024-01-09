@@ -36,9 +36,9 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
           schoolDayLength === SchoolDayLengthEnum.HALF
             ? student.inCourses[0].hasCourseInfo?.halfDayStartsAt!
             : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
-            ? student.inCourses[0].hasCourseInfo?.hourDelayStartsAt
-            : student.inCourses[0].hasCourseInfo?.startsAt!
-        )
+              ? student.inCourses[0].hasCourseInfo?.hourDelayStartsAt
+              : student.inCourses[0].hasCourseInfo?.startsAt!,
+        ),
       ) &&
     Date.parse(dateTime) <
       Date.parse(
@@ -46,9 +46,9 @@ export const useClassTimeIndicator = (student: me_me_Student) => {
           schoolDayLength === SchoolDayLengthEnum.HALF
             ? student.inCourses[0].hasCourseInfo?.halfDayEndsAt!
             : schoolDayLength === SchoolDayLengthEnum.ONE_HOUR_DELAY
-            ? student.inCourses[0].hasCourseInfo.hourDelayEndsAt
-            : student.inCourses[0].hasCourseInfo?.endsAt!
-        )
+              ? student.inCourses[0].hasCourseInfo.hourDelayEndsAt
+              : student.inCourses[0].hasCourseInfo?.endsAt!,
+        ),
       )
 
   return { classTime }

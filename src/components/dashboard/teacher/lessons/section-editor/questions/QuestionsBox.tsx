@@ -19,7 +19,7 @@ export type QuestionsBoxProps = {
   updateTextSection: (
     options?:
       | MutationFunctionOptions<updateTextSection, updateTextSectionVariables>
-      | undefined
+      | undefined,
   ) => void
 }
 
@@ -65,7 +65,7 @@ export const QuestionsBox: FC<QuestionsBoxProps> = ({
                 <ListItem
                   onClick={() => {
                     const questionIndex = state.context.hasQuestions.findIndex(
-                      (question) => question.question === q.question
+                      (question) => question.question === q.question,
                     )
                     event({
                       type: 'SET_QUESTION_TO_EDIT',

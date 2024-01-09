@@ -60,7 +60,7 @@ export const quizToCompleteMachine = Machine<
         NEXT_QUIZZABLE_SECTION: {
           actions: assign((ctx, evt) => {
             const quizzableSectionIndex = ctx.quizzableSections.findIndex(
-              (i) => i === ctx.currentQuizzableSection
+              (i) => i === ctx.currentQuizzableSection,
             )
 
             return {

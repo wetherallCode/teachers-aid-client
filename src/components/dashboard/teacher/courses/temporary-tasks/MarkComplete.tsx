@@ -56,7 +56,7 @@ export const MarkComplete: FC<MarkCompleteProps> = ({
             task.student.firstName,
             grade,
             responsibilityPointConverter(grade, 2),
-            new Date().toLocaleTimeString()
+            new Date().toLocaleTimeString(),
           )
 
           studentPresent &&
@@ -75,8 +75,8 @@ export const MarkComplete: FC<MarkCompleteProps> = ({
         {called && !data
           ? '...'
           : answered || data?.gradeTemporaryTask.temporaryTask.answered
-          ? 'Complete'
-          : 'Incomplete'}
+            ? 'Complete'
+            : 'Incomplete'}
       </MarkCompleteButton>
     </MarkCompleteContainer>
   )

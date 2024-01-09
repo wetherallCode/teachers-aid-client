@@ -74,10 +74,10 @@ export const SubmitReadingGuide = ({
           {readingGuideInfo.readingGuideFinal?.readingGuideQuestions!.map(
             (q) => {
               const [question] = readingGuideQuestions.filter(
-                (question) => question.questionType === q.questionType
+                (question) => question.questionType === q.questionType,
               )
               const index = readingGuideLevel.findIndex(
-                (i) => i === question.questionType
+                (i) => i === question.questionType,
               )
 
               return (
@@ -92,7 +92,7 @@ export const SubmitReadingGuide = ({
                   </ReadingGuideQuestionReviewAnswer>
                 </ReadingGuideAnswerBlock>
               )
-            }
+            },
           )}
         </ReadingGuideQuestionReview>
       </div>

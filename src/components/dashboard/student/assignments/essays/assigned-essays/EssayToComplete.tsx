@@ -156,7 +156,7 @@ export const UPDATE_WORKING_DRAFT_MUTATION = gql`
 export type updateWorkingDraftType = (
   options?:
     | MutationFunctionOptions<UpdateWorkingDraft, UpdateWorkingDraftVariables>
-    | undefined
+    | undefined,
 ) => void
 
 export const EssayToComplete = ({}: EssayToCompleteProps) => {
@@ -182,7 +182,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
       fetchPolicy: 'network-only',
       onCompleted: (data) => {
         const draftToParse = JSON.parse(
-          data.findEssayById.essay.workingDraft.draft
+          data.findEssayById.essay.workingDraft.draft,
         )
         const stringDraft = JSON.stringify(draftToParse)
         event({
@@ -344,7 +344,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
         event({ type: 'NEXT' })
       },
       onError: (error) => console.error(error),
-    }
+    },
   )
 
   const organizer = data?.findEssayById.essay.workingDraft
@@ -362,11 +362,11 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
   const dueTime = [
     data?.findEssayById.essay.dueTime!.slice(
       0,
-      data?.findEssayById.essay.dueTime!.length - 6
+      data?.findEssayById.essay.dueTime!.length - 6,
     ),
     data?.findEssayById.essay.dueTime!.slice(
       data?.findEssayById.essay.dueTime!.length - 2,
-      data?.findEssayById.essay.dueTime!.length
+      data?.findEssayById.essay.dueTime!.length,
     ),
   ].join(' ')
 

@@ -63,12 +63,12 @@ export const EssentialQuestionBuilder = ({}: EssentialQuestionBuilderProps) => {
         data.findEssentialQuestionsByAssociatedTextSectionIds.essentialQuestions.reduce(
           (
             acc: findEssentialQuestionsByAssociatedTextSectionIds_findEssentialQuestionsByAssociatedTextSectionIds_essentialQuestions[],
-            i
+            i,
           ) => {
             return acc.some((q) => q._id === i._id) ? [...acc] : [...acc, i]
           },
-          []
-        )
+          [],
+        ),
       ),
     onError: (error) => console.error(error),
   })
@@ -76,11 +76,11 @@ export const EssentialQuestionBuilder = ({}: EssentialQuestionBuilderProps) => {
     data?.findEssentialQuestionsByAssociatedTextSectionIds.essentialQuestions.reduce(
       (
         acc: findEssentialQuestionsByAssociatedTextSectionIds_findEssentialQuestionsByAssociatedTextSectionIds_essentialQuestions[],
-        i
+        i,
       ) => {
         return acc.some((q) => q._id === i._id) ? [...acc] : [...acc, i]
       },
-      []
+      [],
     )
   if (loading) return <div>Loading </div>
 

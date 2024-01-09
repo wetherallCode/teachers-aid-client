@@ -473,10 +473,10 @@ export const teachersAidMachine = Machine<
                     partnerIds: [
                       ...ctx.studentProtocolAssessment.partnerIds?.slice(
                         0,
-                        evt.payload
+                        evt.payload,
                       )!,
                       ...ctx.studentProtocolAssessment.partnerIds?.slice(
-                        evt.payload + 1
+                        evt.payload + 1,
                       )!,
                     ],
                   },

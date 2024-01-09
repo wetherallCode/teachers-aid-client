@@ -41,7 +41,7 @@ export const QuizQuestions = ({}: QuizQuestionsProps) => {
     onError: (error) => console.error(error),
   })
   if (loading) return <div>Loading </div>
-
+  console.log(state.context.sectionId)
   return (
     <div>
       <div>Quiz Questions</div>
@@ -51,7 +51,7 @@ export const QuizQuestions = ({}: QuizQuestionsProps) => {
             <div key={i}>
               {question.difficultyLevel}: {question.question}
             </div>
-          )
+          ),
         )}
       </div>
       <AddQuizQuestion />

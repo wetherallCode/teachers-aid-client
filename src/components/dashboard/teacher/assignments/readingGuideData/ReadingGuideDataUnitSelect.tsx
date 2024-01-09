@@ -7,9 +7,9 @@ export type ReadingGuideDataUnitSelectProps = {
   setUnitId: Dispatch<SetStateAction<string>>
 }
 
-export const ReadingGuideDataUnitSelect: FC<ReadingGuideDataUnitSelectProps> = ({
-  setUnitId,
-}) => {
+export const ReadingGuideDataUnitSelect: FC<
+  ReadingGuideDataUnitSelectProps
+> = ({ setUnitId }) => {
   const { loading, data } = useQuery<findUnits>(FIND_UNITS_QUERY, {
     variables: {
       input: {},

@@ -74,7 +74,7 @@ export const WarmUpResponse = ({
         // setPolling(2000)
       },
       refetchQueries: ['findActiveProtocolByStudent'],
-    }
+    },
   )
   return (
     <>

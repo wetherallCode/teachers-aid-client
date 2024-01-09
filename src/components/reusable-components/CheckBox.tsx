@@ -85,8 +85,8 @@ const CheckBox = ({
           boxHeight={boxHeight}
           boxWidth={boxWidth}
         >
-          <Icon viewBox='0 3 24 24'>
-            <polyline points='20 6 9 17 4 12' />
+          <Icon viewBox="0 3 24 24">
+            <polyline points="20 6 9 17 4 12" />
           </Icon>
         </StyledCheckbox>
       </CheckboxContainer>

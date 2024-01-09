@@ -35,7 +35,7 @@ export const TaskTimerDisplay: FC<TaskTimerDisplayProps> = ({
   return (
     <Timer
       initialTime={presetTime}
-      direction='backward'
+      direction="backward"
       startImmediately={true}
     >
       {({ resume, pause, stop, reset, timerState }: TimerProps) => {

@@ -61,13 +61,13 @@ export const UPDATE_RESPONSIBILITY_POINTS_MUTATION = gql`
 export type RemoveAbsenceType = (
   options?:
     | MutationFunctionOptions<removeAbsence, removeAbsenceVariables>
-    | undefined
+    | undefined,
 ) => void
 
 export type RemoveLatenessType = (
   options?:
     | MutationFunctionOptions<removeLateness, removeLatenessVariables>
-    | undefined
+    | undefined,
 ) => void
 
 export type UpdateResponsibilityPointsType = (
@@ -76,7 +76,7 @@ export type UpdateResponsibilityPointsType = (
         updateResponsibilityPoints,
         updateResponsibilityPointsVariables
       >
-    | undefined
+    | undefined,
 ) => void
 
 export const DailyAttendance = ({
@@ -104,7 +104,7 @@ export const DailyAttendance = ({
     {
       onCompleted: (data) => console.log(data),
       refetchQueries: ['findStudentByIdForTeachersAid'],
-    }
+    },
   )
   const [updateResponsibilityPoints] = useMutation<
     updateResponsibilityPoints,
@@ -115,19 +115,19 @@ export const DailyAttendance = ({
   })
 
   const todaysAbsence = student.hasAbsences.filter(
-    (a) => a.dayAbsent === new Date().toLocaleDateString()
+    (a) => a.dayAbsent === new Date().toLocaleDateString(),
   )
 
   const absenceId = todaysAbsence.length !== 0 ? todaysAbsence[0]._id! : ''
 
   const todaysExcusedLateness = student.hasExcusedLatenesses.filter(
-    (l) => l.dayLate === new Date().toLocaleDateString()
+    (l) => l.dayLate === new Date().toLocaleDateString(),
   )
   const excusedLatenessId =
     todaysExcusedLateness.length !== 0 ? todaysExcusedLateness[0]._id! : ''
 
   const todaysUnexcusedLateness = student.hasUnExcusedLatenesses.filter(
-    (l) => l.dayLate === new Date().toLocaleDateString()
+    (l) => l.dayLate === new Date().toLocaleDateString(),
   )
   const unexcusedLatenessId =
     todaysUnexcusedLateness.length !== 0 ? todaysUnexcusedLateness[0]._id! : ''

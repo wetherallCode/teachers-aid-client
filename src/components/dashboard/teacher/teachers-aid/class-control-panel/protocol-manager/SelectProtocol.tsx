@@ -115,7 +115,7 @@ export const SelectProtocol = ({
         'findLessonByCourseAndDate',
         'findStudentByIdForTeachersAid',
       ],
-    }
+    },
   )
 
   const [reactivateProtocol] = useMutation<

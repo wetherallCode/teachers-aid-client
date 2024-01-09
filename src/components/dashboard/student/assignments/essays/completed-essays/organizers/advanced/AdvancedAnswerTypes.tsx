@@ -46,7 +46,7 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = ({
         })
       },
       refetchQueries: ['findEssayById'],
-    }
+    },
   )
   // useEffect(() => {
   //   setAnswerType()
@@ -73,8 +73,8 @@ export const AdvancedAnswerTypes: FC<AdvancedAnswerTypesProps> = ({
               {question === 'HOW_PROBLEM_SOLUTION'
                 ? 'How: Problem and Solution'
                 : question === 'HOW_CAUSE_EFFECT'
-                ? 'How: Cause and Effect'
-                : 'Why: Cause and Effect'}
+                  ? 'How: Cause and Effect'
+                  : 'Why: Cause and Effect'}
             </option>
           ))}
         </select>

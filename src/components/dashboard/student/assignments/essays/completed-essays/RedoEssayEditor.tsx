@@ -80,7 +80,7 @@ export const RedoEssayEditor = ({ essay }: RedoEssayEditorProps) => {
             height: '98%',
             // userSelect: 'none',
           }}
-          placeholder='Start with your topic statement....'
+          placeholder="Start with your topic statement...."
           onPaste={(e: SyntheticEvent) => {
             e.preventDefault()
           }}
@@ -160,8 +160,8 @@ export const Leaf = (props: any) => {
         textDecoration: props.leaf.strikeThrough
           ? 'line-through'
           : props.leaf.underline
-          ? 'underline'
-          : 'none',
+            ? 'underline'
+            : 'none',
       }}
     >
       {props.children}

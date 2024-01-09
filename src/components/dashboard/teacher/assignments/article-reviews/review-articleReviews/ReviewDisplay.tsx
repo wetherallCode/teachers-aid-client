@@ -104,12 +104,12 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
     .reduce(
       (accum: string[], cValue) =>
         accum.includes(cValue) ? [...accum] : [...accum, cValue],
-      []
+      [],
     )
   const dateToReview = data?.findArticleReviewsByCourse.articleReviews.filter(
     (review) => {
       return review.assignedDate === state.context.selectedDate
-    }
+    },
   )
   const reviewNeedsGrading = data?.findArticleReviewsByCourse.articleReviews
     .filter((review) => review.completed && !review.returned)
@@ -117,7 +117,7 @@ export const ReviewDisplay: FC<ReviewDisplayProps> = () => {
     .reduce(
       (accum: string[], cValue) =>
         accum.includes(cValue) ? [...accum] : [...accum, cValue],
-      []
+      [],
     )
   const [courseName] = me.teachesCourses
     .filter((courseName) => courseName._id === state.context.courseToReview)

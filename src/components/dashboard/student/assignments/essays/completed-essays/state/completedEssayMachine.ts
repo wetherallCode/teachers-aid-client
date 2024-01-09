@@ -870,7 +870,7 @@ export const completedEssayMachine = Machine<
                         SET_WHY_CAUSE_EFFECT: {
                           actions: assign((ctx, evt) => {
                             console.log(
-                              ctx.academicOrganizer.answer.whyCauseEffect
+                              ctx.academicOrganizer.answer.whyCauseEffect,
                             )
                             return {
                               ...ctx,
@@ -1207,8 +1207,7 @@ export const completedEssayMachine = Machine<
                       on: {
                         PREVIOUS:
                           '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.conclusion',
+                        NEXT: '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.conclusion',
                         SET_PROBLEM_SOLUTION: {
                           actions: assign((ctx, evt) => {
                             return {
@@ -1229,8 +1228,7 @@ export const completedEssayMachine = Machine<
                       on: {
                         PREVIOUS:
                           '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.conclusion',
+                        NEXT: '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.conclusion',
                         SET_WHY_CAUSE_EFFECT: {
                           actions: assign((ctx, evt) => {
                             return {
@@ -1251,8 +1249,7 @@ export const completedEssayMachine = Machine<
                       on: {
                         PREVIOUS:
                           '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.answer.questionType',
-                        NEXT:
-                          '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.conclusion',
+                        NEXT: '#completedEssay.reviewOrganizer.organizers.advancedOrganizer.conclusion',
                         SET_HOW_CAUSE_EFFECT: {
                           actions: assign((ctx, evt) => {
                             return {

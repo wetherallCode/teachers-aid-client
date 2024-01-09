@@ -22,7 +22,7 @@ export const CourseDirectory = ({}: CourseDirectoryProps) => {
   const [hiddenSwitch, toggleHiddenSwitch] = useToggle(false)
 
   const courseList = me.teachesCourses.filter(
-    (course) => course.hasCourseInfo.isHidden === hiddenSwitch
+    (course) => course.hasCourseInfo.isHidden === hiddenSwitch,
   )
 
   return (

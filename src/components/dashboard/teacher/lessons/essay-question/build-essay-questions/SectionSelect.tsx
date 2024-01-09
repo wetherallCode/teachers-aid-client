@@ -40,7 +40,7 @@ export const SectionSelect = ({}: SectionSelectProps) => {
                 key={section._id!}
                 // selected={section._id === state.context.currentSection[0]}
                 selected={state.context.essayQuestionInfo.associatedTextSectionsIds.includes(
-                  section._id!
+                  section._id!,
                 )}
                 onClick={() => {
                   // event({
@@ -57,7 +57,7 @@ export const SectionSelect = ({}: SectionSelectProps) => {
                 {section.header}
               </SectionSelectorOption>
             </>
-          )
+          ),
         )}
       </div>
       <button onClick={() => event({ type: 'NEXT' })}>Next</button>

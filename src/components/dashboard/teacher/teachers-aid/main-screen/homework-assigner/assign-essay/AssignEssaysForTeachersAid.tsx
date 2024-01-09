@@ -22,12 +22,9 @@ export const ASSIGN_ESSAYS_MUTATION = gql`
     }
   }
 `
-export const AssignEssaysForTeachersAid: FC<AssignEssaysForTeachersAidProps> = ({
-  studentIds,
-  dueDate,
-  finished,
-  loading,
-}) => {
+export const AssignEssaysForTeachersAid: FC<
+  AssignEssaysForTeachersAidProps
+> = ({ studentIds, dueDate, finished, loading }) => {
   const [state] = useTeachersAidContextProvider()
 
   const [assignEssays, { called, data }] = useMutation<

@@ -13,13 +13,13 @@ export const AssignmentDashboardDisplay =
       <AssignmentDashboardDisplayContainer>
         <AssignmentTitle>Assignments</AssignmentTitle>
         <AssignmentDisplayOptionsContainer>
-          <AssignmentsDisplayOptionsLink to='create'>
+          <AssignmentsDisplayOptionsLink to="create">
             Create
           </AssignmentsDisplayOptionsLink>
-          <AssignmentsDisplayOptionsLink to='grade'>
+          <AssignmentsDisplayOptionsLink to="grade">
             Grade
           </AssignmentsDisplayOptionsLink>
-          <AssignmentsDisplayOptionsLink to='check'>
+          <AssignmentsDisplayOptionsLink to="check">
             Check
           </AssignmentsDisplayOptionsLink>
         </AssignmentDisplayOptionsContainer>

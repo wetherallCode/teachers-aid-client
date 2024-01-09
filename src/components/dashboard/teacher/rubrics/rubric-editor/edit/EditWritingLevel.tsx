@@ -10,7 +10,7 @@ export const EditWritingLevel: FC<EditWritingLevelProps> = () => {
   const [state, event] = useRubricEditorContextProvider()
 
   const [writingLevelList, handleCheckbox] = useCheckBox(
-    state.context.editableRubricEntry.rubricWritingLevels
+    state.context.editableRubricEntry.rubricWritingLevels,
   )
 
   const { writingLevelEnum } = useEnumContextProvider()
@@ -32,7 +32,7 @@ export const EditWritingLevel: FC<EditWritingLevelProps> = () => {
       {writingLevelEnum.map((level: WritingLevelEnum) => (
         <div key={level}>
           <input
-            type='checkbox'
+            type="checkbox"
             value={level}
             checked={writingLevelList.includes(level)}
             onChange={handleCheckbox}

@@ -51,7 +51,10 @@ export const SwitchCourse = ({ student }: SwitchCourseProps) => {
       },
     },
     onCompleted: (data) => {
-      event({ type: 'UPDATE_STUDENT', payload: data.switchToNewCourse.student })
+      event({
+        type: 'UPDATE_STUDENT',
+        payload: data.switchToNewCourse.student,
+      })
       toggleConfirm()
     },
     refetchQueries: ['findAllStudentsForStudentInformation'],

@@ -36,7 +36,7 @@ export type AssessProtocolProps = {
   loadStudentInfo: (
     options?:
       | QueryLazyOptions<findStudentByIdForTeachersAidVariables>
-      | undefined
+      | undefined,
   ) => void
   student: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student
   grade: number
@@ -74,7 +74,7 @@ export const AssessProtocol = ({
   const [schoolDayInfo] = useSchoolDayContextProvider()
 
   const [currentActiveProtocol] = protocols.filter(
-    (protocol) => protocol.isActive
+    (protocol) => protocol.isActive,
   )
   console.log(currentActiveProtocol)
   const [assessStudentProtocol] = useMutation<
@@ -94,17 +94,17 @@ export const AssessProtocol = ({
     for (const _id of state.context.studentProtocolAssessment.partnerIds!) {
       if (!state.context.courseInfo!.cohortBasedSeating) {
         const [student] = state.context.courseInfo!.assignedSeats.filter(
-          (student) => student.student?._id === _id
+          (student) => student.student?._id === _id,
         )
         partnerList.push(student.student?.firstName!)
       } else if (schoolDayInfo.context.currentSchoolDay.cohortWeek === 'RED') {
         const [student] = state.context.courseInfo!.assignedSeats.filter(
-          (student) => student.redCohortStudent?._id === _id
+          (student) => student.redCohortStudent?._id === _id,
         )
         partnerList.push(student.redCohortStudent?.firstName!)
       } else {
         const [student] = state.context.courseInfo!.assignedSeats.filter(
-          (student) => student.whiteCohortStudent?._id === _id
+          (student) => student.whiteCohortStudent?._id === _id,
         )
         partnerList.push(student.whiteCohortStudent?.firstName!)
       }
@@ -113,7 +113,7 @@ export const AssessProtocol = ({
   const partnerDiscussionTypes = discussionTypesEnum.slice(1)
 
   const selectedStudent = state.context.courseInfo!.assignedSeats!.filter(
-    (seat) => seat.student?._id! === student._id!
+    (seat) => seat.student?._id! === student._id!,
   )[0]!
 
   return (
@@ -142,18 +142,18 @@ export const AssessProtocol = ({
                 event({ type: 'ADD_PARTNERS', payload: e.target.value })
               }}
             >
-              <option value='none'>Select Partners</option>
+              <option value="none">Select Partners</option>
               {!state.context.courseInfo!.cohortBasedSeating
                 ? state.context
                     .courseInfo!.assignedSeats.filter(
                       (seat) =>
-                        seat.student?._id !== student._id && seat.student
+                        seat.student?._id !== student._id && seat.student,
                     )
                     .filter(
                       (seat) =>
                         !state.context.studentProtocolAssessment.partnerIds?.includes(
-                          seat.student?._id!
-                        )
+                          seat.student?._id!,
+                        ),
                     )
                     .sort((seat, selectedStudent) => {
                       if (seat.deskNumber > selectedStudent.deskNumber) {
@@ -175,34 +175,34 @@ export const AssessProtocol = ({
                       )
                     })
                 : schoolDayInfo.context.currentSchoolDay.cohortWeek === 'RED'
-                ? state.context
-                    .courseInfo!.assignedSeats.filter(
-                      (seat) =>
-                        seat.redCohortStudent?._id !== student._id &&
-                        seat.redCohortStudent
-                    )
-                    .map((student) => (
-                      <option
-                        key={student.redCohortStudent?._id!}
-                        value={student.redCohortStudent?._id!}
-                      >
-                        {student.redCohortStudent?.firstName}
-                      </option>
-                    ))
-                : state.context
-                    .courseInfo!.assignedSeats.filter(
-                      (seat) =>
-                        seat.whiteCohortStudent?._id !== student._id &&
-                        seat.whiteCohortStudent
-                    )
-                    .map((student) => (
-                      <option
-                        key={student.whiteCohortStudent?._id!}
-                        value={student.whiteCohortStudent?._id!}
-                      >
-                        {student.whiteCohortStudent?.firstName}
-                      </option>
-                    ))}
+                  ? state.context
+                      .courseInfo!.assignedSeats.filter(
+                        (seat) =>
+                          seat.redCohortStudent?._id !== student._id &&
+                          seat.redCohortStudent,
+                      )
+                      .map((student) => (
+                        <option
+                          key={student.redCohortStudent?._id!}
+                          value={student.redCohortStudent?._id!}
+                        >
+                          {student.redCohortStudent?.firstName}
+                        </option>
+                      ))
+                  : state.context
+                      .courseInfo!.assignedSeats.filter(
+                        (seat) =>
+                          seat.whiteCohortStudent?._id !== student._id &&
+                          seat.whiteCohortStudent,
+                      )
+                      .map((student) => (
+                        <option
+                          key={student.whiteCohortStudent?._id!}
+                          value={student.whiteCohortStudent?._id!}
+                        >
+                          {student.whiteCohortStudent?.firstName}
+                        </option>
+                      ))}
             </select>
             <PartnerListContainer>
               {partnerList.map((partner, i: number) => (
@@ -243,7 +243,7 @@ export const AssessProtocol = ({
                     {phraseCapitalizer(underscoreEliminator(discussionType))}
                   </AssessorButton>
                 )
-              }
+              },
             )}
           </DiscussionContainer>
         )}

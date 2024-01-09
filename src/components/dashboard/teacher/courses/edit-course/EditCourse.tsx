@@ -97,10 +97,10 @@ export const EditCourse = ({}: EditCourseProps) => {
             assignedSeats.length === 12
               ? CourseMaxSizeEnum.TWELVE
               : assignedSeats.length === 24
-              ? CourseMaxSizeEnum.TWENTY_FOUR
-              : assignedSeats.length === 30
-              ? CourseMaxSizeEnum.THIRTY
-              : CourseMaxSizeEnum.THIRTY_SIX,
+                ? CourseMaxSizeEnum.TWENTY_FOUR
+                : assignedSeats.length === 30
+                  ? CourseMaxSizeEnum.THIRTY
+                  : CourseMaxSizeEnum.THIRTY_SIX,
         },
       })
     },

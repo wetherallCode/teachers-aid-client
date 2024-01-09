@@ -51,7 +51,7 @@ export const StudentBehavior = ({ me }: StudentBehaviorProps) => {
             {data?.findBehaviorsByStudentIdAndDate.behaviors
               .filter(
                 (b) =>
-                  b.behavior.behaviorQuality === BehaviorQualityEnum.POSITIVE
+                  b.behavior.behaviorQuality === BehaviorQualityEnum.POSITIVE,
               )
               .map((b) => (
                 <BehaviorItem key={b._id}>
@@ -67,7 +67,7 @@ export const StudentBehavior = ({ me }: StudentBehaviorProps) => {
             {data?.findBehaviorsByStudentIdAndDate.behaviors
               .filter(
                 (b) =>
-                  b.behavior.behaviorQuality === BehaviorQualityEnum.NEGATIVE
+                  b.behavior.behaviorQuality === BehaviorQualityEnum.NEGATIVE,
               )
               .map((b) => (
                 <BehaviorItem key={b._id}>

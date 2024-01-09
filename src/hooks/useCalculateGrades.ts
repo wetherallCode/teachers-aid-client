@@ -119,7 +119,7 @@ export const useCalculateGrades = ({
         !assignment.finalDraft &&
         assignment.markingPeriod === markingPeriod &&
         Date.parse(new Date().toLocaleString()) >
-          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`))
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
   )!
 
   const allSecondaryGrades =
@@ -129,7 +129,7 @@ export const useCalculateGrades = ({
         assignment.markingPeriod === markingPeriod &&
         !assignment.exempt &&
         Date.parse(new Date().toLocaleString()) >
-          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)
+          Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
     )!
 
   const responsibilityPoints =
@@ -137,7 +137,7 @@ export const useCalculateGrades = ({
 
   const handleScoring = (
     assignments: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments[],
-    gradeWeightPercentage: number
+    gradeWeightPercentage: number,
   ) => {
     const earnedPoints = assignments
       .map((essay) => essay.score.earnedPoints)
@@ -154,7 +154,7 @@ export const useCalculateGrades = ({
 
   const handeResponsiblityPointScore = (
     responsibilityPointsGrade: number,
-    gradeWeightPercentage: number
+    gradeWeightPercentage: number,
   ) => {
     return (
       (Math.round(1000 * responsibilityPointsGrade) / 1000) *
@@ -270,7 +270,7 @@ export const useCalculateGrades = ({
 
       const gradeTotal = (primaryGrade: number, supportiveGrade: number) => {
         const number = Number(
-          Number(primaryGrade) + Number(supportiveGrade)
+          Number(primaryGrade) + Number(supportiveGrade),
         ).toFixed(2)
 
         return Math.round(Number(number) * 10) / 10
@@ -291,7 +291,7 @@ export const useCalculateGrades = ({
 
       const gradeTotal = (secondary: number, supportiveGrade: number) => {
         const number = Number(
-          Number(secondary) + Number(supportiveGrade)
+          Number(secondary) + Number(supportiveGrade),
         ).toFixed(2)
 
         return Math.round(Number(number) * 10) / 10
@@ -313,7 +313,7 @@ export const useCalculateGrades = ({
       const rp = handeResponsiblityPointScore(responsibilityPoints, 10)
 
       const totalGrade = Number(
-        Number(primaryGrade) + Number(secondaryGrade) + Number(rp)
+        Number(primaryGrade) + Number(secondaryGrade) + Number(rp),
       ).toFixed(3)
       // console.log(handleScoring(allEssays, 100))
       return {

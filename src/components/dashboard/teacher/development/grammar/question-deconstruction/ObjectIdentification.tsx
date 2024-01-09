@@ -26,8 +26,9 @@ export const ObjectIdentification = ({
 }: ObjectIdentificationProps) => {
   const [select, text, reset] = useSelectedText()
   const [step, setStep] = useState<'stepOne' | 'stepTwo'>('stepOne')
-  const [transitiveQuestionMessage, setTransitiveQuestionMessage] =
-    useState<string | null>(null)
+  const [transitiveQuestionMessage, setTransitiveQuestionMessage] = useState<
+    string | null
+  >(null)
   const { correctObject, message, correctMessage, howToFix } = objectGrader({
     completePredicate: question.completePredicate,
     completeSubject: question.completeSubject,
@@ -85,7 +86,7 @@ export const ObjectIdentification = ({
             onClick={() => {
               if (transitiveVerb) {
                 setTransitiveQuestionMessage(
-                  'Correct, this verb has an object and we are going to find it!'
+                  'Correct, this verb has an object and we are going to find it!',
                 )
                 setTimeout(() => {
                   setStep('stepTwo')
@@ -106,14 +107,14 @@ export const ObjectIdentification = ({
             onClick={() => {
               if (transitiveVerb) {
                 setTransitiveQuestionMessage(
-                  'Incorrect, the verb has an object. Now we are going to find it!'
+                  'Incorrect, the verb has an object. Now we are going to find it!',
                 )
                 setTimeout(() => {
                   setStep('stepTwo')
                 }, 3000)
               } else {
                 setTransitiveQuestionMessage(
-                  'You are correct! This verb is intransitive and has no object.'
+                  'You are correct! This verb is intransitive and has no object.',
                 )
                 setState('ending-phrase')
               }

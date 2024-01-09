@@ -128,11 +128,11 @@ export const buildEssayQuestionMachine = Machine<
                 const { associatedTextSectionsIds } = ctx.essayQuestionInfo
                 if (
                   ctx.essayQuestionInfo.associatedTextSectionsIds.includes(
-                    evt.payload
+                    evt.payload,
                   )
                 ) {
                   const sectionIdIndex = associatedTextSectionsIds.findIndex(
-                    (index) => index === evt.payload
+                    (index) => index === evt.payload,
                   )
                   return {
                     ...ctx,
@@ -141,10 +141,10 @@ export const buildEssayQuestionMachine = Machine<
                       associatedTextSectionsIds: [
                         ...ctx.essayQuestionInfo.associatedTextSectionsIds.slice(
                           0,
-                          sectionIdIndex
+                          sectionIdIndex,
                         ),
                         ...ctx.essayQuestionInfo.associatedTextSectionsIds.slice(
-                          sectionIdIndex + 1
+                          sectionIdIndex + 1,
                         ),
                       ],
                     },

@@ -50,7 +50,7 @@ export const MarkingPeriodContextProvider: FC<MarkingPeriodContext> = ({
         }),
       onError: (error) =>
         error && <div>Things went wrong, please refresh!</div>,
-    }
+    },
   )
   if (loading) {
     return (
@@ -80,11 +80,11 @@ export function useMarkingPeriodContextProvider() {
   const context = useContext(MarkingPeriodContext)
   if (context === undefined) {
     throw new Error(
-      'useMarkingPeriodContextProvider must be used within a MarkingPeriodContextProvider'
+      'useMarkingPeriodContextProvider must be used within a MarkingPeriodContextProvider',
     )
   }
   return context as [
     State<markingPeriodMachineContext, markingPeriodMachineEvent, any, any>,
-    (event: markingPeriodMachineEvent) => void
+    (event: markingPeriodMachineEvent) => void,
   ]
 }

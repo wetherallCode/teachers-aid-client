@@ -67,7 +67,7 @@ export const CreateArticleReviews: FC<CreateArticleReviewsProps> = () => {
       <div>Create Article Reviews</div>
       <div>Assigned Date: </div>
       <input
-        type='date'
+        type="date"
         onChange={(e: any) =>
           event({
             type: 'SET_ASSIGNED_DATE',
@@ -77,7 +77,7 @@ export const CreateArticleReviews: FC<CreateArticleReviewsProps> = () => {
       />
       <div>Due Date: </div>
       <input
-        type='date'
+        type="date"
         onChange={(e: any) =>
           event({
             type: 'SET_DUE_DATE',
@@ -97,10 +97,10 @@ export const CreateArticleReviews: FC<CreateArticleReviewsProps> = () => {
             {time === 'BEFORE_SCHOOL'
               ? 'Before School'
               : time === 'BEFORE_CLASS'
-              ? 'Before Class'
-              : time === 'END_OF_CLASS'
-              ? 'After Class'
-              : 'After School'}
+                ? 'Before Class'
+                : time === 'END_OF_CLASS'
+                  ? 'After Class'
+                  : 'After School'}
           </option>
         ))}
       </select>

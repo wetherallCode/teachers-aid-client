@@ -8,7 +8,7 @@ export type SubjectPredicateProps = {
 export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
   const [select, text, reset] = useSelectedText()
   const [state, setState] = useState<'subject' | 'predicate' | 'final'>(
-    'subject'
+    'subject',
   )
   const [subject, setSubject] = useState('')
   const [predicate, setPredicate] = useState('')
@@ -16,7 +16,7 @@ export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
 
   let subjectOfSentence = sentence.slice(
     sentence.indexOf(subject),
-    subject.length + sentence.indexOf(subject)
+    subject.length + sentence.indexOf(subject),
   )
 
   let predicateOfSentence = sentence
@@ -32,13 +32,13 @@ export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
           sentence.slice(endOfSubject),
         ]
       : subject && predicate
-      ? [
-          sentence.slice(0, sentence.indexOf(subject)),
-          subjectOfSentence,
-          ' | ',
-          predicateOfSentence,
-        ]
-      : [sentence]
+        ? [
+            sentence.slice(0, sentence.indexOf(subject)),
+            subjectOfSentence,
+            ' | ',
+            predicateOfSentence,
+          ]
+        : [sentence]
 
   const correctSubject = 'A good player'
   const correctPredicate = 'respects their team.'
@@ -65,11 +65,11 @@ export const SubjectPredicate = ({ sentence }: SubjectPredicateProps) => {
                 part === subjectOfSentence
                   ? { textDecoration: 'underline' }
                   : part === predicateOfSentence && predicate !== ''
-                  ? {
-                      textDecoration: 'underline',
-                      textDecorationStyle: 'double',
-                    }
-                  : {}
+                    ? {
+                        textDecoration: 'underline',
+                        textDecorationStyle: 'double',
+                      }
+                    : {}
               }
               key={part}
             >

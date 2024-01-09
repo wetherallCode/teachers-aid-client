@@ -36,7 +36,7 @@ export const FindAllQuizzableLessons = ({
     },
     onCompleted: (data) => {
       const courseIds = data?.findLessonsByAssignedDate.lessons?.map(
-        (lesson) => lesson.assignedCourses[0]._id
+        (lesson) => lesson.assignedCourses[0]._id,
       ) as string[]
       event({
         type: 'SET_QUIZ_INPUTS',
