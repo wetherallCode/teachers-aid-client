@@ -45,8 +45,8 @@ const client = new ApolloClient({
       },
     },
   }),
-  // link: prodLink,
-  link: devLink,
+  link: prodLink,
+  // link: devLink,
   connectToDevTools: true,
 })
 
@@ -68,5 +68,5 @@ ReactDOM.render(
       </Router>
     </React.StrictMode>
   </ApolloProvider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 )
