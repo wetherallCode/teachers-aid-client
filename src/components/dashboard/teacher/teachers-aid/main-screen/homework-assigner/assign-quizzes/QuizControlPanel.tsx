@@ -52,30 +52,33 @@ export const QuizControlPanel = ({
       refetchQueries: ['findQuizzesForCourseByAssignedDate'],
     },
   )
-  const totalEarnedPoints = quizzes
-    .filter((q) => q.finishedQuiz)
-    .map((q) => q.score.earnedPoints)
-    .reduce((a, i) => a + i)
-  const totalMaxPoints = quizzes
-    .filter((q) => q.finishedQuiz)
-    .map((q) => q.score.maxPoints)
-    .reduce((a, i) => a + i)
-  const totalScore = totalEarnedPoints / totalMaxPoints
+  // const totalEarnedPoints =
+  //   quizzes &&
+  //   quizzes
+  //     .filter((q) => q.finishedQuiz)
+  //     .map((q) => q.score.earnedPoints)
+  //     .reduce((a, i) => a + i)
+  // const totalMaxPoints =
+  //   quizzes &&
+  //   quizzes
+  //     .filter((q) => q.finishedQuiz)
+  //     .map((q) => q.score.maxPoints)
+  //     .reduce((a, i) => a + i)
+  // const totalScore = quizzes && totalEarnedPoints / totalMaxPoints
 
   return (
     <QuizControlPanelContainer>
       <QuizNameContainer>
-        <div>
+        {/*<div>
           {quizzes[0].readings.readingSections + ' '} <br />
           Quiz Average:
-          {' ' + (totalScore * 100).toFixed(2)}%
-        </div>
+         {' ' + (totalScore * 100).toFixed(2)}%
+        </div>*/}
         <AssignAllQuizzesButton
           onClick={() =>
             assignQuizzes({
               variables: {
                 input: {
-                  // assignedDate: '10/17/2021',
                   assignedDate: new Date().toLocaleDateString(),
                   studentIds: presentStudentList,
                   assign: true,
