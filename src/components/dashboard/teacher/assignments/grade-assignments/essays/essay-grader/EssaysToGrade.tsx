@@ -69,7 +69,7 @@ export const FIND_ESSAYS_TO_GRADE_BY_ID_QUERY = gql`
   }
 `
 
-export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
+export const EssaysToGrade = ({ courseId }: EssaysToGradeProps) => {
   const [state, event] = useGradeEssayContainerContextProvider()
   const [orderBy, switchOrder] = useToggle(false)
   const [essayList, setEssayList] = useState<
@@ -79,8 +79,8 @@ export const EssaysToGrade: FC<EssaysToGradeProps> = ({ courseId }) => {
   const { markingPeriodEnum } = useEnumContextProvider()
 
   const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
-    // markingPeriodState.context.currentMarkingPeriod
-    MarkingPeriodEnum.FIRST,
+    markingPeriodState.context.currentMarkingPeriod,
+    // MarkingPeriodEnum.FIRST,
   )
 
   const [resubmittedEssayList, setResubmittedEssayList] = useState<
