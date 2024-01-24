@@ -86,6 +86,10 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*    missing work and redone essays in by Wednesday 12/13/2023!*/}
                 {/*  </div>*/}
                 {/*)}*/}
+                <div style={{ fontSize: '2.5vh' }}>
+                  All work for the Second Marking Period is due by February 12th
+                  at 8:00 AM.
+                </div>
               </div>
               <div></div>
             </HomeScreenTitle>
