@@ -9,7 +9,7 @@ export type ReadingGuideQuestionState =
   | 'PROBLEM'
   | 'WHY_PROBLEM'
   | 'SOLUTION'
-  | 'SOLUTIONS_REACTIONS'
+  | 'SOLUTIONS_REASON'
   | 'ASSUMPTIONS'
 
 export type ReadingGuideQuestionObjectType = {
@@ -79,14 +79,13 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   {
     questionType: 'SOLUTION',
     question:
-      "How was the problem being faced solved? If the reading doesn't show  how they solved it, figure out a way the problem could have been solved.",
+      "How was the problem solved, or did they attempt to solve it? If the reading doesn't show  how they solved it, figure out a way the problem could have been solved.",
     directions:
       'Only use the assigned readings. Use of google will result in partial or no credit.',
   },
   {
-    questionType: 'SOLUTIONS_REACTIONS',
-    question:
-      "What was the reaction to the solution? If the reading doesn't show the reaction, what logical reactions do you expect to happen (be as specific as you can)?",
+    questionType: 'SOLUTIONS_REASON',
+    question: 'Why did the solution solve the problem',
     directions:
       'Only use the assigned readings. Use of google will result in partial or no credit.',
   },

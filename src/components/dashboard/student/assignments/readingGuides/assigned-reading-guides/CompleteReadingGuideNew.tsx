@@ -65,7 +65,7 @@ export const CompleteReadingGuideNew = ({
   const developingState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
     'WHAT_DID_SUBJECT_DO',
-    'HOW_DID_SUBJECT_DO_IT',
+    // 'HOW_DID_SUBJECT_DO_IT',
     'WHY_DID_SUBJECT_DO_IT',
   ]
   const academicState: ReadingGuideQuestionState[] = [
@@ -77,7 +77,7 @@ export const CompleteReadingGuideNew = ({
     'SUBJECT_OF_SECTION',
     'PROBLEM',
     'SOLUTION',
-    'SOLUTIONS_REACTIONS',
+    'SOLUTIONS_REASON',
     'MAIN_IDEA',
   ]
   const masterState: ReadingGuideQuestionState[] = [
@@ -85,7 +85,7 @@ export const CompleteReadingGuideNew = ({
     'PROBLEM',
     'WHY_PROBLEM',
     'SOLUTION',
-    'SOLUTIONS_REACTIONS',
+    'SOLUTIONS_REASON',
     'ASSUMPTIONS',
     'MAIN_IDEA',
   ]
@@ -259,7 +259,7 @@ export const CompleteReadingGuideNew = ({
         )}
       </>
       <>
-        {currentState[currentIndex] === 'SOLUTIONS_REACTIONS' && (
+        {currentState[currentIndex] === 'SOLUTIONS_REASON' && (
           <GenericQuestionBlank
             setCurrentIndex={setCurrentIndex}
             currentIndex={currentIndex}
