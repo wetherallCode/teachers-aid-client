@@ -74,22 +74,22 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <Greetings phrase={me.firstName} />
                 <br />
                 <br />
-                {/*{courseName ? (*/}
-                {/*  <div style={{ fontSize: "2.5vh" }}>*/}
-                {/*    I'm in a meeting this morning, so read the assigned text and*/}
-                {/*    complete the reading guide for the assigned lesson today. If*/}
-                {/*    you have time, do makeup work.*/}
-                {/*  </div>*/}
-                {/*) : (*/}
-                {/*  <div style={{ fontSize: "2.5vh" }}>*/}
-                {/*    Interim Reports are going out soon, so have all of your*/}
-                {/*    missing work and redone essays in by Wednesday 12/13/2023!*/}
-                {/*  </div>*/}
-                {/*)}*/}
-                <div style={{ fontSize: '2.5vh' }}>
-                  All work for the Second Marking Period is due by February 12th
-                  at 8:00 AM.
-                </div>
+                {courseName ? (
+                  <div style={{ fontSize: '2.5vh' }}>
+                    I'm in a meeting this morning, so read the assigned text and
+                    complete the essay for the assigned lesson today. If you
+                    have time, do makeup work.
+                  </div>
+                ) : (
+                  <div style={{ fontSize: '2.5vh' }}>
+                    All work for the Second Marking Period is due by February
+                    12th at 8:00 AM.
+                  </div>
+                )}
+                {/*<div style={{ fontSize: '2.5vh' }}>*/}
+                {/*  All work for the Second Marking Period is due by February 12th*/}
+                {/*  at 8:00 AM.*/}
+                {/*</div>*/}
               </div>
               <div></div>
             </HomeScreenTitle>
