@@ -53,22 +53,22 @@ export const QuizControlPanel = ({
     },
   )
 
-  const totalEarnedPoints =
-    quizzes &&
-    quizzes
-      .filter((q) => q.finishedQuiz)
-      .map((q) => q.score.earnedPoints)
-      .reduce((a, i) => a + i, 0)
-  const totalMaxPoints =
-    quizzes &&
-    quizzes
-      .filter((q) => q.finishedQuiz)
-      .map((q) => q.score.maxPoints)
-      .reduce((a, i) => a + i, 0)
-  if (totalEarnedPoints !== 0 && totalMaxPoints !== 0) {
-    const totalScore = totalEarnedPoints / totalMaxPoints
-    console.log(totalScore)
-  }
+  // const totalEarnedPoints =
+  //   quizzes &&
+  //   quizzes
+  //     .filter((q) => q.finishedQuiz)
+  //     .map((q) => q.score.earnedPoints)
+  //     .reduce((a, i) => a + i, 0)
+  // const totalMaxPoints =
+  //   quizzes &&
+  //   quizzes
+  //     .filter((q) => q.finishedQuiz)
+  //     .map((q) => q.score.maxPoints)
+  //     .reduce((a, i) => a + i, 0)
+  // if (totalEarnedPoints !== 0 && totalMaxPoints !== 0) {
+  //   const totalScore = totalEarnedPoints / totalMaxPoints
+  //   console.log(totalScore)
+  // }
   return (
     <QuizControlPanelContainer>
       <QuizNameContainer>
