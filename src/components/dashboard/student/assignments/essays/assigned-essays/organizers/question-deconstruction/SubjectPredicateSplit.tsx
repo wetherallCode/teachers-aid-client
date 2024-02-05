@@ -232,28 +232,3 @@ export const SubjectPredicateSplit = ({
     </>
   )
 }
-// {question.helpingVerb === 'did' ? (
-//   <div>
-//     "
-//     {newSentence[2].split('')[0].toString().toUpperCase() +
-//       newSentence[2].slice(1, newSentence[2].length - 1)}
-//     " is the complete predicate of the sentence because it is what
-//     the {question.nounType.toLowerCase()} is doing.
-//   </div>
-// ) : auxilaryVerbCheck ? (
-//   <div>
-//     "
-//     {newSentence[2].split('')[0].toString().toUpperCase() +
-//       newSentence[2].slice(1, newSentence[2].length - 1)}
-//     " is the complete predicate of the sentence because it is what
-//     is being done to the {question.nounType.toLowerCase()}.
-//   </div>
-// ) : (
-//   <div>
-//     "
-//     {newSentence[2].split('')[0].toString().toUpperCase() +
-//       newSentence[2].slice(1, newSentence[2].length - 1)}
-//     " is the complete predicate of the sentence because it is what
-//     the {question.nounType.toLowerCase()} is.
-//   </div>
-// )}

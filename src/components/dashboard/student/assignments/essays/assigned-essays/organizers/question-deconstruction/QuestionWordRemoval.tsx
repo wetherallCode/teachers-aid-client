@@ -71,8 +71,8 @@ export const QuestionWordRemoval = ({
       <RestatementDirectionsContainer>
         <UnderlinedText>Remove Question Word</UnderlinedText>
         <div>
-          Select the question word by double clicking (or double tapping) the
-          word you think is the question word in the sentence below.
+          Select the question word by double clicking the word you think is the
+          question word in the sentence below.
         </div>
       </RestatementDirectionsContainer>
 

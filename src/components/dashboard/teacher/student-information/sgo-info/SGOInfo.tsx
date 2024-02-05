@@ -19,6 +19,7 @@ import {
   SGOTypeSwitchContainer,
 } from '../state-n-styles/studentInformationStyles'
 import { Essays } from './Essays'
+import { ALL } from 'node:dns'
 
 export type SGOInfoProps = {
   studentId: string
@@ -60,6 +61,7 @@ export const FIND_ESSAYS_BY_STUDENT_QUERY = gql`
     }
   }
 `
+
 export const FIND_ESSAY_QUESTION_INFO_FOR_SGO_QUERY = gql`
   query findEssayQuestionByIdForSGO($input: FindEssayQuestionByIdInput!) {
     findEssayQuestionById(input: $input) {
@@ -151,19 +153,20 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
     variables: {
       input: { studentId },
     },
-    onCompleted: (data) => console.log(data.findSGOEssaysByStudentId.essays),
+    // onCompleted: (data) => console.log(data.findSGOEssaysByStudentId.essays),
     onError: (error) => console.error(error),
   })
-  const { data: allEssays } = useQuery<
+  const { loading: allEssayLoading, data: allEssays } = useQuery<
     findEssaysByStudentId,
     findEssaysByStudentIdVariables
   >(FIND_ESSAYS_BY_STUDENT_QUERY, {
     variables: {
       input: { studentId },
     },
-    // onCompleted: (data) => console.log(data),
+    onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+
   const { data: allQuestionsData } = useQuery<findAllQuestions>(
     FIND_ALL_ESSAY_QUESTIONS_QUERY,
     {
@@ -171,17 +174,29 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
       onError: (error) => console.error(error),
     },
   )
+  if (allEssayLoading) return <div>Loading</div>
   const essayTotal = 40
+
   const sgoEssaysList = sgoEssays?.findSGOEssaysByStudentId.essays.slice(
     0,
     essayTotal,
   )!
 
+  console.log(
+    allEssays !== undefined &&
+      allEssays?.findEssaysByStudentId.essays.filter(
+        (e) =>
+          e.__typename === 'Essay' &&
+          e.finalDraft &&
+          e.score.earnedPoints !== 0,
+      ),
+  )
+
   const allEssayList = allEssays?.findEssaysByStudentId
     .essays!.filter(
-      (essay) =>
-        // essay.finalDraft &&
-        essay.markingPeriod !== 'FIRST',
+      (essay) => {},
+      // essay.finalDraft &&
+      // essay.markingPeriod !== 'FIRST',
       //  &&
       // essay.score.earnedPoints !== 0
     )
@@ -200,7 +215,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
       return 0
     })
   // .slice(0, 40)!
-
+  // console.log(allEssayList)
   const questionList = allQuestionsData?.findAllQuestions.questions.slice(
     16,
     allQuestionsData.findAllQuestions.questions.length - 1,
@@ -250,7 +265,7 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
           }
           return 0
         })[0]
-
+        console.log(bestEssay)
         let answerScoreContainer: number[] = []
         let conclusionScoreContainer: number[] = []
 
@@ -558,8 +573,8 @@ export const SGOInfo = ({ studentId }: SGOInfoProps) => {
         }
         i = i + 1
       }
-      console.log(answerEntryScore)
-      console.log(conclusionEntryScore)
+      // console.log(answerEntryScore)
+      // console.log(conclusionEntryScore)
     }
 
     const totalAnswerScore = answerEntryScore

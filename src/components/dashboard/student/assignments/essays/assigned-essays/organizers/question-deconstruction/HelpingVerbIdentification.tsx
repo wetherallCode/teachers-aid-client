@@ -106,7 +106,6 @@ export const HelpingVerbIdentification = ({
     question.helpingVerb + ' ' + question.completePredicate
 
   const helpingVerbCheck = (word: string) => {
-    console.log(word)
     if (word === question.helpingVerb && question.helpingVerb === 'did') {
       setEnabled(false)
       removeDidHandler(word)

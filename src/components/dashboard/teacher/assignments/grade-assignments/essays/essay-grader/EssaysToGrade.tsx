@@ -79,8 +79,8 @@ export const EssaysToGrade = ({ courseId }: EssaysToGradeProps) => {
   const { markingPeriodEnum } = useEnumContextProvider()
 
   const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
-    markingPeriodState.context.currentMarkingPeriod,
-    // MarkingPeriodEnum.FIRST,
+    // markingPeriodState.context.currentMarkingPeriod,
+    MarkingPeriodEnum.SECOND,
   )
 
   const [resubmittedEssayList, setResubmittedEssayList] = useState<

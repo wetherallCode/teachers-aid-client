@@ -43,6 +43,9 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
             lesson.assignedSections.startingSection &&
             ' - ' + lesson.assignedSections.endingSection}
         </LessonDetailCenter>
+        <LessonDetailsContainer>
+          Number of Paragraphs: {}
+        </LessonDetailsContainer>
         <LessonDetailCenter>
           Essential Question: {lesson.essentialQuestion}
         </LessonDetailCenter>
