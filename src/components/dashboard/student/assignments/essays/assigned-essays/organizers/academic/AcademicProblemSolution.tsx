@@ -213,7 +213,7 @@ export const AcademicProblemSolution = ({
         </AnswerTypeContainter>
         <AnswerTypeContainter>
           <div>
-            Why did the solution solve {questionParts.simpleSubject}
+            Why did/would the solution solve {questionParts.simpleSubject}
             {properNameEndsInS ? `'` : `'s`} problem?
           </div>
           <PartTextArea
