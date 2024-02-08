@@ -85,7 +85,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   },
   {
     questionType: 'SOLUTIONS_REASON',
-    question: 'Why did the solution solve the problem',
+    question: 'Why did/would the solution solve the problem',
     directions:
       'Only use the assigned readings. Use of google will result in partial or no credit.',
   },
