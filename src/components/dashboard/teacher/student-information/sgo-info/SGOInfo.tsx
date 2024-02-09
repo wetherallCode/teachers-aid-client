@@ -19,7 +19,6 @@ import {
   SGOTypeSwitchContainer,
 } from '../state-n-styles/studentInformationStyles'
 import { Essays } from './Essays'
-import { ALL } from 'node:dns'
 
 export type SGOInfoProps = {
   studentId: string
