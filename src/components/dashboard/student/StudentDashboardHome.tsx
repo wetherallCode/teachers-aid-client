@@ -86,10 +86,6 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*    12th at 8:00 AM.*/}
                 {/*  </div>*/}
                 {/*)}*/}
-                <div style={{ fontSize: '2.5vh' }}>
-                  All work for the Second Marking Period is due by February 12th
-                  at 8:00 AM.
-                </div>
               </div>
               <div></div>
             </HomeScreenTitle>
