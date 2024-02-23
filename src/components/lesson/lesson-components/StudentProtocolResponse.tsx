@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 import {
   me_me,
   respondToProtocol,
@@ -115,6 +115,7 @@ export const StudentProtocolResponse = ({
             </ProtocolResponseHeader>
             <ProtocolResponseArea
               onChange={(e: any) => setResponse(e.target.value)}
+              onCopy={(e: SyntheticEvent) => e.preventDefault()}
             />
           </ProtocolResponseContainer>
           <ProtocolResponseButtonContainer>
