@@ -41,6 +41,7 @@ import { useUserContextProvider } from '../../../../../../contexts/UserContext'
 import { useSchoolDayContextProvider } from '../../../../school-day/state/SchoolDayContext'
 import { FIND_CURRENT_SCHOOL_DAY_QUERY } from '../../../../school-day/SchoolDay'
 import { useAssignmentsAllowedInClassCheck } from '../../../../../../hooks/useAssignmentsAllowedInClassCheck'
+import { useClassTimeIndicator } from '../../../../../../hooks/useClassTimeIndicator'
 
 export const FIND_COMPLETED_ESSSAY_BY_ID_QUERY = gql`
   query findCompletedEssayById($input: FindEssayByIdInput!) {
@@ -157,6 +158,7 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
   const [state, event] = useCompletedEssayContextProvider()
   const [currentSchoolDayState] = useSchoolDayContextProvider()
   const { dateTime } = useTime()
+  const { classTime } = useClassTimeIndicator(me)
   const { loading, data } = useQuery<
     findCompletedEssayById,
     findCompletedEssayByIdVariables
@@ -220,25 +222,24 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
 
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
 
-  const classTime =
-    schoolDay &&
-    Date.parse(dateTime) >
-      Date.parse(
-        timeFinder(
-          schoolDayLength === SchoolDayLengthEnum.HALF
-            ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
-            : me.inCourses[0].hasCourseInfo?.startsAt!,
-        ),
-      ) &&
-    Date.parse(dateTime) <
-      Date.parse(
-        timeFinder(
-          schoolDayLength === SchoolDayLengthEnum.HALF
-            ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
-            : me.inCourses[0].hasCourseInfo?.endsAt!,
-        ),
-      )
-
+  // const classTime =
+  //   schoolDay &&
+  //   Date.parse(dateTime) >
+  //     Date.parse(
+  //       timeFinder(
+  //         schoolDayLength === SchoolDayLengthEnum.HALF
+  //           ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
+  //           : me.inCourses[0].hasCourseInfo?.startsAt!,
+  //       ),
+  //     ) &&
+  //   Date.parse(dateTime) <
+  //     Date.parse(
+  //       timeFinder(
+  //         schoolDayLength === SchoolDayLengthEnum.HALF
+  //           ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
+  //           : me.inCourses[0].hasCourseInfo?.endsAt!,
+  //       ),
+  //     )
   useEffect(() => {
     if (classTime && !assignmentsAllowedInClass && state.matches('redoEssay')) {
       navigate('/dashboard/assignments')
