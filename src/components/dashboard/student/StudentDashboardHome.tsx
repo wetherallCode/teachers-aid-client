@@ -62,7 +62,8 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
   const courseName =
     me.inCourses[0].name === '3rd Period' ||
     me.inCourses[0].name === '4th Period'
-  console.log(courseName)
+  // TODO: Need to build a message system
+
   return (
     <>
       {pathname === '/dashboard' && (
@@ -81,14 +82,14 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*    have time, do makeup work.*/}
                 {/*  </div>*/}
                 {/*) : (*/}
-                <div style={{ fontSize: '2.5vh' }}>
-                  I'm on a field trip today. Complete any work that is due and
-                  complete makeup work for Social Studies or other classes.
-                  There will be a quiz tomorrow on Cities Come of Age - City
-                  Life. I will be in my room after school for anyone who needs
-                  help.
-                </div>
-                {/*)}*/}
+                {/*<div style={{ fontSize: '2.5vh' }}>*/}
+                {/*  I'm on a field trip today. Complete any work that is due and*/}
+                {/*  complete makeup work for Social Studies or other classes.*/}
+                {/*  There will be a quiz tomorrow on Cities Come of Age - City*/}
+                {/*  Life. I will be in my room after school for anyone who needs*/}
+                {/*  help.*/}
+                {/*</div>*/}
+                {/*/!*)}*!/*/}
               </div>
               <div></div>
             </HomeScreenTitle>
