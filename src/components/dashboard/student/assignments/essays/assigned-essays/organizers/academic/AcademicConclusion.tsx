@@ -47,7 +47,7 @@ export const AcademicConclusion = ({
   }
   ${verbConverter} 
   ${object ? object : subjectCompliment ? subjectCompliment : ''}`
-
+  console.log(subjectCompliment)
   return (
     <>
       <OrganizerTitleContainer>

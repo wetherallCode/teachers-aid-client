@@ -13,9 +13,9 @@ type TeachersAidContextProps = {
   children: ReactNode
 }
 
-export const TeachersAidContextProvider: FC<TeachersAidContextProps> = ({
+export const TeachersAidContextProvider = ({
   children,
-}) => {
+}: TeachersAidContextProps) => {
   const [state, event] = useMachine(teachersAidMachine)
   return (
     <TeachersAidContext.Provider value={[state, event]}>

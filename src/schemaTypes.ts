@@ -8082,6 +8082,7 @@ export interface findLessonStatus_findLessonStatus_lesson {
   pageNumbers: findLessonStatus_findLessonStatus_lesson_pageNumbers;
   assignedCourses: findLessonStatus_findLessonStatus_lesson_assignedCourses[];
   assignedSections: findLessonStatus_findLessonStatus_lesson_assignedSections;
+  hasNumberOfParagraphs: number;
   objectives: string | null;
   essentialQuestion: string;
   duringActivities: findLessonStatus_findLessonStatus_lesson_duringActivities[];

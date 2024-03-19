@@ -18,6 +18,7 @@ import { TeacherNavContextProvider } from './navigation/teacher-nav/TeacherNavCo
 
 const devLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
+  // uri: 'mrwetherall.org/graphql',
   credentials: 'include',
 })
 const prodLink = new HttpLink({

@@ -78,7 +78,7 @@ function App() {
     if (!me) nav('/')
     if (location.pathname === '/' && me) nav('/dashboard')
   }, [me])
-
+  console.log(me)
   return (
     <AppContainer>
       <Header>

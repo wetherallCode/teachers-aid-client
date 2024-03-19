@@ -30,22 +30,19 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
         <div>Daily Agenda</div>
       </LessonComponentTitleContainer>
       <LessonDetailsContainer>
-        {/* <LessonDetailCenter>
-          Lesson Name: {lesson.lessonName}
-        </LessonDetailCenter> */}
         <LessonDetailCenter>
-          Today's Section: Page{multiPageSection && 's'}{' '}
-          {lesson.pageNumbers.startingPage}
-          {multiPageSection
-            ? ' - ' + lesson.pageNumbers.endingPage
-            : null}: {lesson.assignedSections.startingSection}
-          {lesson.assignedSections.endingSection !==
-            lesson.assignedSections.startingSection &&
-            ' - ' + lesson.assignedSections.endingSection}
+          <div>
+            Today's Section: Page{multiPageSection && 's'}{' '}
+            {lesson.pageNumbers.startingPage}
+            {multiPageSection
+              ? ' - ' + lesson.pageNumbers.endingPage
+              : null}: {lesson.assignedSections.startingSection}
+            {lesson.assignedSections.endingSection !==
+              lesson.assignedSections.startingSection &&
+              ' - ' + lesson.assignedSections.endingSection}
+          </div>
+          <div style={{ fontSize: '2vh' }}>Number of Paragraphs: {}</div>
         </LessonDetailCenter>
-        <LessonDetailsContainer>
-          Number of Paragraphs: {}
-        </LessonDetailsContainer>
         <LessonDetailCenter>
           Essential Question: {lesson.essentialQuestion}
         </LessonDetailCenter>

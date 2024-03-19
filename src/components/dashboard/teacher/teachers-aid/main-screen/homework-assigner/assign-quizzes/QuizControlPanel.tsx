@@ -72,11 +72,11 @@ export const QuizControlPanel = ({
   return (
     <QuizControlPanelContainer>
       <QuizNameContainer>
-        {/*<div>
+        <div>
           {quizzes[0].readings.readingSections + ' '} <br />
           Quiz Average:
-         {' ' + (totalScore * 100).toFixed(2)}%
-        </div>*/}
+          {/*{' ' + (totalScore * 100).toFixed(2)}%*/}
+        </div>
         <AssignAllQuizzesButton
           onClick={() =>
             assignQuizzes({

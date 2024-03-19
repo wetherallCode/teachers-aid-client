@@ -72,7 +72,7 @@ export const HomeworkAssigner = ({
   })
 
   const [assignmentControlState, setAssignmentControlState] = useState<
-    'quiz' | 'homework' | 'readingGuide'
+    'quiz' | 'homework' | 'readingGuide' | 'textAnalysis'
   >(
     data?.findQuizzesForCourseByAssignedDate.quizzes.length! > 0
       ? 'quiz'
@@ -97,6 +97,11 @@ export const HomeworkAssigner = ({
           onClick={() => setAssignmentControlState('readingGuide')}
         >
           Reading Guides
+        </AssignmentControlItem>
+        <AssignmentControlItem
+          onClick={() => setAssignmentControlState('textAnalysis')}
+        >
+          Text Analysis
         </AssignmentControlItem>
       </AssignmentControlSelector>
       {assignmentControlState === 'homework' && (

@@ -50,6 +50,7 @@ export const FIND_LESSON_STATUS_QUERY = gql`
           startingSection
           endingSection
         }
+        hasNumberOfParagraphs
         objectives
         essentialQuestion
         duringActivities {
