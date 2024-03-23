@@ -16,6 +16,7 @@ import { ReadingGuideViewer } from '../readingGuideViewer/ReadingGuideViewer'
 import { LoadEssays } from './assign-essay/LoadEssays'
 import { QuizControlPanel } from './assign-quizzes/QuizControlPanel'
 import { LoadReadingGuides } from './assign-reading-guide/LoadReadingGuides'
+import { TextAnalysisAssigner } from './assign-text-analysis/TextAnalysisAssigner'
 
 export type HomeworkAssignerProps = { presentStudentList: string[] }
 
@@ -123,6 +124,7 @@ export const HomeworkAssigner = ({
         </>
       )}
       {assignmentControlState === 'readingGuide' && <ReadingGuideViewer />}
+      {assignmentControlState === 'textAnalysis' && <TextAnalysisAssigner />}
     </AssignmentControlPanelContainer>
   )
 }
