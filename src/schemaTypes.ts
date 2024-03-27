@@ -7496,28 +7496,6 @@ export interface createStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: checkTextAnalysis
-// ====================================================
-
-export interface checkTextAnalysis_checkTextAnalysis {
-  __typename: "CheckTextAnalysisPayload";
-  checked: boolean;
-}
-
-export interface checkTextAnalysis {
-  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
-}
-
-export interface checkTextAnalysisVariables {
-  input: CheckTextAnalysisInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -7591,11 +7569,21 @@ export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_stu
   __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
 }
 
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
 export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis {
   __typename: "TextAnalysis";
   _id: string | null;
   textAnalysisCompletion: TextAnalysisCompletionEnum;
   exempt: boolean;
+  workedWellWithGroup: boolean;
+  startedPromptly: boolean;
+  finishedEssentialQuestion: boolean;
+  score: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis_score;
 }
 
 export type findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments = findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_Essay | findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis;
@@ -7728,6 +7716,28 @@ export interface findStudentByIdForTeachersAid {
 
 export interface findStudentByIdForTeachersAidVariables {
   input: FindStudentByIdForTeachersAidInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: checkTextAnalysis
+// ====================================================
+
+export interface checkTextAnalysis_checkTextAnalysis {
+  __typename: "CheckTextAnalysisPayload";
+  checked: boolean;
+}
+
+export interface checkTextAnalysis {
+  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
+}
+
+export interface checkTextAnalysisVariables {
+  input: CheckTextAnalysisInput;
 }
 
 /* tslint:disable */
@@ -9216,10 +9226,10 @@ export enum StudentCohortEnum {
 }
 
 export enum TextAnalysisCompletionEnum {
-  MAIN_IDEAS_AND_MARKUP = "MAIN_IDEAS_AND_MARKUP",
+  FULL_COMPLETION = "FULL_COMPLETION",
   MAIN_IDEAS_ONLY = "MAIN_IDEAS_ONLY",
   MARKUP_ONLY = "MARKUP_ONLY",
-  NOT_COMPLETE = "NOT_COMPLETE",
+  NO_ATTEMPT = "NO_ATTEMPT",
   PARTIAL_COMPLETION = "PARTIAL_COMPLETION",
 }
 
@@ -9365,8 +9375,12 @@ export interface CheckQuizQuestionsForTextSectionsInput {
 }
 
 export interface CheckTextAnalysisInput {
+  finishedEssentialQuestion: boolean;
+  onTask: boolean;
+  startedPromptly: boolean;
   textAnalysisCompletion: TextAnalysisCompletionEnum;
   textAnalysisId: string;
+  workedWellWithGroup: boolean;
 }
 
 export interface ControlCoolDownInput {
