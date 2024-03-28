@@ -82,13 +82,10 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*    have time, do makeup work.*/}
                 {/*  </div>*/}
                 {/*) : (*/}
-                {/*<div style={{ fontSize: '2.5vh' }}>*/}
-                {/*  I'm on a field trip today. Complete any work that is due and*/}
-                {/*  complete makeup work for Social Studies or other classes.*/}
-                {/*  There will be a quiz tomorrow on Cities Come of Age - City*/}
-                {/*  Life. I will be in my room after school for anyone who needs*/}
-                {/*  help.*/}
-                {/*</div>*/}
+                <div style={{ fontSize: '2.5vh' }}>
+                  All work for the Third Period is due Wednesday, April 17th at
+                  8am.
+                </div>
                 {/*/!*)}*!/*/}
               </div>
               <div></div>
