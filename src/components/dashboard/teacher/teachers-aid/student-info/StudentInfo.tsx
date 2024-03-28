@@ -34,6 +34,13 @@ export const FIND_STUDENT_INFORMATION_QUERY = gql`
             _id
             textAnalysisCompletion
             exempt
+            workedWellWithGroup
+            startedPromptly
+            finishedEssentialQuestion
+            score {
+              earnedPoints
+              maxPoints
+            }
           }
         }
         hasAbsences {

@@ -82,7 +82,7 @@ export const StudentInfoSelector = ({}: StudentInfoSelectorProps) => {
         }
         onClick={() => handleSelection('TASK_CHECK')}
       >
-        T
+        TA
       </StudentInfoSelectorButton>
       <StudentInfoSelectorButton
         style={

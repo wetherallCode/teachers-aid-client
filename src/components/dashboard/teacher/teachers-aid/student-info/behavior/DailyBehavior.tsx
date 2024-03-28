@@ -31,7 +31,7 @@ import {
   StudentControlButtonContainer,
 } from '../../styles/studentInfoStyles'
 import { BehaviorRemover } from './BehaviorRemover'
-import { TextAnalysisCheck } from './TextAnalysisCheck'
+import { TextAnalysisCheck } from '../TextAnalysis/TextAnalysisCheck'
 
 export type DailyBehaviorProps = {
   studentId: string
@@ -130,30 +130,11 @@ export const DailyBehavior = ({
     (b) => b.behaviorCategory === BehaviorCategoryEnum.INDEPENDENT_WORK,
   )!
 
-  // const behaviorPoints = (behavior: BehaviorEnum) => {
-  //   if (behavior === BehaviorEnum.ANSWERED_QUESTION)
-  //     return responsibilityPointConverter(grade, 2)
-  //   else if (behavior === BehaviorEnum.DID_NOT_ANSWER_QUESTION) return 0
-  //   else if (behavior === BehaviorEnum.ON_TASK)
-  //     return responsibilityPointConverter(grade, 2)
-  //   else if (behavior === BehaviorEnum.OFF_TASK) return -2
-  //   else if (behavior === BehaviorEnum.COMPLETED_ASSIGNMENT) return 10
-  //   else if (behavior === BehaviorEnum.REFUSED_TO_WORK) return -10
-  //   else if (behavior === BehaviorEnum.DISRUPTIVE) return -10
-  //   else if (behavior === BehaviorEnum.EXCESSIVE_TALKING) return -2
-  //   else if (behavior === BehaviorEnum.UNPREPARED) return -10
-  //   else if (behavior === BehaviorEnum.DISRESPECTFUL) return -10
-  //   else if (behavior === BehaviorEnum.INNAPROPRIATE_LANGUAGE) return -10
-  //   else return 0
-  // }
-  // const questionAndAnswerBehaviors = behaviorEnum.slice(0, 2)
-  // const negativeBehaviors = behaviorEnum.slice(6)
-  // const taskBehaviors = behaviorEnum.slice(2, 6)
-
   const negativeNumberDeterminer = (
     behavior: findAllBehaviorTypes_findAllBehaviorTypes_behaviorTypes,
   ) => {}
 
+  const testing = true
   return (
     <>
       {state.context.studentInfoSelector === 'QUESTION_AND_ANSWER' && (
@@ -255,7 +236,7 @@ export const DailyBehavior = ({
       )}
       {state.context.studentInfoSelector === 'TASK_CHECK' && (
         <>
-          {textAnalysis ? (
+          {testing ? (
             <TextAnalysisCheck
               textAnalysis={
                 textAnalysis as findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis
