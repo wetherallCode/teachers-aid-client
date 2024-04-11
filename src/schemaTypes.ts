@@ -9023,6 +9023,33 @@ export interface findAllMarkingPeriodGradesVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: createTextAnalysis
+// ====================================================
+
+export interface createTextAnalysis_createTextAnalysis_textAnalyses {
+  __typename: "TextAnalysis";
+  _id: string | null;
+}
+
+export interface createTextAnalysis_createTextAnalysis {
+  __typename: "CreateTextAnalysisPayload";
+  textAnalyses: createTextAnalysis_createTextAnalysis_textAnalyses[];
+}
+
+export interface createTextAnalysis {
+  createTextAnalysis: createTextAnalysis_createTextAnalysis;
+}
+
+export interface createTextAnalysisVariables {
+  input: CreateTextAnalysisInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -9588,6 +9615,17 @@ export interface CreateTemporaryTasksInput {
   dateIssued: string;
   markingPeriod: MarkingPeriodEnum;
   taskNumber: number;
+}
+
+export interface CreateTextAnalysisInput {
+  assignedCourseIds: string[];
+  assignedDate: string;
+  associatedLessonId: string;
+  dueDate: string;
+  hasAssignerId: string;
+  markingPeriod: MarkingPeriodEnum;
+  maxPoints: number;
+  readings: ReadingsInput;
 }
 
 export interface CreateTextSectionInput {
