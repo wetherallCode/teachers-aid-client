@@ -2233,55 +2233,6 @@ export interface findTextSectionsByIdForEssayQuestionLoaderVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: createReadingGuide
-// ====================================================
-
-export interface createReadingGuide_createReadingGuide_readingGuides {
-  __typename: "ReadingGuide";
-  _id: string | null;
-}
-
-export interface createReadingGuide_createReadingGuide {
-  __typename: "CreateReadingGuidePayload";
-  readingGuides: createReadingGuide_createReadingGuide_readingGuides[];
-}
-
-export interface createReadingGuide {
-  createReadingGuide: createReadingGuide_createReadingGuide;
-}
-
-export interface createReadingGuideVariables {
-  input: CreateReadingGuideInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL query operation: checkQuizQuestionsForTextSections
-// ====================================================
-
-export interface checkQuizQuestionsForTextSections_checkQuizQuestionsForTextSections {
-  __typename: "CheckQuizQuestionsForTextSectionsPayload";
-  textSectionIds: string[];
-}
-
-export interface checkQuizQuestionsForTextSections {
-  checkQuizQuestionsForTextSections: checkQuizQuestionsForTextSections_checkQuizQuestionsForTextSections;
-}
-
-export interface checkQuizQuestionsForTextSectionsVariables {
-  input: CheckQuizQuestionsForTextSectionsInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findEssaysToGradeById
 // ====================================================
 
@@ -9216,10 +9167,10 @@ export enum StudentCohortEnum {
 }
 
 export enum TextAnalysisCompletionEnum {
-  MAIN_IDEAS_AND_MARKUP = "MAIN_IDEAS_AND_MARKUP",
+  FULL_COMPLETION = "FULL_COMPLETION",
   MAIN_IDEAS_ONLY = "MAIN_IDEAS_ONLY",
   MARKUP_ONLY = "MARKUP_ONLY",
-  NOT_COMPLETE = "NOT_COMPLETE",
+  NO_ATTEMPT = "NO_ATTEMPT",
   PARTIAL_COMPLETION = "PARTIAL_COMPLETION",
 }
 
@@ -9360,13 +9311,13 @@ export interface CheckAssignmentsAllowedInClassInput {
   courseId: string;
 }
 
-export interface CheckQuizQuestionsForTextSectionsInput {
-  textSectionIds: string[];
-}
-
 export interface CheckTextAnalysisInput {
+  finishedEssentialQuestion: boolean;
+  onTask: boolean;
+  startedPromptly: boolean;
   textAnalysisCompletion: TextAnalysisCompletionEnum;
   textAnalysisId: string;
+  workedWellWithGroup: boolean;
 }
 
 export interface ControlCoolDownInput {
@@ -9521,18 +9472,6 @@ export interface CreateQuizzesByCourseInput {
   dueTime: string;
   hasAssigner: string;
   markingPeriod: MarkingPeriodEnum;
-  readings: ReadingsInput;
-}
-
-export interface CreateReadingGuideInput {
-  assignedCourseIds: string[];
-  assignedDate: string;
-  associatedLessonId: string;
-  dueDate: string;
-  dueTime: TimeOfDay;
-  hasAssignerId: string;
-  markingPeriod: MarkingPeriodEnum;
-  maxPoints: number;
   readings: ReadingsInput;
 }
 
