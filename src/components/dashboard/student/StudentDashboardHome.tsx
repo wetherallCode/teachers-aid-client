@@ -83,8 +83,9 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*  </div>*/}
                 {/*) : (*/}
                 <div style={{ fontSize: '2.5vh' }}>
-                  All work for the Third Marking Period is due Wednesday, April
-                  17th at 8am.
+                  I won't be in today, please work on makeup work for me and
+                  anyone else you owe work for. All work for the Third Marking
+                  Period is due Wednesday, April 17th at 2:15pm.
                 </div>
                 {/*/!*)}*!/*/}
               </div>

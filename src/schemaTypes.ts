@@ -2233,6 +2233,55 @@ export interface findTextSectionsByIdForEssayQuestionLoaderVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createReadingGuide
+// ====================================================
+
+export interface createReadingGuide_createReadingGuide_readingGuides {
+  __typename: "ReadingGuide";
+  _id: string | null;
+}
+
+export interface createReadingGuide_createReadingGuide {
+  __typename: "CreateReadingGuidePayload";
+  readingGuides: createReadingGuide_createReadingGuide_readingGuides[];
+}
+
+export interface createReadingGuide {
+  createReadingGuide: createReadingGuide_createReadingGuide;
+}
+
+export interface createReadingGuideVariables {
+  input: CreateReadingGuideInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: checkQuizQuestionsForTextSections
+// ====================================================
+
+export interface checkQuizQuestionsForTextSections_checkQuizQuestionsForTextSections {
+  __typename: "CheckQuizQuestionsForTextSectionsPayload";
+  textSectionIds: string[];
+}
+
+export interface checkQuizQuestionsForTextSections {
+  checkQuizQuestionsForTextSections: checkQuizQuestionsForTextSections_checkQuizQuestionsForTextSections;
+}
+
+export interface checkQuizQuestionsForTextSectionsVariables {
+  input: CheckQuizQuestionsForTextSectionsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findEssaysToGradeById
 // ====================================================
 
@@ -7447,28 +7496,6 @@ export interface createStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: checkTextAnalysis
-// ====================================================
-
-export interface checkTextAnalysis_checkTextAnalysis {
-  __typename: "CheckTextAnalysisPayload";
-  checked: boolean;
-}
-
-export interface checkTextAnalysis {
-  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
-}
-
-export interface checkTextAnalysisVariables {
-  input: CheckTextAnalysisInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -7679,6 +7706,28 @@ export interface findStudentByIdForTeachersAid {
 
 export interface findStudentByIdForTeachersAidVariables {
   input: FindStudentByIdForTeachersAidInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: checkTextAnalysis
+// ====================================================
+
+export interface checkTextAnalysis_checkTextAnalysis {
+  __typename: "CheckTextAnalysisPayload";
+  checked: boolean;
+}
+
+export interface checkTextAnalysis {
+  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
+}
+
+export interface checkTextAnalysisVariables {
+  input: CheckTextAnalysisInput;
 }
 
 /* tslint:disable */
@@ -9311,6 +9360,10 @@ export interface CheckAssignmentsAllowedInClassInput {
   courseId: string;
 }
 
+export interface CheckQuizQuestionsForTextSectionsInput {
+  textSectionIds: string[];
+}
+
 export interface CheckTextAnalysisInput {
   finishedEssentialQuestion: boolean;
   onTask: boolean;
@@ -9472,6 +9525,18 @@ export interface CreateQuizzesByCourseInput {
   dueTime: string;
   hasAssigner: string;
   markingPeriod: MarkingPeriodEnum;
+  readings: ReadingsInput;
+}
+
+export interface CreateReadingGuideInput {
+  assignedCourseIds: string[];
+  assignedDate: string;
+  associatedLessonId: string;
+  dueDate: string;
+  dueTime: TimeOfDay;
+  hasAssignerId: string;
+  markingPeriod: MarkingPeriodEnum;
+  maxPoints: number;
   readings: ReadingsInput;
 }
 
