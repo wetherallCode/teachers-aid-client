@@ -48,13 +48,17 @@ export const TextAnalysisCheck = ({ textAnalysis }: TextAnalysisCheckProps) => {
           (check: TextAnalysisCompletionEnum, i: number) => (
             <StudentBehaviorButton
               key={i}
-              goodBehavior={check !== 'NOT_COMPLETE'}
+              goodBehavior={check !== 'NO_ATTEMPT'}
               onClick={() =>
                 checkTextAnalysis({
                   variables: {
                     input: {
                       textAnalysisCompletion: check,
                       textAnalysisId: textAnalysis._id!,
+                      startedPromptly: false,
+                      workedWellWithGroup: false,
+                      finishedEssentialQuestion: false,
+                      onTask: false,
                     },
                   },
                 })
