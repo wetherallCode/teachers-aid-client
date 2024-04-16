@@ -80,7 +80,7 @@ export const EssaysToGrade = ({ courseId }: EssaysToGradeProps) => {
 
   const [markingPeriodToGrade, setMarkingPeriodToGrade] = useState(
     // markingPeriodState.context.currentMarkingPeriod,
-    MarkingPeriodEnum.SECOND,
+    MarkingPeriodEnum.THIRD,
   )
 
   const [resubmittedEssayList, setResubmittedEssayList] = useState<
