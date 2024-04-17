@@ -82,10 +82,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*    have time, do makeup work.*/}
                 {/*  </div>*/}
                 {/*) : (*/}
-                <div style={{ fontSize: '2.5vh' }}>
-                  All work for the Third Marking Period is due on Wednesday
-                  April 17th at 8am.
-                </div>
+                <div style={{ fontSize: '2.5vh' }}></div>
               </div>
               <div></div>
             </HomeScreenTitle>
