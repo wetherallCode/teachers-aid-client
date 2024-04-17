@@ -82,13 +82,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 {/*    have time, do makeup work.*/}
                 {/*  </div>*/}
                 {/*) : (*/}
-                <div style={{ fontSize: '2.5vh' }}>
-                  All work for the Third Marking Period is due Wednesday, April
-                  17th at 2:15pm. You may do the makeup work in class today, or
-                  complete the assigned work for today (main ideas and reading
-                  guide). Please get as much work done today as you can while
-                  I'm out.
-                </div>
+                <div style={{ fontSize: '2.5vh' }}></div>
                 {/*/!*)}*!/*/}
               </div>
               <div></div>
