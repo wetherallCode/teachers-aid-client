@@ -6853,6 +6853,33 @@ export interface findReadingGuidesByCourseIdAndAssignedDateVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createTextAnalysis
+// ====================================================
+
+export interface createTextAnalysis_createTextAnalysis_textAnalyses {
+  __typename: "TextAnalysis";
+  _id: string | null;
+}
+
+export interface createTextAnalysis_createTextAnalysis {
+  __typename: "CreateTextAnalysisPayload";
+  textAnalyses: createTextAnalysis_createTextAnalysis_textAnalyses[];
+}
+
+export interface createTextAnalysis {
+  createTextAnalysis: createTextAnalysis_createTextAnalysis;
+}
+
+export interface createTextAnalysisVariables {
+  input: CreateTextAnalysisInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findQuizzesForCourseByAssignedDate
 // ====================================================
 
@@ -9016,33 +9043,6 @@ export interface findAllMarkingPeriodGrades {
 
 export interface findAllMarkingPeriodGradesVariables {
   input: FindAllMarkingPeriodGradesInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: createTextAnalysis
-// ====================================================
-
-export interface createTextAnalysis_createTextAnalysis_textAnalyses {
-  __typename: "TextAnalysis";
-  _id: string | null;
-}
-
-export interface createTextAnalysis_createTextAnalysis {
-  __typename: "CreateTextAnalysisPayload";
-  textAnalyses: createTextAnalysis_createTextAnalysis_textAnalyses[];
-}
-
-export interface createTextAnalysis {
-  createTextAnalysis: createTextAnalysis_createTextAnalysis;
-}
-
-export interface createTextAnalysisVariables {
-  input: CreateTextAnalysisInput;
 }
 
 /* tslint:disable */

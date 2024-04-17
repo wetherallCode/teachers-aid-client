@@ -9,6 +9,7 @@ import {
 import { FIND_LESSON_QUERY } from '../../../../../../lesson/LessonMainMenu'
 import { date } from '../../../../../../../utils'
 import { useTeachersAidContextProvider } from '../../../state/TeachersAidContext'
+import { Lesson } from '../../../../lessons/lesson-finder/Lesson'
 
 export type TextAnalysisAssignerProps = {}
 
@@ -45,16 +46,38 @@ export const TextAnalysisAssigner = ({}: TextAnalysisAssignerProps) => {
       },
     },
     onCompleted: (data) => {
-      console.log(data)
+      console.log(data.findLessonByCourseAndDate.lesson?.lessonName)
     },
     onError: (error) => console.error(error),
   })
 
   if (loading) return <div>Loading </div>
-
+  const { lessonName, pageNumbers, assignedSections } =
+    data?.findLessonByCourseAndDate.lesson!
   return (
     <div>
       <div>Text Analysis Assigner</div>
+      {/*<button*/}
+      {/*  onClick={() =>*/}
+      {/*    createTextAnalysis({*/}
+      {/*      variables: {*/}
+      {/*        input: {*/}
+      {/*          assignedDate: date,*/}
+      {/*          associatedLessonId: lessonName,*/}
+      {/*          assignedCourseIds: [state.context.courseInfo!.course._id!],*/}
+      {/*          dueDate: date,*/}
+      {/*          hasAssignerId: me._id,*/}
+      {/*          markingPeriod: state.context.markingPeriod,*/}
+      {/*         maxPoints :5,*/}
+      {/*          readings:{readingPages:pageNumbers.toString(), readingSections:"""+assignedSections.startingSection+"+" - "+assignedSections.endingSection" } */}
+      {/*        */}
+      {/*        },*/}
+      {/*      },*/}
+      {/*    })*/}
+      {/*  }*/}
+      {/*>*/}
+      {/*  Create*/}
+      {/*</button>*/}
     </div>
   )
 }
