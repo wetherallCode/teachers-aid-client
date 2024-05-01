@@ -82,7 +82,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                   triple extra credit. There will be a quiz on this material
                   when we return. When you're done that, you can do makeup work.
                 </div>
-                ) : (<div style={{ fontSize: '2.5vh' }}></div>
+                {/*) : (<div style={{ fontSize: '2.5vh' }}></div>*/}
                 {/*/!*)}*!/*/}
               </div>
               <div></div>
