@@ -75,15 +75,14 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <Greetings phrase={me.firstName} />
                 <br />
                 <br />
-                {/*{courseName ? (*/}
-                {/*<div style={{ fontSize: '2.5vh' }}>*/}
-                {/*  I'm out today, so read the assigned text and complete the*/}
-                {/*  questions on the worksheet. Turn it in by the end of class for*/}
-                {/*  triple extra credit. There will be a quiz on this material*/}
-                {/*  when we return. When you're done that, you can do makeup work.*/}
-                {/*</div>*/}
-                {/*) : (<div style={{ fontSize: '2.5vh' }}></div>*/}
-                {/*/!*)}*!/*/}
+                {courseName ? (
+                  <div style={{ fontSize: '2.5vh' }}>Work on makeup work.</div>
+                ) : (
+                  <div style={{ fontSize: '2.5vh' }}>
+                    Complete worksheet and put it in the wire bin up front when
+                    you're done. After that complete Essay and makeup work.
+                  </div>
+                )}
               </div>
               <div></div>
             </HomeScreenTitle>
