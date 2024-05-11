@@ -64,6 +64,8 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
     me.inCourses[0].name === '4th Period'
   // TODO: Need to build a message system
 
+  const message: string = 'Test'
+
   return (
     <>
       {pathname === '/dashboard' && (
@@ -75,14 +77,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
                 <Greetings phrase={me.firstName} />
                 <br />
                 <br />
-                {courseName ? (
-                  <div style={{ fontSize: '2.5vh' }}>Work on makeup work.</div>
-                ) : (
-                  <div style={{ fontSize: '2.5vh' }}>
-                    Complete worksheet and put it in the wire bin up front when
-                    you're done. After that complete Essay and makeup work.
-                  </div>
-                )}
+                <div style={{ fontSize: '2.5vh' }}>{message}</div>
               </div>
               <div></div>
             </HomeScreenTitle>
