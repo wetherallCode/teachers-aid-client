@@ -46,8 +46,8 @@ const client = new ApolloClient({
       },
     },
   }),
-  link: prodLink,
-  // link: devLink,
+  // link: prodLink,
+  link: devLink,
   connectToDevTools: true,
 })
 
