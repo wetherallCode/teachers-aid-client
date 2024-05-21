@@ -72,15 +72,47 @@ export const WarmUpManager = ({
         </DynamicLessonButton>
       ) : (
         <>
-          <DynamicLessonButton
-            currentLessonSetting={isActive}
-            onClick={() => {
-              if (!isActive) {
+          {task === 'Quiz' && (
+            <DynamicLessonButton
+              currentLessonSetting={lesson.dynamicLesson === 'WARM_UP'}
+            >
+              Quiz
+            </DynamicLessonButton>
+          )}
+          :
+          <>
+            <DynamicLessonButton
+              currentLessonSetting={isActive}
+              onClick={() => {
+                if (!isActive) {
+                  controlWarmUp({
+                    variables: {
+                      input: {
+                        lessonId: lesson._id!,
+                        isActive: true,
+                        academicOutcomeType: academicOutcomeTypes,
+                        markingPeriod:
+                          markingPeriodState.context.currentMarkingPeriod,
+                        protocolActivityType: activityType,
+                        studentIds: presentStudentList,
+                        task: task,
+                        activityTime: ActivityTimeEnum.BEFORE,
+                      },
+                    },
+                  })
+                }
+              }}
+            >
+              Start
+            </DynamicLessonButton>
+            <DynamicLessonButton
+              currentLessonSetting={!isActive}
+              onClick={() => {
                 controlWarmUp({
                   variables: {
                     input: {
                       lessonId: lesson._id!,
-                      isActive: true,
+                      isActive: false,
                       academicOutcomeType: academicOutcomeTypes,
                       markingPeriod:
                         markingPeriodState.context.currentMarkingPeriod,
@@ -91,41 +123,19 @@ export const WarmUpManager = ({
                     },
                   },
                 })
-              }
-            }}
-          >
-            Start
-          </DynamicLessonButton>
-          <DynamicLessonButton
-            currentLessonSetting={!isActive}
-            onClick={() => {
-              controlWarmUp({
-                variables: {
-                  input: {
-                    lessonId: lesson._id!,
-                    isActive: false,
-                    academicOutcomeType: academicOutcomeTypes,
-                    markingPeriod:
-                      markingPeriodState.context.currentMarkingPeriod,
-                    protocolActivityType: activityType,
-                    studentIds: presentStudentList,
-                    task: task,
-                    activityTime: ActivityTimeEnum.BEFORE,
+                updateDynamicLesson({
+                  variables: {
+                    input: {
+                      lessonId: lesson._id!,
+                      dynamicLessonUpdate: DynamicLessonEnums.LESSON_DETAILS,
+                    },
                   },
-                },
-              })
-              updateDynamicLesson({
-                variables: {
-                  input: {
-                    lessonId: lesson._id!,
-                    dynamicLessonUpdate: DynamicLessonEnums.LESSON_DETAILS,
-                  },
-                },
-              })
-            }}
-          >
-            Complete
-          </DynamicLessonButton>
+                })
+              }}
+            >
+              Complete
+            </DynamicLessonButton>
+          </>
         </>
       )}
     </>
