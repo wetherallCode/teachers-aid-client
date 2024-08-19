@@ -146,63 +146,7 @@ export const CompleteReadingGuideNew = ({
         )}
       </>
       <>
-        {currentState[currentIndex] === 'MAIN_IDEA' && (
-          <GenericQuestionBlank
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            questionObject={
-              readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex],
-              )!
-            }
-            previousAnswers={questions}
-          />
-        )}
-      </>
-      <>
         {currentState[currentIndex] === 'SUBJECT_OF_SECTION' && (
-          <GenericQuestionBlank
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            questionObject={
-              readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex],
-              )!
-            }
-            previousAnswers={questions}
-          />
-        )}
-      </>
-      <>
-        {currentState[currentIndex] === 'WHAT_DID_SUBJECT_DO' && (
-          <GenericQuestionBlank
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            questionObject={
-              readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex],
-              )!
-            }
-            previousAnswers={questions}
-          />
-        )}
-      </>
-      <>
-        {currentState[currentIndex] === 'WHY_DID_SUBJECT_DO_IT' && (
-          <GenericQuestionBlank
-            setCurrentIndex={setCurrentIndex}
-            currentIndex={currentIndex}
-            questionObject={
-              readingGuideQuestions.find(
-                (q) => q.questionType === currentState[currentIndex],
-              )!
-            }
-            previousAnswers={questions}
-          />
-        )}
-      </>
-      <>
-        {currentState[currentIndex] === 'HOW_DID_SUBJECT_DO_IT' && (
           <GenericQuestionBlank
             setCurrentIndex={setCurrentIndex}
             currentIndex={currentIndex}

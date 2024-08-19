@@ -37,7 +37,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   {
     questionType: 'PROBLEM',
     question: 'What did these people do to solve their problems?',
-    directions: `Every section in the text discusses a problem or conflict, so see everyone's actions as solutions`,
+    directions: `Every section in the text discusses a problem or conflict, so see everyone's actions as solutions to their problems.`,
   },
   {
     questionType: 'SOLUTION',
