@@ -21,16 +21,15 @@ export type ReadingGuideQuestionObjectType = {
 export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   {
     questionType: 'SUMMARY',
-    question:
-      'Write a brief summary of what happened in the assigned sections?',
+    question: 'What stood out to you in the lesson?',
     directions:
-      'Only use the assigned readings. Use of google will result in partial or no credit.',
+      'Pick a main idea from the lesson that you found to be important, interesting, or surprising.',
   },
   {
     questionType: 'WHAT_WAS_LEARNED',
-    question: 'What was the most important thing this lesson had to teach you?',
+    question: 'Why did that piece of information stand out to you?',
     directions:
-      'Only use the assigned readings. Use of google will result in partial or no credit.',
+      'This question is based on the your answer to the last question.',
   },
   {
     questionType: 'MAIN_IDEA',

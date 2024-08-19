@@ -82,7 +82,6 @@ function App() {
   return (
     <AppContainer>
       <Header>
-        {/* {me && <UpdateUserActivity userId={me._id!} />} */}
         <HomeLink to="/dashboard">
           {location.pathname.includes('/dashboard') &&
           location.pathname !== '/dashboard'
@@ -92,7 +91,6 @@ function App() {
         <div></div>
         <LoginContainer>
           {!me ? (
-            // <LoginToggle onClick={toggleLogin}>Login</LoginToggle>
             <div></div>
           ) : (
             <UserNameHeader onClick={() => setIsNavOpen(true)}>
@@ -101,10 +99,6 @@ function App() {
                 : me.firstName}
             </UserNameHeader>
           )}
-
-          {/* <Modal isToggled={isLoginVisible} setIsToggled={toggleLogin}>
-            <Login toggleLogin={toggleLogin} />
-          </Modal> */}
         </LoginContainer>
       </Header>
       {me !== null && (
@@ -135,9 +129,6 @@ function App() {
           }
         />
         <Route path="dashboard/*" element={<Dashboard />} />
-        {/* {!me ? (
-          <Navigate to='/' />
-        ) : ( */}
         {me && (
           <Route
             path="lesson-home"
@@ -148,9 +139,6 @@ function App() {
             }
           />
         )}
-        {/* {me && (
-          <Route path='behavior-home' element={<StudentBehavior me={me} />} />
-        )} */}
         <Route
           path="/problem-solution-guide/*"
           element={<ProblemAndSolutionGuide />}

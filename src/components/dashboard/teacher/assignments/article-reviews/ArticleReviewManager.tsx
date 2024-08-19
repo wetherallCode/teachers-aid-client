@@ -11,7 +11,7 @@ import {
 
 export type ArticleReviewManagerProps = {}
 
-export const ArticleReviewManager: FC<ArticleReviewManagerProps> = () => {
+export const ArticleReviewManager = ({}: ArticleReviewManagerProps) => {
   const [state, event] = useArticleReviewContextProvider()
 
   return (

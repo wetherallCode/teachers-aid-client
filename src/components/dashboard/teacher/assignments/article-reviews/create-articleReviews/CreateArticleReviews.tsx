@@ -61,6 +61,7 @@ export const CreateArticleReviews: FC<CreateArticleReviewsProps> = () => {
     state.context.articleReviewToCreate.assignedDate !== '' &&
     state.context.articleReviewToCreate.dueDate !== '' &&
     state.context.articleReviewToCreate.assignedCourseId
+
   return (
     <>
       <div onClick={() => event({ type: 'PREVIOUS' })}>Back</div>

@@ -59,18 +59,6 @@ export const FIND_READING_GUIDE_BY_ID_QUERY = gql`
           assignedSectionIdList
         }
         readingGuideFinal {
-          # howIsSectionOrganized
-          # whyWasSectionOrganized
-          # majorIssue
-          # majorSolution
-          # clarifyingQuestions
-          # majorIssueSolved
-          # problems
-          # biggestProblem
-          # reasonForBiggestProblem
-          # importantPeople
-          # howArePeopleInvolvedInProblems
-          # sectionConsequences
           submitted
           readingGuideQuestions {
             answer
@@ -129,63 +117,9 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
       }
 
       event({ type: 'SET_READING_GUIDE_ID', payload: readingGuideToComplete! })
-      // if (data.findReadingGuideById.readingGuide.readingGuideFinal)
-      //   if (!data?.findReadingGuideById.readingGuide.readingGuideFinal) {
-      // event({
-      //   type: 'SET_READING_GUIDE_INPUTS',
-      //   payload: {
-      //     readingGuideId: readingGuideToComplete!,
-      // problems:
-      //   data.findReadingGuideById.readingGuide.readingGuideFinal.problems,
-      // biggestProblem:
-      //   data.findReadingGuideById.readingGuide.readingGuideFinal
-      //     .biggestProblem,
-      // reasonForBiggestProblem:
-      //   data.findReadingGuideById.readingGuide.readingGuideFinal
-      //     .reasonForBiggestProblem,
-      // importantPeople:
-      //   data.findReadingGuideById.readingGuide.readingGuideFinal
-      //     .importantPeople,
-      // howArePeopleInvolvedInProblems:
-      //   data.findReadingGuideById.readingGuide.readingGuideFinal
-      //     .howArePeopleInvolvedInProblems,
-      // sectionConsequences:
-      //   data.findReadingGuideById.readingGuide.readingGuideFinal
-      //     .sectionConsequences,
-      // },
-      // payload: {
-      //   clarifyingQuestions:
-      //     data.findReadingGuideById.readingGuide.readingGuideFinal
-      //       .clarifyingQuestions,
-      //   majorIssue:
-      //     data.findReadingGuideById.readingGuide.readingGuideFinal
-      //       .majorIssue,
-      //   howIsSectionOrganized:
-      //     data.findReadingGuideById.readingGuide.readingGuideFinal
-      //       .howIsSectionOrganized,
-      //   majorSolution:
-      //     data.findReadingGuideById.readingGuide.readingGuideFinal
-      //       .majorSolution,
-      //   whyWasSectionOrganized:
-      //     data.findReadingGuideById.readingGuide.readingGuideFinal
-      //       .whyWasSectionOrganized!,
-      //   majorIssueSolved:
-      //     data.findReadingGuideById.readingGuide.readingGuideFinal
-      //       .majorIssueSolved,
-      //   readingGuideId: readingGuideToComplete,
-      // },
-      // })
-
-      // }
     },
     onError: (error) => console.error('findReadingGuideById' + error),
   })
-
-  // const { grade, loading: gradeLoading } = useCalculateGrades({
-  //   studentId: data?.findReadingGuideById.readingGuide.hasOwner._id!,
-  //   markingPeriod: data?.findReadingGuideById.readingGuide.markingPeriod!,
-  //   polling: false,
-  // })
 
   useEffect(() => {
     if (classTime && !assignmentsAllowedInClass)

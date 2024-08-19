@@ -21,9 +21,10 @@ import { AssignmentDashboardDisplay } from './AssignmentDashboardDisplay'
 
 export type AssignmentDashboardProps = {}
 
-export const AssignmentDashboard: FC<AssignmentDashboardProps> = () => {
+export const AssignmentDashboard = ({}: AssignmentDashboardProps) => {
   const location = useLocation()
   useNavSync(location, 'ASSIGNMENTS')
+
   return (
     <Routes>
       <Route path="" element={<AssignmentDashboardDisplay />} />
