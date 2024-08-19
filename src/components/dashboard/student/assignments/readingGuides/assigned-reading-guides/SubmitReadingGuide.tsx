@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import {
   findReadingGuideById_findReadingGuideById_readingGuide,
@@ -46,6 +46,7 @@ export const SubmitReadingGuide = ({
 }: SubmitReadingGuideProps) => {
   const navigate = useNavigate()
   const [state] = useReadingGuideToCompleteContextProvider()
+  const [submitCheck, setSubmitCheck] = useState(false)
 
   const { grade, loading: gradeLoading } = useCalculateGrades({
     studentId: readingGuideInfo.hasOwner._id!,
@@ -96,26 +97,49 @@ export const SubmitReadingGuide = ({
           )}
         </ReadingGuideQuestionReview>
       </div>
-      <SmallNextButton
-        onClick={() =>
-          submitReadingGuide({
-            variables: {
-              input: {
-                // ...state.context.submitReadingGuideInputs,
-                readingGuideId:
-                  state.context.updateReadingGuideInputs.readingGuideId,
-                completeReadingGuide: true,
-                paperBased: false,
-                late: false,
-                submitTime: new Date().toLocaleString(),
-                responsibilityPoints: responsibilityPointConverter(grade, 5),
-              },
-            },
-          })
-        }
-      >
-        Submit
-      </SmallNextButton>
+      <>
+        {submitCheck ? (
+          <div>
+            <div style={{ textAlign: 'center', fontSize: '2vh' }}>
+              Are you ready to submit?
+            </div>
+            <br />
+            <SmallNextButton
+              onClick={() =>
+                submitReadingGuide({
+                  variables: {
+                    input: {
+                      // ...state.context.submitReadingGuideInputs,
+                      readingGuideId:
+                        state.context.updateReadingGuideInputs.readingGuideId,
+                      completeReadingGuide: true,
+                      paperBased: false,
+                      late: false,
+                      submitTime: new Date().toLocaleString(),
+                      responsibilityPoints: responsibilityPointConverter(
+                        grade,
+                        5,
+                      ),
+                    },
+                  },
+                })
+              }
+            >
+              Submit
+            </SmallNextButton>
+          </div>
+        ) : (
+          <div>
+            <div style={{ textAlign: 'center' }}>
+              Did you check your answers?
+            </div>
+            <br />
+            <SmallNextButton onClick={() => setSubmitCheck(true)}>
+              Yes
+            </SmallNextButton>
+          </div>
+        )}
+      </>
     </SubmitReadingGuideContainer>
   )
 }
