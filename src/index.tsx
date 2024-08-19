@@ -17,13 +17,15 @@ import { SchoolDayContextProvider } from './components/dashboard/school-day/stat
 import { TeacherNavContextProvider } from './navigation/teacher-nav/TeacherNavContext'
 
 const devLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  // uri: '/graphql',
   // uri: 'mrwetherall.org/graphql',
+
+  uri: 'http://localhost:4000/graphql',
   credentials: 'include',
 })
 const prodLink = new HttpLink({
   uri: 'https://teachers-aid-server.herokuapp.com/graphql',
-  // uri: 'https://mrwetherall.org/graphql',
+  // uri: '/graphql',
   credentials: 'include',
 })
 
@@ -46,8 +48,8 @@ const client = new ApolloClient({
       },
     },
   }),
-  link: prodLink,
-  // link: devLink,
+  // link: prodLink,
+  link: devLink,
   connectToDevTools: true,
 })
 
