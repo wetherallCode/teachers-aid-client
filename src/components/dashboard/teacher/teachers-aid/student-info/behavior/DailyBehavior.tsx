@@ -172,13 +172,14 @@ export const DailyBehavior = ({
                           behaviorTypeId: behavior._id!,
                           studentId,
                           markingPeriod: currentMarkingPeriod,
-                          responsibilityPoints:
-                            behavior.points > 0
-                              ? responsibilityPointConverter(
-                                  grade,
-                                  behavior.points,
-                                )
-                              : behavior.points,
+                          responsibilityPoints: behavior.points,
+                          // responsibilityPoints:
+                          //   behavior.points > 0
+                          //     ? responsibilityPointConverter(
+                          //         grade,
+                          //         behavior.points,
+                          //       )
+                          //     : behavior.points,
                           date: new Date().toLocaleDateString(),
                         },
                       },
@@ -206,10 +207,11 @@ export const DailyBehavior = ({
                       behaviorTypeId: behavior._id!,
                       studentId,
                       markingPeriod: currentMarkingPeriod,
-                      responsibilityPoints:
-                        behavior.points > 0
-                          ? responsibilityPointConverter(grade, behavior.points)
-                          : behavior.points,
+                      responsibilityPoints: behavior.points,
+                      // responsibilityPoints:
+                      //   behavior.points > 0
+                      //     ? responsibilityPointConverter(grade, behavior.points)
+                      //     : behavior.points,
                       date: new Date().toLocaleDateString(),
                     },
                   },
@@ -236,10 +238,11 @@ export const DailyBehavior = ({
                       behaviorTypeId: behavior._id!,
                       studentId,
                       markingPeriod: currentMarkingPeriod,
-                      responsibilityPoints:
-                        behavior.points > 0
-                          ? responsibilityPointConverter(grade, behavior.points)
-                          : behavior.points,
+                      responsibilityPoints: behavior.points,
+                      // responsibilityPoints:
+                      //   behavior.points > 0
+                      //     ? responsibilityPointConverter(grade, behavior.points)
+                      //     : behavior.points,
                       date: new Date().toLocaleDateString(),
                     },
                   },
@@ -274,13 +277,14 @@ export const DailyBehavior = ({
                           behaviorTypeId: behavior._id!,
                           studentId,
                           markingPeriod: currentMarkingPeriod,
-                          responsibilityPoints:
-                            behavior.points > 0
-                              ? responsibilityPointConverter(
-                                  grade,
-                                  behavior.points,
-                                )
-                              : behavior.points,
+                          responsibilityPoints: behavior.points,
+                          // responsibilityPoints:
+                          //   behavior.points > 0
+                          //     ? responsibilityPointConverter(
+                          //         grade,
+                          //         behavior.points,
+                          //       )
+                          //     : behavior.points,
                           date: new Date().toLocaleDateString(),
                         },
                       },

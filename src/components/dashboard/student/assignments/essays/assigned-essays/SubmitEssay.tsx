@@ -86,10 +86,11 @@ export const SubmitEssay = ({
             submitTime: new Date().toLocaleString(),
             late: true, //server will change based on time submitted
             paperBased: false,
-            responsibilityPoints: responsibilityPointConverter(
-              currentGrade,
-              10,
-            ),
+            responsibilityPoints: 4,
+            // responsibilityPoints: responsibilityPointConverter(
+            //   currentGrade,
+            //   10,
+            // ),
           },
         },
       })
@@ -143,9 +144,9 @@ export const SubmitEssay = ({
                 color={called ? 'var(--grey)' : 'var(--blue)'}
                 submitFinal={submitToggle}
                 onClick={handleSubmit}
-                disabled={called ? true : false}
+                disabled={called}
               >
-                {called ? 'Submiting' : 'Yes'}
+                {called ? 'Submitting' : 'Yes'}
               </EssaySubmitButton>
             )
           )}
