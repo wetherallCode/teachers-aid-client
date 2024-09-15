@@ -116,10 +116,11 @@ export const SubmitReadingGuide = ({
                       paperBased: false,
                       late: false,
                       submitTime: new Date().toLocaleString(),
-                      responsibilityPoints: responsibilityPointConverter(
-                        grade,
-                        5,
-                      ),
+                      responsibilityPoints: 2,
+                      // responsibilityPoints: responsibilityPointConverter(
+                      //   grade,
+                      //   5,
+                      // ),
                     },
                   },
                 })
