@@ -68,7 +68,9 @@ export const QuizSelect = ({}: QuizSelectProps) => {
   return (
     <>
       <AssignmentTypeTitle>Quizzes to Complete</AssignmentTypeTitle>
-      {loading ? null : (
+      {loading ? (
+        <div>Loading</div>
+      ) : (
         <>
           {quizToTake.length > 0 ? (
             <AssignmentTypeContentContainer>
