@@ -79,12 +79,13 @@ export const FIND_LESSON_STATUS_QUERY = gql`
         dynamicLesson
         lessonType
         lessonStarted
+        assignedSectionIdList
       }
     }
   }
 `
 export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
-  const [polling, setPolling] = useState<number>(2000)
+  const [polling, setPolling] = useState<number>(5000)
 
   const { loading, data } = useQuery<
     findLessonStatus,
@@ -98,7 +99,7 @@ export const LessonLoader = ({ lessonId, courseToLoad }: LessonLoaderProps) => {
     onError: (error) => console.error(error),
   })
 
-  if (loading) return <div>Loading stuff</div>
+  if (loading) return <div>Loading </div>
   return (
     <>
       {data?.findLessonStatus.lesson!.dynamicLesson !== 'OFF' ? (

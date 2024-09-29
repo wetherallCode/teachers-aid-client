@@ -4860,6 +4860,33 @@ export interface findTextSectionsByIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateTextAnalysis
+// ====================================================
+
+export interface CreateTextAnalysis_createTextAnalysis_textAnalyses {
+  __typename: "TextAnalysis";
+  _id: string | null;
+}
+
+export interface CreateTextAnalysis_createTextAnalysis {
+  __typename: "CreateTextAnalysisPayload";
+  textAnalyses: CreateTextAnalysis_createTextAnalysis_textAnalyses[];
+}
+
+export interface CreateTextAnalysis {
+  createTextAnalysis: CreateTextAnalysis_createTextAnalysis;
+}
+
+export interface CreateTextAnalysisVariables {
+  input: CreateTextAnalysisInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findUnits
 // ====================================================
 
@@ -7496,6 +7523,28 @@ export interface createStudentBehaviorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: checkTextAnalysis
+// ====================================================
+
+export interface checkTextAnalysis_checkTextAnalysis {
+  __typename: "CheckTextAnalysisPayload";
+  checked: boolean;
+}
+
+export interface checkTextAnalysis {
+  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
+}
+
+export interface checkTextAnalysisVariables {
+  input: CheckTextAnalysisInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: assessStudentProtocol
 // ====================================================
 
@@ -7706,28 +7755,6 @@ export interface findStudentByIdForTeachersAid {
 
 export interface findStudentByIdForTeachersAidVariables {
   input: FindStudentByIdForTeachersAidInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: checkTextAnalysis
-// ====================================================
-
-export interface checkTextAnalysis_checkTextAnalysis {
-  __typename: "CheckTextAnalysisPayload";
-  checked: boolean;
-}
-
-export interface checkTextAnalysis {
-  checkTextAnalysis: checkTextAnalysis_checkTextAnalysis;
-}
-
-export interface checkTextAnalysisVariables {
-  input: CheckTextAnalysisInput;
 }
 
 /* tslint:disable */
@@ -8092,6 +8119,7 @@ export interface findLessonStatus_findLessonStatus_lesson {
   dynamicLesson: DynamicLessonEnums;
   lessonType: LessonTypeEnum;
   lessonStarted: boolean;
+  assignedSectionIdList: string[];
 }
 
 export interface findLessonStatus_findLessonStatus {
@@ -8215,6 +8243,7 @@ export interface findLessonByCourseAndDate_findLessonByCourseAndDate_lesson {
   dynamicLesson: DynamicLessonEnums;
   lessonType: LessonTypeEnum;
   lessonStarted: boolean;
+  assignedSectionIdList: string[];
 }
 
 export interface findLessonByCourseAndDate_findLessonByCourseAndDate {
@@ -9013,6 +9042,28 @@ export interface findAllMarkingPeriodGradesVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL query operation: findParagraphCountByTextSectionId
+// ====================================================
+
+export interface findParagraphCountByTextSectionId_findParagraphCountByTextSectionId {
+  __typename: "FindParagraphCountByTextSectionIdPayload";
+  paragraphCount: number;
+}
+
+export interface findParagraphCountByTextSectionId {
+  findParagraphCountByTextSectionId: findParagraphCountByTextSectionId_findParagraphCountByTextSectionId;
+}
+
+export interface findParagraphCountByTextSectionIdVariables {
+  input: FindParagraphCountByTextSectionIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -9580,6 +9631,17 @@ export interface CreateTemporaryTasksInput {
   taskNumber: number;
 }
 
+export interface CreateTextAnalysisInput {
+  assignedCourseIds: string[];
+  assignedDate: string;
+  associatedLessonId: string;
+  dueDate: string;
+  hasAssignerId: string;
+  markingPeriod: MarkingPeriodEnum;
+  maxPoints: number;
+  readings: ReadingsInput;
+}
+
 export interface CreateTextSectionInput {
   fromChapterId: string;
   hasProtocols: TextSectionProtocolsInput[];
@@ -9763,6 +9825,10 @@ export interface FindLessonsByAssignedDateInput {
 export interface FindLessonsByUnitInput {
   courseId: string;
   unitId: string;
+}
+
+export interface FindParagraphCountByTextSectionIdInput {
+  sectionIds: string[];
 }
 
 export interface FindParentContactsByTeacherIdInput {

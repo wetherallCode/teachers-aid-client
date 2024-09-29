@@ -1,4 +1,4 @@
-import { useLazyQuery, useQuery } from '@apollo/client'
+import { gql, useLazyQuery, useQuery } from '@apollo/client'
 import React, { Dispatch, SetStateAction, useEffect } from 'react'
 import { Navigate } from 'react-router'
 import { useUserContextProvider } from '../../contexts/UserContext'
@@ -28,6 +28,7 @@ export const TodaysLessonPlan = ({
 }: TodaysLessonPlanProps) => {
   const me: me_me_Student | me_me_Teacher = useUserContextProvider()
   const [state, event] = useDailyAgendaContextProvider()
+
   const { dateTime } = useTime()
 
   const { data: schoolDayData } = useQuery<
@@ -132,7 +133,6 @@ export const TodaysLessonPlan = ({
     )
       setHasLessonNow!(true)
   }, [courseToLoad, data])
-
   if (!me) return <Navigate to="/" />
   return null
 }

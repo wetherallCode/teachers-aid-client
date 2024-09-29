@@ -2,6 +2,8 @@ import React, { FC, useEffect } from 'react'
 import {
   findLessonByCourseAndDate_findLessonByCourseAndDate_lesson,
   findLessonStatus_findLessonStatus_lesson,
+  findParagraphCountByTextSectionId,
+  findParagraphCountByTextSectionIdVariables,
 } from '../../../schemaTypes'
 import {
   LessonComponentTitleContainer,
@@ -12,28 +14,64 @@ import {
   LessonMainScreen,
   LessonInstrcutionContainer,
 } from '../state-n-styles/lessonStyles'
+import { gql, useQuery } from '@apollo/client'
 
 export type LessonDetailsProps = {
   lesson: findLessonStatus_findLessonStatus_lesson
   setPolling: React.Dispatch<React.SetStateAction<number>>
 }
 
+export const FIND_PARAGRAPH_NUMBERS_QUERY = gql`
+  query findParagraphCountByTextSectionId(
+    $input: FindParagraphCountByTextSectionIdInput!
+  ) {
+    findParagraphCountByTextSectionId(input: $input) {
+      paragraphCount
+    }
+  }
+`
 export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
   const multiPageSection =
     lesson.pageNumbers.endingPage !== lesson.pageNumbers.startingPage
   useEffect(() => {
     setPolling(2000)
   })
+  const { loading, data } = useQuery<
+    findParagraphCountByTextSectionId,
+    findParagraphCountByTextSectionIdVariables
+  >(FIND_PARAGRAPH_NUMBERS_QUERY, {
+    variables: {
+      input: { sectionIds: lesson.assignedSectionIdList },
+    },
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.error(error),
+  })
   return (
     <>
       <LessonComponentTitleContainer>
-        <div>Daily Agenda</div>
+        <div
+          style={{
+            textAlign: 'center',
+            fontSize: '6vh',
+            textDecoration: 'underline',
+          }}
+        >
+          Today's Lesson
+        </div>
       </LessonComponentTitleContainer>
       <LessonDetailsContainer>
         <LessonDetailCenter>
           <div>
-            Today's Section: Page{multiPageSection && 's'}{' '}
-            {lesson.pageNumbers.startingPage}
+            <div
+              style={{
+                fontSize: '2vw',
+                textAlign: 'center',
+                textDecoration: 'underline',
+              }}
+            >
+              Today's Section
+            </div>{' '}
+            Page{multiPageSection && 's'} {lesson.pageNumbers.startingPage}
             {multiPageSection
               ? ' - ' + lesson.pageNumbers.endingPage
               : null}: {lesson.assignedSections.startingSection}
@@ -41,132 +79,76 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
               lesson.assignedSections.startingSection &&
               ' - ' + lesson.assignedSections.endingSection}
           </div>
-          <div style={{ fontSize: '2vh' }}>Number of Paragraphs: {}</div>
+          <br />
+          <div style={{ fontSize: '2vw', textAlign: 'center' }}>
+            <div
+              style={{
+                fontSize: '2vw',
+                textAlign: 'center',
+                textDecoration: 'underline',
+              }}
+            >
+              Number of Paragraphs
+            </div>
+            {loading ? (
+              <div>Loading</div>
+            ) : (
+              <div style={{ fontSize: '3vw' }}>
+                {data?.findParagraphCountByTextSectionId.paragraphCount}
+              </div>
+            )}
+          </div>
         </LessonDetailCenter>
-        <LessonDetailCenter>
-          Essential Question: {lesson.essentialQuestion}
+        <LessonDetailCenter style={{ textAlign: 'center' }}>
+          <div
+            style={{
+              fontSize: '2vw',
+              textAlign: 'center',
+              textDecoration: 'underline',
+            }}
+          >
+            Essential Question
+          </div>{' '}
+          <div> {lesson.essentialQuestion}</div>
         </LessonDetailCenter>
-        <br />
         <div>
           <div
             style={{
               textAlign: 'center',
-              fontSize: '2.5vh',
+              fontSize: '2vw',
               textDecoration: 'underline',
             }}
           >
             Today's Activities
           </div>
         </div>
-
-        {lesson.lessonType === 'INTRODUCTORY' ? (
-          <>
+        <div>
+          {lesson.lessonType === 'INTRODUCTORY' ? (
             <LessonDetailCenter
-              style={{ fontSize: '3vh', textAlign: 'center' }}
+              style={{ fontSize: '2vw', textAlign: 'center' }}
             >
               Text Analysis
             </LessonDetailCenter>
-            <div
-              style={{
-                textAlign: 'center',
-                fontSize: '2.5vh',
-              }}
-            >
-              Instructions
-            </div>
-            <LessonInstrcutionContainer>
-              <ol
-                style={{
-                  margin: 0,
-                  fontSize: '2.5vh',
-                  height: '30vh',
-                  overflow: 'scroll',
-                }}
-              >
-                <li>
-                  Number each paragraph before reading. Indentations start new
-                  paragraphs.
-                </li>
-
-                <li>Read each paragraph in the assigned section.</li>
-
-                <li>After each paragraph: </li>
-                <ol>
-                  <li>
-                    Underline all the actions that happen and all questions in
-                    the paragraph if there are any.
-                  </li>
-                  <li>
-                    Put question marks next to things you don't understand.
-                  </li>
-                  <li>
-                    Circle words you don't know and use the vocab to assist you.
-                  </li>
-                  <li>
-                    Write Main Ideas based on the text structure that each
-                    paragraph presented. Use the help section if needed.
-                  </li>
-                  <li>
-                    Main ideas need to be finished at home if we run out of time
-                    in class and should be used to answer reading guide/essay
-                    questions.
-                  </li>
-                </ol>
-                {/* <li>Answer the essential question.</li> */}
-              </ol>
-            </LessonInstrcutionContainer>
-          </>
-        ) : (
-          <>
+          ) : (
             <LessonDetailCenter
-              style={{ fontSize: '3vh', textAlign: 'center' }}
+              style={{ fontSize: '2vw', textAlign: 'center' }}
             >
               Questioning and Thinking Practice
             </LessonDetailCenter>
-            <div
-              style={{
-                textAlign: 'center',
-              }}
-            >
-              Instructions
-            </div>
-
-            <LessonInstrcutionContainer>
-              <ol
-                style={{
-                  margin: 0,
-                  fontSize: '2.5vh',
-                  height: '30vh',
-                  overflow: 'scroll',
-                }}
-              >
-                <li>
-                  Today we will reinforce what we analyzed last time by thinking
-                  in multiple ways and answering and asking questions to help
-                  understand the content at a deeper level. You will need your
-                  Daily Agenda from last time.
-                </li>
-                <br />
-                <li>
-                  Be prepared to work with your partners to discuss answers to
-                  questions.
-                </li>
-                <br />
-                <li>
-                  All answers submitted on the website must be your version of
-                  the answer not a word for word copy of your partners work.
-                </li>
-                <br />
-                <li>
-                  Be prepared to answer questions I ask you at random for bonus
-                  points.
-                </li>
-                <br />
-                <li>Feel free to ask questions for bonus points.</li>
-              </ol>
-            </LessonInstrcutionContainer>
-          </>
-        )}
+          )}
+        </div>
+        {/* <div
+          style={{
+            textAlign: 'center',
+            fontSize: '2vw',
+            textDecoration: 'underline',
+          }}
+        >
+          Homework
+        </div>
+        <LessonDetailCenter style={{ fontSize: '2vw', textAlign: 'center' }}>
+          Essay
+        </LessonDetailCenter>*/}
       </LessonDetailsContainer>
     </>
   )

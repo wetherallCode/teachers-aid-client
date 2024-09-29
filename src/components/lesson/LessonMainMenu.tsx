@@ -105,6 +105,7 @@ export const FIND_LESSON_QUERY = gql`
         dynamicLesson
         lessonType
         lessonStarted
+        assignedSectionIdList
       }
     }
   }
@@ -155,10 +156,9 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
       FIND_LESSON_QUERY,
       {
         onCompleted: (data) => {
-          data
-            ? console.log(data.findLessonByCourseAndDate.lesson)
-            : console.log('No class yet')
+          data ? console.log('hello') : console.log('No class yet')
         },
+        // pollInterval: 10000,
         onError: (error) => console.error(error),
       },
     )
@@ -222,7 +222,6 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id,
   )
-  console.log(course)
 
   const handleSignInCheck = (_id: string) => {
     const check = course?.some((stuff) => {
@@ -251,7 +250,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
       },
       onCompleted: () => {
         event({ type: 'TODAYS_LESSON' })
-        startPolling!(100)
+        // startPolling!(100)
         event({ type: 'POLLING' })
       },
       refetchQueries: ['studentSignedInCheck', 'me'],
@@ -263,16 +262,24 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
     if (useFake) {
       loadLesson({
         variables: {
-          input: { courseId: '6125056b8fde6b861b4a8c6e', lessonDate: date },
+          input: {
+            courseId: '613269a4fea6ec23e4989c82',
+            lessonDate: '9/30/2024',
+          },
         },
       })
+      if (data?.findLessonByCourseAndDate.lesson) {
+        event({ type: 'TODAYS_LESSON' })
+        startPolling!(2000)
+        event({ type: 'POLLING' })
+      }
     } else if (courseToLoad) {
       loadLesson({
         variables: { input: { courseId: courseToLoad._id!, lessonDate: date } },
       })
       if (data?.findLessonByCourseAndDate.lesson) {
         event({ type: 'TODAYS_LESSON' })
-        startPolling!(100)
+        startPolling!(2000)
         event({ type: 'POLLING' })
       }
     }
