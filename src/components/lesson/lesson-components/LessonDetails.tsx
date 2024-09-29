@@ -90,13 +90,16 @@ export const LessonDetails = ({ lesson, setPolling }: LessonDetailsProps) => {
             >
               Number of Paragraphs
             </div>
-            {loading ? (
-              <div>Loading</div>
-            ) : (
-              <div style={{ fontSize: '3vw' }}>
-                {data?.findParagraphCountByTextSectionId.paragraphCount}
-              </div>
-            )}
+            {/* <>
+              {' '}
+              {loading ? (
+                <div>Loading</div>
+              ) : (
+                <div style={{ fontSize: '3vw' }}>
+                  {data?.findParagraphCountByTextSectionId.paragraphCount}
+                </div>
+              )}
+            </> */}
           </div>
         </LessonDetailCenter>
         <LessonDetailCenter style={{ textAlign: 'center' }}>
