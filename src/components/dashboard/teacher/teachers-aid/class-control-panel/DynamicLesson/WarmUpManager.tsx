@@ -79,7 +79,6 @@ export const WarmUpManager = ({
               Quiz
             </DynamicLessonButton>
           )}
-          :
           <>
             <DynamicLessonButton
               currentLessonSetting={isActive}
