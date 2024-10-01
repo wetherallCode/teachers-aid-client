@@ -34,11 +34,12 @@ export type WarmUpProps = {
 }
 
 export const WarmUp = ({ lesson, me, setPolling }: WarmUpProps) => {
+  console.log(lesson.beforeActivity.task)
   return (
     <>
       <LessonComponentTitleContainer>Warm Up</LessonComponentTitleContainer>
       <LessonComponentDetailsContainer>
-        {lesson.lessonType === 'INTRODUCTORY' && (
+        {me.__typename === 'Teacher' && (
           <LessonComponentDetailsStyle>
             {lesson.beforeActivity.task}
           </LessonComponentDetailsStyle>
