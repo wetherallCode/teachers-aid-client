@@ -68,21 +68,20 @@ export const StudentProtocolResponse = ({
       response: null,
     })
 
-  useQuery<findActiveProtocolByStudent, findActiveProtocolByStudentVariables>(
-    FIND_ACTIVE_STUDENT_PROTOCOL_QUERY,
-    {
-      variables: {
-        input: { studentId: me._id! },
-      },
-      fetchPolicy: 'network-only',
-      onCompleted: (data) => {
-        console.log(data)
-        setProtocol(data.findActiveProtocolByStudent.protocol)
-        setPolling(5000)
-      },
-      onError: (error) => console.error(error),
+  const { loading } = useQuery<
+    findActiveProtocolByStudent,
+    findActiveProtocolByStudentVariables
+  >(FIND_ACTIVE_STUDENT_PROTOCOL_QUERY, {
+    variables: {
+      input: { studentId: me._id! },
     },
-  )
+    fetchPolicy: 'network-only',
+    onCompleted: (data) => {
+      setProtocol(data.findActiveProtocolByStudent.protocol)
+      setPolling(5000)
+    },
+    onError: (error) => console.error(error),
+  })
 
   const [respond] = useMutation<respondToProtocol, respondToProtocolVariables>(
     RESPOND_TO_PROTOCOL_MUTATION,
@@ -108,7 +107,7 @@ export const StudentProtocolResponse = ({
         <>
           <ProtocolResponseContainer>
             <ProtocolResponseTaskContainer>
-              {protocol.task}
+              {loading ? 'Loading' : protocol.task}
             </ProtocolResponseTaskContainer>
             <ProtocolResponseHeader>
               Respond to this Task
