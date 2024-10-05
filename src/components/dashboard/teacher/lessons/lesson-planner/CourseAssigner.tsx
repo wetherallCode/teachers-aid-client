@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import {
   getCoursesForUser,
@@ -21,6 +21,7 @@ import { CreateLesson } from './CreateLesson'
 import { sortByLetter } from '../../../../../utils'
 import { CreateQuiz } from '../quiz-creator/CreateQuiz'
 import { CreateQuizContextProvider } from '../quiz-creator/state-n-styles/CreateQuizContext'
+import { TextAnalysis } from './TextAnalysis'
 
 export type CourseAssignerProps = {}
 
@@ -40,9 +41,9 @@ export const GET_COURSES_QUERY = gql`
   }
 `
 
-export const CourseAssigner: FC<CourseAssignerProps> = () => {
+export const CourseAssigner = ({}: CourseAssignerProps) => {
   const me: me_me_Teacher = useUserContextProvider()
-  const [, event] = useLessonPlannerContextProvider()
+  const [state, event] = useLessonPlannerContextProvider()
   const [coursesList, handleChange] = useCheckBox([])
 
   useEffect(() => {
@@ -78,6 +79,9 @@ export const CourseAssigner: FC<CourseAssignerProps> = () => {
             <AssignCourseName>{course.name}</AssignCourseName>
           </CourseToAssignContainer>
         ))}
+        {state.context.lessonType === 'INTRODUCTORY' && (
+          <TextAnalysis courseList={[realCourseList]} />
+        )}
         {/* <CreateQuizContextProvider> */}
         <CreateQuiz />
         {/* </CreateQuizContextProvider> */}

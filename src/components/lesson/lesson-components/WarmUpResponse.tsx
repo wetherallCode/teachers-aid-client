@@ -46,7 +46,7 @@ export const WarmUpResponse = ({
       response: null,
     })
 
-  const { data } = useQuery<
+  const { loading, data } = useQuery<
     findActiveProtocolByStudent,
     findActiveProtocolByStudentVariables
   >(FIND_ACTIVE_STUDENT_PROTOCOL_QUERY, {
@@ -76,11 +76,11 @@ export const WarmUpResponse = ({
       refetchQueries: ['findActiveProtocolByStudent'],
     },
   )
+
+  loading && <div>Loading</div>
+
   return (
     <>
-      <ProtocolResponseTaskContainer>
-        <div>{lesson.beforeActivity.task}</div>
-      </ProtocolResponseTaskContainer>
       {data?.findActiveProtocolByStudent.protocol && (
         <>
           {protocol.response ? (

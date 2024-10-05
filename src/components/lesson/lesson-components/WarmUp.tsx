@@ -34,7 +34,6 @@ export type WarmUpProps = {
 }
 
 export const WarmUp = ({ lesson, me, setPolling }: WarmUpProps) => {
-  console.log(lesson.beforeActivity.task)
   return (
     <>
       <LessonComponentTitleContainer>Warm Up</LessonComponentTitleContainer>
@@ -46,6 +45,9 @@ export const WarmUp = ({ lesson, me, setPolling }: WarmUpProps) => {
         )}
         {me.__typename === 'Student' && (
           <>
+            <ProtocolResponseTaskContainer>
+              <div>{lesson.beforeActivity.task}</div>
+            </ProtocolResponseTaskContainer>
             {lesson.beforeActivity.isActive && (
               <WarmUpResponse lesson={lesson} me={me} setPolling={setPolling} />
             )}
