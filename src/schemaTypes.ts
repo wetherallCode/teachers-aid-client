@@ -6880,6 +6880,98 @@ export interface findReadingGuidesByCourseIdAndAssignedDateVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: exemptTextAnalysisById
+// ====================================================
+
+export interface exemptTextAnalysisById_exemptTextAnalysisById {
+  __typename: "ExemptTextAnalysisByIdPayload";
+  updated: boolean;
+}
+
+export interface exemptTextAnalysisById {
+  exemptTextAnalysisById: exemptTextAnalysisById_exemptTextAnalysisById;
+}
+
+export interface exemptTextAnalysisByIdVariables {
+  input: ExemptTextAnalysisByIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: assignTextAnalyses
+// ====================================================
+
+export interface assignTextAnalyses_assignTextAnalyses {
+  __typename: "AssignTextAnalysesPayload";
+  assigned: boolean;
+}
+
+export interface assignTextAnalyses {
+  assignTextAnalyses: assignTextAnalyses_assignTextAnalyses;
+}
+
+export interface assignTextAnalysesVariables {
+  input: AssignTextAnalysesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findTextAnalysesByCourseIdAndDueDate
+// ====================================================
+
+export interface findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate_textAnalyses_hasOwner {
+  __typename: "Student";
+  firstName: string;
+  lastName: string;
+  _id: string | null;
+}
+
+export interface findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate_textAnalyses_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
+export interface findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate_textAnalyses {
+  __typename: "TextAnalysis";
+  _id: string | null;
+  hasOwner: findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate_textAnalyses_hasOwner;
+  onTask: boolean;
+  workedWellWithGroup: boolean;
+  exempt: boolean;
+  startedPromptly: boolean;
+  textAnalysisCompletion: TextAnalysisCompletionEnum;
+  assigned: boolean;
+  score: findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate_textAnalyses_score;
+}
+
+export interface findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate {
+  __typename: "FindTextAnalysesByCourseIdAndDueDatePayload";
+  textAnalyses: findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate_textAnalyses[];
+}
+
+export interface findTextAnalysesByCourseIdAndDueDate {
+  findTextAnalysesByCourseIdAndDueDate: findTextAnalysesByCourseIdAndDueDate_findTextAnalysesByCourseIdAndDueDate;
+}
+
+export interface findTextAnalysesByCourseIdAndDueDateVariables {
+  input: FindTextAnalysesByCourseIdAndDueDateInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findQuizzesForCourseByAssignedDate
 // ====================================================
 
@@ -7618,11 +7710,21 @@ export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_stu
   __typename: "Essay" | "Quiz" | "ReadingGuide" | "SpecialAssignment";
 }
 
+export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis_score {
+  __typename: "Score";
+  earnedPoints: number;
+  maxPoints: number;
+}
+
 export interface findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis {
   __typename: "TextAnalysis";
   _id: string | null;
   textAnalysisCompletion: TextAnalysisCompletionEnum;
   exempt: boolean;
+  onTask: boolean;
+  workedWellWithGroup: boolean;
+  startedPromptly: boolean;
+  score: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis_score;
 }
 
 export type findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments = findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_Essay | findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis;
@@ -7947,6 +8049,28 @@ export interface updateUserActive {
 
 export interface updateUserActiveVariables {
   input: UpdateUserActiveInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findParagraphCountByTextSectionId
+// ====================================================
+
+export interface findParagraphCountByTextSectionId_findParagraphCountByTextSectionId {
+  __typename: "FindParagraphCountByTextSectionIdPayload";
+  paragraphCount: number;
+}
+
+export interface findParagraphCountByTextSectionId {
+  findParagraphCountByTextSectionId: findParagraphCountByTextSectionId_findParagraphCountByTextSectionId;
+}
+
+export interface findParagraphCountByTextSectionIdVariables {
+  input: FindParagraphCountByTextSectionIdInput;
 }
 
 /* tslint:disable */
@@ -9042,28 +9166,6 @@ export interface findAllMarkingPeriodGradesVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL query operation: findParagraphCountByTextSectionId
-// ====================================================
-
-export interface findParagraphCountByTextSectionId_findParagraphCountByTextSectionId {
-  __typename: "FindParagraphCountByTextSectionIdPayload";
-  paragraphCount: number;
-}
-
-export interface findParagraphCountByTextSectionId {
-  findParagraphCountByTextSectionId: findParagraphCountByTextSectionId_findParagraphCountByTextSectionId;
-}
-
-export interface findParagraphCountByTextSectionIdVariables {
-  input: FindParagraphCountByTextSectionIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -9393,6 +9495,14 @@ export interface AssignSeatsInput {
   seat?: StudentSeatInput | null;
 }
 
+export interface AssignTextAnalysesInput {
+  assignedDate: any;
+  associatedLessonId: string;
+  dueDate: any;
+  readingSection: string;
+  studentIds: string[];
+}
+
 export interface BuildRubricEntryInput {
   entry: string;
   howToImprove?: string | null;
@@ -9418,6 +9528,7 @@ export interface CheckQuizQuestionsForTextSectionsInput {
 export interface CheckTextAnalysisInput {
   finishedEssentialQuestion: boolean;
   onTask: boolean;
+  paragraphCount: number;
   startedPromptly: boolean;
   textAnalysisCompletion: TextAnalysisCompletionEnum;
   textAnalysisId: string;
@@ -9683,6 +9794,10 @@ export interface EditBehaviorTypesInput {
   points: number;
 }
 
+export interface ExemptTextAnalysisByIdInput {
+  textAnalysisId: string;
+}
+
 export interface FindActiveProtocolByStudentInput {
   studentId: string;
 }
@@ -9944,6 +10059,11 @@ export interface FindTemporaryTasksByStudentIdInput {
 export interface FindTemporaryTasksInput {
   courseId: string;
   dateIssued: string;
+}
+
+export interface FindTextAnalysesByCourseIdAndDueDateInput {
+  courseId: string;
+  dueDate: string;
 }
 
 export interface FindTextSectionByIdInput {

@@ -40,7 +40,9 @@ export const Grading = ({}: GradingProps) => {
         </IndividualContentContainer>
         <IndividualContentContainer>
           <ContentContainerTitle>Processes Grades</ContentContainerTitle>
-          <ul style={{ textAlign: 'center' }}>Reading Guides and Quizzes</ul>
+          <ul style={{ textAlign: 'center' }}>
+            Reading Guides, Quizzes, and Text Analysis
+          </ul>
           <ul>
             <li>
               Reading Guides and Quizzes will be averaged together to get your

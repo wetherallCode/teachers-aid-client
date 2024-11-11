@@ -1,5 +1,5 @@
-import { gql, useMutation } from '@apollo/client'
-import { useState } from 'react'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import { useEffect, useState } from 'react'
 import { useEnumContextProvider } from '../../../../../../contexts/EnumContext'
 import {
   CheckTextAnalysisInput,
@@ -8,6 +8,8 @@ import {
   TextAnalysisCompletionEnum,
   checkTextAnalysis,
   findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis,
+  findParagraphCountByTextSectionId,
+  findParagraphCountByTextSectionIdVariables,
 } from '../../../../../../schemaTypes'
 import {
   phraseCapitalizer,
@@ -17,6 +19,9 @@ import {
   StudentBehaviorButton,
   StudentBehaviorButtonContainer,
 } from '../../styles/studentInfoStyles'
+import { FIND_PARAGRAPH_NUMBERS_QUERY } from '../../../../../lesson/lesson-components/LessonDetails'
+import { useTeachersAidContextProvider } from '../../state/TeachersAidContext'
+import { GradeDisplay } from '../../../../../home/homeStyles'
 
 export type TextAnalysisCheckProps = {
   textAnalysis: findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis
@@ -31,7 +36,18 @@ export const CHECK_TEXT_ANAYLSIS_MUTATION = gql`
 `
 
 export const TextAnalysisCheck = ({ textAnalysis }: TextAnalysisCheckProps) => {
-  const { TextAnalysisCompletionEnum } = useEnumContextProvider()
+  const [state, event] = useTeachersAidContextProvider()
+  const { textAnalysisCompletionEnum } = useEnumContextProvider()
+  const [textAnalysisState, setTextAnalysisState] =
+    useState<CheckTextAnalysisInput>({
+      finishedEssentialQuestion: false,
+      onTask: textAnalysis.onTask,
+      paragraphCount: 0,
+      startedPromptly: textAnalysis.startedPromptly,
+      textAnalysisCompletion: textAnalysis.textAnalysisCompletion,
+      textAnalysisId: textAnalysis._id!,
+      workedWellWithGroup: textAnalysis.workedWellWithGroup,
+    })
 
   const [checkTextAnalysis] = useMutation<
     checkTextAnalysis,
@@ -40,35 +56,91 @@ export const TextAnalysisCheck = ({ textAnalysis }: TextAnalysisCheckProps) => {
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findStudentByIdForTeachersAid'],
   })
+
+  useEffect(() => {
+    checkTextAnalysis({
+      variables: { input: textAnalysisState },
+    })
+    console.log('updated')
+  }, [textAnalysisState])
+
+  const score =
+    (textAnalysis.score.earnedPoints / textAnalysis.score.maxPoints) * 100
+
   return (
-    <StudentBehaviorButtonContainer style={{ gridTemplateRows: '1fr 5fr' }}>
-      <div>{textAnalysis.textAnalysisCompletion}</div>
-      <StudentBehaviorButtonContainer style={{ height: '100%', width: '100%' }}>
-        {TextAnalysisCompletionEnum.map(
-          (check: TextAnalysisCompletionEnum, i: number) => (
-            <StudentBehaviorButton
-              key={i}
-              goodBehavior={check !== 'NO_ATTEMPT'}
-              onClick={() =>
-                checkTextAnalysis({
-                  variables: {
-                    input: {
+    <StudentBehaviorButtonContainer
+      style={{ gridTemplateRows: '1fr 5fr 1fr 5fr' }}
+    >
+      <div style={{ color: 'var(--blue)', fontSize: '2vh' }}>
+        Text Analysis: {Math.round(score)}%
+      </div>
+      <div style={{ display: 'grid', height: '100%', width: '100%' }}>
+        <StudentBehaviorButtonContainer>
+          {textAnalysisCompletionEnum.map(
+            (check: TextAnalysisCompletionEnum, i: number) => {
+              return (
+                <StudentBehaviorButton
+                  key={i}
+                  goodBehavior={check !== 'NO_ATTEMPT'}
+                  style={
+                    textAnalysis.textAnalysisCompletion === check
+                      ? { background: 'var(--blue)' }
+                      : { background: 'var(--white)', color: 'var(--blue)' }
+                  }
+                  onClick={() =>
+                    setTextAnalysisState({
+                      ...textAnalysisState,
                       textAnalysisCompletion: check,
-                      textAnalysisId: textAnalysis._id!,
-                      startedPromptly: false,
-                      workedWellWithGroup: false,
-                      finishedEssentialQuestion: false,
-                      onTask: false,
-                    },
-                  },
-                })
-              }
-            >
-              {underscoreEliminator(phraseCapitalizer(check))}
-            </StudentBehaviorButton>
-          ),
-        )}
-      </StudentBehaviorButtonContainer>
+                    })
+                  }
+                >
+                  {underscoreEliminator(phraseCapitalizer(check))}
+                </StudentBehaviorButton>
+              )
+            },
+          )}
+        </StudentBehaviorButtonContainer>
+      </div>
+      <div style={{ color: 'var(--blue)', fontSize: '2vh' }}>
+        ______________________________
+      </div>
+      <div style={{ display: 'grid', height: '100%', width: '100%' }}>
+        <StudentBehaviorButtonContainer>
+          <StudentBehaviorButton
+            goodBehavior={textAnalysis.onTask === true}
+            onClick={() =>
+              setTextAnalysisState({
+                ...textAnalysisState,
+                onTask: !textAnalysisState.onTask,
+              })
+            }
+          >
+            On Task
+          </StudentBehaviorButton>
+          <StudentBehaviorButton
+            goodBehavior={textAnalysis.startedPromptly === true}
+            onClick={() => {
+              setTextAnalysisState({
+                ...textAnalysisState,
+                startedPromptly: !textAnalysisState.startedPromptly,
+              })
+            }}
+          >
+            Started Promptly
+          </StudentBehaviorButton>
+          <StudentBehaviorButton
+            goodBehavior={textAnalysis.workedWellWithGroup === true}
+            onClick={() =>
+              setTextAnalysisState({
+                ...textAnalysisState,
+                workedWellWithGroup: !textAnalysisState.workedWellWithGroup,
+              })
+            }
+          >
+            Worked with Group
+          </StudentBehaviorButton>
+        </StudentBehaviorButtonContainer>
+      </div>
     </StudentBehaviorButtonContainer>
   )
 }

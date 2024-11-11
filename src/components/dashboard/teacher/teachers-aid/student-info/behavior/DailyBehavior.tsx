@@ -258,7 +258,7 @@ export const DailyBehavior = ({
       )}
       {state.context.studentInfoSelector === 'TASK_CHECK' && (
         <>
-          {textAnalysis ? (
+          {textAnalysis && !textAnalysis.exempt ? (
             <TextAnalysisCheck
               textAnalysis={
                 textAnalysis as findStudentByIdForTeachersAid_findStudentByIdForTeachersAid_student_hasAssignments_TextAnalysis

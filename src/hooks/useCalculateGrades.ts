@@ -131,6 +131,7 @@ export const useCalculateGrades = ({
         Date.parse(new Date().toLocaleString()) >
           Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
     )!
+  console.log(allSecondaryGrades.map((a) => a.__typename === 'TextAnalysis'))
 
   const responsibilityPoints =
     data?.findAllMarkingPeriodGrades.responsibilityPoints!.responsibilityPoints!

@@ -60,9 +60,9 @@ export const SecondaryGradeRows = ({
     onCompleted: (data) => console.log(),
     onError: (error) => console.error(error),
   })
-  console.log(markingPeriodSelect)
   const secondaryGrades = data?.findAssignmentByStudentId.assignments
     .filter((a) => a.gradeType === 'SECONDARY')
+    .filter((a) => a.__typename !== 'TextAnalysis')
     .filter(
       (grade) =>
         Date.parse(new Date().toLocaleString()) >
@@ -88,6 +88,7 @@ export const SecondaryGradeRows = ({
   const secondaryGradeScore = (totalEarnedPoints / totalMaxPoints) * 100
 
   if (loading) return <div>Loading </div>
+  console.log(secondaryGrades.map((a) => a.__typename === 'TextAnalysis'))
   return (
     <SecondaryGradeRowInfo
       student={student}

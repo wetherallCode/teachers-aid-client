@@ -124,7 +124,9 @@ export const HomeworkAssigner = ({
         </>
       )}
       {assignmentControlState === 'readingGuide' && <ReadingGuideViewer />}
-      {assignmentControlState === 'textAnalysis' && <TextAnalysisAssigner />}
+      {assignmentControlState === 'textAnalysis' && (
+        <TextAnalysisAssigner presentStudentList={presentStudentList} />
+      )}
     </AssignmentControlPanelContainer>
   )
 }

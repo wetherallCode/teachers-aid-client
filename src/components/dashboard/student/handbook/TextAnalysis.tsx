@@ -14,50 +14,40 @@ export const TextAnalysis = ({}: TextAnalysisProps) => {
       <DisplayTitle>Text Analysis Help</DisplayTitle>
       <DoubleSidedContentContainer style={{ fontSize: '2vh' }}>
         <IndividualContentContainer>
-          <ContentContainerTitle>Cause and Effect</ContentContainerTitle>
-          <ul>After reading the paragraph and underlining the actions:</ul>
+          <ContentContainerTitle>Directions</ContentContainerTitle>
           <ul>
             <li>
-              For each action, ask your self: Why did that action happen? If
-              there is another action in the paragraph (or one of the paragraphs
-              that came before) that made it happen; that is the cause.
-              <ul>
-                <li>
-                  One cause may have many effects, so don't think it is always
-                  one cause to an effect.
-                </li>
-              </ul>
-              <li>
-                Use that cause and effect relationship to form your main idea
-                for that paragraph, and write it in your agenda.
-              </li>
+              While working in groups, students will markup text and construct
+              main ideas using specific text structures.
+            </li>
+            <br />
+            <li>
+              Students will be use the class website to look up vocabulary, and
+              directions for making main ideas.
+            </li>
+            <br />
+            <li>
+              Students will have to be reliant on their group more than the
+              teacher.
             </li>
           </ul>
         </IndividualContentContainer>
         <IndividualContentContainer>
-          <ContentContainerTitle>Problem and Solution</ContentContainerTitle>
-          <ul>After reading the paragraphs and underlining the actions:</ul>
+          <ContentContainerTitle>Grading</ContentContainerTitle>
           <ul>
             <li>
-              If there is no obvious cause and effect, look for problems and/or
-              solutions.
+              The grade will be determined by completing the total amount of
+              paragraphs in the assigned sections.
             </li>
-            <ul>
-              <li>
-                Problems are things that get in the way of people's goals.
-              </li>
-            </ul>
+            <br />
             <li>
-              For your main idea, explain what is getting in the way of people's
-              goals
+              Students can lose points for being slow to start, not working well
+              with the group, or being off task
             </li>
+            <br />
             <li>
-              If you can (when the paragraph presents the information), include
-              the problem and solution.
-            </li>
-            <li>
-              If the paragraph only shows the solution, just explain the
-              solution.
+              The assignment will count as a Processes grade and will be
+              averaged in with quizzes and reading guides.
             </li>
           </ul>
         </IndividualContentContainer>
