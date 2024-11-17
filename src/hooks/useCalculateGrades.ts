@@ -24,6 +24,10 @@ export const FIND_STUDENT_GRADES_QUERY = gql`
         dueTime
         exempt
         missing
+        readings {
+          readingPages
+          readingSections
+        }
         ... on Quiz {
           score {
             earnedPoints

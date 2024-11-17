@@ -9016,15 +9016,16 @@ export interface checkAssignmentsAllowedInClassVariables {
 // GraphQL query operation: findAllMarkingPeriodGrades
 // ====================================================
 
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_score {
   __typename: "Score";
   earnedPoints: number;
   maxPoints: number;
-}
-
-export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_readings {
-  __typename: "Readings";
-  readingSections: string;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz {
@@ -9034,21 +9035,21 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueTime: string;
   exempt: boolean;
   missing: boolean;
+  readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_readings;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_score;
   gradeType: GradeTypeEnum;
-  readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Quiz_readings;
-}
-
-export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_topic {
-  __typename: "Topic";
-  essayQuestionId: string;
-  question: string;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_readings {
   __typename: "Readings";
   readingPages: string;
   readingSections: string;
+}
+
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_topic {
+  __typename: "Topic";
+  essayQuestionId: string;
+  question: string;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_score {
@@ -9069,8 +9070,8 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueTime: string;
   exempt: boolean;
   missing: boolean;
-  topic: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_topic;
   readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_readings;
+  topic: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_topic;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_score;
   finalDraft: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_Essay_finalDraft | null;
@@ -9078,6 +9079,7 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_readings {
   __typename: "Readings";
+  readingPages: string;
   readingSections: string;
 }
 
@@ -9106,6 +9108,12 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   readingGuideFinal: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_ReadingGuide_readingGuideFinal | null;
 }
 
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score {
   __typename: "Score";
   earnedPoints: number;
@@ -9119,8 +9127,15 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueTime: string;
   exempt: boolean;
   missing: boolean;
+  readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_readings;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_SpecialAssignment_score;
+}
+
+export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
 }
 
 export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_score {
@@ -9136,6 +9151,7 @@ export interface findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignmen
   dueTime: string;
   exempt: boolean;
   missing: boolean;
+  readings: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_readings;
   gradeType: GradeTypeEnum;
   score: findAllMarkingPeriodGrades_findAllMarkingPeriodGrades_assignments_TextAnalysis_score;
 }

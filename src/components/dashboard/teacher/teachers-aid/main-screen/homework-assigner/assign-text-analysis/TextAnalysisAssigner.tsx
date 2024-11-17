@@ -34,6 +34,13 @@ export const ASSIGN_TEXTANALYSIS_QUERY = gql`
     }
   }
 `
+// export const EXEMPT_TEXT_ANAlYSIS_MUTATION = gql`
+//   mutation exemptTextAnalysisById($input: ExemptTextAnalysisByIdInput!) {
+//     exemptTextAnalysisById(input: $input) {
+//       updated
+//     }
+//   }
+// `
 export const FIND_TEXT_ANALYSIS_BY_COURSE_ID_QUERY = gql`
   query findTextAnalysesByCourseIdAndDueDate(
     $input: FindTextAnalysesByCourseIdAndDueDateInput!

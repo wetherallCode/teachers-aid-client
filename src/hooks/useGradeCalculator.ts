@@ -291,7 +291,7 @@ export const useGradeCalculator = ({
             Date.parse(new Date().toLocaleString()) >
               Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`),
         )
-      console.log(secondaryGradeAssignments)
+
       const secondaryGradesEarnedPoints = secondaryGradeAssignments
         ?.map((review) => review.score.earnedPoints)
         .reduce((acc: number, i: number) => acc + i, 0)!

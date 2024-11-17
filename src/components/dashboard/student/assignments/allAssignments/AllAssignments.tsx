@@ -25,7 +25,7 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
   const me: me_me_Student = useUserContextProvider()
   const [state] = useStudentAssignmentContextProvider()
   const [categoryState, setCategoryState] = useState<
-    'Essay' | 'ReadingGuide' | 'Quiz'
+    'Essay' | 'ReadingGuide' | 'Quiz' | 'TextAnalysis'
   >('Essay')
 
   const { loading, data } = useQuery<
@@ -60,10 +60,20 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
       !assignment.exempt,
   )
 
+  const textAnalysis = assignments.filter(
+    (assignment) =>
+      assignment.__typename === 'TextAnalysis' &&
+      Date.parse(new Date().toLocaleString()) >
+        Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`) &&
+      !assignment.exempt,
+  )
+
   const quizzes = assignments.filter(
     (assignment) => assignment.__typename === 'Quiz' && !assignment.exempt,
   )
+
   const dateSort = (a: any, b: any) => (a.dueDate > b.dueDate ? 1 : 0)
+
   const contractedTitle = (str: string, length: number) =>
     str.length < length ? str : str.slice(0, length) + '...'
 
@@ -98,6 +108,16 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
           }
         >
           Quizzes
+        </div>
+        <div
+          onClick={() => setCategoryState('TextAnalysis')}
+          style={
+            categoryState === 'TextAnalysis'
+              ? { textDecoration: 'underline' }
+              : {}
+          }
+        >
+          Text Analysis
         </div>
       </AssignmentTypeSelect>
       <AssignmentDisplayContainer>
@@ -212,6 +232,43 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
                       <div>
                         {(
                           (quiz.score.earnedPoints / quiz.score.maxPoints) *
+                          100
+                        ).toFixed(2)}
+                        %
+                      </div>
+                    )}
+                  </IndividualAssignment>
+                )
+              })}
+            </AssignmentsContainer>
+          )}
+          {categoryState === 'TextAnalysis' && (
+            <AssignmentsContainer>
+              {textAnalysis.sort(dateSort).map((textAnalysis, i: number) => {
+                console.log(textAnalysis)
+                return (
+                  <IndividualAssignment
+                    style={
+                      i % 2 === 0
+                        ? { background: 'var(--white)' }
+                        : { background: 'var(--grey)' }
+                    }
+                    key={textAnalysis.dueDate}
+                  >
+                    <div>
+                      {textAnalysis.__typename === 'TextAnalysis' &&
+                        textAnalysis.readings.readingSections}
+                    </div>
+                    <div>{textAnalysis.dueDate}</div>
+                    {textAnalysis.exempt ? (
+                      <div>Exempt</div>
+                    ) : textAnalysis.missing ? (
+                      <div style={{ color: 'var(--red)' }}>Missing</div>
+                    ) : (
+                      <div>
+                        {(
+                          (textAnalysis.score.earnedPoints /
+                            textAnalysis.score.maxPoints) *
                           100
                         ).toFixed(2)}
                         %
