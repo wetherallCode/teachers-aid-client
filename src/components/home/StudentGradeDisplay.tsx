@@ -16,7 +16,7 @@ export const StudentGradeDisplay = ({
   //   pollInterval: 5000,
   //   markingPeriod: currentMarkingPeriod.context.currentMarkingPeriod,
   // })
-  const { grade, loading } = useGradeCalculator({
+  const { grade, loading } = useCalculateGrades({
     studentId,
     polling: false,
     pollInterval: 5000,

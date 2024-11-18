@@ -7,6 +7,7 @@ import {
   StudentGradeBreakdownContainerTitle,
 } from './studentGradeBreakdownStyles'
 import { AssignmentFinder } from './assignment-grades/AssignmentFinder'
+import { useCalculateGrades } from '../../../../hooks/useCalculateGrades'
 
 export type GradesProps = { me: me_me_Student }
 
@@ -14,7 +15,7 @@ export const Grades = ({ me }: GradesProps) => {
   const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { currentMarkingPeriod } = markingPeriodState.context
 
-  const { grade, loading } = useGradeCalculator({
+  const { grade, loading } = useCalculateGrades({
     studentId: me._id!,
     markingPeriod: currentMarkingPeriod,
     polling: false,

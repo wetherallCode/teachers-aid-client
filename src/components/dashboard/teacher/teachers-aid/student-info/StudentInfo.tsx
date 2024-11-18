@@ -133,7 +133,7 @@ export const StudentInfo = ({}: StudentInfoProps) => {
   //   pollInterval: 1000,
   // })
   // console.log(oldGrade)
-  const { grade, loading: gradeLoading } = useGradeCalculator({
+  const { grade, loading: gradeLoading } = useCalculateGrades({
     studentId: state.context.studentId!,
     markingPeriod: markingPeriodState.context.currentMarkingPeriod,
     polling: false,
