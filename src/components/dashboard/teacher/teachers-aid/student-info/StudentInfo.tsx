@@ -126,14 +126,14 @@ export const StudentInfo = ({}: StudentInfoProps) => {
   const [state, event] = useTeachersAidContextProvider()
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
-  // const { grade } = useCalculateGrades({
+  // const { grade: GradeCalculatorGrade } = useGradeCalculator({
   //   studentId: state.context.studentId!,
   //   markingPeriod: markingPeriodState.context.currentMarkingPeriod,
   //   polling: false,
   //   pollInterval: 1000,
   // })
-  // console.log(oldGrade)
-  const { grade, loading: gradeLoading } = useCalculateGrades({
+  // console.log(GradeCalculatorGrade)
+  const { grade, loading: gradeLoading } = useGradeCalculator({
     studentId: state.context.studentId!,
     markingPeriod: markingPeriodState.context.currentMarkingPeriod,
     polling: false,

@@ -15,7 +15,7 @@ export const Grades = ({ me }: GradesProps) => {
   const [markingPeriodState] = useMarkingPeriodContextProvider()
   const { currentMarkingPeriod } = markingPeriodState.context
 
-  const { grade, loading } = useCalculateGrades({
+  const { grade, loading } = useGradeCalculator({
     studentId: me._id!,
     markingPeriod: currentMarkingPeriod,
     polling: false,
