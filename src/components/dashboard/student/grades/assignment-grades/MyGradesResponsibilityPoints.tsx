@@ -37,6 +37,7 @@ export const MyGradesResponsibilityPoints = ({
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+  if (loading) return <div>Loading </div>
   const [points] =
     data?.findResponsibilityPointsByStudentId.responsibilityPoints.filter(
       (p) => p.markingPeriod === currentMarkingPeriod,
