@@ -130,6 +130,12 @@ export const AssignmentInformation = ({
       assignment.markingPeriod === selectedMarkingPeriod,
   )! as findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz[]
 
+  const textAnalyses = data?.findAssignmentByStudentId.assignments.filter(
+    (assignment) =>
+      assignment.__typename === 'TextAnalysis' &&
+      assignment.markingPeriod === selectedMarkingPeriod,
+  )!
+
   const articleReviews = data?.findAssignmentByStudentId.articleReviews.filter(
     (review) => review.markingPeriod === selectedMarkingPeriod,
   )!
@@ -199,11 +205,17 @@ export const AssignmentInformation = ({
           Quizzes
         </AssignmentSwitch>
         <AssignmentSwitch
+          selected={state.matches('information.assignments.textAnalysis')}
+          onClick={() => event({ type: 'TEXT_ANALYSIS' })}
+        >
+          Text Analysis
+        </AssignmentSwitch>
+        {/* <AssignmentSwitch
           selected={state.matches('information.assignments.sgo')}
           onClick={() => event({ type: 'SGO' })}
         >
           SGO Info
-        </AssignmentSwitch>
+        </AssignmentSwitch> */}
         {/* <AssignmentSwitch
           selected={state.matches('information.assignments.articleReviews')}
           onClick={() => event({ type: 'ARTICLE_REVIEWS' })}
@@ -296,6 +308,25 @@ export const AssignmentInformation = ({
                 i={i}
                 numberOfQuizzesTotal={quizzes.length}
               />
+            ))}
+          </AssignmentInformationStyle>
+        )}
+        {state.matches('information.assignments.textAnalysis') && (
+          <AssignmentInformationStyle>
+            {textAnalyses.map((textAnalysis, i: number) => (
+              <IndividualAssignmentDisplay
+                key={textAnalysis._id}
+                everyOtherLine={i % 2 === 0}
+                lastLine={textAnalyses.length - 1 === i}
+              >
+                <div>{textAnalysis.readings.readingSections}</div>
+                {/* {textAnalysis.__typename === 'ReadingGuide' && */}
+                {/* guide.graded ? ( */}
+                <div>
+                  {textAnalysis.score.earnedPoints}/
+                  {textAnalysis.score.maxPoints}
+                </div>
+              </IndividualAssignmentDisplay>
             ))}
           </AssignmentInformationStyle>
         )}

@@ -13,6 +13,7 @@ export type studentInformationMachineSchema = {
             readingGuides: {}
             articleReviews: {}
             quizzes: {}
+            textAnalysis: {}
             sgo: {}
           }
         }
@@ -32,6 +33,7 @@ export type studentInformationMachineEvent =
   | { type: 'READING_GUIDES' }
   | { type: 'ESSAYS' }
   | { type: 'QUIZZES' }
+  | { type: 'TEXT_ANALYSIS' }
   | { type: 'ARTICLE_REVIEWS' }
   | {
       type: 'UPDATE_STUDENT'
@@ -102,6 +104,7 @@ export const studentInformationMachine = Machine<
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
                 QUIZZES: 'quizzes',
+                TEXT_ANALYSIS: 'textAnalysis',
                 SGO: 'sgo',
               },
             },
@@ -113,6 +116,7 @@ export const studentInformationMachine = Machine<
                 CONDUCT: '#studentInformation.information.conduct',
                 ESSAYS: 'essays',
                 ARTICLE_REVIEWS: 'articleReviews',
+                TEXT_ANALYSIS: 'textAnalysis',
                 QUIZZES: 'quizzes',
                 SGO: 'sgo',
               },
@@ -126,6 +130,7 @@ export const studentInformationMachine = Machine<
                 READING_GUIDES: 'readingGuides',
                 ESSAYS: 'essays',
                 QUIZZES: 'quizzes',
+                TEXT_ANALYSIS: 'textAnalysis',
                 SGO: 'sgo',
               },
             },
@@ -137,6 +142,7 @@ export const studentInformationMachine = Machine<
                 CONDUCT: '#studentInformation.information.conduct',
                 READING_GUIDES: 'readingGuides',
                 ARTICLE_REVIEWS: 'articleReviews',
+                TEXT_ANALYSIS: 'textAnalysis',
                 ESSAYS: 'essays',
                 SGO: 'sgo',
               },
@@ -148,9 +154,23 @@ export const studentInformationMachine = Machine<
                 PROTOCOLS: '#studentInformation.information.protocols',
                 CONDUCT: '#studentInformation.information.conduct',
                 READING_GUIDES: 'readingGuides',
+                TEXT_ANALYSIS: 'textAnalysis',
                 ARTICLE_REVIEWS: 'articleReviews',
                 ESSAYS: 'essays',
                 QUIZZES: 'quizzes',
+              },
+            },
+            textAnalysis: {
+              on: {
+                STUDENT_INFO: '#studentInformation.information.studentInfo',
+                CONTACTS: '#studentInformation.information.contacts',
+                PROTOCOLS: '#studentInformation.information.protocols',
+                CONDUCT: '#studentInformation.information.conduct',
+                READING_GUIDES: 'readingGuides',
+                ARTICLE_REVIEWS: 'articleReviews',
+                ESSAYS: 'essays',
+                QUIZZES: 'quizzes',
+                SGO: 'sgo',
               },
             },
           },
