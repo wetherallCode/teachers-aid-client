@@ -6268,7 +6268,6 @@ export interface findAllStudentsForStudentInformation_findAllStudents_students {
   firstName: string;
   lastName: string;
   userName: string;
-  hasAssignmentsLocked: boolean | null;
   inCourses: findAllStudentsForStudentInformation_findAllStudents_students_inCourses[];
 }
 
