@@ -34,6 +34,7 @@ export const ME_QUERY = gql`
       ... on Student {
         __typename
         hasIEP
+        hasAssignmentsLocked
         inCourses {
           _id
           name

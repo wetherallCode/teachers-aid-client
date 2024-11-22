@@ -221,25 +221,16 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
   const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
 
   const { schoolDayLength } = currentSchoolDayState.context.currentSchoolDay
+  const isAbsent =
+    me.hasAbsences?.length > 0 &&
+    me.hasAbsences?.find((a) => a.dayAbsent === new Date().toLocaleDateString())
 
-  // const classTime =
-  //   schoolDay &&
-  //   Date.parse(dateTime) >
-  //     Date.parse(
-  //       timeFinder(
-  //         schoolDayLength === SchoolDayLengthEnum.HALF
-  //           ? me.inCourses[0].hasCourseInfo?.halfDayStartsAt!
-  //           : me.inCourses[0].hasCourseInfo?.startsAt!,
-  //       ),
-  //     ) &&
-  //   Date.parse(dateTime) <
-  //     Date.parse(
-  //       timeFinder(
-  //         schoolDayLength === SchoolDayLengthEnum.HALF
-  //           ? me.inCourses[0].hasCourseInfo?.halfDayEndsAt!
-  //           : me.inCourses[0].hasCourseInfo?.endsAt!,
-  //       ),
-  //     )
+  const classworkLocked =
+    classTime &&
+    !assignmentsAllowedInClass &&
+    !isAbsent &&
+    me.hasAssignmentsLocked
+
   useEffect(() => {
     if (classTime && !assignmentsAllowedInClass && state.matches('redoEssay')) {
       navigate('/dashboard/assignments')
@@ -247,10 +238,7 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
   }, [classTime, navigate, assignmentsAllowedInClass])
 
   if (loading) return <div>Loading </div>
-
-  const isAbsent =
-    me.hasAbsences.length > 0 &&
-    me.hasAbsences.find((a) => a.dayAbsent === new Date().toLocaleDateString())
+  console.log(classworkLocked)
 
   return (
     <EssayContainer>
@@ -298,25 +286,19 @@ export const CompletedEssay = ({}: CompletedEssayProps) => {
                 Redo Essay
               </CompletedEssayControlButton>
             )}
-            {state.matches('reviewEssay') &&
-              classTime &&
-              assignmentsAllowedInClass &&
-              !isAbsent && (
-                <CompletedEssayControlButton
-                  onClick={() => {
-                    event({ type: 'NEXT' })
-                  }}
-                >
-                  Redo Essay
-                </CompletedEssayControlButton>
-              )}
-            {state.matches('reviewEssay') &&
-              classTime &&
-              !assignmentsAllowedInClass && (
-                <CompletedEssayControlButton>
-                  You Can't Redo Essays During Class
-                </CompletedEssayControlButton>
-              )}
+            {state.matches('reviewEssay') && !classworkLocked ? (
+              <CompletedEssayControlButton
+                onClick={() => {
+                  event({ type: 'NEXT' })
+                }}
+              >
+                Redo Essay
+              </CompletedEssayControlButton>
+            ) : (
+              <CompletedEssayControlButton>
+                You Can't Redo Essays During Class
+              </CompletedEssayControlButton>
+            )}
             {state.matches('redoEssay') && (
               <SubmitRedoneEssay
                 _id={state.context.essayId}

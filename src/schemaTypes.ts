@@ -958,180 +958,6 @@ export interface submitEssayFinalDraftVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findCompletedEssayById
-// ====================================================
-
-export interface findCompletedEssayById_findEssayById_essay_topic {
-  __typename: "Topic";
-  question: string;
-  writingLevel: WritingLevelEnum;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_readings {
-  __typename: "Readings";
-  readingPages: string;
-  readingSections: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_score {
-  __typename: "Score";
-  maxPoints: number;
-  earnedPoints: number;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
-  __typename: "RubricEntry";
-  entry: string;
-  rubricSection: RubricSectionEnum;
-  score: number;
-  howToImprove: string | null;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft {
-  __typename: "SubmittedFinalDraft";
-  draft: any;
-  gradingDraft: any;
-  score: number;
-  draftNumber: number;
-  rubricEntries: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
-  additionalComments: string[] | null;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_finalDraft {
-  __typename: "FinalDraftContainer";
-  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft[];
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
-  __typename: "DevelopingSentenceStructure";
-  subject: string;
-  verb: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer {
-  __typename: "DevelopingOrganizer";
-  basicQuestionType: BasicQuestionEnum | null;
-  developingSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure;
-  restatement: string;
-  answer: string;
-  conclusion: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure {
-  __typename: "AcademicSentenceStructure";
-  subject: string;
-  verb: string;
-  object: string | null;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType {
-  __typename: "ProblemSolutionAnswerType";
-  problem: string;
-  reasonForProblem: string;
-  solvedBy: string;
-  whySolutionSolved: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType {
-  __typename: "HowCauseEffectAnswerType";
-  before: string;
-  cause: string;
-  after: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType {
-  __typename: "WhyCauseEffectAnswerType";
-  ultimateCause: string;
-  proximateCause: string;
-}
-
-export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType;
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer {
-  __typename: "AcademicOrganizer";
-  academicSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure;
-  restatement: string;
-  conclusion: string;
-  questionType: QuestionTypeEnum | null;
-  answerType: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType | null;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure {
-  __typename: "AdvancedSentenceStructure";
-  subject: string;
-  verb: string;
-  object: string | null;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType {
-  __typename: "ProblemSolutionAnswerType";
-  problem: string;
-  reasonForProblem: string;
-  solvedBy: string;
-  whySolutionSolved: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType {
-  __typename: "HowCauseEffectAnswerType";
-  before: string;
-  cause: string;
-  after: string;
-}
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType {
-  __typename: "WhyCauseEffectAnswerType";
-  ultimateCause: string;
-  proximateCause: string;
-}
-
-export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType;
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer {
-  __typename: "AdvancedOrganizer";
-  advancedSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure;
-  answerType: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType | null;
-  restatement: string;
-  conclusion: string;
-  questionType: QuestionTypeEnum | null;
-}
-
-export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer;
-
-export interface findCompletedEssayById_findEssayById_essay_workingDraft {
-  __typename: "WorkingDraft";
-  draft: string;
-  organizer: findCompletedEssayById_findEssayById_essay_workingDraft_organizer | null;
-}
-
-export interface findCompletedEssayById_findEssayById_essay {
-  __typename: "Essay";
-  _id: string | null;
-  topic: findCompletedEssayById_findEssayById_essay_topic;
-  readings: findCompletedEssayById_findEssayById_essay_readings;
-  score: findCompletedEssayById_findEssayById_essay_score;
-  finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
-  workingDraft: findCompletedEssayById_findEssayById_essay_workingDraft;
-}
-
-export interface findCompletedEssayById_findEssayById {
-  __typename: "FindEssayByIdPayload";
-  essay: findCompletedEssayById_findEssayById_essay;
-}
-
-export interface findCompletedEssayById {
-  findEssayById: findCompletedEssayById_findEssayById;
-}
-
-export interface findCompletedEssayByIdVariables {
-  input: FindEssayByIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findCompletedEssaysByStudentId
 // ====================================================
 
@@ -8974,6 +8800,7 @@ export interface me_me_Student {
   isActive: boolean;
   _id: string | null;
   hasIEP: boolean | null;
+  hasAssignmentsLocked: boolean | null;
   inCourses: me_me_Student_inCourses[];
   hasProgressTracker: me_me_Student_hasProgressTracker;
   hasAbsences: me_me_Student_hasAbsences[];
@@ -9175,6 +9002,180 @@ export interface findAllMarkingPeriodGrades {
 
 export interface findAllMarkingPeriodGradesVariables {
   input: FindAllMarkingPeriodGradesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findCompletedEssayById
+// ====================================================
+
+export interface findCompletedEssayById_findEssayById_essay_topic {
+  __typename: "Topic";
+  question: string;
+  writingLevel: WritingLevelEnum;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_readings {
+  __typename: "Readings";
+  readingPages: string;
+  readingSections: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_score {
+  __typename: "Score";
+  maxPoints: number;
+  earnedPoints: number;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries {
+  __typename: "RubricEntry";
+  entry: string;
+  rubricSection: RubricSectionEnum;
+  score: number;
+  howToImprove: string | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft {
+  __typename: "SubmittedFinalDraft";
+  draft: any;
+  gradingDraft: any;
+  score: number;
+  draftNumber: number;
+  rubricEntries: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft_rubricEntries[];
+  additionalComments: string[] | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_finalDraft {
+  __typename: "FinalDraftContainer";
+  submittedFinalDraft: findCompletedEssayById_findEssayById_essay_finalDraft_submittedFinalDraft[];
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure {
+  __typename: "DevelopingSentenceStructure";
+  subject: string;
+  verb: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer {
+  __typename: "DevelopingOrganizer";
+  basicQuestionType: BasicQuestionEnum | null;
+  developingSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer_developingSentenceStructure;
+  restatement: string;
+  answer: string;
+  conclusion: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure {
+  __typename: "AcademicSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_ProblemSolutionAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_HowCauseEffectAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer {
+  __typename: "AcademicOrganizer";
+  academicSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_academicSentenceStructure;
+  restatement: string;
+  conclusion: string;
+  questionType: QuestionTypeEnum | null;
+  answerType: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer_answerType | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure {
+  __typename: "AdvancedSentenceStructure";
+  subject: string;
+  verb: string;
+  object: string | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType {
+  __typename: "ProblemSolutionAnswerType";
+  problem: string;
+  reasonForProblem: string;
+  solvedBy: string;
+  whySolutionSolved: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType {
+  __typename: "HowCauseEffectAnswerType";
+  before: string;
+  cause: string;
+  after: string;
+}
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType {
+  __typename: "WhyCauseEffectAnswerType";
+  ultimateCause: string;
+  proximateCause: string;
+}
+
+export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_ProblemSolutionAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_HowCauseEffectAnswerType | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType_WhyCauseEffectAnswerType;
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer {
+  __typename: "AdvancedOrganizer";
+  advancedSentenceStructure: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_advancedSentenceStructure;
+  answerType: findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer_answerType | null;
+  restatement: string;
+  conclusion: string;
+  questionType: QuestionTypeEnum | null;
+}
+
+export type findCompletedEssayById_findEssayById_essay_workingDraft_organizer = findCompletedEssayById_findEssayById_essay_workingDraft_organizer_DevelopingOrganizer | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AcademicOrganizer | findCompletedEssayById_findEssayById_essay_workingDraft_organizer_AdvancedOrganizer;
+
+export interface findCompletedEssayById_findEssayById_essay_workingDraft {
+  __typename: "WorkingDraft";
+  draft: string;
+  organizer: findCompletedEssayById_findEssayById_essay_workingDraft_organizer | null;
+}
+
+export interface findCompletedEssayById_findEssayById_essay {
+  __typename: "Essay";
+  _id: string | null;
+  topic: findCompletedEssayById_findEssayById_essay_topic;
+  readings: findCompletedEssayById_findEssayById_essay_readings;
+  score: findCompletedEssayById_findEssayById_essay_score;
+  finalDraft: findCompletedEssayById_findEssayById_essay_finalDraft | null;
+  workingDraft: findCompletedEssayById_findEssayById_essay_workingDraft;
+}
+
+export interface findCompletedEssayById_findEssayById {
+  __typename: "FindEssayByIdPayload";
+  essay: findCompletedEssayById_findEssayById_essay;
+}
+
+export interface findCompletedEssayById {
+  findEssayById: findCompletedEssayById_findEssayById;
+}
+
+export interface findCompletedEssayByIdVariables {
+  input: FindEssayByIdInput;
 }
 
 /* tslint:disable */
@@ -9388,6 +9389,7 @@ export enum TextAnalysisCompletionEnum {
   FULL_COMPLETION = "FULL_COMPLETION",
   MAIN_IDEAS_ONLY = "MAIN_IDEAS_ONLY",
   MARKUP_ONLY = "MARKUP_ONLY",
+  MINOR_COMPLETION = "MINOR_COMPLETION",
   NO_ATTEMPT = "NO_ATTEMPT",
   PARTIAL_COMPLETION = "PARTIAL_COMPLETION",
 }

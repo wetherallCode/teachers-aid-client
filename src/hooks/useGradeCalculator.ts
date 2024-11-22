@@ -407,14 +407,14 @@ export const useGradeCalculator = ({
           Date.parse(new Date().toLocaleString()) >
             Date.parse(`${assignment.dueDate}, ${assignment.dueTime}`)),
     )
-    console.log(
-      data?.findAssignmentByStudentId.assignments.filter(
-        (assignment) =>
-          assignment.gradeType === GradeTypeEnum.SECONDARY &&
-          assignment.markingPeriod === markingPeriod &&
-          !assignment.exempt,
-      ),
-    )
+    // console.log(
+    //   data?.findAssignmentByStudentId.assignments.filter(
+    //     (assignment) =>
+    //       assignment.gradeType === GradeTypeEnum.SECONDARY &&
+    //       assignment.markingPeriod === markingPeriod &&
+    //       !assignment.exempt,
+    //   ),
+    // )
     const secondaryGradeAssignments =
       data?.findAssignmentByStudentId.assignments.filter(
         (assignment) =>

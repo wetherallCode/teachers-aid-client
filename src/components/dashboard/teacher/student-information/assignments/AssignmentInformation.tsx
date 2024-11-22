@@ -322,10 +322,14 @@ export const AssignmentInformation = ({
                 <div>{textAnalysis.readings.readingSections}</div>
                 {/* {textAnalysis.__typename === 'ReadingGuide' && */}
                 {/* guide.graded ? ( */}
-                <div>
-                  {textAnalysis.score.earnedPoints}/
-                  {textAnalysis.score.maxPoints}
-                </div>
+                {textAnalysis.exempt ? (
+                  <div>Exempt</div>
+                ) : (
+                  <div>
+                    {textAnalysis.score.earnedPoints}/
+                    {textAnalysis.score.maxPoints}
+                  </div>
+                )}
               </IndividualAssignmentDisplay>
             ))}
           </AssignmentInformationStyle>

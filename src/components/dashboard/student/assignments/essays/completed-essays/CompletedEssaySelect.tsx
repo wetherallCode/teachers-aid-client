@@ -48,7 +48,7 @@ export const FIND_COMPLETED_ESSAYS_QUERY = gql`
   }
 `
 
-export const CompletedEssaySelect: FC<CompletedEssaySelectProps> = () => {
+export const CompletedEssaySelect = ({}: CompletedEssaySelectProps) => {
   const me: me_me_Student = useUserContextProvider()
   const [state] = useStudentAssignmentContextProvider()
 
