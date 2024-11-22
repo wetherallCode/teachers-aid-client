@@ -9,6 +9,8 @@ import {
   findLessonByIdVariables,
   findTextAnalysesByCourseIdAndDueDate,
   findTextAnalysesByCourseIdAndDueDateVariables,
+  exemptTextAnalysisById,
+  exemptTextAnalysisByIdVariables,
 } from '../../../../../../../schemaTypes'
 import { date } from '../../../../../../../utils'
 import { FIND_LESSON_QUERY } from '../../../../../../lesson/LessonMainMenu'
@@ -22,7 +24,10 @@ import {
   QuizNameContainer,
   QuizStatusIndicator,
 } from '../../../styles/mainScreenStyles'
-import { IndividualTextAnalysisButtons } from './IndividualTextAnalysisButtons'
+import {
+  EXEMPT_TEXT_ANALYSIS_MUTATION,
+  IndividualTextAnalysisButtons,
+} from './IndividualTextAnalysisButtons'
 
 export type TextAnalysisAssignerProps = {
   presentStudentList: string[]
@@ -116,7 +121,13 @@ export const TextAnalysisAssigner = ({
     onCompleted: (data) => console.log(data),
     refetchQueries: ['findTextAnalysesByCourseIdAndDueDate'],
   })
-
+  const [exemptTextAnalysis] = useMutation<
+    exemptTextAnalysisById,
+    exemptTextAnalysisByIdVariables
+  >(EXEMPT_TEXT_ANALYSIS_MUTATION, {
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['findTextAnalysesByCourseIdAndDueDate'],
+  })
   if (loading || textAnalysisLoading) return <div>Loading </div>
   const bAreTextAnalysesCreated =
     textAnalysisData!.findTextAnalysesByCourseIdAndDueDate.textAnalyses
@@ -227,19 +238,17 @@ export const TextAnalysisAssigner = ({
                                   width: '100%',
                                 }
                           }
-                          onClick={
-                            () => {}
-                            // markExempt({
-                            //   variables: {
-                            //     input: {
-                            //       assignmentId: quiz._id!,
-                            //       exemptStatus: !quiz.exempt,
-                            //     },
-                            //   },
-                            // })
-                          }
+                          onClick={() => {
+                            exemptTextAnalysis({
+                              variables: {
+                                input: {
+                                  textAnalysisId: textAnalyses._id!,
+                                },
+                              },
+                            })
+                          }}
                         >
-                          {textAnalyses.exempt ? 'Not Exempt' : 'Exempt'}
+                          {!textAnalyses.exempt ? 'Not Exempt' : 'Exempt'}
                         </button>
                       </div>
                     )}
