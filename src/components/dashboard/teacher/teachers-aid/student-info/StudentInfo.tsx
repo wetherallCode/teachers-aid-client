@@ -17,6 +17,7 @@ import { useMarkingPeriodContextProvider } from '../../../../../contexts/marking
 import { useGradeCalculator } from '../../../../../hooks/useGradeCalculator'
 import { responsibilityPointConverter } from '../../../../../utils'
 import { useCalculateGrades } from '../../../../../hooks/useCalculateGrades'
+import { ClassWorkLockDisplay } from '../../student-information/general-student-information/ClassworkLock'
 
 export type StudentInfoProps = {}
 
@@ -243,6 +244,9 @@ export const StudentInfo = ({}: StudentInfoProps) => {
               ).length
             }
           </div>
+          <ClassWorkLockDisplay
+            studentId={data?.findStudentByIdForTeachersAid.student._id!}
+          />
         </StudentNameContainer>
       </StudentInfoDisplay>
 

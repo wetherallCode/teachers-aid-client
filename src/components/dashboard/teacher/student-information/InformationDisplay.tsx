@@ -27,6 +27,7 @@ export const InformationDisplay = ({}: InformationDisplayProps) => {
     MarkingPeriodEnum.FIRST,
   )
   const { student } = state.context
+
   return (
     <InformationContainer>
       <StudentNameHeader>

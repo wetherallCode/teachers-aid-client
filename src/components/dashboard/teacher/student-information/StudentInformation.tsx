@@ -25,6 +25,7 @@ export const FIND_ALL_STUDENTS_QUERY = gql`
         firstName
         lastName
         userName
+        hasAssignmentsLocked
         inCourses {
           name
           _id

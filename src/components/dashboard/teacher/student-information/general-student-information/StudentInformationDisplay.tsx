@@ -16,6 +16,8 @@ import {
 import { StudentGradeInformation } from './StudentGradeInformation'
 import { SwitchCourse } from './SwitchCourse'
 import { WritingMetrics } from './WritingMetrics'
+import { ClassControlPanel } from '../../teachers-aid/class-control-panel/center-console/ClassControlPanel'
+import { ClassWorkLockDisplay } from './ClassworkLock'
 
 export type StudentInformationDisplayProps = {
   student: findAllStudentsForStudentInformation_findAllStudents_students
@@ -78,6 +80,7 @@ export const StudentInformationDisplay = ({
           <ResetStudentPassword userId={student._id!} />
           <div>Current Course: {student.inCourses[0].name}</div>
           <SwitchCourse student={student} />
+          <ClassWorkLockDisplay studentId={student._id!} />
         </>
       )}
     </StudentInformationDisplayContainer>
