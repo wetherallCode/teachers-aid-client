@@ -52,7 +52,6 @@ export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
     variables: {
       input: { studentId: me._id! },
     },
-    // pollInterval: 1000,
     fetchPolicy: 'network-only',
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),

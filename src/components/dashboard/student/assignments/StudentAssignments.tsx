@@ -59,15 +59,25 @@ export const MARK_EXEMPT_MUTATION = gql`
 `
 
 export const StudentAssignments = ({}: StudentAssignmentsProps) => {
+  // Get the current user's info
   const me: me_me_Student = useUserContextProvider()
+
+  // Get the current class time
   const { classTime } = useClassTimeIndicator(me)
 
+  // Get the current assignments allowed in class
   const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
+
+  // Get the current state and event from the StudentAssignmentContextProvider
   const [state, event] = useStudentAssignmentContextProvider()
+
+  // Get the current marking period state
   const [markingPeriodState] = useMarkingPeriodContextProvider()
 
+  // Get the current marking period
   const { currentMarkingPeriod } = markingPeriodState.context
 
+  // Query the database for all quizzes assigned to the current student
   const { loading, data } = useQuery<
     findQuizzesByStudentId,
     findQuizzesByStudentIdVariables
@@ -75,49 +85,25 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
     variables: {
       input: { markingPeriod: currentMarkingPeriod, studentId: me._id! },
     },
-    // pollInterval: 1000,
+    // Call this function when the query is completed
     // onCompleted: (data) => console.log(data),
+    // Call this function if there is an error
     onError: (error) => console.error(error),
   })
-  // const { data: schoolDayData } = useQuery<
-  //   findCurrentSchoolDay,
-  //   findCurrentSchoolDayVariables
-  // >(FIND_CURRENT_SCHOOL_DAY_QUERY, {
-  //   variables: {
-  //     input: { date: new Date().toLocaleDateString() },
-  //   },
-  //   onCompleted: (data) => console.log(data),
-  //   onError: (error) => console.error(error),
-  // })
 
-  // const { data: absenceData } = useQuery<
-  //   findStudentInfoByStudentIdForDesk,
-  //   findStudentInfoByStudentIdForDeskVariables
-  // >(FIND_STUDENT_INFO_FOR_DESK_QUERY, {
-  //   variables: {
-  //     input: { studentId: me._id! },
-  //   },
-  //   onError: (error) => console.error(error + 'desk'),
-  // })
-
-  // const isAbsent = absenceData?.findStudentById.student.hasAbsences.some(
-  //   (day) => day.dayAbsent === new Date().toLocaleDateString()
-  // )
+  // Check if the current student is absent
   const isAbsent =
     me.hasAbsences.length > 0 &&
     me.hasAbsences.find((a) => a.dayAbsent === new Date().toLocaleDateString())
-  // const individualAssignmentLock = me.individualAssignmentLock
 
+  // Check if the classwork is locked
   const classworkLocked =
     classTime &&
     !assignmentsAllowedInClass &&
     !isAbsent &&
     me.hasAssignmentsLocked
-  console.log(me.hasAssignmentsLocked)
-  // console.log('Class Time: ' + classTime)
-  // console.log('Assignments Allowed: ' + assignmentsAllowedInClass)
-  // console.log('Absent: ' + isAbsent)
-  // console.log('Lock: ' + individualAssignmentLock)
+
+  // Render the following
   return (
     <AssignmentsToCompleteContainer>
       <AssignmentsTypeSelectorPanel>

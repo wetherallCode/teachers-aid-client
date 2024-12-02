@@ -377,7 +377,7 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
   // })
 
   useEffect(() => {
-    if (classTime && !assignmentsAllowedInClass)
+    if (classTime && !assignmentsAllowedInClass && me.hasAssignmentsLocked)
       navigate('/dashboard/assignments')
   }, [classTime, navigate, assignmentsAllowedInClass])
 

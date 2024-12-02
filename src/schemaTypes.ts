@@ -1580,65 +1580,6 @@ export interface submitReadingGuideVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: findQuizzesByStudentId
-// ====================================================
-
-export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings {
-  __typename: "Readings";
-  readingSections: string;
-}
-
-export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes {
-  __typename: "Quiz";
-  _id: string | null;
-  isActive: boolean;
-  assigned: boolean;
-  readings: findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings;
-  finishedQuiz: boolean;
-  startedQuiz: boolean;
-}
-
-export interface findQuizzesByStudentId_findQuizzesByStudentId {
-  __typename: "FindQuizzesByStudentIdPayload";
-  quizzes: findQuizzesByStudentId_findQuizzesByStudentId_quizzes[];
-}
-
-export interface findQuizzesByStudentId {
-  findQuizzesByStudentId: findQuizzesByStudentId_findQuizzesByStudentId;
-}
-
-export interface findQuizzesByStudentIdVariables {
-  input: FindQuizzesByStudentIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: markExempt
-// ====================================================
-
-export interface markExempt_markExempt {
-  __typename: "MarkExemptPayload";
-  marked: boolean;
-}
-
-export interface markExempt {
-  markExempt: markExempt_markExempt;
-}
-
-export interface markExemptVariables {
-  input: MarkExemptInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL query operation: findSchoolDayAndLesson
 // ====================================================
 
@@ -9226,6 +9167,65 @@ export interface findAllMarkingPeriodGrades {
 
 export interface findAllMarkingPeriodGradesVariables {
   input: FindAllMarkingPeriodGradesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: findQuizzesByStudentId
+// ====================================================
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes {
+  __typename: "Quiz";
+  _id: string | null;
+  isActive: boolean;
+  assigned: boolean;
+  readings: findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings;
+  finishedQuiz: boolean;
+  startedQuiz: boolean;
+}
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId {
+  __typename: "FindQuizzesByStudentIdPayload";
+  quizzes: findQuizzesByStudentId_findQuizzesByStudentId_quizzes[];
+}
+
+export interface findQuizzesByStudentId {
+  findQuizzesByStudentId: findQuizzesByStudentId_findQuizzesByStudentId;
+}
+
+export interface findQuizzesByStudentIdVariables {
+  input: FindQuizzesByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: markExempt
+// ====================================================
+
+export interface markExempt_markExempt {
+  __typename: "MarkExemptPayload";
+  marked: boolean;
+}
+
+export interface markExempt {
+  markExempt: markExempt_markExempt;
+}
+
+export interface markExemptVariables {
+  input: MarkExemptInput;
 }
 
 /* tslint:disable */
