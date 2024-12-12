@@ -77,7 +77,7 @@ export const AcademicHowCauseEffect = ({
         ? verb + 'd'
         : verb + 'ed'
       : irregularVerbCheck
-  console.log(questionParts)
+
   return (
     <>
       <OrganizerTitleContainer>
@@ -94,10 +94,7 @@ export const AcademicHowCauseEffect = ({
           <div>How Question: Cause and Effect</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>What were things like before the expansion of suffrage</div>
-          {/* <div>
-            What was {object} like before {subject} {verb} it?
-          </div> */}
+          <div>What was/were things like before {subject}?</div>
           <PartInput
             value={state.context.academicOrganizer.answer.howCauseEffect.before}
             onChange={(e: any) => {
@@ -111,11 +108,24 @@ export const AcademicHowCauseEffect = ({
             }}
           />
         </AnswerTypeContainter>
+
+        {/* <AnswerTypeContainter>
+          <div>What was/were things like before {subject}?</div>
+          <PartInput
+            value={state.context.academicOrganizer.answer.howCauseEffect.before}
+            onChange={(e: any) => {
+              event({
+                type: 'SET_HOW_CAUSE_EFFECT',
+                payload: {
+                  ...howCauseEffect,
+                  before: e.target.value,
+                },
+              })
+            }}
+          />
+        </AnswerTypeContainter> */}
         <AnswerTypeContainter>
-          <div>How did the expansion of suffrage change things?</div>
-          {/* <div>
-            How was {object} different because of {subject}?
-          </div> */}
+          <div>How was/were things different because of {subject}?</div>
           <PartInput
             value={state.context.academicOrganizer.answer.howCauseEffect.after}
             onChange={(e: any) => {
