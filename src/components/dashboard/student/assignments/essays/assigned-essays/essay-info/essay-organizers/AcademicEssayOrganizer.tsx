@@ -57,7 +57,7 @@ export const AcademicEssayOrganizer = ({
                 }}
               >
                 <AcademicEssayOrganizerAnswerBlockHeader>
-                  What was the Object like before?
+                  What was/were things like before?
                 </AcademicEssayOrganizerAnswerBlockHeader>
                 <AcademicEssayOrganizerAnswerBlockBody>
                   {essayOrganizer.answerType.before}
@@ -84,7 +84,7 @@ export const AcademicEssayOrganizer = ({
                 }}
               >
                 <AcademicEssayOrganizerAnswerBlockHeader>
-                  How was the Object different because of the Subject?
+                  How were things different because of {subject}?
                 </AcademicEssayOrganizerAnswerBlockHeader>
                 <AcademicEssayOrganizerAnswerBlockBody>
                   {essayOrganizer.answerType.after}
