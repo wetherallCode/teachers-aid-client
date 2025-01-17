@@ -71,7 +71,7 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
   const quizzes = assignments.filter(
     (assignment) => assignment.__typename === 'Quiz' && !assignment.exempt,
   )
-
+  console.log(quizzes)
   const dateSort = (a: any, b: any) => (a.dueDate > b.dueDate ? 1 : 0)
 
   const contractedTitle = (str: string, length: number) =>
@@ -209,7 +209,7 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
           {categoryState === 'Quiz' && (
             <AssignmentsContainer>
               {quizzes
-                .filter((quiz) => quiz.dueDate > Date())
+                // .filter((quiz) => quiz.dueDate > Date())
                 .sort(dateSort)
                 .map((quiz, i: number) => {
                   console.log(typeof quiz.dueDate)
