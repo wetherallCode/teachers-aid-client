@@ -58,7 +58,7 @@ export const QuizToComplete = ({}: QuizToCompleteProps) => {
         {data?.findQuizById.quiz.readings.readingSections} Quiz
       </QuizTitleContainer>
       <QuizSection quiz={data?.findQuizById.quiz!} />
-      <div>Vocab</div>
+      {/* <div>Vocab</div> */}
     </QuizContainer>
   )
 }
