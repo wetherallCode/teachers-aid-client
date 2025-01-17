@@ -208,38 +208,41 @@ export const AllAssignments = ({}: AllAssignmentsProps) => {
           )}
           {categoryState === 'Quiz' && (
             <AssignmentsContainer>
-              {quizzes.sort(dateSort).map((quiz, i: number) => {
-                console.log(quiz)
-                return (
-                  <IndividualAssignment
-                    style={
-                      i % 2 === 0
-                        ? { background: 'var(--white)' }
-                        : { background: 'var(--grey)' }
-                    }
-                    key={quiz.dueDate}
-                  >
-                    <div>
-                      {quiz.__typename === 'Quiz' &&
-                        quiz.readings.readingSections}
-                    </div>
-                    <div>{quiz.dueDate}</div>
-                    {quiz.exempt ? (
-                      <div>Exempt</div>
-                    ) : quiz.missing ? (
-                      <div style={{ color: 'var(--red)' }}>Missing</div>
-                    ) : (
+              {quizzes
+                .filter((quiz) => quiz.dueDate > Date())
+                .sort(dateSort)
+                .map((quiz, i: number) => {
+                  console.log(typeof quiz.dueDate)
+                  return (
+                    <IndividualAssignment
+                      style={
+                        i % 2 === 0
+                          ? { background: 'var(--white)' }
+                          : { background: 'var(--grey)' }
+                      }
+                      key={quiz.dueDate}
+                    >
                       <div>
-                        {(
-                          (quiz.score.earnedPoints / quiz.score.maxPoints) *
-                          100
-                        ).toFixed(2)}
-                        %
+                        {quiz.__typename === 'Quiz' &&
+                          quiz.readings.readingSections}
                       </div>
-                    )}
-                  </IndividualAssignment>
-                )
-              })}
+                      <div>{quiz.dueDate}</div>
+                      {quiz.exempt ? (
+                        <div>Exempt</div>
+                      ) : quiz.missing ? (
+                        <div style={{ color: 'var(--red)' }}>Missing</div>
+                      ) : (
+                        <div>
+                          {(
+                            (quiz.score.earnedPoints / quiz.score.maxPoints) *
+                            100
+                          ).toFixed(2)}
+                          %
+                        </div>
+                      )}
+                    </IndividualAssignment>
+                  )
+                })}
             </AssignmentsContainer>
           )}
           {categoryState === 'TextAnalysis' && (

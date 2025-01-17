@@ -103,6 +103,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
     !isAbsent &&
     me.hasAssignmentsLocked
 
+  const tempAllowQuiz = true
   // Render the following
   return (
     <AssignmentsToCompleteContainer>

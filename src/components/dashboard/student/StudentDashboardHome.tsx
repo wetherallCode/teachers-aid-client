@@ -64,7 +64,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
     me.inCourses[0].name === '4th Period'
   // TODO: Need to build a message system
 
-  const message: string = `I'm out today, so do today's essay in class and start makeup work if you have any. All second marking period assignments need to be turned in by 8AM on Monday 2/3/2025`
+  const message: string = `All second marking period assignments need to be turned in by 8AM on Monday 2/3/2025`
 
   return (
     <>

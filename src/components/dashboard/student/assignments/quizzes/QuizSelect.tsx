@@ -64,7 +64,7 @@ export const QuizSelect = ({}: QuizSelectProps) => {
   const quizToTake = data?.findQuizzesByStudentId.quizzes.filter(
     (quiz) => quiz.assigned,
   )!
-
+  console.log(data)
   return (
     <>
       <AssignmentTypeTitle>Quizzes to Complete</AssignmentTypeTitle>

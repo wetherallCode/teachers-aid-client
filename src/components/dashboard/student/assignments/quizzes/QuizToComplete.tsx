@@ -50,7 +50,7 @@ export const QuizToComplete = ({}: QuizToCompleteProps) => {
       onError: (error) => console.error(error),
     },
   )
-  // console.log(data?.findQuizById.quiz)
+  console.log(data?.findQuizById.quiz.readings.readingSections)
   if (loading) return <div>Loading </div>
   return (
     <QuizContainer>
@@ -58,6 +58,7 @@ export const QuizToComplete = ({}: QuizToCompleteProps) => {
         {data?.findQuizById.quiz.readings.readingSections} Quiz
       </QuizTitleContainer>
       <QuizSection quiz={data?.findQuizById.quiz!} />
+      <div>Vocab</div>
     </QuizContainer>
   )
 }

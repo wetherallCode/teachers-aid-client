@@ -25,6 +25,7 @@ export const useAssignmentsAllowedInClassCheck = (me: me_me_Student) => {
     },
     // onCompleted: (data) => console.log(data),
     // pollInterval: 1000,
+    onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
 
