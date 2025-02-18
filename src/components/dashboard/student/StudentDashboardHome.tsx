@@ -64,7 +64,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
     me.inCourses[0].name === '4th Period'
   // TODO: Need to build a message system
 
-  const message: string = `I have the flu, so I won't be here today. There won't be a quiz, and I want you to complete the main ideas and the reading guide for today's lesson (everything is on the website). You can show me on Tuesday and I'll give you extra credit.`
+  const message: string = ``
 
   return (
     <>
