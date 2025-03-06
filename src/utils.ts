@@ -391,9 +391,9 @@ export const irregularPastTenseVerbList = (verb: string) => {
   if (lowerCaseVerb === 'stop') {
     return 'stopped'
   }
-  if (lowerCaseVerb === 'split') {
-    return 'split'
-  }
+  // if (lowerCaseVerb === 'split') {
+  //   return 'split'
+  // }
   if (lowerCaseVerb === 'build') {
     return 'built'
   }
@@ -405,6 +405,7 @@ export const irregularPastTenseVerbList = (verb: string) => {
 }
 
 export const specialVerbsInPastTense = (verb: string) => {
+  console.log(verb)
   const lowerCaseVerb = verb.toLowerCase()
   if (lowerCaseVerb === 'stop') {
     return 'stopped'
@@ -412,40 +413,61 @@ export const specialVerbsInPastTense = (verb: string) => {
   if (lowerCaseVerb === 'control') {
     return 'controlled'
   }
+  if (lowerCaseVerb === 'ban') {
+    return 'banned'
+  }
   if (lowerCaseVerb === 'plan') {
     return 'planned'
   }
-  if (lowerCaseVerb === 'split') {
-    return 'split'
-  }
-  if (lowerCaseVerb === 'put') {
-    return 'put'
-  }
-  if (lowerCaseVerb === 'let') {
-    return 'let'
-  }
-  if (lowerCaseVerb === 'set') {
-    return 'set'
-  }
-  if (lowerCaseVerb === 'hit') {
-    return 'hit'
-  }
-  if (lowerCaseVerb === 'cost') {
-    return 'cost'
-  }
-  if (lowerCaseVerb === 'hurt') {
-    return 'hurt'
-  }
-  if (lowerCaseVerb === 'shut') {
-    return 'shut'
-  }
-  if (lowerCaseVerb === 'quit') {
-    return 'quit'
-  }
-  if (lowerCaseVerb === 'spread') {
-    return 'spread'
-  }
+  // if (lowerCaseVerb === 'split') {
+  //   return 'split'
+  // }
+  // if (lowerCaseVerb === 'put') {
+  //   return 'put'
+  // }
+  // if (lowerCaseVerb === 'let') {
+  //   return 'let'
+  // }
+  // if (lowerCaseVerb === 'set') {
+  //   return 'set'
+  // }
+  // if (lowerCaseVerb === 'hit') {
+  //   return 'hit'
+  // }
+  // if (lowerCaseVerb === 'cost') {
+  //   return 'cost'
+  // }
+  // if (lowerCaseVerb === 'hurt') {
+  //   return 'hurt'
+  // }
+  // if (lowerCaseVerb === 'shut') {
+  //   return 'shut'
+  // }
+  // if (lowerCaseVerb === 'quit') {
+  //   return 'quit'
+  // }
+  // if (lowerCaseVerb === 'spread') {
+  //   return 'spread'
+  // }
   return verb
+}
+export const verbsThatDoNotChange = (verb: string) => {
+  const verbsToCheck = [
+    'put',
+    'let',
+    'set',
+    'history',
+    'spit',
+    'const',
+    'hurt',
+    'shut',
+    'quit',
+    'spread',
+  ]
+  // if (verbsToCheck.includes(verb)) {
+  //   return verb
+  // }
+  return verbsToCheck.includes(verb)
 }
 export const verbsThatChangeInIngFormList = (verb: string) => {
   const lowerCaseVerb = verb.toLowerCase()

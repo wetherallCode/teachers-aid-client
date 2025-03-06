@@ -9,6 +9,7 @@ import {
   irregularPastTenseVerbList,
   specialVerbsInPastTense,
   timeAFunction,
+  verbsThatDoNotChange,
 } from '../../../../../../../../utils'
 import {
   RestatementDirectionsContainer,
@@ -71,16 +72,29 @@ export const VerbIdentification = ({
 
   const irregularVerbCheck = irregularPastTenseVerbList(text)
 
+  // const conjugatedVerb = (verb: string) => {
+  //   return verb !== specialVerbsInPastTense(verb)
+  //     ? specialVerbsInPastTense(verb)
+  //     : verb === irregularVerbCheck
+  //       ? irregularVerbCheck
+  //           .charAt(irregularVerbCheck.length - 1)
+  //           .toLowerCase() === 'e'
+  //         ? verb + 'd'
+  //         : verb + 'ed'
+  //       : irregularVerbCheck
+  // }
   const conjugatedVerb = (verb: string) => {
-    return verb !== specialVerbsInPastTense(verb)
-      ? specialVerbsInPastTense(verb)
-      : verb === irregularVerbCheck
-        ? irregularVerbCheck
-            .charAt(irregularVerbCheck.length - 1)
-            .toLowerCase() === 'e'
-          ? verb + 'd'
-          : verb + 'ed'
-        : irregularVerbCheck
+    return verbsThatDoNotChange(verb)
+      ? verb
+      : verb === specialVerbsInPastTense(verb)
+        ? verb === irregularVerbCheck
+          ? irregularVerbCheck
+              .charAt(irregularVerbCheck.length - 1)
+              .toLowerCase() === 'e'
+            ? verb + 'd'
+            : verb + 'ed'
+          : irregularVerbCheck
+        : specialVerbsInPastTense(verb)
   }
 
   useEffect(() => {
