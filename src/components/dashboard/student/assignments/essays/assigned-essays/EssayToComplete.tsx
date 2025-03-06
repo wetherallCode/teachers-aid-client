@@ -375,9 +375,18 @@ export const EssayToComplete = ({}: EssayToCompleteProps) => {
   //   markingPeriod: data?.findEssayById.essay.markingPeriod!,
   //   polling: false,
   // })
-
+  const bIsAbsent =
+    me.hasAbsences.filter(
+      (absence) => absence.dayAbsent === new Date().toLocaleDateString(),
+    )!.length === 1
+  console.log(bIsAbsent)
   useEffect(() => {
-    if (classTime && !assignmentsAllowedInClass && me.hasAssignmentsLocked)
+    if (
+      classTime &&
+      !assignmentsAllowedInClass &&
+      me.hasAssignmentsLocked &&
+      !bIsAbsent
+    )
       navigate('/dashboard/assignments')
   }, [classTime, navigate, assignmentsAllowedInClass])
 

@@ -41,7 +41,7 @@ export const ESSAYS_TO_COMPLETE_QUERY = gql`
   }
 `
 
-export const AssignedEssaySelect: FC<AssignedEssaySelectProps> = () => {
+export const AssignedEssaySelect = ({}: AssignedEssaySelectProps) => {
   const me: me_me_Student = useUserContextProvider()
   const [state] = useStudentAssignmentContextProvider()
 

@@ -121,10 +121,25 @@ export const ReadingGuideToComplete = ({}: ReadingGuideToCompleteProps) => {
     onError: (error) => console.error('findReadingGuideById' + error),
   })
 
+  const bIsAbsent =
+    me.hasAbsences.filter(
+      (absence) => absence.dayAbsent === new Date().toLocaleDateString(),
+    )!.length === 1
+  console.log(bIsAbsent)
   useEffect(() => {
-    if (classTime && !assignmentsAllowedInClass && me.hasAssignmentsLocked)
+    if (
+      classTime &&
+      !assignmentsAllowedInClass &&
+      me.hasAssignmentsLocked &&
+      !bIsAbsent
+    )
       navigate('/dashboard/assignments')
   }, [classTime, navigate, assignmentsAllowedInClass])
+
+  // useEffect(() => {
+  //   if (classTime && !assignmentsAllowedInClass && me.hasAssignmentsLocked)
+  //     navigate('/dashboard/assignments')
+  // }, [classTime, navigate, assignmentsAllowedInClass])
 
   if (loading) return <div>Loading </div>
   return (
