@@ -64,8 +64,8 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
     me.inCourses[0].name === '4th Period'
   // TODO: Need to build a message system
 
-  // const message: string = `The deadline for all marking period assignmens is 4/11/2025 at 12:00 AM (midnight).`
-  const message: string = `I have a personal day today. I left the next chapter in economics, and I plan on giving a bunch of extra credit for those who complete the answer sheet and turn it in before class is over. If you finish early, work on makeup work.`
+  const message: string = `The deadline for all marking period assignmens is 4/11/2025 at 12:00 AM (midnight).`
+  // const message: string = `I have a personal day today. I left the next chapter in economics, and I plan on giving a bunch of extra credit for those who complete the answer sheet and turn it in before class is over. If you finish early, work on makeup work.`
 
   return (
     <>
