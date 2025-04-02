@@ -23,7 +23,7 @@ export const CREATE_LESSON_MUTATION = gql`
   }
 `
 
-export const CreateLesson: FC<CreateLessonProps> = () => {
+export const CreateLesson = ({}: CreateLessonProps) => {
   const [state] = useLessonPlannerContextProvider()
   const navigate = useNavigate()
   const {
