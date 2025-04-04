@@ -167,7 +167,8 @@ export const AcademicProblemSolution = ({
         <AnswerTypeContainter>
           <div>
             Why is this {questionParts.simpleSubject}
-            {properNameEndsInS ? `'` : `'s`} problem?
+            {properNameEndsInS ? `'` : `'s`} problem or what problem did{' '}
+            {questionParts.simpleSubject} solve?
           </div>
           <PartTextArea
             value={
