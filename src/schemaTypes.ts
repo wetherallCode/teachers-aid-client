@@ -1580,6 +1580,65 @@ export interface submitReadingGuideVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: findQuizzesByStudentId
+// ====================================================
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings {
+  __typename: "Readings";
+  readingSections: string;
+}
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes {
+  __typename: "Quiz";
+  _id: string | null;
+  isActive: boolean;
+  assigned: boolean;
+  readings: findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings;
+  finishedQuiz: boolean;
+  startedQuiz: boolean;
+}
+
+export interface findQuizzesByStudentId_findQuizzesByStudentId {
+  __typename: "FindQuizzesByStudentIdPayload";
+  quizzes: findQuizzesByStudentId_findQuizzesByStudentId_quizzes[];
+}
+
+export interface findQuizzesByStudentId {
+  findQuizzesByStudentId: findQuizzesByStudentId_findQuizzesByStudentId;
+}
+
+export interface findQuizzesByStudentIdVariables {
+  input: FindQuizzesByStudentIdInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: markExempt
+// ====================================================
+
+export interface markExempt_markExempt {
+  __typename: "MarkExemptPayload";
+  marked: boolean;
+}
+
+export interface markExempt {
+  markExempt: markExempt_markExempt;
+}
+
+export interface markExemptVariables {
+  input: MarkExemptInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findSchoolDayAndLesson
 // ====================================================
 
@@ -5709,6 +5768,50 @@ export interface findAssignmentByStudentIdVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: createHomeworkPass
+// ====================================================
+
+export interface createHomeworkPass_homeworkPass {
+  __typename: "HomeworkPassPayload";
+  success: boolean;
+}
+
+export interface createHomeworkPass {
+  homeworkPass: createHomeworkPass_homeworkPass;
+}
+
+export interface createHomeworkPassVariables {
+  input: HomeworkPassInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: undoHomeworkPass
+// ====================================================
+
+export interface undoHomeworkPass_undoHomeworkPass {
+  __typename: "UndoHomeworkPassPayload";
+  success: boolean;
+}
+
+export interface undoHomeworkPass {
+  undoHomeworkPass: undoHomeworkPass_undoHomeworkPass;
+}
+
+export interface undoHomeworkPassVariables {
+  input: UndoHomeworkPassInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: findStudentAbsencesAndLatenesses
 // ====================================================
 
@@ -9174,65 +9277,6 @@ export interface findAllMarkingPeriodGradesVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
-// ====================================================
-// GraphQL query operation: findQuizzesByStudentId
-// ====================================================
-
-export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings {
-  __typename: "Readings";
-  readingSections: string;
-}
-
-export interface findQuizzesByStudentId_findQuizzesByStudentId_quizzes {
-  __typename: "Quiz";
-  _id: string | null;
-  isActive: boolean;
-  assigned: boolean;
-  readings: findQuizzesByStudentId_findQuizzesByStudentId_quizzes_readings;
-  finishedQuiz: boolean;
-  startedQuiz: boolean;
-}
-
-export interface findQuizzesByStudentId_findQuizzesByStudentId {
-  __typename: "FindQuizzesByStudentIdPayload";
-  quizzes: findQuizzesByStudentId_findQuizzesByStudentId_quizzes[];
-}
-
-export interface findQuizzesByStudentId {
-  findQuizzesByStudentId: findQuizzesByStudentId_findQuizzesByStudentId;
-}
-
-export interface findQuizzesByStudentIdVariables {
-  input: FindQuizzesByStudentIdInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
-// GraphQL mutation operation: markExempt
-// ====================================================
-
-export interface markExempt_markExempt {
-  __typename: "MarkExemptPayload";
-  marked: boolean;
-}
-
-export interface markExempt {
-  markExempt: markExempt_markExempt;
-}
-
-export interface markExemptVariables {
-  input: MarkExemptInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -10174,6 +10218,13 @@ export interface GradeTemporaryTaskInput {
   responsibilityPoints: number;
 }
 
+export interface HomeworkPassInput {
+  assignmentId: string;
+  assignmentType: string;
+  markingPeriod: MarkingPeriodEnum;
+  ownerId: string;
+}
+
 export interface InitializeStudentsInput {
   courseId: string;
   studentIds: string[];
@@ -10457,6 +10508,13 @@ export interface TopicInput {
 
 export interface UnAssignQuizByQuizIdInput {
   quizId: string;
+}
+
+export interface UndoHomeworkPassInput {
+  assignmentId: string;
+  assignmentType: string;
+  markingPeriod: MarkingPeriodEnum;
+  ownerId: string;
 }
 
 export interface UpdateAcademicOrganizerInput {

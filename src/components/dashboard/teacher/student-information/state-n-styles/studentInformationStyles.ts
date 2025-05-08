@@ -165,7 +165,7 @@ export type IndividualAssignmentDisplayProps = {
 }
 export const IndividualAssignmentDisplay = styled.div<IndividualAssignmentDisplayProps>`
   display: grid;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 4fr 1fr 1fr;
   align-items: center;
   border-bottom: ${({ lastLine }) =>
     lastLine ? '1px solid var(--grey)' : 'none'};

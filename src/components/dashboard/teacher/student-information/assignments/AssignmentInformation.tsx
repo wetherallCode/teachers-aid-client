@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import React, { useState } from 'react'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import {
@@ -10,6 +10,10 @@ import {
   findAssignmentByStudentIdVariables,
   findAssignmentByStudentId_findAssignmentByStudentId_assignments_Quiz,
   MarkingPeriodEnum,
+  createHomeworkPass,
+  createHomeworkPassVariables,
+  undoHomeworkPassVariables,
+  undoHomeworkPass,
 } from '../../../../../schemaTypes'
 import { SGOInfo } from '../sgo-info/SGOInfo'
 import { useStudentInformationContextProvider } from '../state-n-styles/StudentInformationContext'
@@ -96,6 +100,21 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
     }
   }
 `
+export const CREATE_HOME_WORK_PASS = gql`
+  mutation createHomeworkPass($input: HomeworkPassInput!) {
+    homeworkPass(input: $input) {
+      success
+    }
+  }
+`
+
+export const UNDO_HOMEWORK_PASS = gql`
+  mutation undoHomeworkPass($input: UndoHomeworkPassInput!) {
+    undoHomeworkPass(input: $input) {
+      success
+    }
+  }
+`
 
 export const AssignmentInformation = ({
   studentId,
@@ -112,6 +131,21 @@ export const AssignmentInformation = ({
     // onCompleted: (data) => console.log(data),
     pollInterval: 5000,
     onError: (error) => console.error(error),
+  })
+  const [createHomeworkPass] = useMutation<
+    createHomeworkPass,
+    createHomeworkPassVariables
+  >(CREATE_HOME_WORK_PASS, {
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['findAssignmentByStudentId'],
+  })
+
+  const [undoHomeworkPass] = useMutation<
+    undoHomeworkPass,
+    undoHomeworkPassVariables
+  >(UNDO_HOMEWORK_PASS, {
+    onCompleted: (data) => console.log(data),
+    refetchQueries: ['findAssignmentByStudentId'],
   })
 
   const essays = data?.findAssignmentByStudentId.assignments.filter(
@@ -266,6 +300,38 @@ export const AssignmentInformation = ({
                 ) : (
                   <div>Missing</div>
                 )}
+                <button
+                  style={{
+                    background: 'var(--blue)',
+                    color: 'var(--white)',
+                    margin: '1vh',
+                  }}
+                  onClick={() => {
+                    essay.assigned && !essay.exempt
+                      ? createHomeworkPass({
+                          variables: {
+                            input: {
+                              assignmentId: essay._id!,
+                              assignmentType: 'ESSAY',
+                              markingPeriod: essay.markingPeriod,
+                              ownerId: essay.hasOwner._id!,
+                            },
+                          },
+                        })
+                      : undoHomeworkPass({
+                          variables: {
+                            input: {
+                              assignmentId: essay._id!,
+                              assignmentType: 'ESSAY',
+                              markingPeriod: essay.markingPeriod,
+                              ownerId: essay.hasOwner._id!,
+                            },
+                          },
+                        })
+                  }}
+                >
+                  {!essay.exempt ? 'Homework Pass' : 'Undo Homework Pass'}
+                </button>
               </IndividualAssignmentDisplay>
             ))}
             <div>Overall Essay Score (FY): {overallEssayScore}</div>
@@ -296,6 +362,38 @@ export const AssignmentInformation = ({
                 ) : (
                   <div>Missing</div>
                 )}
+                <button
+                  style={{
+                    background: 'var(--blue)',
+                    color: 'var(--white)',
+                    margin: '1vh',
+                  }}
+                  onClick={() => {
+                    guide.assigned && !guide.exempt
+                      ? createHomeworkPass({
+                          variables: {
+                            input: {
+                              assignmentId: guide._id!,
+                              assignmentType: 'READING_GUIDE',
+                              markingPeriod: guide.markingPeriod,
+                              ownerId: guide.hasOwner._id!,
+                            },
+                          },
+                        })
+                      : undoHomeworkPass({
+                          variables: {
+                            input: {
+                              assignmentId: guide._id!,
+                              assignmentType: 'READING_GUIDE',
+                              markingPeriod: guide.markingPeriod,
+                              ownerId: guide.hasOwner._id!,
+                            },
+                          },
+                        })
+                  }}
+                >
+                  {!guide.exempt ? 'Homework Pass' : 'Undo Homework Pass'}
+                </button>
               </IndividualAssignmentDisplay>
             ))}
           </AssignmentInformationStyle>
@@ -303,11 +401,14 @@ export const AssignmentInformation = ({
         {state.matches('information.assignments.quizzes') && (
           <AssignmentInformationStyle>
             {quizzes.map((quiz, i: number) => (
-              <QuizInfo
-                quiz={quiz}
-                i={i}
-                numberOfQuizzesTotal={quizzes.length}
-              />
+              <div>
+                <QuizInfo
+                  quiz={quiz}
+                  i={i}
+                  numberOfQuizzesTotal={quizzes.length}
+                />
+                <div></div>
+              </div>
             ))}
           </AssignmentInformationStyle>
         )}
