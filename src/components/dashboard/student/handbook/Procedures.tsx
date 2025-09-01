@@ -41,23 +41,28 @@ export const Procedures = ({}: ProceduresProps) => {
           <ul>
             <li>
               You must get a drink of water before class, not during class
-              unless you absolutely need a drink.
+              unless you absolutely need a drink, and still be on time.
             </li>
             <br />
             <li>
-              You are allowed 4 trips to the bathroom a marking period. Expect
-              me to say no if you ask to help you keep your 4 emergencies open
-              when emergencies arise. No matter what, only one person can go to
-              the bathroom at a time.
+              I may let you use the restroom after the first 10 minutes of
+              class. I may also say no.
             </li>
             <br />
-            <li>Don't get out of your seat without permission.</li>
+            <li>
+              Don't get out of your seat without permission. Throw trash out on
+              your way out at the end of class.
+            </li>
             <br />
             <li>
               Handraising is only required if someone is already talking. Do
               your best to not interupt.
             </li>
             <br />
+            <li>
+              No food or candy is allowed in class. Unless it is breakfast or
+              lunch didn't get to feed everyone.
+            </li>
             {/* <li>
               Lessons will be either an Introductory Lesson or a Reinforcement
               Lesson and will cover the same information. That way there will be

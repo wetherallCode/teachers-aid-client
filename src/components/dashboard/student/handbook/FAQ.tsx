@@ -38,7 +38,7 @@ export const FAQ = ({}: FAQProps) => {
               taught in 38-40 minutes a day. That's all we get, so homework is
               your time to solidify the information in your head.
             </li>
-            <li>Two: Practice makes perfect.</li>
+            <li>Two: Practice makes perfect, it makes you smarter!</li>
           </ul>
           <br />
           <li>Why do I need this?</li>
@@ -51,11 +51,10 @@ export const FAQ = ({}: FAQProps) => {
             <li>Two: The more you learn, the easier learning becomes.</li>
           </ul>
           <br />
-          <li>Do I give detentions?</li>
+          <li>Why do I have to write so much?</li>
           <ul>
             <li>
-              Yes. Lateness, disruptions, and negative behaviors will earn you a
-              detention. They start at 2:20 and end at 2:40.{' '}
+              Writing is thinking. Thinking is learning. Learning is our goal.
             </li>
           </ul>
 

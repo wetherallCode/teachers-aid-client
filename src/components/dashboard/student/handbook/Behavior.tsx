@@ -15,9 +15,8 @@ export const Behavior = ({}: BehaviorProps) => {
       <DoubleSidedContentContainer style={{ fontSize: '2vh' }}>
         <IndividualContentContainer>
           <ContentContainerTitle>Positive Behaviors</ContentContainerTitle>
-          <ul>
-            These earn you responsibility points, but they are weighted
-            according to your grade.
+          <ul style={{ textAlign: 'center' }}>
+            These earn you responsibility points.
           </ul>
           <ul>
             <li>Being prepared and ready for class when class starts</li>
@@ -33,9 +32,9 @@ export const Behavior = ({}: BehaviorProps) => {
         </IndividualContentContainer>
         <IndividualContentContainer style={{ color: 'var(--red)' }}>
           <ContentContainerTitle>Negative Behaviors</ContentContainerTitle>
-          <ul>
-            These lose you responsibility points. They are not weighted
-            according to your grade.
+          <ul style={{ textAlign: 'center' }}>
+            These lose you responsibility points, and may also earn detentions
+            if needed.
           </ul>
           <ul>
             <li>Disrupting Class</li>
