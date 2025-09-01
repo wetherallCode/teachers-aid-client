@@ -92,7 +92,7 @@ export const QuizSection = ({ quiz }: QuizSectionProps) => {
   let score =
     state.context.earnedPoints / state.context.quizzableSections.length
 
-  if (loading) return null
+  if (loading) return <QuizMessageContainer>Loading...</QuizMessageContainer>
   return (
     <>
       {/* {!quiz.isActive &&
