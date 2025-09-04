@@ -49,9 +49,9 @@ export const FAQ = ({}: FAQProps) => {
               smart enough to figure out life on your own.
             </li>
             <li>
-              Two: Because I'm teaching you how our country works (and the world
-              around us). If you don't like the way things are, you'll never be
-              able to change it without knowing how it works.
+              Three: Because I'm teaching you how our country works (and the
+              world around us). If you don't like the way things are, you'll
+              never be able to change it without knowing how it works.
             </li>
           </ul>
           <br />
