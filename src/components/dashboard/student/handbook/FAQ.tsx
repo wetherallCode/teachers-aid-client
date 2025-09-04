@@ -43,18 +43,31 @@ export const FAQ = ({}: FAQProps) => {
           <br />
           <li>Why do I need this?</li>
           <ul>
+            <li>One: The more you learn, the easier learning becomes.</li>
             <li>
-              One: Because I'm teaching you how our country works (and the world
+              Two: School isn't life training. School is supposed to make you
+              smart enough to figure out life on your own.
+            </li>
+            <li>
+              Two: Because I'm teaching you how our country works (and the world
               around us). If you don't like the way things are, you'll never be
               able to change it without knowing how it works.
             </li>
-            <li>Two: The more you learn, the easier learning becomes.</li>
           </ul>
           <br />
           <li>Why do I have to write so much?</li>
           <ul>
             <li>
-              Writing is thinking. Thinking is learning. Learning is our goal.
+              Writing is thinking. Thinking makes us smarter. Getting smarter is
+              our goal.
+            </li>
+          </ul>
+          <li>Can I use AI to do the writing?</li>
+          <ul>
+            <li>
+              No. AI has it's place, but it is too tempting for it to do the
+              writing for you. Since, writing makes you smarter, having AI do
+              the writing for you won't make you smarter.
             </li>
           </ul>
 
