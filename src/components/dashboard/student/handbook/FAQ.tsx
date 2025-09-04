@@ -62,6 +62,7 @@ export const FAQ = ({}: FAQProps) => {
               our goal.
             </li>
           </ul>
+          <br />
           <li>Can I use AI to do the writing?</li>
           <ul>
             <li>
