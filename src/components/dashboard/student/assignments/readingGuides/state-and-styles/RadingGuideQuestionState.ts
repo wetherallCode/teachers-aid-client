@@ -1,7 +1,8 @@
 export type ReadingGuideQuestionState =
   | 'SUMMARY'
-  | 'WHAT_WAS_LEARNED'
+  | 'WHY_DID_IT_HAPPEN'
   | 'SUBJECT_OF_SECTION'
+  | 'SUBJECTS_GOALS'
   | 'PROBLEM'
   | 'WHY_PROBLEM'
   | 'SOLUTION'
@@ -17,32 +18,36 @@ export type ReadingGuideQuestionObjectType = {
 export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   {
     questionType: 'SUMMARY',
-    question: 'What stood out to you in the lesson?',
-    directions:
-      'Pick a main idea from the lesson that you found to be important, interesting, or surprising.',
+    question: 'Overall, what is happening in the assigned reading sections?',
+    directions: `Don't get to specific, what is the big thing that happened?`,
   },
   {
-    questionType: 'WHAT_WAS_LEARNED',
-    question: 'Why did that piece of information stand out to you?',
+    questionType: 'WHY_DID_IT_HAPPEN',
+    question: 'Why did that happen?',
     directions:
       'This question is based on the your answer to the last question.',
   },
   {
     questionType: 'SUBJECT_OF_SECTION',
-    question:
-      'Who (people or groups of people) were the most important people in these sections?',
+    question: 'List the main characters involved in these sections.',
     directions:
-      'There may be multiple people, so pick who you think is most important. As you get used to this, try to figure out who caused or solved the biggest problem.',
+      'There will be individuals, groups (like Congress, or Southerners, or even states), so list the ones that do the most.',
+  },
+  {
+    questionType: 'SUBJECTS_GOALS',
+    question: 'What were the goals of the people involved in these sections?',
+    directions:
+      'There will probably be mulitple people, so list the goals of at least two if there are multiple people',
   },
   {
     questionType: 'PROBLEM',
-    question: 'What problem did they face in these sections?',
+    question: 'What problem did these people face in these sections?',
     directions: `Every section in the text discusses a problem or conflict.`,
   },
   {
     questionType: 'SOLUTION',
-    question: `How was the problem solved, or how did they attempt to solve it?`,
-    directions: `If the reading doesn't show how they solved it, figure out a way the problem could have been solved.`,
+    question: `How did the people in the text try to solve the problem`,
+    directions: `Sometimes solutions don't work so focus on what they did to try to solve there problem.`,
   },
   {
     questionType: 'WHY_PROBLEM',

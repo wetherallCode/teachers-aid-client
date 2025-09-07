@@ -59,22 +59,25 @@ export const CompleteReadingGuideNew = ({
 
   const basicState: ReadingGuideQuestionState[] = [
     'SUMMARY',
-    'WHAT_WAS_LEARNED',
+    'WHY_DID_IT_HAPPEN',
   ]
 
   const developingState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
+    'SUBJECTS_GOALS',
     'PROBLEM',
     'SOLUTION',
   ]
   const academicState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
+    'SUBJECTS_GOALS',
     'PROBLEM',
     'WHY_PROBLEM',
     'SOLUTION',
   ]
   const advancedState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
+    'SUBJECTS_GOALS',
     'PROBLEM',
     'WHY_PROBLEM',
     'SOLUTION',
@@ -82,6 +85,7 @@ export const CompleteReadingGuideNew = ({
   ]
   const masterState: ReadingGuideQuestionState[] = [
     'SUBJECT_OF_SECTION',
+    'SUBJECTS_GOALS',
     'PROBLEM',
     'WHY_PROBLEM',
     'SOLUTION',
@@ -132,7 +136,7 @@ export const CompleteReadingGuideNew = ({
         )}
       </>
       <>
-        {currentState[currentIndex] === 'WHAT_WAS_LEARNED' && (
+        {currentState[currentIndex] === 'WHY_DID_IT_HAPPEN' && (
           <GenericQuestionBlank
             setCurrentIndex={setCurrentIndex}
             currentIndex={currentIndex}
@@ -147,6 +151,20 @@ export const CompleteReadingGuideNew = ({
       </>
       <>
         {currentState[currentIndex] === 'SUBJECT_OF_SECTION' && (
+          <GenericQuestionBlank
+            setCurrentIndex={setCurrentIndex}
+            currentIndex={currentIndex}
+            questionObject={
+              readingGuideQuestions.find(
+                (q) => q.questionType === currentState[currentIndex],
+              )!
+            }
+            previousAnswers={questions}
+          />
+        )}
+      </>
+      <>
+        {currentState[currentIndex] === 'SUBJECTS_GOALS' && (
           <GenericQuestionBlank
             setCurrentIndex={setCurrentIndex}
             currentIndex={currentIndex}
