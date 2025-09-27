@@ -102,7 +102,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
     !assignmentsAllowedInClass &&
     !isAbsent &&
     me.hasAssignmentsLocked
-
+  console.log(me)
   const tempAllowQuiz = true
   // Render the following
   return (
