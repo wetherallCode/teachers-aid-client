@@ -26,6 +26,7 @@ import {
   RESPOND_TO_PROTOCOL_MUTATION,
 } from './StudentProtocolResponse'
 import { WarmUpResponse } from './WarmUpResponse'
+import { Link } from 'react-router-dom'
 
 export type WarmUpProps = {
   lesson: findLessonByCourseAndDate_findLessonByCourseAndDate_lesson
@@ -46,7 +47,18 @@ export const WarmUp = ({ lesson, me, setPolling }: WarmUpProps) => {
         {me.__typename === 'Student' && (
           <>
             <ProtocolResponseTaskContainer>
-              <div>{lesson.beforeActivity.task}</div>
+              <div>
+                {lesson.beforeActivity.task === 'Quiz' ? (
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    to={'/dashboard/assignments/quiz/toComplete/'}
+                  >
+                    Quiz
+                  </Link>
+                ) : (
+                  lesson.beforeActivity.task
+                )}
+              </div>
             </ProtocolResponseTaskContainer>
             {lesson.beforeActivity.isActive && (
               <WarmUpResponse lesson={lesson} me={me} setPolling={setPolling} />
