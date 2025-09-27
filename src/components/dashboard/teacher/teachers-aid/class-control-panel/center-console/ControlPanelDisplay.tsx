@@ -59,7 +59,7 @@ export const ControlPanelDisplay = ({
     return (
       <CenteredDiv style={{ display: 'grid', gridTemplateRows: '1fr 4fr' }}>
         <StudentInfoSelector />
-        <div>No Lesson Scheduled for Today</div>
+        <div>Loading ...</div>
       </CenteredDiv>
     )
 
