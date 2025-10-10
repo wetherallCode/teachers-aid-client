@@ -17,7 +17,9 @@ export const TextAnalysisForStudentLesson =
 
         <DoubleSidedContentContainer style={{ fontSize: '2.8vh' }}>
           <div>
-            <ContentContainerTitle>Directions</ContentContainerTitle>
+            <ContentContainerTitle>
+              How to Make a Main Idea
+            </ContentContainerTitle>
             <ul>
               <li>
                 Read each sentence of the paragraph and split the sentence into
@@ -54,16 +56,21 @@ export const TextAnalysisForStudentLesson =
             </ul>
           </div>
           <div>
-            <ContentContainerTitle>Reminders</ContentContainerTitle>
+            <ContentContainerTitle>How to Carefully Read</ContentContainerTitle>
             <br />
             <ul>
               <li>
-                Start with the subject is the first person/people or thing(s) in
-                the sentence, so look in the beginning of the sentence.
+                Always look for commas in the sentence and start looking for the
+                nouns and verbs to the left of the comma and then the right of
+                the comma.
+              </li>
+              <br />
+              <li>
+                Look for the verb. Look for -ed endings, was, were, or had.{' '}
               </li>
               <li>
-                Find what the subject is doing, being, or having and split the
-                sentence there.
+                Find out who or what was doing the action and underlne it and
+                draw a line between the subject and the verb.
               </li>
               <ul>
                 <li>
@@ -73,21 +80,6 @@ export const TextAnalysisForStudentLesson =
                 </li>
               </ul>
               <br />
-              <li>
-                Always look for commas in the sentence and start looking for the
-                nouns and verbs before the comma and after the comma.
-              </li>
-              <br />
-              <li>
-                The phrase before the comma may not have a subject or a
-                predicate, but it might be a cause. If it is a reason for
-                something then underline it as well.
-              </li>
-              <br />
-              <li>
-                Many times the problems are discussed in one paragraph and then
-                solved in the next paragraph or so.
-              </li>
             </ul>
           </div>
         </DoubleSidedContentContainer>
