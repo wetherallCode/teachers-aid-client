@@ -22,7 +22,7 @@ export const ProtocolResponseManager = ({}: ProtocolResponseManagerProps) => {
   const [state] = useTeachersAidContextProvider()
   const { activityTimeEnum } = useEnumContextProvider()
   const [activityTimeState, setActivityTimeState] = useState<ActivityTimeEnum>(
-    ActivityTimeEnum.DURING,
+    ActivityTimeEnum.BEFORE,
   )
 
   const { loading, data } = useQuery<
