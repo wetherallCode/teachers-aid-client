@@ -133,9 +133,9 @@ export const AcademicProblemSolution = ({
         </div> */}
         <div>
           To give a complete explanation to this question: {topic.question}, you
-          need to address all four parts of a problem and solution. Answer the
-          questions below and don't forget what {questionParts.simpleSubject}{' '}
-          did is usually the solution.
+          need to address all four parts of a problem and solution. Most of the
+          time the question gives you the solution, but sometimes it tells you
+          the problem, but it will give you one or the other.
         </div>
       </RestatementDirectionsContainer>
 
@@ -145,7 +145,10 @@ export const AcademicProblemSolution = ({
           <div>How Question: Problem and Solution</div>
         </AcademicRestatementTitle>
         <AnswerTypeContainter>
-          <div>What is the problem for {questionParts.simpleSubject}?</div>
+          <div>
+            What was the problem for {questionParts.simpleSubject} or what
+            problem did {questionParts.simpleSubject} solve?
+          </div>
           <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution.problem
@@ -164,12 +167,9 @@ export const AcademicProblemSolution = ({
             }}
           />
         </AnswerTypeContainter>
+
         <AnswerTypeContainter>
-          <div>
-            Why is this {questionParts.simpleSubject}
-            {properNameEndsInS ? `'` : `'s`} problem or what problem did{' '}
-            {questionParts.simpleSubject} solve?
-          </div>
+          <div>Why was this a problem?</div>
           <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution
@@ -212,11 +212,9 @@ export const AcademicProblemSolution = ({
             }}
           />
         </AnswerTypeContainter>
+
         <AnswerTypeContainter>
-          <div>
-            Why did/would the solution solve {questionParts.simpleSubject}
-            {properNameEndsInS ? `'` : `'s`} problem?
-          </div>
+          <div>Why did/would the solution solve the problem?</div>
           <PartTextArea
             value={
               state.context.academicOrganizer.answer.problemSolution
@@ -240,6 +238,7 @@ export const AcademicProblemSolution = ({
           />
         </AnswerTypeContainter>
       </AcademicQuestionAnswerTypeContainer>
+
       <OrganizerControlButtonContainer>
         <OrganizerControlButton
           onClick={() => {
