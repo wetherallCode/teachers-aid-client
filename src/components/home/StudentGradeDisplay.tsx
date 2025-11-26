@@ -75,7 +75,7 @@ export const StudentGradeDisplay = ({
       >
         <GradeDisplay>Extra Credit</GradeDisplay>
         <GradeDisplay>
-          {!loading ? extracredit + 'Points' : 'Calculating'}
+          {!loading ? extracredit + ' Points' : 'Calculating'}
         </GradeDisplay>
       </div>
       {/* <div>
