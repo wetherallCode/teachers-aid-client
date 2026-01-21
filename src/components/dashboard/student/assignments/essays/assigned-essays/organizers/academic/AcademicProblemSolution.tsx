@@ -240,14 +240,14 @@ export const AcademicProblemSolution = ({
       </AcademicQuestionAnswerTypeContainer>
 
       <OrganizerControlButtonContainer>
-        <OrganizerControlButton
+        {/* <OrganizerControlButton
           onClick={() => {
             event({ type: 'PREVIOUS' })
             event({ type: 'SET_PRE_LOADED', payload: false })
           }}
         >
           Back
-        </OrganizerControlButton>
+        </OrganizerControlButton> */}
         <OrganizerControlButton
           onClick={() => {
             event({ type: 'NEXT' })

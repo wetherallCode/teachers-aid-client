@@ -171,15 +171,15 @@ export const AcademicWhyCauseEffect = ({
         </AnswerTypeContainter>
       </AcademicQuestionAnswerTypeContainer>
       <OrganizerControlButtonContainer>
-        <OrganizerControlButton
+        {/* <OrganizerControlButton
           onClick={() => {
             event({ type: 'PREVIOUS' })
             event({ type: 'SET_PRE_LOADED', payload: false })
             updateWhyCauseEffect()
           }}
         >
-          Back
-        </OrganizerControlButton>
+          Back 
+        </OrganizerControlButton> */}
         <OrganizerControlButton
           onClick={() => {
             event({ type: 'NEXT' })
