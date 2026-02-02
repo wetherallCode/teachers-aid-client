@@ -66,7 +66,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
 
   // const message: string = ``
   // const message: string = `The last day for all 2nd Marking Period work will be Friday, February 6 at 8AM. No exceptions.`
-  const message: string = `I have a personal day today. I'm leaving you questions to complete *due at the end of class*, and tonight's essay to do in class. There will be a quiz tomorrow. If you finish early, work on makeup work or redo your essays.`
+  const message: string = `I have a personal day today. I'm leaving you questions to complete *due at the end of class*, and tonight's essay to do in class. There will be a quiz tomorrow. If you finish early, work on makeup work or redo your essays. All work is due by Friday at 8AM.`
 
   return (
     <>

@@ -8989,6 +8989,8 @@ export interface me_me_Teacher_teachesCourses_hasCourseInfo {
   halfDayEndsAt: string;
   hourDelayStartsAt: string;
   hourDelayEndsAt: string;
+  ninetyMinuteDelayEndsAt: string;
+  ninetyMinuteDelayStartsAt: string;
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
   isHidden: boolean;
@@ -9023,6 +9025,8 @@ export interface me_me_Student_inCourses_hasCourseInfo {
   halfDayEndsAt: string;
   hourDelayStartsAt: string;
   hourDelayEndsAt: string;
+  ninetyMinuteDelayEndsAt: string;
+  ninetyMinuteDelayStartsAt: string;
   schoolDayType: SchoolDayType;
   assignmentsAllowedInClass: boolean;
   isHidden: boolean;

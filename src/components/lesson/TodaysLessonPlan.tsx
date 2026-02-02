@@ -47,7 +47,6 @@ export const TodaysLessonPlan = ({
 
   const schoolDayLength =
     schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
-
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
@@ -77,7 +76,10 @@ export const TodaysLessonPlan = ({
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
                     ? course.hasCourseInfo?.halfDayStartsAt!
-                    : course.hasCourseInfo?.startsAt!,
+                    : schoolDayLength ===
+                        SchoolDayLengthEnum.NINETY_MINUTE_DELAY
+                      ? course.hasCourseInfo.ninetyMinuteDelayStartsAt!
+                      : course.hasCourseInfo?.startsAt!,
                 ),
               ) &&
             Date.parse(dateTime) <
@@ -110,7 +112,7 @@ export const TodaysLessonPlan = ({
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id,
   )
-
+  console.log(course)
   const useFake = false
   useEffect(() => {
     if (useFake) {
