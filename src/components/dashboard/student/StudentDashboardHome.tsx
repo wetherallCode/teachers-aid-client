@@ -64,7 +64,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
     me.inCourses[0].name === '4th Period'
   // TODO: Need to build a message system
 
-  const message: string = `I'm in a meeting this period. Please work on tonight's homework and complete makeup work when finished.`
+  const message: string = ``
   // const message: string = `The last day for all 3rd Marking Period work will be Friday, April 17th at 8AM. No exceptions.`
   // const message: string = `I'm not going to be in today. I'm leaving you questions to complete *due at the end of class*. Please leave the reading packet on the desk! There will be NO quiz tomorrow. If you finish early, work on makeup work or redo your essays.`
   // const message: string = `I'm cancelling homework tonight because I'm sure many of you need a break from the marathon of missing work you completed in the wee hours of the night. You're welcome.`
