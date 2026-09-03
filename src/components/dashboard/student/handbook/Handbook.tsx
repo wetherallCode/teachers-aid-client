@@ -6,6 +6,7 @@ import { ContactInfo } from './ContactInfo'
 import { Expecations } from './Expecations'
 import { FAQ } from './FAQ'
 import { Grading } from './Grading'
+import { Detentions } from './Detentions'
 import {
   ContentSelectorTabType,
   HandbookContainer,
@@ -22,6 +23,7 @@ type ContentSelectorTabNameProps =
   | 'Expectations'
   | 'Grading'
   | 'Procedures'
+  | 'Detentions'
   | 'Contact Info'
   | 'FAQs'
   | 'Text Analysis'
@@ -33,8 +35,9 @@ export const Handbook = ({ me }: HandbookProps) => {
   const contentSelectionList: ContentSelectorTabNameProps[] = [
     'Expectations',
     'Procedures',
-    'Grading',
     'Behavior',
+    'Detentions',
+    'Grading',
     'FAQs',
     'Text Analysis',
     'Contact Info',
@@ -63,6 +66,7 @@ export const Handbook = ({ me }: HandbookProps) => {
         {contentSelection === 'Contact Info' && <ContactInfo />}
         {contentSelection === 'Behavior' && <Behavior />}
         {contentSelection === 'Text Analysis' && <TextAnalysis />}
+        {contentSelection === 'Detentions' && <Detentions />}
         {contentSelection === 'FAQs' && <FAQ />}
       </HandbookInformationDisplayContainer>
     </HandbookContainer>

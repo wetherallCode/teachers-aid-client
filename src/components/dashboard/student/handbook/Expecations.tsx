@@ -10,17 +10,14 @@ export const Expecations = ({}: ExpecationsProps) => {
       <ContentContainer>
         <ul>
           <li>
-            I expect you to take this class, and school in general, seriously.
+            {/* I expect you to take this class, and school in general, seriously. */}
+            I expect you to be in class on time.
           </li>
           <br />
-          <li>I expect you to think for yourself.</li>
+          {/* <li>I expect you to think for yourself.</li> */}
+          <li>I expect you don't cheat.</li>
           <br />
-          <li>I expect you to be honest and do your own work.</li>
-          <br />
-          <li>
-            I expect that you put your full effort into every task; especially
-            if you “think” you can’t do it.
-          </li>
+          <li>I expect you to work everyday (classwork and homework).</li>
           <br />
           <li>
             Respect me by doing what is asked of you. I’m only going to ask you
