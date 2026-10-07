@@ -177,6 +177,22 @@ export const timeFinder = (time: string) => {
   return `${new Date().toLocaleDateString()}, ${time}`
 }
 
+export const timeToMinutes = (time: string) => {
+  const [timePart, period] = time.split(' ')
+  const [hours, minutes, seconds] = timePart.split(':').map(Number)
+
+  let hour = hours
+
+  if (period === 'PM' && hour !== 12) {
+    hour += 12
+  }
+  if (period === 'AM' && hour === 12) {
+    hour = 0
+  }
+
+  return hour * 3600 + minutes * 60 + seconds
+}
+
 export const time = new Date().toLocaleString()
 export const militaryTime = new Date().toLocaleTimeString('en-US', {
   hour12: false,

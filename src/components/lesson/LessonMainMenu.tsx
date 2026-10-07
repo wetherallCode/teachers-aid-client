@@ -151,6 +151,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
     onCompleted: (data) => console.log(data),
     onError: (error) => console.error(error),
   })
+
   const [loadLesson, { loading, data, startPolling, stopPolling }] =
     useLazyQuery<findLessonByCourseAndDate, findLessonByCourseAndDateVariables>(
       FIND_LESSON_QUERY,
@@ -169,11 +170,13 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
   const schoolDayLength =
     schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
 
+  console.log(dateTime.toLocaleString('es-ES'))
+
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
           (course) =>
-            Date.parse(dateTime) >
+            Date.parse(dateTime.toLocaleString()) >
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -186,7 +189,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                         : course.hasCourseInfo?.startsAt!,
                 ),
               ) &&
-            Date.parse(dateTime) <
+            Date.parse(dateTime.toLocaleString('en-US')) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -203,7 +206,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
         )
       : me.inCourses.filter(
           (course) =>
-            Date.parse(dateTime) >
+            Date.parse(dateTime.toLocaleString('en-US')) >
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -216,7 +219,7 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
                         : course.hasCourseInfo?.startsAt!,
                 ),
               ) &&
-            Date.parse(dateTime) <
+            Date.parse(dateTime.toLocaleString('en-US')) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -234,7 +237,6 @@ export const LessonMainMenu = ({}: LessonMainMenuProps) => {
   const course = data?.findLessonByCourseAndDate.lesson?.assignedCourses.filter(
     (course) => course._id === courseToLoad?._id,
   )
-  console.log(course)
 
   const handleSignInCheck = (_id: string) => {
     const check = course?.some((stuff) => {

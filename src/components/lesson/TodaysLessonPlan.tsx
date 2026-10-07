@@ -51,7 +51,7 @@ export const TodaysLessonPlan = ({
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
           (course) =>
-            Date.parse(dateTime) >
+            Date.parse(dateTime.toLocaleDateString('en-US')) >
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -59,7 +59,7 @@ export const TodaysLessonPlan = ({
                     : course.hasCourseInfo?.startsAt!,
                 ),
               ) &&
-            Date.parse(dateTime) <
+            Date.parse(dateTime.toLocaleDateString('en-US')) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -71,7 +71,7 @@ export const TodaysLessonPlan = ({
         )
       : me.inCourses.filter(
           (course) =>
-            Date.parse(dateTime) >
+            Date.parse(dateTime.toLocaleDateString('en-US')) >
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF
@@ -82,7 +82,7 @@ export const TodaysLessonPlan = ({
                       : course.hasCourseInfo?.startsAt!,
                 ),
               ) &&
-            Date.parse(dateTime) <
+            Date.parse(dateTime.toLocaleDateString('en-US')) <
               Date.parse(
                 timeFinder(
                   schoolDayLength === SchoolDayLengthEnum.HALF

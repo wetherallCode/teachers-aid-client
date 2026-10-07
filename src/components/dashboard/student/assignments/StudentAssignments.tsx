@@ -63,7 +63,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
   const me: me_me_Student = useUserContextProvider()
 
   // Get the current class time
-  const { classTime } = useClassTimeIndicator(me)
+  const { classTime, bIsClassTime } = useClassTimeIndicator(me)
 
   // Get the current assignments allowed in class
   const { assignmentsAllowedInClass } = useAssignmentsAllowedInClassCheck(me)
@@ -98,10 +98,11 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
 
   // Check if the classwork is locked
   const classworkLocked =
-    classTime &&
+    bIsClassTime &&
     !assignmentsAllowedInClass &&
     !isAbsent &&
     me.hasAssignmentsLocked
+
   const tempAllowQuiz = true
 
   return (
@@ -176,7 +177,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
         )}
         {state.matches('articleReviewsToComplete') && (
           <>
-            {classTime && !isAbsent ? (
+            {bIsClassTime && !isAbsent ? (
               <NoWorkContainer>
                 You can only do work after class
               </NoWorkContainer>
@@ -185,7 +186,7 @@ export const StudentAssignments = ({}: StudentAssignmentsProps) => {
             )}
           </>
         )}
-        {state.matches('quizzes') && <>{classTime && <QuizSelect />}</>}
+        {state.matches('quizzes') && <>{bIsClassTime && <QuizSelect />}</>}
         <MarkingPeriodSelector />
       </AssignmentTypeContainer>
       {/* <Routes>
