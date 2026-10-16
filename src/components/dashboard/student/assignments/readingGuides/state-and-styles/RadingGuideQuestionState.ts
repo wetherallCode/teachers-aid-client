@@ -29,24 +29,27 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   },
   {
     questionType: 'SUBJECT_OF_SECTION',
-    question: 'List the main characters involved in these sections.',
+    question:
+      'Who is the most important person or group involved in these sections?',
     directions:
       'There will be individuals, groups (like Congress, or Southerners, or even states), so list the ones that do the most.',
   },
   {
     questionType: 'SUBJECTS_GOALS',
-    question: 'What were the goals of the people involved in these sections?',
+    question:
+      'What was the goal of the person or group involved in these sections?',
     directions:
-      'There will probably be mulitple people, so list the goals of at least two if there are multiple people',
+      'Use the person or group you listed in the last question, and think about what they were trying to do.',
   },
   {
     questionType: 'PROBLEM',
-    question: 'What problem did these people face in these sections?',
-    directions: `Every section in the text discusses a problem or conflict.`,
+    question:
+      'What was it that was keeping that person or group from reaching their goal?',
+    directions: `This is the problem that they are trying to solve. It may be a person, a group, or even a situation.`,
   },
   {
     questionType: 'SOLUTION',
-    question: `How did the people in the text try to solve the problem`,
+    question: `How did the people in the text try to solve the problem?`,
     directions: `Sometimes solutions don't work so focus on what they did to try to solve there problem.`,
   },
   {
