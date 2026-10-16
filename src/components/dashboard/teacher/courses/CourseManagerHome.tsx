@@ -108,7 +108,9 @@ export const CourseManagerHome = ({ course }: CourseManagerHomeProps) => {
         <CourseMenuItemBlockLink to="course-info">
           Course Information
         </CourseMenuItemBlockLink>
-        <CourseMenuItemBlock></CourseMenuItemBlock>
+        <CourseMenuItemBlockLink to="class-email">
+          Email Class
+        </CourseMenuItemBlockLink>
       </CourseMenuContainer>
     </CourseManagerHomeContainer>
   )

@@ -43,7 +43,7 @@ export const CreateContact: FC<CreateContactProps> = () => {
     onCompleted: (data) => console.log(data),
     refetchQueries: [],
   })
-  console.log(state.context.contactToCreate)
+
   return (
     <>
       <div>Create Contact</div>

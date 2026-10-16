@@ -18,6 +18,15 @@ export const FIND_PARENT_CONTACTS_BY_STUDENT_ID_QUERY = gql`
         date
         contentOfContact
         contactType
+        student {
+          _id
+          firstName
+          lastName
+          inCourses {
+            _id
+            name
+          }
+        }
       }
     }
   }

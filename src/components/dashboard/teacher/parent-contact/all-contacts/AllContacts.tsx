@@ -27,6 +27,10 @@ export const FIND_ALL_PARENT_CONTACTS_BY_TEACHER_QUERY = gql`
           _id
           firstName
           lastName
+          inCourses {
+            _id
+            name
+          }
         }
         date
         contactType

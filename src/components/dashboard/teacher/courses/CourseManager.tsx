@@ -15,6 +15,7 @@ import { useUserContextProvider } from '../../../../contexts/UserContext'
 import { me_me_Teacher } from '../../../../schemaTypes'
 import { CourseManagerHome } from './CourseManagerHome'
 import { CourseInfoHome } from './course-info/CourseInfoHome'
+import { EmailClass } from './Emails/EmailClass'
 
 export type CourseManagerProps = {}
 
@@ -64,7 +65,6 @@ export const CourseManager = ({}: CourseManagerProps) => {
           }
         />
         <Route path="view-reading-guide-data" element={<ReadingGuideData />} />
-
         <Route
           path="edit-course"
           element={
@@ -77,6 +77,7 @@ export const CourseManager = ({}: CourseManagerProps) => {
           path="course-info"
           element={<CourseInfoHome courseId={course!} />}
         />
+        <Route path="class-email" element={<EmailClass courseId={course!} />} />
       </Routes>
     </>
   )

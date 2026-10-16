@@ -3704,6 +3704,28 @@ export interface findCourseByIdForCourseEditorVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateParentContactByCourse
+// ====================================================
+
+export interface CreateParentContactByCourse_createParentContactByCourse {
+  __typename: "CreateParentContactByCoursePayload";
+  success: boolean;
+}
+
+export interface CreateParentContactByCourse {
+  createParentContactByCourse: CreateParentContactByCourse_createParentContactByCourse;
+}
+
+export interface CreateParentContactByCourseVariables {
+  input: CreateParentContactByCourseInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: addStudentsToCourse
 // ====================================================
 
@@ -5360,11 +5382,18 @@ export interface findTextSectionsByChapterVariables {
 // GraphQL query operation: findParentContactsByTeacherId
 // ====================================================
 
+export interface findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts_student_inCourses {
+  __typename: "Course";
+  _id: string | null;
+  name: string;
+}
+
 export interface findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts_student {
   __typename: "Student";
   _id: string | null;
   firstName: string;
   lastName: string;
+  inCourses: findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts_student_inCourses[];
 }
 
 export interface findParentContactsByTeacherId_findParentContactsByTeacherId_parentContacts {
@@ -5896,12 +5925,27 @@ export interface findStudentOutOfClassByStudentIdAndMarkingPeriodVariables {
 // GraphQL query operation: findContactsByStudentId
 // ====================================================
 
+export interface findContactsByStudentId_findContactsByStudentId_parentContacts_student_inCourses {
+  __typename: "Course";
+  _id: string | null;
+  name: string;
+}
+
+export interface findContactsByStudentId_findContactsByStudentId_parentContacts_student {
+  __typename: "Student";
+  _id: string | null;
+  firstName: string;
+  lastName: string;
+  inCourses: findContactsByStudentId_findContactsByStudentId_parentContacts_student_inCourses[];
+}
+
 export interface findContactsByStudentId_findContactsByStudentId_parentContacts {
   __typename: "ParentContact";
   _id: string | null;
   date: string;
   contentOfContact: string;
   contactType: ContactTypeEnum;
+  student: findContactsByStudentId_findContactsByStudentId_parentContacts_student;
 }
 
 export interface findContactsByStudentId_findContactsByStudentId {
@@ -9767,6 +9811,10 @@ export interface CreateLessonInput {
   pageNumbers: PageNumbersInput;
   questionList: TextSectionQuestionsInput[];
   vocabList: TextSectionVocabInput[];
+}
+
+export interface CreateParentContactByCourseInput {
+  courseId: string;
 }
 
 export interface CreateParentContactInput {
