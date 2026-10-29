@@ -56,8 +56,8 @@ export const AcademicConclusion = ({
       <RestatementDirectionsContainer>
         <UnderlinedText>Directions</UnderlinedText>
         <div>
-          First start the conclusion this way: {conclusionSetup}, ...." Then put
-          the consequence of this statement in place of the "...."
+          First start the conclusion this way: "{conclusionSetup}, ...." Then
+          put the consequence of this statement in place of the "...."
         </div>
       </RestatementDirectionsContainer>
       {/* <RestatementTitle>Write your conclusion</RestatementTitle> */}
