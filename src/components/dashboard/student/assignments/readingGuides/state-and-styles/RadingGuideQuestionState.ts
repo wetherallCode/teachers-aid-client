@@ -50,7 +50,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
   {
     questionType: 'SOLUTION',
     question: `How did the people in the text try to solve the problem?`,
-    directions: `Sometimes solutions don't work so focus on what they did to try to solve there problem.`,
+    directions: `Sometimes solutions don't work so focus on what they did to try to solve their problem.`,
   },
   {
     questionType: 'WHY_PROBLEM',
