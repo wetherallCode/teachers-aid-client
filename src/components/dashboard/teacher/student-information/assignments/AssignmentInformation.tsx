@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
-import React from 'react'
+import React, { useState } from 'react'
 import { useEnumContextProvider } from '../../../../../contexts/EnumContext'
 import {
   MarkingPeriodContextProvider,
@@ -308,7 +308,9 @@ export const AssignmentInformation = ({
                             )
                           }
                         >
-                          {isDraftViewerOpen ? 'Hide drafts' : 'View grading drafts'}
+                          {isDraftViewerOpen
+                            ? 'Hide drafts'
+                            : 'View grading drafts'}
                         </button>
                       )}
                     </div>
@@ -399,10 +401,13 @@ export const AssignmentInformation = ({
                           Previous
                         </button>
                         <span>
-                          Draft {currentDraftIndex + 1} of {submittedDrafts.length}
+                          Draft {currentDraftIndex + 1} of{' '}
+                          {submittedDrafts.length}
                         </span>
                         <button
-                          disabled={currentDraftIndex === submittedDrafts.length - 1}
+                          disabled={
+                            currentDraftIndex === submittedDrafts.length - 1
+                          }
                           onClick={() =>
                             setSelectedEssayDraft({
                               essayId: essay._id!,
@@ -462,8 +467,7 @@ export const AssignmentInformation = ({
                               <ul>
                                 {currentDraft.rubricEntries
                                   .filter(
-                                    (entry) =>
-                                      entry.rubricSection === section,
+                                    (entry) => entry.rubricSection === section,
                                   )
                                   .map((entry, entryIndex) => (
                                     <li key={`${section}-${entryIndex}`}>
