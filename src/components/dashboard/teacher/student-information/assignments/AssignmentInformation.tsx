@@ -16,6 +16,7 @@ import {
   undoHomeworkPass,
 } from '../../../../../schemaTypes'
 import { SGOInfo } from '../sgo-info/SGOInfo'
+import { CompletedEssayViewer } from '../../../student/assignments/essays/completed-essays/CompletedEssayViewer'
 import { useStudentInformationContextProvider } from '../state-n-styles/StudentInformationContext'
 import {
   AssignmentInformationAssignmentSwitchContainer,
@@ -64,9 +65,11 @@ export const FIND_ASSINGMENT_INFORMATION_QUERY = gql`
             submittedFinalDraft {
               graded
               rubricEntries {
+                entry
                 rubricSection
                 score
               }
+              gradingDraft
             }
           }
         }
@@ -121,6 +124,10 @@ export const AssignmentInformation = ({
   selectedMarkingPeriod,
 }: AssignmentInformationProps) => {
   const [state, event] = useStudentInformationContextProvider()
+  const [selectedEssayDraft, setSelectedEssayDraft] = useState<{
+    essayId: string
+    draftIndex: number
+  } | null>(null)
   const { loading, data } = useQuery<
     findAssignmentByStudentId,
     findAssignmentByStudentIdVariables
@@ -266,74 +273,213 @@ export const AssignmentInformation = ({
 
         {state.matches('information.assignments.essays') && (
           <AssignmentInformationStyle>
-            {essays.map((essay, i: number) => (
-              <IndividualAssignmentDisplay
-                key={essay._id}
-                everyOtherLine={i % 2 === 0}
-                lastLine={essays.length - 1 === i}
-              >
-                <div>{essay.readings.readingSections}</div>
-                {essay.__typename === 'Essay' &&
-                essay.finalDraft &&
-                essay.finalDraft.returned ? (
-                  <div>
-                    {essay.score.earnedPoints}/{essay.score.maxPoints}
-                  </div>
-                ) : essay.__typename === 'Essay' &&
-                  essay.finalDraft &&
-                  !essay.finalDraft.returned &&
-                  essay.finalDraft.submittedFinalDraft.length > 1 ? (
-                  <div>
-                    {essay.score.earnedPoints}/{essay.score.maxPoints}
-                  </div>
-                ) : essay.__typename === 'Essay' &&
-                  essay.finalDraft &&
-                  !essay.finalDraft.returned ? (
-                  <div>Pending</div>
-                ) : essay.exempt ? (
-                  <div>Exempt</div>
-                ) : !essay.assigned ? (
-                  <div>Unassigned</div>
-                ) : Date.parse(new Date().toLocaleString()) <
-                  Date.parse(`${essay.dueDate}, ${essay.dueTime}`) ? (
-                  <div>Due on {essay.dueDate}</div>
-                ) : (
-                  <div>Missing</div>
-                )}
-                <button
-                  style={{
-                    background: 'var(--blue)',
-                    color: 'var(--white)',
-                    margin: '1vh',
-                  }}
-                  onClick={() => {
-                    essay.assigned && !essay.exempt
-                      ? createHomeworkPass({
-                          variables: {
-                            input: {
-                              assignmentId: essay._id!,
-                              assignmentType: 'ESSAY',
-                              markingPeriod: essay.markingPeriod,
-                              ownerId: essay.hasOwner._id!,
-                            },
-                          },
-                        })
-                      : undoHomeworkPass({
-                          variables: {
-                            input: {
-                              assignmentId: essay._id!,
-                              assignmentType: 'ESSAY',
-                              markingPeriod: essay.markingPeriod,
-                              ownerId: essay.hasOwner._id!,
-                            },
-                          },
-                        })
-                  }}
-                >
-                  {!essay.exempt ? 'Homework Pass' : 'Undo Homework Pass'}
-                </button>
-              </IndividualAssignmentDisplay>
-            ))}
+            {essays.map((essay, i: number) => {
+              const submittedDrafts =
+                essay.__typename === 'Essay'
+                  ? essay.finalDraft?.submittedFinalDraft ?? []
+                  : []
+              const isDraftViewerOpen =
+                selectedEssayDraft?.essayId === essay._id
+              const currentDraftIndex = isDraftViewerOpen
+                ? selectedEssayDraft.draftIndex
+                : 0
+              const currentDraft = submittedDrafts[currentDraftIndex]
+
+              return (
+                <React.Fragment key={essay._id}>
+                  <IndividualAssignmentDisplay
+                    everyOtherLine={i % 2 === 0}
+                    lastLine={essays.length - 1 === i}
+                  >
+                    <div>
+                      <span>{essay.readings.readingSections}</span>
+                      {submittedDrafts.length > 0 && (
+                        <button
+                          style={{
+                            background: 'var(--blue)',
+                            color: 'var(--white)',
+                            margin: '1vh',
+                          }}
+                          onClick={() =>
+                            setSelectedEssayDraft(
+                              isDraftViewerOpen
+                                ? null
+                                : { essayId: essay._id!, draftIndex: 0 },
+                            )
+                          }
+                        >
+                          {isDraftViewerOpen ? 'Hide drafts' : 'View grading drafts'}
+                        </button>
+                      )}
+                    </div>
+                    {essay.__typename === 'Essay' &&
+                    essay.finalDraft &&
+                    essay.finalDraft.returned ? (
+                      <div>
+                        {essay.score.earnedPoints}/{essay.score.maxPoints}
+                      </div>
+                    ) : essay.__typename === 'Essay' &&
+                      essay.finalDraft &&
+                      !essay.finalDraft.returned &&
+                      essay.finalDraft.submittedFinalDraft.length > 1 ? (
+                      <div>
+                        {essay.score.earnedPoints}/{essay.score.maxPoints}
+                      </div>
+                    ) : essay.__typename === 'Essay' &&
+                      essay.finalDraft &&
+                      !essay.finalDraft.returned ? (
+                      <div>Pending</div>
+                    ) : essay.exempt ? (
+                      <div>Exempt</div>
+                    ) : !essay.assigned ? (
+                      <div>Unassigned</div>
+                    ) : Date.parse(new Date().toLocaleString()) <
+                      Date.parse(`${essay.dueDate}, ${essay.dueTime}`) ? (
+                      <div>Due on {essay.dueDate}</div>
+                    ) : (
+                      <div>Missing</div>
+                    )}
+                    <button
+                      style={{
+                        background: 'var(--blue)',
+                        color: 'var(--white)',
+                        margin: '1vh',
+                      }}
+                      onClick={() => {
+                        essay.assigned && !essay.exempt
+                          ? createHomeworkPass({
+                              variables: {
+                                input: {
+                                  assignmentId: essay._id!,
+                                  assignmentType: 'ESSAY',
+                                  markingPeriod: essay.markingPeriod,
+                                  ownerId: essay.hasOwner._id!,
+                                },
+                              },
+                            })
+                          : undoHomeworkPass({
+                              variables: {
+                                input: {
+                                  assignmentId: essay._id!,
+                                  assignmentType: 'ESSAY',
+                                  markingPeriod: essay.markingPeriod,
+                                  ownerId: essay.hasOwner._id!,
+                                },
+                              },
+                            })
+                      }}
+                    >
+                      {!essay.exempt ? 'Homework Pass' : 'Undo Homework Pass'}
+                    </button>
+                  </IndividualAssignmentDisplay>
+                  {isDraftViewerOpen && currentDraft && (
+                    <div
+                      style={{
+                        padding: '1vh',
+                        borderBottom: '1px solid var(--grey)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          gap: '1rem',
+                        }}
+                      >
+                        <button
+                          disabled={currentDraftIndex === 0}
+                          onClick={() =>
+                            setSelectedEssayDraft({
+                              essayId: essay._id!,
+                              draftIndex: currentDraftIndex - 1,
+                            })
+                          }
+                        >
+                          Previous
+                        </button>
+                        <span>
+                          Draft {currentDraftIndex + 1} of {submittedDrafts.length}
+                        </span>
+                        <button
+                          disabled={currentDraftIndex === submittedDrafts.length - 1}
+                          onClick={() =>
+                            setSelectedEssayDraft({
+                              essayId: essay._id!,
+                              draftIndex: currentDraftIndex + 1,
+                            })
+                          }
+                        >
+                          Next
+                        </button>
+                      </div>
+                      <div
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: '2fr 1fr',
+                          alignItems: 'start',
+                        }}
+                      >
+                        <div style={{ minWidth: 0 }}>
+                          {typeof currentDraft.gradingDraft === 'string' &&
+                          currentDraft.gradingDraft.length > 0 ? (
+                            <CompletedEssayViewer
+                              draft={currentDraft.gradingDraft}
+                            />
+                          ) : (
+                            <div>
+                              No grading draft is available for this submission.
+                            </div>
+                          )}
+                        </div>
+                        <div
+                          style={{
+                            margin: '1.5vh',
+                            padding: '1vh',
+                            height: '70vh',
+                            overflowY: 'auto',
+                            border: '1px solid var(--grey)',
+                          }}
+                        >
+                          <h3 style={{ textAlign: 'center' }}>
+                            Rubric Comments
+                          </h3>
+                          {[
+                            { title: 'General', section: 'PROOFREADING' },
+                            { title: 'Topic', section: 'TOPIC' },
+                            { title: 'Answer', section: 'ANSWER' },
+                            { title: 'Conclusion', section: 'CONCLUSION' },
+                          ].map(({ title, section }) => (
+                            <div key={section}>
+                              <h4
+                                style={{
+                                  textAlign: 'center',
+                                  textDecoration: 'underline',
+                                }}
+                              >
+                                {title}
+                              </h4>
+                              <ul>
+                                {currentDraft.rubricEntries
+                                  .filter(
+                                    (entry) =>
+                                      entry.rubricSection === section,
+                                  )
+                                  .map((entry, entryIndex) => (
+                                    <li key={`${section}-${entryIndex}`}>
+                                      {entry.entry}
+                                    </li>
+                                  ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </React.Fragment>
+              )
+            })}
             <div>Overall Essay Score (FY): {overallEssayScore}</div>
           </AssignmentInformationStyle>
         )}

@@ -5647,6 +5647,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft_rubricEntries {
   __typename: "RubricEntry";
+  entry: string;
   rubricSection: RubricSectionEnum;
   score: number;
 }
@@ -5655,6 +5656,7 @@ export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments
   __typename: "SubmittedFinalDraft";
   graded: boolean;
   rubricEntries: findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft_submittedFinalDraft_rubricEntries[];
+  gradingDraft: any;
 }
 
 export interface findAssignmentByStudentId_findAssignmentByStudentId_assignments_Essay_finalDraft {
