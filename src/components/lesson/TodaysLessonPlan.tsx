@@ -47,6 +47,7 @@ export const TodaysLessonPlan = ({
 
   const schoolDayLength =
     schoolDayData?.findSchoolDayByDate.schoolDay?.schoolDayLength!
+
   const [courseToLoad] =
     me.__typename === 'Teacher'
       ? me.teachesCourses.filter(
