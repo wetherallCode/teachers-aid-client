@@ -281,7 +281,7 @@ export const AssignmentInformation = ({
               const isDraftViewerOpen =
                 selectedEssayDraft?.essayId === essay._id
               const currentDraftIndex = isDraftViewerOpen
-                ? selectedEssayDraft.draftIndex
+                ? selectedEssayDraft?.draftIndex ?? 0
                 : 0
               const currentDraft = submittedDrafts[currentDraftIndex]
 
