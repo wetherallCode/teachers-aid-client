@@ -65,7 +65,7 @@ export const StudentDashboardHome = ({ me }: StudentDashboardHomeProps) => {
   // TODO: Need to build a message system
 
   // const message: string = ``
-  const message: string = `The last day for all 1st Marking Period work will be Monday, November 23rd at 8AM. No exceptions.`
+  const message: string = `The last day for all 1st Marking Period work will be Wednesday, November 18th at 8AM. No exceptions.`
   // const message: string = `I'm not going to be in today. I'm leaving you questions to complete *due at the end of class*. After that, you can work on the essay and makeup work.`
   // const message: string = `I'm cancelling homework tonight because I'm sure many of you need a break from the marathon of missing work you completed in the wee hours of the night. You're welcome.`
 
