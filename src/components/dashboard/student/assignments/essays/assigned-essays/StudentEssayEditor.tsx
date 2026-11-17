@@ -62,16 +62,20 @@ export const StudentEssayEditor = ({
     UpdateWorkingDraft,
     UpdateWorkingDraftVariables
   >(UPDATE_WORKING_DRAFT_MUTATION, {
-    variables: {
-      input: {
-        _id: state.context.essayId,
-        updatedDraft: state.context.draftToUpdate,
-      },
-    },
     onCompleted: (data) =>
       console.log(data.updateWorkingDraft.essay.workingDraft),
     refetchQueries: ['findEssayById'],
   })
+
+  const saveWorkingDraft = (draft: string) =>
+    updateWorkingDraft({
+      variables: {
+        input: {
+          _id: state.context.essayId,
+          updatedDraft: draft,
+        },
+      },
+    })
 
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -166,10 +170,11 @@ export const StudentEssayEditor = ({
         <SubmitEssay
           _id={state.context.essayId}
           submittedFinalDraft={submittedFinalDraft}
+          draft={content}
           response={value[0].children[0].text !== ''}
           // grade={grade}
           essay={essay}
-          updateWorkingDraft={updateWorkingDraft}
+          updateWorkingDraft={saveWorkingDraft}
         />
       </OrganizerControlButtonContainer>
     </EssayEditorBackgroundContainer>

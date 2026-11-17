@@ -42,15 +42,17 @@ export const SUBMIT_FINAL_DRAFT_MUTATION = gql`
 export type SubmitEssayFinalDraftInput = {
   _id: string
   submittedFinalDraft: SubmittedFinalDraftsInput
+  draft: string
   essay: findEssayById_findEssayById_essay
   response: boolean
   // grade: number
-  updateWorkingDraft: () => void
+  updateWorkingDraft: (draft: string) => Promise<unknown>
 }
 
 export const SubmitEssay = ({
   _id,
   submittedFinalDraft,
+  draft,
   response,
   // grade,
   updateWorkingDraft,
@@ -59,6 +61,7 @@ export const SubmitEssay = ({
   const navigate = useNavigate()
   const [state, event] = useStudentEssayContextProvider()
   const [submitToggle, setSubmitToggle] = useState(false)
+  const [savingDraft, setSavingDraft] = useState(false)
   const [submitFinalDraft, { called }] = useMutation<
     submitEssayFinalDraft,
     submitEssayFinalDraftVariables
@@ -76,13 +79,23 @@ export const SubmitEssay = ({
     polling: false,
   })
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!called) {
+      setSavingDraft(true)
+      try {
+        await updateWorkingDraft(draft)
+      } finally {
+        setSavingDraft(false)
+      }
       submitFinalDraft({
         variables: {
           input: {
             _id,
-            submittedFinalDraft,
+            submittedFinalDraft: {
+              ...submittedFinalDraft,
+              draft,
+              gradingDraft: draft,
+            },
             submitTime: new Date().toLocaleString(),
             late: true, //server will change based on time submitted
             paperBased: false,
@@ -113,7 +126,7 @@ export const SubmitEssay = ({
           </EssaySubmitButton>
           <EssaySubmitButton
             color={'var(--blue)'}
-            onClick={() => updateWorkingDraft()}
+            onClick={() => updateWorkingDraft(draft)}
           >
             Save
           </EssaySubmitButton>
@@ -144,9 +157,9 @@ export const SubmitEssay = ({
                 color={called ? 'var(--grey)' : 'var(--blue)'}
                 submitFinal={submitToggle}
                 onClick={handleSubmit}
-                disabled={called}
+                disabled={called || savingDraft}
               >
-                {called ? 'Submitting' : 'Yes'}
+                {savingDraft ? 'Saving' : called ? 'Submitting' : 'Yes'}
               </EssaySubmitButton>
             )
           )}
