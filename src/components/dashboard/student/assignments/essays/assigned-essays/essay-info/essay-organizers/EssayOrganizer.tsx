@@ -17,7 +17,6 @@ export type EssayOrganizerType =
 export type EssayOrganizerProps = {
   organizer: EssayOrganizerType
 }
-
 export const EssayOrganizer = ({ organizer }: EssayOrganizerProps) => {
   return (
     <>

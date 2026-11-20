@@ -244,7 +244,8 @@ export const GradeEssay = ({}: GradeEssayProps) => {
   })
 
   if (loading) return <div>Loading </div>
-  // console.log(state.context.previousDraft.additionalComments)
+
+  console.log(data?.findEssayById.essay.workingDraft.organizer, 'organizer')
   return (
     <EssayGraderContainer>
       {loadingDraft && (

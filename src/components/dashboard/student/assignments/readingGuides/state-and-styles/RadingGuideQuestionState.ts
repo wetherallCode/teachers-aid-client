@@ -32,7 +32,7 @@ export const readingGuideQuestions: ReadingGuideQuestionObjectType[] = [
     question:
       'Who is the most important person or group involved in these sections?',
     directions:
-      'Use a person, a group, or a thing, but only use one that you can answer the rest of the questions with.',
+      'Use a person, a group, or a thing, but only use ONE that you can answer the rest of the questions with.',
   },
   {
     questionType: 'SUBJECTS_GOALS',
